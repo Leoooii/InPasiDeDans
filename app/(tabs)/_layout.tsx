@@ -17,7 +17,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
+        // tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
             // Use a transparent background on iOS to show the blur effect
@@ -31,7 +31,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-            href:null
+            // href:null
         }}
       />
 
@@ -42,6 +42,7 @@ export default function TabLayout() {
             options={{
                 title: 'Signup',
                 tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+                href:null
             }}
         />
         <Tabs.Screen
@@ -49,6 +50,7 @@ export default function TabLayout() {
             options={{
                 title: 'Signin',
                 tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+                href:null
             }}
         />
 

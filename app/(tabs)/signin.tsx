@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import {View, Text, TextInput, Button, Alert, Image} from 'react-native';
 import {signInWithEmailAndPassword, User} from 'firebase/auth';
 import { auth } from '../firebase';  // Asigură-te că importi corect
 import { authStore } from '../authStore';
@@ -31,20 +31,25 @@ export default function SignIn() {
         };
 
         return (
-            <SafeAreaView className={'flex-1 justify-between p-5'}>
-               <View>
-                       <TextInput placeholder="Email" value={email} onChangeText={setEmail} className={'bg-white'}/>
+            <SafeAreaView className={'flex-1 justify-center p-10 bg-blue-950'}>
+               <View className={'flex gap-5'}>
+                       <Image
+                           source={require("../../assets/images/logo3.png")}
+                           resizeMode={"contain"}
+                           className={'w-full '}
+                       />
+                       <TextInput placeholder="Email" value={email} onChangeText={setEmail} className={'bg-white rounded-2xl'}/>
                        <TextInput
                            placeholder="Password"
                            value={password}
                            secureTextEntry
                            onChangeText={setPassword}
-                           className={'bg-white'}
+                           className={'bg-white rounded-2xl'}
                        />
-                       <Button title="Sign In" onPress={handleSignIn} />
+                       <Button title="Intrati in cont" onPress={handleSignIn} color={'orange'}/>
 
                </View>
-                    <Button title={'home'} onPress={()=>router.push('/')} />
+                    {/*<Button title={'home'} onPress={()=>router.push('/')} />*/}
             </SafeAreaView>
         );
 }

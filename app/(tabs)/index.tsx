@@ -54,8 +54,8 @@ const IndexScreen=()=>{
     const image = {uri: 'https://www.inpasidedans.ro/wp-content/uploads/2016/07/logo-in-pasi-de-dans.png'};
 
     return  <SafeAreaProvider>
-        <SafeAreaView style={styles.container} edges={['left', 'right']}>
-            <ImageBackground source={image} resizeMode="contain" style={styles.image}>
+        <SafeAreaView style={styles.container} edges={['left', 'right']} className={'p-10'}>
+            <ImageBackground source={image} resizeMode="contain" style={styles.image} className={'p-10'}>
                 <Text style={styles.text}>Bine ati venit!</Text>
                <View className={'flex flex-row gap-2 justify-center'} >
                    <Button title={'Signup'} onPress={()=>{router.push('/signup')}} color={'red'}/>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         justifyContent: 'space-around',
-
+        // backgroundColor:'blue'
     },
     text: {
         color: 'white',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         lineHeight: 84,
         fontWeight: 'bold',
         textAlign: 'center',
-        backgroundColor: '#000000c0',
+        // backgroundColor: '#000000c0',
     },
 });
 

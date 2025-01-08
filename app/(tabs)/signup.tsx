@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from 'react-native';
+import {View, Text, TextInput, Button, Image} from 'react-native';
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -26,14 +26,19 @@ export default function Signup() {
 
     return (
         <SafeAreaProvider>
-            <SafeAreaView className={'flex-1 justify-between p-5'}>
-           <View className={'flex mb-5 rounded-3xl'}>
-               <TextInput placeholder="Email" value={email} onChangeText={setEmail} className={'bg-white'}/>
-               <TextInput placeholder="Password" value={password} secureTextEntry onChangeText={setPassword} className={'bg-white'}/>
-               <Button title="Sign Up" onPress={handleSignup} />
+            <SafeAreaView className={'flex-1 justify-center p-10 bg-blue-950'}>
+           <View className={'flex mb-5 rounded-3xl gap-5'}>
+               <Image
+                   source={require("../../assets/images/logo3.png")}
+                   resizeMode={"contain"}
+                   className={'w-full '}
+               />
+               <TextInput placeholder="Email" value={email} onChangeText={setEmail} className={'bg-white rounded-2xl'}/>
+               <TextInput placeholder="Password" value={password} secureTextEntry onChangeText={setPassword} className={'bg-white rounded-2xl'}/>
+               <Button title="Creare cont" onPress={handleSignup} color={'orange'}/>
                {error && <Text className={'text-red-800'}>Email-ul este deja folosit sau ati introdus o parola mai scurta de 6 caractere</Text>}
            </View>
-                <Button title={'home'} onPress={()=>router.push('/')} />
+                {/*<Button title={'home'} onPress={()=>router.push('/')} />*/}
             </SafeAreaView>
         </SafeAreaProvider>
     );
