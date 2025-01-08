@@ -4,7 +4,7 @@ import {
     DrawerItem,
     DrawerItemList,
 } from "@react-navigation/drawer";
-import {Button, Image, Text, View} from "react-native";
+import {Button, Image, Pressable, Text, View} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import firebase from "firebase/compat";
 import Auth = firebase.auth.Auth;
@@ -16,43 +16,43 @@ export default function CustomDrawerContent(props: any) {
     const { top, bottom } = useSafeAreaInsets();
 
     return (
-        <View style={{ flex: 1, backgroundColor: "orange" }}>
+        <View style={{ flex: 1,backgroundColor:'orange' }}>
+            <View className={'bg-blue-950 flex flex-col justify-center align-middle w-full'} style={{paddingTop:20+top }}>
+                <Image
+                    source={require("../../assets/images/logo3.png")}
+                    resizeMode={"cover"}
+                    style={{margin:'auto',marginBottom:20}}
+                />
+            </View>
             <DrawerContentScrollView
                 {...props}
-                contentContainerStyle={{ backgroundColor: "white", paddingTop: top+20,paddingBottom: 20 }}
             >
-                <View className={'w-full bg-white'}>
-                    <Image
-                        source={require("../../assets/images/logo2.png")}
-                        resizeMode={"cover"}
-                        className={'w-full bg-white'}
-                    />
-                </View>
-                <View style={{ backgroundColor: "orange" }}>
-                    <DrawerItemList {...props} />
-                    {/*<DrawerItem label={"Logout"} onPress={() => {*/}
-                    {/*    signOut(auth);*/}
-                    {/*    alert('delogare reusita');*/}
-                    {/*    console.log('delogare')*/}
-                    {/*    router.push("/(tabs)")*/}
-                    {/*}} />*/}
-                </View>
+                    <DrawerItemList  {...props} />
             </DrawerContentScrollView>
+
             <View
                 style={{
                     borderTopColor: "#dde3fe",
                     borderTopWidth: 1,
-                    padding: 20,
-                    paddingTop: 20 + bottom,
+                    paddingBottom:bottom,
+
                 }}
+                // className={'bg-blue-950 pl-20 pt-10'}
             >
 
-                <Button title={'Delogare'} onPress={() => {
+                <Button title={'Delogare'} color={'darkblue'} onPress={() => {
                     signOut(auth);
                     alert('delogare reusita');
                     console.log('delogare')
                     router.push("/(tabs)")
+
                 }}/>
+                {/*<Pressable onPress={() => {*/}
+                {/*    signOut(auth);*/}
+                {/*    alert('delogare reusita');*/}
+                {/*    console.log('delogare')*/}
+                {/*    router.push("/(tabs)")*/}
+                {/*}}><Text className={'text-white text-xl'}>Delogare</Text></Pressable>*/}
             </View>
         </View>
     );

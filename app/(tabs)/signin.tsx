@@ -22,7 +22,7 @@ export default function SignIn() {
 
                         console.log('Signed in user:', currentUser?.email);
 
-                        Alert.alert('Success', `Welcome, ${currentUser?.email}`);
+                        // Alert.alert('Success', `Welcome, ${currentUser?.email}`);
                         router.push('/(admin)');
                 } catch (error: any) {
                         console.error('Error signing in:', error.message);
