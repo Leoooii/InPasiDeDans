@@ -3,6 +3,7 @@ import { View, Text, Button } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';  // Corectarea importului
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth } from '../firebase';  // Importă auth din fișierul firebase.js
+import '../../global.css'
 
 const IndexScreen = () => {
     const [user, setUser] = useState<any>(null);
@@ -28,7 +29,7 @@ const IndexScreen = () => {
 
     return (
         <SafeAreaView>
-            <Text style={{ color: 'red' }}>hei</Text>
+            <Text style={{ color: 'red' }} className={'bg-blue-300'}>hei</Text>
             <Button onPress={signup} title="Apasa" />
 
             {user ? (
