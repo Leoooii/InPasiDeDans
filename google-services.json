@@ -1,29 +1,29 @@
-{
-  "project_info": {
-    "project_number": "192876097824",
-    "project_id": "dans-7c8df",
-    "storage_bucket": "dans-7c8df.firebasestorage.app"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:192876097824:android:324b48881a5cdfbf16e745",
-        "android_client_info": {
-          "package_name": "com.dance.school"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBZ5jLypYQdtHB_h_OIcV7x9xMZZM_nnm4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
-}
+//{
+//  "project_info": {
+//    "project_number": "192876097824",
+//    "project_id": "dans-7c8df",
+//    "storage_bucket": "dans-7c8df.firebasestorage.app"
+//  },
+//  "client": [
+//    {
+//      "client_info": {
+//        "mobilesdk_app_id": "1:192876097824:android:324b48881a5cdfbf16e745",
+//        "android_client_info": {
+//          "package_name": "com.dance.school"
+//        }
+//      },
+//      "oauth_client": [],
+//      "api_key": [
+//        {
+//          "current_key": "AIzaSyBZ5jLypYQdtHB_h_OIcV7x9xMZZM_nnm4"
+//        }
+//      ],
+//      "services": {
+//        "appinvite_service": {
+//          "other_platform_oauth_client": []
+//        }
+//      }
+//    }
+//  ],
+//  "configuration_version": "1"
+//}

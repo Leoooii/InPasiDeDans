@@ -1,13 +1,12 @@
-import {View, Text, Button} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import React from 'react'
-import {router} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 export default function Index() {
     return (
-        <SafeAreaView>
+        <SafeAreaView className={'flex-1 bg-white'}>
             <Text>Index</Text>
-            <Button title={'apasa'} onPress={() => {router.push('/explore')}}/>
         </SafeAreaView>
     )
 }
+const styles = StyleSheet.create({})
