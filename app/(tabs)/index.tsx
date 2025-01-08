@@ -9,13 +9,14 @@ const IndexScreen = () => {
     const [error, setError] = useState<string | null>(null);  // State pentru gestionarea erorilor
 
     const signup = () => {
-        createUserWithEmailAndPassword(auth, 'test@gmail.com', 'testtest')
+        createUserWithEmailAndPassword(auth, 'test2@gmail.com', 'testtest')
             .then((userCredential) => {
                 // Dacă userul este creat cu succes
                 const newUser = userCredential.user;
                 setUser(newUser);  // Actualizează starea cu userul creat
                 setError(null);  // Resetază eroarea dacă nu există
                 console.log('User created successfully:', newUser);
+
             })
             .catch((error) => {
                 // Dacă apare o eroare

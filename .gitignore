@@ -37,3 +37,5 @@ yarn-error.*
 
 app-example
 ./app/firebase.js
+/app/firebase.js
+firebase.js
