@@ -58,7 +58,7 @@ const IndexScreen=()=>{
             <ImageBackground source={image} resizeMode="contain" style={styles.image} className={'p-10'}>
                 <Text style={styles.text}>Bine ati venit!</Text>
                <View className={'flex flex-row gap-2 justify-center'} >
-                   <Button title={'Signup'} onPress={()=>{router.push('/signup')}} color={'red'}/>
+                   <Button title={'Signup'} onPress={()=>{router.push('/signup')}} color={'red'} />
                    <Button title={'Signin'} onPress={()=>{router.push('/signin')}} color={'orange'}/>
 
                </View>
