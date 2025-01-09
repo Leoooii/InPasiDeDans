@@ -1,19 +1,32 @@
 import {View, Text, TextInput, Button, Image} from 'react-native';
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+
+import { auth, db } from '../firebase';
 import { authStore } from '../authStore';
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
-import {router} from "expo-router";  // Importă store-ul
+import {router} from "expo-router";
+import {addDoc, collection, doc, setDoc} from "@firebase/firestore";  // Importă store-ul
 
 export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const handleSignup = async () => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const userData = {
+                createdAt: new Date(),
+                displayName: name,
+                email: email,
+                role: 'user',
+                sex: "",  // Poți adăuga sex dacă este necesar
+                subscriptionStatus: 'free',
+                verified: false
+            };
+            await addDoc(collection(db, "users"), userData);
             authStore.setState({ user: userCredential.user });  // Actualizează starea direct
             console.log('User created:', userCredential.user.email);
             alert(userCredential.user.email);
@@ -33,8 +46,9 @@ export default function Signup() {
                    resizeMode={"contain"}
                    className={'w-full '}
                />
-               <TextInput placeholder="Email" value={email} onChangeText={setEmail} className={'bg-white rounded-2xl'}/>
-               <TextInput placeholder="Password" value={password} secureTextEntry onChangeText={setPassword} className={'bg-white rounded-2xl'}/>
+               <TextInput placeholder="Nume" value={name} onChangeText={setName} className={'bg-white rounded-2xl'}/>
+               <TextInput placeholder="Email" value={email} onChangeText={setEmail}  className={'bg-white rounded-2xl'}/>
+               <TextInput placeholder="Parola" value={password} secureTextEntry onChangeText={setPassword} className={'bg-white rounded-2xl'}/>
                <Button title="Creare cont" onPress={handleSignup} color={'orange'}/>
                {error && <Text className={'text-red-800'}>Email-ul este deja folosit sau ati introdus o parola mai scurta de 6 caractere</Text>}
            </View>

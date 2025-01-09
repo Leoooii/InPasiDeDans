@@ -1,15 +1,9 @@
-
-import {Stack, Tabs} from 'expo-router';
 import 'react-native-reanimated';
 import {IconSymbol} from "@/components/ui/IconSymbol";
 import React from "react";
 import {Drawer} from "expo-router/drawer";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import {Image, Platform, View} from "react-native";
 import CustomDrawerContent from "@/components/custom/CustomDrawer";
-import {DrawerItem} from "@react-navigation/drawer";
-
-
 
 export default function RootLayout() {
 
@@ -22,7 +16,7 @@ export default function RootLayout() {
                     drawerActiveBackgroundColor: "white",
                     drawerActiveTintColor: "red",
                     drawerLabelStyle: { marginLeft: 10 },
-                    drawerItemStyle:{marginBottom:10}
+                    drawerItemStyle:{ marginBottom:10 }
                 }}>
 
                 <Drawer.Screen name={'index'} options={{ drawerIcon:({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,title:'Acasa', headerStyle: {
@@ -32,7 +26,13 @@ export default function RootLayout() {
                     headerTitleStyle: {
                         fontWeight: 'bold',
                     }, }} />
-                    <Drawer.Screen name={'dancers'} options={{ drawerIcon:({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,title:'Dansatori' }} />
+                    <Drawer.Screen name={'dancers'} options={{ drawerIcon:({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,title:'Dansatori',headerStyle: {
+                            backgroundColor: '#fff',
+                        },
+                        headerTintColor: 'darkblue',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        }, }} />
                 </Drawer>
 
             {/*<Image source={{uri: 'https://www.inpasidedans.ro/wp-content/uploads/2016/07/logo-in-pasi-de-dans.png'}}/>*/}

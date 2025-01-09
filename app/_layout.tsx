@@ -36,7 +36,7 @@ export default function RootLayout() {
         <Stack.Screen name="(user)" options={{ headerShown: true }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" backgroundColor={'red'}/>
+      <StatusBar style="auto" backgroundColor={'orange'}/>
     </ThemeProvider>
   );
 }
