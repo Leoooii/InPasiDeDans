@@ -4,7 +4,7 @@ import React from "react";
 import {Drawer} from "expo-router/drawer";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import CustomDrawerContent from "@/components/custom/CustomDrawer";
-import {AntDesign, FontAwesome} from "@expo/vector-icons";
+import { FontAwesome} from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function RootLayout() {

@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import firebase from "firebase/compat";
 import Auth = firebase.auth.Auth;
 import {signOut} from "@firebase/auth";
-import {auth} from "@/app/firebase";
+import {auth} from "../../app/firebase";
 
 export default function CustomDrawerContent(props: any) {
     const router = useRouter();

@@ -3,9 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"], // Alias global pentru orice folder din `app`
+      "@firebase": ["./app/firebase"] // Alias pentru fișierul firebase.js
     }
   },
   "include": [

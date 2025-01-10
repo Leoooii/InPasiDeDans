@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Label} from "@react-navigation/elements";
 import {addDoc, collection, getDocs} from "@firebase/firestore";
-import {db} from "@/app/firebase";
+import {db} from "../firebase";
 import {set} from "@firebase/database";
 import {Feather} from "@expo/vector-icons";
 

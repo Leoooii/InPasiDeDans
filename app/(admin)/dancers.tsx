@@ -1,8 +1,7 @@
 import {StyleSheet, Text, View, FlatList, Button} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { db } from "@/app/firebase";
+import { db } from "../firebase";
 import { collection, getDocs } from "@firebase/firestore";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {AntDesign, Feather, FontAwesome} from "@expo/vector-icons";
 import {Link} from "expo-router";
 

@@ -3,9 +3,8 @@ import React, {useEffect, useState} from 'react'
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Label} from "@react-navigation/elements";
 import {addDoc, collection, getDocs} from "@firebase/firestore";
-import {db} from "@/app/firebase";
-import {set} from "@firebase/database";
-import {Feather} from "@expo/vector-icons";
+import {db} from "../firebase";
+
 
 export default function Classes() {
     const [name,setName]=useState('');
