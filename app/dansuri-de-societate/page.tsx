@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-
+import Link from "next/link"
 export default function DansuriDeSocietate() {
   return (
     <div className="container py-12">
@@ -13,7 +13,7 @@ export default function DansuriDeSocietate() {
 
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image src="/placeholder.svg?height=800&width=600" alt="Dans de societate" fill className="object-cover" />
+            <Image src="/images/samba.png?height=800&width=600" alt="Dans de societate" fill className="object-cover" />
           </div>
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Arta dansului de societate</h2>
@@ -23,13 +23,14 @@ export default function DansuriDeSocietate() {
               și conexiunea între parteneri.
             </p>
             <p>
-              La școala noastră, veți învăța atât dansuri standard (vals vienez, vals lent, tango, foxtrot, quickstep),
+              La școala noastră, veți învăța atât dansuri standard (vals vienez, vals lent, tango, quickstep, quickstep),
               cât și dansuri latino-americane (samba, cha-cha, rumba, paso doble, jive).
             </p>
             <div className="pt-4">
+              <Link href="/inscriere">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
                 Înscrie-te la curs
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </div>
@@ -39,7 +40,7 @@ export default function DansuriDeSocietate() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image src="/placeholder.svg?height=400&width=600" alt="Vals Vienez" fill className="object-cover" />
+                <Image src="/images/vals.png?height=400&width=600" alt="Vals Vienez" fill className="object-cover" />
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Vals Vienez</h3>
@@ -49,7 +50,7 @@ export default function DansuriDeSocietate() {
 
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image src="/placeholder.svg?height=400&width=600" alt="Tango" fill className="object-cover" />
+                <Image src="/images/tango.png?height=400&width=600" alt="Tango" fill className="object-cover" />
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Tango</h3>
@@ -61,10 +62,10 @@ export default function DansuriDeSocietate() {
 
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image src="/placeholder.svg?height=400&width=600" alt="Foxtrot" fill className="object-cover" />
+                <Image src="/images/quickstep.png?height=400&width=600" alt="quickstep" fill className="object-cover" />
               </div>
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Foxtrot</h3>
+                <h3 className="text-xl font-bold mb-2">Quickstep</h3>
                 <p className="text-gray-500">
                   Dans elegant și fluid, cu pași lungi și glisanți, pe muzică de jazz sau swing.
                 </p>
@@ -111,8 +112,8 @@ export default function DansuriDeSocietate() {
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl font-bold mb-4">Pregătire pentru evenimente speciale</h2>
-              <p className="mb-6">
+              <h2 className="text-2xl font-bold mb-4 dark:text-black">Pregătire pentru evenimente speciale</h2>
+              <p className="mb-6 dark:text-black">
                 Oferim cursuri personalizate pentru pregătirea dansului de nuntă sau pentru alte evenimente speciale.
                 Instructorii noștri vă vor ajuta să creați un moment memorabil, adaptat preferințelor și nivelului
                 vostru.

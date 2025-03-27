@@ -18,7 +18,7 @@ export default function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="/images/samba.png?height=400&width=600"
                 alt="Dans de societate"
                 fill
                 className="object-cover"
@@ -27,7 +27,7 @@ export default function CursuriDansAdulti() {
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-2">Dans de Societate</h3>
               <p className="text-gray-500 mb-4">
-                Învață dansuri elegante precum vals, tango și foxtrot, perfecte pentru evenimente formale.
+                Învață dansuri elegante precum vals, tango și quickstep, perfecte pentru evenimente formale.
               </p>
               <Link href="/dansuri-de-societate">
                 <Button>Află mai multe</Button>
@@ -37,7 +37,7 @@ export default function CursuriDansAdulti() {
 
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-              <Image src="/placeholder.svg?height=400&width=600" alt="Dans latino" fill className="object-cover" />
+              <Image src="/images/cha-cha.png?height=400&width=600" alt="Dans latino" fill className="object-cover" />
             </div>
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-2">Dans Latino</h3>
@@ -51,7 +51,7 @@ export default function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="/images/vals.png?height=400&width=600"
                 alt="Dans pentru nuntă"
                 fill
                 className="object-cover"
@@ -75,7 +75,7 @@ export default function CursuriDansAdulti() {
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
                 <h3 className="font-semibold">Dans de Societate - Începători</h3>
-                <p className="text-gray-500">Instructor: Maria Popescu</p>
+                <p className="text-gray-500">Instructor: Alexandra Dumitrache</p>
               </div>
               <div className="mt-2 md:mt-0">
                 <p className="text-gray-500">Luni și Miercuri, 18:00 - 19:30</p>
@@ -85,7 +85,7 @@ export default function CursuriDansAdulti() {
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
                 <h3 className="font-semibold">Dans Latino - Începători</h3>
-                <p className="text-gray-500">Instructor: Andrei Ionescu</p>
+                <p className="text-gray-500">Instructor: Alexandra Dumitrache</p>
               </div>
               <div className="mt-2 md:mt-0">
                 <p className="text-gray-500">Marți și Joi, 19:00 - 20:30</p>
@@ -95,7 +95,7 @@ export default function CursuriDansAdulti() {
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
                 <h3 className="font-semibold">Dans de Societate - Avansați</h3>
-                <p className="text-gray-500">Instructor: Elena Dumitrescu</p>
+                <p className="text-gray-500">Instructor: Alexandra Dumitrache</p>
               </div>
               <div className="mt-2 md:mt-0">
                 <p className="text-gray-500">Luni și Miercuri, 20:00 - 21:30</p>
@@ -105,7 +105,7 @@ export default function CursuriDansAdulti() {
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
                 <h3 className="font-semibold">Dans Latino - Avansați</h3>
-                <p className="text-gray-500">Instructor: Mihai Stanescu</p>
+                <p className="text-gray-500">Instructor: Alexandra Dumitrache</p>
               </div>
               <div className="mt-2 md:mt-0">
                 <p className="text-gray-500">Vineri, 18:00 - 20:00</p>
@@ -122,15 +122,16 @@ export default function CursuriDansAdulti() {
                 Fie că ești începător sau ai mai dansat înainte, avem cursuri potrivite pentru toate nivelurile. Vino să
                 descoperi bucuria dansului într-o atmosferă prietenoasă și relaxantă.
               </p>
+              <Link href="/inscriere">
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
               >
                 Înscrie-te acum
-              </Button>
+              </Button></Link>
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=400&width=600" alt="Cursuri de dans" fill className="object-cover" />
+              <Image src="/images/inside.png?height=400&width=600" alt="Cursuri de dans" fill className="object-cover" />
             </div>
           </div>
         </div>

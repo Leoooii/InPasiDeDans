@@ -12,14 +12,14 @@ export default function Program() {
         </div>
 
         <Tabs defaultValue="luni" className="w-full">
-          <TabsList className="grid grid-cols-7 h-auto">
+          <TabsList className="grid grid-cols-6 h-auto">
             <TabsTrigger value="luni">Luni</TabsTrigger>
             <TabsTrigger value="marti">Marți</TabsTrigger>
             <TabsTrigger value="miercuri">Miercuri</TabsTrigger>
             <TabsTrigger value="joi">Joi</TabsTrigger>
             <TabsTrigger value="vineri">Vineri</TabsTrigger>
             <TabsTrigger value="sambata">Sâmbătă</TabsTrigger>
-            <TabsTrigger value="duminica">Duminică</TabsTrigger>
+            {/* <TabsTrigger value="duminica">Duminică</TabsTrigger> */}
           </TabsList>
 
           <TabsContent value="luni" className="mt-6">

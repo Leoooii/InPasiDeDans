@@ -39,39 +39,63 @@ export default function Instructori() {
           <h2 className="text-2xl font-bold mb-8">Instructorii noștri</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <InstructorCard
-              name="Alexandru Popescu"
-              role="Instructor Dans de Societate"
-              bio="Cu o experiență de peste 15 ani în dansul de societate, Alexandru este multiplu campion național și finalist în competiții internaționale. Stilul său de predare este precis și metodic, ajutând cursanții să înțeleagă tehnica corectă."
+              name="Alexandra Dumitrache"
+              role="Instructor Dans de Societate,Latino si Populare"
+              src="/images/Alexandra.png"
+              bio="Alexandra Dumitrache este fondator, manager si instructor la In Pasi de Dans, infiintata in 2009. Decizia infiintarii acesteia a venit ca urmare a pasiunii pentru dans si din dorinta de a impartasi cu cat mai multe persoane bucuria oferita de dans.
+
+Alexandra are experienta ca instructor de dans peste 22 de ani; a participat la numeroase competitii de dans sportiv nationale si internationale.
+
+Principalele sale responsabilitati la In Pasi de Dans sunt prederea dansurilor latino si de societate si dansurilor populare (atat la grupele de copii, cat si la cele de adulti), organizarea si coordonarea cursurilor de dans, evenimentelor si activitatilor din cadrul scolii de dans."
+
             />
 
             <InstructorCard
-              name="Maria Ionescu"
-              role="Instructor Dans de Societate & Latino"
-              bio="Maria a început să danseze de la vârsta de 7 ani și a participat la numeroase competiții naționale și internaționale. Specializată în dansuri standard și latino, ea aduce energie și pasiune în fiecare curs."
+              name="Catalina Gurau"
+              role="Instructor de Dansuri Populare"
+              src="/images/Catalina.png"
+              bio="Catalina Gurau colaborează cu In Pasi de Dans din 2018 in calitate de instructor-coregraf pentru grupele de dansuri populare adulti, lectii private pentru viitori miri, precum si workshop-uri.
+
+Catalina este un izvor de energie si bucurie atat fizic cat si emosional. Este o persoana plina de voie buna si îti aduce aminte mereu de importanta zambetului. Pasiunea pentru dans a descoperit-o la In Pasi de Dans, iar de atunci, dansul a devenit un stil de viata pentru ea.
+
+Plina de inspiratie, bucurie si empatie, ea este mereu atenta la nevoile celor din jur si mereu dispusa sa ofere ajutorul. Adesea energia ei este molipsitoare, iar în preajma ei oamenii se simt sustinuti si intelesi."
+              
             />
 
             <InstructorCard
-              name="Carlos Mendez"
-              role="Instructor Salsa & Bachata"
-              bio="Originar din Cuba, Carlos a adus autenticitatea dansurilor latino în România. Cu peste 10 ani de experiență în predare, el combină tehnica precisă cu bucuria și energia specifică culturii latino."
+              name="Miriam Haghighi"
+              role="Instructor Dans de Societate si Latino"
+              src="/images/Miriam.png"
+              bio="Miriam Haghighi colaboreaza cu Asociatia Sportiva In Pasi de Dans Bucuresti din 2022, in calitate de instructor pentru grupele de adulti si copii, predand dansuri latino si de societate.
+
+Are o experienta in dansul sportiv de performanta de peste 13 ani. A concurat la numeroase competitii de dans sportiv, atat nationale, cat si internationale. Pasiunea pentru dans este principala motivatie care o indeamna sa impartasesca cu cat mai multi secretele, magia si bucuria dansului."
             />
 
             <InstructorCard
-              name="Elena Dumitrescu"
+              name="Daniela Cristea"
               role="Instructor Dans Contemporan & Balet"
-              bio="Cu o pregătire în balet clasic și dans contemporan, Elena aduce eleganță și expresivitate în cursurile sale. Ea se concentrează pe dezvoltarea coordonării, flexibilității și expresiei artistice."
+              src="/images/Daniela.png"
+              bio="Daniela Cristea colaboreaza cu In Pasi de Dans din 2023, unde preda dansuri latino si de societate pentru grupele de adulti si lectii private pentru miri.
+
+Are o experienta in dansul sportiv de 9 ani, ca dansator si de peste 4 ani, ca instructor. A participat la numeroase competitii, evenimente si proiecte nationale si internationale de dans, care i-au modelat personalitatea si stilul de viata, dansul ocupand un loc important in viata Danielei."
             />
 
             <InstructorCard
-              name="Mihai Stanescu"
-              role="Instructor Dans Sportiv"
-              bio="Fost campion național la dans sportiv, Mihai are o abordare tehnică și precisă în predare. El se concentrează pe detalii și perfecțiune, ajutând cursanții să-și îmbunătățească constant performanțele."
+              name="Niko Nikolas"
+              role="Instructor Dans Latino"
+              src="/images/Niko.png"
+              bio="Fost campion național la dans sportiv, Niko are o abordare tehnică și precisă în predare. El se concentrează pe detalii și perfecțiune, ajutând cursanții să-și îmbunătățească constant performanțele."
             />
 
             <InstructorCard
-              name="Ana Maria Popa"
+              name="Luiza Bulmaga"
               role="Instructor Dans pentru Copii"
-              bio="Cu o pregătire în pedagogie și dans, Ana Maria are un talent special în lucrul cu copiii. Ea combină jocul cu tehnica de dans, făcând cursurile distractive și educative în același timp."
+              src="/images/Luiza.png"
+              bio="Luiza Bulmaga este instructor la In Pasi de Dans din 2023, unde preda, in mod special, lectii private pentru miri.
+
+Luiza a inceput sa danseze la varsta de 9 ani, iar de-a lungul timpului dansul a devenit un stil de viata pentru ea; in paralel parctica si karate de performanta.
+
+Pasionata de dans, energica, Luiza este o instructoare intelegatoare, creativa, iar experienta vasta din viata sportiva si simtul pedagogic o fac sa inteleaga cu usurinta nevoile fiecarui elev al ei, reusind astfel sa puna in valoare, prin dans, calitatile cursantilor ei."
             />
           </div>
         </div>
@@ -133,11 +157,12 @@ export default function Instructori() {
   )
 }
 
-function InstructorCard({ name, role, bio }: { name: string; role: string; bio: string }) {
+function InstructorCard({ name, role, bio, src }: { name: string; role: string; bio: string, src:string }) {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-80 w-full overflow-hidden">
         <Image src="/placeholder.svg?height=600&width=400" alt={name} fill className="object-cover" />
+        <Image src={`${src}?height=600&width=400`} alt={name} fill className="object-contain" />
       </div>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold">{name}</h3>

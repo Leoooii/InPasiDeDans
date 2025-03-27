@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
 
 export default function CursuriDansCopii() {
   return (
@@ -15,7 +16,7 @@ export default function CursuriDansCopii() {
 
         <div className="grid gap-6 md:grid-cols-2">
           <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image src="/placeholder.svg?height=800&width=600" alt="Copii dansând" fill className="object-cover" />
+            <Image src="/images/copii.png?height=800&width=600" alt="Copii dansând" fill className="object-cover" />
           </div>
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">De ce dans pentru copii?</h2>
@@ -29,9 +30,10 @@ export default function CursuriDansCopii() {
               simtă confortabil și să progreseze în ritmul său.
             </p>
             <div className="pt-4">
+              <Link href="/inscriere">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
                 Înscrie-ți copilul
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </div>
@@ -84,22 +86,22 @@ export default function CursuriDansCopii() {
           <h2 className="text-2xl font-bold">Stiluri de dans pentru copii</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Dans Modern</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Dans Modern</h3>
               <p className="text-gray-500 text-sm">Combinație de elemente de balet, jazz și dans contemporan.</p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Dans de Caracter</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Dans de Caracter</h3>
               <p className="text-gray-500 text-sm">Dansuri tradiționale și folclorice adaptate pentru copii.</p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Dans Sportiv</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Dans Sportiv</h3>
               <p className="text-gray-500 text-sm">Elemente de bază din dansurile standard și latino.</p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Street Dance</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Street Dance</h3>
               <p className="text-gray-500 text-sm">Hip-hop, breakdance și alte stiluri urbane moderne.</p>
             </div>
           </div>
@@ -107,17 +109,18 @@ export default function CursuriDansCopii() {
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold">Programează o lecție gratuită</h2>
-            <p>
+            <h2 className="text-2xl font-bold dark:text-black">Programează o lecție gratuită</h2>
+            <p className="dark:text-black">
               Oferim o primă lecție gratuită pentru ca micuțul tău să experimenteze atmosfera cursurilor noastre și să
               vadă dacă i se potrivește.
             </p>
+            <Link href={"/inscriere"}>
             <Button
               size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 "
             >
               Programează lecția gratuită
-            </Button>
+            </Button></Link>
           </div>
         </div>
       </div>

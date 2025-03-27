@@ -53,7 +53,7 @@ export default function DansuriLatino() {
 
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image src="/placeholder.svg?height=400&width=600" alt="Bachata" fill className="object-cover" />
+                <Image src="/images/bachata.png?height=400&width=600" alt="Bachata" fill className="object-cover" />
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Bachata</h3>
@@ -65,7 +65,7 @@ export default function DansuriLatino() {
 
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image src="/placeholder.svg?height=400&width=600" alt="Cha-Cha" fill className="object-cover" />
+                <Image src="/images/cha-cha.png?height=400&width=600" alt="Cha-Cha" fill className="object-cover" />
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Cha-Cha</h3>
@@ -114,8 +114,8 @@ export default function DansuriLatino() {
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold">Petreceri Latino</h2>
-            <p>
+            <h2 className="text-2xl font-bold dark:text-black">Petreceri Latino</h2>
+            <p className="dark:text-black">
               În fiecare lună organizăm petreceri tematice latino, unde puteți practica ce ați învățat la cursuri și vă
               puteți bucura de atmosfera autentică latino. Muzică bună, oameni pasionați și multă distracție!
             </p>

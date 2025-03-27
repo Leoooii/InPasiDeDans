@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ImageSkeleton from "@/components/image-skeleton"
 import FacebookPagePreview from "@/components/facebook-preview"
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -23,9 +24,10 @@ export default function Home() {
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Învățăm și pe cei mici, și pe cei mari să danseze din 2009, într-o atmosferă plăcută și relaxantă.
             </p>
-            <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg">
+           <Link href={"/inscriere"}>
+           <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg">
               Înscrie-te acum
-            </Button>
+            </Button></Link>
           </div>
         </div>
       </section>
@@ -62,12 +64,14 @@ export default function Home() {
             <p className="text-lg mb-6 text-gray-700 dark:text-white">
               Sălile sunt spațioase, moderne, dotate cu vestiare, aer condiționat, parchet și oglinzi.
             </p>
-            <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+           <Link href='/despre-noi'>
+           <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
               Află mai multe despre noi
-            </Button>
+            </Button></Link>
           </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
-            <ImageSkeleton width={600} height={400} className="w-full h-full" />
+          <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl item-center">
+            {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
+            <Image src={"/images/noi.png"} height={1000} width={1000} alt="dance-party" className="w-full h-full" style={{objectFit: "contain"}}/>
           </div>
         </div>
       </section>
@@ -77,9 +81,12 @@ export default function Home() {
         <div className="container">
           <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Cursurile Noastre de Dans</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <DanceCard title="Grupe în formare" href="/grupe-in-formare" />
-            <DanceCard title="Cursuri de dans pentru nuntă" href="/cursuri-dans-nunta" />
-            <DanceCard title="Dansuri predate" href="/dansuri-predate" />
+            <DanceCard title="Grupe în formare" href="/grupe-in-formare" src="/images/grupeinformare.png"/>
+            <DanceCard title="Cursuri de dans pentru nuntă" href="/cursuri-dans-nunta" src="/images/cursuridansnunta.png"/>
+            <DanceCard title="Dansuri predate" href="/dansuri-predate" src="/images/dansuripredate.png"/>
+            <DanceCard title="Program" href="/program" src="/images/program.png"/>
+            <DanceCard title="Galerie" href="/galerie" src="/images/galerie.png"/>
+            <DanceCard title="Tarife" href="/tarife" src="/images/tarife.png"/>
           </div>
         </div>
       </section>
@@ -141,12 +148,13 @@ function StatCard({ icon, value, description }: { icon: React.ReactNode; value: 
   )
 }
 
-function DanceCard({ title, href }: { title: string; href: string }) {
+function DanceCard({ title, href,src }: { title: string; href: string; src: string }) {
   return (
     <Link href={href} className="group">
       <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
         <div className="relative h-64 overflow-hidden">
-          <ImageSkeleton width={400} height={300} className="w-full h-full" />
+          {/* <ImageSkeleton width={400} height={300} className="w-full h-full" /> */}
+          <Image src={src} alt="dancepicture" width={1000} height={1000}/>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 flex items-center justify-between">
             <h3 className="text-xl font-bold text-white">{title}</h3>

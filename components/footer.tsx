@@ -14,15 +14,15 @@ export default function Footer() {
               relaxantă.
             </p>
             <div className="flex space-x-4">
-              <Link href="https://facebook.com" className="hover:text-white transition-colors">
+              <Link href="https://www.facebook.com/scoaladedansinpasidedans" className="hover:text-white transition-colors">
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="https://instagram.com" className="hover:text-white transition-colors">
+              <Link href="https://www.instagram.com/explore/locations/459372516/in-pasi-de-dans/" className="hover:text-white transition-colors">
                 <Instagram size={20} />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="https://youtube.com" className="hover:text-white transition-colors">
+              <Link href="https://www.youtube.com/@inpasidedans" className="hover:text-white transition-colors">
                 <Youtube size={20} />
                 <span className="sr-only">YouTube</span>
               </Link>
@@ -106,15 +106,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin size={18} className="mr-2 mt-1 flex-shrink-0" />
-                <span>Strada Exemplu, Nr. 123, București</span>
+                <span>Calea Rahovei 262, sector 5, Bucuresti</span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="mr-2 flex-shrink-0" />
-                <span>+40 123 456 789</span>
+                <span>+40 722 675 126</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-2 flex-shrink-0" />
-                <span>contact@inpasidedans.ro</span>
+                <span>inpasidedans@gmail.com</span>
               </li>
             </ul>
           </div>

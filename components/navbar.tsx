@@ -106,9 +106,11 @@ export default function Navbar() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-                  Despre noi
-                </NavigationMenuTrigger>
+                <Link href="/despre-noi" legacyBehavior passHref>
+                  <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
+                    Despre noi
+                  </NavigationMenuTrigger>
+                </Link>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     {despreNoi.map((item) => (
@@ -192,9 +194,11 @@ function DesktopNav() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-            Despre noi
-          </NavigationMenuTrigger>
+          <Link href="/despre-noi" legacyBehavior passHref>
+            <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
+              Despre noi
+            </NavigationMenuTrigger>
+          </Link>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {despreNoi.map((item) => (
@@ -264,13 +268,16 @@ function MobileNav({ setIsOpen }: { setIsOpen: (open: boolean) => void }) {
           Galerie
         </Link>
         <div>
-          <button
-            onClick={() => setOpenDespre(!openDespre)}
-            className="flex w-full items-center justify-between py-2 font-medium"
-          >
+          <Link href="/despre-noi" className="flex w-full items-center justify-between py-2 font-medium">
             Despre noi
-            <ChevronDown className={cn("h-4 w-4 transition-transform", openDespre ? "rotate-180" : "")} />
-          </button>
+            <ChevronDown
+              className={cn("h-4 w-4 transition-transform", openDespre ? "rotate-180" : "")}
+              onClick={(e) => {
+                e.preventDefault()
+                setOpenDespre(!openDespre)
+              }}
+            />
+          </Link>
           {openDespre && (
             <div className="grid gap-2 pl-4">
               {despreNoi.map((item) => (
@@ -336,7 +343,7 @@ const dansuriPredate = [
   {
     title: "Dansuri de societate",
     href: "/dansuri-de-societate",
-    description: "Vals, tango, foxtrot și alte dansuri elegante de societate.",
+    description: "Vals, tango, quickstep și alte dansuri elegante de societate.",
   },
   {
     title: "Dansuri latino",

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
 
 export default function GrupeInFormare() {
   return (
@@ -27,13 +28,14 @@ export default function GrupeInFormare() {
                 Formăm noi grupe pentru toate stilurile de dans. Înscrie-te acum și beneficiază de oferte speciale
                 pentru noii cursanți!
               </p>
+              <Link href="/inscriere">
               <Button
                 size="lg"
                 variant="outline"
                 className="bg-white text-red-600 hover:bg-gray-100 border-white hover:border-gray-100"
               >
                 Înscrie-te
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </div>
@@ -45,7 +47,7 @@ export default function GrupeInFormare() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Dans de Societate - Începători</h3>
                 <p className="text-gray-500 mb-4">
-                  Învață bazele dansurilor de societate: vals, tango, foxtrot și altele.
+                  Învață bazele dansurilor de societate: vals, tango, quickstep și altele.
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
@@ -58,7 +60,7 @@ export default function GrupeInFormare() {
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Instructor:</span>
-                    <span>Alexandru și Maria</span>
+                    <span>Alexandra</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Locuri disponibile:</span>
@@ -88,7 +90,7 @@ export default function GrupeInFormare() {
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Instructor:</span>
-                    <span>Carlos și Elena</span>
+                    <span>Alexandra</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Locuri disponibile:</span>
@@ -118,7 +120,7 @@ export default function GrupeInFormare() {
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Instructor:</span>
-                    <span>Ana Maria</span>
+                    <span>Alexandra</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Locuri disponibile:</span>
@@ -137,28 +139,28 @@ export default function GrupeInFormare() {
           <h2 className="text-2xl font-bold">Beneficii pentru noii cursanți</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Prima lecție gratuită</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Prima lecție gratuită</h3>
               <p className="text-gray-500 text-sm">
                 Participă la prima lecție fără nicio obligație, pentru a vedea dacă ți se potrivește.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Reducere 15% pentru noii membri</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Reducere 15% pentru noii membri</h3>
               <p className="text-gray-500 text-sm">
                 Beneficiază de 15% reducere la abonamentul lunar dacă te înscrii la o grupă nouă.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Abonament de cuplu</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Abonament de cuplu</h3>
               <p className="text-gray-500 text-sm">
                 Vino cu partenerul/a și beneficiați de un preț special pentru abonamentul de cuplu.
               </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Acces la petreceri tematice</h3>
+              <h3 className="font-semibold mb-2 dark:text-black">Acces la petreceri tematice</h3>
               <p className="text-gray-500 text-sm">
                 Ca membru, ai acces gratuit la petrecerile tematice organizate lunar.
               </p>
@@ -169,21 +171,22 @@ export default function GrupeInFormare() {
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl font-bold mb-4">Nu găsești grupa potrivită?</h2>
-              <p className="mb-6">
+              <h2 className="text-2xl font-bold mb-4 dark:text-black">Nu găsești grupa potrivită?</h2>
+              <p className="mb-6 dark:text-black">
                 Dacă nu găsești o grupă care să se potrivească programului tău sau ești interesat de un stil de dans
                 care nu este listat, contactează-ne și vom încerca să formăm o grupă nouă care să răspundă nevoilor
                 tale.
               </p>
+              <Link href={"/contact"}>
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
               >
                 Contactează-ne
-              </Button>
+              </Button></Link>
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
-              <Image src="/placeholder.svg?height=400&width=600" alt="Contact" fill className="object-cover" />
+              <Image src="/images/grupeinformare.png?height=400&width=600" alt="Contact" fill className="object-cover" />
             </div>
           </div>
         </div>

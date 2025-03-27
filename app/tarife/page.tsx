@@ -14,10 +14,10 @@ export default function Tarife() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
           <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle>Abonament Individual</CardTitle>
-              <CardDescription>Pentru o singură persoană</CardDescription>
+              <CardTitle>Abonament Silver</CardTitle>
+              <CardDescription>Valabil 4 saptamani</CardDescription>
               <div className="mt-4 text-4xl font-bold">
-                200 Lei<span className="text-base font-normal text-gray-500">/lună</span>
+                230 Lei<span className="text-base font-normal text-gray-500">/lună</span>
               </div>
             </CardHeader>
             <CardContent className="flex-1">
@@ -36,7 +36,7 @@ export default function Tarife() {
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Materiale didactice online</span>
+                  <span>Materiale didactice online pe whatsapp</span>
                 </li>
               </ul>
             </CardContent>
@@ -50,21 +50,21 @@ export default function Tarife() {
           <Card className="flex flex-col border-red-600 shadow-lg">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <div className="text-center text-sm font-medium uppercase tracking-wider mb-2">Cel mai popular</div>
-              <CardTitle>Abonament de Cuplu</CardTitle>
-              <CardDescription className="text-white/90">Pentru două persoane</CardDescription>
+              <CardTitle>Abonament Gold</CardTitle>
+              <CardDescription className="text-white/90">Valabil 4 saptamani</CardDescription>
               <div className="mt-4 text-4xl font-bold">
-                350 Lei<span className="text-base font-normal text-white/90">/lună</span>
+                320 Lei<span className="text-base font-normal text-white/90">/lună</span>
               </div>
             </CardHeader>
             <CardContent className="flex-1">
               <ul className="space-y-2">
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>8 ședințe pe lună</span>
+                  <span>16 ședințe pe lună</span>
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la un singur stil de dans</span>
+                  <span>Acces la mai multe stiluri de dans</span>
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
@@ -72,12 +72,12 @@ export default function Tarife() {
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Materiale didactice online</span>
+                  <span>Materiale didactice online pe Whatsapp</span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>Reducere 10% la workshop-uri</span>
-                </li>
+                </li> */}
               </ul>
             </CardContent>
             <CardFooter>
@@ -91,15 +91,16 @@ export default function Tarife() {
             <CardHeader>
               <CardTitle>Abonament Premium</CardTitle>
               <CardDescription>Pentru pasionații de dans</CardDescription>
+              <CardDescription>Valabil 4 saptamani</CardDescription>
               <div className="mt-4 text-4xl font-bold">
-                300 Lei<span className="text-base font-normal text-gray-500">/lună</span>
+                400 Lei<span className="text-base font-normal text-gray-500">/lună</span>
               </div>
             </CardHeader>
             <CardContent className="flex-1">
               <ul className="space-y-2">
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>12 ședințe pe lună</span>
+                  <span>Acces nelimitat la grupe (in limita nivelului)</span>
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
@@ -113,14 +114,14 @@ export default function Tarife() {
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>Materiale didactice online</span>
                 </li>
-                <li className="flex items-center">
+                {/* <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>Reducere 15% la workshop-uri</span>
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>O ședință privată pe lună</span>
-                </li>
+                </li> */}
               </ul>
             </CardContent>
             <CardFooter>
@@ -136,8 +137,8 @@ export default function Tarife() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader>
-                <CardTitle>Ședință unică</CardTitle>
-                <div className="mt-2 text-2xl font-bold">40 Lei</div>
+                <CardTitle>Plata la sedinta</CardTitle>
+                <div className="mt-2 text-2xl font-bold">45 Lei</div>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-500">
@@ -146,19 +147,6 @@ export default function Tarife() {
                 </p>
               </CardContent>
             </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Curs pentru nuntă</CardTitle>
-                <div className="mt-2 text-2xl font-bold">De la 500 Lei</div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-500">
-                  Pachet personalizat pentru miri, care include 5 ședințe private pentru pregătirea dansului de nuntă.
-                </p>
-              </CardContent>
-            </Card>
-
             <Card>
               <CardHeader>
                 <CardTitle>Ședință privată</CardTitle>
@@ -171,6 +159,53 @@ export default function Tarife() {
                 </p>
               </CardContent>
             </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Curs de dans pentru copii</CardTitle>
+                <div className="mt-2 text-2xl font-bold">200 lei/copil</div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-500">
+                (valabil o luna calendaristica - include 8 sedinte).
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Curs pentru nuntă</CardTitle>
+                <div className="mt-2 text-2xl font-bold">De la 640 Lei</div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-500">
+                  Pachet personalizat pentru miri, care include 4 ședințe private pentru pregătirea dansului de nuntă.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Curs pentru nuntă</CardTitle>
+                <div className="mt-2 text-2xl font-bold">De la 900 Lei</div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-500">
+                  Pachet personalizat pentru miri, care include 6 ședințe private pentru pregătirea dansului de nuntă.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Curs pentru nuntă</CardTitle>
+                <div className="mt-2 text-2xl font-bold">De la 1120 Lei</div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-500">
+                  Pachet personalizat pentru miri, care include 8 ședințe private pentru pregătirea dansului de nuntă.
+                </p>
+              </CardContent>
+            </Card>
+            
+           
           </div>
         </div>
 
