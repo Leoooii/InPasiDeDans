@@ -2,10 +2,10 @@
 
 import React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 import {
@@ -19,12 +19,37 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { auth } from "@/lib/firebase"
+import { onAuthStateChanged, signOut } from "firebase/auth"
+import { useRouter } from "next/navigation"
 
 // Adaugă importul pentru ThemeToggle
 import ThemeToggle from "@/components/theme-toggle"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      // Verificăm dacă utilizatorul este admin (are email-ul admin@gmail.com)
+      setIsAdmin(currentUser?.email === "admin@gmail.com")
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+      router.push("/")
+    } catch (error) {
+      console.error("Eroare la deconectare:", error)
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -53,7 +78,7 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
             <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
-            <MobileNav setIsOpen={setIsOpen} />
+            <MobileNav setIsOpen={setIsOpen} user={user} isAdmin={isAdmin} onLogout={handleLogout} />
           </SheetContent>
         </Sheet>
         <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -133,97 +158,51 @@ export default function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        {/* Adaugă butonul de toggle pentru temă lângă butonul de înscriere */}
-        {/* Înlocuiește div-ul cu clasa "ml-auto" cu: */}
+
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
-          <Link href="/inscriere">
-            <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 whitespace-nowrap">
-              Înscrie-te
-            </Button>
-          </Link>
+
+          {user ? (
+            <div className="flex items-center gap-2">
+              <Link href={isAdmin ? "/admin" : "/cont"}>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  {isAdmin ? "Admin" : "Contul meu"}
+                </Button>
+              </Link>
+              <Button variant="ghost" onClick={handleLogout}>
+                Deconectare
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link href="/autentificare">
+                <Button variant="outline">Autentificare</Button>
+              </Link>
+              <Link href="/inscriere">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 whitespace-nowrap">
+                  Înscrie-te
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
   )
 }
 
-function DesktopNav() {
-  return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-            Dansuri predate
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {dansuriPredate.map((item) => (
-                <ListItem key={item.title} title={item.title} href={item.href}>
-                  {item.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/program" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
-            >
-              Program
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/tarife" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
-            >
-              Tarife
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/galerie" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
-            >
-              Galerie
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/despre-noi" legacyBehavior passHref>
-            <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-              Despre noi
-            </NavigationMenuTrigger>
-          </Link>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {despreNoi.map((item) => (
-                <ListItem key={item.title} title={item.title} href={item.href}>
-                  {item.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/contact" legacyBehavior passHref>
-            <NavigationMenuLink
-              className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
-            >
-              Contact
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
-  )
-}
-
-function MobileNav({ setIsOpen }: { setIsOpen: (open: boolean) => void }) {
+function MobileNav({
+  setIsOpen,
+  user,
+  isAdmin,
+  onLogout,
+}: {
+  setIsOpen: (open: boolean) => void
+  user: any
+  isAdmin: boolean
+  onLogout: () => void
+}) {
   const [openDansuri, setOpenDansuri] = useState(false)
   const [openDespre, setOpenDespre] = useState(false)
 
@@ -296,6 +275,32 @@ function MobileNav({ setIsOpen }: { setIsOpen: (open: boolean) => void }) {
         <Link href="/contact" onClick={() => setIsOpen(false)} className="py-2 font-medium">
           Contact
         </Link>
+
+        {user ? (
+          <>
+            <Link href={isAdmin ? "/admin" : "/cont"} onClick={() => setIsOpen(false)} className="py-2 font-medium">
+              {isAdmin ? "Panou Admin" : "Contul meu"}
+            </Link>
+            <button
+              onClick={() => {
+                onLogout()
+                setIsOpen(false)
+              }}
+              className="py-2 font-medium text-left"
+            >
+              Deconectare
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/autentificare" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+              Autentificare
+            </Link>
+            <Link href="/inscriere" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+              Înscrie-te
+            </Link>
+          </>
+        )}
       </div>
     </div>
   )
@@ -343,7 +348,7 @@ const dansuriPredate = [
   {
     title: "Dansuri de societate",
     href: "/dansuri-de-societate",
-    description: "Vals, tango, quickstep și alte dansuri elegante de societate.",
+    description: "Vals, tango, foxtrot și alte dansuri elegante de societate.",
   },
   {
     title: "Dansuri latino",

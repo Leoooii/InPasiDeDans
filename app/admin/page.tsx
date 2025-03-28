@@ -36,6 +36,8 @@ export type Grupa = {
   instructor: string
   locuriDisponibile: number
   locuriTotale: number
+  stil: string
+  zile: string[] // Acum este obligatoriu
 }
 
 export default function AdminPage() {

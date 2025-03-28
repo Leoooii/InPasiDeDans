@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import type { Grupa } from "@/app/admin/page"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
 
 interface GrupaFormProps {
   onSubmit: (grupa: Grupa) => void
@@ -25,7 +27,6 @@ interface GrupaFormProps {
 export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaFormProps) {
   // Starea formularului
   const [formData, setFormData] = useState<Grupa>({
-    
     titlu: "",
     descriere: "",
     dataStart: "",
@@ -33,15 +34,29 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     instructor: "",
     locuriDisponibile: 0,
     locuriTotale: 0,
+    stil: "Dans de societate",
+    zile: ["Luni", "Miercuri"],
   })
 
   // Stare pentru a urmări dacă formularul este în curs de trimitere
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  // Stare pentru ora selectată
+  const [oraSelectata, setOraSelectata] = useState("19:00 - 20:30")
+
   // Populează formularul cu datele inițiale dacă sunt disponibile
   useEffect(() => {
     if (initialData) {
       setFormData(initialData)
+
+      // Extragem ora din program dacă există
+      const oraParts = initialData.program.split(",")
+      if (oraParts.length > 0) {
+        const ultimaParte = oraParts[oraParts.length - 1].trim()
+        if (ultimaParte.includes(":")) {
+          setOraSelectata(ultimaParte)
+        }
+      }
     }
   }, [initialData])
 
@@ -63,14 +78,50 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     }
   }
 
+  // Gestionează modificările în câmpurile de tip select
+  const handleSelectChange = (name: string, value: string) => {
+    if (name === "ora") {
+      setOraSelectata(value)
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
+  }
+
+  // Gestionează modificările în câmpurile de tip checkbox pentru zile
+  const handleZileChange = (zi: string) => {
+    setFormData((prev) => {
+      const zile = [...prev.zile]
+
+      if (zile.includes(zi)) {
+        return { ...prev, zile: zile.filter((z) => z !== zi) }
+      } else {
+        return { ...prev, zile: [...zile, zi] }
+      }
+    })
+  }
+
   // Gestionează trimiterea formularului
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Verificăm dacă avem cel puțin o zi selectată
+    if (formData.zile.length === 0) {
+      alert("Trebuie să selectezi cel puțin o zi pentru grupă")
+      return
+    }
+
     setIsSubmitting(true)
+
+    // Actualizăm programul bazat pe zilele selectate și ora
+    const programActualizat = `${formData.zile.join(", ")}, ${oraSelectata}`
 
     // Trimite datele către componenta părinte
     onSubmit({
       ...formData,
+      program: programActualizat,
       // Păstrează ID-ul dacă există (pentru editare)
       id: initialData?.id,
     })
@@ -78,7 +129,6 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     // Dacă nu este în modul de editare, resetează formularul
     if (!initialData) {
       setFormData({
-       
         titlu: "",
         descriere: "",
         dataStart: "",
@@ -86,7 +136,10 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         instructor: "",
         locuriDisponibile: 0,
         locuriTotale: 0,
+        stil: "Dans de societate",
+        zile: ["Luni", "Miercuri"],
       })
+      setOraSelectata("19:00 - 20:30")
     }
 
     setIsSubmitting(false)
@@ -118,6 +171,40 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         />
       </div>
 
+      <div className="space-y-2">
+        <Label htmlFor="stil">Stil dans *</Label>
+        <Select value={formData.stil} onValueChange={(value) => handleSelectChange("stil", value)}>
+          <SelectTrigger id="stil">
+            <SelectValue placeholder="Selectează stilul de dans" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Dans de societate">Dans de societate</SelectItem>
+            <SelectItem value="Salsa">Salsa</SelectItem>
+            <SelectItem value="Bachata">Bachata</SelectItem>
+            <SelectItem value="Tango">Tango</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-2">
+        <Label>Zile *</Label>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"].map((zi) => (
+            <div key={zi} className="flex items-center space-x-2">
+              <Checkbox
+                id={`zi-${zi}`}
+                checked={formData.zile.includes(zi)}
+                onCheckedChange={() => handleZileChange(zi)}
+              />
+              <Label htmlFor={`zi-${zi}`} className="cursor-pointer">
+                {zi}
+              </Label>
+            </div>
+          ))}
+        </div>
+        {formData.zile.length === 0 && <p className="text-sm text-red-500">Trebuie să selectezi cel puțin o zi</p>}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="dataStart">Data de start *</Label>
@@ -132,15 +219,16 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="program">Program *</Label>
-          <Input
-            id="program"
-            name="program"
-            value={formData.program}
-            onChange={handleChange}
-            placeholder="ex: Luni și Miercuri, 18:00 - 19:30"
-            required
-          />
+          <Label htmlFor="ora">Ora *</Label>
+          <Select value={oraSelectata} onValueChange={(value) => handleSelectChange("ora", value)}>
+            <SelectTrigger id="ora">
+              <SelectValue placeholder="Selectează ora" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="19:00 - 20:30">19:00 - 20:30</SelectItem>
+              <SelectItem value="20:30 - 22:00">20:30 - 22:00</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -190,7 +278,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
             Anulează
           </Button>
         )}
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isSubmitting || formData.zile.length === 0}>
           {initialData ? "Actualizează grupa" : "Adaugă grupa"}
         </Button>
       </div>
