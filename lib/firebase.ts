@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
-
+import { getStorage } from "firebase/storage"
 // Configurația Firebase - înlocuiește cu datele tale
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "demo-api-key",
@@ -19,4 +19,4 @@ const app = initializeApp(firebaseConfig)
 // Exportă serviciile Firebase
 export const auth = getAuth(app)
 export const db = getFirestore(app)
-
+export const storage = getStorage(app)
