@@ -11,7 +11,8 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "In pasi de Dans | Școală de dans",
   description: "Școală de dans cu tradiție din 2009, oferind cursuri pentru adulți și copii",
-    generator: 'v0.dev'
+    generator: 'v0.dev',
+    icons:"/images/favicon.ico"
 }
 
 export default function RootLayout({
@@ -21,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro" suppressHydrationWarning>
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Navbar />
