@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { collection, getDocs, query, where, doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore"
-import { Loader2, Check, Calendar, Clock } from "lucide-react"
+import { Loader2, Check, Calendar, Clock, AlertCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 type Grupa = {
@@ -33,7 +33,11 @@ type UserData = {
   telefon: string
   grupe: string[]
   abonamente: any[]
-  prezente?: any[]
+  prezente?: {
+    data: any
+    grupa: string
+    profesor: string
+  }[]
 }
 
 export default function PrezentaPage() {
@@ -159,6 +163,23 @@ export default function PrezentaPage() {
     }
   }
 
+  // Verifică dacă un cursant are deja prezență pentru grupa și data curentă
+  const hasAttendanceToday = (cursant: UserData, grupaTitlu: string) => {
+    if (!cursant.prezente || !Array.isArray(cursant.prezente)) return false
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0) // Setăm ora la 00:00:00 pentru a compara doar data
+
+    return cursant.prezente.some((prezenta) => {
+      if (!prezenta.data || !prezenta.data.toDate) return false
+
+      const prezentaDate = prezenta.data.toDate()
+      prezentaDate.setHours(0, 0, 0, 0) // Setăm ora la 00:00:00 pentru a compara doar data
+
+      return prezentaDate.getTime() === today.getTime() && prezenta.grupa === grupaTitlu
+    })
+  }
+
   const toggleSelectCursant = (cursantId: string) => {
     setSelectedCursanti((prev) =>
       prev.includes(cursantId) ? prev.filter((id) => id !== cursantId) : [...prev, cursantId],
@@ -172,10 +193,23 @@ export default function PrezentaPage() {
 
     try {
       const dataPrezenta = Timestamp.now()
+      const today = new Date()
+      today.setHours(0, 0, 0, 0) // Setăm ora la 00:00:00 pentru a compara doar data
 
       // Pentru fiecare cursant selectat, adăugăm prezența
       for (const cursantId of selectedCursanti) {
         const cursantRef = doc(db, "users", cursantId)
+        const cursant = cursanti.find((c) => c.id === cursantId)
+
+        if (!cursant) continue
+
+        // Verificăm dacă cursantul are deja prezență pentru această grupă astăzi
+        if (hasAttendanceToday(cursant, selectedGrupa.titlu)) {
+          console.log(
+            `Cursantul ${cursant.nume} ${cursant.prenume} are deja prezență pentru astăzi la grupa ${selectedGrupa.titlu}`,
+          )
+          continue // Sărim peste acest cursant
+        }
 
         // Adăugăm prezența în lista de prezențe a cursantului
         await updateDoc(cursantRef, {
@@ -187,8 +221,7 @@ export default function PrezentaPage() {
         })
 
         // Actualizăm numărul de ședințe rămase în abonament
-        const cursant = cursanti.find((c) => c.id === cursantId)
-        if (cursant && cursant.abonamente && cursant.abonamente.length > 0) {
+        if (cursant.abonamente && cursant.abonamente.length > 0) {
           // Găsim primul abonament activ cu ședințe rămase
           const abonamenteActualizate = [...cursant.abonamente]
 
@@ -219,6 +252,9 @@ export default function PrezentaPage() {
         description: `Prezența a fost salvată pentru ${selectedCursanti.length} cursanți`,
       })
 
+      // Reîncărcăm cursanții pentru a actualiza datele
+      await fetchCursantiGrupa(selectedGrupa)
+
       // Resetăm selecția
       setSelectedCursanti([])
     } catch (error) {
@@ -246,9 +282,9 @@ export default function PrezentaPage() {
 
   return (
     <div className="container py-12">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Prezență zilnică</h1>
+          <h1 className="text-2xl md:text-3xl font-bold">Prezență zilnică</h1>
           <p className="text-gray-500">
             {new Date().toLocaleDateString("ro-RO", {
               weekday: "long",
@@ -330,7 +366,7 @@ export default function PrezentaPage() {
               ) : selectedGrupa ? (
                 cursanti.length > 0 ? (
                   <div className="space-y-4">
-                    <div className="rounded-md border overflow-hidden">
+                    <div className="rounded-md border overflow-hidden overflow-x-auto">
                       <table className="w-full">
                         <thead className="bg-muted">
                           <tr>
@@ -347,6 +383,9 @@ export default function PrezentaPage() {
                               (a) => a.sedinteRamase > 0 && new Date() < new Date(a.dataExpirare.toDate()),
                             )
 
+                            // Verificăm dacă cursantul are deja prezență pentru astăzi
+                            const arePrezentaAzi = hasAttendanceToday(cursant, selectedGrupa.titlu)
+
                             return (
                               <tr key={cursant.id} className="border-t">
                                 <td className="p-3">
@@ -361,17 +400,30 @@ export default function PrezentaPage() {
                                 </td>
                                 <td className="p-3">{abonamentActiv ? abonamentActiv.sedinteRamase : "-"}</td>
                                 <td className="p-3 text-center">
-                                  <button
-                                    className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                                      selectedCursanti.includes(cursant.id)
-                                        ? "bg-green-500 text-white"
-                                        : "bg-gray-200 text-gray-400 hover:bg-gray-300"
-                                    }`}
-                                    onClick={() => toggleSelectCursant(cursant.id)}
-                                    disabled={!abonamentActiv || abonamentActiv.sedinteRamase <= 0}
-                                  >
-                                    {selectedCursanti.includes(cursant.id) && <Check className="h-4 w-4" />}
-                                  </button>
+                                  {arePrezentaAzi ? (
+                                    <div className="flex items-center justify-center">
+                                      <span className="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center">
+                                        <Check className="h-4 w-4" />
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <button
+                                      className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                                        selectedCursanti.includes(cursant.id)
+                                          ? "bg-green-500 text-white"
+                                          : "bg-gray-200 text-gray-400 hover:bg-gray-300"
+                                      }`}
+                                      onClick={() => toggleSelectCursant(cursant.id)}
+                                      disabled={!abonamentActiv || abonamentActiv.sedinteRamase <= 0}
+                                      title={
+                                        !abonamentActiv || abonamentActiv.sedinteRamase <= 0
+                                          ? "Nu are abonament activ sau ședințe rămase"
+                                          : ""
+                                      }
+                                    >
+                                      {selectedCursanti.includes(cursant.id) && <Check className="h-4 w-4" />}
+                                    </button>
+                                  )}
                                 </td>
                               </tr>
                             )
@@ -379,6 +431,14 @@ export default function PrezentaPage() {
                         </tbody>
                       </table>
                     </div>
+
+                    {/* Afișăm un mesaj informativ despre prezențele deja înregistrate */}
+                    {cursanti.some((cursant) => hasAttendanceToday(cursant, selectedGrupa.titlu)) && (
+                      <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 p-3 rounded-md">
+                        <AlertCircle className="h-4 w-4" />
+                        <p>Cursanții cu bifa verde au deja prezența înregistrată pentru astăzi la această grupă.</p>
+                      </div>
+                    )}
 
                     <div className="flex justify-end">
                       <Button onClick={handleSavePrezenta} disabled={selectedCursanti.length === 0 || isSaving}>

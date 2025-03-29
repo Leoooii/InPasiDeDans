@@ -167,21 +167,23 @@ export default function Navbar() {
               <Link href={isAdmin ? "/admin" : "/cont"}>
                 <Button variant="outline" className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  {isAdmin ? "Admin" : "Contul meu"}
+                  <span className="hidden sm:inline">{isAdmin ? "Admin" : "Contul meu"}</span>
                 </Button>
               </Link>
-              <Button variant="ghost" onClick={handleLogout}>
+              <Button variant="ghost" className="hidden sm:flex" onClick={handleLogout}>
                 Deconectare
               </Button>
             </div>
           ) : (
             <div className="flex items-center gap-2">
               <Link href="/autentificare">
-                <Button variant="outline">Autentificare</Button>
+                <Button variant="outline" className="hidden sm:flex">
+                  Autentificare
+                </Button>
               </Link>
               <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 whitespace-nowrap">
-                  Înscrie-te
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                  <span className="sm:inline">Înscrie-te</span>
                 </Button>
               </Link>
             </div>

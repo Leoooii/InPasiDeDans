@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import type { Grupa } from "@/app/admin/page"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 interface GrupaFormProps {
   onSubmit: (grupa: Grupa) => void
@@ -42,7 +43,13 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Stare pentru ora selectată
-  const [oraSelectata, setOraSelectata] = useState("19:00 - 20:30")
+  const [oraSelectata, setOraSelectata] = useState("18:30 - 19:45")
+
+  // Stare pentru tipul de orar (predefinit sau personalizat)
+  const [tipOrar, setTipOrar] = useState<"predefinit" | "personalizat">("predefinit")
+
+  // Stare pentru ora personalizată
+  const [oraPersonalizata, setOraPersonalizata] = useState("")
 
   // Populează formularul cu datele inițiale dacă sunt disponibile
   useEffect(() => {
@@ -54,7 +61,15 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
       if (oraParts.length > 0) {
         const ultimaParte = oraParts[oraParts.length - 1].trim()
         if (ultimaParte.includes(":")) {
-          setOraSelectata(ultimaParte)
+          // Verificăm dacă ora este una dintre cele predefinite
+          const orePredefinite = ["18:30 - 19:45", "19:45 - 21:00", "21:00 - 22:15"]
+          if (orePredefinite.includes(ultimaParte)) {
+            setOraSelectata(ultimaParte)
+            setTipOrar("predefinit")
+          } else {
+            setOraPersonalizata(ultimaParte)
+            setTipOrar("personalizat")
+          }
         }
       }
     }
@@ -115,8 +130,11 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
 
     setIsSubmitting(true)
 
+    // Determinăm ora finală în funcție de tipul de orar
+    const oraFinala = tipOrar === "predefinit" ? oraSelectata : oraPersonalizata
+
     // Actualizăm programul bazat pe zilele selectate și ora
-    const programActualizat = `${formData.zile.join(", ")}, ${oraSelectata}`
+    const programActualizat = `${formData.zile.join(", ")}, ${oraFinala}`
 
     // Trimite datele către componenta părinte
     onSubmit({
@@ -139,7 +157,9 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         stil: "Dans de societate",
         zile: ["Luni", "Miercuri"],
       })
-      setOraSelectata("19:00 - 20:30")
+      setOraSelectata("18:30 - 19:45")
+      setTipOrar("predefinit")
+      setOraPersonalizata("")
     }
 
     setIsSubmitting(false)
@@ -179,9 +199,9 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="Dans de societate">Dans de societate</SelectItem>
-            <SelectItem value="Salsa">Salsa</SelectItem>
-            <SelectItem value="Bachata">Bachata</SelectItem>
-            <SelectItem value="Tango">Tango</SelectItem>
+            <SelectItem value="Dans standard">Dans standard</SelectItem>
+            <SelectItem value="Dans latino">Dans latino</SelectItem>
+            <SelectItem value="Dansuri populare">Dansuri populare</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -219,16 +239,38 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="ora">Ora *</Label>
-          <Select value={oraSelectata} onValueChange={(value) => handleSelectChange("ora", value)}>
-            <SelectTrigger id="ora">
-              <SelectValue placeholder="Selectează ora" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="19:00 - 20:30">19:00 - 20:30</SelectItem>
-              <SelectItem value="20:30 - 22:00">20:30 - 22:00</SelectItem>
-            </SelectContent>
-          </Select>
+          <Label>Interval orar *</Label>
+          <RadioGroup value={tipOrar} onValueChange={(value) => setTipOrar(value as "predefinit" | "personalizat")}>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="predefinit" id="predefinit" />
+              <Label htmlFor="predefinit">Interval predefinit</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="personalizat" id="personalizat" />
+              <Label htmlFor="personalizat">Interval personalizat</Label>
+            </div>
+          </RadioGroup>
+
+          {tipOrar === "predefinit" ? (
+            <Select value={oraSelectata} onValueChange={(value) => handleSelectChange("ora", value)}>
+              <SelectTrigger id="ora">
+                <SelectValue placeholder="Selectează ora" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="18:30 - 19:45">18:30 - 19:45</SelectItem>
+                <SelectItem value="19:45 - 21:00">19:45 - 21:00</SelectItem>
+                <SelectItem value="21:00 - 22:15">21:00 - 22:15</SelectItem>
+              </SelectContent>
+            </Select>
+          ) : (
+            <Input
+              id="oraPersonalizata"
+              placeholder="ex: 17:00 - 18:30"
+              value={oraPersonalizata}
+              onChange={(e) => setOraPersonalizata(e.target.value)}
+              required={tipOrar === "personalizat"}
+            />
+          )}
         </div>
       </div>
 

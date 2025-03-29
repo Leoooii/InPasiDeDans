@@ -11,7 +11,7 @@ import { doc, getDoc, collection, getDocs, query, where, updateDoc } from "fireb
 import { Loader2, ArrowLeft, UserPlus, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { use } from "react"
+
 type Grupa = {
   id: string
   titlu: string
@@ -36,9 +36,7 @@ type UserData = {
   grupe: string[]
 }
 
-// Modificăm funcția pentru a nu folosi React.use()
-export default function GrupaDetailPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params) // Folosim `use()` pentru a extrage `id`
+export default function GrupaDetailPage({ params }: { params: { id: string } }) {
   const [grupa, setGrupa] = useState<Grupa | null>(null)
   const [cursanti, setCursanti] = useState<UserData[]>([])
   const [utilizatoriDisponibili, setUtilizatoriDisponibili] = useState<UserData[]>([])
@@ -47,6 +45,7 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
   const [isLoadingUsers, setIsLoadingUsers] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
+  const grupaId = params.id
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -58,7 +57,9 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
         }
 
         // Încărcăm detaliile grupei
-        await fetchGrupaDetails(params.id)
+        if (grupaId) {
+          await fetchGrupaDetails(grupaId)
+        }
       } else {
         // Dacă nu este autentificat, redirecționăm către pagina de login
         router.push("/autentificare")
@@ -68,7 +69,7 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
     })
 
     return () => unsubscribe()
-  }, [router, params.id])
+  }, [router, grupaId])
 
   const fetchGrupaDetails = async (grupaId: string) => {
     try {
@@ -296,13 +297,13 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
 
   return (
     <div className="container py-12">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Button variant="outline" size="icon" onClick={() => router.push("/admin/grupe")}>
               <ArrowLeft className="h-4 w-4" />
             </Button>
-            <h1 className="text-3xl font-bold">{grupa.titlu}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">{grupa.titlu}</h1>
             <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">{grupa.stil}</Badge>
           </div>
           <p className="text-gray-500 mt-1">
@@ -320,13 +321,13 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
           <CardContent>
             {cursanti.length > 0 ? (
               <div className="space-y-4">
-                <div className="rounded-md border overflow-hidden">
+                <div className="rounded-md border overflow-hidden overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-muted">
                       <tr>
                         <th className="p-3 text-left font-medium">Nume</th>
                         <th className="p-3 text-left font-medium">Email</th>
-                        <th className="p-3 text-left font-medium">Telefon</th>
+                        <th className="p-3 text-left font-medium hidden md:table-cell">Telefon</th>
                         <th className="p-3 text-center font-medium">Acțiuni</th>
                       </tr>
                     </thead>
@@ -337,7 +338,7 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
                             {cursant.nume} {cursant.prenume}
                           </td>
                           <td className="p-3">{cursant.email}</td>
-                          <td className="p-3">{cursant.telefon}</td>
+                          <td className="p-3 hidden md:table-cell">{cursant.telefon}</td>
                           <td className="p-3 text-center">
                             <Button
                               variant="ghost"
@@ -381,12 +382,12 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
                   <p className="mt-4 text-gray-500">Se încarcă utilizatorii...</p>
                 </div>
               ) : filteredUtilizatori.length > 0 ? (
-                <div className="rounded-md border overflow-hidden">
+                <div className="rounded-md border overflow-hidden overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-muted">
                       <tr>
                         <th className="p-3 text-left font-medium">Nume</th>
-                        <th className="p-3 text-left font-medium">Email</th>
+                        <th className="p-3 text-left font-medium hidden md:table-cell">Email</th>
                         <th className="p-3 text-center font-medium">Acțiuni</th>
                       </tr>
                     </thead>
@@ -396,7 +397,7 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
                           <td className="p-3">
                             {user.nume} {user.prenume}
                           </td>
-                          <td className="p-3">{user.email}</td>
+                          <td className="p-3 hidden md:table-cell">{user.email}</td>
                           <td className="p-3 text-center">
                             <Button
                               variant="ghost"
@@ -405,7 +406,7 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
                               className="flex items-center gap-1"
                             >
                               <UserPlus className="h-4 w-4" />
-                              Adaugă
+                              <span className="hidden md:inline">Adaugă</span>
                             </Button>
                           </td>
                         </tr>
