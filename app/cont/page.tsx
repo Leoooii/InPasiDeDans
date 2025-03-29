@@ -22,6 +22,7 @@ type UserData = {
   dataInceputCursuri: any
   grupe: string[]
   abonamente: Abonament[]
+  prezente: Prezenta[]
 }
 
 type Abonament = {
@@ -73,46 +74,23 @@ export default function ContPage() {
     return () => unsubscribe()
   }, [router])
 
+  // Modificăm funcția fetchUserData pentru a afișa prezențele reale
   const fetchUserData = async (userId: string) => {
     try {
       // Obținem datele utilizatorului din Firestore
       const userDoc = await getDoc(doc(db, "users", userId))
 
       if (userDoc.exists()) {
-        setUserData(userDoc.data() as UserData)
+        const userData = userDoc.data() as UserData
+        setUserData(userData)
 
-        // Simulăm date de prezență pentru exemplu  {
-        setUserData(userDoc.data() as UserData)
-
-        // Simulăm date de prezență pentru exemplu
-        const prezenteSimulate: Prezenta[] = [
-          {
-            id: "1",
-            data: { toDate: () => new Date(2023, 5, 15) },
-            grupa: "Dans de societate - Intermediari",
-            profesor: "Alexandru Popescu",
-          },
-          {
-            id: "2",
-            data: { toDate: () => new Date(2023, 5, 17) },
-            grupa: "Dans de societate - Intermediari",
-            profesor: "Alexandru Popescu",
-          },
-          {
-            id: "3",
-            data: { toDate: () => new Date(2023, 5, 22) },
-            grupa: "Dans de societate - Intermediari",
-            profesor: "Alexandru Popescu",
-          },
-          {
-            id: "4",
-            data: { toDate: () => new Date(2023, 5, 24) },
-            grupa: "Dans de societate - Intermediari",
-            profesor: "Alexandru Popescu",
-          },
-        ]
-
-        setPrezente(prezenteSimulate)
+        // Folosim prezențele reale din baza de date
+        if (userData.prezente && userData.prezente.length > 0) {
+          setPrezente(userData.prezente)
+        } else {
+          // Dacă nu există prezențe, afișăm un array gol
+          setPrezente([])
+        }
       }
     } catch (error) {
       console.error("Eroare la încărcarea datelor utilizatorului:", error)

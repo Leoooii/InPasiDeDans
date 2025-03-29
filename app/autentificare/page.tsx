@@ -20,6 +20,7 @@ export default function AutentificarePage() {
   const router = useRouter()
   const { toast } = useToast()
 
+  // Modificăm funcția handleSubmit pentru a afișa mesaje de eroare mai clare
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -43,12 +44,10 @@ export default function AutentificarePage() {
       console.error("Eroare la autentificare:", error)
 
       let errorMessage = "A apărut o eroare la autentificare"
-      if (error.code === "auth/invalid-credential") {
+      if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
         errorMessage = "Email sau parolă incorecte"
       } else if (error.code === "auth/user-not-found") {
         errorMessage = "Nu există niciun utilizator cu acest email"
-      } else if (error.code === "auth/wrong-password") {
-        errorMessage = "Parolă incorectă"
       } else if (error.code === "auth/too-many-requests") {
         errorMessage = "Prea multe încercări eșuate. Încearcă mai târziu"
       }
