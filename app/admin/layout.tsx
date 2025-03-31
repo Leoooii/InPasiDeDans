@@ -8,7 +8,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { auth } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
-import { Loader2, LayoutDashboard, Users, Calendar, Image, BookOpen, Menu } from "lucide-react"
+// Adăugăm importul pentru CreditCard
+import { Loader2, LayoutDashboard, Users, Calendar, Image, BookOpen, Menu, CreditCard } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 
 export default function AdminLayout({
@@ -69,7 +70,8 @@ export default function AdminLayout({
             !isActive("/admin/utilizatori") &&
             !isActive("/admin/grupe") &&
             !isActive("/admin/prezenta") &&
-            !isActive("/admin/galerie")
+            !isActive("/admin/galerie") &&
+            !isActive("/admin/abonamente")
               ? "default"
               : "ghost"
           }
@@ -95,6 +97,12 @@ export default function AdminLayout({
         <Button variant={isActive("/admin/prezenta") ? "default" : "ghost"} className="w-full justify-start">
           <Calendar className="h-4 w-4 mr-2" />
           Prezență zilnică
+        </Button>
+      </Link>
+      <Link href="/admin/abonamente" onClick={onClick}>
+        <Button variant={isActive("/admin/abonamente") ? "default" : "ghost"} className="w-full justify-start">
+          <CreditCard className="h-4 w-4 mr-2" />
+          Abonamente
         </Button>
       </Link>
       <Link href="/admin/galerie" onClick={onClick}>

@@ -11,6 +11,8 @@ import type { Grupa } from "@/app/admin/page"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Badge } from "@/components/ui/badge"
+import { X } from "lucide-react"
 
 interface GrupaFormProps {
   onSubmit: (grupa: Grupa) => void
@@ -35,7 +37,8 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     instructor: "",
     locuriDisponibile: 0,
     locuriTotale: 0,
-    stil: "Dans de societate",
+    stil: "",
+    stiluri: [], // Adăugăm un array pentru stiluri multiple
     zile: ["Luni", "Miercuri"],
   })
 
@@ -54,7 +57,13 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
   // Populează formularul cu datele inițiale dacă sunt disponibile
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData)
+      // Verificăm dacă avem stiluri multiple sau un singur stil
+      const stiluri = initialData.stiluri || (initialData.stil ? [initialData.stil] : [])
+
+      setFormData({
+        ...initialData,
+        stiluri: stiluri,
+      })
 
       // Extragem ora din program dacă există
       const oraParts = initialData.program.split(",")
@@ -105,6 +114,24 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     }
   }
 
+  // Gestionează adăugarea unui stil
+  const handleAddStil = (stil: string) => {
+    if (!formData.stiluri.includes(stil)) {
+      setFormData((prev) => ({
+        ...prev,
+        stiluri: [...prev.stiluri, stil],
+      }))
+    }
+  }
+
+  // Gestionează eliminarea unui stil
+  const handleRemoveStil = (stil: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      stiluri: prev.stiluri.filter((s) => s !== stil),
+    }))
+  }
+
   // Gestionează modificările în câmpurile de tip checkbox pentru zile
   const handleZileChange = (zi: string) => {
     setFormData((prev) => {
@@ -128,6 +155,12 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
       return
     }
 
+    // Verificăm dacă avem cel puțin un stil selectat
+    if (formData.stiluri.length === 0) {
+      alert("Trebuie să selectezi cel puțin un stil de dans pentru grupă")
+      return
+    }
+
     setIsSubmitting(true)
 
     // Determinăm ora finală în funcție de tipul de orar
@@ -140,6 +173,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     onSubmit({
       ...formData,
       program: programActualizat,
+      stil: formData.stiluri[0], // Păstrăm primul stil ca stil principal pentru compatibilitate
       // Păstrează ID-ul dacă există (pentru editare)
       id: initialData?.id,
     })
@@ -154,7 +188,8 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         instructor: "",
         locuriDisponibile: 0,
         locuriTotale: 0,
-        stil: "Dans de societate",
+        stil: "",
+        stiluri: [],
         zile: ["Luni", "Miercuri"],
       })
       setOraSelectata("18:30 - 19:45")
@@ -192,18 +227,35 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="stil">Stil dans *</Label>
-        <Select value={formData.stil} onValueChange={(value) => handleSelectChange("stil", value)}>
-          <SelectTrigger id="stil">
-            <SelectValue placeholder="Selectează stilul de dans" />
+        <Label>Stiluri dans *</Label>
+        <Select onValueChange={(value) => handleAddStil(value)}>
+          <SelectTrigger>
+            <SelectValue placeholder="Adaugă stiluri de dans" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="Dans de societate">Dans de societate</SelectItem>
             <SelectItem value="Dans standard">Dans standard</SelectItem>
             <SelectItem value="Dans latino">Dans latino</SelectItem>
             <SelectItem value="Dansuri populare">Dansuri populare</SelectItem>
+            <SelectItem value="Salsa">Salsa</SelectItem>
+            <SelectItem value="Bachata">Bachata</SelectItem>
+            <SelectItem value="Tango">Tango</SelectItem>
+            <SelectItem value="Vals">Vals</SelectItem>
           </SelectContent>
         </Select>
+
+        {/* Afișăm stilurile selectate */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {formData.stiluri.map((stil) => (
+            <Badge key={stil} className="flex items-center gap-1 px-3 py-1">
+              {stil}
+              <button type="button" onClick={() => handleRemoveStil(stil)} className="ml-1 text-xs hover:text-red-500">
+                <X className="h-3 w-3" />
+              </button>
+            </Badge>
+          ))}
+          {formData.stiluri.length === 0 && <p className="text-sm text-gray-500">Niciun stil selectat</p>}
+        </div>
       </div>
 
       <div className="space-y-2">
@@ -320,7 +372,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
             Anulează
           </Button>
         )}
-        <Button type="submit" disabled={isSubmitting || formData.zile.length === 0}>
+        <Button type="submit" disabled={isSubmitting || formData.zile.length === 0 || formData.stiluri.length === 0}>
           {initialData ? "Actualizează grupa" : "Adaugă grupa"}
         </Button>
       </div>

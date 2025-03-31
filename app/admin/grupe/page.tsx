@@ -13,6 +13,7 @@ import { Loader2, Users, Calendar, Search, UserPlus } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 
+// Actualizăm tipul Grupa pentru a include array-ul de stiluri
 type Grupa = {
   id: string
   titlu: string
@@ -22,9 +23,10 @@ type Grupa = {
   instructor: string
   locuriDisponibile: number
   locuriTotale: number
+  stil: string
+  stiluri: string[] // Adăugăm array-ul de stiluri
   zile: string[]
   ora: string
-  stil: string
 }
 
 type UserData = {
@@ -101,6 +103,7 @@ export default function GrupePage() {
           stil:
             data.stil ||
             ["Dans de societate", "Dans standard", "Dans latino", "Dansuri populare"][Math.floor(Math.random() * 4)],
+          stiluri: data.stiluri || ["Dans de societate", "Dans standard", "Dans latino", "Dansuri populare"],
         } as Grupa
 
         grupeData.push(grupa)

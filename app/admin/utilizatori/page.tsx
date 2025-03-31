@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { collection, getDocs, doc, updateDoc, query, where, Timestamp, getDoc } from "firebase/firestore"
-import { Loader2, Check, Clock, AlertCircle, X } from "lucide-react"
+import { Loader2, Check, Clock, X } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -79,17 +79,6 @@ export default function UtilizatoriPage() {
     dataInceput: new Date().toISOString().split("T")[0],
   })
   const [grupe, setGrupe] = useState<Grupa[]>([])
-  const [abonamente, setAbonamente] = useState<{
-    expirate: Abonament[]
-    critice: Abonament[]
-    active: Abonament[]
-  }>({
-    expirate: [],
-    critice: [],
-    active: [],
-  })
-  const [abonamenteTab, setAbonamenteTab] = useState("active")
-
   const router = useRouter()
   const { toast } = useToast()
 
@@ -125,9 +114,6 @@ export default function UtilizatoriPage() {
       setFilteredUsers(users.filter((user) => user.aprobat))
     } else if (activeTab === "neaprobati") {
       setFilteredUsers(users.filter((user) => !user.aprobat))
-    } else if (activeTab === "abonamente") {
-      // Procesăm abonamentele tuturor utilizatorilor
-      processAllAbonamente(users)
     }
   }, [activeTab, users])
 
@@ -172,51 +158,6 @@ export default function UtilizatoriPage() {
         variant: "destructive",
       })
     }
-  }
-
-  const processAllAbonamente = (users: UserData[]) => {
-    const today = new Date()
-    const allAbonamente: {
-      expirate: Abonament[]
-      critice: Abonament[]
-      active: Abonament[]
-    } = {
-      expirate: [],
-      critice: [],
-      active: [],
-    }
-
-    users.forEach((user) => {
-      if (!user.abonamente) return
-
-      user.abonamente.forEach((abonament) => {
-        // Adăugăm informații despre utilizator la abonament pentru afișare
-        const abonamentWithUser = {
-          ...abonament,
-          userName: `${user.nume} ${user.prenume}`,
-          userEmail: user.email,
-          userId: user.id,
-        }
-
-        const dataExpirare = new Date(abonament.dataExpirare.toDate())
-        const zileRamase = Math.floor((dataExpirare.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-
-        // Verificăm dacă abonamentul este expirat sau nu mai are ședințe
-        if (dataExpirare < today || abonament.sedinteRamase <= 0) {
-          allAbonamente.expirate.push(abonamentWithUser)
-        }
-        // Verificăm dacă abonamentul este aproape de expirare (mai puțin de 7 zile) sau are puține ședințe rămase (mai puțin de 3)
-        else if (zileRamase < 7 || abonament.sedinteRamase < 3) {
-          allAbonamente.critice.push(abonamentWithUser)
-        }
-        // Abonamente active în stare bună
-        else {
-          allAbonamente.active.push(abonamentWithUser)
-        }
-      })
-    })
-
-    setAbonamente(allAbonamente)
   }
 
   const handleApproveUser = async (userId: string) => {
@@ -404,11 +345,10 @@ export default function UtilizatoriPage() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="toti">Toți utilizatorii</TabsTrigger>
           <TabsTrigger value="aprobati">Aprobați</TabsTrigger>
           <TabsTrigger value="neaprobati">Neaprobați</TabsTrigger>
-          <TabsTrigger value="abonamente">Abonamente</TabsTrigger>
         </TabsList>
 
         <TabsContent value="toti">
@@ -857,175 +797,6 @@ export default function UtilizatoriPage() {
                   <p className="text-gray-500">Nu există utilizatori care așteaptă aprobarea</p>
                 </div>
               )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="abonamente">
-          <Card>
-            <CardHeader>
-              <CardTitle>Abonamente</CardTitle>
-              <CardDescription>Gestionează abonamentele utilizatorilor</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="active" value={abonamenteTab} onValueChange={setAbonamenteTab}>
-                <TabsList className="mb-4">
-                  <TabsTrigger value="active">
-                    Active
-                    {abonamente.active.length > 0 && (
-                      <Badge className="ml-2 bg-green-100 text-green-800">{abonamente.active.length}</Badge>
-                    )}
-                  </TabsTrigger>
-                  <TabsTrigger value="critice">
-                    Aproape expirate
-                    {abonamente.critice.length > 0 && (
-                      <Badge className="ml-2 bg-yellow-100 text-yellow-800">{abonamente.critice.length}</Badge>
-                    )}
-                  </TabsTrigger>
-                  <TabsTrigger value="expirate">
-                    Expirate
-                    {abonamente.expirate.length > 0 && (
-                      <Badge className="ml-2 bg-red-100 text-red-800">{abonamente.expirate.length}</Badge>
-                    )}
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="active">
-                  {abonamente.active.length > 0 ? (
-                    <div className="rounded-md border overflow-hidden">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="p-3 text-left font-medium">Utilizator</th>
-                            <th className="p-3 text-left font-medium">Tip abonament</th>
-                            <th className="p-3 text-left font-medium">Ședințe rămase</th>
-                            <th className="p-3 text-left font-medium">Valabilitate</th>
-                            <th className="p-3 text-left font-medium">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {abonamente.active.map((abonament: any) => (
-                            <tr key={abonament.id} className="border-t">
-                              <td className="p-3">{abonament.userName}</td>
-                              <td className="p-3">{abonament.tip}</td>
-                              <td className="p-3">
-                                {abonament.sedinteRamase} / {abonament.numarSedinte}
-                              </td>
-                              <td className="p-3">
-                                {new Date(abonament.dataExpirare.toDate()).toLocaleDateString("ro-RO")}
-                              </td>
-                              <td className="p-3">
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                                  Activ
-                                </span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <p className="text-gray-500">Nu există abonamente active</p>
-                    </div>
-                  )}
-                </TabsContent>
-
-                <TabsContent value="critice">
-                  {abonamente.critice.length > 0 ? (
-                    <div className="rounded-md border overflow-hidden">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="p-3 text-left font-medium">Utilizator</th>
-                            <th className="p-3 text-left font-medium">Tip abonament</th>
-                            <th className="p-3 text-left font-medium">Ședințe rămase</th>
-                            <th className="p-3 text-left font-medium">Valabilitate</th>
-                            <th className="p-3 text-left font-medium">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {abonamente.critice.map((abonament: any) => {
-                            const dataExpirare = new Date(abonament.dataExpirare.toDate())
-                            const today = new Date()
-                            const zileRamase = Math.floor(
-                              (dataExpirare.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
-                            )
-
-                            return (
-                              <tr key={abonament.id} className="border-t">
-                                <td className="p-3">{abonament.userName}</td>
-                                <td className="p-3">{abonament.tip}</td>
-                                <td className="p-3">
-                                  {abonament.sedinteRamase} / {abonament.numarSedinte}
-                                </td>
-                                <td className="p-3">
-                                  {new Date(abonament.dataExpirare.toDate()).toLocaleDateString("ro-RO")}
-                                  {zileRamase > 0 && (
-                                    <span className="text-xs text-yellow-600 ml-2">(mai {zileRamase} zile)</span>
-                                  )}
-                                </td>
-                                <td className="p-3">
-                                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
-                                    <AlertCircle className="h-3 w-3 mr-1" />
-                                    Aproape expirat
-                                  </span>
-                                </td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <p className="text-gray-500">Nu există abonamente aproape expirate</p>
-                    </div>
-                  )}
-                </TabsContent>
-
-                <TabsContent value="expirate">
-                  {abonamente.expirate.length > 0 ? (
-                    <div className="rounded-md border overflow-hidden">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="p-3 text-left font-medium">Utilizator</th>
-                            <th className="p-3 text-left font-medium">Tip abonament</th>
-                            <th className="p-3 text-left font-medium">Ședințe rămase</th>
-                            <th className="p-3 text-left font-medium">Valabilitate</th>
-                            <th className="p-3 text-left font-medium">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {abonamente.expirate.map((abonament: any) => (
-                            <tr key={abonament.id} className="border-t">
-                              <td className="p-3">{abonament.userName}</td>
-                              <td className="p-3">{abonament.tip}</td>
-                              <td className="p-3">
-                                {abonament.sedinteRamase} / {abonament.numarSedinte}
-                              </td>
-                              <td className="p-3">
-                                {new Date(abonament.dataExpirare.toDate()).toLocaleDateString("ro-RO")}
-                              </td>
-                              <td className="p-3">
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
-                                  <X className="h-3 w-3 mr-1" />
-                                  Expirat
-                                </span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <p className="text-gray-500">Nu există abonamente expirate</p>
-                    </div>
-                  )}
-                </TabsContent>
-              </Tabs>
             </CardContent>
           </Card>
         </TabsContent>

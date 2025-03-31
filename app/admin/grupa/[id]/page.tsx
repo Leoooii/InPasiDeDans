@@ -24,6 +24,7 @@ type Grupa = {
   zile: string[]
   ora: string
   stil: string
+  stiluri: string[] // Adăugăm array-ul de stiluri
 }
 
 type UserData = {
@@ -93,6 +94,7 @@ export default function GrupaDetailPage({ params }: { params: { id: string } }) 
         zile: data.zile || (data.program.includes("Luni") ? ["Luni", "Miercuri"] : ["Marți", "Joi"]),
         ora: data.program.split(",").pop()?.trim() || (data.program.includes("19:00") ? "19:00" : "20:30"),
         stil: data.stil || ["Dans de societate", "Salsa", "Bachata", "Tango"][Math.floor(Math.random() * 4)],
+        stiluri: data.stiluri || ["Dans de societate", "Salsa", "Bachata", "Tango"],
       } as Grupa
 
       setGrupa(grupaData)

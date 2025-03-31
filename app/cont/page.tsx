@@ -10,6 +10,8 @@ import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc } from "firebase/firestore"
 import { Loader2, Calendar, CreditCard, Clock, User } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore"
 
 type UserData = {
   nume: string
@@ -40,6 +42,7 @@ type Prezenta = {
   data: any
   grupa: string
   profesor: string
+  status?: string // Adăugat status ca proprietate opțională
 }
 
 export default function ContPage() {
@@ -102,6 +105,44 @@ export default function ContPage() {
     }
   }
 
+  const fetchPrezente = async (userId: string) => {
+    try {
+      const prezenteQuery = query(
+        collection(db, "prezente"),
+        where("userId", "==", userId),
+        orderBy("data", "desc"),
+        limit(10),
+      )
+      const prezenteSnapshot = await getDocs(prezenteQuery)
+
+      if (prezenteSnapshot.empty) {
+        setPrezente([])
+        return
+      }
+
+      // Asigurăm-ne că includem toate proprietățile necesare
+      const prezenteData = prezenteSnapshot.docs.map((doc) => {
+        const data = doc.data()
+        return {
+          id: doc.id,
+          data: data.data,
+          grupa: data.grupa || "Necunoscută",
+          profesor: data.profesor || "Necunoscut",
+          status: data.status || "Prezent", // Valoare implicită
+        } as Prezenta
+      })
+
+      setPrezente(prezenteData)
+    } catch (error) {
+      console.error("Eroare la încărcarea prezențelor:", error)
+      toast({
+        title: "Eroare",
+        description: "Nu s-au putut încărca prezențele",
+        variant: "destructive",
+      })
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="container py-12 flex items-center justify-center min-h-screen">
@@ -150,6 +191,8 @@ export default function ContPage() {
     )
   }
 
+  const abonamente = userData.abonamente || []
+
   return (
     <div className="container py-12">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -184,29 +227,22 @@ export default function ContPage() {
             </CardHeader>
             <CardContent>
               {prezente.length > 0 ? (
-                <div className="rounded-md border overflow-hidden">
-                  <table className="w-full">
-                    <thead className="bg-muted">
-                      <tr>
-                        <th className="p-3 text-left font-medium">Data</th>
-                        <th className="p-3 text-left font-medium">Grupa</th>
-                        <th className="p-3 text-left font-medium">Profesor</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {prezente.map((prezenta) => (
-                        <tr key={prezenta.id} className="border-t">
-                          <td className="p-3">{new Date(prezenta.data.toDate()).toLocaleDateString("ro-RO")}</td>
-                          <td className="p-3">{prezenta.grupa}</td>
-                          <td className="p-3">{prezenta.profesor}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                prezente.map((prezenta) => (
+                  <div key={prezenta.id} className="flex justify-between items-center py-2 border-b">
+                    <div>
+                      <p className="font-medium">{prezenta.grupa}</p>
+                      <p className="text-sm text-gray-500">
+                        {prezenta.data && typeof prezenta.data.toDate === "function"
+                          ? new Date(prezenta.data.toDate()).toLocaleDateString("ro-RO")
+                          : "Data necunoscută"}
+                      </p>
+                    </div>
+                    <Badge variant="outline">{prezenta.status || "Prezent"}</Badge>
+                  </div>
+                ))
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500">Nu ai încă prezențe înregistrate</p>
+                <div className="text-center py-4">
+                  <p className="text-gray-500">Nu există prezențe înregistrate</p>
                 </div>
               )}
             </CardContent>
@@ -223,42 +259,55 @@ export default function ContPage() {
               <CardDescription>Detalii despre abonamentele tale active și expirate</CardDescription>
             </CardHeader>
             <CardContent>
-              {userData.abonamente && userData.abonamente.length > 0 ? (
-                <div className="space-y-4">
-                  {userData.abonamente.map((abonament, index) => (
-                    <div key={index} className="border rounded-lg p-4">
-                      <div className="flex justify-between items-start">
+              {abonamente.length > 0 ? (
+                abonamente.map((abonament) => {
+                  const dataExpirare =
+                    abonament.dataExpirare && typeof abonament.dataExpirare.toDate === "function"
+                      ? new Date(abonament.dataExpirare.toDate())
+                      : new Date()
+                  const acum = new Date()
+                  const zileRamase = Math.ceil((dataExpirare.getTime() - acum.getTime()) / (1000 * 60 * 60 * 24))
+
+                  let statusClass = "bg-green-100 text-green-800"
+                  let statusText = "Activ"
+
+                  if (zileRamase <= 0) {
+                    statusClass = "bg-red-100 text-red-800 font-bold"
+                    statusText = "Expirat"
+                  } else if (zileRamase <= 7) {
+                    statusClass = "bg-yellow-100 text-yellow-800 font-bold"
+                    statusText = "Expiră curând"
+                  }
+
+                  return (
+                    <div key={abonament.id} className="mb-4 p-4 border rounded-lg">
+                      <div className="flex justify-between items-start mb-2">
                         <div>
-                          <h3 className="font-semibold text-lg">{abonament.tip}</h3>
+                          <h4 className="font-medium">{abonament.tip}</h4>
                           <p className="text-sm text-gray-500">
-                            Valabil: {new Date(abonament.dataInceput.toDate()).toLocaleDateString("ro-RO")} -
-                            {new Date(abonament.dataExpirare.toDate()).toLocaleDateString("ro-RO")}
+                            Valabil până la:{" "}
+                            {abonament.dataExpirare && typeof abonament.dataExpirare.toDate === "function"
+                              ? new Date(abonament.dataExpirare.toDate()).toLocaleDateString("ro-RO")
+                              : "Data necunoscută"}
                           </p>
                         </div>
-                        <div className="text-right">
-                          <span className="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                            {new Date() < new Date(abonament.dataExpirare.toDate()) ? "Activ" : "Expirat"}
-                          </span>
+                        <div className={`px-3 py-1 rounded-full text-sm ${statusClass}`}>
+                          {statusText}
+                          {zileRamase > 0 && zileRamase <= 7 && ` (${zileRamase} zile)`}
                         </div>
                       </div>
-                      <div className="mt-4 grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-sm text-gray-500">Ședințe rămase</p>
-                          <p className="font-semibold">
-                            {abonament.sedinteRamase} / {abonament.numarSedinte}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-500">Preț plătit</p>
-                          <p className="font-semibold">{abonament.pretPlatit} lei</p>
-                        </div>
+                      <div className="mt-2">
+                        <p className="text-sm">
+                          <span className="font-medium">Ședințe rămase:</span> {abonament.sedinteRamase} din{" "}
+                          {abonament.numarSedinte}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  )
+                })
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500">Nu ai încă abonamente înregistrate</p>
+                <div className="text-center py-4">
+                  <p className="text-gray-500">Nu există abonamente înregistrate</p>
                 </div>
               )}
             </CardContent>
@@ -330,7 +379,9 @@ export default function ContPage() {
                 <div>
                   <p className="text-sm text-gray-500">Data înregistrării</p>
                   <p className="font-semibold">
-                    {new Date(userData.dataInregistrare.toDate()).toLocaleDateString("ro-RO")}
+                    {userData.dataInregistrare && typeof userData.dataInregistrare.toDate === "function"
+                      ? new Date(userData.dataInregistrare.toDate()).toLocaleDateString("ro-RO")
+                      : "Data necunoscută"}
                   </p>
                 </div>
 
