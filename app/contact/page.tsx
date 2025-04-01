@@ -206,7 +206,7 @@ export default function Contact() {
           <h2 className="text-2xl font-bold mb-6">Locația noastră</h2>
           <div className="aspect-video w-full rounded-lg overflow-hidden border">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d91158.11409353752!2d26.0311541!3d44.439663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1f93abf3cad4f%3A0xac0632e37c9ca628!2sBucure%C8%99ti!5e0!3m2!1sro!2sro!4v1648218144749!5m2!1sro!2sro"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.86803561851!2d26.0774895!3d44.415353599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff9e4072cc6f%3A0x901ceb768f754f2a!2sIn%20Pa%C8%99i%20de%20Dans!5e0!3m2!1sen!2sro!4v1743511190472!5m2!1sen!2sro"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -214,13 +214,14 @@ export default function Contact() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+            
           </div>
         </div>
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold">Vino să ne cunoști</h2>
-            <p>
+            <h2 className="text-2xl font-bold dark:text-black">Vino să ne cunoști</h2>
+            <p className="dark:text-black">
               Te invităm să ne vizitezi pentru a cunoaște instructorii, a vedea sălile de dans și a afla mai multe
               despre cursurile noastre. Prima lecție este gratuită!
             </p>

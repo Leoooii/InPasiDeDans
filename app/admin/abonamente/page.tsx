@@ -11,7 +11,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { collection, getDocs, query, where } from "firebase/firestore"
 import { Loader2, AlertCircle, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-
+import { useSimpleToast } from "@/components/simple-toast-provider"
 type Abonament = {
   id: string
   tip: string
@@ -46,8 +46,7 @@ export default function AbonamentePage() {
   })
   const [activeTab, setActiveTab] = useState("active")
   const router = useRouter()
-  const { toast } = useToast()
-
+  const { showToast } = useSimpleToast()
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
@@ -84,11 +83,9 @@ export default function AbonamentePage() {
       processAllAbonamente(usersData)
     } catch (error) {
       console.error("Eroare la încărcarea abonamentelor:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca abonamentele",
-        variant: "destructive",
-      })
+      showToast("Nu s-au putut încărca abonamentele",
+       "info",
+      )
     }
   }
 

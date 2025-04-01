@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { auth, db } from "@/lib/firebase"
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, orderBy } from "firebase/firestore"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-
+import { useSimpleToast } from "@/components/simple-toast-provider"
 // Tipul pentru o grupă în formare
 export type Grupa = {
   id?: string
@@ -34,7 +34,7 @@ export default function AdminPage() {
   const [editingGrupa, setEditingGrupa] = useState<Grupa | null>(null)
   const [activeTab, setActiveTab] = useState("adauga")
   const router = useRouter()
-  const { toast } = useToast()
+  const { showToast } = useSimpleToast()
 
   // Verifică dacă utilizatorul este autentificat
   useEffect(() => {
@@ -77,11 +77,9 @@ export default function AdminPage() {
       setGrupe(grupeData)
     } catch (error) {
       console.error("Eroare la încărcarea grupelor:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca grupele",
-        variant: "destructive",
-      })
+      showToast(
+       "Nu s-au putut încărca grupele","error",
+      )
     }
   }
 
@@ -93,18 +91,15 @@ export default function AdminPage() {
 
       await addDoc(collection(db, "grupe"), grupaData)
 
-      toast({
-        title: "Succes",
-        description: "Grupa a fost adăugată cu succes",
-      })
+      showToast(
+        "Grupa a fost adăugată cu succes","success",
+      )
       fetchGrupe() // Reîncarcă lista de grupe
     } catch (error) {
       console.error("Eroare la adăugarea grupei:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut adăuga grupa",
-        variant: "destructive",
-      })
+      showToast( "Nu s-a putut adăuga grupa",
+        "error",
+      )
     }
   }
 
@@ -118,19 +113,14 @@ export default function AdminPage() {
 
       await updateDoc(grupaRef, grupaData)
 
-      toast({
-        title: "Succes",
-        description: "Grupa a fost actualizată cu succes",
-      })
+      showToast("Succes","success"
+      )
       setEditingGrupa(null)
       fetchGrupe() // Reîncarcă lista de grupe
     } catch (error) {
       console.error("Eroare la actualizarea grupei:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut actualiza grupa",
-        variant: "destructive",
-      })
+      showToast( "Nu s-a putut actualiza grupa",
+         "error",)
     }
   }
 
@@ -139,18 +129,14 @@ export default function AdminPage() {
     try {
       await deleteDoc(doc(db, "grupe", id))
 
-      toast({
-        title: "Succes",
-        description: "Grupa a fost ștearsă cu succes",
-      })
+      showToast(
+        "Grupa a fost ștearsă cu succes","success"
+      )
       fetchGrupe() // Reîncarcă lista de grupe
     } catch (error) {
       console.error("Eroare la ștergerea grupei:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut șterge grupa",
-        variant: "destructive",
-      })
+      showToast("Nu s-a putut șterge grupa","error"
+       )
     }
   }
 
@@ -170,6 +156,8 @@ export default function AdminPage() {
     try {
       await signOut(auth)
       router.push("/admin/login")
+      showToast("Deconectare reușită","success"
+      )
     } catch (error) {
       console.error("Eroare la deconectare:", error)
     }

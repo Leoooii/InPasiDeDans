@@ -11,12 +11,13 @@ import { useRouter } from "next/navigation"
 import { Calendar, Clock, Users } from "lucide-react"
 import type { Grupa } from "@/app/admin/page"
 import { useToast } from "@/components/ui/use-toast"
+import { useSimpleToast } from "@/components/simple-toast-provider"
 
 export default function GrupeInFormarePage() {
   const [grupe, setGrupe] = useState<Grupa[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const {toast} = useToast()
+  const { showToast } = useSimpleToast()
   useEffect(() => {
     const fetchGrupe = async () => {
       try {
@@ -183,11 +184,7 @@ export default function GrupeInFormarePage() {
           ))}
         </div>
       )}
-      <Button onClick={()=>{toast({
-        title: "Mesaj trimis cu succes!",
-        description: "Îți mulțumim pentru mesaj. Te vom contacta în curând.",
-        duration: 5000,
-      })}}>buton test</Button>
+      {/* <Button onClick={()=>{showToast("Nu s-au putut încărca grupele în formare", "error")}}>buton test</Button> */}
     </div>
   )
 }

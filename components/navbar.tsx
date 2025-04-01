@@ -22,6 +22,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { auth } from "@/lib/firebase"
 import { onAuthStateChanged, signOut } from "firebase/auth"
 import { useRouter } from "next/navigation"
+import { useSimpleToast } from "./simple-toast-provider"
 
 // Adaugă importul pentru ThemeToggle
 import ThemeToggle from "@/components/theme-toggle"
@@ -31,6 +32,7 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const router = useRouter()
+   const { showToast } = useSimpleToast()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -46,6 +48,7 @@ export default function Navbar() {
     try {
       await signOut(auth)
       router.push("/")
+      showToast("Deconectare reușită", "success")
     } catch (error) {
       console.error("Eroare la deconectare:", error)
     }

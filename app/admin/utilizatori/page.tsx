@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useToast } from "@/components/ui/use-toast"
+import { useSimpleToast } from "@/components/simple-toast-provider"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { collection, getDocs, doc, updateDoc, query, where, Timestamp, getDoc } from "firebase/firestore"
@@ -80,7 +80,7 @@ export default function UtilizatoriPage() {
   })
   const [grupe, setGrupe] = useState<Grupa[]>([])
   const router = useRouter()
-  const { toast } = useToast()
+  const { showToast } = useSimpleToast()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -131,11 +131,8 @@ export default function UtilizatoriPage() {
       setFilteredUsers(usersData)
     } catch (error) {
       console.error("Eroare la încărcarea utilizatorilor:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca utilizatorii",
-        variant: "destructive",
-      })
+      showToast( "Nu s-au putut încărca utilizatorii","error"
+       )
     }
   }
 
@@ -152,11 +149,8 @@ export default function UtilizatoriPage() {
       setGrupe(grupeData)
     } catch (error) {
       console.error("Eroare la încărcarea grupelor:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca grupele",
-        variant: "destructive",
-      })
+      showToast("Nu s-au putut încărca grupele",
+       "error",)
     }
   }
 
@@ -167,10 +161,8 @@ export default function UtilizatoriPage() {
         dataInceputCursuri: Timestamp.now(),
       })
 
-      toast({
-        title: "Succes",
-        description: "Utilizatorul a fost aprobat",
-      })
+      showToast("Utilizatorul a fost aprobat","success"
+      )
 
       // Actualizăm lista de utilizatori
       setUsers(
@@ -180,11 +172,8 @@ export default function UtilizatoriPage() {
       )
     } catch (error) {
       console.error("Eroare la aprobarea utilizatorului:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut aproba utilizatorul",
-        variant: "destructive",
-      })
+      showToast("Nu s-a putut aproba utilizatorul","error"
+       )
     }
   }
 
@@ -215,10 +204,8 @@ export default function UtilizatoriPage() {
         abonamente: [...abonamente, abonament],
       })
 
-      toast({
-        title: "Succes",
-        description: "Abonamentul a fost adăugat",
-      })
+      showToast( "Abonamentul a fost adăugat","success"
+      )
 
       // Actualizăm lista de utilizatori
       setUsers(
@@ -237,11 +224,8 @@ export default function UtilizatoriPage() {
       setIsAddAbonamentOpen(false)
     } catch (error) {
       console.error("Eroare la adăugarea abonamentului:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut adăuga abonamentul",
-        variant: "destructive",
-      })
+      showToast("Nu s-a putut adăuga abonamentul","error"
+       )
     }
   }
 
@@ -252,11 +236,8 @@ export default function UtilizatoriPage() {
       const userDoc = await getDoc(userRef)
 
       if (!userDoc.exists()) {
-        toast({
-          title: "Eroare",
-          description: "Utilizatorul nu a fost găsit",
-          variant: "destructive",
-        })
+        showToast("Utilizatorul nu a fost găsit","info"
+         )
         return
       }
 
@@ -268,20 +249,15 @@ export default function UtilizatoriPage() {
         grupe: [...grupe, value],
       })
 
-      toast({
-        title: "Succes",
-        description: "Utilizatorul a fost adăugat în grupă",
-      })
+      showToast( "Utilizatorul a fost adăugat în grupă","success"
+      )
 
       // Reîncărcăm datele utilizatorului
       await fetchUsers()
     } catch (error) {
       console.error("Eroare la adăugarea în grupă:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut adăuga utilizatorul în grupă",
-        variant: "destructive",
-      })
+      showToast("Nu s-a putut adăuga utilizatorul în grupă","error"
+       )
     }
   }
 
@@ -291,11 +267,8 @@ export default function UtilizatoriPage() {
       const userDoc = await getDoc(userRef)
 
       if (!userDoc.exists()) {
-        toast({
-          title: "Eroare",
-          description: "Utilizatorul nu a fost găsit",
-          variant: "destructive",
-        })
+        showToast("Utilizatorul nu a fost găsit","info"
+        )
         return
       }
 
@@ -307,20 +280,15 @@ export default function UtilizatoriPage() {
         grupe: grupe.filter((g: string) => g !== grupaTitlu),
       })
 
-      toast({
-        title: "Succes",
-        description: "Utilizatorul a fost eliminat din grupă",
-      })
+      showToast("Utilizatorul a fost eliminat din grupă","success"      )
 
       // Reîncărcăm datele utilizatorului
       await fetchUsers()
     } catch (error) {
       console.error("Eroare la eliminarea din grupă:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut elimina utilizatorul din grupă",
-        variant: "destructive",
-      })
+      showToast("Nu s-a putut elimina utilizatorul din grupă","error"
+        
+      )
     }
   }
 

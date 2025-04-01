@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useToast } from "@/components/ui/use-toast"
+import { useSimpleToast } from "@/components/simple-toast-provider"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { collection, getDocs, query, where, doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore"
@@ -50,7 +50,7 @@ export default function PrezentaPage() {
   const [isLoadingCursanti, setIsLoadingCursanti] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const router = useRouter()
-  const { toast } = useToast()
+  const { showToast } = useSimpleToast()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -121,11 +121,8 @@ export default function PrezentaPage() {
       setGrupeAzi(grupeAziData)
     } catch (error) {
       console.error("Eroare la încărcarea grupelor:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca grupele",
-        variant: "destructive",
-      })
+      showToast("Nu s-au putut încărca grupele", "error")
+      
     }
   }
 
@@ -154,11 +151,9 @@ export default function PrezentaPage() {
       setCursanti(cursantiData)
     } catch (error) {
       console.error("Eroare la încărcarea cursanților:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca cursanții",
-        variant: "destructive",
-      })
+      showToast(
+         "Nu s-au putut încărca cursanții","error"
+       )
     } finally {
       setIsLoadingCursanti(false)
     }
@@ -248,10 +243,8 @@ export default function PrezentaPage() {
         }
       }
 
-      toast({
-        title: "Succes",
-        description: `Prezența a fost salvată pentru ${selectedCursanti.length} cursanți`,
-      })
+      showToast(`Prezența a fost salvată pentru ${selectedCursanti.length} cursanți`,"success"
+      )
 
       // Reîncărcăm cursanții pentru a actualiza datele
       await fetchCursantiGrupa(selectedGrupa)
@@ -260,11 +253,8 @@ export default function PrezentaPage() {
       setSelectedCursanti([])
     } catch (error) {
       console.error("Eroare la salvarea prezenței:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-a putut salva prezența",
-        variant: "destructive",
-      })
+      showToast("Nu s-a putut salva prezența","error"
+       )
     } finally {
       setIsSaving(false)
     }

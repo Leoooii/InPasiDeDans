@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useToast } from "@/components/ui/use-toast"
+import { useSimpleToast } from "@/components/simple-toast-provider"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc } from "firebase/firestore"
@@ -53,7 +53,7 @@ export default function ContPage() {
   const [selectedGrupa, setSelectedGrupa] = useState<string>("toate")
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { toast } = useToast()
+   const { showToast } = useSimpleToast()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -115,11 +115,7 @@ export default function ContPage() {
       }
     } catch (error) {
       console.error("Eroare la încărcarea datelor utilizatorului:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca datele contului",
-        variant: "destructive",
-      })
+      showToast( "Nu s-au putut încărca datele contului","error")
     }
   }
 
@@ -155,11 +151,8 @@ export default function ContPage() {
       setFilteredPrezente(prezenteData)
     } catch (error) {
       console.error("Eroare la încărcarea prezențelor:", error)
-      toast({
-        title: "Eroare",
-        description: "Nu s-au putut încărca prezențele",
-        variant: "destructive",
-      })
+      showToast("Nu s-au putut încărca prezențele",
+        "error",)
     }
   }
 

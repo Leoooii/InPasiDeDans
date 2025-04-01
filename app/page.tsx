@@ -3,18 +3,38 @@ import Link from "next/link"
 import { Heart, Users, Calendar, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import ImageSkeleton from "@/components/image-skeleton"
 import FacebookPagePreview from "@/components/facebook-preview"
 import Image from "next/image"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Fixed Button */}
+      <Link href="/grupe-in-formare" className="fixed bottom-8 right-8 z-50 group">
+        <div className="relative">
+          <Button size="lg" className="bg-red-600 text-white hover:bg-red-700 shadow-lg animate-bounce">
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-3 w-3 mr-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+              </span>
+              Verifică grupele în formare!
+            </span>
+          </Button>
+        </div>
+      </Link>
+
       {/* Hero Section */}
-      <section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-600/90 to-orange-500/90 z-10" />
-        <div className="relative h-[70vh] overflow-hidden">
-          <ImageSkeleton width={1920} height={1080} className="w-full h-full" />
+      <section className="relative h-[80vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/noi.png"
+            height={1000}
+            width={1000}
+            alt="Școala de dans"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="container text-center text-white">
@@ -24,10 +44,11 @@ export default function Home() {
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Învățăm și pe cei mici, și pe cei mari să danseze din 2009, într-o atmosferă plăcută și relaxantă.
             </p>
-           <Link href={"/inscriere"}>
-           <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg">
-              Înscrie-te acum
-            </Button></Link>
+            <Link href={"/inscriere"}>
+              <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg">
+                Înscrie-te acum
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -52,41 +73,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 container">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Despre Școala Noastră de Dans</h2>
-            <p className="text-lg mb-4 text-gray-700 dark:text-white">
-              Instructorii sunt răbdători, cu experiență în predarea dansului și dornici să împărtășească cu voi
-              pasiunea pentru dans.
-            </p>
-            <p className="text-lg mb-6 text-gray-700 dark:text-white">
-              Sălile sunt spațioase, moderne, dotate cu vestiare, aer condiționat, parchet și oglinzi.
-            </p>
-           <Link href='/despre-noi'>
-           <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-              Află mai multe despre noi
-            </Button></Link>
-          </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl item-center">
-            {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
-            <Image src={"/images/noi.png"} height={1000} width={1000} alt="dance-party" className="w-full h-full" style={{objectFit: "contain"}}/>
-          </div>
-        </div>
-      </section>
-
       {/* Dance Categories */}
       <section className="py-16 bg-gray-50">
         <div className="container">
           <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Cursurile Noastre de Dans</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <DanceCard title="Grupe în formare" href="/grupe-in-formare" src="/images/grupeinformare.png"/>
-            <DanceCard title="Cursuri de dans pentru nuntă" href="/cursuri-dans-nunta" src="/images/cursuridansnunta.png"/>
-            <DanceCard title="Dansuri predate" href="/dansuri-predate" src="/images/dansuripredate.png"/>
-            <DanceCard title="Program" href="/program" src="/images/program.png"/>
-            <DanceCard title="Galerie" href="/galerie" src="/images/galerie.png"/>
-            <DanceCard title="Tarife" href="/tarife" src="/images/tarife.png"/>
+            <DanceCard title="Grupe în formare" href="/grupe-in-formare" src="/images/grupeinformare.png" />
+            <DanceCard
+              title="Cursuri de dans pentru nuntă"
+              href="/cursuri-dans-nunta"
+              src="/images/cursuridansnunta.png"
+            />
+            <DanceCard title="Dansuri predate" href="/dansuri-predate" src="/images/dansuripredate.png" />
+            <DanceCard title="Program" href="/program" src="/images/program.png" />
+            <DanceCard title="Galerie" href="/galerie" src="/images/galerie.png" />
+            <DanceCard title="Tarife" href="/tarife" src="/images/tarife.png" />
           </div>
         </div>
       </section>
@@ -110,11 +111,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Facebook Page Preview */}
-      <section className="py-16 container">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Urmărește-ne pe Facebook</h2>
-        <div className="flex justify-center">
-          <FacebookPagePreview />
+      {/* Social Media Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 ">
+            Urmărește-ne pe Social Media
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Facebook */}
+            <div className="flex flex-col items-center">
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Facebook</h3>
+              <div className="w-full overflow-hidden rounded-lg shadow-lg">
+                <FacebookPagePreview />
+              </div>
+            </div>
+
+            {/* Instagram */}
+            <div className="flex flex-col items-center">
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Instagram</h3>
+              <div className="w-full h-[600px] overflow-hidden rounded-lg shadow-lg">
+                <iframe
+                  src="https://www.instagram.com/inpasidedans/embed"
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  scrolling="no"
+                  frameBorder="0"
+                ></iframe>
+              </div>
+            </div>
+
+           
+          </div>
         </div>
       </section>
 
@@ -125,13 +153,15 @@ export default function Home() {
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Alătură-te celor peste 9000 de cursanți care au descoperit bucuria dansului la școala noastră.
           </p>
-          <Button
-            size="lg"
-            variant="outline"
-            className="bg-white text-red-600 hover:bg-gray-100 border-white hover:border-gray-100 text-lg"
-          >
-            Înscrie-te la un curs
-          </Button>
+          <Link href="/inscriere">
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-white text-red-600 hover:bg-gray-100 border-white hover:border-gray-100 text-lg"
+            >
+              Înscrie-te la un curs
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
@@ -148,13 +178,13 @@ function StatCard({ icon, value, description }: { icon: React.ReactNode; value: 
   )
 }
 
-function DanceCard({ title, href,src }: { title: string; href: string; src: string }) {
+function DanceCard({ title, href, src }: { title: string; href: string; src: string }) {
   return (
     <Link href={href} className="group">
       <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
         <div className="relative h-64 overflow-hidden">
           {/* <ImageSkeleton width={400} height={300} className="w-full h-full" /> */}
-          <Image src={src} alt="dancepicture" width={1000} height={1000}/>
+          <Image src={src || "/placeholder.svg"} alt="dancepicture" width={1000} height={1000} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 flex items-center justify-between">
             <h3 className="text-xl font-bold text-white">{title}</h3>

@@ -73,7 +73,7 @@ Are o experienta in dansul sportiv de performanta de peste 13 ani. A concurat la
 
             <InstructorCard
               name="Daniela Cristea"
-              role="Instructor Dans Contemporan & Balet"
+              role="Instructor Dans "
               src="/images/Daniela.png"
               bio="Daniela Cristea colaboreaza cu In Pasi de Dans din 2023, unde preda dansuri latino si de societate pentru grupele de adulti si lectii private pentru miri.
 
@@ -89,7 +89,7 @@ Are o experienta in dansul sportiv de 9 ani, ca dansator si de peste 4 ani, ca i
 
             <InstructorCard
               name="Luiza Bulmaga"
-              role="Instructor Dans pentru Copii"
+              role="Instructor Dans"
               src="/images/Luiza.png"
               bio="Luiza Bulmaga este instructor la In Pasi de Dans din 2023, unde preda, in mod special, lectii private pentru miri.
 

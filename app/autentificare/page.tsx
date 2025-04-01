@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast"
+import { useSimpleToast } from "@/components/simple-toast-provider"
 import { auth } from "@/lib/firebase"
 import { signInWithEmailAndPassword } from "firebase/auth"
 
@@ -18,7 +18,7 @@ export default function AutentificarePage() {
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { toast } = useToast()
+  const { showToast } = useSimpleToast()
 
   // Modificăm funcția handleSubmit pentru a afișa mesaje de eroare mai clare
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,10 +29,10 @@ export default function AutentificarePage() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       const user = userCredential.user
 
-      toast({
-        title: "Autentificare reușită",
-        description: "Bine ai revenit!",
-      })
+      showToast(
+      "Autentificare reușită","success"
+        
+      )
 
       // Redirecționează în funcție de email
       if (email === "admin@gmail.com") {
@@ -52,11 +52,8 @@ export default function AutentificarePage() {
         errorMessage = "Prea multe încercări eșuate. Încearcă mai târziu"
       }
 
-      toast({
-        title: "Eroare de autentificare",
-        description: errorMessage,
-        variant: "destructive",
-      })
+      showToast(errorMessage,"error"
+      )
     } finally {
       setIsLoading(false)
     }

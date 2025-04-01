@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast"
+import { useSimpleToast } from "@/components/simple-toast-provider"
 import { auth, db } from "@/lib/firebase"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { doc, setDoc, Timestamp } from "firebase/firestore"
@@ -23,17 +23,14 @@ export default function InregistrarePage() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { toast } = useToast()
+   const { showToast } = useSimpleToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      toast({
-        title: "Eroare",
-        description: "Parolele nu coincid",
-        variant: "destructive",
-      })
+      showToast("Parolele nu coincid","info"
+       )
       return
     }
 
@@ -63,10 +60,9 @@ export default function InregistrarePage() {
         abonamente: [],
       })
 
-      toast({
-        title: "Înregistrare reușită",
-        description: "Contul tău a fost creat. Așteptăm aprobarea administratorului.",
-      })
+      showToast(
+        "Înregistrare reușită. Contul tău a fost creat. Așteptăm aprobarea administratorului.","success"
+      )
 
       // Redirecționăm către pagina de cont
       router.push("/cont")
@@ -82,11 +78,8 @@ export default function InregistrarePage() {
         errorMessage = "Adresa de email nu este validă"
       }
 
-      toast({
-        title: "Eroare la înregistrare",
-        description: errorMessage,
-        variant: "destructive",
-      })
+      showToast(errorMessage,"error"
+      )
     } finally {
       setIsLoading(false)
     }
