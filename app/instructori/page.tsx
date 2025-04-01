@@ -53,7 +53,7 @@ Principalele sale responsabilitati la In Pasi de Dans sunt prederea dansurilor l
             <InstructorCard
               name="Catalina Gurau"
               role="Instructor de Dansuri Populare"
-              src="/images/Catalina.png"
+              src="/images/Catalina.jpg"
               bio="Catalina Gurau colaborează cu In Pasi de Dans din 2018 in calitate de instructor-coregraf pentru grupele de dansuri populare adulti, lectii private pentru viitori miri, precum si workshop-uri.
 
 Catalina este un izvor de energie si bucurie atat fizic cat si emosional. Este o persoana plina de voie buna si îti aduce aminte mereu de importanta zambetului. Pasiunea pentru dans a descoperit-o la In Pasi de Dans, iar de atunci, dansul a devenit un stil de viata pentru ea.
