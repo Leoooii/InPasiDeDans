@@ -22,9 +22,9 @@ export type Grupa = {
   instructor: string
   locuriDisponibile: number
   locuriTotale: number
-  stil: string
-  stiluri: string[] // Adăugăm array-ul de stiluri
+  stiluri: string[] // Păstrăm doar array-ul de stiluri
   zile: string[]
+  publica?: boolean // Proprietate opțională pentru compatibilitate
 }
 
 export default function AdminPage() {
@@ -60,7 +60,18 @@ export default function AdminPage() {
 
       const grupeData: Grupa[] = []
       querySnapshot.forEach((doc) => {
-        grupeData.push({ id: doc.id, ...doc.data() } as Grupa)
+        const data = doc.data()
+
+        // Asigurăm compatibilitatea cu datele existente
+        // Dacă există stil dar nu stiluri, creăm array-ul stiluri din stil
+        const stiluri = data.stiluri || (data.stil ? [data.stil] : [])
+
+        grupeData.push({
+          id: doc.id,
+          ...data,
+          stiluri: stiluri,
+          publica: data.publica !== undefined ? data.publica : true,
+        } as Grupa)
       })
 
       setGrupe(grupeData)

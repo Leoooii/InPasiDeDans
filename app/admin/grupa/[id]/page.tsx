@@ -23,8 +23,7 @@ type Grupa = {
   locuriTotale: number
   zile: string[]
   ora: string
-  stil: string
-  stiluri: string[] // Adăugăm array-ul de stiluri
+  stiluri: string[] // Doar array-ul de stiluri
 }
 
 type UserData = {
@@ -88,13 +87,16 @@ export default function GrupaDetailPage({ params }: { params: { id: string } }) 
       }
 
       const data = grupaDoc.data()
+
+      // Asigurăm compatibilitatea cu datele existente
+      const stiluri = data.stiluri || (data.stil ? [data.stil] : [])
+
       const grupaData = {
         id: grupaDoc.id,
         ...data,
         zile: data.zile || (data.program.includes("Luni") ? ["Luni", "Miercuri"] : ["Marți", "Joi"]),
         ora: data.program.split(",").pop()?.trim() || (data.program.includes("19:00") ? "19:00" : "20:30"),
-        stil: data.stil || ["Dans de societate", "Salsa", "Bachata", "Tango"][Math.floor(Math.random() * 4)],
-        stiluri: data.stiluri || ["Dans de societate", "Salsa", "Bachata", "Tango"],
+        stiluri: stiluri,
       } as Grupa
 
       setGrupa(grupaData)
@@ -306,7 +308,14 @@ export default function GrupaDetailPage({ params }: { params: { id: string } }) 
               <ArrowLeft className="h-4 w-4" />
             </Button>
             <h1 className="text-2xl md:text-3xl font-bold">{grupa.titlu}</h1>
-            <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">{grupa.stil}</Badge>
+          </div>
+          <div className="flex flex-wrap gap-1 mt-2">
+            {grupa.stiluri &&
+              grupa.stiluri.map((stil, index) => (
+                <Badge key={index} className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
+                  {stil}
+                </Badge>
+              ))}
           </div>
           <p className="text-gray-500 mt-1">
             {grupa.zile.join(", ")}, {grupa.ora} • Instructor: {grupa.instructor}

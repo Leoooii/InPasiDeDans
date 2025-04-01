@@ -20,9 +20,9 @@ type Grupa = {
   instructor: string
   locuriDisponibile: number
   locuriTotale: number
+  stiluri: string[] // Păstrăm doar array-ul de stiluri
   zile: string[]
   ora: string
-  stil: string
 }
 
 type UserData = {
@@ -92,7 +92,8 @@ export default function PrezentaPage() {
           ora:
             data.program.split(",").pop()?.trim() ||
             (data.program.includes("19:00") ? "19:00 - 20:30" : "20:30 - 22:00"),
-          stil: data.stil || ["Dans de societate", "Salsa", "Bachata", "Tango"][Math.floor(Math.random() * 4)],
+          // Asigurăm-ne că avem mereu un array de stiluri
+          stiluri: data.stiluri || (data.stil ? [data.stil] : ["Dans de societate"]),
         } as Grupa
 
         grupeData.push(grupa)
@@ -324,9 +325,13 @@ export default function PrezentaPage() {
                     >
                       <div className="flex justify-between items-start">
                         <h3 className="font-medium">{grupa.titlu}</h3>
-                        <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
-                          {grupa.stil}
-                        </Badge>
+                        <div className="flex flex-wrap gap-1 justify-end">
+                          {grupa.stiluri.map((stil, index) => (
+                            <Badge key={index} className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
+                              {stil}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                       <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
                         <Clock className="h-4 w-4" />

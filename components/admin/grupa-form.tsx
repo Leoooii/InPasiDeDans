@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from "@/components/ui/badge"
 import { X } from "lucide-react"
+import { Switch } from "@/components/ui/switch"
 
 interface GrupaFormProps {
   onSubmit: (grupa: Grupa) => void
@@ -37,8 +38,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     instructor: "",
     locuriDisponibile: 0,
     locuriTotale: 0,
-    stil: "",
-    stiluri: [], // Adăugăm un array pentru stiluri multiple
+    stiluri: [], // Doar array-ul de stiluri
     zile: ["Luni", "Miercuri"],
   })
 
@@ -54,16 +54,22 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
   // Stare pentru ora personalizată
   const [oraPersonalizata, setOraPersonalizata] = useState("")
 
+  // Stare pentru vizibilitatea grupei (publică sau privată)
+  const [isPublic, setIsPublic] = useState(true)
+
   // Populează formularul cu datele inițiale dacă sunt disponibile
   useEffect(() => {
     if (initialData) {
       // Verificăm dacă avem stiluri multiple sau un singur stil
-      const stiluri = initialData.stiluri || (initialData.stil ? [initialData.stil] : [])
+      const stiluri = initialData.stiluri || []
 
       setFormData({
         ...initialData,
         stiluri: stiluri,
       })
+
+      // Setăm vizibilitatea grupei
+      setIsPublic(initialData.publica !== undefined ? initialData.publica : true)
 
       // Extragem ora din program dacă există
       const oraParts = initialData.program.split(",")
@@ -173,7 +179,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     onSubmit({
       ...formData,
       program: programActualizat,
-      stil: formData.stiluri[0], // Păstrăm primul stil ca stil principal pentru compatibilitate
+      publica: isPublic, // Adăugăm proprietatea publica
       // Păstrează ID-ul dacă există (pentru editare)
       id: initialData?.id,
     })
@@ -188,13 +194,13 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         instructor: "",
         locuriDisponibile: 0,
         locuriTotale: 0,
-        stil: "",
         stiluri: [],
         zile: ["Luni", "Miercuri"],
       })
       setOraSelectata("18:30 - 19:45")
       setTipOrar("predefinit")
       setOraPersonalizata("")
+      setIsPublic(true)
     }
 
     setIsSubmitting(false)
@@ -364,6 +370,14 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
             required
           />
         </div>
+      </div>
+
+      {/* Adăugăm opțiunea pentru vizibilitatea grupei */}
+      <div className="flex items-center space-x-2 pt-4">
+        <Switch id="publica" checked={isPublic} onCheckedChange={setIsPublic} />
+        <Label htmlFor="publica" className="cursor-pointer">
+          Grupă publică (vizibilă pe pagina de grupe în formare)
+        </Label>
       </div>
 
       <div className="flex justify-end space-x-2 pt-4">

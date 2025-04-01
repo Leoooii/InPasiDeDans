@@ -13,7 +13,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Edit, Trash2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Edit, Trash2, Eye, EyeOff } from "lucide-react"
 import type { Grupa } from "@/app/admin/page"
 
 interface GrupeListProps {
@@ -74,7 +75,9 @@ export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
               <TableHead>Titlu</TableHead>
               <TableHead>Data start</TableHead>
               <TableHead>Instructor</TableHead>
+              <TableHead>Stiluri</TableHead>
               <TableHead>Locuri</TableHead>
+              <TableHead>Vizibilitate</TableHead>
               <TableHead className="text-right">Acțiuni</TableHead>
             </TableRow>
           </TableHeader>
@@ -85,7 +88,31 @@ export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
                 <TableCell>{formatDate(grupa.dataStart)}</TableCell>
                 <TableCell>{grupa.instructor}</TableCell>
                 <TableCell>
+                  <div className="flex flex-wrap gap-1">
+                    {grupa.stiluri && grupa.stiluri.length > 0 ? (
+                      grupa.stiluri.map((stil, index) => (
+                        <Badge key={index} variant="outline" className="bg-primary/10 text-primary">
+                          {stil}
+                        </Badge>
+                      ))
+                    ) : (
+                      <span className="text-gray-500">-</span>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell>
                   {grupa.locuriDisponibile} / {grupa.locuriTotale}
+                </TableCell>
+                <TableCell>
+                  {grupa.publica !== false ? (
+                    <Badge variant="outline" className="bg-green-100 text-green-700 flex items-center gap-1">
+                      <Eye className="h-3 w-3" /> Publică
+                    </Badge>
+                  ) : (
+                    <Badge variant="outline" className="bg-gray-100 text-gray-700 flex items-center gap-1">
+                      <EyeOff className="h-3 w-3" /> Privată
+                    </Badge>
+                  )}
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">

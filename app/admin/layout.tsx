@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { auth } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 // Adăugăm importul pentru CreditCard
-import { Loader2, LayoutDashboard, Users, Calendar, Image, BookOpen, Menu, CreditCard } from "lucide-react"
+import { Loader2, LayoutDashboard, Users, Calendar, BookOpen, Menu, CreditCard } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 
 export default function AdminLayout({
@@ -70,7 +70,6 @@ export default function AdminLayout({
             !isActive("/admin/utilizatori") &&
             !isActive("/admin/grupe") &&
             !isActive("/admin/prezenta") &&
-            !isActive("/admin/galerie") &&
             !isActive("/admin/abonamente")
               ? "default"
               : "ghost"
@@ -105,12 +104,7 @@ export default function AdminLayout({
           Abonamente
         </Button>
       </Link>
-      <Link href="/admin/galerie" onClick={onClick}>
-        <Button variant={isActive("/admin/galerie") ? "default" : "ghost"} className="w-full justify-start">
-          <Image className="h-4 w-4 mr-2" />
-          Galerie
-        </Button>
-      </Link>
+      {/* Am eliminat link-ul către galerie */}
     </nav>
   )
 

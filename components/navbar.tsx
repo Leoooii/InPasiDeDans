@@ -89,6 +89,19 @@ export default function Navbar() {
         <div className="hidden md:flex md:flex-1 md:justify-center">
           <NavigationMenu>
             <NavigationMenuList className="flex flex-wrap justify-center">
+              {/* Adăugăm Grupe în formare ca primă opțiune */}
+              <NavigationMenuItem>
+                <Link href="/grupe-in-formare" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold",
+                    )}
+                  >
+                    Grupe în formare
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
                   Dansuri predate
@@ -121,15 +134,7 @@ export default function Navbar() {
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/galerie" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
-                  >
-                    Galerie
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+              {/* Am eliminat link-ul către galerie */}
               <NavigationMenuItem>
                 <Link href="/despre-noi" legacyBehavior passHref>
                   <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
@@ -216,6 +221,14 @@ function MobileNav({
         </div>
       </Link>
       <div className="grid gap-3">
+        {/* Adăugăm Grupe în formare ca primă opțiune */}
+        <Link
+          href="/grupe-in-formare"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md"
+        >
+          Grupe în formare
+        </Link>
         <div>
           <button
             onClick={() => setOpenDansuri(!openDansuri)}
@@ -245,9 +258,7 @@ function MobileNav({
         <Link href="/tarife" onClick={() => setIsOpen(false)} className="py-2 font-medium">
           Tarife
         </Link>
-        <Link href="/galerie" onClick={() => setIsOpen(false)} className="py-2 font-medium">
-          Galerie
-        </Link>
+        {/* Am eliminat link-ul către galerie */}
         <div>
           <Link href="/despre-noi" className="flex w-full items-center justify-between py-2 font-medium">
             Despre noi
@@ -357,11 +368,7 @@ const dansuriPredate = [
     href: "/dansuri-latino",
     description: "Salsa, bachata, cha-cha, rumba și alte dansuri latino pline de pasiune.",
   },
-  {
-    title: "Grupe în formare",
-    href: "/grupe-in-formare",
-    description: "Noi grupe de dans în curs de formare. Înscrie-te acum!",
-  },
+  // Am eliminat "Grupe în formare" de aici
 ]
 
 const despreNoi = [

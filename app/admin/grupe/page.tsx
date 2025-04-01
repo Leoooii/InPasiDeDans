@@ -23,10 +23,10 @@ type Grupa = {
   instructor: string
   locuriDisponibile: number
   locuriTotale: number
-  stil: string
-  stiluri: string[] // Adăugăm array-ul de stiluri
+  stiluri: string[] // Păstrăm doar array-ul de stiluri
   zile: string[]
   ora: string
+  public?: boolean
 }
 
 type UserData = {
@@ -78,7 +78,8 @@ export default function GrupePage() {
     if (activeTab === "toate") {
       setFilteredGrupe(grupe)
     } else {
-      setFilteredGrupe(grupe.filter((grupa) => grupa.stil === activeTab))
+      // Filtrăm grupele care conțin stilul selectat în array-ul de stiluri
+      setFilteredGrupe(grupe.filter((grupa) => grupa.stiluri.includes(activeTab)))
     }
   }, [activeTab, grupe])
 
@@ -100,10 +101,8 @@ export default function GrupePage() {
           ora:
             data.program.split(",").pop()?.trim() ||
             (data.program.includes("19:00") ? "19:00 - 20:30" : "20:30 - 22:00"),
-          stil:
-            data.stil ||
-            ["Dans de societate", "Dans standard", "Dans latino", "Dansuri populare"][Math.floor(Math.random() * 4)],
-          stiluri: data.stiluri || ["Dans de societate", "Dans standard", "Dans latino", "Dansuri populare"],
+          // Asigurăm-ne că avem mereu un array de stiluri
+          stiluri: data.stiluri || (data.stil ? [data.stil] : ["Dans de societate"]),
         } as Grupa
 
         grupeData.push(grupa)
@@ -317,7 +316,7 @@ export default function GrupePage() {
               Înapoi la lista de grupe
             </Button>
             <h2 className="text-xl font-semibold">{selectedGrupa.titlu}</h2>
-            <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">{selectedGrupa.stil}</Badge>
+            <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">{selectedGrupa.stiluri}</Badge>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -466,9 +465,16 @@ export default function GrupePage() {
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-start">
                             <CardTitle className="text-lg">{grupa.titlu}</CardTitle>
-                            <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
-                              {grupa.stil}
-                            </Badge>
+                            <div className="flex flex-wrap gap-1 justify-end">
+                              {grupa.stiluri.map((stil, index) => (
+                                <Badge
+                                  key={index}
+                                  className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                                >
+                                  {stil}
+                                </Badge>
+                              ))}
+                            </div>
                           </div>
                           <CardDescription>{grupa.descriere}</CardDescription>
                         </CardHeader>

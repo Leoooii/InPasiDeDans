@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc } from "firebase/firestore"
-import { Loader2, Calendar, CreditCard, Clock, User } from "lucide-react"
+import { Loader2, Calendar, CreditCard, Clock, User, Filter } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore"
 
@@ -42,13 +42,15 @@ type Prezenta = {
   data: any
   grupa: string
   profesor: string
-  status?: string // Adăugat status ca proprietate opțională
+  status?: string
 }
 
 export default function ContPage() {
   const [user, setUser] = useState<any>(null)
   const [userData, setUserData] = useState<UserData | null>(null)
   const [prezente, setPrezente] = useState<Prezenta[]>([])
+  const [filteredPrezente, setFilteredPrezente] = useState<Prezenta[]>([])
+  const [selectedGrupa, setSelectedGrupa] = useState<string>("toate")
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const { toast } = useToast()
@@ -77,6 +79,20 @@ export default function ContPage() {
     return () => unsubscribe()
   }, [router])
 
+  // Efect pentru filtrarea prezențelor în funcție de grupa selectată
+  useEffect(() => {
+    if (!prezente.length) {
+      setFilteredPrezente([])
+      return
+    }
+
+    if (selectedGrupa === "toate") {
+      setFilteredPrezente(prezente)
+    } else {
+      setFilteredPrezente(prezente.filter((p) => p.grupa === selectedGrupa))
+    }
+  }, [prezente, selectedGrupa])
+
   // Modificăm funcția fetchUserData pentru a afișa prezențele reale
   const fetchUserData = async (userId: string) => {
     try {
@@ -90,9 +106,11 @@ export default function ContPage() {
         // Folosim prezențele reale din baza de date
         if (userData.prezente && userData.prezente.length > 0) {
           setPrezente(userData.prezente)
+          setFilteredPrezente(userData.prezente)
         } else {
           // Dacă nu există prezențe, afișăm un array gol
           setPrezente([])
+          setFilteredPrezente([])
         }
       }
     } catch (error) {
@@ -117,6 +135,7 @@ export default function ContPage() {
 
       if (prezenteSnapshot.empty) {
         setPrezente([])
+        setFilteredPrezente([])
         return
       }
 
@@ -133,6 +152,7 @@ export default function ContPage() {
       })
 
       setPrezente(prezenteData)
+      setFilteredPrezente(prezenteData)
     } catch (error) {
       console.error("Eroare la încărcarea prezențelor:", error)
       toast({
@@ -141,6 +161,14 @@ export default function ContPage() {
         variant: "destructive",
       })
     }
+  }
+
+  // Funcție pentru a obține lista unică de grupe din prezențe
+  const getUniqueGrupe = () => {
+    if (!prezente.length) return []
+
+    const grupe = prezente.map((p) => p.grupa)
+    return [...new Set(grupe)]
   }
 
   if (isLoading) {
@@ -192,6 +220,7 @@ export default function ContPage() {
   }
 
   const abonamente = userData.abonamente || []
+  const uniqueGrupe = getUniqueGrupe()
 
   return (
     <div className="container py-12">
@@ -201,7 +230,7 @@ export default function ContPage() {
             Bine ai venit, {userData.nume} {userData.prenume}!
           </h1>
           <p className="text-gray-500">
-            {userData.dataInceputCursuri
+            {userData.dataInceputCursuri && typeof userData.dataInceputCursuri.toDate === "function"
               ? `Cursant din ${new Date(userData.dataInceputCursuri.toDate()).toLocaleDateString("ro-RO")}`
               : "Bine ai venit la școala noastră de dans!"}
           </p>
@@ -219,15 +248,45 @@ export default function ContPage() {
         <TabsContent value="prezente">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                Prezențele mele
-              </CardTitle>
-              <CardDescription>Istoricul prezențelor tale la cursuri</CardDescription>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    Prezențele mele
+                  </CardTitle>
+                  <CardDescription>Istoricul prezențelor tale la cursuri</CardDescription>
+                </div>
+
+                {uniqueGrupe.length > 0 && (
+                  <div className="flex items-center gap-2">
+                    <Filter className="h-4 w-4 text-gray-500" />
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        variant={selectedGrupa === "toate" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedGrupa("toate")}
+                      >
+                        Toate
+                      </Button>
+
+                      {uniqueGrupe.map((grupa) => (
+                        <Button
+                          key={grupa}
+                          variant={selectedGrupa === grupa ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedGrupa(grupa)}
+                        >
+                          {grupa}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </CardHeader>
             <CardContent>
-              {prezente.length > 0 ? (
-                prezente.map((prezenta) => (
+              {filteredPrezente.length > 0 ? (
+                filteredPrezente.map((prezenta) => (
                   <div key={prezenta.id} className="flex justify-between items-center py-2 border-b">
                     <div>
                       <p className="font-medium">{prezenta.grupa}</p>
@@ -242,7 +301,11 @@ export default function ContPage() {
                 ))
               ) : (
                 <div className="text-center py-4">
-                  <p className="text-gray-500">Nu există prezențe înregistrate</p>
+                  <p className="text-gray-500">
+                    {selectedGrupa === "toate"
+                      ? "Nu există prezențe înregistrate"
+                      : `Nu există prezențe înregistrate pentru grupa ${selectedGrupa}`}
+                  </p>
                 </div>
               )}
             </CardContent>
