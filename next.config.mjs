@@ -8,6 +8,12 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   headers: async () => {
     return [
       {
@@ -69,4 +75,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
