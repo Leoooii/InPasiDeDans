@@ -58,3 +58,30 @@
   }
 }
 
+/* Adăugăm animația de strălucire */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 1.5s ease-in-out;
+}
+
+/* Animație continuă de strălucire */
+@keyframes continuous-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-continuous-shine {
+  animation: continuous-shine 3s ease-in-out infinite;
+}

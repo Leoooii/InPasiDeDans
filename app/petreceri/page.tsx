@@ -1,38 +1,10 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { Calendar, Clock, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ImageSkeleton from "@/components/image-skeleton"
 
 export default function Petreceri() {
-  const [fbLoaded, setFbLoaded] = useState(false)
-
-  useEffect(() => {
-    // Load Facebook SDK
-    const script = document.createElement("script")
-    script.src = "https://connect.facebook.net/ro_RO/sdk.js#xfbml=1&version=v18.0"
-    script.async = true
-    script.defer = true
-    script.crossOrigin = "anonymous"
-    document.body.appendChild(script)
-
-    // Parse Facebook elements when SDK is loaded
-    script.onload = () => {
-      if (window.FB) {
-        window.FB.XFBML.parse()
-        setFbLoaded(true)
-      }
-    }
-
-    return () => {
-      if (script.parentNode) {
-        document.body.removeChild(script)
-      }
-    }
-  }, [])
-
   return (
     <div className="container py-12">
       <div className="space-y-6">
@@ -65,12 +37,7 @@ export default function Petreceri() {
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <a
-              href="https://www.facebook.com/events/649032054188413"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
+            <a href="#" className="block">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="relative h-60 w-full overflow-hidden">
                   <ImageSkeleton width={600} height={400} className="w-full h-full" />
@@ -102,12 +69,7 @@ export default function Petreceri() {
               </Card>
             </a>
 
-            <a
-              href="https://www.facebook.com/events/649032054188413"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
+            <a href="#" className="block">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="relative h-60 w-full overflow-hidden">
                   <ImageSkeleton width={600} height={400} className="w-full h-full" />
@@ -136,12 +98,7 @@ export default function Petreceri() {
               </Card>
             </a>
 
-            <a
-              href="https://www.facebook.com/events/649032054188413"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
+            <a href="#" className="block">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="relative h-60 w-full overflow-hidden">
                   <ImageSkeleton width={600} height={400} className="w-full h-full" />

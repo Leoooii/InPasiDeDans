@@ -3,12 +3,16 @@ import Link from "next/link"
 import { Heart, Users, Calendar, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import FacebookPagePreview from "@/components/facebook-preview"
 import Image from "next/image"
+
+// import CookieConsent from "@/components/cookie-consent"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Cookie Consent */}
+      {/* <CookieConsent /> */}
+
       {/* Fixed Button */}
       <Link href="/grupe-in-formare" className="fixed bottom-8 right-8 z-50 group">
         <div className="relative">
@@ -24,16 +28,19 @@ export default function Home() {
         </div>
       </Link>
 
-      {/* Hero Section */}
-      <section className="relative h-[80vh] overflow-hidden">
+      {/* Hero Section cu GIF sau imagine statică */}
+      <section className="relative h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src="/images/noi.png"
-            height={1000}
-            width={1000}
-            alt="Școala de dans"
-            className="w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src="/images/dans-gif.gif?height=800&width=1200" // Folosim un placeholder până când GIF-ul este disponibil
+              alt="Școala de dans"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
           <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="absolute inset-0 flex items-center justify-center z-20">
@@ -54,7 +61,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-beige-50 dark:bg-gray-800">
+      {/* <section className="py-12 bg-beige-50 dark:bg-gray-800">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <StatCard
@@ -71,29 +78,39 @@ export default function Home() {
             <StatCard icon={<Award className="w-10 h-10 text-red-600" />} value="+15 Ani" description="experiență" />
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Dance Categories */}
-      <section className="py-16 bg-gray-50">
+      {/* Secțiunea CURSURI DE DANS */}
+      <section className="py-16">
         <div className="container">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Cursurile Noastre de Dans</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <DanceCard title="Grupe în formare" href="/grupe-in-formare" src="/images/grupeinformare.png" />
-            <DanceCard
-              title="Cursuri de dans pentru nuntă"
-              href="/cursuri-dans-nunta"
-              src="/images/cursuridansnunta.png"
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">CURSURI DE DANS</h2>
+
+          {/* Butoane cu efect de strălucire */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ShineButton
+              title="Cursuri de dans pentru adulți"
+              href="/cursuri-dans-adulti"
+              imageSrc="/images/bachata.png?height=400&width=600"
             />
-            <DanceCard title="Dansuri predate" href="/dansuri-predate" src="/images/dansuripredate.png" />
-            <DanceCard title="Program" href="/program" src="/images/program.png" />
-            <DanceCard title="Galerie" href="/galerie" src="/images/galerie.png" />
-            <DanceCard title="Tarife" href="/tarife" src="/images/tarife.png" />
+            <ShineButton
+              title="Cursuri de dans pentru copii"
+              href="/cursuri-dans-copii"
+              imageSrc="/images/copii.png?height=400&width=600"
+            />
+            <ShineButton
+              title="Lecții private"
+              href="/cursuri-dans-nunta"
+              imageSrc="/images/vals.png?height=400&width=600"
+            />
+            <ShineButton title="Grupe noi" href="/grupe-in-formare" imageSrc="/images/tango.png?height=400&width=600" />
+            <ShineButton title="Tarife" href="/tarife" imageSrc="/images/muntenia.jpg?height=400&width=600" />
+            <ShineButton title="Program" href="/program" imageSrc="/images/quickstep.png?height=400&width=600" /> 
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 container">
+      {/* <section className="py-16 container">
         <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Ce Spun Cursanții Noștri</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <TestimonialCard
@@ -109,42 +126,7 @@ export default function Home() {
             author="Cristina, mamă a unui cursant"
           />
         </div>
-      </section>
-
-      {/* Social Media Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 ">
-            Urmărește-ne pe Social Media
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Facebook */}
-            <div className="flex flex-col items-center">
-              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Facebook</h3>
-              <div className="w-full overflow-hidden rounded-lg shadow-lg">
-                <FacebookPagePreview />
-              </div>
-            </div>
-
-            {/* Instagram */}
-            <div className="flex flex-col items-center">
-              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Instagram</h3>
-              <div className="w-full h-[600px] overflow-hidden rounded-lg shadow-lg">
-                <iframe
-                  src="https://www.instagram.com/inpasidedans/embed"
-                  className="w-full h-full border-0"
-                  allowFullScreen
-                  scrolling="no"
-                  frameBorder="0"
-                ></iframe>
-              </div>
-            </div>
-
-           
-          </div>
-        </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white">
@@ -178,24 +160,6 @@ function StatCard({ icon, value, description }: { icon: React.ReactNode; value: 
   )
 }
 
-function DanceCard({ title, href, src }: { title: string; href: string; src: string }) {
-  return (
-    <Link href={href} className="group">
-      <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
-        <div className="relative h-64 overflow-hidden">
-          {/* <ImageSkeleton width={400} height={300} className="w-full h-full" /> */}
-          <Image src={src || "/placeholder.svg"} alt="dancepicture" width={1000} height={1000} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 flex items-center justify-between">
-            <h3 className="text-xl font-bold text-white">{title}</h3>
-            <span className="text-white text-2xl group-hover:translate-x-2 transition-transform duration-300">→</span>
-          </div>
-        </div>
-      </Card>
-    </Link>
-  )
-}
-
 function TestimonialCard({ quote, author }: { quote: string; author: string }) {
   return (
     <Card className="dark:bg-gray-800">
@@ -209,6 +173,34 @@ function TestimonialCard({ quote, author }: { quote: string; author: string }) {
         <p className="font-semibold dark:text-white">{author}</p>
       </CardContent>
     </Card>
+  )
+}
+function ShineButton({ title, href, imageSrc }: {
+  title: string
+  href: string
+  imageSrc: string
+}) {
+  return (
+    <Link href={href} className="relative block overflow-hidden rounded-lg group ">
+      <div className="relative h-64 w-full overflow-hidden">
+        {/* Imagine de fundal */}
+        <Image
+          src={imageSrc || "/placeholder.svg?height=400&width=600"}
+          alt={title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 shine"
+        />
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-orange-800/80 to-black/20 animate-continuous-shine"></div>
+
+        {/* Titlu */}
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="text-xl font-bold text-white">{title}</h3>
+          <div className="w-0 h-0.5 bg-white mt-2 transition-all duration-300 group-hover:w-full"></div>
+        </div>
+      </div>
+    </Link>
   )
 }
 

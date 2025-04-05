@@ -9,7 +9,6 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore"
 import type { ImagineData } from "@/components/admin/imagine-form"
 
 export default function Galerie() {
-  const [fbLoaded, setFbLoaded] = useState(false)
   const [imagini, setImagini] = useState<ImagineData[]>([])
   const [filteredImagini, setFilteredImagini] = useState<ImagineData[]>([])
   const [activeTab, setActiveTab] = useState("toate")
@@ -37,28 +36,6 @@ export default function Galerie() {
     }
 
     fetchImagini()
-
-    // Load Facebook SDK
-    const script = document.createElement("script")
-    script.src = "https://connect.facebook.net/ro_RO/sdk.js#xfbml=1&version=v18.0"
-    script.async = true
-    script.defer = true
-    script.crossOrigin = "anonymous"
-    document.body.appendChild(script)
-
-    // Parse Facebook elements when SDK is loaded
-    script.onload = () => {
-      if (window.FB) {
-        window.FB.XFBML.parse()
-        setFbLoaded(true)
-      }
-    }
-
-    return () => {
-      if (script.parentNode) {
-        document.body.removeChild(script)
-      }
-    }
   }, [])
 
   // Filtrează imaginile în funcție de tab-ul activ
@@ -79,105 +56,41 @@ export default function Galerie() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Galerie</h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Imagini și videoclipuri din cursurile și evenimentele noastre
-          </p>
+          <p className="text-gray-500 dark:text-gray-400">Imagini din cursurile și evenimentele noastre</p>
         </div>
 
         <Tabs defaultValue="toate" value={activeTab} onValueChange={handleTabChange} className="w-full">
-          <TabsList className="grid grid-cols-2 md:grid-cols-5 h-auto">
+          <TabsList className="grid grid-cols-2 md:grid-cols-4 h-auto">
             <TabsTrigger value="toate">Toate</TabsTrigger>
             <TabsTrigger value="cursuri">Cursuri</TabsTrigger>
             <TabsTrigger value="evenimente">Evenimente</TabsTrigger>
             <TabsTrigger value="spectacole">Spectacole</TabsTrigger>
-            <TabsTrigger value="video">Video</TabsTrigger>
           </TabsList>
 
-          {activeTab !== "video" ? (
-            <TabsContent value={activeTab} className="mt-6">
-              {isLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="aspect-square w-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden"
-                    >
-                      <ImageSkeleton width={600} height={600} className="w-full h-full" />
-                    </div>
-                  ))}
-                </div>
-              ) : filteredImagini.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredImagini.map((imagine) => (
-                    <GalleryItem key={imagine.id} imagine={imagine} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-gray-500">Nu există imagini în această categorie</p>
-                </div>
-              )}
-            </TabsContent>
-          ) : (
-            <TabsContent value="video" className="mt-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="aspect-video w-full overflow-hidden bg-gray-100 rounded-lg">
-                  <div
-                    className="fb-video"
-                    data-href="https://www.facebook.com/scoaladedansinpasidedans/videos/1234567890"
-                    data-width="500"
-                    data-show-text="false"
-                  >
-                    <div className="fb-xfbml-parse-ignore">
-                      <ImageSkeleton width={700} height={400} className="w-full h-full" />
-                    </div>
+          <TabsContent value={activeTab} className="mt-6">
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="aspect-square w-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <ImageSkeleton width={600} height={600} className="w-full h-full" />
                   </div>
-                </div>
-
-                <div className="aspect-video w-full overflow-hidden bg-gray-100 rounded-lg">
-                  <div
-                    className="fb-video"
-                    data-href="https://www.facebook.com/scoaladedansinpasidedans/videos/0987654321"
-                    data-width="500"
-                    data-show-text="false"
-                  >
-                    <div className="fb-xfbml-parse-ignore">
-                      <ImageSkeleton width={700} height={400} className="w-full h-full" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="aspect-video w-full overflow-hidden bg-gray-100 rounded-lg">
-                  <div
-                    className="fb-video"
-                    data-href="https://www.facebook.com/scoaladedansinpasidedans/videos/1357924680"
-                    data-width="500"
-                    data-show-text="false"
-                  >
-                    <div className="fb-xfbml-parse-ignore">
-                      <ImageSkeleton width={700} height={400} className="w-full h-full" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="aspect-video w-full overflow-hidden bg-gray-100 rounded-lg">
-                  <div
-                    className="fb-video"
-                    data-href="https://www.facebook.com/scoaladedansinpasidedans/videos/2468013579"
-                    data-width="500"
-                    data-show-text="false"
-                  >
-                    <div className="fb-xfbml-parse-ignore">
-                      <ImageSkeleton width={700} height={400} className="w-full h-full" />
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
-            </TabsContent>
-          )}
+            ) : filteredImagini.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredImagini.map((imagine) => (
+                  <GalleryItem key={imagine.id} imagine={imagine} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-500">Nu există imagini în această categorie</p>
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
 
-        {filteredImagini.length > 0 && activeTab !== "video" && (
+        {filteredImagini.length > 0 && (
           <div className="flex justify-center mt-8">
             <Button variant="outline" size="lg">
               Încarcă mai multe
