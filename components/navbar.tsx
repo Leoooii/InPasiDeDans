@@ -22,7 +22,6 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { auth } from "@/lib/firebase"
 import { onAuthStateChanged, signOut } from "firebase/auth"
 import { useRouter } from "next/navigation"
-import { useSimpleToast } from "./simple-toast-provider"
 
 // Adaugă importul pentru ThemeToggle
 import ThemeToggle from "@/components/theme-toggle"
@@ -32,7 +31,7 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const router = useRouter()
-  const { showToast } = useSimpleToast()
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
@@ -47,7 +46,7 @@ export default function Navbar() {
     try {
       await signOut(auth)
       router.push("/")
-      showToast("Deconectare reușită", "success")    } catch (error) {
+    } catch (error) {
       console.error("Eroare la deconectare:", error)
     }
   }
@@ -55,6 +54,33 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 items-center max-w-full px-4 md:px-6">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="mr-2 md:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-5 w-5"
+              >
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+              </svg>
+              <span className="sr-only">Toggle Menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="pr-0">
+            <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
+            <MobileNav setIsOpen={setIsOpen} user={user} isAdmin={isAdmin} onLogout={handleLogout} />
+          </SheetContent>
+        </Sheet>
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <div className="relative h-16 w-[200px]">
             <Image src="/images/logo.png" alt="In pasi de Dans" fill className="object-contain object-left" priority />
@@ -167,39 +193,6 @@ export default function Navbar() {
               </Link>
             </div>
           )}
-
-          {/* Mutăm butonul de meniu în dreapta pe mobil */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="md:hidden h-10 w-10 flex items-center justify-center ml-auto"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5"
-                >
-                  <line x1="4" x2="20" y1="12" y2="12" />
-                  <line x1="4" x2="20" y1="6" y2="6" />
-                  <line x1="4" x2="20" y1="18" y2="18" />
-                </svg>
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="pr-0">
-              <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
-              <MobileNav setIsOpen={setIsOpen} user={user} isAdmin={isAdmin} onLogout={handleLogout} />
-            </SheetContent>
-          </Sheet>
         </div>
       </div>
     </header>
@@ -265,6 +258,7 @@ function MobileNav({
         <Link href="/tarife" onClick={() => setIsOpen(false)} className="py-2 font-medium">
           Tarife
         </Link>
+        {/* Am eliminat link-ul către galerie */}
         <div>
           <Link href="/despre-noi" className="flex w-full items-center justify-between py-2 font-medium">
             Despre noi
@@ -374,6 +368,7 @@ const dansuriPredate = [
     href: "/dansuri-latino",
     description: "Salsa, bachata, cha-cha, rumba și alte dansuri latino pline de pasiune.",
   },
+  // Am eliminat "Grupe în formare" de aici
 ]
 
 const despreNoi = [
