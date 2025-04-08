@@ -192,7 +192,7 @@ function ShineButton({ title, href, imageSrc }: {
         />
 
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-orange-800/80 to-black/20 animate-continuous-shine"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-black/20 animate-continuous-shine "></div>
 
         {/* Titlu */}
         <div className="absolute bottom-0 left-0 right-0 p-6">

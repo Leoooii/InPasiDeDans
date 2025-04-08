@@ -11,7 +11,7 @@ export default function Tarife() {
           <p className="text-gray-500 dark:text-gray-400">Consultă tarifele noastre pentru cursurile de dans</p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
           <Card className="flex flex-col">
             <CardHeader>
               <CardTitle>Abonament Silver</CardTitle>
@@ -114,14 +114,43 @@ export default function Tarife() {
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>Materiale didactice online</span>
                 </li>
-                {/* <li className="flex items-center">
+              
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                Alege acest abonament
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card className="flex flex-col">
+            <CardHeader>
+              <CardTitle>Abonament Premium</CardTitle>
+              <CardDescription>Pentru pasionații de dans</CardDescription>
+              <CardDescription>Valabil 4 saptamani</CardDescription>
+              <div className="mt-4 text-4xl font-bold">
+                400 Lei<span className="text-base font-normal text-gray-500">/lună</span>
+              </div>
+            </CardHeader>
+            <CardContent className="flex-1">
+              <ul className="space-y-2">
+                <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Reducere 15% la workshop-uri</span>
+                  <span>Acces nelimitat la grupe (in limita nivelului)</span>
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>O ședință privată pe lună</span>
-                </li> */}
+                  <span>Acces la toate stilurile de dans</span>
+                </li>
+                <li className="flex items-center">
+                  <Check className="mr-2 h-4 w-4 text-green-500" />
+                  <span>Participare gratuită la petrecerile tematice</span>
+                </li>
+                <li className="flex items-center">
+                  <Check className="mr-2 h-4 w-4 text-green-500" />
+                  <span>Materiale didactice online</span>
+                </li>
+              
               </ul>
             </CardContent>
             <CardFooter>

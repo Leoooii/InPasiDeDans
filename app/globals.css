@@ -69,7 +69,7 @@
 }
 
 .animate-shine {
-  animation: shine 1.5s ease-in-out;
+  animation: shine 3.5s ease-in-out;
 }
 
 /* Animație continuă de strălucire */
@@ -83,5 +83,5 @@
 }
 
 .animate-continuous-shine {
-  animation: continuous-shine 3s ease-in-out infinite;
+  animation: continuous-shine 4s ease-in-out infinite;
 }
