@@ -1,9 +1,9 @@
-import type React from "react"
-import Link from "next/link"
-import { Heart, Users, Calendar, Award } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import Image from "next/image"
+import type React from 'react';
+import Link from 'next/link';
+import { Heart, Users, Calendar, Award } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import Image from 'next/image';
 
 // import CookieConsent from "@/components/cookie-consent"
 
@@ -14,9 +14,15 @@ export default function Home() {
       {/* <CookieConsent /> */}
 
       {/* Fixed Button */}
-      <Link href="/grupe-in-formare" className="fixed bottom-8 right-8 z-50 group">
+      <Link
+        href="/grupe-in-formare"
+        className="fixed bottom-8 right-8 z-50 group"
+      >
         <div className="relative">
-          <Button size="lg" className="bg-red-600 text-white hover:bg-red-700 shadow-lg animate-bounce">
+          <Button
+            size="lg"
+            className="bg-red-600 text-white hover:bg-red-700 shadow-lg animate-bounce"
+          >
             <span className="flex items-center gap-2">
               <span className="relative flex h-3 w-3 mr-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
@@ -38,7 +44,7 @@ export default function Home() {
               fill
               priority
               sizes="100vw"
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: 'cover' }}
             />
           </div>
           <div className="absolute inset-0 bg-black/50" />
@@ -49,10 +55,14 @@ export default function Home() {
               "Dansul este puțina nebunie care ne face tuturor mult bine!"
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Învățăm și pe cei mici, și pe cei mari să danseze din 2009, într-o atmosferă plăcută și relaxantă.
+              Învățăm și pe cei mici, și pe cei mari să danseze din 2009, într-o
+              atmosferă plăcută și relaxantă.
             </p>
-            <Link href={"/inscriere"}>
-              <Button size="lg" className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg">
+            <Link href={'/inscriere'}>
+              <Button
+                size="lg"
+                className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg"
+              >
                 Înscrie-te acum
               </Button>
             </Link>
@@ -83,11 +93,13 @@ export default function Home() {
       {/* Secțiunea CURSURI DE DANS */}
       <section className="py-16">
         <div className="container">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">CURSURI DE DANS</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">
+            CURSURI DE DANS
+          </h2>
 
           {/* Butoane cu efect de strălucire */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <ShineButton
+            <ShineButton
               title="Cursuri de dans pentru adulți"
               href="/cursuri-dans-adulti"
               imageSrc="/images/bachata.png?height=400&width=600"
@@ -95,16 +107,28 @@ export default function Home() {
             <ShineButton
               title="Cursuri de dans pentru copii"
               href="/cursuri-dans-copii"
-              imageSrc="/images/copii.png?height=400&width=600"
+              imageSrc="/images/copii.jpeg?height=400&width=600"
             />
             <ShineButton
               title="Lecții private"
               href="/cursuri-dans-nunta"
               imageSrc="/images/vals.png?height=400&width=600"
             />
-            <ShineButton title="Grupe noi" href="/grupe-in-formare" imageSrc="/images/tango.png?height=400&width=600" />
-            <ShineButton title="Tarife" href="/tarife" imageSrc="/images/muntenia.jpg?height=400&width=600" />
-            <ShineButton title="Program" href="/program" imageSrc="/images/quickstep.png?height=400&width=600" /> 
+            <ShineButton
+              title="Grupe noi"
+              href="/grupe-in-formare"
+              imageSrc="/images/tango.png?height=400&width=600"
+            />
+            <ShineButton
+              title="Tarife"
+              href="/tarife"
+              imageSrc="/images/muntenia.jpg?height=400&width=600"
+            />
+            <ShineButton
+              title="Program"
+              href="/program"
+              imageSrc="/images/quickstep.png?height=400&width=600"
+            />
           </div>
         </div>
       </section>
@@ -131,9 +155,12 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white">
         <div className="container text-center">
-          <h2 className="text-3xl font-bold mb-6">Pregătit să începi călătoria ta în lumea dansului?</h2>
+          <h2 className="text-3xl font-bold mb-6">
+            Pregătit să începi călătoria ta în lumea dansului?
+          </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Alătură-te celor peste 9000 de cursanți care au descoperit bucuria dansului la școala noastră.
+            Alătură-te celor peste 9000 de cursanți care au descoperit bucuria
+            dansului la școala noastră.
           </p>
           <Link href="/inscriere">
             <Button
@@ -147,17 +174,25 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-function StatCard({ icon, value, description }: { icon: React.ReactNode; value: string; description: string }) {
+function StatCard({
+  icon,
+  value,
+  description,
+}: {
+  icon: React.ReactNode;
+  value: string;
+  description: string;
+}) {
   return (
     <div className="flex flex-col items-center text-center">
       {icon}
       <h3 className="text-2xl font-bold mt-4 mb-2 dark:text-white">{value}</h3>
       <p className="text-gray-600 dark:text-gray-300">{description}</p>
     </div>
-  )
+  );
 }
 
 function TestimonialCard({ quote, author }: { quote: string; author: string }) {
@@ -165,7 +200,13 @@ function TestimonialCard({ quote, author }: { quote: string; author: string }) {
     <Card className="dark:bg-gray-800">
       <CardContent className="pt-6">
         <div className="text-red-600 mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
             <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.626.41-2.032.303-.406.7-.754 1.19-1.06.495-.305.95-.58 1.36-.828.42-.247.695-.48.827-.702.132-.222.198-.372.198-.449 0-.114-.065-.282-.197-.503-.132-.222-.423-.452-.873-.69-.45-.24-.955-.436-1.514-.587-.558-.15-1.109-.225-1.65-.225-.707 0-1.39.113-2.05.338-.66.226-1.24.57-1.744 1.04-.504.468-.912 1.01-1.226 1.633-.313.623-.47 1.298-.47 2.027 0 .808.164 1.564.49 2.27.33.704.764 1.315 1.3 1.834.54.518 1.16.927 1.852 1.226.693.3 1.438.449 2.235.449.764 0 1.491-.12 2.18-.363.692-.24 1.304-.592 1.834-1.055.532-.463.957-1.025 1.274-1.685.318-.66.476-1.387.476-2.18z" />
           </svg>
         </div>
@@ -173,19 +214,26 @@ function TestimonialCard({ quote, author }: { quote: string; author: string }) {
         <p className="font-semibold dark:text-white">{author}</p>
       </CardContent>
     </Card>
-  )
+  );
 }
-function ShineButton({ title, href, imageSrc }: {
-  title: string
-  href: string
-  imageSrc: string
+function ShineButton({
+  title,
+  href,
+  imageSrc,
+}: {
+  title: string;
+  href: string;
+  imageSrc: string;
 }) {
   return (
-    <Link href={href} className="relative block overflow-hidden rounded-lg group ">
+    <Link
+      href={href}
+      className="relative block overflow-hidden rounded-lg group "
+    >
       <div className="relative h-64 w-full overflow-hidden">
         {/* Imagine de fundal */}
         <Image
-          src={imageSrc || "/placeholder.svg?height=400&width=600"}
+          src={imageSrc || '/placeholder.svg?height=400&width=600'}
           alt={title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 shine"
@@ -201,6 +249,5 @@ function ShineButton({ title, href, imageSrc }: {
         </div>
       </div>
     </Link>
-  )
+  );
 }
-
