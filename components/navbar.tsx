@@ -1,12 +1,12 @@
-"use client"
+'use client';
 
-import React from "react"
+import React from 'react';
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { ChevronDown, User } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ChevronDown, User } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 import {
   NavigationMenu,
@@ -16,48 +16,58 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-import { auth } from "@/lib/firebase"
-import { onAuthStateChanged, signOut } from "firebase/auth"
-import { useRouter } from "next/navigation"
+} from '@/components/ui/navigation-menu';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from '@/components/ui/sheet';
+import { auth } from '@/lib/firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 // Adaugă importul pentru ThemeToggle
-import ThemeToggle from "@/components/theme-toggle"
+import ThemeToggle from '@/components/theme-toggle';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [user, setUser] = useState<any>(null)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
       // Verificăm dacă utilizatorul este admin (are email-ul admin@gmail.com)
-      setIsAdmin(currentUser?.email === "admin@gmail.com")
-    })
+      setIsAdmin(currentUser?.email === 'admin@gmail.com');
+    });
 
-    return () => unsubscribe()
-  }, [])
+    return () => unsubscribe();
+  }, []);
 
   const handleLogout = async () => {
     try {
-      await signOut(auth)
-      router.push("/")
+      await signOut(auth);
+      router.push('/');
     } catch (error) {
-      console.error("Eroare la deconectare:", error)
+      console.error('Eroare la deconectare:', error);
     }
-  }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 items-center max-w-full px-4 md:px-6">
-       
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <div className="relative h-16 w-[200px]">
-            <Image src="/images/logo.png" alt="In pasi de Dans" fill className="object-contain object-left" priority />
+            <Image
+              src="/images/logo.png"
+              alt="In pasi de Dans"
+              fill
+              className="object-contain object-left"
+              priority
+            />
           </div>
         </Link>
         <div className="hidden md:flex md:flex-1 md:justify-center">
@@ -69,7 +79,7 @@ export default function Navbar() {
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold",
+                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold'
                     )}
                   >
                     Grupe în formare
@@ -82,8 +92,12 @@ export default function Navbar() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {dansuriPredate.map((item) => (
-                      <ListItem key={item.title} title={item.title} href={item.href}>
+                    {dansuriPredate.map(item => (
+                      <ListItem
+                        key={item.title}
+                        title={item.title}
+                        href={item.href}
+                      >
                         {item.description}
                       </ListItem>
                     ))}
@@ -93,7 +107,10 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link href="/program" legacyBehavior passHref>
                   <NavigationMenuLink
-                    className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer'
+                    )}
                   >
                     Program
                   </NavigationMenuLink>
@@ -102,7 +119,10 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link href="/tarife" legacyBehavior passHref>
                   <NavigationMenuLink
-                    className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer'
+                    )}
                   >
                     Tarife
                   </NavigationMenuLink>
@@ -117,8 +137,12 @@ export default function Navbar() {
                 </Link>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {despreNoi.map((item) => (
-                      <ListItem key={item.title} title={item.title} href={item.href}>
+                    {despreNoi.map(item => (
+                      <ListItem
+                        key={item.title}
+                        title={item.title}
+                        href={item.href}
+                      >
                         {item.description}
                       </ListItem>
                     ))}
@@ -128,7 +152,10 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link href="/contact" legacyBehavior passHref>
                   <NavigationMenuLink
-                    className={cn(navigationMenuTriggerStyle(), "hover:text-red-600 transition-colors cursor-pointer")}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer'
+                    )}
                   >
                     Contact
                   </NavigationMenuLink>
@@ -143,13 +170,19 @@ export default function Navbar() {
 
           {user ? (
             <div className="flex items-center gap-2">
-              <Link href={isAdmin ? "/admin" : "/cont"}>
+              <Link href={isAdmin ? '/admin' : '/cont'}>
                 <Button variant="outline" className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  <span className="hidden sm:inline">{isAdmin ? "Admin" : "Contul meu"}</span>
+                  <span className="hidden sm:inline">
+                    {isAdmin ? 'Admin' : 'Contul meu'}
+                  </span>
                 </Button>
               </Link>
-              <Button variant="ghost" className="hidden sm:flex" onClick={handleLogout}>
+              <Button
+                variant="ghost"
+                className="hidden sm:flex"
+                onClick={handleLogout}
+              >
                 Deconectare
               </Button>
             </div>
@@ -192,12 +225,17 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent side="left" className="pl-5">
             <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
-            <MobileNav setIsOpen={setIsOpen} user={user} isAdmin={isAdmin} onLogout={handleLogout} />
+            <MobileNav
+              setIsOpen={setIsOpen}
+              user={user}
+              isAdmin={isAdmin}
+              onLogout={handleLogout}
+            />
           </SheetContent>
         </Sheet>
       </div>
     </header>
-  )
+  );
 }
 
 function MobileNav({
@@ -206,19 +244,29 @@ function MobileNav({
   isAdmin,
   onLogout,
 }: {
-  setIsOpen: (open: boolean) => void
-  user: any
-  isAdmin: boolean
-  onLogout: () => void
+  setIsOpen: (open: boolean) => void;
+  user: any;
+  isAdmin: boolean;
+  onLogout: () => void;
 }) {
-  const [openDansuri, setOpenDansuri] = useState(false)
-  const [openDespre, setOpenDespre] = useState(false)
+  const [openDansuri, setOpenDansuri] = useState(false);
+  const [openDespre, setOpenDespre] = useState(false);
 
   return (
     <div className="grid gap-6 text-base">
-      <Link href="/" className="flex items-center gap-1" onClick={() => setIsOpen(false)}>
+      <Link
+        href="/"
+        className="flex items-center gap-1"
+        onClick={() => setIsOpen(false)}
+      >
         <div className="relative h-14 w-[180px]">
-          <Image src="/images/logo.png" alt="In pasi de Dans" fill className="object-contain object-left" priority />
+          <Image
+            src="/images/logo.png"
+            alt="In pasi de Dans"
+            fill
+            className="object-contain object-left"
+            priority
+          />
         </div>
       </Link>
       <div className="grid gap-3">
@@ -236,11 +284,16 @@ function MobileNav({
             className="flex w-full items-center justify-between py-2 font-medium"
           >
             Dansuri predate
-            <ChevronDown className={cn("h-4 w-4 transition-transform", openDansuri ? "rotate-180" : "")} />
+            <ChevronDown
+              className={cn(
+                'h-4 w-4 transition-transform',
+                openDansuri ? 'rotate-180' : ''
+              )}
+            />
           </button>
           {openDansuri && (
             <div className="grid gap-2 pl-4">
-              {dansuriPredate.map((item) => (
+              {dansuriPredate.map(item => (
                 <Link
                   key={item.title}
                   href={item.href}
@@ -253,27 +306,41 @@ function MobileNav({
             </div>
           )}
         </div>
-        <Link href="/program" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+        <Link
+          href="/program"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+        >
           Program
         </Link>
-        <Link href="/tarife" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+        <Link
+          href="/tarife"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+        >
           Tarife
         </Link>
         {/* Am eliminat link-ul către galerie */}
         <div>
-          <Link href="/despre-noi" className="flex w-full items-center justify-between py-2 font-medium">
+          <Link
+            href="/despre-noi"
+            className="flex w-full items-center justify-between py-2 font-medium"
+          >
             Despre noi
             <ChevronDown
-              className={cn("h-4 w-4 transition-transform", openDespre ? "rotate-180" : "")}
-              onClick={(e) => {
-                e.preventDefault()
-                setOpenDespre(!openDespre)
+              className={cn(
+                'h-4 w-4 transition-transform',
+                openDespre ? 'rotate-180' : ''
+              )}
+              onClick={e => {
+                e.preventDefault();
+                setOpenDespre(!openDespre);
               }}
             />
           </Link>
           {openDespre && (
             <div className="grid gap-2 pl-4">
-              {despreNoi.map((item) => (
+              {despreNoi.map(item => (
                 <Link
                   key={item.title}
                   href={item.href}
@@ -286,19 +353,27 @@ function MobileNav({
             </div>
           )}
         </div>
-        <Link href="/contact" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+        <Link
+          href="/contact"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+        >
           Contact
         </Link>
 
         {user ? (
           <>
-            <Link href={isAdmin ? "/admin" : "/cont"} onClick={() => setIsOpen(false)} className="py-2 font-medium">
-              {isAdmin ? "Panou Admin" : "Contul meu"}
+            <Link
+              href={isAdmin ? '/admin' : '/cont'}
+              onClick={() => setIsOpen(false)}
+              className="py-2 font-medium"
+            >
+              {isAdmin ? 'Panou Admin' : 'Contul meu'}
             </Link>
             <button
               onClick={() => {
-                onLogout()
-                setIsOpen(false)
+                onLogout();
+                setIsOpen(false);
               }}
               className="py-2 font-medium text-left"
             >
@@ -307,91 +382,108 @@ function MobileNav({
           </>
         ) : (
           <>
-            <Link href="/autentificare" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+            <Link
+              href="/autentificare"
+              onClick={() => setIsOpen(false)}
+              className="py-2 font-medium"
+            >
               Autentificare
             </Link>
-            <Link href="/inscriere" onClick={() => setIsOpen(false)} className="py-2 font-medium">
+            <Link
+              href="/inscriere"
+              onClick={() => setIsOpen(false)}
+              className="py-2 font-medium"
+            >
               Înscrie-te
             </Link>
           </>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
-  ({ className, title, children, ...props }, ref) => {
-    return (
-      <li>
-        <NavigationMenuLink asChild>
-          <a
-            ref={ref}
-            className={cn(
-              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className,
-            )}
-            {...props}
-          >
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
-          </a>
-        </NavigationMenuLink>
-      </li>
-    )
-  },
-)
-ListItem.displayName = "ListItem"
+const ListItem = React.forwardRef<
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = 'ListItem';
 
 const dansuriPredate = [
   {
-    title: "Cursuri dans adulți",
-    href: "/cursuri-dans-adulti",
-    description: "Cursuri de dans pentru adulți de toate vârstele și nivelurile de experiență.",
+    title: 'Dansuri latino',
+    href: '/dansuri-latino',
+    description:
+      'Salsa, bachata, cha-cha, rumba și alte dansuri latino pline de pasiune.',
   },
   {
-    title: "Cursuri dans copii",
-    href: "/cursuri-dans-copii",
-    description: "Cursuri de dans pentru copii adaptate pe grupe de vârstă și nivel.",
+    title: 'Dansuri de societate',
+    href: '/dansuri-de-societate',
+    description: 'Vals, tango, foxtrot și alte dansuri elegante de societate.',
   },
   {
-    title: "Dansuri populare",
-    href: "/dansuri-populare",
-    description: "Învață dansuri tradiționale românești și internaționale.",
+    title: 'Dansuri populare',
+    href: '/dansuri-populare',
+    description: 'Învață dansuri tradiționale românești și internaționale.',
   },
   {
-    title: "Dansuri de societate",
-    href: "/dansuri-de-societate",
-    description: "Vals, tango, foxtrot și alte dansuri elegante de societate.",
+    title: 'Cursuri dans adulți',
+    href: '/cursuri-dans-adulti',
+    description:
+      'Cursuri de dans pentru adulți de toate vârstele și nivelurile de experiență.',
   },
   {
-    title: "Dansuri latino",
-    href: "/dansuri-latino",
-    description: "Salsa, bachata, cha-cha, rumba și alte dansuri latino pline de pasiune.",
+    title: 'Cursuri dans copii',
+    href: '/cursuri-dans-copii',
+    description:
+      'Cursuri de dans pentru copii adaptate pe grupe de vârstă și nivel.',
   },
+
   // Am eliminat "Grupe în formare" de aici
-]
+];
 
 const despreNoi = [
   {
-    title: "Instructori",
-    href: "/instructori",
-    description: "Cunoaște echipa noastră de instructori profesioniști cu experiență.",
+    title: 'Instructori',
+    href: '/instructori',
+    description:
+      'Cunoaște echipa noastră de instructori profesioniști cu experiență.',
   },
   {
-    title: "Excursii în pași de dans",
-    href: "/excursii",
-    description: "Participă la excursiile noastre tematice dedicate dansului.",
+    title: 'Excursii în pași de dans',
+    href: '/excursii',
+    description: 'Participă la excursiile noastre tematice dedicate dansului.',
   },
+  // {
+  //   title: 'Testimoniale',
+  //   href: '/testimoniale',
+  //   description:
+  //     'Vezi ce spun elevii noștri despre experiența lor la cursurile noastre.',
+  // },
   {
-    title: "Testimoniale",
-    href: "/testimoniale",
-    description: "Vezi ce spun elevii noștri despre experiența lor la cursurile noastre.",
+    title: 'Petreceri în pași de dans',
+    href: '/petreceri',
+    description:
+      'Participă la petrecerile noastre tematice unde poți practica ce ai învățat.',
   },
-  {
-    title: "Petreceri în pași de dans",
-    href: "/petreceri",
-    description: "Participă la petrecerile noastre tematice unde poți practica ce ai învățat.",
-  },
-]
-
+];

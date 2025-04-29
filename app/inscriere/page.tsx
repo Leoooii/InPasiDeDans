@@ -1,64 +1,81 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export default function Inscriere() {
   const [formData, setFormData] = useState({
-    curs: "",
-    perioada: "",
-    nume: "",
-    email: "",
-    telefon: "",
-    mesaj: "",
-  })
+    curs: '',
+    perioada: '',
+    nume: '',
+    email: '',
+    telefon: '',
+    mesaj: '',
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulăm trimiterea formularului
     setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
+      setIsSubmitting(false);
+      setIsSubmitted(true);
       setFormData({
-        curs: "",
-        perioada: "",
-        nume: "",
-        email: "",
-        telefon: "",
-        mesaj: "",
-      })
-    }, 1500)
-  }
+        curs: '',
+        perioada: '',
+        nume: '',
+        email: '',
+        telefon: '',
+        mesaj: '',
+      });
+    }, 1500);
+  };
 
   return (
     <div className="container py-12">
       <div className="max-w-3xl mx-auto">
         <div className="space-y-2 text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">Formular de înscriere</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Formular de înscriere
+          </h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Completează formularul de mai jos pentru a te înscrie la cursurile noastre de dans
+            Completează formularul de mai jos pentru a te înscrie la cursurile
+            noastre de dans
           </p>
         </div>
 
@@ -67,15 +84,27 @@ export default function Inscriere() {
             <CardContent className="pt-6 pb-6 text-center">
               <div className="mb-4 flex justify-center">
                 <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                  <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  <svg
+                    className="h-6 w-6 text-green-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-2 text-green-600">Formular trimis cu succes!</h3>
+              <h3 className="text-xl font-bold mb-2 text-green-600">
+                Formular trimis cu succes!
+              </h3>
               <p className="text-gray-500 dark:text-gray-400 mb-4">
-                Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai scurt timp posibil pentru a confirma
-                înscrierea.
+                Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai
+                scurt timp posibil pentru a confirma înscrierea.
               </p>
               <Button
                 onClick={() => setIsSubmitted(false)}
@@ -89,64 +118,104 @@ export default function Inscriere() {
           <Card>
             <CardHeader>
               <CardTitle>Informații înscriere</CardTitle>
-              <CardDescription>Completează toate câmpurile obligatorii marcate cu *</CardDescription>
+              <CardDescription>
+                Completează toate câmpurile obligatorii marcate cu *
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="curs">Ce curs te interesează? *</Label>
-                    <Select required value={formData.curs} onValueChange={(value) => handleSelectChange("curs", value)}>
+                    <Select
+                      required
+                      value={formData.curs}
+                      onValueChange={value => handleSelectChange('curs', value)}
+                    >
                       <SelectTrigger id="curs" className="mt-1.5">
                         <SelectValue placeholder="Alege un curs" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="dans-adulti">Cursuri dans adulți</SelectItem>
-                        <SelectItem value="dans-copii">Cursuri dans copii</SelectItem>
-                        <SelectItem value="dansuri-populare">Dansuri populare</SelectItem>
-                        <SelectItem value="dansuri-societate">Dansuri de societate</SelectItem>
-                        <SelectItem value="dansuri-latino">Dansuri latino</SelectItem>
-                        <SelectItem value="dans-nunta">Dans pentru nuntă</SelectItem>
+                        <SelectItem value="dans-adulti-latino-societate">
+                          Cursuri dans adulți latino si societate
+                        </SelectItem>
+
+                        <SelectItem value="dansuri-adulti-populare">
+                          Cursuri dans adulti populare
+                        </SelectItem>
+                        <SelectItem value="dans-copii">
+                          Cursuri dans copii
+                        </SelectItem>
+
+                        <SelectItem value="dans-privat">
+                          Lectii private
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <Label>Când dorești să participi la curs? *</Label>
                     <RadioGroup
                       required
                       value={formData.perioada}
-                      onValueChange={(value) => handleSelectChange("perioada", value)}
+                      onValueChange={value =>
+                        handleSelectChange('perioada', value)
+                      }
                       className="mt-1.5 grid grid-cols-1 md:grid-cols-2 gap-2"
                     >
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="cat-mai-curand" id="cat-mai-curand" />
-                        <Label htmlFor="cat-mai-curand" className="cursor-pointer">
+                        <RadioGroupItem
+                          value="cat-mai-curand"
+                          id="cat-mai-curand"
+                        />
+                        <Label
+                          htmlFor="cat-mai-curand"
+                          className="cursor-pointer"
+                        >
                           Cât mai curând
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="luna-urmatoare" id="luna-urmatoare" />
-                        <Label htmlFor="luna-urmatoare" className="cursor-pointer">
+                        <RadioGroupItem
+                          value="luna-urmatoare"
+                          id="luna-urmatoare"
+                        />
+                        <Label
+                          htmlFor="luna-urmatoare"
+                          className="cursor-pointer"
+                        >
                           Luna următoare
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="urmatoarele-3-luni" id="urmatoarele-3-luni" />
-                        <Label htmlFor="urmatoarele-3-luni" className="cursor-pointer">
+                        <RadioGroupItem
+                          value="urmatoarele-3-luni"
+                          id="urmatoarele-3-luni"
+                        />
+                        <Label
+                          htmlFor="urmatoarele-3-luni"
+                          className="cursor-pointer"
+                        >
                           În următoarele 3 luni
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="doar-informatii" id="doar-informatii" />
-                        <Label htmlFor="doar-informatii" className="cursor-pointer">
+                        <RadioGroupItem
+                          value="doar-informatii"
+                          id="doar-informatii"
+                        />
+                        <Label
+                          htmlFor="doar-informatii"
+                          className="cursor-pointer"
+                        >
                           Doar doresc informații
                         </Label>
                       </div>
                     </RadioGroup>
-                  </div>
+                  </div> */}
 
-                  <div className="border-t pt-4">
+                  <div>
                     <Label htmlFor="nume">Spune-ne numele tău *</Label>
                     <Input
                       id="nume"
@@ -160,7 +229,9 @@ export default function Inscriere() {
                   </div>
 
                   <div>
-                    <Label htmlFor="email">Pe ce adresă vrei să îți răspundem? *</Label>
+                    <Label htmlFor="email">
+                      Pe ce adresă vrei să îți răspundem? *
+                    </Label>
                     <Input
                       id="email"
                       name="email"
@@ -174,7 +245,9 @@ export default function Inscriere() {
                   </div>
 
                   <div>
-                    <Label htmlFor="telefon">Lasă-ne numărul dacă vrei să te sunăm</Label>
+                    <Label htmlFor="telefon">
+                      Lasă-ne numărul dacă vrei să te sunăm
+                    </Label>
                     <Input
                       id="telefon"
                       name="telefon"
@@ -187,7 +260,9 @@ export default function Inscriere() {
                   </div>
 
                   <div>
-                    <Label htmlFor="mesaj">Vrei să ne dai mai multe detalii?</Label>
+                    <Label htmlFor="mesaj">
+                      Vrei să ne dai mai multe detalii?
+                    </Label>
                     <Textarea
                       id="mesaj"
                       name="mesaj"
@@ -198,10 +273,12 @@ export default function Inscriere() {
                     />
                   </div>
 
-                  <div className="border p-4 rounded-md bg-gray-50 dark:bg-gray-800">
+                  {/* <div className="border p-4 rounded-md bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center space-x-2">
                       <div className="h-6 w-6 border rounded bg-white dark:bg-gray-700"></div>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">I'm not a robot</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        I'm not a robot
+                      </span>
                     </div>
                     <div className="mt-2 flex items-center justify-between">
                       <div className="flex items-center">
@@ -235,11 +312,15 @@ export default function Inscriere() {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span className="text-xs text-gray-400 ml-1">reCAPTCHA</span>
+                        <span className="text-xs text-gray-400 ml-1">
+                          reCAPTCHA
+                        </span>
                       </div>
-                      <span className="text-xs text-gray-400">Privacy - Terms</span>
+                      <span className="text-xs text-gray-400">
+                        Privacy - Terms
+                      </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <Button
@@ -247,7 +328,7 @@ export default function Inscriere() {
                   disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                 >
-                  {isSubmitting ? "Se trimite..." : "Trimite formularul"}
+                  {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}
                 </Button>
               </form>
             </CardContent>
@@ -255,6 +336,5 @@ export default function Inscriere() {
         )}
       </div>
     </div>
-  )
+  );
 }
-

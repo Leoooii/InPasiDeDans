@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function Program() {
   return (
@@ -8,24 +8,28 @@ export default function Program() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Program Cursuri</h1>
-          <p className="text-gray-500 dark:text-gray-400">Consultă programul complet al cursurilor noastre de dans</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            Consultă programul complet al cursurilor noastre de dans
+          </p>
         </div>
 
         <Tabs defaultValue="luni" className="w-full">
-          <TabsList className="grid grid-cols-6 h-auto">
-            <TabsTrigger value="luni">Luni</TabsTrigger>
-            <TabsTrigger value="marti">Marți</TabsTrigger>
-            <TabsTrigger value="miercuri">Miercuri</TabsTrigger>
-            <TabsTrigger value="joi">Joi</TabsTrigger>
+          <TabsList className="grid grid-cols-4 h-auto">
+            <TabsTrigger value="luni si miercuri">Luni si Miercuri</TabsTrigger>
+            <TabsTrigger value="marti si joi">Marți si Joi</TabsTrigger>
+            {/* <TabsTrigger value="miercuri">Miercuri</TabsTrigger> */}
+            {/* <TabsTrigger value="joi">Joi</TabsTrigger> */}
             <TabsTrigger value="vineri">Vineri</TabsTrigger>
             <TabsTrigger value="sambata">Sâmbătă</TabsTrigger>
             {/* <TabsTrigger value="duminica">Duminică</TabsTrigger> */}
           </TabsList>
 
-          <TabsContent value="luni" className="mt-6">
+          <TabsContent value="luni si miercuri" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-4">Program Luni</h2>
+                <h2 className="text-xl font-bold mb-4">
+                  Program Luni si Miercuri
+                </h2>
                 <div className="space-y-4">
                   <ScheduleItem
                     time="16:00 - 17:00"
@@ -56,10 +60,10 @@ export default function Program() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="marti" className="mt-6">
+          <TabsContent value="marti si joi" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-4">Program Marți</h2>
+                <h2 className="text-xl font-bold mb-4">Program Marți si Joi</h2>
                 <div className="space-y-4">
                   <ScheduleItem
                     time="16:00 - 17:00"
@@ -257,10 +261,13 @@ export default function Program() {
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold dark:text-black">Rezervă-ți locul la curs</h2> 
+            <h2 className="text-2xl font-bold dark:text-black">
+              Rezervă-ți locul la curs
+            </h2>
             <p className="dark:text-black">
-              Pentru a asigura calitatea cursurilor, numărul de participanți este limitat. Rezervă-ți locul din timp
-              pentru a te asigura că poți participa la cursul dorit.
+              Pentru a asigura calitatea cursurilor, numărul de participanți
+              este limitat. Rezervă-ți locul din timp pentru a te asigura că
+              poți participa la cursul dorit.
             </p>
             <Button
               size="lg"
@@ -272,7 +279,7 @@ export default function Program() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function ScheduleItem({
@@ -280,7 +287,12 @@ function ScheduleItem({
   course,
   instructor,
   room,
-}: { time: string; course: string; instructor: string; room: string }) {
+}: {
+  time: string;
+  course: string;
+  instructor: string;
+  room: string;
+}) {
   return (
     <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
       <div className="md:w-1/4">
@@ -296,6 +308,5 @@ function ScheduleItem({
         <p className="text-gray-500">{room}</p>
       </div>
     </div>
-  )
+  );
 }
-
