@@ -21,47 +21,7 @@ export default function Tarife() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
-          <Card className="flex flex-col border-red-600 shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-              <CardTitle>Abonament 4</CardTitle>
-              <CardDescription className=" text-white/90">
-                Valabil 4 saptamani
-              </CardDescription>
-              <div className="mt-4 text-4xl font-bold">
-                160 Lei
-                <span className="text-base font-normal  text-white/90">
-                  /lună
-                </span>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-1 mt-2">
-              <ul className="space-y-2">
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>4 ședințe pe lună</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la un singur stil de dans</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Participare la petrecerile tematice</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Materiale didactice online pe whatsapp</span>
-                </li>
-              </ul>
-            </CardContent>
-            {/* <CardFooter>
-              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Alege acest abonament
-              </Button>
-            </CardFooter> */}
-          </Card>
-
-          <Card className="flex flex-col border-red-600 shadow-lg">
+          <Card className="flex flex-col border-red-600 shadow-lg h-fit">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               {/* <div className="text-center text-sm font-medium uppercase tracking-wider mb-2">Cel mai popular</div> */}
               <CardTitle>Abonament 8</CardTitle>
@@ -83,15 +43,12 @@ export default function Tarife() {
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la mai multe stiluri de dans</span>
+                  <span>Acces la o singura grupa</span>
                 </li>
+
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Participare gratuită la petrecerile tematice</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Materiale didactice online pe Whatsapp</span>
+                  <span>Materiale didactice online</span>
                 </li>
                 {/* <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
@@ -106,7 +63,7 @@ export default function Tarife() {
             </CardFooter> */}
           </Card>
 
-          <Card className="flex flex-col border-red-600 shadow-lg">
+          <Card className="flex flex-col border-red-600 shadow-lg h-fit">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Abonament 16</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
@@ -127,13 +84,12 @@ export default function Tarife() {
                   <span>16 sedinte pe luna</span>
                 </li>
                 <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la toate stilurile de dans</span>
+                  <div>
+                    <Check className="mr-2 h-4 w-4 text-green-500" />
+                  </div>
+                  <span>Acces la 2 grupe indiferent de stilurile de dans</span>
                 </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Participare gratuită la petrecerile tematice</span>
-                </li>
+
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>Materiale didactice online</span>
@@ -146,37 +102,50 @@ export default function Tarife() {
               </Button>
             </CardFooter> */}
           </Card>
-          <Card className="flex flex-col border-red-600 shadow-lg">
+          <Card className="flex flex-col border-red-600 shadow-lg h-fit">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Abonament Full Pass</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
               <CardDescription className=" text-white/90">
                 Valabil 4 saptamani
               </CardDescription>
-              <div className="mt-4 text-4xl font-bold">
-                400 Lei
-                <span className="text-base font-normal  text-white/90">
-                  /lună
-                </span>
-              </div>
+              <div className="mt-4 text-4xl font-bold">400 Lei</div>
+            </CardHeader>
+            <CardContent className="flex-1 mt-2">
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <div>
+                    <Check className="mr-2 h-4 w-4 text-green-500" />
+                  </div>
+                  <span>
+                    Acces nelimitat la grupe (in limita nivelului avut:
+                    incepator, intermediar sau avansat)
+                  </span>
+                </li>
+
+                <li className="flex items-center">
+                  <Check className="mr-2 h-4 w-4 text-green-500" />
+                  <span>Materiale didactice online</span>
+                </li>
+              </ul>
+            </CardContent>
+            {/* <CardFooter>
+              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                Alege acest abonament
+              </Button>
+            </CardFooter> */}
+          </Card>
+          <Card className="flex flex-col border-red-600 shadow-lg h-fit">
+            <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
+              <CardTitle>Plata la sedinta</CardTitle>
+
+              <div className="mt-4 text-4xl font-bold">45 Lei</div>
             </CardHeader>
             <CardContent className="flex-1 mt-2">
               <ul className="space-y-2">
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces nelimitat la grupe (in limita nivelului)</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la toate stilurile de dans</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Participare gratuită la petrecerile tematice</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Materiale didactice online</span>
+                  <span>O sedinta de grupa</span>
                 </li>
               </ul>
             </CardContent>
@@ -189,7 +158,6 @@ export default function Tarife() {
         </div>
 
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Alte opțiuni</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader>
@@ -266,7 +234,7 @@ export default function Tarife() {
           </div>
         </div>
 
-        <div className="mt-12 space-y-6">
+        {/* <div className="mt-12 space-y-6">
           <h2 className="text-2xl font-bold">Reduceri disponibile</h2>
           <div className="grid gap-4">
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
@@ -315,7 +283,7 @@ export default function Tarife() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
@@ -323,8 +291,7 @@ export default function Tarife() {
               Ai întrebări despre tarife?
             </h2>
             <p className="dark:text-black">
-              Contactează-ne pentru informații suplimentare sau pentru a discuta
-              despre opțiuni personalizate care să se potrivească nevoilor tale.
+              Contactează-ne pentru informații suplimentare
             </p>
             <Button
               size="lg"

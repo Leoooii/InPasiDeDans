@@ -1,101 +1,116 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Definim regiunile și dansurile asociate
 const regiuniDansuri = [
   {
-    id: "banat",
-    nume: "Banat",
-    imagine: "/images/Romania/harta-banat.jpg",
-    dansuri: ["Brâul bănățean", "Ardeleana bănățeană", "De doi din Banat", "Hora bănățeană"],
+    id: 'banat',
+    nume: 'Banat',
+    imagine: '/images/Romania/harta-banat.jpg',
+    dansuri: [
+      'Brâul bănățean',
+      'Ardeleana bănățeană',
+      'De doi din Banat',
+      'Hora bănățeană',
+    ],
   },
   {
-    id: "bucovina",
-    nume: "Bucovina",
-    imagine: "/images/Romania/harta-bucovina.jpg",
-    dansuri: ["Arcanul", "Corăgheasca", "Trilișești", "Huțulca"],
+    id: 'bucovina',
+    nume: 'Bucovina',
+    imagine: '/images/Romania/harta-bucovina.jpg',
+    dansuri: ['Arcanul', 'Corăgheasca', 'Trilișești', 'Huțulca'],
   },
   {
-    id: "crisana",
-    nume: "Crișana",
-    imagine: "/images/Romania/harta-crisana.jpg",
-    dansuri: ["Roata", "Ardeleana", "Mânânțelul", "Țarina"],
+    id: 'crisana',
+    nume: 'Crișana',
+    imagine: '/images/Romania/harta-crisana.jpg',
+    dansuri: ['Roata', 'Ardeleana', 'Mânânțelul', 'Țarina'],
   },
   {
-    id: "dobrogea",
-    nume: "Dobrogea",
-    imagine: "/images/Romania/harta-dobrogea.jpg",
-    dansuri: ["Cadâneasca", "Geamparalele", "Hora dobrogeană", "Ghiordumul"],
+    id: 'dobrogea',
+    nume: 'Dobrogea',
+    imagine: '/images/Romania/harta-dobrogea.jpg',
+    dansuri: ['Cadâneasca', 'Geamparalele', 'Hora dobrogeană', 'Ghiordumul'],
   },
   {
-    id: "maramures",
-    nume: "Maramureș",
-    imagine: "/images/Romania/harta-maramures.jpg",
-    dansuri: ["Învârtita maramureșeană", "Jocul fecioresc", "Roata", "Bărbătescul"],
+    id: 'maramures',
+    nume: 'Maramureș',
+    imagine: '/images/Romania/harta-maramures.jpg',
+    dansuri: [
+      'Învârtita maramureșeană',
+      'Jocul fecioresc',
+      'Roata',
+      'Bărbătescul',
+    ],
   },
   {
-    id: "muntenia",
-    nume: "Muntenia",
-    imagine: "/images/Romania/harta-muntenia.jpg",
-    dansuri: ["Brâul muntenesc", "Sârba muntenească", "Geampara", "Breaza"],
+    id: 'muntenia',
+    nume: 'Muntenia',
+    imagine: '/images/Romania/harta-muntenia.jpg',
+    dansuri: ['Brâul muntenesc', 'Sârba muntenească', 'Geampara', 'Breaza'],
   },
   {
-    id: "oltenia",
-    nume: "Oltenia",
-    imagine: "/images/Romania/harta-oltenia.jpg",
-    dansuri: ["Hora oltenească", "Rustemul oltenesc", "Alunelul", "Ciuleandra"],
+    id: 'oltenia',
+    nume: 'Oltenia',
+    imagine: '/images/Romania/harta-oltenia.jpg',
+    dansuri: ['Hora oltenească', 'Rustemul oltenesc', 'Alunelul', 'Ciuleandra'],
   },
   {
-    id: "transilvania",
-    nume: "Transilvania",
-    imagine: "/images/Romania/harta-transilvania.jpg",
-    dansuri: ["Învârtita", "Hațegana", "Fecioreasca", "Jiana"],
+    id: 'transilvania',
+    nume: 'Transilvania',
+    imagine: '/images/Romania/harta-transilvania.jpg',
+    dansuri: ['Învârtita', 'Hațegana', 'Fecioreasca', 'Jiana'],
   },
-]
+];
 
 export default function DansuriPopulare() {
   // State pentru slideshow
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Efect pentru a marca că suntem pe client
   useEffect(() => {
-    setIsLoaded(true)
-  }, [])
+    setIsLoaded(true);
+  }, []);
 
   // Funcții pentru navigarea în slideshow
   const goToPrevious = () => {
-    const isFirstSlide = currentIndex === 0
-    const newIndex = isFirstSlide ? regiuniDansuri.length - 1 : currentIndex - 1
-    setCurrentIndex(newIndex)
-  }
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide
+      ? regiuniDansuri.length - 1
+      : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
 
   const goToNext = () => {
-    const isLastSlide = currentIndex === regiuniDansuri.length - 1
-    const newIndex = isLastSlide ? 0 : currentIndex + 1
-    setCurrentIndex(newIndex)
-  }
+    const isLastSlide = currentIndex === regiuniDansuri.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
 
   const goToSlide = (slideIndex: number) => {
-    setCurrentIndex(slideIndex)
-  }
+    setCurrentIndex(slideIndex);
+  };
 
   // Regiunea curentă
-  const regiuneCurenta = regiuniDansuri[currentIndex]
+  const regiuneCurenta = regiuniDansuri[currentIndex];
 
   return (
     <div className="container py-12">
       <div className="space-y-6">
         {/* Secțiunea de titlu */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Dansuri Populare</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Dansuri Populare
+          </h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Descoperă frumusețea și energia dansurilor tradiționale românești din diferite regiuni
+            Descoperă frumusețea și energia dansurilor tradiționale românești
+            din diferite regiuni
           </p>
         </div>
 
@@ -104,13 +119,15 @@ export default function DansuriPopulare() {
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Tradiție și pasiune</h2>
             <p>
-              Dansurile populare reprezintă o parte importantă a patrimoniului cultural, transmițând obiceiuri, tradiții
-              și povești din generație în generație. Fiecare regiune a României are propriile dansuri tradiționale, cu
-              stiluri și ritmuri distincte.
+              Dansurile populare reprezintă o parte importantă a patrimoniului
+              cultural, transmițând obiceiuri, tradiții și povești din generație
+              în generație. Fiecare regiune a României are propriile dansuri
+              tradiționale, cu stiluri și ritmuri distincte.
             </p>
             <p>
-              La școala noastră, puteți învăța dansuri populare din toate regiunile României, de la hora moldovenească
-              și învârtita din Transilvania, până la brâul muntenesc și dansurile din Banat.
+              La școala noastră, puteți învăța dansuri populare din toate
+              regiunile României, de la hora moldovenească și învârtita din
+              Transilvania, până la brâul muntenesc și dansurile din Banat.
             </p>
             <div className="pt-4">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
@@ -119,27 +136,34 @@ export default function DansuriPopulare() {
             </div>
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image src="/images/dobrogea.jpg?height=400&width=600" alt="Dansuri populare" fill className="object-cover" />
+            <Image
+              src="/images/dobrogea.jpg?height=400&width=600"
+              alt="Dansuri populare"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
 
         {/* Secțiunea de slideshow cu regiuni */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Explorează regiunile României și dansurile lor</h2>
+          <h2 className="text-2xl font-bold mb-6">
+            Explorează regiunile României și dansurile lor
+          </h2>
 
           {isLoaded && (
             <div className="relative">
               {/* Slideshow cu imagini ale regiunilor */}
               <div className="relative h-[400px] rounded-lg overflow-hidden">
                 <Image
-                  src={regiuneCurenta.imagine || "/placeholder.svg"}
+                  src={regiuneCurenta.imagine || '/placeholder.svg'}
                   alt={`Regiunea ${regiuneCurenta.nume}`}
                   fill
                   className="object-contain"
-                  onError={(e) => {
+                  onError={e => {
                     // Fallback pentru imagini care nu se încarcă
-                    const target = e.target as HTMLImageElement
-                    target.src = "/placeholder.svg?height=400&width=600"
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.svg?height=400&width=600';
                   }}
                 />
 
@@ -169,7 +193,9 @@ export default function DansuriPopulare() {
                   <button
                     key={regiune.id}
                     onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full ${currentIndex === index ? "bg-red-600" : "bg-gray-300"}`}
+                    className={`w-3 h-3 rounded-full ${
+                      currentIndex === index ? 'bg-red-600' : 'bg-gray-300'
+                    }`}
                   />
                 ))}
               </div>
@@ -177,10 +203,15 @@ export default function DansuriPopulare() {
               {/* Lista de dansuri pentru regiunea curentă */}
               <Card className="mt-6">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-4">Dansuri populare din {regiuneCurenta.nume}</h3>
+                  <h3 className="text-xl font-bold mb-4">
+                    Dansuri populare din {regiuneCurenta.nume}
+                  </h3>
                   <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {regiuneCurenta.dansuri.map((dans, index) => (
-                      <li key={index} className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                      <li
+                        key={index}
+                        className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg"
+                      >
                         <span className="font-medium">{dans}</span>
                       </li>
                     ))}
@@ -251,7 +282,7 @@ export default function DansuriPopulare() {
         </div> */}
 
         {/* Secțiunea CTA */}
-        <div className="mt-12 bg-red-50 dark:bg-red-900/10 p-8 rounded-lg">
+        {/* <div className="mt-12 bg-red-50 dark:bg-red-900/10 p-8 rounded-lg">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image
@@ -275,10 +306,10 @@ export default function DansuriPopulare() {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
-  )
+  );
 }
 
 // Componenta pentru cardurile de regiuni (comentată)

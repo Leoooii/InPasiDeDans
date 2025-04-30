@@ -31,6 +31,29 @@ import { useRouter } from 'next/navigation';
 // Adaugă importul pentru ThemeToggle
 import ThemeToggle from '@/components/theme-toggle';
 
+// Adăugăm importurile pentru icoanele de social media
+import { Facebook, Instagram } from 'lucide-react';
+
+// Adăugăm un component pentru TikTok (care nu există în Lucide)
+const TikTokIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-6 w-6"
+  >
+    <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+    <path d="M15 8h.01"></path>
+    <path d="M12 2v7a4 4 0 0 0 4 4h1"></path>
+  </svg>
+);
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -58,6 +81,40 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="w-full border-b bg-gray-900">
+        <div className="container flex h-10 items-center max-w-full px-4 md:px-6 ">
+          <div className="w-1/4 flex items-center justify-center space-x-4 ">
+            <a
+              href="https://www.facebook.com/scoaladedansinpasidedans"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-blue-600  transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook className="h-6 w-6" />
+            </a>
+            <a
+              href="https://www.instagram.com/inpasidedans/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-pink-600  transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-6 w-6" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@in.pasi.de.dans"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600  hover:text-white transition-colors"
+              aria-label="TikTok"
+            >
+              <TikTokIcon />
+            </a>
+          </div>
+          <div className="w-3/4"></div>
+        </div>
+      </div>
       <div className="container flex h-20 items-center max-w-full px-4 md:px-6">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <div className="relative h-16 w-[200px]">
@@ -447,17 +504,23 @@ const dansuriPredate = [
     description: 'Învață dansuri tradiționale românești și internaționale.',
   },
   {
-    title: 'Cursuri dans adulți',
-    href: '/cursuri-dans-adulti',
+    title: 'Lectii private',
+    href: '/cursuri-dans-nunta',
     description:
-      'Cursuri de dans pentru adulți de toate vârstele și nivelurile de experiență.',
+      'Dansul mirilor, latino, dasnsurilor de societate, dansuri populare, etc.',
   },
-  {
-    title: 'Cursuri dans copii',
-    href: '/cursuri-dans-copii',
-    description:
-      'Cursuri de dans pentru copii adaptate pe grupe de vârstă și nivel.',
-  },
+  // {
+  //   title: 'Cursuri dans adulți',
+  //   href: '/cursuri-dans-adulti',
+  //   description:
+  //     'Cursuri de dans pentru adulți de toate vârstele și nivelurile de experiență.',
+  // },
+  // {
+  //   title: 'Cursuri dans copii',
+  //   href: '/cursuri-dans-copii',
+  //   description:
+  //     'Cursuri de dans pentru copii adaptate pe grupe de vârstă și nivel.',
+  // },
 
   // Am eliminat "Grupe în formare" de aici
 ];

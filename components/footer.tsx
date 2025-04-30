@@ -23,8 +23,8 @@ export default function Footer() {
               className="h-auto"
             />
             <p className="text-sm">
-              Școală de dans cu tradiție din 2009, oferind cursuri pentru adulți
-              și copii într-o atmosferă plăcută și relaxantă.
+              Invatam Bucurestiul sa danseze din 2009, oferim cursuri pentru
+              adulți și copii într-o atmosferă plăcută și relaxantă.
             </p>
             <div className="flex space-x-4">
               <Link
