@@ -61,7 +61,7 @@ export default function Home() {
             <Link href={'/inscriere'}>
               <Button
                 size="lg"
-                className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-700 text-lg"
+                className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-800 text-lg "
               >
                 Înscrie-te acum
               </Button>
@@ -240,11 +240,11 @@ function ShineButton({
         />
 
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-black/20 animate-continuous-shine "></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-orange-800/60 to-white/20 animate-continuous-shine "></div>
 
         {/* Titlu */}
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          <h3 className="text-xl font-bold text-white">{title}</h3>
+          <h3 className="text-xl font-bold text-white ">{title}</h3>
           <div className="w-0 h-0.5 bg-white mt-2 transition-all duration-300 group-hover:w-full"></div>
         </div>
       </div>

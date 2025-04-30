@@ -14,9 +14,9 @@ export default function Tarife() {
     <div className="container py-12">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Tarife</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Tarife adulti</h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Consultă tarifele noastre pentru cursurile de dans
+            Consultă tarifele noastre pentru cursurile de dans pentru adulți.
           </p>
         </div>
 
@@ -28,12 +28,7 @@ export default function Tarife() {
               <CardDescription className="text-white/90">
                 Valabil 4 saptamani
               </CardDescription>
-              <div className="mt-4 text-4xl font-bold">
-                230 Lei
-                <span className="text-base font-normal text-white/90">
-                  /lună
-                </span>
-              </div>
+              <div className="mt-4 text-4xl font-bold">230 Lei</div>
             </CardHeader>
             <CardContent className="flex-1 mt-2">
               <ul className="space-y-2">
@@ -70,12 +65,7 @@ export default function Tarife() {
               <CardDescription className=" text-white/90">
                 Valabil 4 saptamani
               </CardDescription>
-              <div className="mt-4 text-4xl font-bold">
-                320 Lei
-                <span className="text-base font-normal  text-white/90">
-                  /lună
-                </span>
-              </div>
+              <div className="mt-4 text-4xl font-bold">320 Lei</div>
             </CardHeader>
             <CardContent className="flex-1 mt-2">
               <ul className="space-y-2">
@@ -156,8 +146,38 @@ export default function Tarife() {
             </CardFooter> */}
           </Card>
         </div>
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">Alte tarife</h1>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
+          <Card className="flex flex-col border-red-600 shadow-lg h-fit">
+            <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
+              <CardTitle>Abonament Copil</CardTitle>
+              {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
+              <CardDescription className=" text-white/90">
+                Valabil 4 saptamani
+              </CardDescription>
+              <div className="mt-4 text-4xl font-bold">200 Lei</div>
+            </CardHeader>
+          </Card>
+          <Card className="flex flex-col border-red-600 shadow-lg h-fit">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-t-lg">
+              <CardTitle>Sedinta privata</CardTitle>
+              {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
+              <CardDescription className=" text-white/90">
+                Valabil 4 saptamani
+              </CardDescription>
+              <div className="mt-4 text-4xl font-bold">150 Lei</div>
+            </CardHeader>
+          </Card>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
+          <h1>
+            Mesaj de la Leo: aici trebuie sa mai vorbim cu designul tarifelor :)
+          </h1>
+        </div>
 
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader>
@@ -232,7 +252,7 @@ export default function Tarife() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
 
         {/* <div className="mt-12 space-y-6">
           <h2 className="text-2xl font-bold">Reduceri disponibile</h2>
