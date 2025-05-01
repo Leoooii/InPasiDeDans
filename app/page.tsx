@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       {/* Cookie Consent */}
       {/* <CookieConsent /> */}
 
@@ -91,9 +91,9 @@ export default function Home() {
       </section> */}
 
       {/* Secțiunea CURSURI DE DANS */}
-      <section className="py-16">
+      <section className="py-16 bg-gray-800">
         <div className="container">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">
+          <h2 className="text-3xl font-bold mb-12 text-center text-white">
             CURSURI DE DANS
           </h2>
 

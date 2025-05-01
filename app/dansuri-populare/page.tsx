@@ -125,9 +125,13 @@ export default function DansuriPopulare() {
               tradiționale, cu stiluri și ritmuri distincte.
             </p>
             <p>
-              La școala noastră, puteți învăța dansuri populare din toate
+              La școala noastră, puteți învăța jocuri populare din toate
               regiunile României, de la hora moldovenească și învârtita din
-              Transilvania, până la brâul muntenesc și dansurile din Banat.
+              Transilvania, până la brâul muntenesc și jocurile pline de energie
+              din Oltenia.
+            </p>
+            <p>
+              Mai jos gasiti jocurile populare predate in cadrul scolii noastre.
             </p>
             <div className="pt-4">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
