@@ -14,7 +14,7 @@ export default function Program() {
         </div>
 
         <Tabs defaultValue="luni si miercuri" className="w-full">
-          <TabsList className="grid grid-cols-4 h-auto">
+          <TabsList className="grid grid-cols-1 sm:grid-cols-4 h-auto">
             <TabsTrigger value="luni si miercuri">Luni + Miercuri</TabsTrigger>
             <TabsTrigger value="marti si joi">Marți + Joi</TabsTrigger>
             {/* <TabsTrigger value="miercuri">Miercuri</TabsTrigger> */}
