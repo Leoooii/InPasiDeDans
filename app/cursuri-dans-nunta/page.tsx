@@ -368,7 +368,7 @@ export default function CursuriDansNunta() {
             </Card>
           </div>
         </div>
-        <h2 className="text-2xl font-bold mb-6">Extra:</h2>
+        <h2 className="text-2xl font-bold mb-6">Alte Opțiuni:</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 mb-10">
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
@@ -384,6 +384,16 @@ export default function CursuriDansNunta() {
               <div className="mt-4 text-4xl font-bold">200 Lei</div>
             </CardHeader>
           </Card>
+        </div>
+        <div>
+          <h2 className="text-xl  mb-6">
+            Daca doriti sa efectuati plata la fiecare sedinta, pretul pentru o
+            lectie particulara de dans este 180 lei. In cazul in care optati
+            pentru unul din pachete, plata orelor particulare de dans se va face
+            integral la prima sedinta. Anularea si reprogramarea unei sedinte se
+            va face cu cel putin 24 de ore inainte, telefonic. In caz contrar,
+            sedinta se considera efectuata.
+          </h2>
         </div>
 
         <div className="mt-12 space-y-6">
