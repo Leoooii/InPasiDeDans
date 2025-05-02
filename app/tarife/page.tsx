@@ -163,7 +163,7 @@ export default function Tarife() {
               <CardTitle>Plata la sedinta</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
 
-              <div className="mt-4 text-4xl font-bold">150 Lei</div>
+              <div className="mt-4 text-4xl font-bold">180 Lei</div>
             </CardHeader>
           </Card>
         </div>

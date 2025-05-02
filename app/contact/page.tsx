@@ -106,7 +106,7 @@ export default function Contact() {
                   <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Adresă</h3>
-                    <p className="text-gray-500">Strada Exemplu, Nr. 123, București, România</p>
+                    <p className="text-gray-500">Calea Rahovei, Nr. 262, Sector 5, Bucuresti.</p>
                   </div>
                 </div>
               </CardContent>

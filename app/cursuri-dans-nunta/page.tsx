@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 
@@ -9,10 +9,12 @@ export default function CursuriDansNunta() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri de dans pentru Nuntă
+            Cursuri private de dans
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Creează un moment special și memorabil pentru ziua nunții tale
+            Oferim lectii private atat pentru miri, cat si pentru persoane mai
+            timide sau pentru cei care vor sa aprofundeze doar anumite stiluri
+            de dans.
           </p>
         </div>
 
@@ -21,6 +23,9 @@ export default function CursuriDansNunta() {
             <h2 className="text-2xl font-bold">
               Dansul mirilor - un moment magic
             </h2>
+            <p className="text-gray-500 dark:text-gray-400">
+              Creează un moment special și memorabil pentru ziua nunții tale
+            </p>
             <p>
               Dansul mirilor este unul dintre cele mai emoționante și memorabile
               momente ale nunții. La școala noastră, vă oferim cursuri private
@@ -28,10 +33,10 @@ export default function CursuriDansNunta() {
               personalității voastre.
             </p>
             <p>
-              Indiferent dacă doriți un vals clasic, un dans latino sau o
-              coregrafie surprinzătoare și plină de personalitate, instructorii
-              noștri vă vor ghida pas cu pas pentru a vă simți încrezători și
-              pregătiți pentru marele moment.
+              ??? Indiferent dacă doriți un vals clasic, un tango ori dans
+              latino sau o coregrafie surprinzătoare și plină de personalitate,
+              instructorii noștri vă vor ghida pas cu pas pentru a vă simți
+              încrezători și pregătiți pentru marele moment.
             </p>
             <div className="pt-4">
               <div className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 p-2 text-white text-center text-sm font-medium rounded-lg">
@@ -362,6 +367,23 @@ export default function CursuriDansNunta() {
               </CardContent>
             </Card>
           </div>
+        </div>
+        <h2 className="text-2xl font-bold mb-6">Extra:</h2>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 mb-10">
+          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
+            <CardHeader className=" text-white rounded-t-lg">
+              <CardTitle>Plata la sedinta</CardTitle>
+
+              <div className="mt-4 text-4xl font-bold">180 Lei</div>
+            </CardHeader>
+          </Card>
+          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
+            <CardHeader className=" text-white rounded-t-lg">
+              <CardTitle>Sedinta la restaurant (in Bucuresti)</CardTitle>
+
+              <div className="mt-4 text-4xl font-bold">200 Lei</div>
+            </CardHeader>
+          </Card>
         </div>
 
         <div className="mt-12 space-y-6">
