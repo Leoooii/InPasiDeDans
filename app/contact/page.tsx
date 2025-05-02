@@ -149,7 +149,7 @@ export default function Contact() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="font-bold mb-2">
-                  ne puteti contacta telefonic:
+                  Ne puteti contacta telefonic:
                 </h3>
                 <div className="space-y-1 text-gray-500">
                   <p>Luni - Vineri: 10:00 - 17:00</p>

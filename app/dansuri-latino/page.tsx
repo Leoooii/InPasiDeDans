@@ -66,7 +66,7 @@ export default function DansuriLatino() {
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                 <Image
-                  src="/placeholder.svg?height=400&width=600"
+                  src="/images/salsa.png?height=400&width=600"
                   alt="Salsa"
                   fill
                   className="object-cover"
@@ -84,7 +84,7 @@ export default function DansuriLatino() {
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                 <Image
-                  src="/images/bachata.png?height=400&width=600"
+                  src="/images/bachata2.png?height=400&width=600"
                   alt="Bachata"
                   fill
                   className="object-cover"
@@ -114,6 +114,48 @@ export default function DansuriLatino() {
                   Dans cubanez energic și jucăuș, cu accent pe ritmul sincopat
                   și mișcările precise ale picioarelor.
                 </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
+                <Image
+                  src="/images/rueda.png?height=400&width=600"
+                  alt="Salsa"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-2">Rueda</h3>
+                <p className="text-gray-500">Descriere rueda</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
+                <Image
+                  src="/images/rumba.png?height=400&width=600"
+                  alt="Salsa"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-2">Rumba</h3>
+                <p className="text-gray-500">Descriere rumba</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
+                <Image
+                  src="/images/samba.png?height=400&width=600"
+                  alt="Salsa"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-2">Samba</h3>
+                <p className="text-gray-500">Descriere samba</p>
               </CardContent>
             </Card>
           </div>

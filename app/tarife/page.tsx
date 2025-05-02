@@ -113,7 +113,9 @@ export default function Tarife() {
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Plata la sedinta</CardTitle>
-
+              <CardDescription className=" text-white/90">
+                Orice stil de dans
+              </CardDescription>
               <div className="mt-4 text-4xl font-bold">45 Lei</div>
             </CardHeader>
             <CardContent className="flex-1 mt-2">

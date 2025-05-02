@@ -15,8 +15,8 @@ export default function Program() {
 
         <Tabs defaultValue="luni si miercuri" className="w-full">
           <TabsList className="grid grid-cols-4 h-auto">
-            <TabsTrigger value="luni si miercuri">Luni si Miercuri</TabsTrigger>
-            <TabsTrigger value="marti si joi">Marți si Joi</TabsTrigger>
+            <TabsTrigger value="luni si miercuri">Luni + Miercuri</TabsTrigger>
+            <TabsTrigger value="marti si joi">Marți + Joi</TabsTrigger>
             {/* <TabsTrigger value="miercuri">Miercuri</TabsTrigger> */}
             {/* <TabsTrigger value="joi">Joi</TabsTrigger> */}
             <TabsTrigger value="vineri">Vineri</TabsTrigger>
@@ -28,7 +28,7 @@ export default function Program() {
             <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold mb-4">
-                  Program Luni si Miercuri
+                  Program Luni + Miercuri
                 </h2>
                 <div className="space-y-4">
                   <ScheduleItem
@@ -63,7 +63,7 @@ export default function Program() {
           <TabsContent value="marti si joi" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-4">Program Marți si Joi</h2>
+                <h2 className="text-xl font-bold mb-4">Program Marți + Joi</h2>
                 <div className="space-y-4">
                   <ScheduleItem
                     time="16:00 - 17:00"
