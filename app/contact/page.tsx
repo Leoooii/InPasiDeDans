@@ -1,42 +1,44 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import { useState } from "react"
-import { Mail, MapPin, Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/components/ui/use-toast"
+import { useState } from 'react';
+import { Mail, MapPin, Phone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function Contact() {
-  const { toast } = useToast()
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target
-    setFormData((prev) => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
       ...prev,
       [id]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       // Simulăm trimiterea email-ului
       // În producție, aici ar trebui să fie un API call către serverul tău
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Trimitem email folosind EmailJS sau alt serviciu similar
       // Exemplu de cod pentru EmailJS:
@@ -57,45 +59,51 @@ export default function Contact() {
 
       // Afișăm un toast de succes
       toast({
-        title: "Mesaj trimis cu succes!",
-        description: "Îți mulțumim pentru mesaj. Te vom contacta în curând.",
+        title: 'Mesaj trimis cu succes!',
+        description: 'Îți mulțumim pentru mesaj. Te vom contacta în curând.',
         duration: 5000,
-      })
+      });
 
       // Resetăm formularul
       setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      })
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
 
       // Afișăm și un alert pentru a ne asigura că utilizatorul primește feedback
-      alert("Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.")
+      alert(
+        'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.'
+      );
     } catch (error) {
-      console.error("Eroare:", error)
+      console.error('Eroare:', error);
 
       // Afișăm un toast de eroare
       toast({
-        title: "Eroare la trimiterea mesajului",
-        description: "Te rugăm să încerci din nou mai târziu.",
-        variant: "destructive",
+        title: 'Eroare la trimiterea mesajului',
+        description: 'Te rugăm să încerci din nou mai târziu.',
+        variant: 'destructive',
         duration: 5000,
-      })
+      });
 
       // Afișăm și un alert pentru a ne asigura că utilizatorul primește feedback
-      alert("Eroare la trimiterea mesajului. Te rugăm să încerci din nou mai târziu.")
+      alert(
+        'Eroare la trimiterea mesajului. Te rugăm să încerci din nou mai târziu.'
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="container py-12">
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Contact</h1>
-          <p className="text-gray-500 dark:text-gray-400">Contactează-ne pentru orice informații sau întrebări</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            Contactează-ne pentru orice informații sau întrebări
+          </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
@@ -106,7 +114,9 @@ export default function Contact() {
                   <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Adresă</h3>
-                    <p className="text-gray-500">Calea Rahovei, Nr. 262, Sector 5, Bucuresti.</p>
+                    <p className="text-gray-500">
+                      Calea Rahovei, Nr. 262, Sector 5, Bucuresti.
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -118,7 +128,7 @@ export default function Contact() {
                   <Phone className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Telefon</h3>
-                    <p className="text-gray-500">+40 123 456 789</p>
+                    <p className="text-gray-500">+40 722 675 126</p>
                   </div>
                 </div>
               </CardContent>
@@ -130,7 +140,7 @@ export default function Contact() {
                   <Mail className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Email</h3>
-                    <p className="text-gray-500">contact@inpasidedans.ro</p>
+                    <p className="text-gray-500">inpasidedans@gmail.com</p>
                   </div>
                 </div>
               </CardContent>
@@ -138,11 +148,14 @@ export default function Contact() {
 
             <Card>
               <CardContent className="p-6">
-                <h3 className="font-bold mb-2">Program secretariat</h3>
+                <h3 className="font-bold mb-2">
+                  ne puteti contacta telefonic:
+                </h3>
                 <div className="space-y-1 text-gray-500">
-                  <p>Luni - Vineri: 10:00 - 20:00</p>
-                  <p>Sâmbătă: 10:00 - 16:00</p>
+                  <p>Luni - Vineri: 10:00 - 17:00</p>
+                  <p>Sâmbătă: 14:00 - 18:00</p>
                   <p>Duminică: Închis</p>
+                  <p>Sau prin mesaj pe WhatsApp: oricand</p>
                 </div>
               </CardContent>
             </Card>
@@ -155,7 +168,13 @@ export default function Contact() {
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div className="grid gap-2">
                     <Label htmlFor="name">Nume</Label>
-                    <Input id="name" placeholder="Numele tău" value={formData.name} onChange={handleChange} required />
+                    <Input
+                      id="name"
+                      placeholder="Numele tău"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -194,7 +213,7 @@ export default function Contact() {
                     className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Se trimite..." : "Trimite mesajul"}
+                    {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
                   </Button>
                 </form>
               </CardContent>
@@ -214,16 +233,17 @@ export default function Contact() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
-            
           </div>
         </div>
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold dark:text-black">Vino să ne cunoști</h2>
+            <h2 className="text-2xl font-bold dark:text-black">
+              Vino să ne cunoști
+            </h2>
             <p className="dark:text-black">
-              Te invităm să ne vizitezi pentru a cunoaște instructorii, a vedea sălile de dans și a afla mai multe
-              despre cursurile noastre. Prima lecție este gratuită!
+              Te invităm să ne vizitezi pentru a cunoaște instructorii, a vedea
+              sălile de dans și a afla mai multe despre cursurile noastre.
             </p>
             <Button
               size="lg"
@@ -235,6 +255,5 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
