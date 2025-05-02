@@ -117,17 +117,17 @@ export default function Home() {
             <ShineButton
               title="Grupe noi"
               href="/grupe-in-formare"
-              imageSrc="/images/tango.png?height=400&width=600"
+              imageSrc="/images/grupenoi.png?height=400&width=600"
             />
             <ShineButton
               title="Tarife"
               href="/tarife"
-              imageSrc="/images/muntenia.jpg?height=400&width=600"
+              imageSrc="/images/tarife.png?height=400&width=600"
             />
             <ShineButton
               title="Program"
               href="/program"
-              imageSrc="/images/quickstep.png?height=400&width=600"
+              imageSrc="/images/program.png?height=400&width=600"
             />
           </div>
         </div>
@@ -236,7 +236,7 @@ function ShineButton({
           src={imageSrc || '/placeholder.svg?height=400&width=600'}
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 shine"
+          className="object-fit transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 shine"
         />
 
         {/* Overlay gradient */}
