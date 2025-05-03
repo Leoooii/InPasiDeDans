@@ -13,7 +13,7 @@ export default function DansuriLatino() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 items-center">
+        <div className="grid gap-8 md:grid-cols-1 items-center">
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Descoperă ritmurile latino</h2>
             <p>
@@ -23,7 +23,7 @@ export default function DansuriLatino() {
               tehnici specifice de pași și coordonare între parteneri.
             </p>
             <p>
-              La școala noastră, veți învăța cele mai populare stiluri de dans
+              La In Pasi de Dans, veți învăța cele mai populare stiluri de dans
               latino:
             </p>
             <div className="flex gap-10">
@@ -32,6 +32,7 @@ export default function DansuriLatino() {
                 <li>SALSA</li>
                 <li>RUEDA</li>
                 <li>CHA CHA</li>
+                <li>RUMBA</li>
               </ul>
               <ul className="list-disc ml-6">
                 <li>SAMBA</li>
@@ -50,14 +51,14 @@ export default function DansuriLatino() {
               </Button>
             </div>
           </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
+          {/* <div className="relative h-[400px] rounded-lg overflow-hidden">
             <Image
               src="/placeholder.svg?height=800&width=600"
               alt="Dans latino"
               fill
               className="object-cover"
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-12">
@@ -127,7 +128,12 @@ export default function DansuriLatino() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Rueda</h3>
-                <p className="text-gray-500">Descriere rueda</p>
+                <p className="text-gray-500">
+                  Rueda sau Rueda de Casino este un stil de dans salsa în care
+                  mai multe perechi dansează în cerc, sincronizați, schimbând
+                  partenerii la comanda unui lider care strigă mișcările. Este
+                  energic, social și plin de interacțiune între dansatori.
+                </p>
               </CardContent>
             </Card>
             <Card>
@@ -141,7 +147,12 @@ export default function DansuriLatino() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Rumba</h3>
-                <p className="text-gray-500">Descriere rumba</p>
+                <p className="text-gray-500">
+                  Rumba este un stil de dans originar din Cuba, caracterizat
+                  prin mișcări lente, senzuale și expresive, axate pe
+                  comunicarea dintre parteneri și mișcările fluide ale
+                  șoldurilor.
+                </p>
               </CardContent>
             </Card>
             <Card>
@@ -155,7 +166,12 @@ export default function DansuriLatino() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Samba</h3>
-                <p className="text-gray-500">Descriere samba</p>
+                <p className="text-gray-500">
+                  Samba este un dans energic și ritmat originar din Brazilia,
+                  asociat cu carnavalurile și muzica vibrantă. În forma sa de
+                  dans de societate (ballroom), samba are pași rapizi și un ritm
+                  distinctiv de „bounce”, exprimând bucurie și dinamism.
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -166,31 +182,85 @@ export default function DansuriLatino() {
           <div className="grid gap-4">
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
-                <h3 className="font-semibold">Salsa - Începători</h3>
-                <p className="text-gray-500">Instructor: Carlos Mendez</p>
+                <h3 className="font-semibold">
+                  Latino si societate (intermediari 1)
+                </h3>
+                <p className="text-gray-500">Instructor: Miriam</p>
               </div>
               <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni și Miercuri, 19:00 - 20:30</p>
+                <p className="text-gray-500">Luni și Miercuri, 18:30 - 19:45</p>
               </div>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
-                <h3 className="font-semibold">Bachata - Începători</h3>
-                <p className="text-gray-500">Instructor: Elena și Andrei</p>
+                <h3 className="font-semibold">
+                  Bachata si salsa - (Începători)
+                </h3>
+                <p className="text-gray-500">Instructor: Alexandra</p>
               </div>
               <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Marți și Joi, 18:00 - 19:30</p>
+                <p className="text-gray-500">Luni si Miercuri, 18:30 - 19:30</p>
               </div>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
               <div>
-                <h3 className="font-semibold">Latino Mix - Intermediari</h3>
-                <p className="text-gray-500">Instructor: Maria Dumitrescu</p>
+                <h3 className="font-semibold">
+                  Latino si societate - (Intermediari 3)
+                </h3>
+                <p className="text-gray-500">Instructor: Alexandra</p>
               </div>
               <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Vineri, 19:00 - 21:00</p>
+                <p className="text-gray-500">Luni si Miercuri, 19:45 - 21:00</p>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+              <div>
+                <h3 className="font-semibold">
+                  Latino si societate - (incepatori)
+                </h3>
+                <p className="text-gray-500">Instructor: Miriam</p>
+              </div>
+              <div className="mt-2 md:mt-0">
+                <p className="text-gray-500">Luni si Miercuri, 19:45 - 20:45</p>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+              <div>
+                <h3 className="font-semibold">
+                  Bachata si salsa - (Intermediari 3)
+                </h3>
+                <p className="text-gray-500">
+                  Instructor: Alexandra si Nicholas
+                </p>
+              </div>
+              <div className="mt-2 md:mt-0">
+                <p className="text-gray-500">Luni si Miercuri, 21:00 - 22:15</p>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+              <div>
+                <h3 className="font-semibold">
+                  Bachata si salsa - (Intermediari 2)
+                </h3>
+                <p className="text-gray-500">
+                  Instructor: Alexandra si Nicholas
+                </p>
+              </div>
+              <div className="mt-2 md:mt-0">
+                <p className="text-gray-500">Marti si Joi, 19:45 - 21:00</p>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+              <div>
+                <h3 className="font-semibold">
+                  Latino si societate - (Avansati)
+                </h3>
+                <p className="text-gray-500">Instructor: Alexandra</p>
+              </div>
+              <div className="mt-2 md:mt-0">
+                <p className="text-gray-500">Marti si joi, 21:00 - 22:15</p>
               </div>
             </div>
           </div>

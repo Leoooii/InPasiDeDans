@@ -60,7 +60,7 @@ export default function DansuriDeSocietate() {
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                 <Image
-                  src="/images/vals.png?height=400&width=600"
+                  src="/images/vienez.jpeg?height=400&width=600"
                   alt="Vals Vienez"
                   fill
                   className="object-cover"
@@ -69,8 +69,10 @@ export default function DansuriDeSocietate() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Vals Vienez</h3>
                 <p className="text-gray-500">
-                  Dansul regal cu rotații elegante și mișcări fluide, pe ritmul
-                  de 3/4.
+                  Valsul vienez este o formă rapidă și grațioasă a valsului, cu
+                  mișcări circulare continue și rotații elegante. Se dansează pe
+                  un tempo de 3/4 alert și creează impresia unui dans fluid și
+                  rotativ, plin de rafinament și romantism.
                 </p>
               </CardContent>
             </Card>
@@ -78,7 +80,7 @@ export default function DansuriDeSocietate() {
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                 <Image
-                  src="/images/tango.png?height=400&width=600"
+                  src="/images/tango2.png?height=400&width=600"
                   alt="Tango"
                   fill
                   className="object-cover"
@@ -87,8 +89,11 @@ export default function DansuriDeSocietate() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Tango</h3>
                 <p className="text-gray-500">
-                  Dans pasional și dramatic, caracterizat prin mișcări precise
-                  și contraste dinamice.
+                  Tango este un dans pasional și intens, originar din Argentina,
+                  cunoscut pentru postura dramatică, pașii preciși și conexiunea
+                  profundă dintre parteneri. În versiunea de dans sportiv
+                  (ballroom), are un stil mai rigid și accentuat, cu mișcări
+                  tăioase și expresive.
                 </p>
               </CardContent>
             </Card>
@@ -105,8 +110,11 @@ export default function DansuriDeSocietate() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Quickstep</h3>
                 <p className="text-gray-500">
-                  Dans elegant și fluid, cu pași lungi și glisanți, pe muzică de
-                  jazz sau swing.
+                  Quickstep este un dans de societate elegant și rapid, derivat
+                  din foxtrot, caracterizat prin pași săltăreți, deplasări
+                  rapide și mișcări fluide pe ringul de dans. Este vesel, jucăuș
+                  și transmite o senzație de ușurință, de parcă dansatorii
+                  „plutesc” pe muzică.
                 </p>
               </CardContent>
             </Card>
@@ -117,40 +125,71 @@ export default function DansuriDeSocietate() {
           <h2 className="text-2xl font-bold">Programul Cursurilor</h2>
           <div className="grid gap-4">
             <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">Dansuri Standard - Începători</h3>
-                <p className="text-gray-500">
-                  Instructor: Alexandru și Maria Popescu
-                </p>
+              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-semibold">
+                    Latino si societate (intermediari 1)
+                  </h3>
+                  <p className="text-gray-500">Instructor: Miriam</p>
+                </div>
+                <div className="mt-2 md:mt-0">
+                  <p className="text-gray-500">
+                    Luni și Miercuri, 18:30 - 19:45
+                  </p>
+                </div>
               </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni și Miercuri, 18:00 - 19:30</p>
-              </div>
-            </div>
 
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Dansuri Standard - Intermediari
-                </h3>
-                <p className="text-gray-500">
-                  Instructor: Mihai și Elena Ionescu
-                </p>
+              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-semibold">
+                    Bachata si salsa - (Începători)
+                  </h3>
+                  <p className="text-gray-500">Instructor: Alexandra</p>
+                </div>
+                <div className="mt-2 md:mt-0">
+                  <p className="text-gray-500">
+                    Luni si Miercuri, 18:30 - 19:30
+                  </p>
+                </div>
               </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Marți și Joi, 19:00 - 20:30</p>
-              </div>
-            </div>
 
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">Dansuri Standard - Avansați</h3>
-                <p className="text-gray-500">
-                  Instructor: Cristian și Ana Dumitrescu
-                </p>
+              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-semibold">
+                    Latino si societate - (Intermediari 3)
+                  </h3>
+                  <p className="text-gray-500">Instructor: Alexandra</p>
+                </div>
+                <div className="mt-2 md:mt-0">
+                  <p className="text-gray-500">
+                    Luni si Miercuri, 19:45 - 21:00
+                  </p>
+                </div>
               </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Vineri, 18:00 - 20:00</p>
+              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-semibold">
+                    Latino si societate - (incepatori)
+                  </h3>
+                  <p className="text-gray-500">Instructor: Miriam</p>
+                </div>
+                <div className="mt-2 md:mt-0">
+                  <p className="text-gray-500">
+                    Luni si Miercuri, 19:45 - 20:45
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-semibold">
+                    Latino si societate - (Avansati)
+                  </h3>
+                  <p className="text-gray-500">Instructor: Alexandra</p>
+                </div>
+                <div className="mt-2 md:mt-0">
+                  <p className="text-gray-500">Marti si joi, 21:00 - 22:15</p>
+                </div>
               </div>
             </div>
           </div>
@@ -168,20 +207,11 @@ export default function DansuriDeSocietate() {
                 ajuta să creați un moment memorabil, adaptat preferințelor și
                 nivelului vostru.
               </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-              >
-                Solicită o ofertă
-              </Button>
-            </div>
-            <div className="relative h-64 rounded-lg overflow-hidden">
-              <Image
-                src="/placeholder.svg?height=400&width=600"
-                alt="Dans de nuntă"
-                fill
-                className="object-cover"
-              />
+              <Link href="/inscriere">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                  Înscrie-te la curs
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

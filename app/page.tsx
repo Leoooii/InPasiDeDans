@@ -28,7 +28,7 @@ export default function Home() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
               </span>
-              Verifică grupele în formare!
+              Grupe în formare!
             </span>
           </Button>
         </div>
@@ -159,7 +159,7 @@ export default function Home() {
             Pregătit să începi călătoria ta în lumea dansului?
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Alătură-te celor peste 9000 de cursanți care au descoperit bucuria
+            Alătură-te celor peste 12000 de cursanți care au descoperit bucuria
             dansului la școala noastră.
           </p>
           <Link href="/inscriere">

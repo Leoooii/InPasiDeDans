@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Check } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Tarife() {
   return (
@@ -18,7 +19,7 @@ export default function Tarife() {
             Tarife cursuri adulti
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Consultă tarifele noastre pentru cursurile de dans pentru adulți.
+            Consultă tarifele noastre pentru cursurile de dans pentru adulți:
           </p>
         </div>
 
@@ -181,7 +182,7 @@ export default function Tarife() {
               <CardTitle>Abonament lunar</CardTitle>
 
               <CardDescription className=" text-white/90">
-                Valabil 4 saptamani (8 sedinte)
+                Valabil o luna (8 sedinte)
               </CardDescription>
               <div className="mt-4 text-4xl font-bold">200 Lei</div>
             </CardHeader>
@@ -206,12 +207,14 @@ export default function Tarife() {
             <p className="dark:text-black">
               Contactează-ne pentru informații suplimentare
             </p>
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-            >
-              Contactează-ne
-            </Button>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+              >
+                Contactează-ne
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

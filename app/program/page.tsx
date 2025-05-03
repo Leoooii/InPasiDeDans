@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
 
 export default function Program() {
   return (
@@ -269,12 +270,14 @@ export default function Program() {
               este limitat. Rezervă-ți locul din timp pentru a te asigura că
               poți participa la cursul dorit.
             </p>
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-            >
-              Rezervă acum
-            </Button>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+              >
+                Rezervă acum
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

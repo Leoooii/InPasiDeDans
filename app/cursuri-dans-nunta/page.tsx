@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function CursuriDansNunta() {
   return (
@@ -24,7 +25,7 @@ export default function CursuriDansNunta() {
               Dansul mirilor - un moment magic
             </h2>
             <p className="text-gray-500 dark:text-gray-400">
-              Creează un moment special și memorabil pentru ziua nunții tale
+              Creează un moment special și memorabil pentru ziua nunții tale!
             </p>
             <p>
               Dansul mirilor este unul dintre cele mai emoționante și memorabile
@@ -33,8 +34,8 @@ export default function CursuriDansNunta() {
               personalității voastre.
             </p>
             <p>
-              ??? Indiferent dacă doriți un vals clasic, un tango ori dans
-              latino sau o coregrafie surprinzătoare și plină de personalitate,
+              Indiferent dacă doriți un vals clasic, un tango ori dans latino
+              sau o coregrafie surprinzătoare și plină de personalitate,
               instructorii noștri vă vor ghida pas cu pas pentru a vă simți
               încrezători și pregătiți pentru marele moment.
             </p>
@@ -58,7 +59,7 @@ export default function CursuriDansNunta() {
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">Pachetele noastre</h2>
           <div className="grid gap-6 md:grid-cols-3">
-            <Card>
+            <Card className="border-red-600 shadow-lg">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Pachet 4 sedinte</h3>
                 <div className="text-2xl font-bold mb-4">640 Lei</div>
@@ -80,7 +81,7 @@ export default function CursuriDansNunta() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span>4 ședințe private (60 min)</span>
+                    <span>4 ședințe private (60 min/sed)</span>
                   </li>
                   <li className="flex items-start">
                     <svg
@@ -182,7 +183,7 @@ export default function CursuriDansNunta() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span>6 ședințe private (60 min)</span>
+                    <span>6 ședințe private (60 min/sed)</span>
                   </li>
                   <li className="flex items-start">
                     <svg
@@ -263,7 +264,7 @@ export default function CursuriDansNunta() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-red-600 shadow-lg">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">Pachet 8 sedinte</h3>
                 <div className="text-2xl font-bold mb-4">1120 Lei</div>
@@ -285,7 +286,7 @@ export default function CursuriDansNunta() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span>8 ședințe private (60 min)</span>
+                    <span>8 ședințe private (60 min/sed)</span>
                   </li>
                   <li className="flex items-start">
                     <div>
@@ -305,7 +306,7 @@ export default function CursuriDansNunta() {
                     </div>
                     <span>
                       Coregrafie personalizata cu grad de dificultate mediu sau
-                      ridicat, tinand cont de abilitatile ????? a coregrafiei.
+                      ridicat, tinand cont de abilitatile voastre
                     </span>
                   </li>
                   <li className="flex items-start">
@@ -386,14 +387,19 @@ export default function CursuriDansNunta() {
           </Card>
         </div>
         <div>
-          <h2 className="text-xl  mb-6">
+          <p className=" mb-6">
             Daca doriti sa efectuati plata la fiecare sedinta, pretul pentru o
-            lectie particulara de dans este 180 lei. In cazul in care optati
-            pentru unul din pachete, plata orelor particulare de dans se va face
-            integral la prima sedinta. Anularea si reprogramarea unei sedinte se
-            va face cu cel putin 24 de ore inainte, telefonic. In caz contrar,
-            sedinta se considera efectuata.
-          </h2>
+            lectie particulara de dans este 180 lei.
+          </p>
+          <p className=" mb-6">
+            In cazul in care optati pentru unul din pachete, plata orelor
+            particulare de dans se va face integral la prima sedinta.
+          </p>
+          <p className=" mb-6">
+            Anularea si reprogramarea unei sedinte se va face cu cel putin 24 de
+            ore inainte, telefonic. In caz contrar, sedinta se considera
+            efectuata.
+          </p>
         </div>
 
         <div className="mt-12 space-y-6">
@@ -454,12 +460,14 @@ export default function CursuriDansNunta() {
                 momente speciale pentru nuntă, cum ar fi dansul cu părinții sau
                 nasii, dansuri de grup sau dansuri surpriză pentru invitați.
               </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-              >
-                Contactează-ne pentru detalii
-              </Button>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                >
+                  Contactează-ne pentru detalii
+                </Button>
+              </Link>
             </div>
             <div className="relative h-72 rounded-lg overflow-hidden">
               <Image
@@ -488,17 +496,21 @@ export default function CursuriDansNunta() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold">Maria și Andrei</h3>
+                    <h3 className="font-bold">Alexandra Popescu</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       August 2024
                     </p>
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 italic">
-                  "Am fost foarte emoționați la gândul dansului mirilor, dar
-                  instructorii ne-au făcut să ne simțim confortabil și
-                  încrezători. Momentul a fost magic și toți invitații au fost
-                  impresionați!"
+                  Multumim, Luiza pentru tot ce ne ai învățat și abordarea cu
+                  răbdare pe care ai aplicat o mereu! 😇 Pentru dansul mirilor
+                  ai realizat cea mai frumoasa coregrafie si totul a ieșit
+                  minunat! Un dar de nunta prețios care rămâne în inimile
+                  noastre pentru totdeauna! 🥰 Recomand sa lucrați cu Luiza
+                  deoarece este o persoana sociabila, vesela, adaptabila și
+                  foarte inteligenta, care are capacitatea de a găsi cel puțin o
+                  soluție la orice impediment. ❤️
                 </p>
               </CardContent>
             </Card>
@@ -514,16 +526,28 @@ export default function CursuriDansNunta() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold">Elena și Mihai</h3>
+                    <h3 className="font-bold">Roxana</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Iunie 2024
+                      Iulie 2023
                     </p>
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 italic">
-                  "Niciunul dintre noi nu avea experiență în dans, dar am reușit
-                  să învățăm o coregrafie frumoasă în doar câteva ședințe.
-                  Mulțumim pentru răbdare și profesionalism!"
+                  De scoala In Pasi de Dans am auzit de la o fată care a avut și
+                  ea, la rândul ei o experiența foarte faină cu oamenii de aici.
+                  Pentru că m-am trezit la o petrecere, unde se cânta muzică
+                  populară și se dansa până nu se mai putea, iar eu stăteam pe
+                  scaun 🥴 am început cu dansurile populare, cu Cătălina ca
+                  instructor. Ne-a plăcut atât de mult, încât dacă pierdeam
+                  puțin, nu știam cum sa recuperăm mai repede. Atunci când a
+                  trebuit să ne gândim serios la nuntă și la faptul că ne dorim
+                  un dans al mirilor, nu ne-a venit decât Cătălina în minte… și
+                  a fost cea mai bună decizie! E omul cu care poți să râzi
+                  oricât și din orice și e cel mai bun instructor posibil, mai
+                  ales când vine vorba de o coregrafie pentru dansul mirilor,
+                  pune suflet și ajunge la un rezultat care este muult peste ce
+                  vă imaginați inițial! O recomandăm cu drag și îi mulțumim că
+                  ne-a scăpat de doua picioare stângi!🥰🤗♥️
                 </p>
               </CardContent>
             </Card>
@@ -539,16 +563,45 @@ export default function CursuriDansNunta() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold">Alexandru și Diana</h3>
+                    <h3 className="font-bold">Iuliana Francusi</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       Septembrie 2023
                     </p>
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 italic">
-                  "Am ales pachetul VIP și a meritat fiecare bănuț! Coregrafia a
-                  inclus elemente surpriză care au uimit invitații. A fost unul
-                  dintre cele mai frumoase momente ale nunții noastre."
+                  Recomand cu drag Luiza! Din prima secundă în care am pășit în
+                  sală am avut o senzație de confort și impresia ca ne cunoaștem
+                  de ani, iar asta ne-a ajutat să ne detașam si să venim cu drag
+                  la fiecare ședință✨🌸! Un om minunat cu o energie aparte!
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <ImageSkeleton
+                      width={48}
+                      height={48}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Cristina Taras</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      August 2022
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  Am avut un dans divin, datorită ție, cea mai talentată si
+                  răbdătoare profesoară de dans din lume, care ne-a ajutat să
+                  învățăm în doar câteva ședințe un dans apreciat de toți
+                  invitații! Recomand pentru profesionalism, căldură, prietenie,
+                  răbdare și dedicare, un om deosebit! Multumim, Alexandra
+                  pentru răbdarea acordată pregătirii coregrafiei celui mai
+                  important dans din viața noastră!❤️💃🕺
                 </p>
               </CardContent>
             </Card>

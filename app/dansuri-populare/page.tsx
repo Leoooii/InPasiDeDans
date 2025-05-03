@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 // Definim regiunile și dansurile asociate
 const regiuniDansuri = [
@@ -168,9 +169,11 @@ export default function DansuriPopulare() {
               Mai jos gasiti jocurile populare predate in cadrul scolii noastre.
             </p>
             <div className="pt-4">
-              <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Înscrie-te la curs
-              </Button>
+              <Link href="/inscriere">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                  Înscrie-te la curs
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden">
