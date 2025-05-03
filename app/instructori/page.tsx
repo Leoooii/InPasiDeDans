@@ -47,7 +47,7 @@ export default function Instructori() {
             <InstructorCard
               name="Alexandra Dumitrache"
               role="Instructor Dans de Societate,Latino si Populare"
-              src="/images/Alexandra.png"
+              src="/images/Alexandra2.png"
               bio="Alexandra Dumitrache este fondator, manager si instructor la In Pasi de Dans, infiintata in 2009. Decizia infiintarii acesteia a venit ca urmare a pasiunii pentru dans si din dorinta de a impartasi cu cat mai multe persoane bucuria oferita de dans.
 
 Alexandra are experienta ca instructor de dans peste 22 de ani; a participat la numeroase competitii de dans sportiv nationale si internationale.
