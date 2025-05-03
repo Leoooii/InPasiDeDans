@@ -11,7 +11,7 @@ export default function Petreceri() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Petreceri în Pași de Dans
+            Petreceri In Pași de Dans
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Participă la petrecerile noastre tematice și pune în practică ce ai
@@ -45,10 +45,11 @@ export default function Petreceri() {
             <a href="#" className="block">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="relative h-60 w-full overflow-hidden">
-                  <ImageSkeleton
-                    width={600}
-                    height={400}
-                    className="w-full h-full"
+                  <Image
+                    src="/images/petrecere.png?height=800&width=600"
+                    alt="Excursie de dans"
+                    fill
+                    className="object-fit"
                   />
                   <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                     În curând
@@ -56,20 +57,20 @@ export default function Petreceri() {
                 </div>
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-2">
-                    Salsa & Bachata Night
+                    Petrecere Craciun 2025
                   </h3>
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center text-gray-500">
                       <Calendar className="w-4 h-4 mr-2" />
-                      <span>15 Aprilie 2025</span>
+                      <span>20 Decembrie 2025</span>
                     </div>
                     <div className="flex items-center text-gray-500">
                       <Clock className="w-4 h-4 mr-2" />
-                      <span>20:00 - 01:00</span>
+                      <span>19:30 - 02:00</span>
                     </div>
                     <div className="flex items-center text-gray-500">
                       <MapPin className="w-4 h-4 mr-2" />
-                      <span>Sala Mare, In pasi de Dans</span>
+                      <span>Restaurant Almafi Alegria</span>
                     </div>
                   </div>
                   <p className="text-gray-500 text-sm mb-4">
@@ -157,39 +158,6 @@ export default function Petreceri() {
           </div>
         </div>
 
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">Petreceri tematice regulate</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Salsa & Bachata Night</h3>
-              <p className="text-gray-500 text-sm">
-                În fiecare ultimă vineri din lună, de la 20:00 la 01:00.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Milonga - Seară de Tango</h3>
-              <p className="text-gray-500 text-sm">
-                În fiecare a doua joi din lună, de la 19:00 la 23:00.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Seară de Dans de Societate</h3>
-              <p className="text-gray-500 text-sm">
-                În fiecare a treia sâmbătă din lună, de la 19:00 la 23:00.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Șezătoare Dansantă</h3>
-              <p className="text-gray-500 text-sm">
-                În fiecare primul duminică din lună, de la 17:00 la 21:00.
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">
             Galerie de la petrecerile anterioare
@@ -207,35 +175,6 @@ export default function Petreceri() {
                 />
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="mt-12 bg-red-50 p-8 rounded-lg">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">
-                Organizează o petrecere privată
-              </h2>
-              <p className="mb-6">
-                Dorești să organizezi o petrecere tematică de dans pentru un
-                eveniment special, aniversare sau team building? Contactează-ne
-                pentru a discuta despre opțiunile personalizate pe care le
-                oferim.
-              </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-              >
-                Solicită o ofertă
-              </Button>
-            </div>
-            <div className="relative h-64 rounded-lg overflow-hidden">
-              <ImageSkeleton
-                width={600}
-                height={400}
-                className="w-full h-full"
-              />
-            </div>
           </div>
         </div>
       </div>

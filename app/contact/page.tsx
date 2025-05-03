@@ -245,12 +245,6 @@ export default function Contact() {
               Te invităm să ne vizitezi pentru a cunoaște instructorii, a vedea
               sălile de dans și a afla mai multe despre cursurile noastre.
             </p>
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-            >
-              Programează o vizită
-            </Button>
           </div>
         </div>
       </div>
