@@ -34,15 +34,15 @@ export default function CursuriDansNunta() {
               personalității voastre.
             </p>
             <p>
-              Indiferent dacă doriți un vals clasic, un tango ori dans latino
-              sau o coregrafie surprinzătoare și plină de personalitate,
+              Indiferent dacă doriți un vals clasic, un tango,un dans latino sau
+              o coregrafie surprinzătoare și plină de personalitate,
               instructorii noștri vă vor ghida pas cu pas pentru a vă simți
               încrezători și pregătiți pentru marele moment.
             </p>
             <div className="pt-4">
               <div className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 p-2 text-white text-center text-sm font-medium rounded-lg">
                 Ne poti contacta pe mail ( inpasidedans@gmail.com ) sau pe
-                whatsapp ( 0722675126 ) pentru o consultatie
+                whatsapp ( 0722675126 ) pentru o consiliere
               </div>
             </div>
           </div>

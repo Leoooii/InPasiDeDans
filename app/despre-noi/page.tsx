@@ -1,9 +1,9 @@
-import Link from "next/link"
-import { Clock, MapPin, Phone, Mail, Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import ImageSkeleton from "@/components/image-skeleton"
-import Image from "next/image"
+import Link from 'next/link';
+import { Clock, MapPin, Phone, Mail, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import ImageSkeleton from '@/components/image-skeleton';
+import Image from 'next/image';
 
 export default function DespreNoi() {
   return (
@@ -11,17 +11,32 @@ export default function DespreNoi() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Despre Noi</h1>
-          <p className="text-gray-500 dark:text-gray-400">Învățăm Bucureștiul să danseze din 1 iulie 2009!</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            Învățăm Bucureștiul să danseze din 1 iulie 2009!
+          </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Cine suntem</h2>
             <p>
-              In Pasi de Dans organizează o gamă variată de cursuri de dans, atât pentru adulți, cât și pentru copii. Nu
-              punem accent pe dans de performanță! Lecțiile de dans desfășurate de către școala noastră au un caracter
-              social, iar ceea ce urmărim este ca voi să faceți mișcare într-un mod plăcut, să socializați, să vă
-              relaxați, și, nu în ultimul rând, să învățați să dansați.
+              Suntem o echipa dedicata si entuziasmata, formata din 6
+              instructori pasionati, uniti de dragostea pentru dans si dorinta
+              de a inspira. Credem cu tarie ca dansul este pentru toti,
+              indiferent de varsta sau nivel, iar misiunea noastra este sa ne
+              asiguram ca fiecare cursant sa se exprime si sa descopere bucuria
+              dansului, sa fie motivat si sustinut sa evolueze.
+            </p>
+            <p>
+              Povestea noastra a inceput in urma cu 16 ani, din din pasiune
+              pentru dans si din dorinta sincera de a impartasi frumusetea si
+              emotia pe care dansul le poate oferii.
+            </p>
+            <p>
+              Astazi, suntem mai mult decat o scoala de dans. Suntem o frumoasa
+              si unita comunitate, un loc unde fiecare pas conteaza, unde poti
+              ??? sa faci miscare intr-un mod placut, sa te relaxezi dupa o zi
+              de munca, sa socializezi si sa inveti sa dansezi.
             </p>
             <div className="pt-4">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
@@ -29,9 +44,14 @@ export default function DespreNoi() {
               </Button>
             </div>
           </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
+          <div className="relative h-[400px] rounded-lg overflow-hidden flex items-center">
             {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
-            <Image src="/images/noi.png" height="1000" width="1000" alt="group-picture"/>
+            <Image
+              src="/images/noi.png"
+              height="1000"
+              width="1000"
+              alt="group-picture"
+            />
           </div>
         </div>
 
@@ -45,7 +65,7 @@ export default function DespreNoi() {
             />
             <ActivityCard
               title="Cursuri de dans pentru copii"
-              description="Dansuri latino și de societate, coregrafii tematice"
+              description="Dans sportiv (dansuri latino si dansuri standard) ocazional dansuri populare"
               link="/cursuri-dans-copii"
             />
             <ActivityCard
@@ -92,7 +112,9 @@ export default function DespreNoi() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Săli de dans spațioase</h3>
-                    <p className="text-gray-500 dark:text-gray-400">Dotate cu aer condiționat, oglinzi și vestiare</p>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Dotate cu aer condiționat, oglinzi și vestiare
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -106,7 +128,9 @@ export default function DespreNoi() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Grupe optimizate</h3>
-                    <p className="text-gray-500 dark:text-gray-400">Formate din 10 – maximum 20 persoane</p>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Formate din 10 – maximum 20 persoane
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -119,7 +143,9 @@ export default function DespreNoi() {
                     <Check className="h-6 w-6 text-red-600 dark:text-red-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold mb-2">Instructori profesioniști</h3>
+                    <h3 className="font-bold mb-2">
+                      Instructori profesioniști
+                    </h3>
                     <p className="text-gray-500 dark:text-gray-400">
                       Cu pregătire, experiență, răbdători și pasionați de dans
                     </p>
@@ -135,15 +161,24 @@ export default function DespreNoi() {
             <div>
               <h2 className="text-2xl font-bold mb-4">Cui ne adresăm</h2>
               <p className="mb-4">
-                Cursurile de dans organizate de In Pasi de Dans se adresează în general adulților. Vârsta minimă este 15
-                ani, dar vârsta maximă nu o impunem, întrucât am avut și avem cursanți cu vârste cuprinse între 15 și 70
-                de ani.
+                Cursurile de dans organizate de In Pasi de Dans se adresează în
+                general adulților. Vârsta minimă este 15 ani, dar vârsta maximă
+                nu o impunem, întrucât am avut și avem cursanți cu vârste
+                cuprinse între 15 și 70 de ani.
               </p>
-              <p>Organizăm însă lecții de dans și pentru copii cu vârste cuprinse între 7 și 14 ani.</p>
+              <p>
+                Organizăm însă lecții de dans și pentru copii cu vârste cuprinse
+                între 7 și 14 ani.
+              </p>
             </div>
             <div className="relative rounded-lg overflow-hidden">
               {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
-              <Image src="/images/secret-santa.png?height=800&width=600" height="1000" width="1000" alt="group-picture" />
+              <Image
+                src="/images/secret-santa.png?height=800&width=600"
+                height="1000"
+                width="1000"
+                alt="group-picture"
+              />
             </div>
           </div>
         </div>
@@ -157,15 +192,20 @@ export default function DespreNoi() {
                   <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Locație</h3>
-                    <p className="text-gray-500 dark:text-gray-400">Calea Rahovei nr. 262, sector 5, București</p>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
-                      <span className="font-medium">Puncte de reper:</span> Liberty Mall, Electromagnetica, intersecția
-                      Trafic Greu, McDonald's Progresul – la patru stații de tramvai (32) de Unirii
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Calea Rahovei nr. 262, sector 5, București
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
-                      Amplasarea sălilor de dans permite accesul rapid și ușor dacă locuiți în zona Piața Unirii,
-                      cartierul Rahova, cartierul Berceni, zona 13 Septembrie, cartierul Drumul Taberei, Bragadiru,
-                      Măgurele.
+                      <span className="font-medium">Puncte de reper:</span>{' '}
+                      Liberty Mall, Electromagnetica, intersecția Trafic Greu,
+                      McDonald's Progresul – la patru stații de tramvai (32) de
+                      Unirii
+                    </p>
+                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                      Amplasarea sălilor de dans permite accesul rapid și ușor
+                      dacă locuiți în zona Piața Unirii, cartierul Rahova,
+                      cartierul Berceni, zona 13 Septembrie, cartierul Drumul
+                      Taberei, Bragadiru, Măgurele.
                     </p>
                   </div>
                 </div>
@@ -190,15 +230,18 @@ export default function DespreNoi() {
                   <div>
                     <h3 className="font-bold">Program</h3>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
-                      În general, cursurile de dans pentru adulți se desfășoară pe perioadă nelimitată, fiecare ședință
-                      având durata de 1h15min.
+                      În general, cursurile de dans pentru adulți se desfășoară
+                      pe perioadă nelimitată, fiecare ședință având durata de
+                      1h15min.
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
-                      Special gândite pentru oamenii activi, lecțiile de dans încep, în cursul săptămânii, începând cu
-                      ora 18:30, astfel încât lipsa timpului nu mai este o scuză.
+                      Special gândite pentru oamenii activi, lecțiile de dans
+                      încep, în cursul săptămânii, începând cu ora 18:30, astfel
+                      încât lipsa timpului nu mai este o scuză.
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
-                      Cursurile de dans pentru copii se desfășoară în cursul săptămânii și/sau în weekend.
+                      Cursurile de dans pentru copii se desfășoară în cursul
+                      săptămânii și/sau în weekend.
                     </p>
                     <div className="mt-4 space-y-2">
                       <p className="font-medium">Program vizite:</p>
@@ -216,7 +259,9 @@ export default function DespreNoi() {
 
         <div className="mt-12 bg-gradient-to-r from-red-600 to-orange-500 text-white p-8 rounded-lg">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold">Contactează-ne pentru înscrieri</h2>
+            <h2 className="text-2xl font-bold">
+              Contactează-ne pentru înscrieri
+            </h2>
             <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
               <div className="flex items-center justify-center gap-2">
                 <Phone className="h-5 w-5" />
@@ -246,16 +291,26 @@ export default function DespreNoi() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function ActivityCard({ title, description, link }: { title: string; description: string; link: string }) {
+function ActivityCard({
+  title,
+  description,
+  link,
+}: {
+  title: string;
+  description: string;
+  link: string;
+}) {
   return (
     <Link href={link}>
       <Card className="h-full transition-all duration-200 hover:shadow-md">
         <CardContent className="p-6 h-full flex flex-col">
           <h3 className="font-bold mb-2">{title}</h3>
-          <p className="text-gray-500 dark:text-gray-400 flex-grow">{description}</p>
+          <p className="text-gray-500 dark:text-gray-400 flex-grow">
+            {description}
+          </p>
           <div className="mt-4 text-red-600 dark:text-red-400 flex items-center">
             <span className="text-sm">Află mai multe</span>
             <svg
@@ -277,6 +332,5 @@ function ActivityCard({ title, description, link }: { title: string; description
         </CardContent>
       </Card>
     </Link>
-  )
+  );
 }
-

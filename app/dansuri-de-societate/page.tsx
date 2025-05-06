@@ -8,7 +8,7 @@ export default function DansuriDeSocietate() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Dansuri de Societate
+            Dansuri de societate
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Eleganță, rafinament și grație în mișcare
@@ -55,7 +55,7 @@ export default function DansuriDeSocietate() {
         </div>
 
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Dansuri Standard</h2>
+          <h2 className="text-2xl font-bold mb-6">Dansuri standard</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
@@ -118,79 +118,15 @@ export default function DansuriDeSocietate() {
                 </p>
               </CardContent>
             </Card>
-          </div>
-        </div>
-
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">Programul Cursurilor</h2>
-          <div className="grid gap-4">
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-                <div>
-                  <h3 className="font-semibold">
-                    Latino si societate (intermediari 1)
-                  </h3>
-                  <p className="text-gray-500">Instructor: Miriam</p>
-                </div>
-                <div className="mt-2 md:mt-0">
-                  <p className="text-gray-500">
-                    Luni și Miercuri, 18:30 - 19:45
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-                <div>
-                  <h3 className="font-semibold">
-                    Bachata si salsa - (Începători)
-                  </h3>
-                  <p className="text-gray-500">Instructor: Alexandra</p>
-                </div>
-                <div className="mt-2 md:mt-0">
-                  <p className="text-gray-500">
-                    Luni si Miercuri, 18:30 - 19:30
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-                <div>
-                  <h3 className="font-semibold">
-                    Latino si societate - (Intermediari 3)
-                  </h3>
-                  <p className="text-gray-500">Instructor: Alexandra</p>
-                </div>
-                <div className="mt-2 md:mt-0">
-                  <p className="text-gray-500">
-                    Luni si Miercuri, 19:45 - 21:00
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-                <div>
-                  <h3 className="font-semibold">
-                    Latino si societate - (incepatori)
-                  </h3>
-                  <p className="text-gray-500">Instructor: Miriam</p>
-                </div>
-                <div className="mt-2 md:mt-0">
-                  <p className="text-gray-500">
-                    Luni si Miercuri, 19:45 - 20:45
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-                <div>
-                  <h3 className="font-semibold">
-                    Latino si societate - (Avansati)
-                  </h3>
-                  <p className="text-gray-500">Instructor: Alexandra</p>
-                </div>
-                <div className="mt-2 md:mt-0">
-                  <p className="text-gray-500">Marti si joi, 21:00 - 22:15</p>
-                </div>
-              </div>
+            <div className="flex w-full h-full justify-center items-center">
+              <Link href="/program">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                >
+                  Verifica programul
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

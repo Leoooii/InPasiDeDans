@@ -8,7 +8,7 @@ export default function Program() {
     <div className="container py-12">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Program Cursuri</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Program cursuri</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Consultă programul complet al cursurilor noastre de dans
           </p>
@@ -51,7 +51,7 @@ export default function Program() {
                     room="Sala 1"
                   />
                   <ScheduleItem
-                    time="19:45 - 21:00"
+                    time="19:45 - 20:45"
                     course="Latino si societate (Incepatori)"
                     instructor="Miriam"
                     room="Sala 3"
@@ -86,7 +86,7 @@ export default function Program() {
                 <div className="space-y-4">
                   <ScheduleItem
                     time="17:16 - 18:15"
-                    course="Grupa copii intermediari(7-12 ani)"
+                    course="Grupa copii intermediari (7-12 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
