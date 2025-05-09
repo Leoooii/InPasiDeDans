@@ -18,7 +18,7 @@ export default function DansuriDeSocietate() {
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="relative h-[400px] rounded-lg overflow-hidden">
             <Image
-              src="/images/societate.png?height=800&width=600"
+              src="/images/tango2.png?height=800&width=600"
               alt="Dans de societate"
               fill
               className="object-cover"
@@ -80,7 +80,7 @@ export default function DansuriDeSocietate() {
             <Card>
               <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
                 <Image
-                  src="/images/tango2.png?height=400&width=600"
+                  src="/images/tango.png?height=400&width=600"
                   alt="Tango"
                   fill
                   className="object-cover"
@@ -118,7 +118,7 @@ export default function DansuriDeSocietate() {
                 </p>
               </CardContent>
             </Card>
-            <div className="flex w-full h-full justify-center items-center">
+            <div className="flex w-full h-full justify-center items-center mt-10">
               <Link href="/program">
                 <Button
                   size="lg"
@@ -132,7 +132,7 @@ export default function DansuriDeSocietate() {
         </div>
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className=" gap-8 items-center">
             <div>
               <h2 className="text-2xl font-bold mb-4 dark:text-black">
                 Pregătire pentru evenimente speciale

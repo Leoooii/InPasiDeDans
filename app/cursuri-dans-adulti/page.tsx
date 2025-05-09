@@ -42,7 +42,7 @@ export default function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/images/cha-cha.png?height=400&width=600"
+                src="/images/latino.png?height=400&width=600"
                 alt="Dans latino"
                 fill
                 className="object-cover"
@@ -63,7 +63,7 @@ export default function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/images/dobrogea.jpg?height=400&width=600"
+                src="/images/populare.png?height=400&width=600"
                 alt="Dans pentru nuntă"
                 fill
                 className="object-cover"
@@ -80,16 +80,6 @@ export default function CursuriDansAdulti() {
               </Link>
             </CardContent>
           </Card>
-          <div className="flex w-full h-full justify-center items-center">
-            <Link href="/program">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-              >
-                Verifica programul
-              </Button>
-            </Link>
-          </div>
         </div>
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg">
@@ -103,18 +93,28 @@ export default function CursuriDansAdulti() {
                 potrivite pentru toate nivelurile. Vino să descoperi bucuria
                 dansului într-o atmosferă prietenoasă și relaxantă.
               </p>
-              <Link href="/inscriere">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                >
-                  Înscrie-te acum
-                </Button>
-              </Link>
+              <div className="flex gap-5">
+                <Link href="/inscriere">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                  >
+                    Înscrie-te acum
+                  </Button>
+                </Link>
+                <Link href="/program">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                  >
+                    Verifica programul
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image
-                src="/images/inside.png?height=400&width=600"
+                src="/images/inscriere.png?height=400&width=600"
                 alt="Cursuri de dans"
                 fill
                 className="object-cover"

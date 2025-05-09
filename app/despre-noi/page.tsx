@@ -20,23 +20,24 @@ export default function DespreNoi() {
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Cine suntem</h2>
             <p>
-              Suntem o echipa dedicata si entuziasmata, formata din 6
-              instructori pasionati, uniti de dragostea pentru dans si dorinta
-              de a inspira. Credem cu tarie ca dansul este pentru toti,
-              indiferent de varsta sau nivel, iar misiunea noastra este sa ne
-              asiguram ca fiecare cursant sa se exprime si sa descopere bucuria
-              dansului, sa fie motivat si sustinut sa evolueze.
+              Povestea noastra a inceput in urma cu 16 ani, din pasiune pentru
+              dans si din dorinta sincera de a impartasi frumusetea si emotia pe
+              care dansul le poate oferii.
             </p>
             <p>
-              Povestea noastra a inceput in urma cu 16 ani, din din pasiune
-              pentru dans si din dorinta sincera de a impartasi frumusetea si
-              emotia pe care dansul le poate oferii.
+              Suntem o comunitate frumoasa și unita, formata din 6 instructori
+              pasionati, uniti de dragostea pentru dans si dorinta de a inspira.
+              Credem cu tarie ca dansul este pentru toti, indiferent de varsta
+              sau nivel, iar misiunea noastra este sa ne asiguram ca fiecare
+              cursant sa se exprime si sa descopere bucuria dansului, sa fie
+              motivat si sustinut sa evolueze.
             </p>
+
             <p>
               Astazi, suntem mai mult decat o scoala de dans. Suntem o frumoasa
               si unita comunitate, un loc unde fiecare pas conteaza, unde poti
-              ??? sa faci miscare intr-un mod placut, sa te relaxezi dupa o zi
-              de munca, sa socializezi si sa inveti sa dansezi.
+              sa faci miscare intr-un mod placut, sa te relaxezi dupa o zi de
+              munca, sa socializezi si sa inveti sa dansezi.
             </p>
             <div className="pt-4">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
@@ -71,7 +72,7 @@ export default function DespreNoi() {
             <ActivityCard
               title="Workshop-uri"
               description="Sesiuni intensive pentru aprofundarea anumitor stiluri de dans"
-              link="/program"
+              link="/grupe-in-formare"
             />
             <ActivityCard
               title="Lecții private pentru nuntă"

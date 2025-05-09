@@ -15,7 +15,7 @@ export default function CursuriDansCopii() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri Dans Copii
+            Cursuri dans copii
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Dezvoltă coordonarea, încrederea și pasiunea pentru dans de la
@@ -45,7 +45,11 @@ export default function CursuriDansCopii() {
               nivel, astfel încât fiecare copil să se simtă confortabil și să
               progreseze în ritmul său.
             </p>
-            <h1>Stiluri de dans:</h1>
+            <h1>
+              La grupele de copii se preda dans sportiv (dansuri latino și
+              dansuri standard) și, ocazional, dansuri populare precum horă,
+              alunelul, batuta ursului, jiana etc.
+            </h1>
             <div className="pt-4">
               <Link href="/inscriere">
                 <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
@@ -64,11 +68,11 @@ export default function CursuriDansCopii() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Grupa INTERMEDIARI (7-12 ani)
+                  Grupa intermediari (7-12 ani)
                 </h3>
                 <p className="text-gray-500 mb-4">
-                  Jocuri de mișcare și ritm, primii pași de dans și coordonare,
-                  totul într-o atmosferă distractivă.
+                  La aceasta grupa se predau: cha cha, jive, samba, vals lent,
+                  vals vienez, quick step, ocazional - dansuri populare.
                 </p>
                 <div className="text-sm text-gray-500">
                   <p>Marți și Joi</p>
@@ -80,11 +84,11 @@ export default function CursuriDansCopii() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Grupa INTERMEDIARI/AVANSATI (9-14 ani)
+                  Grupa intermediari/avansati (9-14 ani)
                 </h3>
                 <p className="text-gray-500 mb-4">
-                  Elemente de bază din diferite stiluri de dans, coordonare și
-                  dezvoltarea simțului ritmic.
+                  La aceasta grupa se predau: cha cha, jive, samba, vals lent,
+                  vals vienez, quick step, ocazional - dansuri populare.
                 </p>
                 <div className="flex justify-between">
                   <div className="text-sm text-gray-500">
@@ -92,7 +96,7 @@ export default function CursuriDansCopii() {
                     <p>18:30 - 19:30</p>
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Vineri</p>
+                    <p>Sambata</p>
                     <p>12:00 - 13:00</p>
                   </div>
                 </div>
@@ -102,9 +106,12 @@ export default function CursuriDansCopii() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Formatie INTERMEDIARI (10-12 ani)
+                  Formatie intermediari (10-12 ani)
                 </h3>
-
+                <p className="text-gray-500 mb-4">
+                  Coregrafii dansuri latino/standard, în vederea participării la
+                  concursuri de dans.
+                </p>
                 <div className="text-sm text-gray-500">
                   <p>Sambata</p>
                   <p>11:00 - 12:00</p>

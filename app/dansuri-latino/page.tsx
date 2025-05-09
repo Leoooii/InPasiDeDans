@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
 
 export default function DansuriLatino() {
   return (
     <div className="container py-12">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Dansuri Latino</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Dansuri latino</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Pasiune, ritm și energie în fiecare mișcare
           </p>
@@ -177,112 +178,15 @@ export default function DansuriLatino() {
           </div>
         </div>
 
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">Programul Cursurilor</h2>
-          <div className="grid gap-4">
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Latino si societate (intermediari 1)
-                </h3>
-                <p className="text-gray-500">Instructor: Miriam</p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni și Miercuri, 18:30 - 19:45</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Bachata si salsa - (Începători)
-                </h3>
-                <p className="text-gray-500">Instructor: Alexandra</p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni si Miercuri, 18:30 - 19:30</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Latino si societate - (Intermediari 3)
-                </h3>
-                <p className="text-gray-500">Instructor: Alexandra</p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni si Miercuri, 19:45 - 21:00</p>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Latino si societate - (incepatori)
-                </h3>
-                <p className="text-gray-500">Instructor: Miriam</p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni si Miercuri, 19:45 - 20:45</p>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Bachata si salsa - (Intermediari 3)
-                </h3>
-                <p className="text-gray-500">
-                  Instructor: Alexandra si Nicholas
-                </p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Luni si Miercuri, 21:00 - 22:15</p>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Bachata si salsa - (Intermediari 2)
-                </h3>
-                <p className="text-gray-500">
-                  Instructor: Alexandra si Nicholas
-                </p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Marti si Joi, 19:45 - 21:00</p>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-semibold">
-                  Latino si societate - (Avansati)
-                </h3>
-                <p className="text-gray-500">Instructor: Alexandra</p>
-              </div>
-              <div className="mt-2 md:mt-0">
-                <p className="text-gray-500">Marti si joi, 21:00 - 22:15</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 bg-red-50 p-8 rounded-lg">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold dark:text-black">
-              Petreceri Latino
-            </h2>
-            <p className="dark:text-black">
-              Organizăm periodic petreceri latino, unde puteți practica ce ați
-              învățat la cursuri și vă puteți bucura de atmosfera autentică
-              latino. Muzică bună, oameni pasionați și multă distracție!
-            </p>
+        <div className="flex w-full h-full justify-center items-center">
+          <Link href="/program">
             <Button
               size="lg"
               className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
             >
-              Vezi calendarul petrecerilor
+              Verifica programul
             </Button>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ export default function Excursii() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Excursii în Pași de Dans
+            Excursii În Pași de Dans
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Descoperă lumea dansului prin excursiile noastre tematice
