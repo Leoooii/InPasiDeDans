@@ -10,7 +10,7 @@ export default function DespreNoi() {
     <div className="container py-12">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Despre Noi</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Despre noi</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Învățăm Bucureștiul să danseze din 1 iulie 2009!
           </p>
@@ -20,24 +20,24 @@ export default function DespreNoi() {
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Cine suntem</h2>
             <p>
-              Povestea noastra a inceput in urma cu 16 ani, din pasiune pentru
-              dans si din dorinta sincera de a impartasi frumusetea si emotia pe
-              care dansul le poate oferii.
+              Povestea noastră a început în urmă cu 16 ani, din pasiune pentru
+              dans și din dorința sinceră de a împărtăși frumusețea și emoția pe
+              care dansul le poate oferi.
             </p>
             <p>
-              Suntem o comunitate frumoasa și unita, formata din 6 instructori
-              pasionati, uniti de dragostea pentru dans si dorinta de a inspira.
-              Credem cu tarie ca dansul este pentru toti, indiferent de varsta
-              sau nivel, iar misiunea noastra este sa ne asiguram ca fiecare
-              cursant sa se exprime si sa descopere bucuria dansului, sa fie
-              motivat si sustinut sa evolueze.
+              Suntem o echipă ambițioasă și unita, formată din 6 instructori
+              pasionați, uniți de dragostea pentru dans și dorința de a inspira.
+              Credem cu tărie că dansul este pentru toți, indiferent de vârstă
+              sau nivel, iar misiunea noastră este sa ne asigurăm că fiecare
+              cursant poate sa se exprime liber și să descopere bucuria
+              dansului, să fie motivat și susținut să evolueze.
             </p>
 
             <p>
-              Astazi, suntem mai mult decat o scoala de dans. Suntem o frumoasa
-              si unita comunitate, un loc unde fiecare pas conteaza, unde poti
-              sa faci miscare intr-un mod placut, sa te relaxezi dupa o zi de
-              munca, sa socializezi si sa inveti sa dansezi.
+              Astăzi, suntem mai mult decât o școală de dans. Suntem o
+              comunitate frumoasă și unită, un loc unde fiecare pas contrează,
+              unde poți să faci mișcare într-un mod plăcut, să te relaxezi după
+              o zi de muncă, să socializezi și să înveți să dansezi.
             </p>
             <div className="pt-4">
               <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">

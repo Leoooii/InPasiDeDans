@@ -42,7 +42,7 @@ export default function Petreceri() {
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600">
               <div className="relative h-60 w-full overflow-hidden">
                 <Image
                   src="/images/petrecere.png?height=800&width=600"

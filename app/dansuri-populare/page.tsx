@@ -24,7 +24,7 @@ const regiuniDansuri = [
       'Hora Lelea',
       'Ciuleandra',
       'Fedelesul',
-      'Rocojina',
+      'Rogojina',
       'Hora bătută (Țigănească)',
       'Boereasca',
       'Breaza',
@@ -73,7 +73,7 @@ const regiuniDansuri = [
       'Găile de la Motăței',
       'Leana de la Goicea',
       'Hora ca la Romanați',
-      'Gălaonul',
+      'Galaonul',
       'Alunelul de la Daneți',
       'Alunelul de la Izbiceni',
       'Trandafirul oltenesc',
@@ -90,7 +90,7 @@ const regiuniDansuri = [
     dansuri: [
       'Geampara',
       'Cadânească',
-      'Păidușca',
+      'Paidușca',
       'Sârba de la Oltina',
       'Pamporea',
       'Ceancul',
@@ -145,7 +145,7 @@ const regiuniDansuri = [
     imagine: '/images/Romania/harta-bucovina.jpg',
     dansuri: [
       'Coragheasca',
-      'Coragheasca de la Târnița',
+      'Coragheasca de la Tarnița, Iaslovăț',
       'Hutulca',
       'Hangul de la Cahul',
       'Polcuța',
@@ -238,7 +238,7 @@ export default function DansuriPopulare() {
         {/* Secțiunea de introducere */}
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Tradiție și pasiune</h2>
+            <h2 className="text-2xl font-bold">Tradiție și folclor</h2>
             <p>
               Dansurile populare reprezintă o parte importantă a patrimoniului
               cultural, transmițând obiceiuri, tradiții și povești din generație

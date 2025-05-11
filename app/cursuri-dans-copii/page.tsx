@@ -46,9 +46,9 @@ export default function CursuriDansCopii() {
               progreseze în ritmul său.
             </p>
             <h1>
-              La grupele de copii se preda dans sportiv (dansuri latino și
-              dansuri standard) și, ocazional, dansuri populare precum horă,
-              alunelul, batuta ursului, jiana etc.
+              La grupele de copii predam dans sportiv (dansuri latino și dansuri
+              standard) și, ocazional, dansuri populare precum horă, alunelul,
+              batuta ursului, jiana etc.
             </h1>
             <div className="pt-4">
               <Link href="/inscriere">
