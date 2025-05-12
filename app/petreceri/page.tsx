@@ -4,8 +4,96 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Petreceri() {
+  const petreceri = [
+    {
+      id: 1,
+      title: `Secret Santa Party`,
+      date: ' decembrie 2024',
+      link: `https://www.facebook.com/share/p/18pK7bjRzQ/`,
+      image: `ssp2024.png`,
+    },
+    {
+      id: 2,
+      title: `Petrecere Crăciun`,
+      date: 'decembrie 2024',
+      link: `https://www.facebook.com/share/p/1AS51omrRQ/`,
+      image: 'c2024.png',
+    },
+    {
+      id: 3,
+      title: `Balul Regățenilor, ediția a II-a`,
+      date: 'noiembrie 2024',
+      link: `https://www.facebook.com/share/p/15VHT6zBXL/`,
+      image: 'br2024.png',
+    },
+    {
+      id: 4,
+      title: `Halloween Party`,
+      date: 'octombrie 2024',
+      link: `https://www.facebook.com/share/p/14mAUtYHB2/`,
+      image: 'h2024.png',
+    },
+    {
+      id: 5,
+      title: `Secret Santa Party,`,
+      date: 'decembrie 2023',
+      link: `https://www.facebook.com/share/p/1ATPizJcfp/`,
+      image: 'ssp2023.png',
+    },
+    {
+      id: 6,
+      title: `Petrecere Crăciun`,
+      date: 'decembrie 2023',
+      link: `https://www.facebook.com/share/p/1E8QevGVzi/`,
+      image: 'c2023.png',
+    },
+    {
+      id: 7,
+      title: `Halloween Party`,
+      date: 'octombrie 2023',
+      link: `https://www.facebook.com/share/p/1AoG7nhxBG/`,
+      image: 'h2023.png',
+    },
+    {
+      id: 8,
+      title: `Balul Regățenilor, ediția I`,
+      date: 'octombrie 2023',
+      link: `https://www.facebook.com/share/p/16HcrodR5W/`,
+      image: 'br2023.png',
+    },
+    {
+      id: 9,
+      title: `Petrecere Ziua Iei`,
+      date: 'iunie 2023',
+      link: `https://www.facebook.com/share/p/1Bg9Wi21WA/`,
+      image: 'zi2023.png',
+    },
+    {
+      id: 10,
+      title: `Secret Santa Party`,
+      date: 'decembrie 2022',
+      link: `https://www.facebook.com/share/p/1DYB4icr8S/`,
+      image: 'ssp2022.png',
+    },
+    {
+      id: 11,
+      title: `Petrecere Crăciun`,
+      date: 'decembrie 2022',
+      link: `https://www.facebook.com/share/p/18nfcYYDiB/`,
+      image: 'c2022.png',
+    },
+    {
+      id: 12,
+      title: `Halloween Party`,
+      date: 'octombrie 2022',
+      link: `https://www.facebook.com/share/p/1D9vRixEk9/`,
+      image: 'h2022.png',
+    },
+  ];
+
   return (
     <div className="container py-12">
       <div className="space-y-6">
@@ -48,7 +136,7 @@ export default function Petreceri() {
                   src="/images/petrecere.png?height=800&width=600"
                   alt="Excursie de dans"
                   fill
-                  className="object-cover"
+                  className="object-cover hover:scale-125 transition-transform duration-300"
                 />
                 <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                   În curând
@@ -86,19 +174,42 @@ export default function Petreceri() {
           <h2 className="text-2xl font-bold mb-6">
             Galerie de la petrecerile anterioare
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="relative aspect-square rounded-lg overflow-hidden group"
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {petreceri.map(petrecere => (
+              <Card
+                key={petrecere.id}
+                className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
               >
-                <ImageSkeleton
-                  width={300}
-                  height={300}
-                  className="w-full h-full"
-                />
-              </div>
+                <div className="relative h-60 w-full overflow-hidden">
+                  <Image
+                    src={`/images/petreceri/${petrecere.image}?height=800&width=600`}
+                    alt={petrecere.title}
+                    fill
+                    className="object-cover hover:scale-125 transition-transform duration-300"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <Link href={petrecere.link}>
+                    <h3 className="text-xl font-bold mb-2">
+                      {petrecere.title}
+                    </h3>
+                    <h3>{petrecere.date}</h3>
+                  </Link>
+                </CardContent>
+              </Card>
             ))}
+          </div>
+          <div className="mt-12 w-full flex justify-center">
+            <iframe
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fscoaladedansinpasidedans&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+              width="500"
+              height="500"
+              style={{ border: 'none', overflow: 'hidden' }}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen={true}
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            ></iframe>
           </div>
         </div>
       </div>
