@@ -44,10 +44,15 @@ export default function DansuriDeSocietate() {
               Dansurile de societate sunt predate in cadrul grupelor, alaturi de
               alte stiluri latino.
             </p>
-            <div className="pt-4">
+            <div className="pt-4 flex gap-2">
               <Link href="/inscriere">
                 <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
                   Înscrie-te la curs
+                </Button>
+              </Link>
+              <Link href="/program">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                  Verifica programul
                 </Button>
               </Link>
             </div>
@@ -118,16 +123,6 @@ export default function DansuriDeSocietate() {
                 </p>
               </CardContent>
             </Card>
-            <div className="flex w-full h-full justify-center items-center mt-10">
-              <Link href="/program">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                >
-                  Verifica programul
-                </Button>
-              </Link>
-            </div>
           </div>
         </div>
 

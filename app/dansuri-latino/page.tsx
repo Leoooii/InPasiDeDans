@@ -46,10 +46,18 @@ export default function DansuriLatino() {
               Cursurile sunt adaptate pentru toate nivelurile, de la începători
               până la avansați.
             </p>
-            <div className="pt-4">
-              <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Înscrie-te la curs
-              </Button>
+            <div className="pt-4 flex gap-2">
+              <Link href="/inscriere">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                  Înscrie-te la curs
+                </Button>
+              </Link>
+
+              <Link href="/program">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                  Verifica programul
+                </Button>
+              </Link>
             </div>
           </div>
           {/* <div className="relative h-[400px] rounded-lg overflow-hidden">
@@ -176,17 +184,6 @@ export default function DansuriLatino() {
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        <div className="flex w-full h-full justify-center items-center">
-          <Link href="/program">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-            >
-              Verifica programul
-            </Button>
-          </Link>
         </div>
       </div>
     </div>

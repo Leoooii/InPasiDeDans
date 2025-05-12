@@ -5,6 +5,58 @@ import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 
 export default function Excursii() {
+  const excursii = [
+    {
+      id: 1,
+      title: 'Vidraru',
+      date: 'Iunie 2024',
+      link: 'https://www.facebook.com/share/p/18eYV59wNG/',
+      image: 'vidraru.png',
+    },
+    {
+      id: 2,
+      title: 'Casoca, Buzau',
+      date: 'Iunie 2022',
+      link: 'https://www.facebook.com/share/p/1AX8JQc6di/',
+      image: 'casoca.png',
+    },
+    {
+      id: 3,
+      title: 'Zanzibar',
+      date: 'Noiembrie 2021',
+      link: 'https://www.facebook.com/media/set/?set=a.4474379455948866&type=3',
+      image: 'zanzibar.png',
+    },
+    {
+      id: 4,
+      title: 'Moeciu',
+      date: 'Iulie 2019',
+      link: 'https://www.facebook.com/media/set/?set=a.2339272792792887&type=3',
+      image: 'moeciu.png',
+    },
+    {
+      id: 5,
+      title: 'Tenerife',
+      date: 'Martie 2019',
+      link: 'https://www.facebook.com/media/set/?set=a.2104845992902236&type=3',
+      image: 'tenerife.png',
+    },
+    {
+      id: 6,
+      title: 'Thailanda și Cambodgia',
+      date: 'Noiembrie 2018',
+      link: 'https://www.facebook.com/media/set/?set=a.1938997632820407&type=3',
+      image: 'thailanda.png',
+    },
+    {
+      id: 7,
+      title: 'Sicilia',
+      date: 'Mai 2018',
+      link: 'https://www.facebook.com/media/set/?set=a.1681788268541346&type=3',
+      image: 'sicilia.png',
+    },
+  ];
+
   return (
     <div className="container py-12">
       <div className="space-y-6">
@@ -104,55 +156,24 @@ export default function Excursii() {
         <div className="mt-12 space-y-6">
           <h2 className="text-2xl font-bold">Excursii anterioare</h2>
           <div className="grid gap-6 md:grid-cols-3">
-            <Link href={`https://www.facebook.com/share/p/18eYV59wNG/`}>
-              <div className="relative h-60 rounded-lg overflow-hidden group">
-                <Image
-                  src="/images/vidraru.png?height=400&width=600"
-                  alt="Excursie Argentina"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                  <div className="p-4 text-white">
-                    <h3 className="font-bold">Excursie Vidraru</h3>
-                    <p className="text-sm">Iunie 2024</p>
+            {excursii.map(excursie => (
+              <Link href={excursie.link} key={excursie.id}>
+                <div className="relative h-60 rounded-lg overflow-hidden group">
+                  <Image
+                    src={`/images/excursii/${excursie.image}?height=400&width=600`}
+                    alt="Excursie Argentina"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-125"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                    <div className="p-4 text-white">
+                      <h3 className="font-bold">{excursie.title}</h3>
+                      <p className="text-sm">{excursie.date}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-
-            <Link href={`https://www.facebook.com/share/p/1AX8JQc6di/`}>
-              <div className="relative h-60 rounded-lg overflow-hidden group">
-                <Image
-                  src="/images/casoca.png?height=400&width=600"
-                  alt="Excursie Grecia"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                  <div className="p-4 text-white">
-                    <h3 className="font-bold">Excursie Casoca, Buzau</h3>
-                    <p className="text-sm">Iunie 2022</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-            <Link href="https://www.facebook.com/media/set/?set=a.4474379455948866&type=3">
-              <div className="relative h-60 rounded-lg overflow-hidden group">
-                <Image
-                  src="/images/zanzibar.png?height=400&width=600"
-                  alt="Excursie Bucovina"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                  <div className="p-4 text-white">
-                    <h3 className="font-bold">Zanzibar</h3>
-                    <p className="text-sm">Noiembrie 2021</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

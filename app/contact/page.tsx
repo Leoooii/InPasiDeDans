@@ -97,7 +97,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="container py-12">
+    <div className="container py-12 ">
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Contact</h1>
@@ -135,7 +135,7 @@ export default function Contact() {
             </Card>
 
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-6 ">
                 <div className="flex items-start space-x-4">
                   <Mail className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
@@ -147,7 +147,7 @@ export default function Contact() {
             </Card>
 
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-6 ">
                 <h3 className="font-bold mb-2">
                   Ne puteti contacta telefonic:
                 </h3>
@@ -163,7 +163,7 @@ export default function Contact() {
 
           <div>
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-6 border-orange-600 border-2 rounded-md">
                 <h2 className="text-xl font-bold mb-4">Trimite-ne un mesaj</h2>
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div className="grid gap-2">

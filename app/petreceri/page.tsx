@@ -11,84 +11,84 @@ export default function Petreceri() {
     {
       id: 1,
       title: `Secret Santa Party`,
-      date: ' decembrie 2024',
+      date: 'Decembrie 2024',
       link: `https://www.facebook.com/share/p/18pK7bjRzQ/`,
       image: `ssp2024.png`,
     },
     {
       id: 2,
       title: `Petrecere Crăciun`,
-      date: 'decembrie 2024',
+      date: 'Decembrie 2024',
       link: `https://www.facebook.com/share/p/1AS51omrRQ/`,
       image: 'c2024.png',
     },
     {
       id: 3,
       title: `Balul Regățenilor, ediția a II-a`,
-      date: 'noiembrie 2024',
+      date: 'Noiembrie 2024',
       link: `https://www.facebook.com/share/p/15VHT6zBXL/`,
       image: 'br2024.png',
     },
     {
       id: 4,
       title: `Halloween Party`,
-      date: 'octombrie 2024',
+      date: 'Octombrie 2024',
       link: `https://www.facebook.com/share/p/14mAUtYHB2/`,
       image: 'h2024.png',
     },
     {
       id: 5,
       title: `Secret Santa Party,`,
-      date: 'decembrie 2023',
+      date: 'Decembrie 2023',
       link: `https://www.facebook.com/share/p/1ATPizJcfp/`,
       image: 'ssp2023.png',
     },
     {
       id: 6,
       title: `Petrecere Crăciun`,
-      date: 'decembrie 2023',
+      date: 'Decembrie 2023',
       link: `https://www.facebook.com/share/p/1E8QevGVzi/`,
       image: 'c2023.png',
     },
     {
       id: 7,
       title: `Halloween Party`,
-      date: 'octombrie 2023',
+      date: 'Octombrie 2023',
       link: `https://www.facebook.com/share/p/1AoG7nhxBG/`,
       image: 'h2023.png',
     },
     {
       id: 8,
       title: `Balul Regățenilor, ediția I`,
-      date: 'octombrie 2023',
+      date: 'Octombrie 2023',
       link: `https://www.facebook.com/share/p/16HcrodR5W/`,
       image: 'br2023.png',
     },
     {
       id: 9,
       title: `Petrecere Ziua Iei`,
-      date: 'iunie 2023',
+      date: 'Iunie 2023',
       link: `https://www.facebook.com/share/p/1Bg9Wi21WA/`,
       image: 'zi2023.png',
     },
     {
       id: 10,
       title: `Secret Santa Party`,
-      date: 'decembrie 2022',
+      date: 'Decembrie 2022',
       link: `https://www.facebook.com/share/p/1DYB4icr8S/`,
       image: 'ssp2022.png',
     },
     {
       id: 11,
       title: `Petrecere Crăciun`,
-      date: 'decembrie 2022',
+      date: 'Decembrie 2022',
       link: `https://www.facebook.com/share/p/18nfcYYDiB/`,
       image: 'c2022.png',
     },
     {
       id: 12,
       title: `Halloween Party`,
-      date: 'octombrie 2022',
+      date: 'Octombrie 2022',
       link: `https://www.facebook.com/share/p/1D9vRixEk9/`,
       image: 'h2022.png',
     },
@@ -98,7 +98,7 @@ export default function Petreceri() {
     <div className="container py-12">
       <div className="space-y-6 ">
         <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
-          <h1 className="text-4xl md:text-3xl font-extrabold tracking-tight ">
+          <h1 className="text-3xl md:text-3xl font-extrabold tracking-tight ">
             Petreceri În Pași de Dans
           </h1>
           <p className="text-lg text-gray-600 font-medium">
