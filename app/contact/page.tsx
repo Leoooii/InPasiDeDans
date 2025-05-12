@@ -2,100 +2,13 @@
 
 import type React from 'react';
 
-import { useState } from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
+
+import ContactForm from '@/components/contact-form';
 
 export default function Contact() {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Simulăm trimiterea email-ului
-      // În producție, aici ar trebui să fie un API call către serverul tău
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Trimitem email folosind EmailJS sau alt serviciu similar
-      // Exemplu de cod pentru EmailJS:
-      /*
-      await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          to_email: 'lioneh39@gmail.com',
-        },
-        'YOUR_PUBLIC_KEY'
-      );
-      */
-
-      // Afișăm un toast de succes
-      toast({
-        title: 'Mesaj trimis cu succes!',
-        description: 'Îți mulțumim pentru mesaj. Te vom contacta în curând.',
-        duration: 5000,
-      });
-
-      // Resetăm formularul
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
-
-      // Afișăm și un alert pentru a ne asigura că utilizatorul primește feedback
-      alert(
-        'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.'
-      );
-    } catch (error) {
-      console.error('Eroare:', error);
-
-      // Afișăm un toast de eroare
-      toast({
-        title: 'Eroare la trimiterea mesajului',
-        description: 'Te rugăm să încerci din nou mai târziu.',
-        variant: 'destructive',
-        duration: 5000,
-      });
-
-      // Afișăm și un alert pentru a ne asigura că utilizatorul primește feedback
-      alert(
-        'Eroare la trimiterea mesajului. Te rugăm să încerci din nou mai târziu.'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="container py-12 ">
       <div className="space-y-6">
@@ -161,64 +74,7 @@ export default function Contact() {
             </Card>
           </div>
 
-          <div>
-            <Card>
-              <CardContent className="p-6 border-orange-600 border-2 rounded-md">
-                <h2 className="text-xl font-bold mb-4">Trimite-ne un mesaj</h2>
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                  <div className="grid gap-2">
-                    <Label htmlFor="name">Nume</Label>
-                    <Input
-                      id="name"
-                      placeholder="Numele tău"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="email@exemplu.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="subject">Subiect</Label>
-                    <Input
-                      id="subject"
-                      placeholder="Subiectul mesajului"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="message">Mesaj</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Scrie mesajul tău aici..."
-                      className="min-h-[150px]"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
+          <ContactForm />
         </div>
 
         <div className="mt-8">
