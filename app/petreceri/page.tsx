@@ -96,35 +96,27 @@ export default function Petreceri() {
 
   return (
     <div className="container py-12">
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Petreceri In Pași de Dans
+      <div className="space-y-6 ">
+        <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
+          <h1 className="text-4xl md:text-3xl font-extrabold tracking-tight ">
+            Petreceri În Pași de Dans
           </h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-lg text-gray-600 font-medium">
             Participă la petrecerile noastre tematice și pune în practică ce ai
-            învățat
+            învățat!
           </p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Dansează și socializează</h2>
-            <p>
-              Petrecerile tematice organizate de școala noastră sunt ocazii
-              perfecte pentru a practica ce ai învățat la cursuri, într-o
-              atmosferă relaxată și prietenoasă. Acestea sunt deschise atât
-              cursanților noștri, cât și prietenilor acestora.
-            </p>
-          </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/images/petrecere.png?height=800&width=600"
-              alt="Excursie de dans"
-              fill
-              className="object-cover"
-            />
-          </div>
+          <p className="text-gray-500 leading-relaxed">
+            Petrecerile tematice organizate de școala noastră sunt ocazii
+            perfecte pentru a practica ce ai învățat la cursuri, într-o
+            atmosferă relaxată și prietenoasă. Acestea sunt deschise atât
+            cursanților noștri, cât și prietenilor acestora.
+          </p>
+          <a
+            href="#galerie"
+            className="inline-block mt-4 px-6 py-2 bg-rose-600 text-white font-semibold rounded-md hover:bg-rose-700 transition-colors"
+          >
+            Vezi galeriile
+          </a>
         </div>
 
         <div className="mt-12">
@@ -174,7 +166,7 @@ export default function Petreceri() {
           <h2 className="text-2xl font-bold mb-6">
             Galerie de la petrecerile anterioare
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4" id="galerie">
             {petreceri.map(petrecere => (
               <Card
                 key={petrecere.id}
