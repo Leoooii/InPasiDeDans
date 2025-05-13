@@ -38,13 +38,13 @@ export default function Instructori() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <InstructorCard
               name="Alexandra Dumitrache"
-              role="Instructor dansuri latino, de societate si dansuri populare"
+              role="Instructor dansuri latino, de societate și dansuri populare"
               src="/images/Alexandra2.png"
-              bio="Alexandra Dumitrache este fondator, manager si instructor la In Pasi de Dans, infiintata in 2009. Decizia infiintarii acestei scoli a venit ca urmare a pasiunii pentru dans si din dorinta de a impartasi cu cat mai multe persoane bucuria oferita de dans.
+              bio="Alexandra Dumitrache este fondator, manager și instructor la În Pași de Dans, înfiintata în 2009. Decizia înfiintarii acestei școli a venit ca urmare a pasiunii pentru dans și din dorința de a împărtăși cu cât mai multe persoane bucuria oferită de dans.
 
-Alexandra are experienta ca instructor de dans peste 24 de ani; a participat la numeroase competitii de dans sportiv nationale si internationale.
+Alexandra are experiența ca instructor de dans peste 24 de ani; a participat la numeroase competiții de dans sportiv naționale și internaționale.
 
-Principalele sale responsabilitati la In Pasi de Dans sunt prederea dansurilor latino si de societate si dansurilor populare (atat la grupele de copii, cat si la cele de adulti), organizarea si coordonarea cursurilor de dans, evenimentelor si activitatilor din cadrul scolii de dans."
+Principalele sale responsabilitati la În Pași de Dans sunt prederea dansurilor latino și de societate și dansurilor populare (atât la grupele de copii, cât și la cele de adulți), organizarea și coordonarea cursurilor de dans, evenimentelor și activităților din cadrul școlii de dans."
               facebook={'https://www.facebook.com/share/1EJUcGJrue/'}
               insta={
                 'https://www.instagram.com/dumitrache420?igsh=MXQ4a29lazcyaWExOQ=='
@@ -52,58 +52,56 @@ Principalele sale responsabilitati la In Pasi de Dans sunt prederea dansurilor l
             />
 
             <InstructorCard
-              name="Catalina Gurau"
-              role="Instructor dansuri populare si lectii private pentru miri"
+              name="Cătălina Gurău"
+              role="Instructor dansuri populare și lectii private pentru miri"
               src="/images/Catalina.jpg"
-              bio="Catalina Gurau colaborează cu In Pasi de Dans din 2018, in calitate de instructor-coregraf pentru grupele de dansuri populare adulti, lectii private pentru viitori miri, precum si workshop-uri.
+              bio="Cătălina Gurău colaborează cu În Pași de Dans din 2018, în calitate de instructor-coregraf pentru grupele de dansuri populare adulti, lectii private pentru viitori miri, precum și workshop-uri.
 
-Catalina este un izvor de energie si bucurie, atat fizic cat si emotional. Este o persoana plina de voie buna si îti aduce aminte mereu de importanta zambetului. Pasiunea pentru dans a descoperit-o la In Pasi de Dans, iar de atunci, dansul a devenit un stil de viata pentru ea.
+Cătălina este un izvor de energie și bucurie, atât fizic cât și emoțional. Este o persoană plină de voie bună și își aduce aminte mereu de importanța zâmbetului. Pasiunea pentru dans a descoperit-o la În Pași de Dans, iar de atunci, dansul a devenit un stil de viață pentru ea.
 
-Plina de inspiratie, bucurie si empatie este mereu atenta la nevoile celor din jur si mereu dispusa sa ofere ajutorul. Adesea energia ei este molipsitoare, iar în preajma ei oamenii se simt sustinuti si intelesi."
+Plină de inspirație, bucurie și empatie este mereu atentă la nevoile celor din jur și mereu dispusă să ofere ajutorul. Adesea energia ei este molipsitoare, iar în preajma ei oamenii se simt susținuți și înțeleși."
               facebook="https://www.facebook.com/share/1DqfPJZbHo/"
               insta="https://www.instagram.com/kate.gmc?igsh=MTIwZjg4djJ4bDY5Nw=="
             />
 
             <InstructorCard
               name="Miriam Haghighi"
-              role="Instructor dansuri latino, de societate si lectii private pentru miri"
+              role="Instructor dansuri latino, de societate și lecții private pentru miri"
               src="/images/Miriam.png"
-              bio="Miriam Haghighi colaboreaza cu In Pasi de Dans din 2022, in calitate de instructor pentru grupele de adulti, predand dansuri latino si de societate.
-
-Are o experienta in dansul sportiv de performanta de peste 13 ani. A concurat la numeroase competitii de dans sportiv, atat nationale, cat si internationale. Pasiunea pentru dans este principala motivatie care o indeamna sa impartasesca cu cat mai multi secretele, magia si bucuria dansului."
+              bio="Miriam Haghighi colaborează cu În Pași de Dans din 2022, în calitate de instructor al grupelor de adulți, unde predă dansuri latino și de societate. Cu o experiență de peste 13 ani în dansul sportiv de performanță, Miriam a participat la numeroase competiții naționale și internaționale. Pasiunea ei pentru dans reprezintă motivația care o inspiră să împărtășească bucuria, eleganța și secretele dansului cu cât mai mulți oameni."
               facebook="https://www.facebook.com/share/15EwNXUo1W/"
               insta="https://www.instagram.com/miriam.haghi?igsh=Z2Q4OWI4NGx1cmZt"
             />
 
             <InstructorCard
               name="Daniela Cristea"
-              role="Instructor - coregraf pentru lectii private"
+              role="Instructor - coregraf pentru lecții private"
               src="/images/Daniela.png"
-              bio="Daniela Cristea colaboreaza cu In Pasi de Dans din 2023, unde preda dansuri latino si de societate pentru grupele de adulti si lectii private pentru miri.
+              bio="Daniela Cristea colaborează cu În Pași de Dans din 2023, unde predă dansuri latino și de societate pentru grupele de adulți și lectii private pentru miri.
 
-Are o experienta in dansul sportiv de 9 ani, ca dansator si de peste 5 ani, ca instructor. A participat la numeroase competitii, evenimente si proiecte nationale si internationale de dans, care i-au modelat personalitatea si stilul de viata, dansul ocupand un loc important in viata Danielei."
+Are o experiență în dansul sportiv de 9 ani, ca dansator și de peste 5 ani, ca instructor. A participat la numeroase competiții, evenimente și proiecte naționale și internaționale de dans, care i-au modelat personalitatea și stilul de viata, dansul ocupând un loc important în viața Danielei."
               facebook="https://www.facebook.com/share/1HMnUsj81X/"
               insta="https://www.facebook.com/share/1HMnUsj81X/"
             />
 
             <InstructorCard
               name="Nicholas Ciurea"
-              role="Instructor salsa, bachata si kizomba"
+              role="Instructor salsa, bachata și kizomba"
               src="/images/Niko.png"
-              bio="Nicholas are o experiență solidă de 11 ani în dansul sportiv și predă cu pasiune de peste 16 ani. Este vicecampion național la bachata și se remarcă prin stilul său tehnic, carisma pe ringul de dans și abilitatea de a transmite clar și eficient cunoștințele cursanților săi. Din 2023, colaborează cu În Pași de Dans, unde preda salsa si bachata si contribuie activ la dezvoltarea comunității de dansatori și la organizarea evenimentelor tematice."
+              bio="Nicholas are o experiență solidă de 11 ani în dansul sportiv și predă cu pasiune de peste 16 ani. Este vicecampion național la bachata și se remarcă prin stilul său tehnic, carisma pe ringul de dans și abilitatea de a transmite clar și eficient cunoștințele cursanților săi. Din 2023, colaborează cu În Pași de Dans, unde predă salsa și bachata și contribuie activ la dezvoltarea comunității de dansatori și la organizarea evenimentelor tematice."
               facebook="https://www.facebook.com/niko.nicholas.5"
               insta="https://www.instagram.com/niko.nicholas.5?igsh=MWs0eDBveGFmeHpjcQ=="
             />
 
             <InstructorCard
               name="Luiza Bulmaga"
-              role="Instructor - coregraf lectii private pentru miri"
+              role="Instructor - coregraf lecții private pentru miri"
               src="/images/Luiza.png"
-              bio="Luiza Bulmaga este instructor la In Pasi de Dans din 2023, unde preda, in mod special, lectii private pentru miri.
+              bio="Luiza Bulmaga este instructor la În Pași de Dans din 2023, unde predă, în mod special, lecții private pentru miri.
 
-Luiza a inceput sa danseze la varsta de 9 ani, iar de-a lungul timpului dansul a devenit un stil de viata pentru ea; in paralel parctica si karate de performanta.
+Luiza a început să danseze la vârsta de 9 ani, iar de-a lungul timpului dansul a devenit un stil de viata pentru ea; în paralel practica și karate de performanță.
 
-Pasionata de dans, energica, Luiza este o instructoare intelegatoare, creativa, iar experienta vasta din viata sportiva si simtul pedagogic o fac sa inteleaga cu usurinta nevoile fiecarui elev al ei, reusind astfel sa puna in valoare, prin dans, calitatile cursantilor ei."
+Pasionată de dans, energică, Luiza este o instructoare înțelegătoare, creativă, iar experiența vastă din viata sportivă și simtul pedagogic o fac să înțeleagă cu ușurință nevoile fiecărui elev al ei, reușind astfel să pună în valoare, prin dans, calitățile cursanților ei."
               facebook="https://www.facebook.com/luiza.papusica"
               insta="https://www.instagram.com/luiza_bulmaga?igsh=MWQ1aTVpbGtreTMxYw=="
             />
@@ -117,7 +115,7 @@ Pasionata de dans, energica, Luiza este o instructoare intelegatoare, creativa, 
               <h3 className="font-semibold mb-2">Formare continuă</h3>
               <p className="text-gray-500 text-sm">
                 Echipa noastră participă regulat la workshop-uri și seminarii
-                nationale si internaționale, pentru a fi la curent cu cele mai
+                nationale și internaționale, pentru a fi la curent cu cele mai
                 noi tendințe și tehnici.
               </p>
             </div>

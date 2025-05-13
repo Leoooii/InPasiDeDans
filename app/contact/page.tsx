@@ -62,13 +62,13 @@ export default function Contact() {
             <Card>
               <CardContent className="p-6 ">
                 <h3 className="font-bold mb-2">
-                  Ne puteti contacta telefonic:
+                  Ne puteți contacta telefonic:
                 </h3>
                 <div className="space-y-1 text-gray-500">
                   <p>Luni - Vineri: 10:00 - 17:00</p>
                   <p>Sâmbătă: 14:00 - 18:00</p>
                   <p>Duminică: Închis</p>
-                  <p>Sau prin mesaj pe WhatsApp: oricand</p>
+                  <p>Sau prin mesaj pe WhatsApp: oricând</p>
                 </div>
               </CardContent>
             </Card>

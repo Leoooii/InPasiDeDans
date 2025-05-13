@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 import Link from 'next/link';
+import { UserCircleIcon, UserX2Icon } from 'lucide-react';
 
-export default function CursuriDansNunta() {
+export default function LectiiPrivate() {
   return (
     <div className="container py-12">
       <div className="space-y-6">
@@ -13,8 +14,8 @@ export default function CursuriDansNunta() {
             Cursuri private de dans
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Oferim lectii private atat pentru miri, cat si pentru persoane mai
-            timide sau pentru cei care vor sa aprofundeze doar anumite stiluri
+            Oferim lecții private atât pentru miri, cât și pentru persoane mai
+            timide sau pentru cei care vor să aprofundeze doar anumite stiluri
             de dans.
           </p>
         </div>
@@ -41,8 +42,8 @@ export default function CursuriDansNunta() {
             </p>
             <div className="pt-4">
               <div className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 p-2 text-white text-center text-sm font-medium rounded-lg">
-                Ne poti contacta pe mail ( inpasidedans@gmail.com ) sau pe
-                whatsapp ( 0722675126 ) pentru o consiliere
+                Ne poți contacta pe mail ( inpasidedans@gmail.com ) sau pe
+                whatsapp ( 0722675126 ) pentru o consiliere.
               </div>
             </div>
           </div>
@@ -61,7 +62,7 @@ export default function CursuriDansNunta() {
           <div className="grid gap-6 md:grid-cols-3">
             <Card className="border-red-600 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Pachet 4 sedinte</h3>
+                <h3 className="text-xl font-bold mb-2">Pachet 4 ședințe</h3>
                 <div className="text-2xl font-bold mb-4">640 Lei</div>
                 <p className="text-gray-500 mb-4">
                   Ideal pentru cuplurile care doresc un dans simplu și elegant.
@@ -129,7 +130,7 @@ export default function CursuriDansNunta() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span>Editare personalizata a melodiei</span>
+                    <span>Editare personalizată a melodiei</span>
                   </li>
                   <li className="flex items-start">
                     <div>
@@ -148,7 +149,7 @@ export default function CursuriDansNunta() {
                       </svg>
                     </div>
                     <span>
-                      Pachetul poate fi prelungit cu oricate sedinte la
+                      Pachetul poate fi prelungit cu oricate ședințe la
                       pretul/sedinta din pachetul ales initial{' '}
                     </span>
                   </li>
@@ -162,7 +163,7 @@ export default function CursuriDansNunta() {
                 Cel mai popular
               </div>
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Pachet 6 sedinte</h3>
+                <h3 className="text-xl font-bold mb-2">Pachet 6 ședințe</h3>
                 <div className="text-2xl font-bold mb-4">900 Lei</div>
                 <p className="text-gray-500 mb-4">
                   Pentru cuplurile care doresc un dans memorabil cu elemente
@@ -234,7 +235,7 @@ export default function CursuriDansNunta() {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span>Editare personalizata a melodiei</span>
+                    <span>Editare personalizată a melodiei</span>
                   </li>
                   <li className="flex items-start">
                     <div>
@@ -253,7 +254,7 @@ export default function CursuriDansNunta() {
                       </svg>
                     </div>
                     <span>
-                      Pachetul poate fi prelungit cu oricate sedinte la
+                      Pachetul poate fi prelungit cu oricate ședințe la
                       pretul/sedinta din pachetul ales initial{' '}
                     </span>
                   </li>
@@ -266,7 +267,7 @@ export default function CursuriDansNunta() {
 
             <Card className="border-red-600 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Pachet 8 sedinte</h3>
+                <h3 className="text-xl font-bold mb-2">Pachet 8 ședințe</h3>
                 <div className="text-2xl font-bold mb-4">1120 Lei</div>
                 <p className="text-gray-500 mb-4">
                   Experiența completă pentru un moment cu adevărat spectaculos.
@@ -305,7 +306,7 @@ export default function CursuriDansNunta() {
                       </svg>
                     </div>
                     <span>
-                      Coregrafie personalizata cu grad de dificultate mediu sau
+                      Coregrafie personalizată cu grad de dificultate mediu sau
                       ridicat, tinand cont de abilitatile voastre
                     </span>
                   </li>
@@ -359,7 +360,7 @@ export default function CursuriDansNunta() {
                       </svg>
                     </div>
                     <span>
-                      Pachetul poate fi prelungit cu oricate sedinte la
+                      Pachetul poate fi prelungit cu oricate ședințe la
                       pretul/sedinta din pachetul ales initial{' '}
                     </span>
                   </li>
@@ -369,7 +370,7 @@ export default function CursuriDansNunta() {
             </Card>
           </div>
         </div>
-        <h2 className="text-2xl font-bold mb-6">Alte Opțiuni:</h2>
+        <h2 className="text-2xl font-bold mb-6">Alte opțiuni:</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 mb-10">
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
@@ -396,8 +397,8 @@ export default function CursuriDansNunta() {
             particulare de dans se va face integral la prima sedinta.
           </p>
           <p className=" mb-6">
-            Anularea si reprogramarea unei sedinte se va face cu cel putin 24 de
-            ore inainte, telefonic. In caz contrar, sedinta se considera
+            Anularea și reprogramarea unei ședințe se va face cu cel putin 24 de
+            ore inainte, telefonic. In caz contrar, sedinta se conșidera
             efectuata.
           </p>
         </div>
@@ -418,7 +419,7 @@ export default function CursuriDansNunta() {
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
               <h3 className="font-semibold mb-2">Coregrafii personalizate</h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Creăm coregrafii adaptate nivelului, stilului, personalității si
+                Creăm coregrafii adaptate nivelului, stilului, personalității și
                 aptitudinilor fiecărui cuplu.
               </p>
             </div>
@@ -427,14 +428,14 @@ export default function CursuriDansNunta() {
               <h3 className="font-semibold mb-2">Săli private</h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
                 Toate ședințele se desfășoară în săli private, pentru a vă oferi
-                confortul necesar. Veti fi doar voi si instructorul in sala
+                confortul necesar. Veti fi doar voi și instructorul in sala
               </p>
             </div>
 
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
               <h3 className="font-semibold mb-2">Program flexibil</h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Programăm ședințele în funcție de disponibilitatea voastră si de
+                Programăm ședințele în funcție de disponibilitatea voastră și de
                 agenda noastra, inclusiv în weekend.
               </p>
             </div>
@@ -458,7 +459,7 @@ export default function CursuriDansNunta() {
               <p className="mb-6">
                 Pe lângă dansul mirilor, vă putem ajuta să pregătiți și alte
                 momente speciale pentru nuntă, cum ar fi dansul cu părinții sau
-                nasii, dansuri de grup sau dansuri surpriză pentru invitați.
+                nașii, dansuri de grup sau dansuri surpriză pentru invitați.
               </p>
               <Link href="/contact">
                 <Button
@@ -489,11 +490,7 @@ export default function CursuriDansNunta() {
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <ImageSkeleton
-                      width={48}
-                      height={48}
-                      className="w-full h-full"
-                    />
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold">Alexandra Popescu</h3>
@@ -505,7 +502,7 @@ export default function CursuriDansNunta() {
                 <p className="text-gray-600 dark:text-gray-300 italic">
                   Multumim, Luiza pentru tot ce ne ai învățat și abordarea cu
                   răbdare pe care ai aplicat o mereu! 😇 Pentru dansul mirilor
-                  ai realizat cea mai frumoasa coregrafie si totul a ieșit
+                  ai realizat cea mai frumoasa coregrafie și totul a ieșit
                   minunat! Un dar de nunta prețios care rămâne în inimile
                   noastre pentru totdeauna! 🥰 Recomand sa lucrați cu Luiza
                   deoarece este o persoana sociabila, vesela, adaptabila și
@@ -519,11 +516,7 @@ export default function CursuriDansNunta() {
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <ImageSkeleton
-                      width={48}
-                      height={48}
-                      className="w-full h-full"
-                    />
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold">Roxana</h3>
@@ -533,7 +526,7 @@ export default function CursuriDansNunta() {
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 italic">
-                  De scoala In Pasi de Dans am auzit de la o fată care a avut și
+                  De scoala In Pași de Dans am auzit de la o fată care a avut și
                   ea, la rândul ei o experiența foarte faină cu oamenii de aici.
                   Pentru că m-am trezit la o petrecere, unde se cânta muzică
                   populară și se dansa până nu se mai putea, iar eu stăteam pe
@@ -556,11 +549,7 @@ export default function CursuriDansNunta() {
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <ImageSkeleton
-                      width={48}
-                      height={48}
-                      className="w-full h-full"
-                    />
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold">Iuliana Francusi</h3>
@@ -572,7 +561,7 @@ export default function CursuriDansNunta() {
                 <p className="text-gray-600 dark:text-gray-300 italic">
                   Recomand cu drag Luiza! Din prima secundă în care am pășit în
                   sală am avut o senzație de confort și impresia ca ne cunoaștem
-                  de ani, iar asta ne-a ajutat să ne detașam si să venim cu drag
+                  de ani, iar asta ne-a ajutat să ne detașam și să venim cu drag
                   la fiecare ședință✨🌸! Un om minunat cu o energie aparte!
                 </p>
               </CardContent>
@@ -581,11 +570,7 @@ export default function CursuriDansNunta() {
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <ImageSkeleton
-                      width={48}
-                      height={48}
-                      className="w-full h-full"
-                    />
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold">Cristina Taras</h3>
@@ -595,13 +580,58 @@ export default function CursuriDansNunta() {
                   </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 italic">
-                  Am avut un dans divin, datorită ție, cea mai talentată si
+                  Am avut un dans divin, datorită ție, cea mai talentată și
                   răbdătoare profesoară de dans din lume, care ne-a ajutat să
                   învățăm în doar câteva ședințe un dans apreciat de toți
                   invitații! Recomand pentru profesionalism, căldură, prietenie,
                   răbdare și dedicare, un om deosebit! Multumim, Alexandra
                   pentru răbdarea acordată pregătirii coregrafiei celui mai
                   important dans din viața noastră!❤️💃🕺
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Andra</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Septembrie 2024
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  Am colaborat, pentru dansul mirilor, cu Daniela și am fost
+                  foarte mulțumiți! A ieșit foarte bine și ne-a plăcut mult și
+                  coregrafia! Ședințele erau relaxante și veneam mereu cu
+                  plăcere. Deși a trecut nunta și acum ne place să facem
+                  coregrafia acasă. Recomand!
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Inga și Mădălin</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Ianuarie 2019
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  Sunteți minunați, pe lângă eliminarea stresului, buna
+                  dispoziție, ținută corectă, stima de sine crescută și o echipă
+                  plină de voie bună, aș putea să mai adaug că ne ajutați cu
+                  fiecare ședință să devenim mai buni, să iubim frumosul și să
+                  ne simțim bine în corpul nostru. Vă îmbrățișăm cu drag și ne
+                  bucurăm că am avut ocazia să vă cunoaștem!
                 </p>
               </CardContent>
             </Card>

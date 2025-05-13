@@ -16,7 +16,7 @@ export default function Tarife() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Tarife cursuri adulti
+            Tarife cursuri adulți
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Consultă tarifele noastre pentru cursurile de dans pentru adulți:
@@ -29,7 +29,7 @@ export default function Tarife() {
               {/* <div className="text-center text-sm font-medium uppercase tracking-wider mb-2">Cel mai popular</div> */}
               <CardTitle>Abonament 8</CardTitle>
               <CardDescription className="text-white/90">
-                Valabil 4 saptamani
+                Valabil 4 săptămâni
               </CardDescription>
               <div className="mt-4 text-4xl font-bold">230 Lei</div>
             </CardHeader>
@@ -41,7 +41,7 @@ export default function Tarife() {
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la o singura grupa</span>
+                  <span>Acces la o singura grupă</span>
                 </li>
 
                 {/* <li className="flex items-center">
@@ -62,7 +62,7 @@ export default function Tarife() {
               <CardTitle>Abonament 16</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
               <CardDescription className=" text-white/90">
-                Valabil 4 saptamani
+                Valabil 4 săptămâni
               </CardDescription>
               <div className="mt-4 text-4xl font-bold">320 Lei</div>
             </CardHeader>
@@ -70,7 +70,7 @@ export default function Tarife() {
               <ul className="space-y-2">
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>16 sedinte pe luna</span>
+                  <span>16 ședințe pe lună</span>
                 </li>
                 <li className="flex items-center">
                   <div>
@@ -91,7 +91,7 @@ export default function Tarife() {
               <CardTitle>Abonament Full Pass</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
               <CardDescription className=" text-white/90">
-                Valabil 4 saptamani
+                Valabil 4 săptămâni
               </CardDescription>
               <div className="mt-4 text-4xl font-bold">400 Lei</div>
             </CardHeader>
@@ -113,7 +113,7 @@ export default function Tarife() {
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-              <CardTitle>Plata la sedinta</CardTitle>
+              <CardTitle>Plata la ședintă</CardTitle>
               <CardDescription className=" text-white/90">
                 Orice stil de dans
               </CardDescription>
@@ -123,47 +123,42 @@ export default function Tarife() {
               <ul className="space-y-2">
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>O sedinta la grup</span>
+                  <span>O ședință la grup</span>
                 </li>
               </ul>
             </CardContent>
-            {/* <CardFooter>
-              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Alege acest abonament
-              </Button>
-            </CardFooter> */}
           </Card>
         </div>
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Tarife lectii private
+            Tarife lecții private
           </h1>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Pachet 4 sedinte</CardTitle>
+              <CardTitle>Pachet 4 ședințe</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">640 Lei</div>
             </CardHeader>
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Pachet 6 sedinte</CardTitle>
+              <CardTitle>Pachet 6 ședințe</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">900 Lei</div>
             </CardHeader>
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-t-lg">
-              <CardTitle>Pachet 8 sedinte</CardTitle>
+              <CardTitle>Pachet 8 ședințe</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">1120 Lei</div>
             </CardHeader>
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Plata la sedinta</CardTitle>
+              <CardTitle>Plata la ședință</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
 
               <div className="mt-4 text-4xl font-bold">180 Lei</div>
@@ -182,17 +177,17 @@ export default function Tarife() {
               <CardTitle>Abonament lunar</CardTitle>
 
               <CardDescription className=" text-white/90">
-                Valabil o luna (8 sedinte)
+                Valabil o lună (8 ședințe)
               </CardDescription>
               <div className="mt-4 text-4xl font-bold">200 Lei</div>
             </CardHeader>
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-              <CardTitle>Plata la sedinta </CardTitle>
+              <CardTitle>Plata la ședintă </CardTitle>
 
               <CardDescription className=" text-white/90">
-                Sedinta de grup
+                Ședintă de grup
               </CardDescription>
               <div className="mt-4 text-4xl font-bold">35 Lei</div>
             </CardHeader>

@@ -14,10 +14,10 @@ export default function Program() {
           </p>
         </div>
 
-        <Tabs defaultValue="luni si miercuri" className="w-full">
+        <Tabs defaultValue="luni și miercuri" className="w-full">
           <TabsList className="grid grid-cols-1 sm:grid-cols-4 h-auto">
-            <TabsTrigger value="luni si miercuri">Luni si Miercuri</TabsTrigger>
-            <TabsTrigger value="marti si joi">Marți si Joi</TabsTrigger>
+            <TabsTrigger value="luni și miercuri">Luni și Miercuri</TabsTrigger>
+            <TabsTrigger value="marti și joi">Marți și Joi</TabsTrigger>
             {/* <TabsTrigger value="miercuri">Miercuri</TabsTrigger> */}
             {/* <TabsTrigger value="joi">Joi</TabsTrigger> */}
             <TabsTrigger value="vineri">Vineri</TabsTrigger>
@@ -25,53 +25,53 @@ export default function Program() {
             {/* <TabsTrigger value="duminica">Duminică</TabsTrigger> */}
           </TabsList>
 
-          <TabsContent value="luni si miercuri" className="mt-6">
+          <TabsContent value="luni și miercuri" className="mt-6">
             <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold mb-4">
-                  Program Luni si Miercuri
+                  Program Luni și Miercuri
                 </h2>
                 <div className="space-y-4">
                   <ScheduleItem
                     time="18:30 - 19:45"
-                    course="Latino si societate (Intermediari 1)"
+                    course="Latino și societate (Intermediari 1)"
                     instructor="MIriam"
                     room="Sala 3"
                   />
                   <ScheduleItem
                     time="18:30 - 19:30"
-                    course="Salsa si bachata (Incepatori)"
+                    course="Salsa și bachata (Începători)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
                   <ScheduleItem
                     time="18:30 - 19:45"
                     course="Dansuri populare (Intermediari 1)"
-                    instructor="Catalina"
+                    instructor="Cătălina"
                     room="Sala 1"
                   />
                   <ScheduleItem
                     time="19:45 - 20:45"
-                    course="Latino si societate (Incepatori)"
+                    course="Latino și societate (Începători)"
                     instructor="Miriam"
                     room="Sala 3"
                   />
                   <ScheduleItem
                     time="19:45 - 21:00"
-                    course="Latino si societate (Intermediari 3)"
+                    course="Latino și societate (Intermediari 3)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
                   <ScheduleItem
                     time="19:45 - 21:00"
                     course="Dansuri populare (Intermediari 2)"
-                    instructor="Catalina"
+                    instructor="Cătălina"
                     room="Sala 1"
                   />
                   <ScheduleItem
                     time="21:00 - 22:15"
-                    course="Salsa si bachata (Intermediari 3)"
-                    instructor="Alexandra si Nicholas"
+                    course="Salsa și bachata (Intermediari 3)"
+                    instructor="Alexandra și Nicholas"
                     room="Sala 2"
                   />
                 </div>
@@ -79,51 +79,51 @@ export default function Program() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="marti si joi" className="mt-6">
+          <TabsContent value="marti și joi" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-4">Program Marți si Joi</h2>
+                <h2 className="text-xl font-bold mb-4">Program Marți și Joi</h2>
                 <div className="space-y-4">
                   <ScheduleItem
                     time="17:15 - 18:15"
-                    course="Grupa copii intermediari (7-12 ani)"
+                    course="Grupă copii intermediari (7-12 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
                   <ScheduleItem
                     time="18:30 - 19:45"
-                    course="Dansuri populare (Avansati)"
+                    course="Dansuri populare (Avansați)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
                   <ScheduleItem
                     time="18:30 - 19:45"
                     course="Dansuri populare (Intermediari 2)"
-                    instructor="Catalina"
+                    instructor="Cătălina"
                     room="Sala 3"
                   />
                   <ScheduleItem
                     time="19:45 - 20:45"
-                    course="Dansuri populare (Incepatori)"
-                    instructor="Catalina"
+                    course="Dansuri populare (Începători)"
+                    instructor="Cătălina"
                     room="Sala 3"
                   />
                   <ScheduleItem
                     time="19:45 - 21:00"
-                    course="Salsa si bachata (Intermediari 2)"
-                    instructor="Alexandra si Nicholas"
+                    course="Salsa și bachata (Intermediari 2)"
+                    instructor="Alexandra și Nicholas"
                     room="Sala 2"
                   />
                   <ScheduleItem
                     time="21:00 - 22:15"
-                    course="Latino si societate (Avansati)"
+                    course="Latino și societate (Avansați)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
                   <ScheduleItem
                     time="21:00 - 22:15"
                     course="Dansuri populare (Intermdiari 3)"
-                    instructor="Catalina"
+                    instructor="Cătălina"
                     room="Sala 3"
                   />
                 </div>
@@ -138,7 +138,7 @@ export default function Program() {
                 <div className="space-y-4">
                   <ScheduleItem
                     time="18:30 - 19:30"
-                    course="Grupa copii intermediari (9-14 ani)"
+                    course="Grupă copii intermediari (9-14 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
@@ -151,13 +151,13 @@ export default function Program() {
                   <ScheduleItem
                     time="19:30 - 20:30"
                     course="Dansuri populare (Intermediari 1)"
-                    instructor="Catalina"
+                    instructor="Cătălina"
                     room="Sala 3"
                   />
                   <ScheduleItem
                     time="20:30 - 21:30"
                     course="Dansuri populare (Intermediari 1)"
-                    instructor="Catalina"
+                    instructor="Cătălina"
                     room="Sala 3"
                   />
                 </div>
@@ -178,7 +178,7 @@ export default function Program() {
                   />
                   <ScheduleItem
                     time="12:00 - 13:00"
-                    course="Grupa copii intermediari (9-14 ani)"
+                    course="Grupă copii intermediari (9-14 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />

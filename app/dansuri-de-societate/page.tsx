@@ -41,7 +41,7 @@ export default function DansuriDeSocietate() {
               <li>SLOW FOX (FOXTROT)</li>
             </ul>
             <p>
-              Dansurile de societate sunt predate in cadrul grupelor, alaturi de
+              Dansurile de societate sunt predate în cadrul grupelor, alături de
               alte stiluri latino.
             </p>
             <div className="pt-4 flex gap-2">
@@ -52,7 +52,7 @@ export default function DansuriDeSocietate() {
               </Link>
               <Link href="/program">
                 <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Verifica programul
+                  Verifică programul
                 </Button>
               </Link>
             </div>

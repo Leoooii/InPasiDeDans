@@ -55,7 +55,7 @@ export default function DansuriLatino() {
 
               <Link href="/program">
                 <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Verifica programul
+                  Verifică programul
                 </Button>
               </Link>
             </div>

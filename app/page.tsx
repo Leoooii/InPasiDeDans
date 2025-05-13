@@ -111,7 +111,7 @@ export default function Home() {
             />
             <ShineButton
               title="Lecții private"
-              href="/cursuri-dans-nunta"
+              href="/lectii-private"
               imageSrc="/images/private.png?height=400&width=600"
             />
             <ShineButton

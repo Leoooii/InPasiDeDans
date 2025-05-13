@@ -505,24 +505,10 @@ const dansuriPredate = [
   },
   {
     title: 'Lectii private',
-    href: '/cursuri-dans-nunta',
+    href: '/lectii-private',
     description:
       'Dansul mirilor, latino, dasnsurilor de societate, dansuri populare, etc.',
   },
-  // {
-  //   title: 'Cursuri dans adulți',
-  //   href: '/cursuri-dans-adulti',
-  //   description:
-  //     'Cursuri de dans pentru adulți de toate vârstele și nivelurile de experiență.',
-  // },
-  // {
-  //   title: 'Cursuri dans copii',
-  //   href: '/cursuri-dans-copii',
-  //   description:
-  //     'Cursuri de dans pentru copii adaptate pe grupe de vârstă și nivel.',
-  // },
-
-  // Am eliminat "Grupe în formare" de aici
 ];
 
 const despreNoi = [
@@ -537,12 +523,7 @@ const despreNoi = [
     href: '/excursii',
     description: 'Participă la excursiile noastre tematice dedicate dansului.',
   },
-  // {
-  //   title: 'Testimoniale',
-  //   href: '/testimoniale',
-  //   description:
-  //     'Vezi ce spun elevii noștri despre experiența lor la cursurile noastre.',
-  // },
+
   {
     title: 'Petreceri în pași de dans',
     href: '/petreceri',
