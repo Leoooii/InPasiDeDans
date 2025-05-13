@@ -54,7 +54,7 @@ Principalele sale responsabilitati la În Pași de Dans sunt prederea dansurilor
             <InstructorCard
               name="Cătălina Gurău"
               role="Instructor dansuri populare și lectii private pentru miri"
-              src="/images/Catalina.jpg"
+              src="/images/Catalina.png"
               bio="Cătălina Gurău colaborează cu În Pași de Dans din 2018, în calitate de instructor-coregraf pentru grupele de dansuri populare adulti, lectii private pentru viitori miri, precum și workshop-uri.
 
 Cătălina este un izvor de energie și bucurie, atât fizic cât și emoțional. Este o persoană plină de voie bună și își aduce aminte mereu de importanța zâmbetului. Pasiunea pentru dans a descoperit-o la În Pași de Dans, iar de atunci, dansul a devenit un stil de viață pentru ea.

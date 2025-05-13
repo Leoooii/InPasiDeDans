@@ -511,7 +511,28 @@ export default function LectiiPrivate() {
                 </p>
               </CardContent>
             </Card>
-
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Andra</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Septembrie 2024
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  Am colaborat, pentru dansul mirilor, cu Daniela și am fost
+                  foarte mulțumiți! A ieșit foarte bine și ne-a plăcut mult și
+                  coregrafia! Ședințele erau relaxante și veneam mereu cu
+                  plăcere. Deși a trecut nunta și acum ne place să facem
+                  coregrafia acasă. Recomand!
+                </p>
+              </CardContent>
+            </Card>
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
@@ -590,28 +611,7 @@ export default function LectiiPrivate() {
                 </p>
               </CardContent>
             </Card>
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
-                  </div>
-                  <div>
-                    <h3 className="font-bold">Andra</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Septembrie 2024
-                    </p>
-                  </div>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 italic">
-                  Am colaborat, pentru dansul mirilor, cu Daniela și am fost
-                  foarte mulțumiți! A ieșit foarte bine și ne-a plăcut mult și
-                  coregrafia! Ședințele erau relaxante și veneam mereu cu
-                  plăcere. Deși a trecut nunta și acum ne place să facem
-                  coregrafia acasă. Recomand!
-                </p>
-              </CardContent>
-            </Card>
+
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">

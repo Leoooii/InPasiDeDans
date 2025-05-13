@@ -1,96 +1,115 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { db } from "@/lib/firebase"
-import { collection, getDocs, query, where } from "firebase/firestore"
-import { useRouter } from "next/navigation"
-import { Calendar, Clock, Users } from "lucide-react"
-import type { Grupa } from "@/app/admin/page"
-import { useToast } from "@/components/ui/use-toast"
-import { useSimpleToast } from "@/components/simple-toast-provider"
+import { useState, useEffect } from 'react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
+import { Calendar, Clock, Users } from 'lucide-react';
+import type { Grupa } from '@/app/admin/page';
+import { useToast } from '@/components/ui/use-toast';
+import { useSimpleToast } from '@/components/simple-toast-provider';
+import Image from 'next/image';
 
 export default function GrupeInFormarePage() {
-  const [grupe, setGrupe] = useState<Grupa[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const router = useRouter()
-  const { showToast } = useSimpleToast()
+  const [grupe, setGrupe] = useState<Grupa[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const { showToast } = useSimpleToast();
   useEffect(() => {
     const fetchGrupe = async () => {
       try {
         // Simplificăm query-ul pentru a evita eroarea de indexare
         // Folosim doar un singur filtru de egalitate
-        const grupeQuery = query(collection(db, "grupe"), where("publica", "==", true))
+        const grupeQuery = query(
+          collection(db, 'grupe'),
+          where('publica', '==', true)
+        );
 
-        const querySnapshot = await getDocs(grupeQuery)
+        const querySnapshot = await getDocs(grupeQuery);
 
-        const grupeData: Grupa[] = []
-        querySnapshot.forEach((doc) => {
-          const data = doc.data()
+        const grupeData: Grupa[] = [];
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
           // Asigurăm compatibilitatea cu datele existente
-          const stiluri = data.stiluri || []
+          const stiluri = data.stiluri || [];
 
           grupeData.push({
             id: doc.id,
             ...data,
             stiluri: stiluri,
-          } as Grupa)
-        })
+          } as Grupa);
+        });
 
-        console.log("Grupe încărcate:", grupeData.length)
-        setGrupe(grupeData)
+        console.log('Grupe încărcate:', grupeData.length);
+        setGrupe(grupeData);
       } catch (error) {
-        console.error("Eroare la încărcarea grupelor:", error)
+        console.error('Eroare la încărcarea grupelor:', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchGrupe()
-  }, [])
+    fetchGrupe();
+  }, []);
 
   // Funcție pentru a formata data
   const formatDate = (dateString: string) => {
-    if (!dateString) return "Data necunoscută"
+    if (!dateString) return 'Data necunoscută';
 
     try {
-      const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" }
-      return new Date(dateString).toLocaleDateString("ro-RO", options)
+      const options: Intl.DateTimeFormatOptions = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      };
+      return new Date(dateString).toLocaleDateString('ro-RO', options);
     } catch (error) {
-      console.error("Eroare la formatarea datei:", error)
-      return "Data necunoscută"
+      console.error('Eroare la formatarea datei:', error);
+      return 'Data necunoscută';
     }
-  }
+  };
 
   // Funcție pentru a formata zilele săptămânii
   const formatZile = (zile: string[]) => {
-    if (!zile || !Array.isArray(zile) || zile.length === 0) return "Zile necunoscute"
+    console.log('Zile:', zile);
+    if (!zile || !Array.isArray(zile) || zile.length === 0)
+      return 'Zile necunoscute';
 
     const zileRomanesti: Record<string, string> = {
-      luni: "Luni",
-      marti: "Marți",
-      miercuri: "Miercuri",
-      joi: "Joi",
-      vineri: "Vineri",
-      sambata: "Sâmbătă",
-      duminica: "Duminică",
-    }
+      luni: 'Luni',
+      marti: 'Marți',
+      miercuri: 'Miercuri',
+      joi: 'Joi',
+      vineri: 'Vineri',
+      sambata: 'Sâmbătă',
+      duminica: 'Duminică',
+    };
 
-    return zile.map((zi) => zileRomanesti[zi.toLowerCase()] || zi).join(", ")
-  }
+    return zile.map(zi => zileRomanesti[zi.toLowerCase()] || zi).join(', ');
+  };
 
   // Funcție pentru a naviga către pagina de înscriere
   const handleInscriere = (grupaId: string) => {
-    router.push(`/inscriere?grupa=${grupaId}`)
-  }
+    router.push(`/inscriere?grupa=${grupaId}`);
+  };
 
   if (isLoading) {
     return (
       <div className="container py-12">
-        <h1 className="text-3xl font-bold mb-8 text-center">Grupe în formare</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">
+          Grupe în formare
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(3)].map((_, index) => (
             <Card key={index} className="overflow-hidden">
@@ -113,7 +132,7 @@ export default function GrupeInFormarePage() {
           ))}
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -122,62 +141,97 @@ export default function GrupeInFormarePage() {
 
       {grupe.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-500">Nu există grupe în formare momentan.</p>
+          <p className="text-xl text-gray-500">
+            Nu există grupe în formare momentan.
+          </p>
           <p className="mt-2 text-gray-400">Vă rugăm să reveniți mai târziu.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {grupe.map((grupa) => (
-            <Card key={grupa.id} className="overflow-hidden">
-              <CardHeader className="pb-3">
-                <div className="flex justify-between items-start">
-                  <CardTitle className="text-xl">{grupa.titlu}</CardTitle>
-                </div>
-                <CardDescription>Instructor: {grupa.instructor}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {grupa.stiluri && grupa.stiluri.length > 0 ? (
-                    grupa.stiluri.map((stil, index) => (
-                      <Badge key={index} variant="outline" className="bg-primary/10 text-primary">
-                        {stil}
-                      </Badge>
-                    ))
-                  ) : (
-                    <Badge variant="outline" className="bg-primary/10 text-primary">
-                      {grupa.stiluri && grupa.stiluri[0] ? grupa.stiluri[0] : "General"}
-                    </Badge>
-                  )}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
+          {grupe.map(grupa => (
+            <Card
+              key={grupa.id}
+              className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 hover:cursor-pointer flex flex-col justify-between"
+            >
+              <div>
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-xl">{grupa.titlu}</CardTitle>
+                  </div>
+                  <CardDescription>
+                    Instructor: {grupa.instructor}
+                  </CardDescription>
+                </CardHeader>
+                <div className="flex flex-row">
+                  <CardContent className="space-y-4 w-1/2">
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {grupa.stiluri && grupa.stiluri.length > 0 ? (
+                        grupa.stiluri.map((stil, index) => (
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="bg-primary/10 text-primary"
+                          >
+                            {stil}
+                          </Badge>
+                        ))
+                      ) : (
+                        <Badge
+                          variant="outline"
+                          className="bg-primary/10 text-primary"
+                        >
+                          {grupa.stiluri && grupa.stiluri[0]
+                            ? grupa.stiluri[0]
+                            : 'General'}
+                        </Badge>
+                      )}
+                    </div>
 
-                <p className="text-sm text-gray-500 line-clamp-3">{grupa.descriere}</p>
+                    <p className="text-sm text-gray-500 ">{grupa.descriere}</p>
 
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Calendar className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>Începe pe {formatDate(grupa.dataStart)}</span>
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>
-                      {formatZile(grupa.zile)}, {grupa.program}
-                    </span>
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <Users className="h-4 w-4 mr-2 text-gray-500" />
-                    <span>
-                      {grupa.locuriDisponibile} locuri disponibile din {grupa.locuriTotale}
-                    </span>
-                  </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm">
+                        <Calendar className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>Începe pe {formatDate(grupa.dataStart)}</span>
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>
+                          {/* {formatZile(grupa.zile)},  */}
+                          {grupa.program}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Users className="h-4 w-4 mr-2 text-gray-500" />
+                        <span>
+                          {grupa.locuriDisponibile} locuri disponibile din{' '}
+                          {grupa.locuriTotale}
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardContent className="w-1/2">
+                    <div className="relative h-[24rem] w-full overflow-hidden rounded-md">
+                      <Image
+                        src={`/images/${grupa.instructor}.png?height=800&width=400`}
+                        alt={grupa.instructor}
+                        fill
+                        className="object-contain rounded-md"
+                        style={{ borderRadius: '50px' }}
+                      />
+                    </div>
+                  </CardContent>
                 </div>
-              </CardContent>
+              </div>
               <CardFooter>
                 <Button
                   className="w-full"
                   onClick={() => grupa.id && handleInscriere(grupa.id)}
                   disabled={grupa.locuriDisponibile <= 0}
                 >
-                  {grupa.locuriDisponibile > 0 ? "Înscrie-te" : "Locuri epuizate"}
+                  {grupa.locuriDisponibile > 0
+                    ? 'Înscrie-te'
+                    : 'Locuri epuizate'}
                 </Button>
               </CardFooter>
             </Card>
@@ -186,6 +240,5 @@ export default function GrupeInFormarePage() {
       )}
       {/* <Button onClick={()=>{showToast("Nu s-au putut încărca grupele în formare", "error")}}>buton test</Button> */}
     </div>
-  )
+  );
 }
-
