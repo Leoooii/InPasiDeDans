@@ -15,7 +15,7 @@ export default function CursuriDansCopii() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri dans copii
+            Cursuri de dans pentru copii
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Dezvoltă coordonarea, încrederea și pasiunea pentru dans de la

@@ -83,6 +83,7 @@ const regiuniDansuri = [
       'Hora dogarilor',
       'Cârligul',
       'Trei păzește de la Dolj',
+      'Basarabeanca',
     ],
   },
   {
@@ -106,7 +107,6 @@ const regiuniDansuri = [
       'Tropotelul ca-n Dobrogea',
       'Pandelasul de la Plopu',
       'Corlu',
-      'Basarabeanca',
     ],
   },
   {
@@ -139,6 +139,7 @@ const regiuniDansuri = [
       'Bordeiașul',
       'Sârba tineretului',
       'Sârba lui Zdrelea',
+      'Tropotica',
     ],
   },
   {
@@ -147,13 +148,13 @@ const regiuniDansuri = [
     imagine: '/images/Romania/harta-bucovina.png',
     dansuri: [
       'Coragheasca',
-      'Coragheasca de la Tarnița, Iaslovăț',
+      'Coragheasca de la Tarnița',
       'Hutulca',
       'Hangul de la Cahul',
       'Polcuța',
       'Coșnencuța',
       'Bătuta ursului',
-      'Bătrânească veche de la Iașlovăț',
+      'Bătrânească veche de la Iaslovăț',
       'Bătrânească de la Ciocănești',
       'Arcanul',
       'Bătrânească',
@@ -173,7 +174,7 @@ const regiuniDansuri = [
       'Jiana de la Tilișca',
       'Jiana de la Avrig',
       'Brâul de la Făgăraș',
-      'Arcanul',
+
       'Sârba pan’ la 10 de la Grădiștea de Munte',
     ],
   },

@@ -9,7 +9,7 @@ export default function CursuriDansAdulti() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri dans adulți
+            Cursuri de dans pentru adulți
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Descoperă pasiunea pentru dans într-un mediu prietenos și

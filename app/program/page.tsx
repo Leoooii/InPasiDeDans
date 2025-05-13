@@ -85,7 +85,7 @@ export default function Program() {
                 <h2 className="text-xl font-bold mb-4">Program Marți si Joi</h2>
                 <div className="space-y-4">
                   <ScheduleItem
-                    time="17:16 - 18:15"
+                    time="17:15 - 18:15"
                     course="Grupa copii intermediari (7-12 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
@@ -122,7 +122,7 @@ export default function Program() {
                   />
                   <ScheduleItem
                     time="21:00 - 22:15"
-                    course="Dansuri populare(Intermdiari 3)"
+                    course="Dansuri populare (Intermdiari 3)"
                     instructor="Catalina"
                     room="Sala 3"
                   />
@@ -138,7 +138,7 @@ export default function Program() {
                 <div className="space-y-4">
                   <ScheduleItem
                     time="18:30 - 19:30"
-                    course="Grupa copii intermediari(9-14 ani)"
+                    course="Grupa copii intermediari (9-14 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
@@ -155,7 +155,7 @@ export default function Program() {
                     room="Sala 3"
                   />
                   <ScheduleItem
-                    time="21:30 - 21:30"
+                    time="20:30 - 21:30"
                     course="Dansuri populare (Intermediari 1)"
                     instructor="Catalina"
                     room="Sala 3"
@@ -178,7 +178,7 @@ export default function Program() {
                   />
                   <ScheduleItem
                     time="12:00 - 13:00"
-                    course="Grupa copii intermediari(9-14 ani)"
+                    course="Grupa copii intermediari (9-14 ani)"
                     instructor="Alexandra"
                     room="Sala 2"
                   />
@@ -221,7 +221,7 @@ export default function Program() {
             <h2 className="text-2xl font-bold dark:text-black">
               Rezervă-ți locul la curs
             </h2>
-            <p className="dark:text-black">
+            <p className="dark:text-black mb-10">
               Pentru a asigura calitatea cursurilor, numărul de participanți
               este limitat. Rezervă-ți locul din timp pentru a te asigura că
               poți participa la cursul dorit.

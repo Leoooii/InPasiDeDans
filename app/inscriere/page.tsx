@@ -115,7 +115,7 @@ export default function Inscriere() {
             </CardContent>
           </Card>
         ) : (
-          <Card>
+          <Card className="border-red-500 border-2">
             <CardHeader>
               <CardTitle>Informații înscriere</CardTitle>
               <CardDescription>
