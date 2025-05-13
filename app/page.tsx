@@ -14,7 +14,7 @@ export default function Home() {
       {/* <CookieConsent /> */}
 
       {/* Fixed Button */}
-      <Link
+      {/* <Link
         href="/grupe-in-formare"
         className="fixed bottom-8 right-8 z-50 group"
       >
@@ -32,7 +32,7 @@ export default function Home() {
             </span>
           </Button>
         </div>
-      </Link>
+      </Link> */}
 
       {/* Hero Section cu GIF sau imagine statică */}
       <section className="relative h-[90vh] overflow-hidden">

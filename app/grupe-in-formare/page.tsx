@@ -162,8 +162,8 @@ export default function GrupeInFormarePage() {
                     Instructor: {grupa.instructor}
                   </CardDescription>
                 </CardHeader>
-                <div className="flex flex-row">
-                  <CardContent className="space-y-4 w-1/2">
+                <div className="flex flex-col sm:flex-row">
+                  <CardContent className="space-y-4 w-full sm:w-1/2">
                     <div className="flex flex-wrap gap-1 mb-2">
                       {grupa.stiluri && grupa.stiluri.length > 0 ? (
                         grupa.stiluri.map((stil, index) => (
@@ -210,7 +210,7 @@ export default function GrupeInFormarePage() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardContent className="w-1/2">
+                  <CardContent className="w-full sm:w-1/2">
                     <div className="relative h-[24rem] w-full overflow-hidden rounded-md">
                       <Image
                         src={`/images/${grupa.instructor}.png?height=800&width=400`}
