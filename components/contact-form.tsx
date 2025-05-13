@@ -154,41 +154,50 @@ const ContactForm = () => {
             </form>
           </>
         ) : (
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              minHeight: '300px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '1rem',
-              padding: '1rem',
-              flex: '1 1 auto',
-            }}
-          >
-            <Image
-              src="/images/Rick.gif"
-              alt="Școala de dans"
-              width={300}
-              height={200}
-              style={{ objectFit: 'cover', borderRadius: '8px' }}
-              priority
-            />
-            <CheckCircle2Icon size={64} color="green" />
-            <p
-              style={{
-                fontSize: '1.2rem',
-                color: '#333',
-                textAlign: 'center',
-                maxWidth: '400px',
-              }}
-            >
-              Mulțumim! Formularul tău a fost trimis cu succes. Te vom contacta
-              în cel mai scurt timp posibil.
-            </p>
-          </div>
+          <Card>
+            <CardContent className="pt-6 pb-6 text-center">
+              <div className="mb-4 flex justify-center">
+                <Image
+                  src="/images/Rick.gif"
+                  alt="Școala de dans"
+                  width={300}
+                  height={200}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                  priority
+                />
+              </div>
+              <div className="mb-4 flex justify-center">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                  <svg
+                    className="h-6 w-6 text-green-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-green-600">
+                Formular trimis cu succes!
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">
+                Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai
+                scurt timp posibil pentru a confirma înscrierea.
+              </p>
+              <Button
+                onClick={() => setIsSent(false)}
+                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+              >
+                Completează un nou formular
+              </Button>
+            </CardContent>
+          </Card>
         )}
       </CardContent>
     </Card>

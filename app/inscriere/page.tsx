@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-
+import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,48 +22,78 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-
+import { useSimpleToast } from '@/components/simple-toast-provider';
 export default function Inscriere() {
   const [formData, setFormData] = useState({
-    curs: '',
-    perioada: '',
-    nume: '',
+    danceclass: '',
+
+    name: '',
     email: '',
-    telefon: '',
-    mesaj: '',
+    phone: '',
+    message: '',
+    honey: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const { showToast } = useSimpleToast();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value,
+    }));
   };
 
   const handleSelectChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulăm trimiterea formularului
-    setTimeout(() => {
+    // 🐝 Honeypot logic
+    if (formData.honey) {
+      console.warn('Spam detectat. Formularul nu a fost trimis.');
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        curs: '',
-        perioada: '',
-        nume: '',
-        email: '',
-        telefon: '',
-        mesaj: '',
+      return;
+    }
+    try {
+      console.log('Form data:', formData);
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 1500);
+
+      setFormData({
+        danceclass: '',
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        honey: '',
+      });
+
+      showToast(
+        'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
+        'success'
+      );
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Eroare:', error);
+      showToast(
+        'Eroare la trimiterea mesajului. Te rugăm să încerci din nou mai târziu.',
+        'error'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -82,6 +112,16 @@ export default function Inscriere() {
         {isSubmitted ? (
           <Card className="border-green-500">
             <CardContent className="pt-6 pb-6 text-center">
+              <div className="mb-4 flex justify-center">
+                <Image
+                  src="/images/Rick.gif"
+                  alt="Școala de dans"
+                  width={300}
+                  height={200}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                  priority
+                />
+              </div>
               <div className="mb-4 flex justify-center">
                 <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
                   <svg
@@ -124,15 +164,31 @@ export default function Inscriere() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="hidden">
+                  <Label htmlFor="honey">Nu completa acest câmp</Label>
+                  <Input
+                    id="honey"
+                    name="honey"
+                    type="text"
+                    value={formData.honey}
+                    onChange={handleChange}
+                    autoComplete="off"
+                    tabIndex={-1}
+                  />
+                </div>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="curs">Ce curs te interesează? *</Label>
+                    <Label htmlFor="danceclass">
+                      Ce curs te interesează? *
+                    </Label>
                     <Select
                       required
-                      value={formData.curs}
-                      onValueChange={value => handleSelectChange('curs', value)}
+                      value={formData.danceclass}
+                      onValueChange={value =>
+                        handleSelectChange('danceclass', value)
+                      }
                     >
-                      <SelectTrigger id="curs" className="mt-1.5">
+                      <SelectTrigger id="danceclass" className="mt-1.5">
                         <SelectValue placeholder="Alege un curs" />
                       </SelectTrigger>
                       <SelectContent>
@@ -154,73 +210,12 @@ export default function Inscriere() {
                     </Select>
                   </div>
 
-                  {/* <div>
-                    <Label>Când dorești să participi la curs? *</Label>
-                    <RadioGroup
-                      required
-                      value={formData.perioada}
-                      onValueChange={value =>
-                        handleSelectChange('perioada', value)
-                      }
-                      className="mt-1.5 grid grid-cols-1 md:grid-cols-2 gap-2"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value="cat-mai-curand"
-                          id="cat-mai-curand"
-                        />
-                        <Label
-                          htmlFor="cat-mai-curand"
-                          className="cursor-pointer"
-                        >
-                          Cât mai curând
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value="luna-urmatoare"
-                          id="luna-urmatoare"
-                        />
-                        <Label
-                          htmlFor="luna-urmatoare"
-                          className="cursor-pointer"
-                        >
-                          Luna următoare
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value="urmatoarele-3-luni"
-                          id="urmatoarele-3-luni"
-                        />
-                        <Label
-                          htmlFor="urmatoarele-3-luni"
-                          className="cursor-pointer"
-                        >
-                          În următoarele 3 luni
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value="doar-informatii"
-                          id="doar-informatii"
-                        />
-                        <Label
-                          htmlFor="doar-informatii"
-                          className="cursor-pointer"
-                        >
-                          Doar doresc informații
-                        </Label>
-                      </div>
-                    </RadioGroup>
-                  </div> */}
-
                   <div>
-                    <Label htmlFor="nume">Spune-ne numele tău *</Label>
+                    <Label htmlFor="name">Spune-ne numele tău *</Label>
                     <Input
-                      id="nume"
+                      id="name"
                       name="nume"
-                      value={formData.nume}
+                      value={formData.name}
                       onChange={handleChange}
                       placeholder="Numele tău"
                       required
@@ -245,14 +240,14 @@ export default function Inscriere() {
                   </div>
 
                   <div>
-                    <Label htmlFor="telefon">
+                    <Label htmlFor="phone">
                       Lasă-ne numărul dacă vrei să te sunăm
                     </Label>
                     <Input
-                      id="telefon"
-                      name="telefon"
+                      id="phone"
+                      name="phone"
                       type="tel"
-                      value={formData.telefon}
+                      value={formData.phone}
                       onChange={handleChange}
                       placeholder="Numărul tău de telefon"
                       className="mt-1.5"
@@ -260,67 +255,18 @@ export default function Inscriere() {
                   </div>
 
                   <div>
-                    <Label htmlFor="mesaj">
+                    <Label htmlFor="message">
                       Vrei să ne dai mai multe detalii?
                     </Label>
                     <Textarea
-                      id="mesaj"
-                      name="mesaj"
-                      value={formData.mesaj}
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
                       placeholder="Scrie mesajul tău aici..."
                       className="mt-1.5 min-h-[120px]"
                     />
                   </div>
-
-                  {/* <div className="border p-4 rounded-md bg-gray-50 dark:bg-gray-800">
-                    <div className="flex items-center space-x-2">
-                      <div className="h-6 w-6 border rounded bg-white dark:bg-gray-700"></div>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        I'm not a robot
-                      </span>
-                    </div>
-                    <div className="mt-2 flex items-center justify-between">
-                      <div className="flex items-center">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="text-gray-400"
-                        >
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M2 12H22"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span className="text-xs text-gray-400 ml-1">
-                          reCAPTCHA
-                        </span>
-                      </div>
-                      <span className="text-xs text-gray-400">
-                        Privacy - Terms
-                      </span>
-                    </div>
-                  </div> */}
                 </div>
 
                 <Button

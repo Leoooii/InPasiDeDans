@@ -74,6 +74,12 @@ export default function Program() {
                     instructor="Alexandra și Nicholas"
                     room="Sala 2"
                   />
+                  <ScheduleItem
+                    time="21:00 - 22:15"
+                    course="Dansuri populare (Avansati)"
+                    instructor="Cătălina"
+                    room="Sala 3"
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -98,7 +104,7 @@ export default function Program() {
                   />
                   <ScheduleItem
                     time="18:30 - 19:45"
-                    course="Dansuri populare (Intermediari 2)"
+                    course="Dansuri populare (Intermediari 3)"
                     instructor="Cătălina"
                     room="Sala 3"
                   />
@@ -122,7 +128,7 @@ export default function Program() {
                   />
                   <ScheduleItem
                     time="21:00 - 22:15"
-                    course="Dansuri populare (Intermdiari 3)"
+                    course="Dansuri populare (Intermdiari 2)"
                     instructor="Cătălina"
                     room="Sala 3"
                   />

@@ -10,14 +10,17 @@ export async function POST(request:any) {
     const body = await request.json();
     const { name= '',
       email= '',
-      subject= 'Doresc informatii despre serviciile voastre',
-      message='' } = body; // Fallback pentru subject
+      subject= 'Informatii',
+      message='' ,
+      danceclass='', 
+    phone='',
+    } = body; // Fallback pentru subject
      
     const { data, error } = await resend.emails.send({
       from: 'InscriereWebsite by Leo <onboarding@resend.dev>',
       to: ['lioneh39@gmail.com'],
-      subject, // Folosim subiectul dinamic
-      react: EmailTemplate({ name,email,subject,message }) as React.ReactElement,
+      subject: subject , // Folosim subiectul dinamic
+      react: EmailTemplate({ name,email,message,danceclass,phone }) as React.ReactElement,
     });
 
     if (error) {
