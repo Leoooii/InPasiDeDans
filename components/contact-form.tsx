@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent } from './ui/card';
-import { CheckCircle2Icon } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,19 +9,33 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import Image from 'next/image';
+import { Turnstile } from '@marsidev/react-turnstile';
+
+// Tipizări explicite pentru evenimente
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  danceclass: string;
+  phone: string;
+  honey: string;
+}
 
 const ContactForm = () => {
   const { toast } = useToast();
   const { showToast } = useSimpleToast();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: '',
-    honey: '', // honeypot field
+    danceclass: '',
+    phone: '',
+    honey: '',
   });
-
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
@@ -36,35 +49,50 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 🐝 Honeypot logic
+    // Honeypot logic
     if (formData.honey) {
       console.warn('Spam detectat. Formularul nu a fost trimis.');
       setIsSubmitting(false);
       return;
     }
 
+    // Verifică token-ul Turnstile
+    if (!turnstileToken) {
+      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      console.log('Form data:', formData);
       const response = await fetch('/api/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          'cf-turnstile-response': turnstileToken,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error('Eroare la trimiterea formularului');
+      }
 
       setFormData({
         name: '',
         email: '',
         subject: '',
         message: '',
+        danceclass: '',
+        phone: '',
         honey: '',
       });
-
+      setTurnstileToken(null);
       showToast(
         'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
         'success'
@@ -81,6 +109,21 @@ const ContactForm = () => {
     }
   };
 
+  // Verifică dacă siteKey există
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  if (!siteKey) {
+    return (
+      <Card>
+        <CardContent>
+          <p className="text-red-600">
+            Eroare: Cheia Turnstile nu este configurată. Contactați
+            administratorul.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardContent className="p-6 border-orange-600 border-2 rounded-md">
@@ -88,7 +131,7 @@ const ContactForm = () => {
           <>
             <h2 className="text-xl font-bold mb-4">Trimite-ne un mesaj</h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
-              {/* 🐝 Honeypot field – invizibil */}
+              {/* Honeypot field – invizibil */}
               <div className="hidden">
                 <Label htmlFor="honey">Nu completa acest câmp</Label>
                 <Input
@@ -124,6 +167,27 @@ const ContactForm = () => {
                 />
               </div>
               <div className="grid gap-2">
+                <Label htmlFor="phone">Telefon</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="Numărul tău de telefon"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="danceclass">Clasă de dans</Label>
+                <Input
+                  id="danceclass"
+                  placeholder="Clasa de dans dorită"
+                  value={formData.danceclass}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
                 <Label htmlFor="subject">Subiect</Label>
                 <Input
                   id="subject"
@@ -144,10 +208,19 @@ const ContactForm = () => {
                   required
                 />
               </div>
+              {/* Widget Turnstile */}
+              <Turnstile
+                siteKey={siteKey}
+                onSuccess={token => setTurnstileToken(token)}
+                onError={() => {
+                  setTurnstileToken(null);
+                  showToast('Eroare la verificarea CAPTCHA.', 'error');
+                }}
+              />
               <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !turnstileToken}
               >
                 {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
               </Button>

@@ -21,13 +21,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import Head from './head';
-export default function Inscriere() {
-  const [formData, setFormData] = useState({
-    danceclass: '',
+import { Turnstile } from '@marsidev/react-turnstile';
 
+// Interfață pentru tipizarea formData
+interface FormData {
+  danceclass: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  honey: string;
+}
+
+export default function Inscriere() {
+  const [formData, setFormData] = useState<FormData>({
+    danceclass: '',
     name: '',
     email: '',
     phone: '',
@@ -35,9 +45,11 @@ export default function Inscriere() {
     honey: '',
   });
 
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { showToast } = useSimpleToast();
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -52,7 +64,7 @@ export default function Inscriere() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -62,15 +74,29 @@ export default function Inscriere() {
       setIsSubmitting(false);
       return;
     }
+
+    // Verifică token-ul Turnstile
+    if (!turnstileToken) {
+      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      console.log('Form data:', formData);
       const response = await fetch('/api/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          'cf-turnstile-response': turnstileToken,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error('Eroare la trimiterea formularului');
+      }
 
       setFormData({
         danceclass: '',
@@ -80,7 +106,7 @@ export default function Inscriere() {
         message: '',
         honey: '',
       });
-
+      setTurnstileToken(null);
       showToast(
         'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
         'success'
@@ -97,9 +123,29 @@ export default function Inscriere() {
     }
   };
 
+  // Verifică dacă siteKey există
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  if (!siteKey) {
+    return (
+      <div className="container py-12">
+        <Head />
+        <div className="max-w-3xl mx-auto">
+          <Card>
+            <CardContent>
+              <p className="text-red-600">
+                Eroare: Cheia Turnstile nu este configurată. Contactați
+                administratorul.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container py-12">
-      <Head/>
+      <Head />
       <div className="max-w-3xl mx-auto">
         <div className="space-y-2 text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight">
@@ -197,14 +243,12 @@ export default function Inscriere() {
                         <SelectItem value="dans-adulti-latino-societate">
                           Cursuri dans adulți latino si societate
                         </SelectItem>
-
                         <SelectItem value="dansuri-adulti-populare">
                           Cursuri dans adulti populare
                         </SelectItem>
                         <SelectItem value="dans-copii">
                           Cursuri dans copii
                         </SelectItem>
-
                         <SelectItem value="dans-privat">
                           Lectii private
                         </SelectItem>
@@ -271,9 +315,19 @@ export default function Inscriere() {
                   </div>
                 </div>
 
+                {/* Widget Turnstile */}
+                <Turnstile
+                  siteKey={siteKey}
+                  onSuccess={token => setTurnstileToken(token)}
+                  onError={() => {
+                    setTurnstileToken(null);
+                    showToast('Eroare la verificarea CAPTCHA.', 'error');
+                  }}
+                />
+
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !turnstileToken}
                   className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                 >
                   {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}
