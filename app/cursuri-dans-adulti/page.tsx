@@ -13,7 +13,7 @@ export default function CursuriDansAdulti() {
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Descoperă pasiunea pentru dans într-un mediu prietenos și
-            profesionist. Vino sa faci parte din comunitatea In Pasi de Dans!
+            profesionist. Vino sa faci parte din comunitatea În Pași de Dans!
           </p>
         </div>
 
@@ -72,8 +72,8 @@ export default function CursuriDansAdulti() {
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-2">Dansuri populare</h3>
               <p className="text-gray-500 mb-4">
-                Hai la joc! Invatati dansuri populare romanesti, grecesti,
-                machedonesti.
+                Hai la joc! Învățati dansuri populare românești, grecesti,
+                machedonești.
               </p>
               <Link href="/dansuri-populare">
                 <Button>Află mai multe</Button>
@@ -107,7 +107,7 @@ export default function CursuriDansAdulti() {
                     size="lg"
                     className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                   >
-                    Verifica programul
+                    Verifică programul
                   </Button>
                 </Link>
               </div>

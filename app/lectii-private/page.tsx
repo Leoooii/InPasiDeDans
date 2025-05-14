@@ -150,7 +150,7 @@ export default function LectiiPrivate() {
                     </div>
                     <span>
                       Pachetul poate fi prelungit cu oricate ședințe la
-                      pretul/sedinta din pachetul ales initial{' '}
+                      prețul/ședință din pachetul ales inițial{' '}
                     </span>
                   </li>
                 </ul>
@@ -255,7 +255,7 @@ export default function LectiiPrivate() {
                     </div>
                     <span>
                       Pachetul poate fi prelungit cu oricate ședințe la
-                      pretul/sedinta din pachetul ales initial{' '}
+                      prețul/ședință din pachetul ales inițial{' '}
                     </span>
                   </li>
                 </ul>
@@ -361,7 +361,7 @@ export default function LectiiPrivate() {
                     </div>
                     <span>
                       Pachetul poate fi prelungit cu oricate ședințe la
-                      pretul/sedinta din pachetul ales initial{' '}
+                      prețul/ședință din pachetul ales inițial{' '}
                     </span>
                   </li>
                 </ul>
@@ -374,14 +374,14 @@ export default function LectiiPrivate() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 mb-10">
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Plata la sedinta</CardTitle>
+              <CardTitle>Plata la ședință</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">180 Lei</div>
             </CardHeader>
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Sedinta la restaurant (in Bucuresti)</CardTitle>
+              <CardTitle>Ședință la restaurant (in București)</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">200 Lei</div>
             </CardHeader>
@@ -389,17 +389,17 @@ export default function LectiiPrivate() {
         </div>
         <div>
           <p className=" mb-6">
-            Daca doriti sa efectuati plata la fiecare sedinta, pretul pentru o
+            Daca doriși să efectuați plata la fiecare ședință, prețul pentru o
             lectie particulara de dans este 180 lei.
           </p>
           <p className=" mb-6">
-            In cazul in care optati pentru unul din pachete, plata orelor
-            particulare de dans se va face integral la prima sedinta.
+            În cazul în care optați pentru unul din pachete, plata orelor
+            particulare de dans se va face integral la prima ședință.
           </p>
           <p className=" mb-6">
-            Anularea și reprogramarea unei ședințe se va face cu cel putin 24 de
-            ore inainte, telefonic. In caz contrar, sedinta se conșidera
-            efectuata.
+            Anularea și reprogramarea unei ședințe se va face cu cel puțin 24 de
+            ore înainte, telefonic. În caz contrar, ședința se consideră
+            efectuată.
           </p>
         </div>
 
@@ -436,7 +436,7 @@ export default function LectiiPrivate() {
               <h3 className="font-semibold mb-2">Program flexibil</h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm">
                 Programăm ședințele în funcție de disponibilitatea voastră și de
-                agenda noastra, inclusiv în weekend.
+                agenda noastră, inclusiv în weekend.
               </p>
             </div>
 

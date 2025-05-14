@@ -39,7 +39,7 @@ export default function Home() {
         <div className="absolute inset-0">
           <div className="relative w-full h-full">
             <Image
-              src="/images/gif/pc-gif.gif?height=800&width=1200" // Folosim un placeholder până când GIF-ul este disponibil
+              src="/images/gif/pc-gif2.gif?height=800&width=1200" // Folosim un placeholder până când GIF-ul este disponibil
               alt="Școala de dans"
               fill
               priority

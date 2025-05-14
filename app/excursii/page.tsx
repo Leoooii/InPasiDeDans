@@ -15,7 +15,7 @@ export default function Excursii() {
     },
     {
       id: 2,
-      title: 'Casoca, Buzau',
+      title: 'Casoca, Buzău',
       date: 'Iunie 2022',
       link: 'https://www.facebook.com/share/p/1AX8JQc6di/',
       image: 'casoca.png',

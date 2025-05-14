@@ -24,7 +24,7 @@ export default function DansuriLatino() {
               tehnici specifice de pași și coordonare între parteneri.
             </p>
             <p>
-              La In Pasi de Dans, veți învăța cele mai populare stiluri de dans
+              La În Pași de Dans, veți învăța cele mai populare stiluri de dans
               latino:
             </p>
             <div className="flex gap-10">

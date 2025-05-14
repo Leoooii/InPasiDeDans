@@ -178,7 +178,7 @@ export default function Program() {
                 <div className="space-y-4">
                   <ScheduleItem
                     time="11:00 - 12:00"
-                    course="Formatie copii intermediari"
+                    course="Formație copii intermediari"
                     instructor="Alexandra"
                     room="Sala 2"
                   />

@@ -41,7 +41,7 @@ export default function Tarife() {
                 </li>
                 <li className="flex items-center">
                   <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Acces la o singura grupă</span>
+                  <span>Acces la o singură grupă</span>
                 </li>
 
                 {/* <li className="flex items-center">

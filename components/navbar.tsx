@@ -120,7 +120,7 @@ export default function Navbar() {
           <div className="relative h-16 w-[200px]">
             <Image
               src="/images/logo.png"
-              alt="In pasi de Dans"
+              alt="În Pași de Dans"
               fill
               className="object-contain object-left"
               priority
@@ -319,7 +319,7 @@ function MobileNav({
         <div className="relative h-14 w-[180px]">
           <Image
             src="/images/logo.png"
-            alt="In pasi de Dans"
+            alt="În Pași de Dans"
             fill
             className="object-contain object-left"
             priority

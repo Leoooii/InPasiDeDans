@@ -17,13 +17,13 @@ export default function Footer() {
           <div className="space-y-4">
             <Image
               src="/images/logo.png"
-              alt="In pasi de Dans"
+              alt="În Pași de Dans"
               width={200}
               height={70}
               className="h-auto"
             />
             <p className="text-sm">
-              Invatam Bucurestiul sa danseze din 2009! Oferim cursuri pentru
+              Învățăm Bucureștiul sa danseze din 2009! Oferim cursuri pentru
               adulți și copii într-o atmosferă plăcută și relaxantă.
             </p>
             <div className="flex space-x-4">
@@ -165,7 +165,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin size={18} className="mr-2 mt-1 flex-shrink-0" />
-                <span>Calea Rahovei 262, sector 5, Bucuresti</span>
+                <span>Calea Rahovei 262, sector 5, București</span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="mr-2 flex-shrink-0" />
@@ -182,7 +182,7 @@ export default function Footer() {
       <div className="border-t border-gray-800 py-6">
         <div className="container text-center text-sm">
           <p>
-            © {new Date().getFullYear()} In pasi de Dans. Toate drepturile
+            © {new Date().getFullYear()} În Pași de Dans. Toate drepturile
             rezervate.
           </p>
         </div>

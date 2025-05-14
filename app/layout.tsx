@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: 'In pasi de Dans | Școală de dans',
+  title: 'În Pași de Dans | Școală de dans',
   description:
     'Școală de dans cu tradiție din 2009, oferind cursuri pentru adulți și copii',
   generator: 'v0.dev',

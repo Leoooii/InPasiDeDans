@@ -43,7 +43,7 @@
 //   </div>
   
 //   <div style="margin-top: 20px; font-size: 12px; color: #777; text-align: center;">
-//     <p>Acest email a fost trimis automat de pe site-ul In Pasi de Dans.</p>
+//     <p>Acest email a fost trimis automat de pe site-ul În Pași de Dans.</p>
 //   </div>
 // </div>
 //       `,

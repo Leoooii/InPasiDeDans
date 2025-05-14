@@ -48,7 +48,7 @@ export default function CursuriDansCopii() {
             <h1>
               La grupele de copii predam dans sportiv (dansuri latino și dansuri
               standard) și, ocazional, dansuri populare precum horă, alunelul,
-              batuta ursului, jiana etc.
+              bătuta ursului, jiana etc.
             </h1>
             <div className="pt-4">
               <Link href="/inscriere">
@@ -68,7 +68,7 @@ export default function CursuriDansCopii() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Grupa intermediari (7-12 ani)
+                  Grupă intermediari (7-12 ani)
                 </h3>
                 <p className="text-gray-500 mb-4">
                   La aceasta grupa se predau: cha cha, jive, samba, vals lent,
@@ -84,10 +84,10 @@ export default function CursuriDansCopii() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Grupa intermediari/avansati (9-14 ani)
+                  Grupă intermediari/avansați (9-14 ani)
                 </h3>
                 <p className="text-gray-500 mb-4">
-                  La aceasta grupa se predau: cha cha, jive, samba, vals lent,
+                  La această grupă se predau: cha cha, jive, samba, vals lent,
                   vals vienez, quick step, ocazional - dansuri populare.
                 </p>
                 <div className="flex justify-between">
@@ -106,14 +106,14 @@ export default function CursuriDansCopii() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Formatie intermediari (10-12 ani)
+                  Formație intermediari (10-12 ani)
                 </h3>
                 <p className="text-gray-500 mb-4">
                   Coregrafii dansuri latino/standard, în vederea participării la
                   concursuri de dans.
                 </p>
                 <div className="text-sm text-gray-500">
-                  <p>Sambata</p>
+                  <p>Sâmbăta</p>
                   <p>11:00 - 12:00</p>
                 </div>
               </CardContent>
@@ -136,10 +136,10 @@ export default function CursuriDansCopii() {
             </Card>
             <Card className="flex flex-col border-red-600 shadow-lg ">
               <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Plata la sedinta </CardTitle>
+                <CardTitle>Plata la ședință </CardTitle>
 
                 <CardDescription className=" text-white/90">
-                  Sedinta de grup
+                  Ședința de grup
                 </CardDescription>
                 <div className="mt-4 text-4xl font-bold">35 Lei</div>
               </CardHeader>

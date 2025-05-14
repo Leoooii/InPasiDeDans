@@ -28,7 +28,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold">Adresă</h3>
                     <p className="text-gray-500">
-                      Calea Rahovei, Nr. 262, Sector 5, Bucuresti.
+                      Calea Rahovei, Nr. 262, Sector 5, București.
                     </p>
                   </div>
                 </div>

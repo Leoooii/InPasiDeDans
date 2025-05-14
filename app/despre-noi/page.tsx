@@ -76,7 +76,7 @@ export default function DespreNoi() {
             />
             <ActivityCard
               title="Lecții private pentru nuntă"
-              description="Coregrafii personalizate pe melodia aleasă de dumneavoastră - vals vienez, tango, dansuri latino sau alte stiluri"
+              description="Coregrafii personalizate pe melodia aleasă de voi - vals vienez, tango, dansuri latino sau alte stiluri"
               link="/cursuri-dans-nunta"
             />
             <ActivityCard
@@ -162,7 +162,7 @@ export default function DespreNoi() {
             <div>
               <h2 className="text-2xl font-bold mb-4">Cui ne adresăm</h2>
               <p className="mb-4">
-                Cursurile de dans organizate de In Pasi de Dans se adresează în
+                Cursurile de dans organizate de În Pași de Dans se adresează în
                 general adulților. Vârsta minimă este 15 ani, dar vârsta maximă
                 nu o impunem, întrucât am avut și avem cursanți cu vârste
                 cuprinse între 15 și 70 de ani.
