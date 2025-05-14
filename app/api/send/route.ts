@@ -18,7 +18,7 @@ export async function POST(request:any) {
      
     const { data, error } = await resend.emails.send({
       from: 'InscriereWebsite by Leo <onboarding@resend.dev>',
-      to: ['inpasidedans@gmail.com'],
+      to: ['lioneh39@gmail.com'],
       subject: subject , // Folosim subiectul dinamic
       react: EmailTemplate({ name,email,message,danceclass,phone }) as React.ReactElement,
     });
