@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Head from './head';
 
 // Definim regiunile și dansurile asociate
 const regiuniDansuri = [
@@ -221,6 +222,7 @@ export default function DansuriPopulare() {
 
   return (
     <div className="container py-12">
+      <Head />
       <div className="space-y-6">
         {/* Secțiunea de titlu */}
         <div className="space-y-2">

@@ -20,6 +20,7 @@ import type { Grupa } from '@/app/admin/page';
 import { useToast } from '@/components/ui/use-toast';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import Image from 'next/image';
+import Head from './head';
 
 export default function GrupeInFormarePage() {
   const [grupe, setGrupe] = useState<Grupa[]>([]);
@@ -137,6 +138,7 @@ export default function GrupeInFormarePage() {
 
   return (
     <div className="container py-12">
+      <Head />
       <h1 className="text-3xl font-bold mb-8 text-center">Grupe în formare</h1>
 
       {grupe.length === 0 ? (
@@ -163,7 +165,7 @@ export default function GrupeInFormarePage() {
                   </CardDescription>
                 </CardHeader>
                 <div className="flex flex-col sm:flex-row">
-                  <CardContent className="space-y-4 w-full sm:w-1/2">
+                  <CardContent className="space-y-4 w-full lg:w-1/2">
                     <div className="flex flex-wrap gap-1 mb-2">
                       {grupa.stiluri && grupa.stiluri.length > 0 ? (
                         grupa.stiluri.map((stil, index) => (
@@ -210,14 +212,13 @@ export default function GrupeInFormarePage() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardContent className="w-full sm:w-1/2">
-                    <div className="relative h-[24rem] w-full overflow-hidden rounded-md">
+                  <CardContent className="md:w-1/2">
+                    <div className="relative md:h-[24rem] w-full  overflow-hidden rounded-md">
                       <Image
                         src={`/images/${grupa.instructor}.png?height=800&width=400`}
                         alt={grupa.instructor}
                         fill
-                        className="object-contain rounded-md"
-                        style={{ borderRadius: '50px' }}
+                        className="object-contain hidden md:block"
                       />
                     </div>
                   </CardContent>

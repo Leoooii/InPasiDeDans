@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
+import Head from './head';
 
 export default function DespreNoi() {
   return (
     <div className="container py-12">
+      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Despre noi</h1>
@@ -75,9 +77,9 @@ export default function DespreNoi() {
               link="/grupe-in-formare"
             />
             <ActivityCard
-              title="Lecții private pentru nuntă"
+              title="Lecții private "
               description="Coregrafii personalizate pe melodia aleasă de voi - vals vienez, tango, dansuri latino sau alte stiluri"
-              link="/cursuri-dans-nunta"
+              link="/lectii-private"
             />
             <ActivityCard
               title="Cursuri particulare"

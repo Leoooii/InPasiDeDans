@@ -9,10 +9,12 @@ import {
 } from '@/components/ui/card';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
+import Head from './head';
 
 export default function Tarife() {
   return (
     <div className="container py-12">
+      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">

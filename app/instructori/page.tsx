@@ -2,10 +2,12 @@ import Image from 'next/image';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import Head from './head';
 
 export default function Instructori() {
   return (
     <div className="container py-12">
+      <Head/>
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Instructori</h1>

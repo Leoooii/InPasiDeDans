@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSimpleToast } from '@/components/simple-toast-provider';
+import Head from './head';
 export default function Inscriere() {
   const [formData, setFormData] = useState({
     danceclass: '',
@@ -98,6 +99,7 @@ export default function Inscriere() {
 
   return (
     <div className="container py-12">
+      <Head/>
       <div className="max-w-3xl mx-auto">
         <div className="space-y-2 text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight">

@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from './head';
 
 export default function Petreceri() {
   const petreceri = [
@@ -96,6 +97,7 @@ export default function Petreceri() {
 
   return (
     <div className="container py-12">
+      <Head />
       <div className="space-y-6 ">
         <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
           <h1 className="text-3xl md:text-3xl font-extrabold tracking-tight ">

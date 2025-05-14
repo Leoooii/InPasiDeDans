@@ -7,10 +7,12 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 import ContactForm from '@/components/contact-form';
+import Head from './head';
 
 export default function Contact() {
   return (
     <div className="container py-12 ">
+      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Contact</h1>

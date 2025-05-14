@@ -52,7 +52,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="container text-center text-white">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              "Dansul este puțina nebunie care ne face tuturor mult bine!"
+              "Dansul este puțină nebunie care ne face tuturor mult bine!"
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
               Învățăm și pe cei mici, și pe cei mari să danseze din 2009, într-o

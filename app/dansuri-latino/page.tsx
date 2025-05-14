@@ -2,10 +2,12 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import Head from './head';
 
 export default function DansuriLatino() {
   return (
     <div className="container py-12">
+      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Dansuri latino</h1>
