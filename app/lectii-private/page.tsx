@@ -493,6 +493,28 @@ export default function LectiiPrivate() {
                     <UserCircleIcon className="w-12 h-12 text-orange-600 " />
                   </div>
                   <div>
+                    <h3 className="font-bold">Alina</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Mai 2025
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  Am avut o experiență excelentă cu Miriam. Este răbdătoare, a
+                  reușit din două persoane care nu au dansat niciodată să scoată
+                  un vals al mirilor superb, apreciat de toți invitații, în
+                  câteva ședințe. O recomand cu căldură tuturor celor care vor
+                  să învețe să danseze!
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
+                  </div>
+                  <div>
                     <h3 className="font-bold">Alexandra Popescu</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       August 2024
@@ -608,30 +630,6 @@ export default function LectiiPrivate() {
                   răbdare și dedicare, un om deosebit! Multumim, Alexandra
                   pentru răbdarea acordată pregătirii coregrafiei celui mai
                   important dans din viața noastră!❤️💃🕺
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <UserCircleIcon className="w-12 h-12 text-orange-600 " />
-                  </div>
-                  <div>
-                    <h3 className="font-bold">Inga și Mădălin</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Ianuarie 2019
-                    </p>
-                  </div>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 italic">
-                  Sunteți minunați, pe lângă eliminarea stresului, buna
-                  dispoziție, ținută corectă, stima de sine crescută și o echipă
-                  plină de voie bună, aș putea să mai adaug că ne ajutați cu
-                  fiecare ședință să devenim mai buni, să iubim frumosul și să
-                  ne simțim bine în corpul nostru. Vă îmbrățișăm cu drag și ne
-                  bucurăm că am avut ocazia să vă cunoaștem!
                 </p>
               </CardContent>
             </Card>
