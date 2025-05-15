@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') || 'unknown';
 
   try {
+    
     // Verifică cheile de mediu
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY lipsește');
@@ -41,6 +42,7 @@ export async function POST(request: NextRequest) {
 
     // Validează originea cererii
     const origin = request.headers.get('origin');
+    console.log('Cerere primită:', { origin, url: request.url, method: request.method });
     const allowedOrigins = [
       process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
       /^https:\/\/.*\.vercel\.app$/, // Permite orice sub-domeniu Vercel
