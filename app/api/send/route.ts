@@ -45,7 +45,9 @@ export async function POST(request: NextRequest) {
     console.log('Cerere primită:', { origin, url: request.url, method: request.method });
     const allowedOrigins = [
       process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-      /^https:\/\/.*\.vercel\.app$/, // Permite orice sub-domeniu Vercel
+      'http://127.0.0.1:3000',
+      'http://localhost:3001',
+      'https://in-pasi-de-dans.vercel.app',
     ];
     if (origin && !allowedOrigins.includes(origin)) {
       return NextResponse.json({ error: 'Origine neautorizată' }, { status: 403 });
