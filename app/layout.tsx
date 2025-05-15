@@ -9,6 +9,7 @@ import { SimpleToastProvider } from '@/components/simple-toast-provider';
 const inter = Inter({ subsets: ['latin'] });
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: 'În Pași de Dans | Școală de dans',
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="ro" suppressHydrationWarning>
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={inter.className}>
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
