@@ -4,15 +4,18 @@ import { Heart, Users, Calendar, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-
-import CookieConsent from "@/components/cookie-consent"
+import Script from 'next/script';
+import CookieConsent from '@/components/cookie-consent';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen ">
       {/* Cookie Consent */}
       <CookieConsent />
-
+      <Script
+        strategy="afterInteractive"
+        src="https://extremetracking.com/free?login=pasideda"
+      />
       {/* Fixed Button */}
       {/* <Link
         href="/grupe-in-formare"

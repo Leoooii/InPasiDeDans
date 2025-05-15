@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     // Validează originea cererii
     const origin = request.headers.get('origin');
-    console.log('Cerere primită:', { origin, url: request.url, method: request.method });
+    // console.log('Cerere primită:', { origin, url: request.url, method: request.method });
     const allowedOrigins = [
       process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
       'http://127.0.0.1:3000',

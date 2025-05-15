@@ -149,7 +149,7 @@ export default function GrupeInFormarePage() {
           <p className="mt-2 text-gray-400">Vă rugăm să reveniți mai târziu.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-16">
           {grupe.map(grupa => (
             <Card
               key={grupa.id}
@@ -165,7 +165,7 @@ export default function GrupeInFormarePage() {
                   </CardDescription>
                 </CardHeader>
                 <div className="flex flex-col sm:flex-row">
-                  <CardContent className="space-y-4 w-full lg:w-1/2">
+                  <CardContent className="space-y-4 w-full ">
                     <div className="flex flex-wrap gap-1 mb-2">
                       {grupa.stiluri && grupa.stiluri.length > 0 ? (
                         grupa.stiluri.map((stil, index) => (
@@ -212,7 +212,7 @@ export default function GrupeInFormarePage() {
                       </div>
                     </div>
                   </CardContent>
-                  <CardContent className="md:w-1/2">
+                  {/* <CardContent className="md:w-1/2">
                     <div className="relative md:h-[24rem] w-full  overflow-hidden rounded-md">
                       <Image
                         src={`/images/${grupa.instructor}.png?height=800&width=400`}
@@ -221,7 +221,7 @@ export default function GrupeInFormarePage() {
                         className="object-contain hidden md:block"
                       />
                     </div>
-                  </CardContent>
+                  </CardContent> */}
                 </div>
               </div>
               <CardFooter>

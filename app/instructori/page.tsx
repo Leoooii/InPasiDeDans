@@ -7,7 +7,7 @@ import Head from './head';
 export default function Instructori() {
   return (
     <div className="container py-12">
-      <Head/>
+      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Instructori</h1>
@@ -21,17 +21,19 @@ export default function Instructori() {
             <h2 className="text-2xl font-bold">
               Echipa noastră de profesioniști
             </h2>
-            <p>
-              Instructorii noștri sunt dansatori profesioniști cu experiență
-              vastă atât în competiții naționale și internaționale, cât și în
-              predarea dansului pentru toate nivelurile și vârstele.
-            </p>
-            <p>
-              Pasionați și dedicați, ei sunt mereu pregătiți să împărtășească
-              cunoștințele și dragostea lor pentru dans cu toți elevii. Fiecare
-              instructor are propriul stil de predare, adaptat nevoilor și
-              nivelului cursanților.
-            </p>
+            <div>
+              <p>
+                Instructorii noștri sunt dansatori profesioniști cu experiență
+                vastă atât în competiții naționale și internaționale, cât și în
+                predarea dansului pentru toate nivelurile și vârstele.
+              </p>
+              <p>
+                Pasionați și dedicați, ei sunt mereu pregătiți să împărtășească
+                cunoștințele și dragostea lor pentru dans cu toți elevii.
+                Fiecare instructor are propriul stil de predare, adaptat
+                nevoilor și nivelului cursanților.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -42,26 +44,24 @@ export default function Instructori() {
               name="Alexandra Dumitrache"
               role="Instructor dansuri latino, de societate și dansuri populare"
               src="/images/Alexandra2.png"
-              bio="Alexandra Dumitrache este fondator, manager și instructor la În Pași de Dans, înfiintata în 2009. Decizia înfiintarii acestei școli a venit ca urmare a pasiunii pentru dans și din dorința de a împărtăși cu cât mai multe persoane bucuria oferită de dans.
+              bio="Alexandra Dumitrache este fondator, manager și instructor la În Pași de Dans, înființată în 2009. Decizia înființării acestei școli a venit ca urmare a pasiunii pentru dans și din dorința de a împărtăși cu cât mai multe persoane bucuria oferită de dans.
 
-Alexandra are experiența ca instructor de dans peste 24 de ani; a participat la numeroase competiții de dans sportiv naționale și internaționale.
+Alexandra are experiență ca instructor de dans de peste 24 de ani; a participat la numeroase competiții de dans sportiv naționale și internaționale.
 
-Principalele sale responsabilitati la În Pași de Dans sunt prederea dansurilor latino și de societate și dansurilor populare (atât la grupele de copii, cât și la cele de adulți), organizarea și coordonarea cursurilor de dans, evenimentelor și activităților din cadrul școlii de dans."
-              facebook={'https://www.facebook.com/share/1EJUcGJrue/'}
-              insta={
-                'https://www.instagram.com/dumitrache420?igsh=MXQ4a29lazcyaWExOQ=='
-              }
+Principalele sale responsabilități la În Pași de Dans sunt predarea dansurilor latino și de societate și a dansurilor populare (atât la grupele de copii, cât și la cele de adulți), organizarea și coordonarea cursurilor de dans, evenimentelor și activităților din cadrul școlii de dans."
+              facebook="https://www.facebook.com/share/1EJUcGJrue/"
+              insta="https://www.instagram.com/dumitrache420?igsh=MXQ4a29lazcyaWExOQ=="
             />
 
             <InstructorCard
               name="Cătălina Gurău"
-              role="Instructor dansuri populare și lectii private pentru miri"
+              role="Instructor dansuri populare și lecții private pentru miri"
               src="/images/Catalina.png"
-              bio="Cătălina Gurău colaborează cu În Pași de Dans din 2018, în calitate de instructor-coregraf pentru grupele de dansuri populare adulti, lectii private pentru viitori miri, precum și workshop-uri.
+              bio="Cătălina Gurău colaborează cu În Pași de Dans din 2018, în calitate de instructor-coregraf pentru grupele de dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri.
 
 Cătălina este un izvor de energie și bucurie, atât fizic cât și emoțional. Este o persoană plină de voie bună și își aduce aminte mereu de importanța zâmbetului. Pasiunea pentru dans a descoperit-o la În Pași de Dans, iar de atunci, dansul a devenit un stil de viață pentru ea.
 
-Plină de inspirație, bucurie și empatie este mereu atentă la nevoile celor din jur și mereu dispusă să ofere ajutorul. Adesea energia ei este molipsitoare, iar în preajma ei oamenii se simt susținuți și înțeleși."
+Plină de inspirație, bucurie și empatie, este mereu atentă la nevoile celor din jur și dispusă să ofere ajutorul. Adesea, energia ei este molipsitoare, iar în preajma ei oamenii se simt susținuți și înțeleși."
               facebook="https://www.facebook.com/share/1DqfPJZbHo/"
               insta="https://www.instagram.com/kate.gmc?igsh=MTIwZjg4djJ4bDY5Nw=="
             />
@@ -79,9 +79,9 @@ Plină de inspirație, bucurie și empatie este mereu atentă la nevoile celor d
               name="Daniela Cristea"
               role="Instructor - coregraf pentru lecții private"
               src="/images/Daniela.png"
-              bio="Daniela Cristea colaborează cu În Pași de Dans din 2023, unde predă dansuri latino și de societate pentru grupele de adulți și lectii private pentru miri.
+              bio="Daniela Cristea colaborează cu În Pași de Dans din 2023, unde predă dansuri latino și de societate pentru grupele de adulți și lecții private pentru miri.
 
-Are o experiență în dansul sportiv de 9 ani, ca dansator și de peste 5 ani, ca instructor. A participat la numeroase competiții, evenimente și proiecte naționale și internaționale de dans, care i-au modelat personalitatea și stilul de viata, dansul ocupând un loc important în viața Danielei."
+Are o experiență în dansul sportiv de 9 ani, ca dansator și de peste 5 ani ca instructor. A participat la numeroase competiții, evenimente și proiecte naționale și internaționale de dans, care i-au modelat personalitatea și stilul de viață, dansul ocupând un loc important în viața Danielei."
               facebook="https://www.facebook.com/share/1HMnUsj81X/"
               insta="https://www.facebook.com/share/1HMnUsj81X/"
             />
@@ -101,9 +101,9 @@ Are o experiență în dansul sportiv de 9 ani, ca dansator și de peste 5 ani, 
               src="/images/Luiza.png"
               bio="Luiza Bulmaga este instructor la În Pași de Dans din 2023, unde predă, în mod special, lecții private pentru miri.
 
-Luiza a început să danseze la vârsta de 9 ani, iar de-a lungul timpului dansul a devenit un stil de viata pentru ea; în paralel practica și karate de performanță.
+Luiza a început să danseze la vârsta de 9 ani, iar de-a lungul timpului dansul a devenit un stil de viață pentru ea; în paralel practică și karate de performanță.
 
-Pasionată de dans, energică, Luiza este o instructoare înțelegătoare, creativă, iar experiența vastă din viata sportivă și simtul pedagogic o fac să înțeleagă cu ușurință nevoile fiecărui elev al ei, reușind astfel să pună în valoare, prin dans, calitățile cursanților ei."
+Pasionată de dans, energică, Luiza este o instructoare înțelegătoare, creativă, iar experiența vastă din viața sportivă și simțul pedagogic o fac să înțeleagă cu ușurință nevoile fiecărui elev al ei, reușind astfel să pună în valoare, prin dans, calitățile cursanților ei."
               facebook="https://www.facebook.com/luiza.papusica"
               insta="https://www.instagram.com/luiza_bulmaga?igsh=MWQ1aTVpbGtreTMxYw=="
             />
