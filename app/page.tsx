@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 
-// import CookieConsent from "@/components/cookie-consent"
+import CookieConsent from "@/components/cookie-consent"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen ">
       {/* Cookie Consent */}
-      {/* <CookieConsent /> */}
+      <CookieConsent />
 
       {/* Fixed Button */}
       {/* <Link

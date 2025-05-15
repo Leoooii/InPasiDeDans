@@ -24,6 +24,7 @@ import {
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import Head from './head';
 import { Turnstile } from '@marsidev/react-turnstile';
+import Link from 'next/link';
 
 // Interfață pentru tipizarea formData
 interface FormData {
@@ -31,8 +32,10 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
+  subject: string;
   message: string;
   honey: string;
+  consent: boolean;
 }
 
 export default function Inscriere() {
@@ -41,8 +44,10 @@ export default function Inscriere() {
     name: '',
     email: '',
     phone: '',
+    subject: '',
     message: '',
     honey: '',
+    consent: false,
   });
 
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -53,10 +58,12 @@ export default function Inscriere() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { id, value } = e.target;
+    const { id, value, type } = e.target;
+    const checked =
+      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
     setFormData(prev => ({
       ...prev,
-      [id]: value,
+      [id]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -71,6 +78,17 @@ export default function Inscriere() {
     // 🐝 Honeypot logic
     if (formData.honey) {
       console.warn('Spam detectat. Formularul nu a fost trimis.');
+      showToast('Spam detectat. Formularul nu a fost trimis.', 'error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verifică consimțământul
+    if (!formData.consent) {
+      showToast(
+        'Trebuie să acceptați Politica de Confidențialitate pentru a continua.',
+        'error'
+      );
       setIsSubmitting(false);
       return;
     }
@@ -93,7 +111,7 @@ export default function Inscriere() {
           'cf-turnstile-response': turnstileToken,
         }),
       });
-
+      console.error('Răspuns:', response);
       if (!response.ok) {
         throw new Error('Eroare la trimiterea formularului');
       }
@@ -103,8 +121,10 @@ export default function Inscriere() {
         name: '',
         email: '',
         phone: '',
+        subject: '',
         message: '',
         honey: '',
+        consent: false,
       });
       setTurnstileToken(null);
       showToast(
@@ -241,16 +261,16 @@ export default function Inscriere() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="dans-adulti-latino-societate">
-                          Cursuri dans adulți latino si societate
+                          Cursuri dans adulți latino și societate
                         </SelectItem>
                         <SelectItem value="dansuri-adulti-populare">
-                          Cursuri dans adulti populare
+                          Cursuri dans adulți populare
                         </SelectItem>
                         <SelectItem value="dans-copii">
                           Cursuri dans copii
                         </SelectItem>
                         <SelectItem value="dans-privat">
-                          Lectii private
+                          Lecții private
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -260,7 +280,7 @@ export default function Inscriere() {
                     <Label htmlFor="name">Spune-ne numele tău *</Label>
                     <Input
                       id="name"
-                      name="nume"
+                      name="name"
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Numele tău"
@@ -301,6 +321,19 @@ export default function Inscriere() {
                   </div>
 
                   <div>
+                    <Label htmlFor="subject">Subiect *</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Subiectul mesajului"
+                      required
+                      className="mt-1.5"
+                    />
+                  </div>
+
+                  <div>
                     <Label htmlFor="message">
                       Vrei să ne dai mai multe detalii?
                     </Label>
@@ -312,6 +345,32 @@ export default function Inscriere() {
                       placeholder="Scrie mesajul tău aici..."
                       className="mt-1.5 min-h-[120px]"
                     />
+                  </div>
+
+                  {/* Checkbox pentru consimțământ */}
+                  <div>
+                    <label className="flex items-center">
+                      <Input
+                        type="checkbox"
+                        id="consent"
+                        name="consent"
+                        checked={formData.consent}
+                        onChange={handleChange}
+                        required
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <span className="ml-2 text-sm text-gray-700">
+                        Am citit și sunt de acord cu{' '}
+                        <Link
+                          href="/privacy-policy"
+                          className="text-blue-600 underline"
+                        >
+                          Politica de Confidențialitate
+                        </Link>{' '}
+                        și cu procesarea datelor mele personale pentru
+                        înscrierea la grupe.
+                      </span>
+                    </label>
                   </div>
                 </div>
 

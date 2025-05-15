@@ -507,7 +507,7 @@ const dansuriPredate = [
     title: 'Lectii private',
     href: '/lectii-private',
     description:
-      'Dansul mirilor, latino, dasnsurilor de societate, dansuri populare, etc.',
+      'Dansul mirilor, dansuri latino și de societate, dansuri populare etc.',
   },
 ];
 

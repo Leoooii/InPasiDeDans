@@ -41,7 +41,7 @@ export default function RootLayout({
         </ThemeProvider>
         <Link
           href="/grupe-in-formare"
-          className="fixed bottom-8 right-8 z-50 group"
+          className="fixed bottom-20 right-8 z-50 group"
         >
           <div className="relative">
             <Button

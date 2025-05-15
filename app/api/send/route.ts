@@ -3,40 +3,82 @@ import { Resend } from 'resend';
 import { EmailTemplate } from '../../../components/email-template';
 import * as React from 'react';
 import { rateLimitMiddleware } from '../../../lib/rateLimiter';
+import { z } from 'zod';
+
+// Schema de validare pentru datele de intrare
+const FormSchema = z.object({
+  name: z.string().min(2, 'Numele trebuie să aibă cel puțin 2 caractere').max(100),
+  email: z.string().email('Adresa de e-mail invalidă').max(255),
+  subject: z.string().min(1, 'Subiectul este obligatoriu').max(200).default('Informatii'),
+  message: z.string().max(5000, 'Mesajul este prea lung').optional().default(''),
+  danceclass: z.string().max(200).optional().default(''),
+  phone: z.string().max(20).optional().default(''),
+  honey: z.string().optional().default(''),
+  'cf-turnstile-response': z.string().min(1, 'Token Turnstile lipsă'),
+  consent: z
+    .boolean({ required_error: 'Consimțământul este obligatoriu' })
+    .refine(val => val === true, { message: 'Trebuie să acceptați Politica de Confidențialitate' }),
+});
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
+  // Obține IP-ul clientului la nivelul funcției pentru a fi accesibil în catch
+  const ip = request.headers.get('x-forwarded-for') || 'unknown';
+
   try {
-    // Obține IP-ul clientului
-    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    // Verifică cheile de mediu
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY lipsește');
+      return NextResponse.json({ error: 'Configurație server invalidă' }, { status: 500 });
+    }
+    if (!process.env.TURNSTILE_SECRET_KEY) {
+      console.error('TURNSTILE_SECRET_KEY lipsește');
+      return NextResponse.json({ error: 'Configurație server invalidă' }, { status: 500 });
+    }
+
     await rateLimitMiddleware(ip);
 
+    // Validează originea cererii
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'http://localhost:3001', // Adaugă alte porturi dacă e necesar
+    ];
+    if (origin && !allowedOrigins.includes(origin)) {
+      return NextResponse.json({ error: 'Origine neautorizată' }, { status: 403 });
+    }
+
     const body = await request.json();
+
+    // Validează datele de intrare
+    const validatedData = FormSchema.safeParse(body);
+    if (!validatedData.success) {
+      const errors = validatedData.error.flatten().fieldErrors;
+      console.warn('Validare eșuată:', { errors });
+      return NextResponse.json({ error: errors }, { status: 400 });
+    }
+
     const {
-      name = '',
-      email = '',
-      subject = 'Informatii',
-      message = '',
-      danceclass = '',
-      phone = '',
-      honey = '',
+      name,
+      email,
+      subject,
+      message,
+      danceclass,
+      phone,
+      honey,
       'cf-turnstile-response': token,
-    } = body;
+      consent,
+    } = validatedData.data;
 
     // Verifică honeypot
     if (honey) {
+      console.warn('Spam detectat prin honeypot', { ip: ip });
       return NextResponse.json({ error: 'Spam detectat' }, { status: 400 });
     }
 
     // Validare token Turnstile
-    if (!token) {
-      return NextResponse.json(
-        { error: 'Token Turnstile lipsă' },
-        { status: 400 }
-      );
-    }
-
     const turnstileResponse = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -54,11 +96,19 @@ export async function POST(request: NextRequest) {
     const turnstileResult = await turnstileResponse.json();
 
     if (!turnstileResult.success) {
-      return NextResponse.json(
-        { error: 'Validare Turnstile eșuată' },
-        { status: 400 }
-      );
+      console.warn('Validare Turnstile eșuată', { ip: ip, token });
+      return NextResponse.json({ error: 'Validare Turnstile eșuată' }, { status: 400 });
     }
+
+    // Documentează consimțământul (ex. salvează în baza de date)
+    const consentRecord = {
+      email,
+      ip: ip.split(',')[0], // Ia primul IP din x-forwarded-for
+      timestamp: new Date().toISOString(),
+      consentGiven: consent,
+    };
+    // TODO: Salvează consentRecord într-o bază de date securizată
+    console.log('Consimțământ înregistrat:', consentRecord);
 
     // Trimite emailul folosind Resend
     const { data, error } = await resend.emails.send({
@@ -75,13 +125,14 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Eroare la trimiterea emailului:', error);
-      return NextResponse.json({ error }, { status: 500 });
+      console.error('Eroare la trimiterea emailului:', { error });
+      return NextResponse.json({ error: 'Eroare la trimiterea emailului' }, { status: 500 });
     }
 
+    console.log('Email trimis cu succes:', { email, subject, ip: ip });
     return NextResponse.json({ data });
   } catch (error: any) {
-    console.error('Eroare:', error);
+    console.error('Eroare in procesarea cererii:', error.message, { ip: ip });
     if (error.message === 'Too many requests') {
       return NextResponse.json(
         { error: 'Prea multe cereri. Încearcă din nou mai târziu.' },

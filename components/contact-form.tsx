@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Turnstile } from '@marsidev/react-turnstile';
 
 // Tipizări explicite pentru evenimente
@@ -20,6 +21,7 @@ interface FormData {
   danceclass: string;
   phone: string;
   honey: string;
+  consent: boolean;
 }
 
 const ContactForm = () => {
@@ -34,6 +36,7 @@ const ContactForm = () => {
     danceclass: '',
     phone: '',
     honey: '',
+    consent: false,
   });
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,10 +45,12 @@ const ContactForm = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { id, value } = e.target;
+    const { id, value, type } = e.target;
+    const checked =
+      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
     setFormData(prev => ({
       ...prev,
-      [id]: value,
+      [id]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -56,6 +61,16 @@ const ContactForm = () => {
     // Honeypot logic
     if (formData.honey) {
       console.warn('Spam detectat. Formularul nu a fost trimis.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Verifică consimțământul
+    if (!formData.consent) {
+      showToast(
+        'Trebuie să acceptați Politica de Confidențialitate pentru a continua.',
+        'error'
+      );
       setIsSubmitting(false);
       return;
     }
@@ -91,6 +106,7 @@ const ContactForm = () => {
         danceclass: '',
         phone: '',
         honey: '',
+        consent: false,
       });
       setTurnstileToken(null);
       showToast(
@@ -208,6 +224,33 @@ const ContactForm = () => {
                   required
                 />
               </div>
+
+              {/* Checkbox pentru consimțământ */}
+              <div className="grid gap-2">
+                <label className="flex items-center">
+                  <Input
+                    type="checkbox"
+                    id="consent"
+                    name="consent"
+                    checked={formData.consent}
+                    onChange={handleChange}
+                    required
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">
+                    Am citit și sunt de acord cu{' '}
+                    <Link
+                      href="/privacy-policy"
+                      className="text-blue-600 underline"
+                    >
+                      Politica de Confidențialitate
+                    </Link>{' '}
+                    și cu procesarea datelor mele personale pentru înscrierea la
+                    grupe.
+                  </span>
+                </label>
+              </div>
+
               {/* Widget Turnstile */}
               <Turnstile
                 siteKey={siteKey}
