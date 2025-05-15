@@ -12,10 +12,16 @@ export default function Home() {
     <div className="flex flex-col min-h-screen ">
       {/* Cookie Consent */}
       <CookieConsent />
-      <Script
+      {/* <Script
         strategy="afterInteractive"
         src="https://extremetracking.com/free?login=pasideda"
-      />
+      /> */}
+      <Script
+        src="https://efreecode.com/js.js"
+        id="eXF-pasideda-0"
+        async
+        defer
+      ></Script>
       {/* Fixed Button */}
       {/* <Link
         href="/grupe-in-formare"
