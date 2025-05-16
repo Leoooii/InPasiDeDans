@@ -19,7 +19,7 @@ export default function Home() {
       <div style={{ display: 'none' }}>
         <Script
           src="https://efreecode.com/js.js"
-          id="eXF-pasideda-0"
+          id="eXF-pasidans-0"
           async
           defer
         ></Script>
