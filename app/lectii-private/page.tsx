@@ -51,7 +51,7 @@ export default function LectiiPrivate() {
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden">
             <Image
-              src="/images/nunta.png?height=800&width=600"
+              src="/images/private.png?height=800&width=600"
               alt="Dans de societate"
               fill
               className="object-cover"

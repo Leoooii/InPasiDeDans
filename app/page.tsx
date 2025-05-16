@@ -101,7 +101,7 @@ export default function Home() {
             <ShineButton
               title="Lecții private"
               href="/lectii-private"
-              imageSrc="/images/private.png?height=400&width=600"
+              imageSrc="/images/private2.png?height=400&width=600"
             />
             <ShineButton
               title="Grupe noi"
