@@ -1,4 +1,3 @@
-// app/inscriere/head.tsx
 export default function Head() {
   return (
     <>
@@ -16,6 +15,12 @@ export default function Head() {
         property="og:description"
         content="Completează formularul de înscriere la cursurile noastre de dans."
       />
+      <meta
+        property="og:image"
+        content="https://inpasidedans.ro/images/logo.png"
+      />
+      <meta property="og:type" content="website" />
+      <meta name="robots" content="index, follow" />
     </>
   );
 }

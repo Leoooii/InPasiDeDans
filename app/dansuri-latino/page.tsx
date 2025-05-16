@@ -62,14 +62,7 @@ export default function DansuriLatino() {
               </Link>
             </div>
           </div>
-          {/* <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/placeholder.svg?height=800&width=600"
-              alt="Dans latino"
-              fill
-              className="object-cover"
-            />
-          </div> */}
+        
         </div>
 
         <div className="mt-12">

@@ -16,33 +16,15 @@ export default function Home() {
         strategy="afterInteractive"
         src="https://extremetracking.com/free?login=pasideda"
       /> */}
-      <Script
-        src="https://efreecode.com/js.js"
-        id="eXF-pasideda-0"
-        async
-        defer
-      ></Script>
+      <div style={{ display: 'none' }}>
+        <Script
+          src="https://efreecode.com/js.js"
+          id="eXF-pasideda-0"
+          async
+          defer
+        ></Script>
+      </div>
       {/* Fixed Button */}
-      {/* <Link
-        href="/grupe-in-formare"
-        className="fixed bottom-8 right-8 z-50 group"
-      >
-        <div className="relative">
-          <Button
-            size="lg"
-            className="bg-red-600 text-white hover:bg-red-700 shadow-lg animate-bounce"
-          >
-            <span className="flex items-center gap-2">
-              <span className="relative flex h-3 w-3 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-              </span>
-              Grupe în formare!
-            </span>
-          </Button>
-        </div>
-      </Link> */}
-
       {/* Hero Section cu GIF sau imagine statică */}
       <section className="relative h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
@@ -78,7 +60,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
       {/* <section className="py-12 bg-beige-50 dark:bg-gray-800">
         <div className="container">
@@ -98,7 +79,6 @@ export default function Home() {
           </div>
         </div>
       </section> */}
-
       {/* Secțiunea CURSURI DE DANS */}
       <section className="py-16 bg-gray-800">
         <div className="container">
@@ -141,7 +121,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Testimonials */}
       {/* <section className="py-16 container">
         <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Ce Spun Cursanții Noștri</h2>
@@ -160,7 +139,6 @@ export default function Home() {
           />
         </div>
       </section> */}
-
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white">
         <div className="container text-center">

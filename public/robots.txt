@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://in-pasi-de-dans.vercel.app/sitemap.xml
+Sitemap: https://inpasidedans.ro/sitemap.xml

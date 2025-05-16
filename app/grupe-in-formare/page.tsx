@@ -100,6 +100,11 @@ export default function GrupeInFormarePage() {
     return zile.map(zi => zileRomanesti[zi.toLowerCase()] || zi).join(', ');
   };
 
+  const formatProgram = (str: string) => {
+    const parti = str.split(', ');
+    return `${parti[0]} și ${parti[1]} ${parti[2]}`;
+  };
+
   // Funcție pentru a naviga către pagina de înscriere
   const handleInscriere = (grupaId: string) => {
     router.push(`/inscriere?grupa=${grupaId}`);
@@ -198,10 +203,7 @@ export default function GrupeInFormarePage() {
                       </div>
                       <div className="flex items-center text-sm">
                         <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                        <span>
-                          {/* {formatZile(grupa.zile)},  */}
-                          {grupa.program}
-                        </span>
+                        <span>{formatProgram(grupa.program)}</span>
                       </div>
                       <div className="flex items-center text-sm">
                         <Users className="h-4 w-4 mr-2 text-gray-500" />

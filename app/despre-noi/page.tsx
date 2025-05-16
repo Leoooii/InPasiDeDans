@@ -27,11 +27,11 @@ export default function DespreNoi() {
               care dansul le poate oferi.
             </p>
             <p>
-              Suntem o echipă ambițioasă și unita, formată din 6 instructori
+              Suntem o echipă ambițioasă și unită, formată din 6 instructori
               pasionați, uniți de dragostea pentru dans și dorința de a inspira.
               Credem cu tărie că dansul este pentru toți, indiferent de vârstă
               sau nivel, iar misiunea noastră este sa ne asigurăm că fiecare
-              cursant poate sa se exprime liber și să descopere bucuria
+              cursant poate să se exprime liber și să descopere bucuria
               dansului, să fie motivat și susținut să evolueze.
             </p>
 
@@ -77,7 +77,7 @@ export default function DespreNoi() {
               link="/grupe-in-formare"
             />
             <ActivityCard
-              title="Lecții private "
+              title="Lecții private"
               description="Coregrafii personalizate pe melodia aleasă de voi - vals vienez, tango, dansuri latino sau alte stiluri"
               link="/lectii-private"
             />

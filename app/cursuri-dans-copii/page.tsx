@@ -48,7 +48,7 @@ export default function CursuriDansCopii() {
               progreseze în ritmul său.
             </p>
             <h1>
-              La grupele de copii predam dans sportiv (dansuri latino și dansuri
+              La grupele de copii predăm dans sportiv (dansuri latino și dansuri
               standard) și, ocazional, dansuri populare precum horă, alunelul,
               bătuta ursului, jiana etc.
             </h1>
@@ -64,7 +64,7 @@ export default function CursuriDansCopii() {
 
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">
-            Grupe aflate in desfasurare:
+            Grupe aflate in desfășurare:
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
             <Card>
@@ -73,7 +73,7 @@ export default function CursuriDansCopii() {
                   Grupă intermediari (7-12 ani)
                 </h3>
                 <p className="text-gray-500 mb-4">
-                  La aceasta grupa se predau: cha cha, jive, samba, vals lent,
+                  La această grupă se predau: cha cha, jive, samba, vals lent,
                   vals vienez, quick step, ocazional - dansuri populare.
                 </p>
                 <div className="text-sm text-gray-500">
@@ -131,7 +131,7 @@ export default function CursuriDansCopii() {
                 <CardTitle>Abonament lunar</CardTitle>
 
                 <CardDescription className=" text-white/90">
-                  Valabil 4 saptamani (8 sedinte)
+                  Valabil 4 săptămâni (8 ședințe)
                 </CardDescription>
                 <div className="mt-4 text-4xl font-bold">200 Lei</div>
               </CardHeader>
@@ -141,7 +141,7 @@ export default function CursuriDansCopii() {
                 <CardTitle>Plata la ședință </CardTitle>
 
                 <CardDescription className=" text-white/90">
-                  Ședința de grup
+                  Ședință de grup
                 </CardDescription>
                 <div className="mt-4 text-4xl font-bold">35 Lei</div>
               </CardHeader>

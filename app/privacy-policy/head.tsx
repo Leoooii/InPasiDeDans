@@ -6,6 +6,7 @@ export default function Head() {
         name="description"
         content="Citiți Politica noastră de Confidențialitate pentru a înțelege cum colectăm, utilizăm și protejăm datele dumneavoastră personale."
       />
+      <meta name="robots" content="noindex, nofollow" />
     </>
   );
 }

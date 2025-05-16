@@ -85,3 +85,25 @@
 .animate-continuous-shine {
   animation: continuous-shine 4s ease-in-out infinite;
 }
+/* styles/globals.css */
+#eXF-pasideda-0,
+[id^="eXF-"], /* Ascunde orice element care începe cu eXF- */
+.extreme-tracking-element {
+  /* Dacă are o clasă specifică */
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+/* styles/globals.css */
+#eXTReme-Free-pasideda {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+#eXTReme-Free-pasideda img {
+  display: none !important;
+}
