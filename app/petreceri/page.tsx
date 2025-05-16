@@ -39,7 +39,7 @@ export default function Petreceri() {
     },
     {
       id: 5,
-      title: `Secret Santa Party,`,
+      title: `Secret Santa Party`,
       date: 'Decembrie 2023',
       link: `https://www.facebook.com/share/p/1ATPizJcfp/`,
       image: 'ssp2023.png',
@@ -138,7 +138,7 @@ export default function Petreceri() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Petrecere Craciun 2025
+                  Petrecere Crăciun 2025
                 </h3>
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-gray-500">

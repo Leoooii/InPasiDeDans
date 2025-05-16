@@ -249,7 +249,7 @@ export default function DansuriPopulare() {
               La școala noastră, puteți învăța jocuri populare din toate
               regiunile României, de la hora moldovenească și învârtita din
               Transilvania, până la brâul muntenesc și jocurile pline de energie
-              din Oltenia.
+              din Oltenia, dar si dansuri grecești și machedonești.
             </p>
             <p>
               Mai jos găsiți jocurile populare predate în cadrul școlii noastre.

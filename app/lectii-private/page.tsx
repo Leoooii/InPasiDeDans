@@ -391,7 +391,7 @@ export default function LectiiPrivate() {
         </div>
         <div>
           <p className=" mb-6">
-            Daca doriși să efectuați plata la fiecare ședință, prețul pentru o
+            Daca doriți să efectuați plata la fiecare ședință, prețul pentru o
             lectie particulara de dans este 180 lei.
           </p>
           <p className=" mb-6">

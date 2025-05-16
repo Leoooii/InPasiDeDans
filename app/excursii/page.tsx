@@ -60,7 +60,7 @@ export default function Excursii() {
 
   return (
     <div className="container py-12">
-      <Head/>
+      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
@@ -112,7 +112,7 @@ export default function Excursii() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Mahmudia, Delta Dunarii
+                  Mahmudia, Delta Dunării
                 </h3>
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-gray-500">
@@ -121,7 +121,7 @@ export default function Excursii() {
                   </div>
                   <div className="flex items-center text-gray-500">
                     <MapPin className="w-4 h-4 mr-2" />
-                    <span> Mahmudia, Delta Dunarii</span>
+                    <span> Mahmudia, Delta Dunării</span>
                   </div>
                   <div className="flex items-center text-gray-500">
                     <Users className="w-4 h-4 mr-2" />
@@ -129,21 +129,21 @@ export default function Excursii() {
                   </div>
                 </div>
                 <p className="text-gray-500 text-sm mb-4 overflow-y-scroll h-32">
-                  Hai in Delta cu prietenii si colegii de la dans! In weekend-ul
-                  5-7 septembrie 2025, invitam cursantii scolii intr-o excursie
-                  in Delta Dunarii (la Murighiol). Cazarea se va face in 2
+                  Hai în Deltă cu prietenii si colegii de la dans! În weekend-ul
+                  5-7 septembrie 2025, invităm cursanții școlii într-o excursie
+                  în Delta Dunarii (la Murighiol). Cazarea se va face în 2
                   pensiuni: - Pensiunea Belvedere - Pensiunea Rio Divino
-                  Pensiunile sunt la o distanta de 300m, una de cealalta. Pret:
-                  750 lei/persoana Include: - cazare 2 nopti (in camera
-                  dubla/tripla/cvadrupla/apartament) - mic dejun + cina (toate
+                  Pensiunile sunt la o distanță de 300m, una de cealaltă. Preț:
+                  750 lei/persoana Include: - cazare 2 nopti (în camera
+                  dublă/triplă/cvadruplă/apartament) - mic dejun + cină (toate
                   mesele se vor lua la pensiunea Belvedere) - petrecere
-                  vineri+sambata - acces piscina Optional, contra cost, putem
+                  vineri+sambătă - acces piscina Optional, contra cost, putem
                   face excursii cu barca pe Dunare. Deplasarea se va face cu
-                  masinile personale (pana acolo se poate ajunge cu masina, nu
-                  este nevoie de transfer pe apa). Inscrierea (pentru cursantii
-                  actuali ai scolii) se face prin achitarea unui avans de 150
-                  lei, pana pe 16 martie 2025 (primul venit, primul servit), iar
-                  restul de 600 lei, pana pe 1 august 2025.
+                  mașinile personale (până acolo se poate ajunge cu mașina, nu
+                  este nevoie de transfer pe apă). Înscrierea (pentru cursanții
+                  actuali ai școlii) se face prin achitarea unui avans de 150
+                  lei, până pe 16 martie 2025 (primul venit, primul servit), iar
+                  restul de 600 lei, până pe 1 august 2025.
                 </p>
                 <Link href="https://www.facebook.com/share/1AXAvy3SJx/">
                   <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
