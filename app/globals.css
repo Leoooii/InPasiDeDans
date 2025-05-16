@@ -82,9 +82,11 @@
   }
 }
 
+
 .animate-continuous-shine {
   animation: continuous-shine 4s ease-in-out infinite;
 }
+
 /* styles/globals.css */
 #eXF-pasideda-0,
 [id^="eXF-"], /* Ascunde orice element care începe cu eXF- */

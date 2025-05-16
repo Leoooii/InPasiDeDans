@@ -223,10 +223,11 @@ function ShineButton({
           src={imageSrc || '/placeholder.svg?height=400&width=600'}
           alt={title}
           fill
-          className="object-fit transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 shine"
+          className="object-fit transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 "
         />
-
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-white/10  "></div>
         {/* Overlay gradient */}
+
         <div className="absolute inset-0 bg-gradient-to-t from-orange-800/60 to-white/20 animate-continuous-shine "></div>
 
         {/* Titlu */}
