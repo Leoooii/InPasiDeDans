@@ -9,7 +9,7 @@ import { z } from 'zod';
 const FormSchema = z.object({
   name: z.string().min(2, 'Numele trebuie să aibă cel puțin 2 caractere').max(100),
   email: z.string().email('Adresa de e-mail invalidă').max(255),
-  subject: z.string().min(1, 'Subiectul este obligatoriu').max(200).default('Informatii'),
+  // subject: z.string().min(1, 'Subiectul este obligatoriu').max(200).default('Informatii'),
   message: z.string().max(5000, 'Mesajul este prea lung').optional().default(''),
   danceclass: z.string().max(200).optional().default(''),
   phone: z.string().max(20).optional().default(''),
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     const {
       name,
       email,
-      subject,
+     
       message,
       danceclass,
       phone,
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: 'InscriereWebsite by Leo <onboarding@resend.dev>',
       to: ['lioneh39@gmail.com'],
-      subject,
+      subject:'Inscriere pe site',
       react: EmailTemplate({
         name,
         email,
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Eroare la trimiterea emailului' }, { status: 500 });
     }
 
-    console.log('Email trimis cu succes:', { email, subject, ip: ip });
+    console.log('Email trimis cu succes:', { email, ip: ip });
     return NextResponse.json({ data });
   } catch (error: any) {
     console.error('Eroare in procesarea cererii:', error.message, { ip: ip });

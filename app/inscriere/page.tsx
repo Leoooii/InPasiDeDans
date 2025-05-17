@@ -32,7 +32,7 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  subject: string;
+
   message: string;
   honey: string;
   consent: boolean;
@@ -44,7 +44,7 @@ export default function Inscriere() {
     name: '',
     email: '',
     phone: '',
-    subject: '',
+
     message: '',
     honey: '',
     consent: false,
@@ -121,7 +121,7 @@ export default function Inscriere() {
         name: '',
         email: '',
         phone: '',
-        subject: '',
+
         message: '',
         honey: '',
         consent: false,
@@ -316,19 +316,6 @@ export default function Inscriere() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Numărul tău de telefon"
-                      className="mt-1.5"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="subject">Subiect *</Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder="Subiectul mesajului"
-                      required
                       className="mt-1.5"
                     />
                   </div>

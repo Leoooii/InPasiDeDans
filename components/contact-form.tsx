@@ -16,7 +16,7 @@ import { Turnstile } from '@marsidev/react-turnstile';
 interface FormData {
   name: string;
   email: string;
-  subject: string;
+
   message: string;
   danceclass: string;
   phone: string;
@@ -31,7 +31,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    subject: '',
+
     message: '',
     danceclass: '',
     phone: '',
@@ -101,7 +101,7 @@ const ContactForm = () => {
       setFormData({
         name: '',
         email: '',
-        subject: '',
+
         message: '',
         danceclass: '',
         phone: '',
@@ -203,16 +203,7 @@ const ContactForm = () => {
                   required
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="subject">Subiect</Label>
-                <Input
-                  id="subject"
-                  placeholder="Subiectul mesajului"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="message">Mesaj</Label>
                 <Textarea
@@ -259,7 +250,7 @@ const ContactForm = () => {
                   setTurnstileToken(null);
                   showToast('Eroare la verificarea CAPTCHA.', 'error');
                 }}
-              /> */}  
+              /> */}
               {/* <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
