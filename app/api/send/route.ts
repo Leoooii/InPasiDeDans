@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
 
     // Trimite emailul folosind Resend
     const { data, error } = await resend.emails.send({
-      from: 'InscriereWebsite by Leo <inscriere@inpasidedans.ro>', // Folosește domeniul tău
+      from: `${name} <inscriere@inpasidedans.ro>`, // Folosește domeniul tău
       to: ['inpasidedans@gmail.com'],
       subject: 'Inscriere pe site',
       replyTo: email,

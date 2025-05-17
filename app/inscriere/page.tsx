@@ -277,13 +277,13 @@ export default function Inscriere() {
                   </div>
 
                   <div>
-                    <Label htmlFor="name">Spune-ne numele tău *</Label>
+                    <Label htmlFor="name">Spune-ne numele tău complet*</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Numele tău"
+                      placeholder="Nume complet"
                       required
                       className="mt-1.5"
                     />

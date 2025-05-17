@@ -165,7 +165,7 @@ const ContactForm = () => {
                 <Label htmlFor="name">Nume</Label>
                 <Input
                   id="name"
-                  placeholder="Numele tău"
+                  placeholder="Numele tău complet"
                   value={formData.name}
                   onChange={handleChange}
                   required
