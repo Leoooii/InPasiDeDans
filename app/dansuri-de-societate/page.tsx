@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 export default function DansuriDeSocietate() {
   return (
     <div className="container py-12">
@@ -149,6 +150,7 @@ export default function DansuriDeSocietate() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

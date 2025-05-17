@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function Program() {
   return (
@@ -245,6 +246,7 @@ export default function Program() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

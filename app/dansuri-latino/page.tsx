@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function DansuriLatino() {
   return (
@@ -62,7 +63,6 @@ export default function DansuriLatino() {
               </Link>
             </div>
           </div>
-        
         </div>
 
         <div className="mt-12">
@@ -181,6 +181,7 @@ export default function DansuriLatino() {
           </div>
         </div>
       </div>
+      <GrupeInFormare/>
     </div>
   );
 }

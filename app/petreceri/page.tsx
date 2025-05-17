@@ -6,6 +6,7 @@ import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function Petreceri() {
   const petreceri = [
@@ -195,6 +196,7 @@ export default function Petreceri() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

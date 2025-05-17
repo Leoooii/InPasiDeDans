@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function DespreNoi() {
   return (
@@ -293,6 +294,7 @@ export default function DespreNoi() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

@@ -5,9 +5,11 @@ import type React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
-
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import ContactForm from '@/components/contact-form';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function Contact() {
   return (
@@ -106,6 +108,7 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

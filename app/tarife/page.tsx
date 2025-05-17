@@ -10,6 +10,7 @@ import {
 import { Check } from 'lucide-react';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function Tarife() {
   return (
@@ -215,6 +216,7 @@ export default function Tarife() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

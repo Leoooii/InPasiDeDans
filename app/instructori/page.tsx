@@ -3,6 +3,8 @@ import { Facebook, Instagram, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Head from './head';
+import Link from 'next/link';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function Instructori() {
   return (
@@ -141,6 +143,7 @@ Pasionată de dans, energică, Luiza este o instructoare înțelegătoare, creat
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 // Definim regiunile și dansurile asociate
 const regiuniDansuri = [
@@ -357,6 +358,7 @@ export default function DansuriPopulare() {
           </Tabs>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

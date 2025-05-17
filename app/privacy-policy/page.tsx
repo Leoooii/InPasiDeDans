@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function PrivacyPolicy() {
   return (
@@ -193,6 +194,7 @@ export default function PrivacyPolicy() {
           </p>
         </div>
       </div>
+      
     </div>
   );
 }

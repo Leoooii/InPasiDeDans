@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function CursuriDansAdulti() {
   return (
@@ -125,6 +126,7 @@ export default function CursuriDansAdulti() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

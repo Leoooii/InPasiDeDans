@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function CursuriDansCopii() {
   return (
@@ -149,6 +150,7 @@ export default function CursuriDansCopii() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }

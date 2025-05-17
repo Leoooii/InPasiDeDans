@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { UserCircleIcon, UserX2Icon } from 'lucide-react';
 import Head from './head';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function LectiiPrivate() {
   return (
@@ -638,6 +639,7 @@ export default function LectiiPrivate() {
           </div>
         </div>
       </div>
+      <GrupeInFormare />
     </div>
   );
 }
