@@ -48,6 +48,8 @@ export async function POST(request: NextRequest) {
       'http://127.0.0.1:3000',
       'http://localhost:3001',
       'https://in-pasi-de-dans.vercel.app',
+      'https://www.inpasidedans.ro/',
+       'https://www.inpasidedans.ro'
     ];
     if (origin && !allowedOrigins.includes(origin)) {
       return NextResponse.json({ error: 'Origine neautorizată' }, { status: 403 });
