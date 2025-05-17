@@ -94,11 +94,11 @@ export default function Inscriere() {
     }
 
     // Verifică token-ul Turnstile
-    if (!turnstileToken) {
-      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
-      setIsSubmitting(false);
-      return;
-    }
+    // if (!turnstileToken) {
+    //   showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
+    //   setIsSubmitting(false);
+    //   return;
+    // }
 
     try {
       const response = await fetch('/api/send', {
@@ -108,7 +108,7 @@ export default function Inscriere() {
         },
         body: JSON.stringify({
           ...formData,
-          'cf-turnstile-response': turnstileToken,
+          // 'cf-turnstile-response': turnstileToken,
         }),
       });
       console.error('Răspuns:', response);
@@ -374,7 +374,7 @@ export default function Inscriere() {
                   </div>
                 </div>
 
-                {/* Widget Turnstile */}
+                {/* Widget Turnstile
                 <Turnstile
                   siteKey={siteKey}
                   onSuccess={token => setTurnstileToken(token)}
@@ -382,11 +382,18 @@ export default function Inscriere() {
                     setTurnstileToken(null);
                     showToast('Eroare la verificarea CAPTCHA.', 'error');
                   }}
-                />
+                /> */}
 
-                <Button
+                {/* <Button
                   type="submit"
                   disabled={isSubmitting || !turnstileToken}
+                  className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                >
+                  {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}
+                </Button> */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                 >
                   {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}

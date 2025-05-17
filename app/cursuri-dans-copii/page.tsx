@@ -98,7 +98,7 @@ export default function CursuriDansCopii() {
                     <p>18:30 - 19:30</p>
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Sambata</p>
+                    <p>Sâmbăta</p>
                     <p>12:00 - 13:00</p>
                   </div>
                 </div>

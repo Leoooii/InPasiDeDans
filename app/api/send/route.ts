@@ -14,7 +14,7 @@ const FormSchema = z.object({
   danceclass: z.string().max(200).optional().default(''),
   phone: z.string().max(20).optional().default(''),
   honey: z.string().optional().default(''),
-  'cf-turnstile-response': z.string().min(1, 'Token Turnstile lipsă'),
+  // 'cf-turnstile-response': z.string().min(1, 'Token Turnstile lipsă'),
   consent: z
     .boolean({ required_error: 'Consimțământul este obligatoriu' })
     .refine(val => val === true, { message: 'Trebuie să acceptați Politica de Confidențialitate' }),
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       danceclass,
       phone,
       honey,
-      'cf-turnstile-response': token,
+      // 'cf-turnstile-response': token,
       consent,
     } = validatedData.data;
 
@@ -82,26 +82,26 @@ export async function POST(request: NextRequest) {
     }
 
     // Validare token Turnstile
-    const turnstileResponse = await fetch(
-      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          secret: process.env.TURNSTILE_SECRET_KEY,
-          response: token,
-        }),
-      }
-    );
+    // const turnstileResponse = await fetch(
+    //   'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       secret: process.env.TURNSTILE_SECRET_KEY,
+    //       response: token,
+    //     }),
+    //   }
+    // );
 
-    const turnstileResult = await turnstileResponse.json();
+    // const turnstileResult = await turnstileResponse.json();
 
-    if (!turnstileResult.success) {
-      console.warn('Validare Turnstile eșuată', { ip: ip, token });
-      return NextResponse.json({ error: 'Validare Turnstile eșuată' }, { status: 400 });
-    }
+    // if (!turnstileResult.success) {
+    //   console.warn('Validare Turnstile eșuată', { ip: ip, token });
+    //   return NextResponse.json({ error: 'Validare Turnstile eșuată' }, { status: 400 });
+    // }
 
     // Documentează consimțământul (ex. salvează în baza de date)
     const consentRecord = {

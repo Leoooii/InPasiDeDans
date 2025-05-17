@@ -76,11 +76,11 @@ const ContactForm = () => {
     }
 
     // Verifică token-ul Turnstile
-    if (!turnstileToken) {
-      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
-      setIsSubmitting(false);
-      return;
-    }
+    // if (!turnstileToken) {
+    //   showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
+    //   setIsSubmitting(false);
+    //   return;
+    // }
 
     try {
       const response = await fetch('/api/send', {
@@ -90,7 +90,7 @@ const ContactForm = () => {
         },
         body: JSON.stringify({
           ...formData,
-          'cf-turnstile-response': turnstileToken,
+          // 'cf-turnstile-response': turnstileToken,
         }),
       });
 
@@ -252,18 +252,25 @@ const ContactForm = () => {
               </div>
 
               {/* Widget Turnstile */}
-              <Turnstile
+              {/* <Turnstile
                 siteKey={siteKey}
                 onSuccess={token => setTurnstileToken(token)}
                 onError={() => {
                   setTurnstileToken(null);
                   showToast('Eroare la verificarea CAPTCHA.', 'error');
                 }}
-              />
-              <Button
+              /> */}  
+              {/* <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                 disabled={isSubmitting || !turnstileToken}
+              >
+                {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
+              </Button> */}
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                disabled={isSubmitting}
               >
                 {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
               </Button>
