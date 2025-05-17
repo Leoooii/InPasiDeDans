@@ -245,11 +245,11 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Link href="/autentificare">
+              {/* <Link href="/autentificare">
                 <Button variant="outline" className="hidden sm:flex">
                   Autentificare
                 </Button>
-              </Link>
+              </Link> */}
               <Link href="/inscriere">
                 <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 hidden sm:flex">
                   <span className="sm:inline">Înscrie-te</span>
@@ -439,13 +439,13 @@ function MobileNav({
           </>
         ) : (
           <>
-            <Link
+            {/* <Link
               href="/autentificare"
               onClick={() => setIsOpen(false)}
               className="py-2 font-medium"
             >
               Autentificare
-            </Link>
+            </Link> */}
             <Link
               href="/inscriere"
               onClick={() => setIsOpen(false)}
