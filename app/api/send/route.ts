@@ -120,6 +120,7 @@ export async function POST(request: NextRequest) {
       from: 'InscriereWebsite by Leo <inscriere@inpasidedans.ro>', // Folosește domeniul tău
       to: ['inpasidedans@gmail.com'],
       subject: 'Inscriere pe site',
+      replyTo: email,
       react: EmailTemplate({
         name,
         email,
