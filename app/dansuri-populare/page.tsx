@@ -125,7 +125,7 @@ const regiuniDansuri = [
       'Bălăceana',
       'Zdroboleanca',
       'Țărănească',
-
+      'Hora din Tudora',
       'Promoroaca',
       'Salcioara',
       'Rața',
@@ -160,7 +160,6 @@ const regiuniDansuri = [
       'Bătrânească de la Ciocănești',
       'Arcanul',
       'Bătrânească',
-      'Hora din Tudora',
     ],
   },
   {

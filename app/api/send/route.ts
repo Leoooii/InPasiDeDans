@@ -113,13 +113,13 @@ export async function POST(request: NextRequest) {
       consentGiven: consent,
     };
     // TODO: Salvează consentRecord într-o bază de date securizată
-    console.log('Consimțământ înregistrat:', consentRecord);
+    // console.log('Consimțământ înregistrat:', consentRecord);
 
     // Trimite emailul folosind Resend
     const { data, error } = await resend.emails.send({
-      from: 'InscriereWebsite by Leo <onboarding@resend.dev>',
-      to: ['lioneh39@gmail.com'],
-      subject:'Inscriere pe site',
+      from: 'InscriereWebsite by Leo <inscriere@inpasidedans.ro>', // Folosește domeniul tău
+      to: ['inpasidedans@gmail.com'],
+      subject: 'Inscriere pe site',
       react: EmailTemplate({
         name,
         email,
