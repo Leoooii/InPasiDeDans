@@ -116,17 +116,14 @@ export default function CursuriDansAdulti() {
               </div>
             </div>
 
-            <Card>
-              <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
-                <Image
-                  src="/images/inscriere.png?height=400&width=600"
-                  alt="Cursuri de dans"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </Card>
-            <Card></Card>
+            <div className="relative h-80 w-full overflow-hidden ">
+              <Image
+                src="/images/inscriere.png?height=400&width=600"
+                alt="Cursuri de dans"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
