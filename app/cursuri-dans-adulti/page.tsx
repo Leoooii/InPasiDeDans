@@ -85,7 +85,7 @@ export default function CursuriDansAdulti() {
           </Card>
         </div>
 
-        <div className="mt-12 bg-red-50 p-8 rounded-lg">
+        <div className="mt-12 bg-red-50 p-8 rounded-lg ">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="text-2xl font-bold mb-4 dark:text-black">
@@ -99,7 +99,7 @@ export default function CursuriDansAdulti() {
               <div className="flex gap-5">
                 <Link href="/inscriere">
                   <Button
-                    size="lg"
+                    size="sm"
                     className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                   >
                     Înscrie-te acum
@@ -107,7 +107,7 @@ export default function CursuriDansAdulti() {
                 </Link>
                 <Link href="/program">
                   <Button
-                    size="lg"
+                    size="sm"
                     className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                   >
                     Verifică programul
@@ -115,14 +115,18 @@ export default function CursuriDansAdulti() {
                 </Link>
               </div>
             </div>
-            <div className="relative h-64 rounded-lg overflow-hidden">
-              <Image
-                src="/images/inscriere.png?height=400&width=600"
-                alt="Cursuri de dans"
-                fill
-                className="object-cover"
-              />
-            </div>
+
+            <Card>
+              <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
+                <Image
+                  src="/images/inscriere.png?height=400&width=600"
+                  alt="Cursuri de dans"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </Card>
+            <Card></Card>
           </div>
         </div>
       </div>
