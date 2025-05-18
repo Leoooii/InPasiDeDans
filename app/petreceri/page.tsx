@@ -184,7 +184,7 @@ export default function Petreceri() {
                   />
                 </div>
                 <CardContent className="p-6">
-                  <Link href={petrecere.link}>
+                  <Link href={petrecere.link} target="_blank">
                     <h3 className="text-xl font-bold mb-2">
                       {petrecere.title}
                     </h3>

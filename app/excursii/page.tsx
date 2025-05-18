@@ -160,7 +160,7 @@ export default function Excursii() {
           <h2 className="text-2xl font-bold">Excursii anterioare</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {excursii.map(excursie => (
-              <Link href={excursie.link} key={excursie.id}>
+              <Link href={excursie.link} key={excursie.id} target="_blank">
                 <div className="relative h-60 rounded-lg overflow-hidden group">
                   <Image
                     src={`/images/excursii/${excursie.image}?height=400&width=600`}

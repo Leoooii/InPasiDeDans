@@ -158,7 +158,7 @@ export default function GrupeInFormarePage() {
           {grupe.map(grupa => (
             <Card
               key={grupa.id}
-              className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 hover:cursor-pointer flex flex-col justify-between"
+              className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 hover:cursor-pointer flex flex-col justify-between border-orange-600"
             >
               <div>
                 <CardHeader className="pb-3">
