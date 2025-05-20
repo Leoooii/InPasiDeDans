@@ -9,6 +9,7 @@ import CookieConsent from '@/components/cookie-consent';
 import dynamic from 'next/dynamic';
 import GifWrapperClient from './GifWrapperClient';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import ScrollDownArrows from '@/components/ScrollDownArrows';
 
 export default function Home() {
   return (
@@ -86,8 +87,9 @@ export default function Home() {
         </div>
       </section> */}
       {/* Secțiunea CURSURI DE DANS */}
-      <section className="py-16 bg-gray-800">
-        <div className="container">
+      <section className="pb-16 pt-6 bg-gray-800">
+        <ScrollDownArrows />
+        <div className="container px-20">
           <h2 className="text-3xl font-bold mb-12 text-center text-white">
             CURSURI DE DANS
           </h2>
@@ -231,6 +233,8 @@ function ShineButton({
           alt={title}
           fill
           className="object-fit transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110 "
+          // width={600}
+          // height={600}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-white/10  "></div>
         {/* Overlay gradient */}

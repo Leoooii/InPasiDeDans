@@ -127,7 +127,7 @@ export default function Navbar() {
             />
           </div>
         </Link>
-        <div className="hidden md:flex md:flex-1 md:justify-center">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-center">
           <NavigationMenu>
             <NavigationMenuList className="flex flex-wrap justify-center">
               {/* Adăugăm Grupe în formare ca primă opțiune */}
@@ -276,7 +276,7 @@ export default function Navbar() {
         </div>
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="mr-2 md:hidden">
+            <Button variant="outline" size="icon" className="mx-2 lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -560,7 +560,7 @@ const dansuriPredate = [
 
 const despreNoi = [
   {
-    title: 'Cine suntem?',
+    title: 'Cine suntem',
     href: '/despre-noi',
     description:
       'Când a fost înființată școala de dans și cine coordonează activitatea',
