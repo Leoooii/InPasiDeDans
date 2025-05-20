@@ -4,6 +4,11 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: [
+      'scontent.fotp3-2.fna.fbcdn.net',
+      'i.imgur.com',
+      'res.cloudinary.com',
+    ],
   },
   experimental: {
     optimizeCss: true,

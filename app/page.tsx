@@ -30,7 +30,7 @@ export default function Home() {
       </div>
       {/* Fixed Button */}
       {/* Hero Section cu GIF sau imagine statică */}
-      <section className="relative h-[90vh] overflow-hidden">
+      <section className="relative h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <div className="relative w-full h-full bg-orange-600">
             {/* <Image

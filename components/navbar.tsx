@@ -563,7 +563,7 @@ const despreNoi = [
     title: 'Cine suntem?',
     href: '/despre-noi',
     description:
-      'Când a fost înființată școala de dans și cine coordonează activitate acesteia',
+      'Când a fost înființată școala de dans și cine coordonează activitatea',
   },
   {
     title: 'Instructori',
@@ -580,7 +580,7 @@ const activitati = [
   },
 
   {
-    title: 'Petreceri în pași de dans',
+    title: 'Petreceri ',
     href: '/petreceri',
     description: 'Petreceri memorabile cu mult dans și voie bună',
   },
