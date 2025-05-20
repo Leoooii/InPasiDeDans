@@ -27,13 +27,19 @@ export default function Contact() {
           <div className="space-y-6">
             <Card>
               <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 animate-pulse">
                   <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Adresă</h3>
-                    <p className="text-gray-500">
-                      Calea Rahovei, Nr. 262, Sector 5, București.
-                    </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Calea+Rahovei+262+Sector+5+Bucuresti"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-red-600 transition-colors flex items-center gap-1"
+                    >
+                      Calea Rahovei, Nr. 262, Sector 5, București
+                      <span className="text-red-600 text-lg">👈</span>
+                    </a>
                   </div>
                 </div>
               </CardContent>
@@ -42,22 +48,38 @@ export default function Contact() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <Phone className="h-5 w-5 text-red-600 mt-0.5" />
+                  <Phone className="h-5 w-5 text-red-600 mt-0.5 animate-pulse" />
                   <div>
                     <h3 className="font-bold">Telefon</h3>
-                    <p className="text-gray-500">+40 722 675 126</p>
+                    <a
+                      href="tel:+40722675126"
+                      className="text-gray-500 hover:text-red-600 transition-colors flex items-center gap-1"
+                    >
+                      +40 722 675 126
+                      <span className="animate-pulse text-red-600 text-lg">
+                        👈
+                      </span>
+                    </a>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-6 ">
+              <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <Mail className="h-5 w-5 text-red-600 mt-0.5" />
+                  <Mail className="h-5 w-5 text-red-600 mt-0.5 animate-pulse" />
                   <div>
                     <h3 className="font-bold">Email</h3>
-                    <p className="text-gray-500">inpasidedans@gmail.com</p>
+                    <a
+                      href="mailto:inpasidedans@gmail.com"
+                      className="text-gray-500 hover:text-red-600 transition-colors flex items-center gap-1"
+                    >
+                      inpasidedans@gmail.com
+                      <span className="animate-pulse text-red-600 text-lg">
+                        👈
+                      </span>
+                    </a>
                   </div>
                 </div>
               </CardContent>

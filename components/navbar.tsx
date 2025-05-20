@@ -106,7 +106,7 @@ export default function Navbar() {
               href="https://www.tiktok.com/@in.pasi.de.dans"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600  hover:text-white transition-colors"
+              className="text-gray-600  hover:text-white transition-colors "
               aria-label="TikTok"
             >
               <TikTokIcon />
@@ -136,7 +136,7 @@ export default function Navbar() {
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold'
+                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce'
                     )}
                   >
                     Grupe în formare
@@ -187,14 +187,30 @@ export default function Navbar() {
               </NavigationMenuItem>
               {/* Am eliminat link-ul către galerie */}
               <NavigationMenuItem>
-                <Link href="/despre-noi" legacyBehavior passHref>
-                  <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-                    Despre noi
-                  </NavigationMenuTrigger>
-                </Link>
+                <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
+                  Despre noi
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     {despreNoi.map(item => (
+                      <ListItem
+                        key={item.title}
+                        title={item.title}
+                        href={item.href}
+                      >
+                        {item.description}
+                      </ListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
+                  Activități
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    {activitati.map(item => (
                       <ListItem
                         key={item.title}
                         title={item.title}
@@ -308,6 +324,7 @@ function MobileNav({
 }) {
   const [openDansuri, setOpenDansuri] = useState(false);
   const [openDespre, setOpenDespre] = useState(false);
+  const [openActivitati, setOpenActivitati] = useState(false);
 
   return (
     <div className="grid gap-6 text-base">
@@ -379,8 +396,11 @@ function MobileNav({
         </Link>
         {/* Am eliminat link-ul către galerie */}
         <div>
-          <Link
-            href="/despre-noi"
+          <button
+            onClick={e => {
+              e.preventDefault();
+              setOpenDespre(!openDespre);
+            }}
             className="flex w-full items-center justify-between py-2 font-medium"
           >
             Despre noi
@@ -389,15 +409,42 @@ function MobileNav({
                 'h-4 w-4 transition-transform',
                 openDespre ? 'rotate-180' : ''
               )}
-              onClick={e => {
-                e.preventDefault();
-                setOpenDespre(!openDespre);
-              }}
             />
-          </Link>
+          </button>
           {openDespre && (
             <div className="grid gap-2 pl-4">
               {despreNoi.map(item => (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className="py-1 text-muted-foreground hover:text-foreground"
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+        <div>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              setOpenActivitati(!openActivitati);
+            }}
+            className="flex w-full items-center justify-between py-2 font-medium"
+          >
+            Activitati
+            <ChevronDown
+              className={cn(
+                'h-4 w-4 transition-transform',
+                openActivitati ? 'rotate-180' : ''
+              )}
+            />
+          </button>
+          {openActivitati && (
+            <div className="grid gap-2 pl-4">
+              {activitati.map(item => (
                 <Link
                   key={item.title}
                   href={item.href}
@@ -513,11 +560,17 @@ const dansuriPredate = [
 
 const despreNoi = [
   {
+    title: 'Cine suntem?',
+    href: '/despre-noi',
+  },
+  {
     title: 'Instructori',
     href: '/instructori',
     description:
       'Cunoaște echipa noastră de instructori profesioniști cu experiență.',
   },
+];
+const activitati = [
   {
     title: 'Excursii în pași de dans',
     href: '/excursii',
@@ -529,5 +582,11 @@ const despreNoi = [
     href: '/petreceri',
     description:
       'Participă la petrecerile noastre tematice unde poți practica ce ai învățat.',
+  },
+
+  {
+    title: 'Evenimente',
+    href: '/evenimente',
+    description: 'Fii la curent cu cele mai noi evenimente',
   },
 ];
