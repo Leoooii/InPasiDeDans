@@ -31,7 +31,7 @@ export default function Home() {
       </div>
       {/* Fixed Button */}
       {/* Hero Section cu GIF sau imagine statică */}
-      <section className="relative h-[60vh] overflow-hidden">
+      <section className="relative h-[75vh] overflow-hidden">
         <div className="absolute inset-0">
           <div className="relative w-full h-full bg-orange-600">
             {/* <Image
@@ -89,7 +89,7 @@ export default function Home() {
       {/* Secțiunea CURSURI DE DANS */}
       <section className="pb-16 pt-6 bg-gray-800">
         <ScrollDownArrows />
-        <div className="container px-20">
+        <div className="container px-10 sm:px-20">
           <h2 className="text-3xl font-bold mb-12 text-center text-white">
             CURSURI DE DANS
           </h2>

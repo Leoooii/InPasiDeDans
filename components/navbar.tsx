@@ -348,7 +348,7 @@ function MobileNav({
         <Link
           href="/grupe-in-formare"
           onClick={() => setIsOpen(false)}
-          className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md"
+          className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md animate-bounce"
         >
           Grupe în formare
         </Link>
