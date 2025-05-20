@@ -6,6 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import Script from 'next/script';
 import CookieConsent from '@/components/cookie-consent';
+import dynamic from 'next/dynamic';
+import GifWrapperClient from './GifWrapperClient';
+import GrupeInFormare from '@/components/grupe-in-formare';
 
 export default function Home() {
   return (
@@ -29,17 +32,19 @@ export default function Home() {
       {/* Hero Section cu GIF sau imagine statică */}
       <section className="relative h-[90vh] overflow-hidden">
         <div className="absolute inset-0">
-          <div className="relative w-full h-full">
-            <Image
-              src="/images/gif/pc-gif2.gif?height=800&width=1200" // Folosim un placeholder până când GIF-ul este disponibil
+          <div className="relative w-full h-full bg-orange-600">
+            {/* <Image
+              src="/images/gif/pc-gif2.gif"
               alt="Școala de dans"
               fill
               priority
               sizes="100vw"
               style={{ objectFit: 'cover' }}
-            />
+            /> */}
+            <GifWrapperClient />
           </div>
-          <div className="absolute inset-0 bg-black/50" />
+
+          {/* <div className="absolute inset-0 bg-black/50" /> */}
         </div>
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="container text-center text-white">
@@ -161,25 +166,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
-      <Link
-          href="/grupe-in-formare"
-          className="fixed bottom-20 right-8 z-50 group"
-        >
-          <div className="relative">
-            <Button
-              size="lg"
-              className="bg-red-600 text-white hover:bg-red-700 shadow-lg animate-bounce"
-            >
-              <span className="flex items-center gap-2">
-                <span className="relative flex h-3 w-3 mr-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-                </span>
-                Grupe în formare!
-              </span>
-            </Button>
-          </div>
-        </Link>
+      <GrupeInFormare />
     </div>
   );
 }

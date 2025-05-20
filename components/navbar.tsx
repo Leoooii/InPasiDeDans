@@ -562,6 +562,8 @@ const despreNoi = [
   {
     title: 'Cine suntem?',
     href: '/despre-noi',
+    description:
+      'Când a fost înființată școala de dans și cine coordonează activitate acesteia',
   },
   {
     title: 'Instructori',
@@ -572,21 +574,20 @@ const despreNoi = [
 ];
 const activitati = [
   {
-    title: 'Excursii în pași de dans',
+    title: 'Excursii',
     href: '/excursii',
-    description: 'Participă la excursiile noastre tematice dedicate dansului.',
+    description: 'Excursii pentru cursanții nostri, în țară și în afară',
   },
 
   {
     title: 'Petreceri în pași de dans',
     href: '/petreceri',
-    description:
-      'Participă la petrecerile noastre tematice unde poți practica ce ai învățat.',
+    description: 'Petreceri memorabile cu mult dans și voie bună',
   },
 
   {
     title: 'Evenimente',
     href: '/evenimente',
-    description: 'Fii la curent cu cele mai noi evenimente',
+    description: 'Concursuri de dans, festivaluri si congrese(sau colocvii).',
   },
 ];

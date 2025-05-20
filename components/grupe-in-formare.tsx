@@ -9,7 +9,8 @@ const GrupeInFormare = () => {
     >
       <div className="relative">
         <Button
-          size="lg"
+          size="sm"
+          variant={'ghost'}
           className="bg-red-600 text-white hover:bg-red-700 shadow-lg animate-bounce"
         >
           <span className="flex items-center gap-2">
