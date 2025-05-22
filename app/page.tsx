@@ -10,6 +10,8 @@ import dynamic from 'next/dynamic';
 import GifWrapperClient from './GifWrapperClient';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import ScrollDownArrows from '@/components/ScrollDownArrows';
+import EvenimentePage from './evenimente/page';
+import GrupeInFormarePage from './grupe-in-formare/page';
 
 export default function Home() {
   return (
@@ -129,25 +131,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Testimonials */}
-      {/* <section className="py-16 container">
-        <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Ce Spun Cursanții Noștri</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <TestimonialCard
-            quote="Am învățat să dansăm pentru nunta noastră și a fost o experiență minunată. Instructorii sunt profesioniști și foarte răbdători."
-            author="Maria și Andrei"
-          />
-          <TestimonialCard
-            quote="Cursurile de dans latino mi-au schimbat viața. Am cunoscut oameni minunați și am descoperit o nouă pasiune."
-            author="Elena D."
-          />
-          <TestimonialCard
-            quote="Copilul meu adoră cursurile de dans. Instructorii știu cum să lucreze cu cei mici și să-i motiveze."
-            author="Cristina, mamă a unui cursant"
-          />
-        </div>
-      </section> */}
-      {/* CTA Section */}
+
       <section className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white">
         <div className="container text-center">
           <h2 className="text-3xl font-bold mb-6">
@@ -168,50 +152,15 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      <section className=" bg-gradient-to-r from-red-600 to-orange-500 text-white ">
+        <GrupeInFormarePage />
+        <EvenimentePage />
+      </section>
       <GrupeInFormare />
     </div>
   );
 }
 
-function StatCard({
-  icon,
-  value,
-  description,
-}: {
-  icon: React.ReactNode;
-  value: string;
-  description: string;
-}) {
-  return (
-    <div className="flex flex-col items-center text-center">
-      {icon}
-      <h3 className="text-2xl font-bold mt-4 mb-2 dark:text-white">{value}</h3>
-      <p className="text-gray-600 dark:text-gray-300">{description}</p>
-    </div>
-  );
-}
-
-function TestimonialCard({ quote, author }: { quote: string; author: string }) {
-  return (
-    <Card className="dark:bg-gray-800">
-      <CardContent className="pt-6">
-        <div className="text-red-600 mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.626.41-2.032.303-.406.7-.754 1.19-1.06.495-.305.95-.58 1.36-.828.42-.247.695-.48.827-.702.132-.222.198-.372.198-.449 0-.114-.065-.282-.197-.503-.132-.222-.423-.452-.873-.69-.45-.24-.955-.436-1.514-.587-.558-.15-1.109-.225-1.65-.225-.707 0-1.39.113-2.05.338-.66.226-1.24.57-1.744 1.04-.504.468-.912 1.01-1.226 1.633-.313.623-.47 1.298-.47 2.027 0 .808.164 1.564.49 2.27.33.704.764 1.315 1.3 1.834.54.518 1.16.927 1.852 1.226.693.3 1.438.449 2.235.449.764 0 1.491-.12 2.18-.363.692-.24 1.304-.592 1.834-1.055.532-.463.957-1.025 1.274-1.685.318-.66.476-1.387.476-2.18z" />
-          </svg>
-        </div>
-        <p className="text-gray-700 dark:text-gray-200 mb-6">{quote}</p>
-        <p className="font-semibold dark:text-white">{author}</p>
-      </CardContent>
-    </Card>
-  );
-}
 function ShineButton({
   title,
   href,

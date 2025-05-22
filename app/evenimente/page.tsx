@@ -171,7 +171,9 @@ export default function EvenimentePage() {
 
   return (
     <div className="container py-16 px-4 md:px-0">
-      <h1 className="text-4xl font-bold mb-12 text-center">Evenimente</h1>
+      <h1 className="text-4xl font-bold mb-12 text-center">
+        Cele mai noi evenimente
+      </h1>
 
       {evenimente.length === 0 ? (
         <div className="text-center py-12">
@@ -184,7 +186,7 @@ export default function EvenimentePage() {
           {evenimente.map(eveniment => (
             <Card
               key={eveniment.id}
-              className="mb-6 overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm"
+              className="mb-6 overflow-hidden   border-2 shadow-sm border-red-600"
             >
               <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
                 <div className="h-10 w-10 mr-3 ">
@@ -259,7 +261,7 @@ export default function EvenimentePage() {
 
               {eveniment.link && (
                 <CardFooter className="p-4 pt-0">
-                  <Link href={eveniment.link} passHref>
+                  <Link href={eveniment.link} passHref target="_blank">
                     <Button variant="outline" className="w-full">
                       Mai multe detalii <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

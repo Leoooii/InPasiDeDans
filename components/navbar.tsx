@@ -380,20 +380,7 @@ function MobileNav({
             </div>
           )}
         </div>
-        <Link
-          href="/program"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-        >
-          Program
-        </Link>
-        <Link
-          href="/tarife"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-        >
-          Tarife
-        </Link>
+
         {/* Am eliminat link-ul către galerie */}
         <div>
           <button
@@ -457,6 +444,20 @@ function MobileNav({
             </div>
           )}
         </div>
+        <Link
+          href="/program"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+        >
+          Program
+        </Link>
+        <Link
+          href="/tarife"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+        >
+          Tarife
+        </Link>
         <Link
           href="/contact"
           onClick={() => setIsOpen(false)}

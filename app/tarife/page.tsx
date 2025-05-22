@@ -138,14 +138,14 @@ export default function Tarife() {
           </h1>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
-          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
+          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-purple-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
               <CardTitle>Pachet 4 ședințe</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">640 Lei</div>
             </CardHeader>
           </Card>
-          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
+          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-purple-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
               <CardTitle>Pachet 6 ședințe</CardTitle>
 
@@ -153,13 +153,13 @@ export default function Tarife() {
             </CardHeader>
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-t-lg">
+            <CardHeader className="bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Pachet 8 ședințe</CardTitle>
 
               <div className="mt-4 text-4xl font-bold">1120 Lei</div>
             </CardHeader>
           </Card>
-          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
+          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-purple-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
               <CardTitle>Plata la ședință</CardTitle>
               {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
