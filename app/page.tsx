@@ -43,7 +43,7 @@ export default function Home() {
             <h1 className="text-3xl md:text-6xl font-bold mb-6">
               "Dansul este puțină nebunie care ne face tuturor mult bine!"
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            <p className="text-lg md:text-2xl mb-8 max-w-3xl mx-auto">
               Învățăm și pe cei mici, și pe cei mari să danseze din 2009, într-o
               atmosferă plăcută și relaxantă.
             </p>
@@ -52,7 +52,7 @@ export default function Home() {
                 size="sm"
                 className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-800 text-lg "
               >
-                Înscrie-te acum
+                Înscrie-te
               </Button>
             </Link>
           </div>
