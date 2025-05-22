@@ -30,6 +30,21 @@ export default function Excursii() {
   const [pastExcursii, setPastExcursii] = useState<Excursie[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Funcție pentru a extrage anul din data excursiei
+  const extractYear = (dateString: string): number => {
+    // Încercăm să extragem ultimele 4 caractere și să le convertim în număr
+    const yearStr = dateString.trim().slice(-4);
+    const year = Number.parseInt(yearStr, 10);
+
+    // Verificăm dacă avem un an valid
+    if (!isNaN(year) && year >= 1900 && year <= 2100) {
+      return year;
+    }
+
+    // Dacă nu putem extrage anul, returnăm 0 (va fi la sfârșitul listei)
+    return 0;
+  };
+
   // Încărcăm excursiile din Firebase
   useEffect(() => {
     const loadExcursii = async () => {
@@ -48,8 +63,19 @@ export default function Excursii() {
         // Sortăm excursiile viitoare după data creării (cele mai recente primele)
         upcoming.sort((a, b) => b.createdAt - a.createdAt);
 
-        // Sortăm excursiile trecute după data creării (cele mai recente primele)
-        past.sort((a, b) => b.createdAt - a.createdAt);
+        // Sortăm excursiile trecute după anul din data excursiei (cele mai recente primele)
+        past.sort((a, b) => {
+          const yearA = extractYear(a.eventDate);
+          const yearB = extractYear(b.eventDate);
+
+          // Sortare descrescătoare după an
+          if (yearA !== yearB) {
+            return yearB - yearA;
+          }
+
+          // Dacă anii sunt egali, sortăm după data creării
+          return b.createdAt - a.createdAt;
+        });
 
         setUpcomingExcursii(upcoming);
         setPastExcursii(past);

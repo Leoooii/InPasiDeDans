@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Map } from 'lucide-react';
+import { Music } from 'lucide-react';
 // Adăugăm importul pentru CreditCard
 import {
   Loader2,
@@ -89,7 +90,8 @@ export default function AdminLayout({
             !isActive('/admin/prezenta') &&
             !isActive('/admin/abonamente') &&
             !isActive('/admin/evenimente') &&
-            !isActive('/admin/excursii')
+            !isActive('/admin/excursii') &&
+            !isActive('/admin/petreceri')
               ? 'default'
               : 'ghost'
           }
@@ -151,6 +153,15 @@ export default function AdminLayout({
         >
           <Map className="h-4 w-4 mr-2" />
           Excursii
+        </Button>
+      </Link>
+      <Link href="/admin/petreceri" onClick={onClick}>
+        <Button
+          variant={isActive('/admin/petreceri') ? 'default' : 'ghost'}
+          className="w-full justify-start"
+        >
+          <Music className="h-4 w-4 mr-2" />
+          Petreceri
         </Button>
       </Link>
       {/* Am eliminat link-ul către galerie */}

@@ -1,15 +1,107 @@
 'use client';
-import { Calendar, Clock, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import ImageSkeleton from '@/components/image-skeleton';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from './head';
+import { Calendar, Clock, MapPin, Loader2 } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import GrupeInFormare from '@/components/grupe-in-formare';
-import { link } from 'fs';
+
+// Definim interfața pentru petrecere
+interface Petrecere {
+  id: string;
+  title: string;
+  date: string;
+  time?: string;
+  location?: string;
+  description?: string;
+  facebookLink: string;
+  imageUrl: string;
+  isUpcoming: boolean;
+  badge?: string;
+  createdAt: number;
+}
 
 export default function Petreceri() {
+  const [upcomingPetreceri, setUpcomingPetreceri] = useState<Petrecere[]>([]);
+  const [pastPetreceri, setPastPetreceri] = useState<Petrecere[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Funcție pentru a extrage anul din data petrecerii
+  const extractYear = (dateString: string): number => {
+    // Încercăm să extragem ultimele 4 caractere și să le convertim în număr
+    const yearStr = dateString.trim().slice(-4);
+    const year = Number.parseInt(yearStr, 10);
+
+    // Verificăm dacă avem un an valid
+    if (!isNaN(year) && year >= 1900 && year <= 2100) {
+      return year;
+    }
+
+    // Dacă nu putem extrage anul, returnăm 0 (va fi la sfârșitul listei)
+    return 0;
+  };
+
+  // Încărcăm petrecerile din Firebase
+  useEffect(() => {
+    const loadPetreceri = async () => {
+      try {
+        const petreceriCollection = collection(db, 'petreceri');
+        const petreceriSnapshot = await getDocs(petreceriCollection);
+        const petreceriList = petreceriSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Petrecere[];
+
+        // Separăm petrecerile viitoare de cele trecute
+        const upcoming = petreceriList.filter(p => p.isUpcoming);
+        const past = petreceriList.filter(p => !p.isUpcoming);
+
+        // Sortăm petrecerile viitoare după data creării (cele mai recente primele)
+        upcoming.sort((a, b) => b.createdAt - a.createdAt);
+
+        // Sortăm petrecerile trecute după anul din data petrecerii (cele mai recente primele)
+        past.sort((a, b) => {
+          const yearA = extractYear(a.date);
+          const yearB = extractYear(b.date);
+
+          // Sortare descrescătoare după an
+          if (yearA !== yearB) {
+            return yearB - yearA;
+          }
+
+          // Dacă anii sunt egali, sortăm după data creării
+          return b.createdAt - a.createdAt;
+        });
+
+        setUpcomingPetreceri(upcoming);
+        setPastPetreceri(past);
+      } catch (error) {
+        console.error('Eroare la încărcarea petrecerilor:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPetreceri();
+  }, []);
+
+  // Afișăm un indicator de încărcare
+  if (isLoading) {
+    return (
+      <div className="container py-12 flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 animate-spin mx-auto text-red-600" />
+          <p className="mt-4 text-gray-500">Se încarcă petrecerile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Codul vechi comentat
+  /*
   const petreceri = [
     {
       id: 1,
@@ -124,10 +216,10 @@ export default function Petreceri() {
       link: 'https://www.facebook.com/events/s/sweet-sixteen-dance-party/1133229731941991/?rdid=qbzLyfSrg5DaLCDA&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18kT43fFDx%2F#',
     },
   ];
+  */
 
   return (
     <div className="container py-12">
-      <Head />
       <div className="space-y-6 ">
         <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
           <h1 className="text-3xl md:text-3xl font-extrabold tracking-tight ">
@@ -151,87 +243,99 @@ export default function Petreceri() {
           </a>
         </div>
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {urmatoarelePetreceri.map(petrecere => (
-              <Link href={petrecere.link} key={petrecere.id} target="_blank">
+        {upcomingPetreceri.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {upcomingPetreceri.map(petrecere => (
+                <Link
+                  href={petrecere.facebookLink}
+                  key={petrecere.id}
+                  target="_blank"
+                >
+                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600">
+                    <div className="relative h-60 w-full overflow-hidden">
+                      <Image
+                        src={petrecere.imageUrl || '/placeholder.svg'}
+                        alt={petrecere.title}
+                        fill
+                        className="object-cover hover:scale-125 transition-transform duration-300"
+                      />
+                      {petrecere.badge && (
+                        <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          {petrecere.badge}
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-bold mb-2">
+                        {petrecere.title}
+                      </h3>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center text-gray-500">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          <span>{petrecere.date}</span>
+                        </div>
+                        {petrecere.time && (
+                          <div className="flex items-center text-gray-500">
+                            <Clock className="w-4 h-4 mr-2" />
+                            <span>{petrecere.time}</span>
+                          </div>
+                        )}
+                        {petrecere.location && (
+                          <div className="flex items-center text-gray-500">
+                            <div>
+                              <MapPin className="w-4 h-4 mr-2" />
+                            </div>
+                            <span>{petrecere.location}</span>
+                          </div>
+                        )}
+                      </div>
+                      {petrecere.description && (
+                        <p className="text-gray-500 text-sm mb-4">
+                          {petrecere.description}
+                        </p>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {pastPetreceri.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">
+              Galerie de la petrecerile anterioare
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4" id="galerie">
+              {pastPetreceri.map(petrecere => (
                 <Card
                   key={petrecere.id}
                   className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
                 >
                   <div className="relative h-60 w-full overflow-hidden">
                     <Image
-                      src={petrecere.image}
+                      src={petrecere.imageUrl || '/placeholder.svg'}
                       alt={petrecere.title}
                       fill
                       className="object-cover hover:scale-125 transition-transform duration-300"
                     />
-                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      {petrecere.badge}
-                    </div>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-2">
-                      {petrecere.title}
-                    </h3>
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-gray-500">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        <span>{petrecere.date}</span>
-                      </div>
-                      <div className="flex items-center text-gray-500">
-                        <Clock className="w-4 h-4 mr-2" />
-                        <span>{petrecere.time}</span>
-                      </div>
-                      <div className="flex items-center text-gray-500">
-                        <div>
-                          {' '}
-                          <MapPin className="w-4 h-4 mr-2" />
-                        </div>
-                        <span>{petrecere.location}</span>
-                      </div>
-                    </div>
-                    <p className="text-gray-500 text-sm mb-4">
-                      {petrecere.description}
-                    </p>
+                    <Link href={petrecere.facebookLink} target="_blank">
+                      <h3 className="text-xl font-bold mb-2">
+                        {petrecere.title}
+                      </h3>
+                      <h3>{petrecere.date}</h3>
+                    </Link>
                   </CardContent>
                 </Card>
-              </Link>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">
-            Galerie de la petrecerile anterioare
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4" id="galerie">
-            {petreceri.map(petrecere => (
-              <Card
-                key={petrecere.id}
-                className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
-              >
-                <div className="relative h-60 w-full overflow-hidden">
-                  <Image
-                    src={`/images/petreceri/${petrecere.image}?height=800&width=600`}
-                    alt={petrecere.title}
-                    fill
-                    className="object-cover hover:scale-125 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <Link href={petrecere.link} target="_blank">
-                    <h3 className="text-xl font-bold mb-2">
-                      {petrecere.title}
-                    </h3>
-                    <h3>{petrecere.date}</h3>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        )}
       </div>
       <GrupeInFormare />
     </div>
