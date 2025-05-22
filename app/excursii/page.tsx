@@ -1,12 +1,82 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Calendar, MapPin, Users } from 'lucide-react';
+import Link from 'next/link';
+import { Calendar, MapPin, Users, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import Link from 'next/link';
-import Head from './head';
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import GrupeInFormare from '@/components/grupe-in-formare';
 
+// Definim interfața pentru excursie
+interface Excursie {
+  id: string;
+  title: string;
+  date?: string;
+  eventDate: string;
+  location?: string;
+  spots?: string;
+  description?: string;
+  facebookLink?: string;
+  imageUrl: string;
+  isUpcoming: boolean;
+  createdAt: number;
+}
+
 export default function Excursii() {
+  const [upcomingExcursii, setUpcomingExcursii] = useState<Excursie[]>([]);
+  const [pastExcursii, setPastExcursii] = useState<Excursie[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Încărcăm excursiile din Firebase
+  useEffect(() => {
+    const loadExcursii = async () => {
+      try {
+        const excursiiCollection = collection(db, 'excursii');
+        const excursiiSnapshot = await getDocs(excursiiCollection);
+        const excursiiList = excursiiSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Excursie[];
+
+        // Separăm excursiile viitoare de cele trecute
+        const upcoming = excursiiList.filter(e => e.isUpcoming);
+        const past = excursiiList.filter(e => !e.isUpcoming);
+
+        // Sortăm excursiile viitoare după data creării (cele mai recente primele)
+        upcoming.sort((a, b) => b.createdAt - a.createdAt);
+
+        // Sortăm excursiile trecute după data creării (cele mai recente primele)
+        past.sort((a, b) => b.createdAt - a.createdAt);
+
+        setUpcomingExcursii(upcoming);
+        setPastExcursii(past);
+      } catch (error) {
+        console.error('Eroare la încărcarea excursiilor:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadExcursii();
+  }, []);
+
+  // Afișăm un indicator de încărcare
+  if (isLoading) {
+    return (
+      <div className="container py-12 flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 animate-spin mx-auto text-red-600" />
+          <p className="mt-4 text-gray-500">Se încarcă excursiile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Codul vechi comentat
+  /*
   const excursii = [
     {
       id: 1,
@@ -58,10 +128,10 @@ export default function Excursii() {
       image: 'sicilia.png',
     },
   ];
+  */
 
   return (
     <div className="container py-12">
-      <Head />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
@@ -91,7 +161,7 @@ export default function Excursii() {
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden">
             <Image
-              src="/images/excursie.png?height=800&width=600"
+              src="/images/excursie.png"
               alt="Excursie de dans"
               fill
               className="object-cover"
@@ -99,88 +169,90 @@ export default function Excursii() {
           </div>
         </div>
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Următoarele excursii</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="overflow-hidden">
-              <div className="relative h-60 w-full overflow-hidden">
-                <Image
-                  src="/images/mahmudia.png?height=400&width=600"
-                  alt="Excursie Maramureș"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">
-                  Mahmudia, Delta Dunării
-                </h3>
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-gray-500">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <span>5-7 Septembrie 2025</span>
+        {upcomingExcursii.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">Următoarele excursii</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {upcomingExcursii.map(excursie => (
+                <Card key={excursie.id} className="overflow-hidden">
+                  <div className="relative h-60 w-full overflow-hidden">
+                    <Image
+                      src={excursie.imageUrl || '/placeholder.svg'}
+                      alt={excursie.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                  <div className="flex items-center text-gray-500">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    <span> Mahmudia, Delta Dunării</span>
-                  </div>
-                  <div className="flex items-center text-gray-500">
-                    <Users className="w-4 h-4 mr-2" />
-                    <span>77 locuri</span>
-                  </div>
-                </div>
-                <p className="text-gray-500 text-sm mb-4 overflow-y-scroll h-32">
-                  Hai în Deltă cu prietenii si colegii de la dans! În weekend-ul
-                  5-7 septembrie 2025, invităm cursanții școlii într-o excursie
-                  în Delta Dunarii (la Murighiol). Cazarea se va face în 2
-                  pensiuni: - Pensiunea Belvedere - Pensiunea Rio Divino
-                  Pensiunile sunt la o distanță de 300m, una de cealaltă. Preț:
-                  750 lei/persoana Include: - cazare 2 nopti (în camera
-                  dublă/triplă/cvadruplă/apartament) - mic dejun + cină (toate
-                  mesele se vor lua la pensiunea Belvedere) - petrecere
-                  vineri+sambătă - acces piscina Optional, contra cost, putem
-                  face excursii cu barca pe Dunare. Deplasarea se va face cu
-                  mașinile personale (până acolo se poate ajunge cu mașina, nu
-                  este nevoie de transfer pe apă). Înscrierea (pentru cursanții
-                  actuali ai școlii) se face prin achitarea unui avans de 150
-                  lei, până pe 16 martie 2025 (primul venit, primul servit), iar
-                  restul de 600 lei, până pe 1 august 2025.
-                </p>
-                <Link href="https://www.facebook.com/share/1AXAvy3SJx/">
-                  <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                    Detalii și înscriere
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{excursie.title}</h3>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center text-gray-500">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span>{excursie.eventDate}</span>
+                      </div>
+                      {excursie.location && (
+                        <div className="flex items-center text-gray-500">
+                          <MapPin className="w-4 h-4 mr-2" />
+                          <span>{excursie.location}</span>
+                        </div>
+                      )}
+                      {excursie.spots && (
+                        <div className="flex items-center text-gray-500">
+                          <Users className="w-4 h-4 mr-2" />
+                          <span>{excursie.spots}</span>
+                        </div>
+                      )}
+                    </div>
+                    {excursie.description && (
+                      <p className="text-gray-500 text-sm mb-4 overflow-y-auto max-h-32">
+                        {excursie.description}
+                      </p>
+                    )}
+                    {excursie.facebookLink && (
+                      <Link href={excursie.facebookLink} target="_blank">
+                        <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+                          Detalii și înscriere
+                        </Button>
+                      </Link>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">Excursii anterioare</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            {excursii.map(excursie => (
-              <Link href={excursie.link} key={excursie.id} target="_blank">
-                <div className="relative h-60 rounded-lg overflow-hidden group">
-                  <Image
-                    src={`/images/excursii/${excursie.image}?height=400&width=600`}
-                    alt="Excursie Argentina"
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-125"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                    <div className="p-4 text-white">
-                      <h3 className="font-bold">{excursie.title}</h3>
-                      <p className="text-sm">{excursie.date}</p>
+        {pastExcursii.length > 0 && (
+          <div className="mt-12 space-y-6">
+            <h2 className="text-2xl font-bold">Excursii anterioare</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {pastExcursii.map(excursie => (
+                <Link
+                  href={excursie.facebookLink || '#'}
+                  key={excursie.id}
+                  target={excursie.facebookLink ? '_blank' : '_self'}
+                >
+                  <div className="relative h-60 rounded-lg overflow-hidden group">
+                    <Image
+                      src={excursie.imageUrl || '/placeholder.svg'}
+                      alt={excursie.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-125"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                      <div className="p-4 text-white">
+                        <h3 className="font-bold">{excursie.title}</h3>
+                        <p className="text-sm">{excursie.eventDate}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      <GrupeInFormare/>
+      <GrupeInFormare />
     </div>
   );
 }
