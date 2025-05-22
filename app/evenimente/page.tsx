@@ -171,9 +171,7 @@ export default function EvenimentePage() {
 
   return (
     <div className="container py-16 px-4 md:px-0">
-      <h1 className="text-4xl font-bold mb-12 text-center">
-        Cele mai noi evenimente
-      </h1>
+      <h1 className="text-4xl font-bold mb-12 text-center">Noutăți</h1>
 
       {evenimente.length === 0 ? (
         <div className="text-center py-12">
