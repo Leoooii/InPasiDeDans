@@ -38,7 +38,7 @@ export default function Program() {
                   <ScheduleItem
                     time="18:30 - 19:45"
                     course="Latino și societate (Intermediari 1)"
-                    instructor="MIriam"
+                    instructor="Miriam"
                     room="Sala 3"
                   />
                   <ScheduleItem
