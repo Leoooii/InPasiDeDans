@@ -122,6 +122,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/api/') ||
     pathname.includes('.') ||
+    pathname.startsWith("/admin") || // Ignoră toate rutele admin
     pathname.startsWith('/admin/api/')
   ) {
     const response = NextResponse.next();
