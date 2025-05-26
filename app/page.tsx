@@ -27,14 +27,6 @@ export default function Home() {
       <section className="relative h-[75vh] overflow-hidden">
         <div className="absolute inset-0">
           <div className="relative w-full h-full bg-orange-600">
-            {/* <Image
-              src="/images/gif/pc-gif2.gif"
-              alt="Școala de dans"
-              fill
-              priority
-              sizes="100vw"
-              style={{ objectFit: 'cover' }}
-            /> */}
             <GifWrapperClient />
           </div>
         </div>

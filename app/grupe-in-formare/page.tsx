@@ -191,16 +191,7 @@ export default function GrupeInFormarePage() {
                       </div>
                     </div>
                   </CardContent>
-                  {/* <CardContent className="md:w-1/2">
-                    <div className="relative md:h-[24rem] w-full  overflow-hidden rounded-md">
-                      <Image
-                        src={`/images/${grupa.instructor}.png?height=800&width=400`}
-                        alt={grupa.instructor}
-                        fill
-                        className="object-contain hidden md:block"
-                      />
-                    </div>
-                  </CardContent> */}
+                 
                 </div>
               </div>
               <CardFooter>
@@ -218,7 +209,7 @@ export default function GrupeInFormarePage() {
           ))}
         </div>
       )}
-      {/* <Button onClick={()=>{showToast("Nu s-au putut încărca grupele în formare", "error")}}>buton test</Button> */}
+   
     </div>
   );
 }

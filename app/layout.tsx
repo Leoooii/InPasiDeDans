@@ -7,8 +7,6 @@ import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import { SimpleToastProvider } from '@/components/simple-toast-provider';
 const inter = Inter({ subsets: ['latin'] });
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {

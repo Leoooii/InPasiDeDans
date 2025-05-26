@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserCircleIcon, UserX2Icon } from 'lucide-react';

@@ -3,7 +3,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
+  
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -29,7 +29,7 @@ export default function Tarife() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-              {/* <div className="text-center text-sm font-medium uppercase tracking-wider mb-2">Cel mai popular</div> */}
+              
               <CardTitle>Abonament 8</CardTitle>
               <CardDescription className="text-white/90">
                 Valabil 4 săptămâni
@@ -47,23 +47,16 @@ export default function Tarife() {
                   <span>Acces la o singură grupă</span>
                 </li>
 
-                {/* <li className="flex items-center">
-                  <Check className="mr-2 h-4 w-4 text-green-500" />
-                  <span>Reducere 10% la workshop-uri</span>
-                </li> */}
+               
               </ul>
             </CardContent>
-            {/* <CardFooter>
-              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Alege acest abonament
-              </Button>
-            </CardFooter> */}
+           
           </Card>
 
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Abonament 16</CardTitle>
-              {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
+             
               <CardDescription className=" text-white/90">
                 Valabil 4 săptămâni
               </CardDescription>
@@ -83,16 +76,12 @@ export default function Tarife() {
                 </li>
               </ul>
             </CardContent>
-            {/* <CardFooter>
-              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Alege acest abonament
-              </Button>
-            </CardFooter> */}
+          
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Abonament Full Pass</CardTitle>
-              {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
+              
               <CardDescription className=" text-white/90">
                 Valabil 4 săptămâni
               </CardDescription>
@@ -108,11 +97,7 @@ export default function Tarife() {
                 </li>
               </ul>
             </CardContent>
-            {/* <CardFooter>
-              <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                Alege acest abonament
-              </Button>
-            </CardFooter> */}
+            
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
@@ -162,7 +147,7 @@ export default function Tarife() {
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-purple-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
               <CardTitle>Plata la ședință</CardTitle>
-              {/* <CardDescription>Pentru pasionații de dans</CardDescription> */}
+           
 
               <div className="mt-4 text-4xl font-bold">180 Lei</div>
             </CardHeader>

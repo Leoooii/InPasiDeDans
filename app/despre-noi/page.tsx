@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Clock, MapPin, Phone, Mail, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import ImageSkeleton from '@/components/image-skeleton';
 import Image from 'next/image';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';

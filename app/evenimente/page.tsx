@@ -7,9 +7,6 @@ import {
   Loader2,
   Calendar,
   ArrowRight,
-  MessageCircle,
-  ThumbsUp,
-  Share2,
 } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import {
@@ -24,7 +21,7 @@ import {
 } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 
 type Eveniment = {
   id: string;
@@ -240,22 +237,7 @@ export default function EvenimentePage() {
                 )}
               </CardContent>
 
-              {/* <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex justify-between">
-                  <Button variant="ghost" size="sm" className="flex-1">
-                    <ThumbsUp className="h-4 w-4 mr-2" />
-                    Îmi place
-                  </Button>
-                  <Button variant="ghost" size="sm" className="flex-1">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Comentează
-                  </Button>
-                  <Button variant="ghost" size="sm" className="flex-1">
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Distribuie
-                  </Button>
-                </div>
-              </div> */}
+              
 
               {eveniment.link && (
                 <CardFooter className="p-4 pt-0">

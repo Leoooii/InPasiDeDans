@@ -21,11 +21,9 @@ export default function Program() {
           <TabsList className="grid grid-cols-1 sm:grid-cols-4 h-auto">
             <TabsTrigger value="luni și miercuri">Luni și Miercuri</TabsTrigger>
             <TabsTrigger value="marti și joi">Marți și Joi</TabsTrigger>
-            {/* <TabsTrigger value="miercuri">Miercuri</TabsTrigger> */}
-            {/* <TabsTrigger value="joi">Joi</TabsTrigger> */}
             <TabsTrigger value="vineri">Vineri</TabsTrigger>
             <TabsTrigger value="sambata">Sâmbătă</TabsTrigger>
-            {/* <TabsTrigger value="duminica">Duminică</TabsTrigger> */}
+            
           </TabsList>
 
           <TabsContent value="luni și miercuri" className="mt-6">
