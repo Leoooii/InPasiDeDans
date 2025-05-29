@@ -10,10 +10,12 @@ import ScrollDownArrows from '@/components/ScrollDownArrows';
 import EvenimentePage from './evenimente/page';
 import GrupeInFormarePage from './grupe-in-formare/page';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
+import Head from './head';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen ">
+      <Head />
       <CookieConsent />
 
       <div style={{ display: 'none' }}>

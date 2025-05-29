@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -16,6 +15,7 @@ export default function Tarife() {
   return (
     <div className="container py-12">
       <Head />
+
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
@@ -29,7 +29,6 @@ export default function Tarife() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-              
               <CardTitle>Abonament 8</CardTitle>
               <CardDescription className="text-white/90">
                 Valabil 4 săptămâni
@@ -46,17 +45,14 @@ export default function Tarife() {
                   <Check className="mr-2 h-4 w-4 text-green-500" />
                   <span>Acces la o singură grupă</span>
                 </li>
-
-               
               </ul>
             </CardContent>
-           
           </Card>
 
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Abonament 16</CardTitle>
-             
+
               <CardDescription className=" text-white/90">
                 Valabil 4 săptămâni
               </CardDescription>
@@ -76,12 +72,11 @@ export default function Tarife() {
                 </li>
               </ul>
             </CardContent>
-          
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
               <CardTitle>Abonament Full Pass</CardTitle>
-              
+
               <CardDescription className=" text-white/90">
                 Valabil 4 săptămâni
               </CardDescription>
@@ -97,7 +92,6 @@ export default function Tarife() {
                 </li>
               </ul>
             </CardContent>
-            
           </Card>
           <Card className="flex flex-col border-red-600 shadow-lg ">
             <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
@@ -147,7 +141,6 @@ export default function Tarife() {
           <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-purple-600 to-orange-500">
             <CardHeader className=" text-white rounded-t-lg">
               <CardTitle>Plata la ședință</CardTitle>
-           
 
               <div className="mt-4 text-4xl font-bold">180 Lei</div>
             </CardHeader>
