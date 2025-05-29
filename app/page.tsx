@@ -9,6 +9,7 @@ import GrupeInFormare from '@/components/grupe-in-formare';
 import ScrollDownArrows from '@/components/ScrollDownArrows';
 import EvenimentePage from './evenimente/page';
 import GrupeInFormarePage from './grupe-in-formare/page';
+import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 
 export default function Home() {
   return (
@@ -114,7 +115,7 @@ export default function Home() {
         </div>
       </section>
       <section className=" bg-gradient-to-r from-red-600 to-orange-500 text-white ">
-        <GrupeInFormarePage />
+        <GrupeInFormareSection />
         <EvenimentePage />
       </section>
       <GrupeInFormare />

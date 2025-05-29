@@ -17,10 +17,8 @@ import { useRouter } from 'next/navigation';
 import { Calendar, Clock, Users } from 'lucide-react';
 import type { Grupa } from '@/app/admin/page';
 import { useSimpleToast } from '@/components/simple-toast-provider';
-import Head from './head';
-import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 
-export default function GrupeInFormarePage() {
+const GrupeInFormareSection = () => {
   const [grupe, setGrupe] = useState<Grupa[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -121,10 +119,6 @@ export default function GrupeInFormarePage() {
 
   return (
     <div className="container py-12">
-      <Head />
-      <h1 className="text-3xl font-bold mb-8 text-center">Grupe în formare</h1>
-      <GrupeInFormareSection />
-      {/* 
       {grupe.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-xl text-gray-500">
@@ -209,7 +203,8 @@ export default function GrupeInFormarePage() {
             </Card>
           ))}
         </div>
-      )} */}
+      )}
     </div>
   );
-}
+};
+export default GrupeInFormareSection;
