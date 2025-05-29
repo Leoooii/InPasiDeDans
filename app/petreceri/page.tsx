@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 import { Calendar, Clock, MapPin, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { db } from '@/lib/firebase';
@@ -31,16 +32,11 @@ export default function Petreceri() {
 
   // Funcție pentru a extrage anul din data petrecerii
   const extractYear = (dateString: string): number => {
-    // Încercăm să extragem ultimele 4 caractere și să le convertim în număr
     const yearStr = dateString.trim().slice(-4);
     const year = Number.parseInt(yearStr, 10);
-
-    // Verificăm dacă avem un an valid
     if (!isNaN(year) && year >= 1900 && year <= 2100) {
       return year;
     }
-
-    // Dacă nu putem extrage anul, returnăm 0 (va fi la sfârșitul listei)
     return 0;
   };
 
@@ -55,24 +51,16 @@ export default function Petreceri() {
           ...doc.data(),
         })) as Petrecere[];
 
-        // Separăm petrecerile viitoare de cele trecute
         const upcoming = petreceriList.filter(p => p.isUpcoming);
         const past = petreceriList.filter(p => !p.isUpcoming);
 
-        // Sortăm petrecerile viitoare după data creării (cele mai recente primele)
         upcoming.sort((a, b) => b.createdAt - a.createdAt);
-
-        // Sortăm petrecerile trecute după anul din data petrecerii (cele mai recente primele)
         past.sort((a, b) => {
           const yearA = extractYear(a.date);
           const yearB = extractYear(b.date);
-
-          // Sortare descrescătoare după an
           if (yearA !== yearB) {
             return yearB - yearA;
           }
-
-          // Dacă anii sunt egali, sortăm după data creării
           return b.createdAt - a.createdAt;
         });
 
@@ -88,7 +76,6 @@ export default function Petreceri() {
     loadPetreceri();
   }, []);
 
-  // Afișăm un indicator de încărcare
   if (isLoading) {
     return (
       <div className="container py-12 flex items-center justify-center min-h-[60vh]">
@@ -100,43 +87,192 @@ export default function Petreceri() {
     );
   }
 
-
   return (
-    <div className="container py-12">
-      <div className="space-y-6 ">
-        <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
-          <h1 className="text-3xl md:text-3xl font-extrabold tracking-tight ">
-            Petreceri În Pași de Dans
-          </h1>
-          <p className="text-lg text-gray-600 font-medium">
-            Participă la petrecerile noastre tematice și pune în practică ce ai
-            învățat!
-          </p>
-          <p className="text-gray-500 leading-relaxed">
-            Petrecerile tematice organizate de școala noastră sunt ocazii
-            perfecte pentru a practica ce ai învățat la cursuri, într-o
-            atmosferă relaxată și prietenoasă. Acestea sunt deschise atât
-            cursanților noștri, cât și prietenilor acestora.
-          </p>
-          <a
-            href="#galerie"
-            className="inline-block mt-4 px-6 py-2 bg-rose-600 text-white font-semibold rounded-md hover:bg-rose-700 transition-colors"
-          >
-            Vezi galeriile
-          </a>
-        </div>
+    <>
+      <Head>
+        <title>Petreceri & Social Dance | În Pași de Dans</title>
+        <meta
+          name="description"
+          content="Participă la petrecerile tematice de dans organizate de În Pași de Dans în București, Sector 5. Practică dansul într-o atmosferă relaxată!"
+        />
+        <meta
+          name="keywords"
+          content="petreceri dans București, social dance, evenimente dans, petreceri tematice, școală dans Sector 5"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://inpasidedans.ro/petreceri" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Petreceri & Social Dance | În Pași de Dans"
+        />
+        <meta
+          property="og:description"
+          content="Participă la petrecerile tematice de dans organizate de În Pași de Dans în București, Sector 5. Practică dansul într-o atmosferă relaxată!"
+        />
+        <meta property="og:url" content="https://inpasidedans.ro/petreceri" />
+        <meta property="og:site_name" content="În Pași de Dans" />
+        <meta
+          property="og:image"
+          content="https://inpasidedans.ro/images/petreceri.png"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Petreceri de Dans" />
+        <meta property="og:locale" content="ro_RO" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Petreceri & Social Dance | În Pași de Dans"
+        />
+        <meta
+          name="twitter:description"
+          content="Participă la petrecerile tematice de dans organizate de În Pași de Dans în București, Sector 5. Practică dansul într-o atmosferă relaxată!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://inpasidedans.ro/images/petreceri.png"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Event',
+              name: 'Petreceri Tematice de Dans',
+              description:
+                'Petreceri tematice de dans organizate de În Pași de Dans în București, Sector 5, pentru cursanți și prieteni.',
+              url: 'https://inpasidedans.ro/petreceri',
+              location: {
+                '@type': 'Place',
+                name: 'În Pași de Dans',
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: 'Calea Rahovei 262',
+                  addressLocality: 'București',
+                  addressRegion: 'Sector 5',
+                  postalCode: '050897',
+                  addressCountry: 'RO',
+                },
+              },
+              organizer: {
+                '@type': 'Organization',
+                name: 'În Pași de Dans',
+                url: 'https://inpasidedans.ro',
+              },
+              eventAttendanceMode:
+                'https://schema.org/OfflineEventAttendanceMode',
+              eventStatus: 'https://schema.org/EventScheduled',
+              startDate: '2025-05-29',
+              endDate: '2025-12-31',
+            }),
+          }}
+        />
+      </Head>
+      <div className="container py-12">
+        <div className="space-y-6 ">
+          <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
+            <h1 className="text-3xl md:text-3xl font-extrabold tracking-tight ">
+              Petreceri În Pași de Dans
+            </h1>
+            <p className="text-lg text-gray-600 font-medium">
+              Participă la petrecerile noastre tematice și pune în practică ce
+              ai învățat!
+            </p>
+            <p className="text-gray-500 leading-relaxed">
+              Petrecerile tematice organizate de școala noastră sunt ocazii
+              perfecte pentru a practica ce ai învățat la cursuri, într-o
+              atmosferă relaxată și prietenoasă. Acestea sunt deschise atât
+              cursanților noștri, cât și prietenilor acestora.
+            </p>
+            <a
+              href="#galerie"
+              className="inline-block mt-4 px-6 py-2 bg-rose-600 text-white font-semibold rounded-md hover:bg-rose-700 transition-colors"
+            >
+              Vezi galeriile
+            </a>
+          </div>
 
-        {upcomingPetreceri.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {upcomingPetreceri.map(petrecere => (
-                <Link
-                  href={petrecere.facebookLink}
-                  key={petrecere.id}
-                  target="_blank"
-                >
-                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600">
+          {upcomingPetreceri.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {upcomingPetreceri.map(petrecere => (
+                  <Link
+                    href={petrecere.facebookLink}
+                    key={petrecere.id}
+                    target="_blank"
+                  >
+                    <Card
+                      className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
+                      aria-label={`Petrecere: ${petrecere.title} pe ${petrecere.date}`}
+                    >
+                      <div className="relative h-60 w-full overflow-hidden">
+                        <Image
+                          src={petrecere.imageUrl || '/placeholder.svg'}
+                          alt={petrecere.title}
+                          fill
+                          className="object-cover hover:scale-125 transition-transform duration-300"
+                        />
+                        {petrecere.badge && (
+                          <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            {petrecere.badge}
+                          </div>
+                        )}
+                      </div>
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold mb-2">
+                          {petrecere.title}
+                        </h3>
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center text-gray-500">
+                            <Calendar className="w-4 h-4 mr-2" />
+                            <span>{petrecere.date}</span>
+                          </div>
+                          {petrecere.time && (
+                            <div className="flex items-center text-gray-500">
+                              <Clock className="w-4 h-4 mr-2" />
+                              <span>{petrecere.time}</span>
+                            </div>
+                          )}
+                          {petrecere.location && (
+                            <div className="flex items-center text-gray-500">
+                              <div>
+                                <MapPin className="w-4 h-4 mr-2" />
+                              </div>
+                              <span>{petrecere.location}</span>
+                            </div>
+                          )}
+                        </div>
+                        {petrecere.description && (
+                          <p className="text-gray-500 text-sm mb-4">
+                            {petrecere.description}
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {pastPetreceri.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-6">
+                Galerie de la petrecerile anterioare
+              </h2>
+              <div
+                className="grid grid-cols-2 md:grid-cols-3 gap-4"
+                id="galerie"
+              >
+                {pastPetreceri.map(petrecere => (
+                  <Card
+                    key={petrecere.id}
+                    className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
+                    aria-label={`Petrecere trecută: ${petrecere.title} pe ${petrecere.date}`}
+                  >
                     <div className="relative h-60 w-full overflow-hidden">
                       <Image
                         src={petrecere.imageUrl || '/placeholder.svg'}
@@ -144,83 +280,23 @@ export default function Petreceri() {
                         fill
                         className="object-cover hover:scale-125 transition-transform duration-300"
                       />
-                      {petrecere.badge && (
-                        <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                          {petrecere.badge}
-                        </div>
-                      )}
                     </div>
                     <CardContent className="p-6">
-                      <h3 className="text-xl font-bold mb-2">
-                        {petrecere.title}
-                      </h3>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex items-center text-gray-500">
-                          <Calendar className="w-4 h-4 mr-2" />
-                          <span>{petrecere.date}</span>
-                        </div>
-                        {petrecere.time && (
-                          <div className="flex items-center text-gray-500">
-                            <Clock className="w-4 h-4 mr-2" />
-                            <span>{petrecere.time}</span>
-                          </div>
-                        )}
-                        {petrecere.location && (
-                          <div className="flex items-center text-gray-500">
-                            <div>
-                              <MapPin className="w-4 h-4 mr-2" />
-                            </div>
-                            <span>{petrecere.location}</span>
-                          </div>
-                        )}
-                      </div>
-                      {petrecere.description && (
-                        <p className="text-gray-500 text-sm mb-4">
-                          {petrecere.description}
-                        </p>
-                      )}
+                      <Link href={petrecere.facebookLink} target="_blank">
+                        <h3 className="text-xl font-bold mb-2">
+                          {petrecere.title}
+                        </h3>
+                        <h3>{petrecere.date}</h3>
+                      </Link>
                     </CardContent>
                   </Card>
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-
-        {pastPetreceri.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">
-              Galerie de la petrecerile anterioare
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4" id="galerie">
-              {pastPetreceri.map(petrecere => (
-                <Card
-                  key={petrecere.id}
-                  className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
-                >
-                  <div className="relative h-60 w-full overflow-hidden">
-                    <Image
-                      src={petrecere.imageUrl || '/placeholder.svg'}
-                      alt={petrecere.title}
-                      fill
-                      className="object-cover hover:scale-125 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <Link href={petrecere.facebookLink} target="_blank">
-                      <h3 className="text-xl font-bold mb-2">
-                        {petrecere.title}
-                      </h3>
-                      <h3>{petrecere.date}</h3>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
+          )}
+        </div>
+        <GrupeInFormare />
       </div>
-      <GrupeInFormare />
-    </div>
+    </>
   );
 }
