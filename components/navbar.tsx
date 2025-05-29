@@ -1,13 +1,10 @@
 'use client';
 
-import React from 'react';
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -23,18 +20,13 @@ import {
   SheetContent,
   SheetTrigger,
   SheetTitle,
-} from '@/components/ui/sheet';
+} from '@/components/ui/sheet'; // Înlocuiește 'antd' cu biblioteca corectă dacă folosești altă componentă
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-
-// Adaugă importul pentru ThemeToggle
-import ThemeToggle from '@/components/theme-toggle';
-
-// Adăugăm importurile pentru icoanele de social media
 import { Facebook, Instagram } from 'lucide-react';
 
-// Adăugăm un component pentru TikTok (care nu există în Lucide)
+// Component pentru TikTok
 const TikTokIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +40,7 @@ const TikTokIcon = () => (
     strokeLinejoin="round"
     className="h-6 w-6"
   >
+    <title>Icoană TikTok</title>
     <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
     <path d="M15 8h.01"></path>
     <path d="M12 2v7a4 4 0 0 0 4 4h1"></path>
@@ -63,7 +56,6 @@ export default function Navbar() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
-      // Verificăm dacă utilizatorul este admin (are email-ul admin@gmail.com)
       setIsAdmin(currentUser?.email === 'admin@gmail.com');
     });
 
@@ -82,31 +74,34 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="w-full border-b bg-gray-900">
-        <div className="container flex h-10 items-center max-w-full px-4 md:px-6 ">
-          <div className="w-1/4 flex items-center justify-center space-x-4 ">
+        <div className="container flex h-10 items-center max-w-full px-4 md:px-6">
+          <div className="w-1/4 flex items-center space-x-4">
             <a
               href="https://www.facebook.com/scoaladedansinpasidedans"
+              title="Urmărește-ne pe Facebook"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-600  transition-colors"
+              className="text-gray-600 hover:text-blue-600 transition-colors"
               aria-label="Facebook"
             >
               <Facebook className="h-6 w-6" />
             </a>
             <a
               href="https://www.instagram.com/inpasidedans/"
+              title="Urmărește-ne pe Instagram"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-pink-600  transition-colors"
+              className="text-gray-600 hover:text-pink-600 transition-colors"
               aria-label="Instagram"
             >
               <Instagram className="h-6 w-6" />
             </a>
             <a
               href="https://www.tiktok.com/@in.pasi.de.dans"
+              title="Urmărește-ne pe TikTok"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600  hover:text-white transition-colors "
+              className="text-gray-600 hover:text-white transition-colors"
               aria-label="TikTok"
             >
               <TikTokIcon />
@@ -120,7 +115,8 @@ export default function Navbar() {
           <div className="relative h-16 w-[200px]">
             <Image
               src="/images/logo.png"
-              alt="În Pași de Dans"
+              alt="Logo În Pași de Dans"
+              title="Acasă - În Pași de Dans"
               fill
               className="object-contain object-left"
               priority
@@ -130,7 +126,6 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-center">
           <NavigationMenu>
             <NavigationMenuList className="flex flex-wrap justify-center">
-              {/* Adăugăm Grupe în formare ca primă opțiune */}
               <NavigationMenuItem>
                 <Link href="/grupe-in-formare" legacyBehavior passHref>
                   <NavigationMenuLink
@@ -138,6 +133,7 @@ export default function Navbar() {
                       navigationMenuTriggerStyle(),
                       'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce'
                     )}
+                    title="Grupe Noi Cursuri de Dans"
                   >
                     Grupe în formare
                   </NavigationMenuLink>
@@ -154,6 +150,7 @@ export default function Navbar() {
                         key={item.title}
                         title={item.title}
                         href={item.href}
+                        className="hover:text-red-600"
                       >
                         {item.description}
                       </ListItem>
@@ -168,6 +165,7 @@ export default function Navbar() {
                       navigationMenuTriggerStyle(),
                       'hover:text-red-600 transition-colors cursor-pointer'
                     )}
+                    title="Program Cursuri de Dans"
                   >
                     Program
                   </NavigationMenuLink>
@@ -180,12 +178,12 @@ export default function Navbar() {
                       navigationMenuTriggerStyle(),
                       'hover:text-red-600 transition-colors cursor-pointer'
                     )}
+                    title="Tarife Cursuri de Dans"
                   >
                     Tarife
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              {/* Am eliminat link-ul către galerie */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
                   Despre noi
@@ -197,6 +195,7 @@ export default function Navbar() {
                         key={item.title}
                         title={item.title}
                         href={item.href}
+                        className="hover:text-red-600"
                       >
                         {item.description}
                       </ListItem>
@@ -215,6 +214,7 @@ export default function Navbar() {
                         key={item.title}
                         title={item.title}
                         href={item.href}
+                        className="hover:text-red-600"
                       >
                         {item.description}
                       </ListItem>
@@ -229,6 +229,7 @@ export default function Navbar() {
                       navigationMenuTriggerStyle(),
                       'hover:text-red-600 transition-colors cursor-pointer'
                     )}
+                    title="Contact Școala de Dans"
                   >
                     Contact
                   </NavigationMenuLink>
@@ -238,12 +239,10 @@ export default function Navbar() {
           </NavigationMenu>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
-          {/* <ThemeToggle />/ */}
-
+        <div className="ml-auto flex items-center gap-2"> {/* <ThemeToggle />/ */}
           {user ? (
             <div className="flex items-center gap-2">
-              <Link href={isAdmin ? '/admin' : '/cont'}>
+              <Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
                 <Button variant="outline" className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   <span className="hidden sm:inline">
@@ -260,14 +259,16 @@ export default function Navbar() {
               </Button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              {/* <Link href="/autentificare">
-                <Button variant="outline" className="hidden sm:flex">
-                  Autentificare
-                </Button>
-              </Link> */}
+            <div className="flex items-center gap-2">{/* <Link href="/autentificare">
+              <Button variant="outline" className="hidden sm:flex">
+                Autentificare
+              </Button>
+            </Link> */}
               <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 hidden sm:flex">
+                <Button
+                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 hidden sm:flex"
+                  title="Înscrie-te la Cursuri de Dans"
+                >
                   <span className="sm:inline">Înscrie-te</span>
                 </Button>
               </Link>
@@ -332,11 +333,12 @@ function MobileNav({
         href="/"
         className="flex items-center gap-1"
         onClick={() => setIsOpen(false)}
+        title="Acasă - În Pași de Dans"
       >
         <div className="relative h-14 w-[180px]">
           <Image
             src="/images/logo.png"
-            alt="În Pași de Dans"
+            alt="Logo În Pași de Dans"
             fill
             className="object-contain object-left"
             priority
@@ -344,11 +346,11 @@ function MobileNav({
         </div>
       </Link>
       <div className="grid gap-3">
-        {/* Adăugăm Grupe în formare ca primă opțiune */}
         <Link
           href="/grupe-in-formare"
           onClick={() => setIsOpen(false)}
-          className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md animate-bounce"
+          className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md"
+          title="Grupe Noi Cursuri de Dans"
         >
           Grupe în formare
         </Link>
@@ -373,6 +375,7 @@ function MobileNav({
                   href={item.href}
                   onClick={() => setIsOpen(false)}
                   className="py-1 text-muted-foreground hover:text-foreground"
+                  title={item.title}
                 >
                   {item.title}
                 </Link>
@@ -380,14 +383,25 @@ function MobileNav({
             </div>
           )}
         </div>
-
-        {/* Am eliminat link-ul către galerie */}
+        <Link
+          href="/program"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Program Cursuri de Dans"
+        >
+          Program
+        </Link>
+        <Link
+          href="/tarife"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Tarife Cursuri de Dans"
+        >
+          Tarife
+        </Link>
         <div>
           <button
-            onClick={e => {
-              e.preventDefault();
-              setOpenDespre(!openDespre);
-            }}
+            onClick={() => setOpenDespre(!openDespre)}
             className="flex w-full items-center justify-between py-2 font-medium"
           >
             Despre noi
@@ -406,6 +420,7 @@ function MobileNav({
                   href={item.href}
                   onClick={() => setIsOpen(false)}
                   className="py-1 text-muted-foreground hover:text-foreground"
+                  title={item.title}
                 >
                   {item.title}
                 </Link>
@@ -415,13 +430,13 @@ function MobileNav({
         </div>
         <div>
           <button
-            onClick={e => {
+             onClick={e => {
               e.preventDefault();
               setOpenActivitati(!openActivitati);
             }}
             className="flex w-full items-center justify-between py-2 font-medium"
           >
-            Activitati
+            Activități
             <ChevronDown
               className={cn(
                 'h-4 w-4 transition-transform',
@@ -437,6 +452,7 @@ function MobileNav({
                   href={item.href}
                   onClick={() => setIsOpen(false)}
                   className="py-1 text-muted-foreground hover:text-foreground"
+                  title={item.title}
                 >
                   {item.title}
                 </Link>
@@ -445,33 +461,21 @@ function MobileNav({
           )}
         </div>
         <Link
-          href="/program"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-        >
-          Program
-        </Link>
-        <Link
-          href="/tarife"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-        >
-          Tarife
-        </Link>
-        <Link
           href="/contact"
           onClick={() => setIsOpen(false)}
           className="py-2 font-medium"
+          title="Contact Școala de Dans"
         >
           Contact
         </Link>
-
         {user ? (
           <>
             <Link
               href={isAdmin ? '/admin' : '/cont'}
               onClick={() => setIsOpen(false)}
               className="py-2 font-medium"
+              title={isAdmin ? 'Panou Admin' : 'Contul meu'}
+              rel="nofollow"
             >
               {isAdmin ? 'Panou Admin' : 'Contul meu'}
             </Link>
@@ -486,22 +490,14 @@ function MobileNav({
             </button>
           </>
         ) : (
-          <>
-            {/* <Link
-              href="/autentificare"
-              onClick={() => setIsOpen(false)}
-              className="py-2 font-medium"
-            >
-              Autentificare
-            </Link> */}
-            <Link
-              href="/inscriere"
-              onClick={() => setIsOpen(false)}
-              className="py-2 font-medium"
-            >
-              Înscrie-te
-            </Link>
-          </>
+          <Link
+            href="/inscriere"
+            onClick={() => setIsOpen(false)}
+            className="py-2 font-medium"
+            title="Înscrie-te la Cursuri de Dans"
+          >
+            Înscrie-te
+          </Link>
         )}
       </div>
     </div>
@@ -521,6 +517,7 @@ const ListItem = React.forwardRef<
             'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className
           )}
+          title={title}
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
@@ -552,7 +549,7 @@ const dansuriPredate = [
     description: 'Învață dansuri tradiționale românești și internaționale.',
   },
   {
-    title: 'Lectii private',
+    title: 'Lecții private',
     href: '/lectii-private',
     description:
       'Dansul mirilor, dansuri latino și de societate, dansuri populare etc.',
@@ -573,22 +570,21 @@ const despreNoi = [
       'Cunoaște echipa noastră de instructori profesioniști cu experiență.',
   },
 ];
+
 const activitati = [
   {
     title: 'Excursii',
     href: '/excursii',
-    description: 'Excursii pentru cursanții nostri, în țară și în afară',
+    description: 'Excursii pentru cursanții noștri, în țară și în afară',
   },
-
   {
-    title: 'Petreceri ',
+    title: 'Petreceri',
     href: '/petreceri',
     description: 'Petreceri memorabile cu mult dans și voie bună',
   },
-
   {
     title: 'Evenimente',
     href: '/evenimente',
-    description: 'Concursuri de dans, festivaluri si congrese(sau colocvii).',
+    description: 'Concursuri de dans, festivaluri și congrese.',
   },
 ];
