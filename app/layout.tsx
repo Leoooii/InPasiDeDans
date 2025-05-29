@@ -12,7 +12,7 @@ import { Analytics } from '@vercel/analytics/next';
 export const metadata: Metadata = {
   title: 'În Pași de Dans | Școală de dans',
   description:
-    'Școală de dans cu tradiție din 2009; organizăm cursuri pentru adulți și copii (dansuri latino,  dansuri de societate,  dansuri populare, lecții private pentru miri).',
+    'Școală de dans cu tradiție din 2009; organizăm cursuri pentru adulți și copii (dansuri latino, dansuri de societate, dansuri populare, lecții private pentru miri).',
   generator: 'v0.dev',
   icons: '/images/favicon.ico',
 };
@@ -24,8 +24,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro" suppressHydrationWarning>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-
       <body className={inter.className}>
         <Analytics />
         <ThemeProvider
@@ -36,7 +34,7 @@ export default function RootLayout({
         >
           <SimpleToastProvider>
             <Navbar />
-            <main className="min-h-screen ">{children}</main>
+            <main className="min-h-screen">{children}</main>
             <Footer />
           </SimpleToastProvider>
         </ThemeProvider>
@@ -44,5 +42,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-import './globals.css';
