@@ -3,11 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import {
-  Loader2,
-  Calendar,
-  ArrowRight,
-} from 'lucide-react';
+import { Loader2, Calendar, ArrowRight } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import {
   collection,
@@ -21,7 +17,6 @@ import {
 } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
-
 
 type Eveniment = {
   id: string;
@@ -220,7 +215,10 @@ export default function EvenimentePage() {
                 )}
 
                 {eveniment.description && (
-                  <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  <p
+                    className="text-gray-700 dark:text-gray-300 mb-4"
+                    style={{ whiteSpace: 'pre-wrap' }}
+                  >
                     {eveniment.description}
                   </p>
                 )}
@@ -236,8 +234,6 @@ export default function EvenimentePage() {
                   </div>
                 )}
               </CardContent>
-
-              
 
               {eveniment.link && (
                 <CardFooter className="p-4 pt-0">

@@ -95,7 +95,7 @@ export default function EventForm({
     try {
       const eventData: any = {
         title: title.trim() || null,
-        description: description.trim() || null,
+        description: description || null,
         link: link.trim() || null,
         imageUrl: imageUrl.trim() || null,
       };

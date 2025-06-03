@@ -10,6 +10,7 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import EvenimentForm from '@/components/admin/eveniment-form';
 import EvenimenteList from '@/components/admin/evenimente-list';
 
+
 export type Eveniment = {
   id: string;
   date: Date | string;
