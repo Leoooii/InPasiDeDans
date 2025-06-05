@@ -239,7 +239,9 @@ export default function Navbar() {
           </NavigationMenu>
         </div>
 
-        <div className="ml-auto flex items-center gap-2"> {/* <ThemeToggle />/ */}
+        <div className="ml-auto flex items-center gap-2">
+          {' '}
+          {/* <ThemeToggle />/ */}
           {user ? (
             <div className="flex items-center gap-2">
               <Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
@@ -259,7 +261,8 @@ export default function Navbar() {
               </Button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">{/* <Link href="/autentificare">
+            <div className="flex items-center gap-2">
+              {/* <Link href="/autentificare">
               <Button variant="outline" className="hidden sm:flex">
                 Autentificare
               </Button>
@@ -430,7 +433,7 @@ function MobileNav({
         </div>
         <div>
           <button
-             onClick={e => {
+            onClick={e => {
               e.preventDefault();
               setOpenActivitati(!openActivitati);
             }}
@@ -583,8 +586,8 @@ const activitati = [
     description: 'Petreceri memorabile cu mult dans și voie bună',
   },
   {
-    title: 'Evenimente',
-    href: '/evenimente',
+    title: 'Noutăți',
+    href: '/noutati',
     description: 'Concursuri de dans, festivaluri și congrese.',
   },
 ];

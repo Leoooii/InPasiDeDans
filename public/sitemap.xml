@@ -97,12 +97,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  </url>
+   <url>
+    <loc>https://inpasidedans.ro/noutati</loc>
+    <lastmod>2025-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://inpasidedans.ro/evenimente</loc>
     <lastmod>2025-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
   <url>
     <loc>https://inpasidedans.ro/autentificare</loc>
     <lastmod>2025-05-29</lastmod>

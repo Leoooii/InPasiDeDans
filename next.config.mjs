@@ -26,6 +26,11 @@ const nextConfig = {
     return [
       // Redirects pentru pagini care și-au schimbat numele
       {
+        source: '/evenimente',
+        destination: '/noutati',
+        permanent: true,
+      },
+      {
         source: '/testimoniale',
         destination: '/lectii-private',
         permanent: true,
