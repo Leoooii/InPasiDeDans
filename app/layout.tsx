@@ -12,7 +12,7 @@ import { Analytics } from '@vercel/analytics/next';
 export const metadata: Metadata = {
   title: 'În Pași de Dans | Școală de dans',
   description:
-    'Școală de dans cu tradiție din 2009; organizăm cursuri pentru adulți și copii (dansuri latino, dansuri de societate, dansuri populare, lecții private pentru miri).',
+    'Școală de dans cu tradiție din 2009; organizăm cursuri de dans pentru adulți și copii (dansuri latino, dansuri de societate, dansuri populare, lecții private pentru miri).',
   generator: 'v0.dev',
   icons: '/images/favicon.ico',
 };

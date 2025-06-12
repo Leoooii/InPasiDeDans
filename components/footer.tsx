@@ -23,8 +23,8 @@ export default function Footer() {
               className="h-auto"
             />
             <p className="text-sm">
-              Învățăm Bucureștiul sa danseze din 2009! Oferim cursuri pentru
-              adulți și copii într-o atmosferă plăcută și relaxantă.
+              Învățăm Bucureștiul sa danseze din 2009! Oferim cursuri de dans
+              pentru adulți și copii într-o atmosferă plăcută și relaxantă.
             </p>
             <div className="flex space-x-4">
               <Link

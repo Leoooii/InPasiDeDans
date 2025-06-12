@@ -98,7 +98,7 @@ export default function Program() {
               Program cursuri
             </h1>
             <p className="text-gray-500 dark:text-gray-400">
-              Descoperă orarul complet al cursurilor de dans pentru adulți și
+              Verifică orarul complet al cursurilor de dans pentru adulți și
               copii la În Pași de Dans, București.
             </p>
           </div>
