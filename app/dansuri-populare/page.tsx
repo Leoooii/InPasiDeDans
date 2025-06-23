@@ -87,6 +87,8 @@ const regiuniDansuri = [
       'Trei păzește de la Dolj',
       'Basarabeanca',
       'Boereasca',
+      'Țepușul de la Bistreț',
+      'Hora boierească de la Săpata'
     ],
   },
   {
