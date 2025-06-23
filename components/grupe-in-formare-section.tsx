@@ -98,6 +98,11 @@ const GrupeInFormareSection = () => {
 
   const formatProgram = (str: string) => {
     const parti = str.split(', ');
+    if (parti.length < 2) {
+      console.log('Program1:', parti[0]);
+      return `${parti[0]}  `;
+    }
+    console.log('Program2:', str);
     return `${parti[0]} și ${parti[1]} ${parti[2]}`;
   };
 
