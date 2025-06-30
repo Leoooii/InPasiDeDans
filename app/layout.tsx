@@ -9,13 +9,7 @@ import { SimpleToastProvider } from '@/components/simple-toast-provider';
 const inter = Inter({ subsets: ['latin'] });
 import { Analytics } from '@vercel/analytics/next';
 
-export const metadata: Metadata = {
-  title: 'În Pași de Dans | Școală de dans',
-  description:
-    'Școală de dans cu tradiție din 2009; organizăm cursuri de dans pentru adulți și copii (dansuri latino, dansuri de societate, dansuri populare, lecții private pentru miri).',
-  generator: 'v0.dev',
-  icons: '/images/favicon.ico',
-};
+import Script from 'next/script';
 
 export default function RootLayout({
   children,
@@ -25,6 +19,41 @@ export default function RootLayout({
   return (
     <html lang="ro" suppressHydrationWarning>
       <body className={inter.className}>
+        <Script
+          id="schema"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'DanceSchool',
+              name: 'În Pași de Dans',
+              description:
+                'Școală de dans cu tradiție din 2009, oferind cursuri de dansuri latino, de societate, populare și lecții private în București.',
+              url: 'https://inpasidedans.ro/',
+              logo: 'https://inpasidedans.ro/images/logo.png',
+              sameAs: [
+                'https://www.facebook.com/scoaladedansinpasidedans',
+                'https://www.instagram.com/inpasidedans/',
+                'https://www.tiktok.com/@in.pasi.de.dans',
+              ],
+              contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+40722675126',
+                contactType: 'customer service',
+                areaServed: 'RO',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Calea Rahovei 262',
+                addressLocality: 'București',
+                addressRegion: 'Sector 5',
+                postalCode: '050897',
+                addressCountry: 'RO',
+              },
+            }),
+          }}
+        />
         <Analytics />
         <ThemeProvider
           attribute="class"

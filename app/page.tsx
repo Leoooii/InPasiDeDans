@@ -10,83 +10,41 @@ import ScrollDownArrows from '@/components/ScrollDownArrows';
 import EvenimentePage from './evenimente/page';
 import GrupeInFormarePage from './grupe-in-formare/page';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
+export const metadata = {
+  title: 'Cursuri de Dans în București | În Pași de Dans',
+  description:
+    'Școală de dans în București cu cursuri pentru adulți și copii. Dansuri latino, societate, populare și lecții private.',
+  alternates: {
+    canonical: 'https://inpasidedans.ro/',
+  },
+  openGraph: {
+    title: 'Cursuri de Dans în București | În Pași de Dans',
+    description:
+      'Școală de dans în București cu cursuri pentru adulți și copii.',
+    url: 'https://inpasidedans.ro/',
+    siteName: 'În Pași de Dans',
+    images: [
+      {
+        url: 'https://inpasidedans.ro/images/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'În Pași de Dans',
+      },
+    ],
+    locale: 'ro_RO',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cursuri de Dans în București | În Pași de Dans',
+    description:
+      'Școală de dans în București cu cursuri pentru adulți și copii.',
+    images: ['https://inpasidedans.ro/images/logo.png'],
+  },
+};
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Acasă | În Pași de Dans</title>
-        <meta
-          name="description"
-          content="Descoperă cursuri de dans pentru toate vârstele și nivelurile, în inima Bucureștiului. Te așteptăm să dansezi cu noi!"
-        />
-        <meta
-          name="keywords"
-          content="cursuri de dans București, școală de dans, dans copii, dans adulți, dansuri populare"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://inpasidedans.ro/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Acasă | În Pași de Dans" />
-        <meta
-          property="og:description"
-          content="Descoperă cursuri de dans pentru toate vârstele și nivelurile, în inima Bucureștiului. Te așteptăm să dansezi cu noi!"
-        />
-        <meta property="og:url" content="https://inpasidedans.ro/" />
-        <meta property="og:site_name" content="În Pași de Dans" />
-        <meta
-          property="og:image"
-          content="https://inpasidedans.ro/images/logo.png"
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="În Pași de Dans" />
-        <meta property="og:locale" content="ro_RO" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Acasă | În Pași de Dans" />
-        <meta
-          name="twitter:description"
-          content="Descoperă cursuri de dans pentru toate vârstele și nivelurile, în inima Bucureștiului. Te așteptăm să dansezi cu noi!"
-        />
-        <meta
-          name="twitter:image"
-          content="https://inpasidedans.ro/images/logo.png"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'DanceSchool',
-              name: 'În Pași de Dans',
-              description:
-                'Școală de dans cu tradiție din 2009, oferind cursuri de dansuri latino, de societate, populare și lecții private în București.',
-              url: 'https://inpasidedans.ro/',
-              logo: 'https://inpasidedans.ro/images/logo.png',
-              sameAs: [
-                'https://www.facebook.com/scoaladedansinpasidedans',
-                'https://www.instagram.com/inpasidedans/',
-                'https://www.tiktok.com/@in.pasi.de.dans',
-              ],
-              contactPoint: {
-                '@type': 'ContactPoint',
-                telephone: '+40722675126', // Înlocuiește cu numărul real
-                contactType: 'customer service',
-                areaServed: 'RO',
-              },
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Calea Rahovei 262', // Înlocuiește cu adresa reală
-                addressLocality: 'București',
-                addressRegion: 'Sector 5',
-                postalCode: '050897',
-                addressCountry: 'RO',
-              },
-            }),
-          }}
-        />
-      </Head>
       <div className="flex flex-col min-h-screen">
         <CookieConsent />
         <div style={{ display: 'none' }}>
@@ -127,7 +85,7 @@ export default function Home() {
           <ScrollDownArrows />
           <div className="container px-10 sm:px-20">
             <h2 className="text-3xl font-bold mb-12 text-center text-white">
-              CURSURI DE DANS
+              Cursuri de Dans în București
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ShineButton
