@@ -53,6 +53,30 @@ export default function CursuriDansCopii() {
               standard) și, ocazional, dansuri populare precum horă, alunelul,
               bătuta ursului, jiana etc.
             </h1>
+            <div className="space-y-4">
+              <p className="text-lg font-semibold">
+                La <span className="bold">În Pași de Dans</span>, primim cu
+                bucurie copii care au împlinit vârsta de 7 ani.
+              </p>
+              <div>
+                <p className="font-medium">Echipamentul recomandat:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    Îmbrăcăminte lejeră, care permite mișcarea: tricou, colanți
+                    sau pantaloni de trening;
+                  </li>
+                  <li>
+                    Încălțăminte adecvată pentru dans (pantofi de sală sau
+                    balerini flexibili);
+                  </li>
+                  <li>
+                    Pentru fetițe: părul prins bine (de preferat în coc sau
+                    coadă);
+                  </li>
+                  <li>Sticlă cu apă pentru hidratare.</li>
+                </ul>
+              </div>
+            </div>
             <div className="pt-4">
               <Link href="/inscriere">
                 <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
