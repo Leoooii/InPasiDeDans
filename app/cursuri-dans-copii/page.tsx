@@ -119,12 +119,12 @@ export default function CursuriDansCopii() {
                 </p>
                 <div className="flex justify-between">
                   <div className="text-sm text-gray-500">
-                    <p>Vineri</p>
-                    <p>18:30 - 19:30</p>
+                    <p>Marți</p>
+                    <p>17:30 - 18:30</p>
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Sâmbăta</p>
-                    <p>12:00 - 13:00</p>
+                    <p>Vineri</p>
+                    <p>18:30 - 19:30</p>
                   </div>
                 </div>
               </CardContent>
@@ -140,8 +140,8 @@ export default function CursuriDansCopii() {
                   concursuri de dans.
                 </p>
                 <div className="text-sm text-gray-500">
-                  <p>Sâmbăta</p>
-                  <p>11:00 - 12:00</p>
+                  <p>Joi</p>
+                  <p>17:30 - 18:30</p>
                 </div>
               </CardContent>
             </Card>

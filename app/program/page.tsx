@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
+import DanceLevels from '@/components/dance-levels';
 
 export const metadata: Metadata = {
   title: 'Program Cursuri | În Pași de Dans',
@@ -323,7 +324,7 @@ export default function Program() {
               </Card>
             </TabsContent>
           </Tabs>
-
+          <DanceLevels/>
           <div className="mt-12 bg-red-50 p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
               <h2 className="text-2xl font-bold dark:text-black">
