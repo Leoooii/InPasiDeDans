@@ -10,6 +10,7 @@ import ScrollDownArrows from '@/components/ScrollDownArrows';
 import EvenimentePage from './evenimente/page';
 import GrupeInFormarePage from './grupe-in-formare/page';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
+import NoutatiSection from '@/components/noutati-section';
 export const metadata = {
   title: 'Cursuri de Dans în București | În Pași de Dans',
   description:
@@ -143,7 +144,8 @@ export default function Home() {
         </section>
         <section className="bg-gradient-to-r from-red-600 to-orange-500 text-white">
           <GrupeInFormareSection />
-          <EvenimentePage />
+
+          <NoutatiSection itemsToShow={4} />
         </section>
         <GrupeInFormare />
       </div>
