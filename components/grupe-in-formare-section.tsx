@@ -101,6 +101,8 @@ const GrupeInFormareSection = () => {
     if (parti.length < 2) {
       console.log('Program1:', parti[0]);
       return `${parti[0]}  `;
+    } else if (parti.length === 2) {
+      return `${parti[0]} ${parti[1]} `;
     }
     console.log('Program2:', str);
     return `${parti[0]} și ${parti[1]} ${parti[2]}`;
