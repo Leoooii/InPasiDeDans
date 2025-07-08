@@ -13,17 +13,20 @@ import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Tarife | În Pași de Dans',
+  title: 'Tarife Cursuri Dans | În Pași de Dans',
   description:
-    'Descoperă tarifele pentru cursurile de dans pentru adulți, copii și lecții private la În Pași de Dans, București, Sector 5.',
+    'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
   keywords:
-    'tarife cursuri dans București, prețuri școala de dans, cursuri dans adulți, cursuri dans copii, lecții private dans',
+    'tarife cursuri dans, prețuri școală de dans, cursuri dans adulți, cursuri dans copii, lecții private dans',
   robots: 'index, follow',
+  alternates: {
+    canonical: 'https://inpasidedans.ro/tarife',
+  },
   openGraph: {
     type: 'website',
-    title: 'Tarife | În Pași de Dans',
+    title: 'Tarife Cursuri Dans | În Pași de Dans',
     description:
-      'Descoperă tarifele pentru cursurile de dans pentru adulți, copii și lecții private la În Pași de Dans, București, Sector 5.',
+      'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
     url: 'https://inpasidedans.ro/tarife',
     siteName: 'În Pași de Dans',
     images: [
@@ -38,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tarife | În Pași de Dans',
+    title: 'Tarife Cursuri Dans | În Pași de Dans',
     description:
-      'Descoperă tarifele pentru cursurile de dans pentru adulți, copii și lecții private la În Pași de Dans, București, Sector 5.',
+      'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
     images: ['https://inpasidedans.ro/images/tarife.png'],
   },
 };

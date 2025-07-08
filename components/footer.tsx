@@ -53,7 +53,7 @@ export default function Footer() {
 
           <div>
             <h3 className="text-white font-semibold mb-4 text-lg">
-              Cursuri de dans
+              Cursuri și activități
             </h3>
             <ul className="space-y-2">
               <li>
@@ -96,14 +96,14 @@ export default function Footer() {
                   Dansuri latino
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-lg">
-              Informații
-            </h3>
-            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/lectii-private"
+                  className="hover:text-white transition-colors"
+                >
+                  Lecții private
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/grupe-in-formare"
@@ -112,6 +112,37 @@ export default function Footer() {
                   Grupe în formare
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/evenimente"
+                  className="hover:text-white transition-colors"
+                >
+                  Evenimente
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/petreceri"
+                  className="hover:text-white transition-colors"
+                >
+                  Petreceri
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/excursii"
+                  className="hover:text-white transition-colors"
+                >
+                  Excursii
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold mb-4 text-lg">
+              Informații utile
+            </h3>
+            <ul className="space-y-2">
               <li>
                 <Link
                   href="/program"
@@ -128,14 +159,14 @@ export default function Footer() {
                   Tarife
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link
-                  href="/galerie"
+                  href="/noutati"
                   className="hover:text-white transition-colors"
                 >
-                  Galerie
+                  Noutăți
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link
                   href="/instructori"
@@ -144,11 +175,14 @@ export default function Footer() {
                   Instructori
                 </Link>
               </li>
-              {/* <li>
-                <Link href="/testimoniale" className="hover:text-white transition-colors">
-                  Testimoniale
+              <li>
+                <Link
+                  href="/inscriere"
+                  className="hover:text-white transition-colors"
+                >
+                  Înscriere
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link
                   href="/contact"
@@ -184,6 +218,8 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} În Pași de Dans. Toate drepturile
             rezervate.
+            <br />
+            Website realizat de Ilie Leonard Andrei.
           </p>
         </div>
       </div>

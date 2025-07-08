@@ -1,29 +1,45 @@
 export default function Head() {
   return (
     <>
-      <title>Instructorii Noștri | În Pași de Dans</title>
+      <title>Instructori Dans București | În Pași de Dans</title>
       <meta
         name="description"
-        content="Descoperă echipa noastră de instructori dedicați, cu experiență vastă în dansuri latino, de societate și populare."
+        content="Descoperă echipa noastră de instructori profesioniști, pasionați de dans și de predare."
       />
       <meta
         name="keywords"
-        content="instructori dans, școala de dans, dansuri latino, dansuri de societate, dansuri populare, lecții dans"
+        content="instructori dans, profesori dans, școală de dans București, echipă dans"
       />
+      <link rel="canonical" href="https://inpasidedans.ro/instructori" />
+      <meta name="robots" content="index, follow" />
       <meta
         property="og:title"
-        content="Instructorii Noștri | În Pași de Dans"
+        content="Instructori Dans București | În Pași de Dans"
       />
       <meta
         property="og:description"
-        content="Descoperă echipa noastră de instructori dedicați, cu experiență vastă în dansuri latino, de societate și populare."
+        content="Descoperă echipa noastră de instructori profesioniști, pasionați de dans și de predare."
       />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://inpasidedans.ro/instructori" />
       <meta
         property="og:image"
         content="https://inpasidedans.ro/images/logo.png"
       />
-      <meta property="og:type" content="website" />
-      <meta name="robots" content="index, follow" />
+      <meta property="og:image:alt" content="Logo În Pași de Dans" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta
+        name="twitter:title"
+        content="Instructori Dans București | În Pași de Dans"
+      />
+      <meta
+        name="twitter:description"
+        content="Descoperă echipa noastră de instructori profesioniști, pasionați de dans și de predare."
+      />
+      <meta
+        name="twitter:image"
+        content="https://inpasidedans.ro/images/logo.png"
+      />
     </>
   );
 }

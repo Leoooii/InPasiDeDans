@@ -8,17 +8,20 @@ import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
 
 export const metadata: Metadata = {
-  title: 'Program Cursuri | În Pași de Dans',
+  title: 'Program Cursuri Dans | În Pași de Dans',
   description:
-    'Consultă programul săptămânal al cursurilor de dans pentru adulți și copii la În Pași de Dans, București, Sector 5.',
+    'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
   keywords:
-    'program cursuri dans București, orar dans, cursuri dans adulți, cursuri dans copii, școală dans Sector 5',
+    'program cursuri dans, orar dans, cursuri dans adulți, cursuri dans copii, școală dans București',
   robots: 'index, follow',
+  alternates: {
+    canonical: 'https://inpasidedans.ro/program',
+  },
   openGraph: {
     type: 'website',
-    title: 'Program Cursuri | În Pași de Dans',
+    title: 'Program Cursuri Dans | În Pași de Dans',
     description:
-      'Consultă programul săptămânal al cursurilor de dans pentru adulți și copii la În Pași de Dans, București, Sector 5.',
+      'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
     url: 'https://inpasidedans.ro/program',
     siteName: 'În Pași de Dans',
     images: [
@@ -33,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Program Cursuri | În Pași de Dans',
+    title: 'Program Cursuri Dans | În Pași de Dans',
     description:
-      'Consultă programul săptămânal al cursurilor de dans pentru adulți și copii la În Pași de Dans, București, Sector 5.',
+      'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
     images: ['https://inpasidedans.ro/images/program.png'],
   },
 };
@@ -324,7 +327,7 @@ export default function Program() {
               </Card>
             </TabsContent>
           </Tabs>
-          <DanceLevels/>
+          <DanceLevels />
           <div className="mt-12 bg-red-50 p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
               <h2 className="text-2xl font-bold dark:text-black">
