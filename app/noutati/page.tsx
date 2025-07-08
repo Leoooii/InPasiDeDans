@@ -1,4 +1,12 @@
 import NoutatiSection from '@/components/noutati-section';
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
 export const metadata = {
   title: 'Noutăți și Evenimente | În Pași de Dans',
@@ -39,6 +47,17 @@ export const metadata = {
 export default function NoutatiPage() {
   return (
     <div className="container mx-auto py-16 px-4 md:px-0">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Acasă</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Noutăți</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <h1 className="text-4xl font-bold mb-6 text-center">
         Noutăți de la Școala de Dans În Pași de Dans
       </h1>
@@ -46,6 +65,29 @@ export default function NoutatiPage() {
         Află cele mai recente evenimente, cursuri și spectacole organizate de
         Școala de Dans În Pași de Dans. Fii la curent cu toate noutățile din
         lumea dansului și alătură-te comunității noastre pasionate!
+        <br />
+        <span className="block mt-4">
+          <a
+            href="/evenimente"
+            className="text-red-600 underline hover:text-orange-600"
+          >
+            Vezi toate evenimentele
+          </a>{' '}
+          ·
+          <a
+            href="/inscriere"
+            className="text-red-600 underline hover:text-orange-600 ml-2"
+          >
+            Înscrie-te la un curs
+          </a>{' '}
+          ·
+          <a
+            href="/contact"
+            className="text-red-600 underline hover:text-orange-600 ml-2"
+          >
+            Contactează-ne
+          </a>
+        </span>
       </p>
       <NoutatiSection />
     </div>

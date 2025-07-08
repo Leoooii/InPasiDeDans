@@ -4,19 +4,33 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 export default function CursuriDansAdulti() {
   return (
     <div className="container py-12">
       <Head />
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Acasă</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Cursuri dans adulți</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri de dans pentru adulți
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans pentru adulți</h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Descoperă pasiunea pentru dans într-un mediu prietenos și
-            profesionist. Vino să faci parte din comunitatea În Pași de Dans!
+            Descoperă pasiunea pentru dans într-un mediu prietenos și profesionist. Vino să faci parte din comunitatea În Pași de Dans!<br />
+            <span className="block mt-2">
+              <a href="/inscriere" className="text-red-600 underline hover:text-orange-600">Înscrie-te acum</a> ·
+              <a href="/program" className="text-red-600 underline hover:text-orange-600 ml-2">Vezi programul</a> ·
+              <a href="/tarife" className="text-red-600 underline hover:text-orange-600 ml-2">Tarife</a>
+            </span>
           </p>
         </div>
 

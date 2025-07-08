@@ -10,19 +10,33 @@ import {
 import Link from 'next/link';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 export default function CursuriDansCopii() {
   return (
     <div className="container py-12">
       <Head />
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Acasă</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Cursuri dans copii</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri de dans pentru copii
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans pentru copii</h1>
           <p className="text-gray-500 dark:text-gray-400">
-            Dezvoltă coordonarea, încrederea și pasiunea pentru dans de la
-            vârste fragede
+            Dezvoltă coordonarea, încrederea și pasiunea pentru dans de la vârste fragede.<br />
+            <span className="block mt-2">
+              <a href="/inscriere" className="text-red-600 underline hover:text-orange-600">Înscrie-ți copilul</a> ·
+              <a href="/program" className="text-red-600 underline hover:text-orange-600 ml-2">Vezi programul</a> ·
+              <a href="/tarife" className="text-red-600 underline hover:text-orange-600 ml-2">Tarife</a>
+            </span>
           </p>
         </div>
 
@@ -44,7 +58,7 @@ export default function CursuriDansCopii() {
               timp ce învață să lucreze în echipă și să-și exprime emoțiile.
             </p>
             <p>
-              La școala noastră, cursurile sunt adaptate pe grupe de vârstă și
+              La școala noastră, cursurile sunt adaptate pe grupe de vârsta și
               nivel, astfel încât fiecare copil să se simtă confortabil și să
               progreseze în ritmul său.
             </p>

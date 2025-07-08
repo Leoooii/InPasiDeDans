@@ -11,6 +11,9 @@ import EvenimentePage from './evenimente/page';
 import GrupeInFormarePage from './grupe-in-formare/page';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 import NoutatiSection from '@/components/noutati-section';
+import { PartyPopper } from 'lucide-react';
+import StickyMenu from '@/components/sticky-menu';
+
 export const metadata = {
   title: 'Cursuri de Dans în București | În Pași de Dans',
   description:
@@ -47,6 +50,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col min-h-screen">
+        <StickyMenu />
         <CookieConsent />
         <div style={{ display: 'none' }}>
           <Script
@@ -56,6 +60,7 @@ export default function Home() {
             defer
           />
         </div>
+
         <section className="relative h-[75vh] overflow-hidden">
           <div className="absolute inset-0">
             <div className="relative w-full h-full bg-orange-600">
@@ -82,7 +87,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="pb-16 pt-6 bg-gray-800">
+        <section id="cursuri" className="pb-16 pt-6 bg-gray-800">
           <ScrollDownArrows />
           <div className="container px-10 sm:px-20">
             <h2 className="text-3xl font-bold mb-12 text-center text-white">
@@ -122,7 +127,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white">
+        <section
+          id="grupe"
+          className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white"
+        >
           <div className="container text-center">
             <h2 className="text-3xl font-bold mb-6">
               Pregătit să începi călătoria ta în lumea dansului?
@@ -143,9 +151,19 @@ export default function Home() {
           </div>
         </section>
         <section className="bg-gradient-to-r from-red-600 to-orange-500 text-white">
-          <GrupeInFormareSection />
+          <div>
+            <GrupeInFormareSection />
+          </div>
 
-          <NoutatiSection itemsToShow={4} />
+          <div className="my-12 flex flex-col items-center gap-2">
+            <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80 mb-2" />
+            <PartyPopper className="h-10 w-10 text-white drop-shadow-lg" />
+            <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80 mt-2" />
+          </div>
+
+          <div id="noutati">
+            <NoutatiSection itemsToShow={4} />
+          </div>
         </section>
         <GrupeInFormare />
       </div>
