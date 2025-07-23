@@ -70,7 +70,7 @@ export default function Tarife() {
                 {
                   '@type': 'Offer',
                   name: 'Abonament 8',
-                  price: '230',
+                  price: '250',
                   priceCurrency: 'RON',
                   availability: 'https://schema.org/InStock',
                   url: 'https://inpasidedans.ro/tarife',
@@ -78,7 +78,7 @@ export default function Tarife() {
                 {
                   '@type': 'Offer',
                   name: 'Abonament 16',
-                  price: '320',
+                  price: '350',
                   priceCurrency: 'RON',
                   availability: 'https://schema.org/InStock',
                   url: 'https://inpasidedans.ro/tarife',
@@ -86,7 +86,7 @@ export default function Tarife() {
                 {
                   '@type': 'Offer',
                   name: 'Abonament Full Pass',
-                  price: '400',
+                  price: '420',
                   priceCurrency: 'RON',
                   availability: 'https://schema.org/InStock',
                   url: 'https://inpasidedans.ro/tarife',
@@ -127,7 +127,7 @@ export default function Tarife() {
                 <CardDescription className="text-white/90">
                   Valabil 4 săptămâni
                 </CardDescription>
-                <div className="mt-4 text-4xl font-bold">230 Lei</div>
+                <div className="mt-4 text-4xl font-bold">250 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
@@ -155,7 +155,7 @@ export default function Tarife() {
                 <CardDescription className="text-white/90">
                   Valabil 4 săptămâni
                 </CardDescription>
-                <div className="mt-4 text-4xl font-bold">320 Lei</div>
+                <div className="mt-4 text-4xl font-bold">350 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
@@ -183,7 +183,7 @@ export default function Tarife() {
                 <CardDescription className="text-white/90">
                   Valabil 4 săptămâni
                 </CardDescription>
-                <div className="mt-4 text-4xl font-bold">400 Lei</div>
+                <div className="mt-4 text-4xl font-bold">420 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
