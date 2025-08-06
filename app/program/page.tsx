@@ -15,18 +15,18 @@ export const metadata: Metadata = {
     'program cursuri dans, orar dans, cursuri dans adulți, cursuri dans copii, școală dans București',
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://inpasidedans.ro/program',
+    canonical: 'https://www.inpasidedans.ro/program',
   },
   openGraph: {
     type: 'website',
     title: 'Program Cursuri Dans | În Pași de Dans',
     description:
       'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
-    url: 'https://inpasidedans.ro/program',
+    url: 'https://www.inpasidedans.ro/program',
     siteName: 'În Pași de Dans',
     images: [
       {
-        url: 'https://inpasidedans.ro/images/program.png',
+        url: 'https://www.inpasidedans.ro/images/program.png',
         width: 1200,
         height: 630,
         alt: 'Program Cursuri de Dans',
@@ -144,7 +144,7 @@ export default function Program() {
                     />
                     <ScheduleItem
                       time="18:30 - 19:30"
-                      course="Salsa și bachata (Începători)"
+                      course="Salsa și bachata (Intermediari 1)"
                       instructor="Alexandra"
                       room="Sala 2"
                     />
@@ -216,7 +216,7 @@ export default function Program() {
                     />
                     <ScheduleItem
                       time="19:45 - 20:45"
-                      course="Dansuri populare (Începători)"
+                      course="Dansuri populare (Intermediari 1)"
                       instructor="Cătălina"
                       room="Sala 3"
                     />

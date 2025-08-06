@@ -17,10 +17,10 @@ export default function Head() {
         content="Vizualizează și gestionează informațiile contului tău."
       />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://inpasidedans.ro/cont" />
+      <meta property="og:url" content="https://www.inpasidedans.ro/cont" />
       <meta
         property="og:image"
-        content="https://inpasidedans.ro/images/logo.png"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
       <meta property="og:image:alt" content="Logo În Pași de Dans" />
 

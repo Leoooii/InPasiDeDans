@@ -21,7 +21,7 @@ export default function Head() {
       <meta property="og:image" content="/images/logo.png" />
       <meta
         property="og:url"
-        content="https://inpasidedans.ro/cursuri-dans-adulti"
+        content="https://www.inpasidedans.ro/cursuri-dans-adulti"
       />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="În Pași de Dans" />
@@ -30,7 +30,7 @@ export default function Head() {
       <meta name="author" content="Școala de dans În Pași de Dans" />
       <link
         rel="canonical"
-        href="https://inpasidedans.ro/cursuri-dans-adulti"
+        href="https://www.inpasidedans.ro/cursuri-dans-adulti"
       />
       <meta
         property="og:see_also"

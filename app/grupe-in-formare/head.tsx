@@ -18,14 +18,14 @@ export default function Head() {
       <meta property="og:image" content="/images/logo.png" />
       <meta
         property="og:url"
-        content="https://inpasidedans.ro/grupe-in-formare"
+        content="https://www.inpasidedans.ro/grupe-in-formare"
       />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="În Pași de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Școala de dans În Pași de Dans" />
-      <link rel="canonical" href="https://inpasidedans.ro/grupe-in-formare" />
+      <link rel="canonical" href="https://www.inpasidedans.ro/grupe-in-formare" />
       <meta
         property="og:see_also"
         content="https://www.instagram.com/inpasidedans/"

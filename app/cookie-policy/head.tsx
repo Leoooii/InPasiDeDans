@@ -12,7 +12,7 @@ export default function Head() {
         content="Aflați cum folosim cookie-urile pentru a vă oferi o experiență sigură și personalizată pe site."
       />
       <meta property="og:image" content="/images/logo.png" />
-      <meta property="og:url" content="https://inpasidedans.ro/politica-cookie-uri" />
+      <meta property="og:url" content="https://www.inpasidedans.ro/politica-cookie-uri" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="În Pași de Dans" />
       <meta name="robots" content="index, follow" />
@@ -22,7 +22,7 @@ export default function Head() {
 
       <meta property="og:locale" content="ro_RO" />
 
-      <link rel="canonical" href="https://inpasidedans.ro/politica-cookie-uri" />
+      <link rel="canonical" href="https://www.inpasidedans.ro/politica-cookie-uri" />
 
       {/* Rețele sociale */}
       <meta property="og:see_also" content="https://www.instagram.com/inpasidedans/" />

@@ -17,7 +17,7 @@ export default function Head() {
       />
       <meta
         property="og:image"
-        content="https://inpasidedans.ro/images/logo.png"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
       <meta property="og:type" content="website" />
       <meta name="robots" content="index, follow" />

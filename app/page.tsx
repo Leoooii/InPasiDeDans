@@ -19,17 +19,17 @@ export const metadata = {
   description:
     'Școală de dans în București cu cursuri pentru adulți și copii. Dansuri latino, societate, populare și lecții private.',
   alternates: {
-    canonical: 'https://inpasidedans.ro/',
+    canonical: 'https://www.inpasidedans.ro/',
   },
   openGraph: {
     title: 'Cursuri de Dans în București | În Pași de Dans',
     description:
       'Școală de dans în București cu cursuri pentru adulți și copii.',
-    url: 'https://inpasidedans.ro/',
+    url: 'https://www.inpasidedans.ro/',
     siteName: 'În Pași de Dans',
     images: [
       {
-        url: 'https://inpasidedans.ro/images/logo.png',
+        url: 'https://www.inpasidedans.ro/images/logo.png',
         width: 1200,
         height: 630,
         alt: 'În Pași de Dans',

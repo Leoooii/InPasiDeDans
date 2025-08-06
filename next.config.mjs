@@ -24,6 +24,18 @@ const nextConfig = {
   // Redirects pentru link-urile vechi
   redirects: async () => {
     return [
+      // Redirect permanent de la non-www la www pentru SEO
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'inpasidedans.ro',
+          },
+        ],
+        destination: 'https://www.inpasidedans.ro/:path*',
+        permanent: true,
+      },
       // Redirects pentru pagini care și-au schimbat numele
       {
         source: '/evenimente',

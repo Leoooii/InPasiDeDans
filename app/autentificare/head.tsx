@@ -17,8 +17,8 @@ export default function Head() {
         content="Autentifică-te pentru a accesa contul tău de dansator sau administrator."
       />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://inpasidedans.ro/autentificare" />
-      <meta property="og:image" content="https://inpasidedans.ro/images/logo.png" />
+      <meta property="og:url" content="https://www.inpasidedans.ro/autentificare" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:image:alt" content="Logo În Pași de Dans" />
 
       {/* Rețele sociale */}

@@ -101,7 +101,7 @@ export default function Petreceri() {
         />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://inpasidedans.ro/petreceri" />
+        <link rel="canonical" href="https://www.inpasidedans.ro/petreceri" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
@@ -111,11 +111,11 @@ export default function Petreceri() {
           property="og:description"
           content="Participă la petrecerile tematice de dans organizate de În Pași de Dans în București, Sector 5. Practică dansul într-o atmosferă relaxată!"
         />
-        <meta property="og:url" content="https://inpasidedans.ro/petreceri" />
+        <meta property="og:url" content="https://www.inpasidedans.ro/petreceri" />
         <meta property="og:site_name" content="În Pași de Dans" />
         <meta
           property="og:image"
-          content="https://inpasidedans.ro/images/petreceri.png"
+          content="https://www.inpasidedans.ro/images/petreceri.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -132,7 +132,7 @@ export default function Petreceri() {
         />
         <meta
           name="twitter:image"
-          content="https://inpasidedans.ro/images/petreceri.png"
+          content="https://www.inpasidedans.ro/images/petreceri.png"
         />
         <script
           type="application/ld+json"
@@ -143,7 +143,7 @@ export default function Petreceri() {
               name: 'Petreceri Tematice de Dans',
               description:
                 'Petreceri tematice de dans organizate de În Pași de Dans în București, Sector 5, pentru cursanți și prieteni.',
-              url: 'https://inpasidedans.ro/petreceri',
+              url: 'https://www.inpasidedans.ro/petreceri',
               location: {
                 '@type': 'Place',
                 name: 'În Pași de Dans',
@@ -159,7 +159,7 @@ export default function Petreceri() {
               organizer: {
                 '@type': 'Organization',
                 name: 'În Pași de Dans',
-                url: 'https://inpasidedans.ro',
+                url: 'https://www.inpasidedans.ro',
               },
               eventAttendanceMode:
                 'https://schema.org/OfflineEventAttendanceMode',

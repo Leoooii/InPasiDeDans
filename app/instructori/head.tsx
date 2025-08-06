@@ -10,7 +10,7 @@ export default function Head() {
         name="keywords"
         content="instructori dans, profesori dans, școală de dans București, echipă dans"
       />
-      <link rel="canonical" href="https://inpasidedans.ro/instructori" />
+      <link rel="canonical" href="https://www.inpasidedans.ro/instructori" />
       <meta name="robots" content="index, follow" />
       <meta
         property="og:title"
@@ -21,10 +21,10 @@ export default function Head() {
         content="Descoperă echipa noastră de instructori profesioniști, pasionați de dans și de predare."
       />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://inpasidedans.ro/instructori" />
+      <meta property="og:url" content="https://www.inpasidedans.ro/instructori" />
       <meta
         property="og:image"
-        content="https://inpasidedans.ro/images/logo.png"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
       <meta property="og:image:alt" content="Logo În Pași de Dans" />
       <meta name="twitter:card" content="summary_large_image" />
@@ -38,7 +38,7 @@ export default function Head() {
       />
       <meta
         name="twitter:image"
-        content="https://inpasidedans.ro/images/logo.png"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
     </>
   );

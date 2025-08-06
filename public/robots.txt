@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://inpasidedans.ro/sitemap.xml
+Sitemap: https://www.inpasidedans.ro/sitemap.xml

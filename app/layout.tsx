@@ -56,8 +56,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               name: 'În Pași de Dans',
               description:
                 'Școală de dans cu tradiție din 2009, oferind cursuri de dansuri latino, de societate, populare și lecții private în București.',
-              url: 'https://inpasidedans.ro/',
-              logo: 'https://inpasidedans.ro/images/logo.png',
+                      url: 'https://www.inpasidedans.ro/',
+        logo: 'https://www.inpasidedans.ro/images/logo.png',
               sameAs: [
                 'https://www.facebook.com/scoaladedansinpasidedans',
                 'https://www.instagram.com/inpasidedans/',

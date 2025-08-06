@@ -133,15 +133,15 @@ export default function Navbar() {
                       navigationMenuTriggerStyle(),
                       'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce'
                     )}
-                    title="Grupe Noi Cursuri de Dans"
+                    title="Grupe de dans în formare"
                   >
-                    Grupe în formare
+                    Grupe de dans în formare
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-                  Dansuri predate
+                  Cursuri dans adulți
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
@@ -157,6 +157,32 @@ export default function Navbar() {
                     ))}
                   </ul>
                 </NavigationMenuContent>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/lectii-private" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer'
+                    )}
+                    title="Dansul mirilor"
+                  >
+                    Dansul mirilor
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/grupe-in-formare" legacyBehavior passHref>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer'
+                    )}
+                    title="Cursuri dans copii"
+                  >
+                    Cursuri dans copii
+                  </NavigationMenuLink>
+                </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/program" legacyBehavior passHref>
@@ -386,6 +412,7 @@ function MobileNav({
             </div>
           )}
         </div>
+        
         <Link
           href="/program"
           onClick={() => setIsOpen(false)}
@@ -552,7 +579,7 @@ const dansuriPredate = [
     description: 'Învață dansuri tradiționale românești și internaționale.',
   },
   {
-    title: 'Lecții private',
+    title: 'Cursuri particulare de dans',
     href: '/lectii-private',
     description:
       'Dansul mirilor, dansuri latino și de societate, dansuri populare etc.',

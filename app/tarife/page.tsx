@@ -20,18 +20,18 @@ export const metadata: Metadata = {
     'tarife cursuri dans, prețuri școală de dans, cursuri dans adulți, cursuri dans copii, lecții private dans',
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://inpasidedans.ro/tarife',
+    canonical: 'https://www.inpasidedans.ro/tarife',
   },
   openGraph: {
     type: 'website',
     title: 'Tarife Cursuri Dans | În Pași de Dans',
     description:
       'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
-    url: 'https://inpasidedans.ro/tarife',
+    url: 'https://www.inpasidedans.ro/tarife',
     siteName: 'În Pași de Dans',
     images: [
       {
-        url: 'https://inpasidedans.ro/images/tarife.png',
+        url: 'https://www.inpasidedans.ro/images/tarife.png',
         width: 1200,
         height: 630,
         alt: 'Tarife Cursuri de Dans',

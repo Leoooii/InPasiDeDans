@@ -10,7 +10,7 @@ export default function Head() {
         name="keywords"
         content="lecții private dans, instructor privat dans, cursuri private dans București"
       />
-      <link rel="canonical" href="https://inpasidedans.ro/lectii-private" />
+      <link rel="canonical" href="https://www.inpasidedans.ro/lectii-private" />
       <meta name="robots" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
@@ -27,11 +27,11 @@ export default function Head() {
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content="https://inpasidedans.ro/lectii-private"
+        content="https://www.inpasidedans.ro/lectii-private"
       />
       <meta
         property="og:image"
-        content="https://inpasidedans.ro/images/meta/lectii-private.jpg"
+        content="https://www.inpasidedans.ro/images/meta/lectii-private.jpg"
       />
       <meta
         property="og:image:alt"
@@ -50,7 +50,7 @@ export default function Head() {
       />
       <meta
         name="twitter:image"
-        content="https://inpasidedans.ro/images/meta/lectii-private.jpg"
+        content="https://www.inpasidedans.ro/images/meta/lectii-private.jpg"
       />
     </>
   );
