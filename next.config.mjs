@@ -36,6 +36,30 @@ const nextConfig = {
         destination: 'https://www.inpasidedans.ro/:path*',
         permanent: true,
       },
+      // Redirect permanent de la http://inpasidedans.ro la https://www.inpasidedans.ro
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'http://inpasidedans.ro',
+          },
+        ],
+        destination: 'https://www.inpasidedans.ro/:path*',
+        permanent: true,
+      },
+      // Redirect permanent de la http://www.inpasidedans.ro la https://www.inpasidedans.ro
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'http://www.inpasidedans.ro',
+          },
+        ],
+        destination: 'https://www.inpasidedans.ro/:path*',
+        permanent: true,
+      },
       // Redirects pentru pagini care și-au schimbat numele
       {
         source: '/evenimente',

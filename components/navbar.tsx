@@ -172,7 +172,7 @@ export default function Navbar() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/grupe-in-formare" legacyBehavior passHref>
+                <Link href="/cursuri-dans-copii" legacyBehavior passHref>
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
@@ -412,7 +412,7 @@ function MobileNav({
             </div>
           )}
         </div>
-        
+
         <Link
           href="/program"
           onClick={() => setIsOpen(false)}
