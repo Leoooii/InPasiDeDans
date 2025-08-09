@@ -29,7 +29,7 @@ export default function CursuriDansCopii() {
       </Breadcrumb>
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans pentru copii</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans copii</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Dezvoltă coordonarea, încrederea și pasiunea pentru dans de la vârste fragede.<br />
             <span className="block mt-2">

@@ -23,7 +23,7 @@ export default function CursuriDansAdulti() {
       </Breadcrumb>
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans pentru adulți</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans adulți</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Descoperă pasiunea pentru dans într-un mediu prietenos și profesionist. Vino să faci parte din comunitatea În Pași de Dans!<br />
             <span className="block mt-2">

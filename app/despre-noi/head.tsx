@@ -1,10 +1,10 @@
 export default function Head() {
   return (
     <>
-      <title>Despre Noi | În Pași de Dans</title>
+      <title>Despre Scoala de dansuri In Pasi de Dans din Bucuresti</title>
       <meta
         name="description"
-        content="Află povestea noastră, misiunea școlii și valorile care ne ghidează."
+        content="Despre scoala de dansuri In Pasi de Dans din Bucuresti: experienta, pasiune si cursuri pentru toate varstele. Devino parte din comunitatea noastra!"
       />
       <meta
         name="keywords"

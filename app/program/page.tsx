@@ -8,9 +8,9 @@ import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
 
 export const metadata: Metadata = {
-  title: 'Program Cursuri Dans | În Pași de Dans',
+  title: 'Program Cursuri Dans Bucuresti: Sector 5| În Pași de Dans',
   description:
-    'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
+    'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
   keywords:
     'program cursuri dans, orar dans, cursuri dans adulți, cursuri dans copii, școală dans București',
   robots: 'index, follow',
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Program Cursuri Dans | În Pași de Dans',
+    title: 'Program Cursuri Dans Bucuresti: Sector 5| În Pași de Dans',
     description:
-      'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
+      'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
     url: 'https://www.inpasidedans.ro/program',
     siteName: 'În Pași de Dans',
     images: [
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Program Cursuri Dans | În Pași de Dans',
+    title: 'Program Cursuri Dans Bucuresti: Sector 5 | În Pași de Dans',
     description:
-      'Vezi programul actualizat al cursurilor de dans pentru toate grupele și nivelurile. Consultă orarul săptămânal pentru copii și adulți la În Pași de Dans, București.',
+      'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
     images: ['https://inpasidedans.ro/images/program.png'],
   },
 };
@@ -99,7 +99,7 @@ export default function Program() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">
-              Program cursuri
+            Program cursuri de dans din Bucuresti
             </h1>
             <p className="text-gray-500 dark:text-gray-400">
               Verifică orarul complet al cursurilor de dans pentru adulți și

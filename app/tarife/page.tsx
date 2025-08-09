@@ -13,9 +13,9 @@ import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Tarife Cursuri Dans | În Pași de Dans',
+  title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
   description:
-    'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
+    'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
   keywords:
     'tarife cursuri dans, prețuri școală de dans, cursuri dans adulți, cursuri dans copii, lecții private dans',
   robots: 'index, follow',
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Tarife Cursuri Dans | În Pași de Dans',
+    title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
     description:
-      'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
+      'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
     url: 'https://www.inpasidedans.ro/tarife',
     siteName: 'În Pași de Dans',
     images: [
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tarife Cursuri Dans | În Pași de Dans',
+    title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
     description:
-      'Consultă tarifele pentru cursurile de dans pentru copii, adulți și lecții private la În Pași de Dans, București. Alege abonamentul potrivit pentru tine!',
+      'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
     images: ['https://inpasidedans.ro/images/tarife.png'],
   },
 };
@@ -112,7 +112,7 @@ export default function Tarife() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">
-              Tarife cursuri adulți
+            Tarife cursuri de dans din Bucuresti
             </h1>
             <p className="text-gray-500 dark:text-gray-400">
               Alege abonamentul potrivit pentru cursurile de dans pentru adulți
@@ -221,9 +221,9 @@ export default function Tarife() {
           </div>
 
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h2 className="text-3xl font-bold tracking-tight">
               Tarife lecții private
-            </h1>
+            </h2>
             <p className="text-gray-500 dark:text-gray-400">
               Personalizează-ți experiența cu lecțiile private de dans.
             </p>
@@ -332,9 +332,9 @@ export default function Tarife() {
           </div>
 
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h2 className="text-3xl font-bold tracking-tight">
               Tarife cursuri copii
-            </h1>
+            </h2>
             <p className="text-gray-500 dark:text-gray-400">
               Tarife accesibile pentru cursurile de dans dedicate copiilor.
             </p>

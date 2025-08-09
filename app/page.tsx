@@ -15,14 +15,14 @@ import { PartyPopper } from 'lucide-react';
 import StickyMenu from '@/components/sticky-menu';
 
 export const metadata = {
-  title: 'Cursuri de Dans în București | În Pași de Dans',
+  title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 5 | In Pasi de Dans',
   description:
-    'Școală de dans în București cu cursuri pentru adulți și copii. Dansuri latino, societate, populare și lecții private.',
+    'Scoala de dans in Bucuresti - Descopera cursuri de dans pentru copii si adulti ✅ Invata dansuri latino, societate, populare si particulare intr-o atmosfera prietenoasa ✅ Inscrie-te acum!',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/',
   },
   openGraph: {
-    title: 'Cursuri de Dans în București | În Pași de Dans',
+    title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 5 | In Pasi de Dans',
     description:
       'Școală de dans în București cu cursuri pentru adulți și copii.',
     url: 'https://www.inpasidedans.ro/',
@@ -39,7 +39,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cursuri de Dans în București | În Pași de Dans',
+    title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 5 | In Pasi de Dans',
     description:
       'Școală de dans în București cu cursuri pentru adulți și copii.',
     images: ['https://inpasidedans.ro/images/logo.png'],

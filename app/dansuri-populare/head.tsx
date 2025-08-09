@@ -1,10 +1,10 @@
 export default function Head() {
   return (
     <>
-      <title>Dansuri Populare | În Pași de Dans</title>
+      <title>Dansuri Populare Bucuresti | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Învață tradițiile dansurilor românești autentice. Lecții pentru toate vârstele."
+        content="Cursuri dansuri populare Bucuresti - Vino la In pasi de Dans si invata dansuri populare romanesti precum: hora, sarba, brasoveanca si multe altele ✅ Instructori profesionisti ✅Inscrie-te acum!"
       />
       <meta
         name="keywords"

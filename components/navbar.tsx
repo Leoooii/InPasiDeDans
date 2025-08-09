@@ -20,11 +20,17 @@ import {
   SheetContent,
   SheetTrigger,
   SheetTitle,
-} from '@/components/ui/sheet'; // Înlocuiește 'antd' cu biblioteca corectă dacă folosești altă componentă
+} from '@/components/ui/sheet';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { Facebook, Instagram } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 // Component pentru TikTok
 const TikTokIcon = () => (
@@ -73,6 +79,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* Social Media Bar */}
       <div className="w-full border-b bg-gray-900">
         <div className="container flex h-10 items-center max-w-full px-4 md:px-6">
           <div className="w-1/4 flex items-center space-x-4">
@@ -110,232 +117,294 @@ export default function Navbar() {
           <div className="w-3/4"></div>
         </div>
       </div>
-      <div className="container flex h-20 items-center max-w-full px-4 md:px-6">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <div className="relative h-16 w-[200px]">
-            <Image
-              src="/images/logo.png"
-              alt="Logo În Pași de Dans"
-              title="Acasă - În Pași de Dans"
-              fill
-              className="object-contain object-left"
-              priority
-            />
+
+      {/* Main Navigation */}
+      <div className="container max-w-full px-4 md:px-6">
+        {/* First Row - Logo and User Actions */}
+        <div className="flex h-16 items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="relative h-14 w-[180px]">
+              <Image
+                src="/images/logo.png"
+                alt="Logo În Pași de Dans"
+                title="Acasă - În Pași de Dans"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-2">
+            {user ? (
+              <div className="flex items-center gap-2">
+                <Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    <span className="hidden sm:inline">
+                      {isAdmin ? 'Admin' : 'Contul meu'}
+                    </span>
+                  </Button>
+                </Link>
+                <Button
+                  variant="ghost"
+                  className="hidden sm:flex"
+                  onClick={handleLogout}
+                >
+                  Deconectare
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/inscriere">
+                  <Button
+                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 hidden sm:flex"
+                    title="Înscrie-te la Cursuri de Dans"
+                  >
+                    <span className="sm:inline">Înscrie-te</span>
+                  </Button>
+                </Link>
+              </div>
+            )}
+            
+            {/* Mobile Menu Button */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="mx-2 lg:hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5"
+                  >
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                  </svg>
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="pl-5">
+                <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
+                <MobileNav
+                  setIsOpen={setIsOpen}
+                  user={user}
+                  isAdmin={isAdmin}
+                  onLogout={handleLogout}
+                />
+              </SheetContent>
+            </Sheet>
           </div>
-        </Link>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-center">
-          <NavigationMenu>
-            <NavigationMenuList className="flex flex-wrap justify-center">
-              <NavigationMenuItem>
-                <Link href="/grupe-in-formare" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce'
-                    )}
-                    title="Grupe de dans în formare"
-                  >
-                    Grupe de dans în formare
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-                  Cursuri dans adulți
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {dansuriPredate.map(item => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                        className="hover:text-red-600"
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/lectii-private" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer'
-                    )}
-                    title="Dansul mirilor"
-                  >
-                    Dansul mirilor
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/cursuri-dans-copii" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer'
-                    )}
-                    title="Cursuri dans copii"
-                  >
-                    Cursuri dans copii
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/program" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer'
-                    )}
-                    title="Program Cursuri de Dans"
-                  >
-                    Program
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/tarife" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer'
-                    )}
-                    title="Tarife Cursuri de Dans"
-                  >
-                    Tarife
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-                  Despre noi
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {despreNoi.map(item => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                        className="hover:text-red-600"
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="hover:text-red-600 transition-colors cursor-pointer">
-                  Activități
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {activitati.map(item => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                        className="hover:text-red-600"
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/contact" legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer'
-                    )}
-                    title="Contact Școala de Dans"
-                  >
-                    Contact
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
-          {' '}
-          {/* <ThemeToggle />/ */}
-          {user ? (
-            <div className="flex items-center gap-2">
-              <Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
-                <Button variant="outline" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span className="hidden sm:inline">
-                    {isAdmin ? 'Admin' : 'Contul meu'}
-                  </span>
-                </Button>
-              </Link>
-              <Button
-                variant="ghost"
-                className="hidden sm:flex"
-                onClick={handleLogout}
-              >
-                Deconectare
-              </Button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              {/* <Link href="/autentificare">
-              <Button variant="outline" className="hidden sm:flex">
-                Autentificare
-              </Button>
-            </Link> */}
-              <Link href="/inscriere">
-                <Button
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 hidden sm:flex"
-                  title="Înscrie-te la Cursuri de Dans"
-                >
-                  <span className="sm:inline">Înscrie-te</span>
-                </Button>
-              </Link>
-            </div>
-          )}
+        {/* Second Row - Navigation Menu */}
+        <div className="hidden lg:block border-t border-gray-200">
+          <div className="flex justify-center py-3">
+            <NavigationMenu>
+              <NavigationMenuList className="flex flex-wrap justify-center gap-1">
+                {/* First Row - Main Services */}
+                <NavigationMenuItem>
+                  <Link href="/grupe-in-formare" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce text-sm'
+                      )}
+                      title="Grupe de dans în formare"
+                    >
+                      Grupe de dans în formare
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                
+                {/* Cursuri adulți -> open on click, aligned under button */}
+                <NavigationMenuItem>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                        )}
+                        title="Cursuri dans adulți"
+                      >
+                        Cursuri dans adulți
+                        <ChevronDown className="ml-1 h-3 w-3" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" sideOffset={8} className="p-0">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        {dansuriPredate.map(item => (
+                          <li key={item.title}>
+                            <Link
+                              href={item.href}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+                              title={item.title}
+                            >
+                              <div className="text-sm font-medium leading-none">{item.title}</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                {item.description}
+                              </p>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/dansul-mirilor" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      )}
+                      title="Dansul mirilor"
+                    >
+                      Dansul mirilor
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/cursuri-dans-copii" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      )}
+                      title="Cursuri dans copii"
+                    >
+                      Cursuri dans copii
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                {/* Second Row - Info & Activities */}
+                <NavigationMenuItem>
+                  <Link href="/program" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      )}
+                      title="Program Cursuri de Dans"
+                    >
+                      Program
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/tarife" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      )}
+                      title="Tarife Cursuri de Dans"
+                    >
+                      Tarife
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                {/* Despre noi -> click */}
+                <NavigationMenuItem>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                        )}
+                        title="Despre noi"
+                      >
+                        Despre noi
+                        <ChevronDown className="ml-1 h-3 w-3" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" sideOffset={8} className="p-0">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        {despreNoi.map(item => (
+                          <li key={item.title}>
+                            <Link
+                              href={item.href}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+                              title={item.title}
+                            >
+                              <div className="text-sm font-medium leading-none">{item.title}</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                {item.description}
+                              </p>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </NavigationMenuItem>
+
+                {/* Activități -> click */}
+                <NavigationMenuItem>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                        )}
+                        title="Activități"
+                      >
+                        Activități
+                        <ChevronDown className="ml-1 h-3 w-3" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" sideOffset={8} className="p-0">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        {activitati.map(item => (
+                          <li key={item.title}>
+                            <Link
+                              href={item.href}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+                              title={item.title}
+                            >
+                              <div className="text-sm font-medium leading-none">{item.title}</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                {item.description}
+                              </p>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/contact" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      )}
+                      title="Contact Școala de Dans"
+                    >
+                      Contact
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
         </div>
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="mx-2 lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5"
-              >
-                <line x1="4" x2="20" y1="12" y2="12" />
-                <line x1="4" x2="20" y1="6" y2="6" />
-                <line x1="4" x2="20" y1="18" y2="18" />
-              </svg>
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="pl-5">
-            <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
-            <MobileNav
-              setIsOpen={setIsOpen}
-              user={user}
-              isAdmin={isAdmin}
-              onLogout={handleLogout}
-            />
-          </SheetContent>
-        </Sheet>
       </div>
     </header>
   );
@@ -352,10 +421,6 @@ function MobileNav({
   isAdmin: boolean;
   onLogout: () => void;
 }) {
-  const [openDansuri, setOpenDansuri] = useState(false);
-  const [openDespre, setOpenDespre] = useState(false);
-  const [openActivitati, setOpenActivitati] = useState(false);
-
   return (
     <div className="grid gap-6 text-base">
       <Link
@@ -383,35 +448,71 @@ function MobileNav({
         >
           Grupe în formare
         </Link>
-        <div>
-          <button
-            onClick={() => setOpenDansuri(!openDansuri)}
-            className="flex w-full items-center justify-between py-2 font-medium"
-          >
-            Dansuri predate
-            <ChevronDown
-              className={cn(
-                'h-4 w-4 transition-transform',
-                openDansuri ? 'rotate-180' : ''
-              )}
-            />
-          </button>
-          {openDansuri && (
-            <div className="grid gap-2 pl-4">
-              {dansuriPredate.map(item => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="py-1 text-muted-foreground hover:text-foreground"
-                  title={item.title}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="dansuri">
+            <AccordionTrigger className="py-2 font-medium">
+              Dansuri predate
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="grid gap-2 pl-4">
+                {dansuriPredate.map(item => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="py-1 text-muted-foreground hover:text-foreground"
+                    title={item.title}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="despre">
+            <AccordionTrigger className="py-2 font-medium">
+              Despre noi
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="grid gap-2 pl-4">
+                {despreNoi.map(item => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="py-1 text-muted-foreground hover:text-foreground"
+                    title={item.title}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="activitati">
+            <AccordionTrigger className="py-2 font-medium">
+              Activități
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="grid gap-2 pl-4">
+                {activitati.map(item => (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="py-1 text-muted-foreground hover:text-foreground"
+                    title={item.title}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         <Link
           href="/program"
@@ -429,67 +530,6 @@ function MobileNav({
         >
           Tarife
         </Link>
-        <div>
-          <button
-            onClick={() => setOpenDespre(!openDespre)}
-            className="flex w-full items-center justify-between py-2 font-medium"
-          >
-            Despre noi
-            <ChevronDown
-              className={cn(
-                'h-4 w-4 transition-transform',
-                openDespre ? 'rotate-180' : ''
-              )}
-            />
-          </button>
-          {openDespre && (
-            <div className="grid gap-2 pl-4">
-              {despreNoi.map(item => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="py-1 text-muted-foreground hover:text-foreground"
-                  title={item.title}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-        <div>
-          <button
-            onClick={e => {
-              e.preventDefault();
-              setOpenActivitati(!openActivitati);
-            }}
-            className="flex w-full items-center justify-between py-2 font-medium"
-          >
-            Activități
-            <ChevronDown
-              className={cn(
-                'h-4 w-4 transition-transform',
-                openActivitati ? 'rotate-180' : ''
-              )}
-            />
-          </button>
-          {openActivitati && (
-            <div className="grid gap-2 pl-4">
-              {activitati.map(item => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="py-1 text-muted-foreground hover:text-foreground"
-                  title={item.title}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
         <Link
           href="/contact"
           onClick={() => setIsOpen(false)}

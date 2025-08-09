@@ -1,12 +1,12 @@
 export default function Head() {
   return (
     <>
-      <title>Grupe în Formare | În Pași de Dans</title>
+      <title>Grupe Noi de Dans in Formare Bucuresti | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Vezi ce grupe noi de dans se formează și când te poți alătura."
+        content="Grupe de Dans in Formare Bucuresti - Afla cele mai noi grupe de dans in formare din Bucuresti: salsa, bachata, dans de societate, dans latino pentru nivel începător ✅ Locuri limitate✅Inscrie-te acum!"
       />
-      <meta
+      <meta 
         name="keywords"
         content="grupe noi dans, înscriere cursuri dans, începători dans București"
       />

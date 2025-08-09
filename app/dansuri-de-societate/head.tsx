@@ -1,8 +1,8 @@
 export default function Head() {
   return (
     <>
-      <title>Dansuri de Societate | În Pași de Dans</title>
-      <meta name="description" content="Învață vals, tango și alte dansuri elegante în cadrul nostru profesionist." />
+      <title>Dansuri de Societate Bucuresti | Cursuri Dansuri de Societate: Tango si Vals | In Pasi de Dans</title>
+      <meta name="description" content="Cursuri dansuri de societate Bucuresti - Vino la In pasi de Dans si invata dansuri de societate precum: vals lent, vals vienez, tango pentru toate nivelurile ✅ Instructori profesionisti ✅Inscrie-te acum!" />
       <meta name="keywords" content="dansuri de societate, vals, tango, foxtrot, lecții elegante de dans" />
       <meta property="og:title" content="Dansuri de Societate | În Pași de Dans" />
       <meta

@@ -108,6 +108,14 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in-accordion": {
+          from: { opacity: "0", transform: "translateY(-4px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-out-accordion": {
+          from: { opacity: "1", transform: "translateY(0)" },
+          to: { opacity: "0", transform: "translateY(-4px)" },
+        },
         shine: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
@@ -118,8 +126,10 @@ const config = {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-down": "accordion-down 0.3s ease-out",
+        "accordion-up": "accordion-up 0.3s ease-out",
+        "fade-in-accordion": "fade-in-accordion 0.2s ease-out",
+        "fade-out-accordion": "fade-out-accordion 0.2s ease-in",
         shine: "shine 1.5s ease-in-out",
         "continuous-shine": "continuous-shine 3s ease-in-out infinite",
       },

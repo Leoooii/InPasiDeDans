@@ -12,7 +12,7 @@ export default function DespreNoi() {
       <Head />
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Despre noi</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Cine suntem?</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Învățăm Bucureștiul să danseze din 1 iulie 2009!
           </p>

@@ -1,10 +1,10 @@
 export default function Head() {
   return (
     <>
-      <title>Lecții Private Dans București | În Pași de Dans</title>
+      <title>Cursuri Particulare de Dans Bucuresti | Lectii Private de Dans | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Programează lecții private de dans cu instructori dedicați și progresează rapid, la ritmul tău."
+        content="Cursuri particulare de dans - Descopera lectii private de dans in Bucuresti pentru toate varstele ✅ Progres rapid ✅  Instructori  cu experienta si program flexibil ✅ Inscrie-te acum!"
       />
       <meta
         name="keywords"

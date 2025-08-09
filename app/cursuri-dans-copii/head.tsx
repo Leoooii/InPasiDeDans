@@ -1,10 +1,10 @@
 export default function Head() {
   return (
     <>
-      <title>Cursuri de Dans pentru Copii | În Pași de Dans</title>
+      <title>Cursuri de Dans Copii Bucuresti | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Cursuri de dans pentru copii, adaptate pe grupe de vârstă și nivel. Distracție, mișcare și încredere în sine."
+        content="Cursuri de Dans pentru Copii in Bucuresti – Dansuri latino si standard pentru copii intre 7 si 14 ani ✅ Instructori profesionisti ✅Atmosfera prietenoasa ✅ Inscrie-ti copilul acum la In pasi de Dans!"
       />
       <meta name="keywords" content="dans copii, cursuri dans copii, școala de dans copii, lecții dans juniori" />
       <meta property="og:title" content="Cursuri de Dans pentru Copii | În Pași de Dans" />

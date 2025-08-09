@@ -1,10 +1,10 @@
 export default function Head() {
   return (
     <>
-      <title>Cursuri de Dans pentru Adulți | În Pași de Dans</title>
+      <title>Cursuri de Dans Adulti Bucuresti | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Alege cursuri de dans pentru adulți de la începători la avansați. Ambianță prietenoasă și profesori pasionați."
+        content="Cursuri de Dans pentru Adulti în București -  Vino la In pasi de Dans si invata stiluri: latino, de societate si populare cu instructori profesionisti ✅ Programe flexibile ✅Inscrie-te acum!"
       />
       <meta
         name="keywords"

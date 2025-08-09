@@ -15,7 +15,7 @@ export default function Contact() {
       <Head />
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Contact</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Contact Scoala de dansuri din Bucuresti</h1>
           <p className="text-gray-500 dark:text-gray-400">
             Contactează-ne pentru orice informații sau întrebări
           </p>

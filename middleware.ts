@@ -17,6 +17,8 @@ import { NextResponse, NextRequest } from 'next/server';
 // Lista de pagini valide pentru verificare
 const validPages = [
   '/',
+  '/dansul-mirilor',
+  '/lectii-private',
   '/cursuri-dans-adulti',
   '/cursuri-dans-copii',
   '/dansuri-de-societate',

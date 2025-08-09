@@ -1,8 +1,8 @@
 export default function Head() {
   return (
     <>
-      <title>Contact | În Pași de Dans</title>
-      <meta name="description" content="Ia legătura cu echipa În Pași de Dans pentru întrebări, înscrieri sau colaborări. Răspundem rapid!" />
+      <title>Contact Scoala de dansuri In Pasi de Dans din Bucuresti</title>
+      <meta name="description" content="Contact In Pasi de Dans Bucuresti ⭐ Ia legatura cu echipa In Pasi de Dans pentru inscrieri rapide, intrebari sau colaborari." />
       <meta name="keywords" content="contact dans, școală de dans, întrebări dans, înscriere dans, colaborare dans București" />
       <link rel="canonical" href="https://www.inpasidedans.ro/contact" />
       <meta name="robots" content="index, follow" />

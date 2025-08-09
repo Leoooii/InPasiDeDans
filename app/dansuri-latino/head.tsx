@@ -1,8 +1,8 @@
 export default function Head() {
   return (
     <>
-      <title>Dansuri Latino | În Pași de Dans</title>
-      <meta name="description" content="Explorează ritmurile pasionale ale dansurilor latino precum salsa, bachata și cha-cha." />
+      <title>Dansuri Latino Bucuresti | Cursuri de Dansuri Latino: Salsa si Bachata | In Pasi de Dans</title>
+      <meta name="description" content="Cursuri de dansuri latino in Bucuresti - Vino la In pasi de Dans si invata dansuri latino precum: bachata, salsa, cha-cha, samba pentru toate nivelurile ✅ Instructori profesionisti ✅Inscrie-te acum!" />
       <meta name="keywords" content="dansuri latino, salsa, bachata, cha-cha, cursuri latino" />
       <meta property="og:title" content="Dansuri Latino | În Pași de Dans" />
       <meta
