@@ -46,7 +46,7 @@ export default function LectiiPrivate() {
             Programează acum o ședință privată și începe călătoria ta în dans, în propriul ritm și stil.
           </p>
           </div>
-          <div className="relative h-full w-full rounded-lg overflow-hidden">
+          <div className="relative h-[600px] lg:h-full w-full rounded-lg overflow-hidden">
             <Image
               src="/images/private3.png?height=800&width=600"
               alt="Dans de societate"

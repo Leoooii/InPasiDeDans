@@ -446,7 +446,7 @@ function MobileNav({
           className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md"
           title="Grupe Noi Cursuri de Dans"
         >
-          Grupe în formare
+          Grupe de dans în formare
         </Link>
 
         <Accordion type="single" collapsible className="w-full">
@@ -513,7 +513,22 @@ function MobileNav({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-
+        <Link
+          href="/cursuri-dans-copii"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Program Cursuri de Dans"
+        >
+          Cursuri dans copii
+        </Link>
+        <Link
+          href="/dansul-mirilor"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Program Cursuri de Dans"
+        >
+          Dansul mirilor
+        </Link>
         <Link
           href="/program"
           onClick={() => setIsOpen(false)}
