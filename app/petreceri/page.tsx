@@ -115,7 +115,7 @@ export default function Petreceri() {
         <meta property="og:site_name" content="În Pași de Dans" />
         <meta
           property="og:image"
-          content="https://www.inpasidedans.ro/images/petreceri.png"
+          content="https://www.inpasidedans.ro/images/logo.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -132,7 +132,7 @@ export default function Petreceri() {
         />
         <meta
           name="twitter:image"
-          content="https://www.inpasidedans.ro/images/petreceri.png"
+          content="https://www.inpasidedans.ro/images/logo.png"
         />
         <script
           type="application/ld+json"

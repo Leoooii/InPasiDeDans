@@ -28,7 +28,7 @@ export default function Head() {
       <meta property="og:url" content="https://www.inpasidedans.ro/dansul-mirilor" />
       <meta
         property="og:image"
-        content="https://www.inpasidedans.ro/images/meta/dansul-mirilor.jpg"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
       <meta property="og:image:alt" content="Dansul mirilor la În Pași de Dans" />
 
@@ -44,7 +44,7 @@ export default function Head() {
       />
       <meta
         name="twitter:image"
-        content="https://www.inpasidedans.ro/images/meta/dansul-mirilor.jpg"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
     </>
   );

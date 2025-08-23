@@ -31,7 +31,7 @@ export default function Head() {
       />
       <meta
         property="og:image"
-        content="https://www.inpasidedans.ro/images/meta/lectii-private.jpg"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
       <meta
         property="og:image:alt"
@@ -50,7 +50,7 @@ export default function Head() {
       />
       <meta
         name="twitter:image"
-        content="https://www.inpasidedans.ro/images/meta/lectii-private.jpg"
+        content="https://www.inpasidedans.ro/images/logo.png"
       />
     </>
   );

@@ -73,17 +73,12 @@ export default function GifWrapper() {
       {/* Fallback image - se afișează până se încarcă video-ul sau dacă video-ul nu funcționează */}
       {(!videoLoaded || videoError) && (
         <div className="absolute inset-0 z-10">
-          <Image
-            src="/images/fallback-hero.jpg" // Adaugă o imagine fallback
-            alt="Școala de dans"
-            fill
-            className="object-cover"
-            priority
-            onError={() => {
-              // Dacă și imaginea fallback nu se încarcă, folosește un gradient
-              console.log('Fallback image failed to load');
-            }}
-          />
+          <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+            <div className="text-center text-white">
+              <h1 className="text-4xl font-bold mb-2">Școala de Dans</h1>
+              <p className="text-xl">Descoperă pasiunea dansului</p>
+            </div>
+          </div>
         </div>
       )}
 
@@ -104,7 +99,6 @@ export default function GifWrapper() {
           onClick={handleVideoClick}
         >
           <source src="/images/gif/presentation.mp4" type="video/mp4" />
-          <source src="/images/gif/presentation.webm" type="video/webm" />
         </video>
       )}
 
