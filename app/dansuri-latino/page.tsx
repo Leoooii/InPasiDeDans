@@ -37,7 +37,7 @@ export default function DansuriLatino() {
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri latino</h1>
           <div>
             <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
-              Cursurile noastre îmbină ritmurile pline de viață cu eleganța mișcărilor, oferindu-ți nu doar pași de dans, ci și încredere, bucurie și o stare de bine. Indiferent de nivelul tău, dansurile latino îți va aduce zâmbetul pe buze și te va conecta la o comunitate prietenoasă și plină de energie.
+              Cursurile noastre îmbină ritmurile pline de viață cu eleganța mișcărilor, oferindu-ți nu doar pași de dans, ci și încredere, bucurie și o stare de bine. Indiferent de nivelul tău, dansurile latino îți va aduce zâmbetul pe buze și te vor conecta la o comunitate prietenoasă și plină de energie.
             </p>
             <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
               Descoperă pasiunea și energia dansurilor latino!
@@ -52,7 +52,7 @@ export default function DansuriLatino() {
         
         <div className="container flex flex-col gap-4 items-center border-2 border-black p-4">
           <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">
-            Descoperă bucuria dansurilor latino in Bucuresti
+            Descoperă bucuria dansurilor latino în București
           </h2>
           <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
             Dansurile latino sunt cunoscute pentru energia, pasiunea și ritmurile lor contagioase. Originare din America Latină și Caraibe, aceste dansuri combină mișcări expresive ale corpului cu tehnici specifice de pași și coordonare între parteneri.
@@ -119,7 +119,7 @@ export default function DansuriLatino() {
           />
           <DancePresentationCard
             title="Paso Doble"
-            description="Paso Doble este un dans dramatic și pasional, inspirat din corrida spaniolă. Este caracterizat prin mișcări precise, poze dramatice și o atmosferă intensă care evocă tensiunea și eleganța arenelor de taur."
+            description="Paso Doble este un dans dramatic și pasional, inspirat din corida spaniolă. Este caracterizat prin mișcări precise, poze dramatice și o atmosferă intensă care evocă tensiunea și eleganța arenelor de taur."
             imageSrc="/images/paso-doble.png"
             imageAlt="Cursuri Paso Doble Bucuresti"
             imagePosition="right"
