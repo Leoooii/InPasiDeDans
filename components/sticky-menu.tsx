@@ -43,15 +43,15 @@ export default function StickyMenu({ menuItems }: StickyMenuProps) {
   }, [menuItems]);
 
   return (
-    <div className="hidden lg:block fixed top-1/3 right-8 z-40">
-      <nav className="flex flex-col gap-2 bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-3 border border-orange-200">
+    <div className="hidden xl:block fixed top-1/3 right-4 z-40">
+      <nav className="flex flex-col gap-1 bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-2 border border-orange-200">
         {menuItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`group px-4 py-2 rounded-lg font-semibold transition-all duration-200 relative text-left ${
+              className={`group px-3 py-1.5 rounded-lg font-medium transition-all duration-200 relative text-left text-sm ${
                 isActive 
                   ? 'bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-md' 
                   : 'text-red-700 hover:bg-orange-100'
@@ -59,7 +59,7 @@ export default function StickyMenu({ menuItems }: StickyMenuProps) {
             >
               {item.label}
               <span 
-                className={`absolute left-0 bottom-0 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full transition-all duration-300 ${
+                className={`absolute left-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 rounded-full transition-all duration-300 ${
                   isActive ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}
               ></span>

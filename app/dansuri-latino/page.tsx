@@ -36,9 +36,9 @@ export default function DansuriLatino() {
         <div id="despre-latino" className="p-0 container flex flex-col gap-4 items-center">
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri latino</h1>
           <div>
-            <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
-              Cursurile noastre îmbină ritmurile pline de viață cu eleganța mișcărilor, oferindu-ți nu doar pași de dans, ci și încredere, bucurie și o stare de bine. Indiferent de nivelul tău, dansurile latino îți va aduce zâmbetul pe buze și te vor conecta la o comunitate prietenoasă și plină de energie.
-            </p>
+                      <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
+            Cursurile noastre îmbină ritmurile pline de viață cu eleganța mișcărilor, oferindu-ți nu doar pași de dans, ci și încredere, bucurie și o stare de bine. Indiferent de nivelul tău, dansurile latino îți vor aduce zâmbetul pe buze și te vor conecta la o comunitate prietenoasă și plină de energie.
+          </p>
             <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
               Descoperă pasiunea și energia dansurilor latino!
             </p>
