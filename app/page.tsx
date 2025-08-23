@@ -50,7 +50,11 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <StickyMenu />
+        <StickyMenu menuItems={[
+          { id: 'cursuri', label: 'Cursuri' },
+          { id: 'grupe', label: 'Grupe în formare' },
+          { id: 'noutati', label: 'Noutăți' }
+        ]} />
         <CookieConsent />
         <div style={{ display: 'none' }}>
           <Script

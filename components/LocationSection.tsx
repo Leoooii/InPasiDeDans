@@ -2,7 +2,7 @@ import { MapPin, Phone } from 'lucide-react';
 
 export default function LocationSection() {
   return (
-    <div className="container py-12">
+    <div className="p-0 container py-12">
       <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Locația noastră</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
         {/* Textul informațional */}

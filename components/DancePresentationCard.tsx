@@ -22,7 +22,7 @@ export default function DancePresentationCard({
   return (
     <div className={`flex flex-col lg:flex-row gap-8 items-center ${className} w-full`}>
       {/* Imaginea */}
-      <div className={`relative w-full lg:w-2/3 h-80 lg:h-96 flex-shrink-0 ${
+      <div className={`relative w-full lg:w-2/3 aspect-[4/3] md:aspect-[3/2] lg:aspect-[4/3] flex-shrink-0 ${
         isImageLeft ? 'lg:order-1' : 'lg:order-2'
       }`}>
         <Image
