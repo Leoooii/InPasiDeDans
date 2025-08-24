@@ -11,7 +11,7 @@ const structureFeatures = [
   {
     icon: CheckSquare,
     title: "Stiluri de dans",
-    description: "9 stiluri latino, 5 stiluri societate, 200+ jocuri populare.",
+    description: "9 stiluri de dans latino: salsa, bachata, rueda, cha cha, samba, rumba, jive, lindy hop și paso doble.",
     iconBgColor: "from-purple-500 to-purple-600",
     accentColor: "text-purple-600"
   },

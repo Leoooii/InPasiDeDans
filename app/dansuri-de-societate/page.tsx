@@ -4,153 +4,178 @@ import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import { ArrowRight } from 'lucide-react';
+import StructureFeatures from '@/components/StructureFeatures';
+import DancePresentationCard from '@/components/DancePresentationCard';
+import FeaturesGrid from '@/components/FeaturesGrid';
+import LocationSection from '@/components/LocationSection';
+import InstructorsSection from '@/components/InstructorsSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import PricingSection from '@/components/PricingSection';
+import FAQSection from '@/components/FAQSection';
+import ExploreOtherDances from '@/components/ExploreOtherDances';
+import ContactForm from '@/components/contact-form';
+import StickyMenu from '@/components/sticky-menu';
+import BenefitsSection from '@/components/BenefitsSection';
+import WhyChooseUsSection from '@/components/WhyChooseUsSection';
+
 export default function DansuriDeSocietate() {
   return (
-    <div className="container py-12">
-      <Head />
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Dansuri de societate
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Eleganță, rafinament și grație în mișcare
+    <>
+      <StickyMenu menuItems={[
+        { id: 'despre-societate', label: 'Despre Societate' },
+        { id: 'stiluri-dans', label: 'Stiluri de Dans' },
+        { id: 'beneficii', label: 'Beneficii' },
+        { id: 'de-ce-noi', label: 'De ce noi?' },
+       
+        { id: 'locatie', label: 'Locație' },
+        { id: 'tarife', label: 'Tarife' },
+        { id: 'instructori', label: 'Instructori' },
+        { id: 'testimoniale', label: 'Testimoniale' },
+        { id: 'intrebari', label: 'Întrebări' },
+        { id: 'inscriere', label: 'Înscriere' }
+      ]} />
+      <div className="container py-12 flex flex-col gap-12">
+        <Head />
+        <div id="despre-societate" className="p-0 container flex flex-col gap-4 items-center">
+          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri de societate</h1>
+          <div>
+            <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
+           Dansurile de societate te poartă într-o lume a rafinamentului și a grație - de la eleganța valsului și pasiunea tango-ului, la ritmul vesel al quickstep-ului sau farmecul foxtrot-ului, fiecare dans îți oferă o poveste aparte
+            </p>
+            <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
+           Începe acum și transformă fiecare pas într-o experiență plină de grație și armonie!
+            </p>
+          </div>
+          <Link href="/inscriere" className="mt-4">
+            <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-xl" size="lg">
+              Înscrie-te la curs
+            </Button>
+          </Link>
+        </div>
+        
+        <div className="container flex flex-col gap-4 items-center border-2 border-black p-4">
+          <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">
+            Descoperă eleganța dansurilor de societate în București
+          </h2>
+          <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
+          De la vals lent sau vienez și tango, până la quickstep și foxtrot, aceste cursuri te ajută să îmbini eleganța cu buna dispoziție. 
+          </p>
+          <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
+          Sunt potrivite pentru oricine își dorește să învețe să danseze, să se relaxeze și să strălucească la evenimente speciale sau pur și simplu să se bucure de mișcare. 
           </p>
         </div>
+        
+        <div id="stiluri-dans" className="p-0 container flex flex-col gap-12 items-center">
+        <DancePresentationCard
+            title="Vals Lent"
+            description="Valsul lent este un dans de societate elegant, caracterizat prin mișcări line, pași grațioși și rotații ample, care transmit calm, romantism și fluiditate."
+            imageSrc="/images/vals-lent.png"
+            imageAlt="Cursuri Vals Lent Bucuresti"
+            imagePosition="left"
+          />
+          <DancePresentationCard
+            title="Vals Vienez"
+            description="Valsul vienez este o formă rapidă și grațioasă a valsului, cu mișcări circulare continue și rotații elegante. Se dansează pe un tempo de 3/4 alert și creează impresia unui dans fluid și rotativ, plin de rafinament și romantism."
+            imageSrc="/images/vienez.jpeg"
+            imageAlt="Cursuri Vals Vienez Bucuresti"
+            imagePosition="right"
+          />
+         
+          <DancePresentationCard
+            title="Tango"
+            description="Tango este un dans pasional și intens, originar din Argentina, cunoscut pentru postura dramatică, pașii preciși și conexiunea profundă dintre parteneri. În versiunea de dans sportiv (ballroom), are un stil mai rigid și accentuat, cu mișcări tăioase și expresive."
+            imageSrc="/images/tango2.png"
+            imageAlt="Cursuri Tango Bucuresti"
+            imagePosition="left"
+          />
+          
+          <DancePresentationCard
+            title="Slow Fox (Foxtrot)"
+            description="Foxtrotul este un dans elegant și fluid, caracterizat prin mișcări lungi și grațioase. Se dansează pe muzică jazz și swing, cu accent pe fluiditatea mișcărilor și pe conexiunea dintre parteneri. Este perfect pentru începători și oferă o bază solidă pentru alte dansuri de societate."
+            imageSrc="/images/slowfox.png"
+            imageAlt="Cursuri Foxtrot Bucuresti"
+            imagePosition="right"
+          />
 
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/images/tango2.png?height=800&width=600"
-              alt="Dans de societate"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="space-y-4">
-            <p>
-              <strong> Dansurile de societate</strong> reprezintă o formă
-              elegantă de exprimare artistică și socială, fiind potrivite pentru
-              evenimente formale, baluri, dar și petreceri. Aceste dansuri
-              combină tehnica precisă cu expresivitatea și conexiunea între
-              parteneri.
-            </p>
-            <p>La școala noastră puteti învăța:</p>
-            <ul className="list-disc pl-6">
-              <li>VALS LENT</li>
-              <li>VALS VIENEZ</li>
-              <li>TANGO</li>
-              <li>QUICK STEP</li>
-              <li>SLOW FOX (FOXTROT)</li>
-            </ul>
-            <p>
-              Dansurile de societate sunt predate în cadrul grupelor, alături de
-              alte stiluri latino.
-            </p>
-            <div className="pt-4 flex gap-2">
-              <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Înscrie-te la curs
-                </Button>
-              </Link>
-              <Link href="/program">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Verifică programul
-                </Button>
-              </Link>
-            </div>
-          </div>
+          
         </div>
-
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Dansuri standard</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image
-                  src="/images/vienez.jpeg?height=400&width=600"
-                  alt="Vals Vienez"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Vals Vienez</h3>
-                <p className="text-gray-500">
-                  Valsul vienez este o formă rapidă și grațioasă a valsului, cu
-                  mișcări circulare continue și rotații elegante. Se dansează pe
-                  un tempo de 3/4 alert și creează impresia unui dans fluid și
-                  rotativ, plin de rafinament și romantism.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image
-                  src="/images/tango.png?height=400&width=600"
-                  alt="Tango"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Tango</h3>
-                <p className="text-gray-500">
-                  Tango este un dans pasional și intens, originar din Argentina,
-                  cunoscut pentru postura dramatică, pașii preciși și conexiunea
-                  profundă dintre parteneri. În versiunea de dans sportiv
-                  (ballroom), are un stil mai rigid și accentuat, cu mișcări
-                  tăioase și expresive.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
-                <Image
-                  src="/images/quickstep.png?height=400&width=600"
-                  alt="quickstep"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Quickstep</h3>
-                <p className="text-gray-500">
-                  Quickstep este un dans de societate elegant și rapid, derivat
-                  din foxtrot, caracterizat prin pași săltăreți, deplasări
-                  rapide și mișcări fluide pe ringul de dans. Este vesel, jucăuș
-                  și transmite o senzație de ușurință, de parcă dansatorii
-                  „plutesc” pe muzică.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+        
+        <div id="beneficii">
+          
+        <BenefitsSection />
         </div>
-
-        <div className="mt-12 bg-red-50 p-8 rounded-lg">
-          <div className=" gap-8 items-center">
-            <div>
-              <h2 className="text-2xl font-bold mb-4 dark:text-black">
-                Pregătire pentru evenimente speciale
-              </h2>
-              <p className="mb-6 dark:text-black">
-                Oferim cursuri private pentru pregătirea dansului de nuntă sau
-                pentru alte evenimente speciale. Instructorii noștri vă vor
-                ajuta să creați un moment memorabil, adaptat preferințelor și
-                nivelului vostru.
-              </p>
-              <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Înscrie-te la curs
-                </Button>
-              </Link>
-            </div>
-          </div>
+        
+        <div id="de-ce-noi">
+          <WhyChooseUsSection />
+        </div>
+        
+        {/* <div id="structura">
+          <StructureFeatures/>
+        </div> */}
+        
+        <div id="grupe-in-formare">
+          <GrupeInFormare/>
+        </div>
+        
+        <div id="locatie">
+          <LocationSection/>
+        </div>
+        
+        <div id="tarife">
+          <PricingSection/>
+        </div>
+        
+        <div id="instructori">
+          <InstructorsSection instructorNames={['Alexandra', 'Miriam']}/>
+        </div>
+        
+        <div id="testimoniale">
+          <TestimonialsSection danceType="societate"/>
+        </div>
+        
+        <div id="intrebari">
+          <FAQSection/>
+        </div>
+        
+        <ExploreOtherDances 
+          danceCategories={[
+            {
+              id: 1,
+              title: 'Dansuri Latino',
+              description: 'Salsa, bachata, cha-cha și multe altele',
+              imageSrc: '/images/latino.png',
+              imageAlt: 'Dansuri latino',
+              href: '/dansuri-latino',
+              gradient: 'from-red-500 to-orange-600'
+            },
+            {
+              id: 2,
+              title: 'Lecții Private',
+              description: 'Instruire personalizată pentru progres rapid',
+              imageSrc: '/images/private.png',
+              imageAlt: 'Lecții private de dans',
+              href: '/lectii-private',
+              gradient: 'from-green-500 to-teal-600'
+            },
+            {
+              id: 3,
+              title: 'Dansuri Populare',
+              description: 'Peste 200 de jocuri populare românești',
+              imageSrc: '/images/populare.png',
+              imageAlt: 'Dansuri populare românești',
+              href: '/dansuri-populare',
+              gradient: 'from-orange-500 to-red-600'
+            }
+          ]}
+          sectionTitle="Explorează și alte dansuri"
+          sectionDescription="Descoperă diversitatea stilurilor de dans pe care le oferim"
+        />
+        
+        <div id="inscriere" className="px-0 md:px-32">
+          <ContactForm/>
         </div>
       </div>
-      <GrupeInFormare />
-    </div>
+    </>
   );
 }

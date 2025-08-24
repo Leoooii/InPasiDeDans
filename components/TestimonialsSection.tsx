@@ -1,7 +1,19 @@
 import { Star, Quote, Heart, Link } from 'lucide-react';
 import { Button } from './ui/button';
 
-const testimonials = [
+interface Testimonial {
+  id: number;
+  name: string;
+  text: string;
+  rating: number;
+  highlight: string;
+}
+
+interface TestimonialsSectionProps {
+  danceType?: 'latino' | 'societate' | 'default';
+}
+
+const latinoTestimonials: Testimonial[] = [
   {
     id: 1,
     name: 'Magda Istrate',
@@ -46,7 +58,66 @@ const testimonials = [
   }
 ];
 
-export default function TestimonialsSection() {
+const societateTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: 'Lavinia Nicolescu',
+    text: 'Recomand cu căldură această școală de dans. Alexandra este super! Este o persoana dinamică, implicată și foarte pasionată. ❤️',
+    rating: 5,
+    highlight: 'Recomand cu căldură această școală'
+  },
+  {
+    id: 2,
+    name: 'Simona Petcu',
+    text: 'Oameni prietenoși, muzică, mișcare, veselie, siguranța condițiilor de lucru, atmosfera faină, implicare. Combinația din care ai numai de câștigat.',
+    rating: 5,
+    highlight: 'Combinația din care ai numai de câștigat'
+  },
+  {
+    id: 3,
+    name: 'Irina Roșu',
+    text: 'Mulțumim pentru răbdarea de care ați dat dovadă pentru a învața tango ca dansul mirilor! A fost minunat și... emoționant! 🥳🤗😍',
+    rating: 5,
+    highlight: 'A fost minunat și... emoționant!'
+  },
+  {
+    id: 4,
+    name: 'Mirabela Năstase',
+    text: 'Recomand școala În Pași de Dans, deoarece este cel mai potrivit loc de a face mișcare și de a scăpa de stresul cotidian! Unde mai pui că înveți și să dansezi! Așadar, ce poate fi mai plăcut decât dansul predat de Alexandra Dumitrache, o instructoare de dans cu har!',
+    rating: 5,
+    highlight: 'O instructoare de dans cu har!'
+  },
+  {
+    id: 5,
+    name: 'Miruna Băcilă',
+    text: 'M-am înscris la dansuri din dorința de a avea o activitate care să iasă din rutină și am avut ocazia să descopăr o atmosfera plăcută și oameni frumoși. Recomand din tot sufletul!',
+    rating: 5,
+    highlight: 'Recomand din tot sufletul!'
+  },
+  {
+    id: 6,
+    name: 'Sorina Diamandescu',
+    text: 'Cea mai plăcută modalitate de a face mișcare într-un mediu relaxant. Ce apreciez cel mai mult? Faptul că nu sunt doar cursuri de dans, ci o adevărată comunitate. Iar activitățile "extrașcolare" sunt deosebite… cele mai frumoase petreceri!!! și vacanțe de neuitat. Ați ridicat sus de tot ștacheta!',
+    rating: 5,
+    highlight: 'O adevărată comunitate'
+  }
+];
+
+export default function TestimonialsSection({ danceType = 'default' }: TestimonialsSectionProps) {
+  // Selectăm testimoniale în funcție de tipul de dans
+  const getTestimonials = () => {
+    switch (danceType) {
+      case 'latino':
+        return latinoTestimonials;
+      case 'societate':
+        return societateTestimonials;
+      default:
+        return latinoTestimonials; // Fallback la testimoniale latino
+    }
+  };
+
+  const testimonials = getTestimonials();
+
   return (
     <div className="bg-white">
       <div className="container mx-auto px-4">

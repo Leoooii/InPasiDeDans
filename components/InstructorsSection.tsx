@@ -118,64 +118,132 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
 
   return (
     <div className="p-0 container py-12">
-      <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Instructorii noștri de dans latino din București</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-        {instructori.map((instructor) => (
-          <Card key={instructor.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <div className="relative h-80 w-full overflow-hidden">
-              <Image
-                src={instructor.imageUrl}
-                alt={instructor.name}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-            </div>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{instructor.name}</h3>
-              <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">{instructor.bio}</p>
-              
-              {/* Social Media Links */}
-              <div className="flex space-x-3">
-                {instructor.facebookUrl && (
-                  <a
-                    href={instructor.facebookUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-blue-600 transition-colors"
-                    aria-label={`Facebook ${instructor.name}`}
-                  >
-                    <Facebook size={18} />
-                  </a>
-                )}
-                {instructor.instagramUrl && (
-                  <a
-                    href={instructor.instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-pink-600 transition-colors"
-                    aria-label={`Instagram ${instructor.name}`}
-                  >
-                    <Instagram size={18} />
-                  </a>
-                )}
-                {instructor.youtubeUrl && (
-                  <a
-                    href={instructor.youtubeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-red-600 transition-colors"
-                    aria-label={`YouTube ${instructor.name}`}
-                  >
-                    <Youtube size={18} />
-                  </a>
-                )}
+      <h2 className="text-3xl font-bold tracking-tight text-center mb-8">
+        {instructori.length === 2 
+          ? "Instructorii noștri de dans de societate din București"
+          : "Instructorii noștri de dans latino din București"
+        }
+      </h2>
+      
+      {instructori.length === 2 ? (
+        // Layout special pentru 2 instructori - mai mari și centrați
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {instructori.map((instructor) => (
+            <Card key={instructor.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div className="relative h-96 w-full overflow-hidden">
+                <Image
+                  src={instructor.imageUrl}
+                  alt={instructor.name}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{instructor.name}</h3>
+                <p className="text-red-600 font-medium mb-4 text-lg">{instructor.role}</p>
+                <p className="text-gray-600 text-base leading-relaxed mb-6">{instructor.bio}</p>
+                
+                {/* Social Media Links */}
+                <div className="flex space-x-4">
+                  {instructor.facebookUrl && (
+                    <a
+                      href={instructor.facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-blue-600 transition-colors"
+                      aria-label={`Facebook ${instructor.name}`}
+                    >
+                      <Facebook size={20} />
+                    </a>
+                  )}
+                  {instructor.instagramUrl && (
+                    <a
+                      href={instructor.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-pink-600 transition-colors"
+                      aria-label={`Instagram ${instructor.name}`}
+                    >
+                      <Instagram size={20} />
+                    </a>
+                  )}
+                  {instructor.youtubeUrl && (
+                    <a
+                      href={instructor.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-red-600 transition-colors"
+                      aria-label={`YouTube ${instructor.name}`}
+                    >
+                      <Youtube size={20} />
+                    </a>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        // Layout original pentru 3+ instructori
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {instructori.map((instructor) => (
+            <Card key={instructor.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div className="relative h-80 w-full overflow-hidden">
+                <Image
+                  src={instructor.imageUrl}
+                  alt={instructor.name}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{instructor.name}</h3>
+                <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">{instructor.bio}</p>
+                
+                {/* Social Media Links */}
+                <div className="flex space-x-3">
+                  {instructor.facebookUrl && (
+                    <a
+                      href={instructor.facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-blue-600 transition-colors"
+                      aria-label={`Facebook ${instructor.name}`}
+                    >
+                      <Facebook size={18} />
+                    </a>
+                  )}
+                  {instructor.instagramUrl && (
+                    <a
+                      href={instructor.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-pink-600 transition-colors"
+                      aria-label={`Instagram ${instructor.name}`}
+                    >
+                      <Instagram size={18} />
+                    </a>
+                  )}
+                  {instructor.youtubeUrl && (
+                    <a
+                      href={instructor.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-red-600 transition-colors"
+                      aria-label={`YouTube ${instructor.name}`}
+                    >
+                      <Youtube size={18} />
+                    </a>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

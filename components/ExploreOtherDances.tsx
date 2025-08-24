@@ -1,47 +1,37 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const danceCategories = [
-  {
-    id: 1,
-    title: 'Dansuri de Societate',
-    description: 'Vals, tango, foxtrot și multe altele',
-    imageSrc: '/images/societate.png',
-    imageAlt: 'Dansuri de societate',
-    href: '/dansuri-de-societate',
-    gradient: 'from-blue-500 to-purple-600'
-  },
-  {
-    id: 2,
-    title: 'Lecții Private',
-    description: 'Instruire personalizată pentru progres rapid',
-    imageSrc: '/images/private.png',
-    imageAlt: 'Lecții private de dans',
-    href: '/lectii-private',
-    gradient: 'from-green-500 to-teal-600'
-  },
-  {
-    id: 3,
-    title: 'Dansuri Populare',
-    description: 'Peste 200 de jocuri populare românești',
-    imageSrc: '/images/populare.png',
-    imageAlt: 'Dansuri populare românești',
-    href: '/dansuri-populare',
-    gradient: 'from-orange-500 to-red-600'
-  }
-];
+interface DanceCategory {
+  id: number;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  href: string;
+  gradient: string;
+}
 
-export default function ExploreOtherDances() {
+interface ExploreOtherDancesProps {
+  danceCategories: DanceCategory[];
+  sectionTitle?: string;
+  sectionDescription?: string;
+}
+
+export default function ExploreOtherDances({ 
+  danceCategories, 
+  sectionTitle = "Explorează și alte dansuri",
+  sectionDescription = "Descoperă diversitatea stilurilor de dans pe care le oferim"
+}: ExploreOtherDancesProps) {
   return (
     <div className="py-20 bg-gradient-to-br from-gray-50 to-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
           <h3 className="text-3xl font-bold text-gray-900 mb-4">
-            Explorează și alte dansuri
+            {sectionTitle}
           </h3>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Descoperă diversitatea stilurilor de dans pe care le oferim
+            {sectionDescription}
           </p>
         </div>
 
