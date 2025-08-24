@@ -143,7 +143,7 @@ export default function DansuriDeSocietate() {
         </div>
         
         <div id="intrebari">
-          <FAQSection/>
+          <FAQSection danceType="societate"/>
         </div>
         
         <ExploreOtherDances 

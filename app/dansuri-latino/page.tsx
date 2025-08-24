@@ -146,7 +146,7 @@ export default function DansuriLatino() {
         </div>
         
         <div id="intrebari">
-          <FAQSection/>
+          <FAQSection danceType="latino"/>
         </div>
         
         <ExploreOtherDances 
