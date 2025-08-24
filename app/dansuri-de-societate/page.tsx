@@ -98,6 +98,14 @@ export default function DansuriDeSocietate() {
             imagePosition="right"
           />
 
+          <DancePresentationCard
+            title="Quickstep"
+            description="Quickstep este un dans de societate elegant și rapid, derivat din foxtrot, caracterizat prin pași săltăreți, deplasări rapide și mișcări fluide pe ringul de dans. Este vesel, jucăuș și transmite o senzație de ușurință, de parcă dansatorii 'plutesc' pe muzică."
+            imageSrc="/images/quickstep.png"
+            imageAlt="Cursuri Quickstep Bucuresti"
+            imagePosition="left"
+          />
+
           
         </div>
         
