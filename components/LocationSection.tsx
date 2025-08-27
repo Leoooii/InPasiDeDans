@@ -3,7 +3,7 @@ import { MapPin, Phone } from 'lucide-react';
 export default function LocationSection() {
   return (
     <div className="p-0 container py-12">
-      <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Unde au loc aceste lecții de dans?</h2>
+      <h3 className="text-3xl font-bold tracking-tight text-center mb-8">Unde au loc aceste lecții de dans?</h3>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
         {/* Textul informațional */}
         <div className="space-y-6">
@@ -11,7 +11,7 @@ export default function LocationSection() {
             <div className="flex items-start space-x-4">
               <MapPin className="h-6 w-6 text-red-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Adresa școlii</h3>
+                <span className="text-xl font-bold text-gray-900 mb-3">Adresa școlii</span>
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Cursurile de dans se desfășoară în cele 3 săli de dans, situate pe <span className="font-semibold text-red-600">Calea Rahovei 262, sector 5, București</span>.
                 </p>
@@ -32,7 +32,7 @@ export default function LocationSection() {
             <div className="flex items-start space-x-4">
               <Phone className="h-6 w-6 text-red-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Programare vizită</h3>
+                <span className="text-xl font-bold text-gray-900 mb-3">Programare vizită</span>
                 <p className="text-gray-700 leading-relaxed">
                   Pentru a ne vizita și a vedea sălile de dans, te rugăm să ne contactezi telefonic pentru a programa o întâlnire.
                 </p>

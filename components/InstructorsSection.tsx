@@ -118,12 +118,12 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
 
   return (
     <div className="p-0 container py-12">
-      <h2 className="text-3xl font-bold tracking-tight text-center mb-8">
+      <h3 className="text-3xl font-bold tracking-tight text-center mb-8">
         {instructori.length === 2 
           ? "Instructorii noștri de dans de societate din București"
           : "Instructorii noștri de dans latino din București"
         }
-      </h2>
+      </h3>
       
       {instructori.length === 2 ? (
         // Layout special pentru 2 instructori - mai mari și centrați
@@ -140,7 +140,7 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
                 />
               </div>
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{instructor.name}</h3>
+                <span className="text-2xl font-bold text-gray-900 mb-3">{instructor.name}</span>
                 <p className="text-red-600 font-medium mb-4 text-lg">{instructor.role}</p>
                 <p className="text-gray-600 text-base leading-relaxed mb-6">{instructor.bio}</p>
                 

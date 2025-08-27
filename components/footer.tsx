@@ -55,9 +55,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4 text-lg">
+            <span className="text-white font-semibold mb-4 text-lg">
               Cursuri și activități
-            </h3>
+            </span>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -142,9 +142,9 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-semibold mb-4 text-lg">
+            <span className="text-white font-semibold mb-4 text-lg">
               Informații utile
-            </h3>
+            </span>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -198,7 +198,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4 text-lg">Contact</h3>
+            <span className="text-white font-semibold mb-4 text-lg">Contact</span>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin size={18} className="mr-2 mt-1 flex-shrink-0" />

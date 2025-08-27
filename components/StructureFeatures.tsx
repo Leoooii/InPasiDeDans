@@ -43,7 +43,7 @@ export default function StructureFeatures() {
             <div className={`w-12 h-12 bg-gradient-to-br ${feature.iconBgColor} rounded-lg flex items-center justify-center mb-4 mx-auto`}>
               <feature.icon className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{feature.title}</h3>
+            <span className="text-xl font-bold text-gray-900 mb-3 text-center block">{feature.title}</span>
             <p className="text-gray-600 text-center leading-relaxed">
               {feature.description.split(' ').map((word, wordIndex) => {
                 // Evidențiază cuvintele cheie

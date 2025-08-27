@@ -40,7 +40,7 @@ export default function DansuriLatino() {
             Cursurile noastre îmbină ritmurile pline de viață cu eleganța mișcărilor, oferindu-ți nu doar pași de dans, ci și încredere, bucurie și o stare de bine. Indiferent de nivelul tău, dansurile latino îți vor aduce zâmbetul pe buze și te vor conecta la o comunitate prietenoasă și plină de energie.
           </p>
             <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
-              Descoperă pasiunea și energia dansurilor latino!
+            Descoperă pasiunea și vibrația stilurilor latino!
             </p>
           </div>
           <Link href="/inscriere" className="mt-4">
@@ -58,7 +58,9 @@ export default function DansuriLatino() {
             Dansurile latino sunt cunoscute pentru energia, pasiunea și ritmurile lor contagioase. Originare din America Latină și Caraibe, aceste dansuri combină mișcări expresive ale corpului cu tehnici specifice de pași și coordonare între parteneri.
           </p>
         </div>
-        
+        <h2 className="text-xl md:text-2xl font-bold tracking-tight text-center">
+        Stiluri de dans latino pe care le vei învăța:
+          </h2>
         <div id="stiluri-dans" className="p-0 container flex flex-col gap-12 items-center">
           <DancePresentationCard
             title="Salsa"
@@ -184,6 +186,9 @@ export default function DansuriLatino() {
         />
         
         <div id="inscriere" className="px-0 md:px-32">
+          <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">
+          Completează formularul și înscrie-te la cursurile de dans latino
+          </h3>
           <ContactForm/>
         </div>
       </div>
