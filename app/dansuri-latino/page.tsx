@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -17,6 +19,10 @@ import ExploreOtherDances from '@/components/ExploreOtherDances';
 import LatinoSignupForm from '@/components/LatinoSignupForm';
 import ContactForm from '@/components/contact-form';
 import StickyMenu from '@/components/sticky-menu';
+import CourseLevelsSection from '@/components/CourseLevelsSection';
+
+
+
 
 export default function DansuriLatino() {
   return (
@@ -131,6 +137,8 @@ export default function DansuriLatino() {
         <div id="structura">
           <StructureFeatures/>
         </div>
+        
+        <CourseLevelsSection />
         
         <GrupeInFormare/>
         <LocationSection/>

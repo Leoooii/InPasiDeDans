@@ -120,6 +120,23 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
   const faqData = getFAQData();
   const [openItems, setOpenItems] = useState<number[]>([1]); // Primul item deschis implicit
 
+  // JSON-LD pentru SEO
+  const generateFAQSchema = () => {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqData.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": typeof item.answer === 'string' ? item.answer : 'Răspuns detaliat disponibil în componenta interactivă'
+        }
+      }))
+    };
+    return JSON.stringify(faqSchema);
+  };
+
   const toggleItem = (id: number) => {
     setOpenItems(prev => 
       prev.includes(id) 
@@ -129,28 +146,44 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
   };
 
   return (
-    <div className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <>
+      {/* JSON-LD Schema pentru SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: generateFAQSchema() }}
+      />
+      
+      <section className="py-20 bg-white" aria-labelledby="faq-heading">
+        <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Întrebări frecvente
+          <h2 id="faq-heading" className="text-4xl font-bold text-gray-900 mb-6">
+            Întrebări frecvente (FAQ)
           </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Răspunsuri la cele mai frecvente întrebări despre cursurile noastre de dans
+          </p>
         </div>
 
         {/* FAQ Items */}
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-4" itemScope itemType="https://schema.org/FAQPage">
           {faqData.map((item) => (
             <div
               key={item.id}
               className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow duration-200"
+              itemScope
+              itemProp="mainEntity"
+              itemType="https://schema.org/Question"
             >
               {/* Question Header */}
               <button
                 onClick={() => toggleItem(item.id)}
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
               >
-                <h3 className="text-lg font-semibold text-gray-900 pr-4">
+                <h3 
+                  className="text-lg font-semibold text-gray-900 pr-4"
+                  itemProp="name"
+                >
                   {item.question}
                 </h3>
                 <div className="flex-shrink-0">
@@ -164,8 +197,16 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
 
               {/* Answer */}
               {openItems.includes(item.id) && (
-                <div className="px-6 pb-4 border-t border-gray-100">
-                  <div className="pt-4 text-gray-700 leading-relaxed">
+                <div 
+                  className="px-6 pb-4 border-t border-gray-100"
+                  itemScope
+                  itemProp="acceptedAnswer"
+                  itemType="https://schema.org/Answer"
+                >
+                  <div 
+                    className="pt-4 text-gray-700 leading-relaxed"
+                    itemProp="text"
+                  >
                     {item.answer}
                   </div>
                 </div>
@@ -174,6 +215,7 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
           ))}
         </div>
       </div>
-    </div>
+    </section>
+    </>
   );
 }

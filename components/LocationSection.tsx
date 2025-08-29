@@ -11,18 +11,12 @@ export default function LocationSection() {
             <div className="flex items-start space-x-4">
               <MapPin className="h-6 w-6 text-red-600 mt-1 flex-shrink-0" />
               <div>
-                <span className="text-xl font-bold text-gray-900 mb-3">Adresa școlii</span>
+                <span className="text-xl font-bold text-gray-900 mb-3">Adresa școlii de dans</span>
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Cursurile de dans se desfășoară în cele 3 săli de dans, situate pe <span className="font-semibold text-red-600">Calea Rahovei 262, sector 5, București</span>.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Dacă vrei să ne faci o vizită, te așteptăm cu drag, însă cu o programare în prealabil la{' '}
-                  <a 
-                    href="tel:+40722675126" 
-                    className="font-semibold text-red-600 hover:text-red-700 transition-colors"
-                  >
-                    0722 675 126
-                  </a>.
+                  Vizitele se fac doar pe bază de programare.
                 </p>
               </div>
             </div>
@@ -34,7 +28,13 @@ export default function LocationSection() {
               <div>
                 <span className="text-xl font-bold text-gray-900 mb-3">Programare vizită</span>
                 <p className="text-gray-700 leading-relaxed">
-                  Pentru a ne vizita și a vedea sălile de dans, te rugăm să ne contactezi telefonic pentru a programa o întâlnire.
+                  Dacă dorești să vezi sălile noastre sau să ne cunoști echipa, te rugăm să ne contactezi telefonic la{' '}
+                  <a 
+                    href="tel:+40722675126" 
+                    className="font-semibold text-red-600 hover:text-red-700 transition-colors"
+                  >
+                    0722 675 126
+                  </a> pentru a stabili o întâlnire.
                 </p>
               </div>
             </div>
