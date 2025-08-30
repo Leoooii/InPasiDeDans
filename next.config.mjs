@@ -36,30 +36,6 @@ const nextConfig = {
         destination: 'https://www.inpasidedans.ro/:path*',
         permanent: true,
       },
-      // Redirect permanent de la http://inpasidedans.ro la https://www.inpasidedans.ro
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'http://inpasidedans.ro',
-          },
-        ],
-        destination: 'https://www.inpasidedans.ro/:path*',
-        permanent: true,
-      },
-      // Redirect permanent de la http://www.inpasidedans.ro la https://www.inpasidedans.ro
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'http://www.inpasidedans.ro',
-          },
-        ],
-        destination: 'https://www.inpasidedans.ro/:path*',
-        permanent: true,
-      },
       // Redirects pentru pagini care și-au schimbat numele
       {
         source: '/evenimente',
@@ -191,7 +167,6 @@ const nextConfig = {
         destination: '/cont',
         permanent: true,
       },
-      // Redirects pentru extensii vechi (dacă site-ul avea .html, .php, etc.)
       {
         source: '/index.html',
         destination: '/',
@@ -207,7 +182,6 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
-      // Redirects pentru structuri de URL vechi comune
       {
         source: '/pages/:slug',
         destination: '/:slug',
@@ -229,6 +203,10 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
           },
         ],
       },
