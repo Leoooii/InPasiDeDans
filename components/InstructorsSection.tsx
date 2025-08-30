@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
 import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
 
 // Definim interfața pentru instructor (conform Firebase)
@@ -23,7 +22,7 @@ interface InstructorsSectionProps {
   instructorNames?: string[]; // Array cu numele instructorilor de afișat
 }
 
-export default function InstructorsSection({ instructorNames }: InstructorsSectionProps) {
+export default function   InstructorsSection({ instructorNames }: InstructorsSectionProps) {
   const [instructori, setInstructori] = useState<Instructor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -129,118 +128,202 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
         // Layout special pentru 2 instructori - mai mari și centrați
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {instructori.map((instructor) => (
-            <Card key={instructor.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative h-96 w-full overflow-hidden">
-                <Image
-                  src={instructor.imageUrl}
-                  alt={instructor.name}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              <CardContent className="p-8">
-                <span className="text-2xl font-bold text-gray-900 mb-3">{instructor.name}</span>
-                <p className="text-red-600 font-medium mb-4 text-lg">{instructor.role}</p>
-                <p className="text-gray-600 text-base leading-relaxed mb-6">{instructor.bio}</p>
-                
-                {/* Social Media Links */}
-                <div className="flex space-x-4">
-                  {instructor.facebookUrl && (
-                    <a
-                      href={instructor.facebookUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-blue-600 transition-colors"
-                      aria-label={`Facebook ${instructor.name}`}
-                    >
-                      <Facebook size={20} />
-                    </a>
-                  )}
-                  {instructor.instagramUrl && (
-                    <a
-                      href={instructor.instagramUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-pink-600 transition-colors"
-                      aria-label={`Instagram ${instructor.name}`}
-                    >
-                      <Instagram size={20} />
-                    </a>
-                  )}
-                  {instructor.youtubeUrl && (
-                    <a
-                      href={instructor.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-red-600 transition-colors"
-                      aria-label={`YouTube ${instructor.name}`}
-                    >
-                      <Youtube size={20} />
-                    </a>
-                  )}
+            <div key={instructor.id} className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden">
+              {/* Border animat ca un șarpe */}
+              <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400 bg-[length:200%_100%] bg-left hover:bg-right transition-all duration-1000 ease-in-out opacity-0 group-hover:opacity-100"></div>
+              <div className="relative bg-white rounded-xl m-0.5">
+                <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
+                  <Image
+                    src={instructor.imageUrl}
+                    alt={`Dansuri latino in Bucuresti cu ${instructor.name}`}
+                    fill
+                    className="object-cover w-full h-full"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
                 </div>
-              </CardContent>
-            </Card>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-300">{instructor.name}</h3>
+                  <p className="text-red-600 font-medium mb-4 text-lg">{instructor.role}</p>
+                  <p className="text-gray-600 text-base leading-relaxed mb-6">
+                    {(() => {
+                      const phrasesToHighlight = [
+                        "fondator, manager și instructor",
+                        "pasiunea pentru dans",
+                        "experiență de peste 24 de ani",
+                        "competiții naționale și internaționale",
+                        "predarea dansurilor latino, de societate și dansurilor populare",
+                        "organizarea și coordonarea",
+                        "organizarea evenimentelor și activităților",
+                        "dansuri latino și de societate",
+                        "experiență de peste 13 ani",
+                        "bucuria, eleganța și secretele dansului",
+                        "experiență solidă de 11 ani",
+                        "peste 16 ani",
+                        "vicecampion național la bachata",
+                        "stilul său tehnic, carisma pe ringul de dans",
+                        "2023",
+                        "salsa și bachata",
+                        "dezvoltarea comunității de dansatori"
+                      ];
+                      
+                      return instructor.bio.split('\n').map((paragraph, pIndex) => (
+                        <span key={pIndex}>
+                          {(() => {
+                            let highlightedParagraph = paragraph;
+                            
+                            phrasesToHighlight.forEach(phrase => {
+                              const regex = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                              highlightedParagraph = highlightedParagraph.replace(regex, `<strong class="text-orange-700">${phrase}</strong>`);
+                            });
+                            
+                            return <span dangerouslySetInnerHTML={{ __html: highlightedParagraph }} />;
+                          })()}
+                          {pIndex < instructor.bio.split('\n').length - 1 && <br />}
+                        </span>
+                      ));
+                    })()}
+                  </p>
+                  
+                  {/* Social Media Links */}
+                  <div className="flex space-x-4">
+                    {instructor.facebookUrl && (
+                      <a
+                        href={instructor.facebookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-blue-600 transition-all duration-300 hover:scale-110"
+                        aria-label={`Facebook ${instructor.name}`}
+                      >
+                        <Facebook size={20} />
+                      </a>
+                    )}
+                    {instructor.instagramUrl && (
+                      <a
+                        href={instructor.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-pink-600 transition-all duration-300 hover:scale-110"
+                        aria-label={`Instagram ${instructor.name}`}
+                      >
+                        <Instagram size={20} />
+                      </a>
+                    )}
+                    {instructor.youtubeUrl && (
+                      <a
+                        href={instructor.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
+                        aria-label={`YouTube ${instructor.name}`}
+                      >
+                        <Youtube size={20} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       ) : (
-        // Layout original pentru 3+ instructori
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        // Layout pentru 3+ instructori - carduri verticale compacte
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {instructori.map((instructor) => (
-            <Card key={instructor.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div className="relative h-80 w-full overflow-hidden">
-                <Image
-                  src={instructor.imageUrl}
-                  alt={instructor.name}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{instructor.name}</h3>
-                <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">{instructor.bio}</p>
-                
-                {/* Social Media Links */}
-                <div className="flex space-x-3">
-                  {instructor.facebookUrl && (
-                    <a
-                      href={instructor.facebookUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-blue-600 transition-colors"
-                      aria-label={`Facebook ${instructor.name}`}
-                    >
-                      <Facebook size={18} />
-                    </a>
-                  )}
-                  {instructor.instagramUrl && (
-                    <a
-                      href={instructor.instagramUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-pink-600 transition-colors"
-                      aria-label={`Instagram ${instructor.name}`}
-                    >
-                      <Instagram size={18} />
-                    </a>
-                  )}
-                  {instructor.youtubeUrl && (
-                    <a
-                      href={instructor.youtubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-red-600 transition-colors"
-                      aria-label={`YouTube ${instructor.name}`}
-                    >
-                      <Youtube size={18} />
-                    </a>
-                  )}
+            <div key={instructor.id} className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden flex flex-col">
+              {/* Border animat ca un șarpe */}
+              <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400 bg-[length:200%_100%] bg-left hover:bg-right transition-all duration-1000 ease-in-out opacity-0 group-hover:opacity-100"></div>
+              <div className="relative bg-white rounded-xl m-0.5 flex flex-col flex-1">
+                <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
+                  <Image
+                    src={instructor.imageUrl}
+                    alt={`Dansuri latino in Bucuresti cu ${instructor.name}`}
+                    fill
+                    className="object-cover w-full h-full"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
                 </div>
-              </CardContent>
-            </Card>
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{instructor.name}</h3>
+                  <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                    {(() => {
+                      const phrasesToHighlight = [
+                        "fondator, manager și instructor",
+                        "pasiunea pentru dans",
+                        "experiență de peste 24 de ani",
+                        "competiții naționale și internaționale",
+                        "predarea dansurilor latino, de societate și dansurilor populare",
+                        "organizarea și coordonarea",
+                        "organizarea evenimentelor și activităților",
+                        "dansuri latino și de societate",
+                        "experiență de peste 13 ani",
+                        "bucuria, eleganța și secretele dansului",
+                        "experiență solidă de 11 ani",
+                        "peste 16 ani",
+                        "vicecampion național la bachata",
+                        "stilul său tehnic, carisma pe ringul de dans",
+                        "2023",
+                        "salsa și bachata",
+                        "dezvoltarea comunității de dansatori"
+                      ];
+                      
+                      return instructor.bio.split('\n').map((paragraph, pIndex) => (
+                        <span key={pIndex}>
+                          {(() => {
+                            let highlightedParagraph = paragraph;
+                            
+                            phrasesToHighlight.forEach(phrase => {
+                              const regex = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                              highlightedParagraph = highlightedParagraph.replace(regex, `<strong class="text-orange-700">${phrase}</strong>`);
+                            });
+                            
+                            return <span dangerouslySetInnerHTML={{ __html: highlightedParagraph }} />;
+                          })()}
+                          {pIndex < instructor.bio.split('\n').length - 1 && <br />}
+                        </span>
+                      ));
+                    })()}
+                  </p>
+                  
+                  {/* Social Media Links */}
+                  <div className="flex space-x-3 mt-auto">
+                    {instructor.facebookUrl && (
+                      <a
+                        href={instructor.facebookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-blue-600 transition-all duration-300 hover:scale-110"
+                        aria-label={`Facebook ${instructor.name}`}
+                      >
+                        <Facebook size={18} />
+                      </a>
+                    )}
+                    {instructor.instagramUrl && (
+                      <a
+                        href={instructor.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-pink-600 transition-all duration-300 hover:scale-110"
+                        aria-label={`Instagram ${instructor.name}`}
+                      >
+                        <Instagram size={18} />
+                      </a>
+                    )}
+                    {instructor.youtubeUrl && (
+                      <a
+                        href={instructor.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
+                        aria-label={`YouTube ${instructor.name}`}
+                      >
+                        <Youtube size={18} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}
