@@ -35,7 +35,7 @@ export default function WhyChooseUsSection() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-16 bg-gray-50 dark:bg-gray-900">
+    <div className="container mx-auto px-4 py-16 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
           De ce să înveți dansuri de societate cu noi în București?

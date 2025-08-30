@@ -118,34 +118,34 @@ const GrupeInFormareSection = () => {
       <div className="container py-12 flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
-          <p className="mt-4 text-gray-500">Se încarcă grupele în formare...</p>
+          <p className="mt-4 text-white/90">Se încarcă grupele în formare...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container py-12">
+    <div className="w-full">
       {grupe.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-500">
+          <p className="text-xl text-white/90">
             Nu există grupe în formare momentan.
           </p>
-          <p className="mt-2 text-gray-400">Vă rugăm să reveniți mai târziu.</p>
+          <p className="mt-2 text-white/70">Vă rugăm să reveniți mai târziu.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-16">
           {grupe.map(grupa => (
             <Card
               key={grupa.id}
-              className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 hover:cursor-pointer flex flex-col justify-between border-orange-600"
+              className="overflow-hidden hover:shadow-2xl transition-all duration-300 hover:cursor-pointer flex flex-col justify-between border-orange-400 bg-white/10 backdrop-blur-sm hover:bg-white/20"
             >
               <div>
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
-                    <CardTitle className="text-xl">{grupa.titlu}</CardTitle>
+                    <CardTitle className="text-xl text-white">{grupa.titlu}</CardTitle>
                   </div>
-                  <CardDescription>
+                  <CardDescription className="text-white/90">
                     Instructor: {grupa.instructor}
                   </CardDescription>
                 </CardHeader>
@@ -157,7 +157,7 @@ const GrupeInFormareSection = () => {
                           <Badge
                             key={index}
                             variant="outline"
-                            className="bg-primary/10 text-primary"
+                            className="bg-white/20 text-white border-white/30"
                           >
                             {stil}
                           </Badge>
@@ -165,7 +165,7 @@ const GrupeInFormareSection = () => {
                       ) : (
                         <Badge
                           variant="outline"
-                          className="bg-primary/10 text-primary"
+                          className="bg-white/20 text-white border-white/30"
                         >
                           {grupa.stiluri && grupa.stiluri[0]
                             ? grupa.stiluri[0]
@@ -174,25 +174,25 @@ const GrupeInFormareSection = () => {
                       )}
                     </div>
 
-                    <p className="text-sm text-gray-500 ">{grupa.descriere}</p>
+                    <p className="text-sm text-white/80 ">{grupa.descriere}</p>
 
-                    <div className="space-y-2">
-                      <div className="flex items-center text-sm">
-                        <Calendar className="h-4 w-4 mr-2 text-gray-500" />
-                        <span>Începe pe {formatDate(grupa.dataStart)}</span>
+                                          <div className="space-y-2">
+                        <div className="flex items-center text-sm">
+                          <Calendar className="h-4 w-4 mr-2 text-white/70" />
+                          <span className="text-white/90">Începe pe {formatDate(grupa.dataStart)}</span>
+                        </div>
+                        <div className="flex items-center text-sm">
+                          <Clock className="h-4 w-4 mr-2 text-white/70" />
+                          <span className="text-white/90">{formatProgram(grupa.program)}</span>
+                        </div>
+                        <div className="flex items-center text-sm">
+                          <Users className="h-4 w-4 mr-2 text-white/70" />
+                          <span className="text-white/90">
+                            {grupa.locuriDisponibile} locuri disponibile din{' '}
+                            {grupa.locuriTotale}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex items-center text-sm">
-                        <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                        <span>{formatProgram(grupa.program)}</span>
-                      </div>
-                      <div className="flex items-center text-sm">
-                        <Users className="h-4 w-4 mr-2 text-gray-500" />
-                        <span>
-                          {grupa.locuriDisponibile} locuri disponibile din{' '}
-                          {grupa.locuriTotale}
-                        </span>
-                      </div>
-                    </div>
                   </CardContent>
                 </div>
               </div>

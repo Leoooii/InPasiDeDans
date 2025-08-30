@@ -1997,6 +1997,13 @@ embla-carousel-reactive-utils@8.5.1:
   resolved "https://registry.yarnpkg.com/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.5.1.tgz#3059ab2f72f04988a96694f700a772a72bb75ffb"
   integrity sha512-n7VSoGIiiDIc4MfXF3ZRTO59KDp820QDuyBDGlt5/65+lumPHxX2JLz0EZ23hZ4eg4vZGUXwMkYv02fw2JVo/A==
 
+embla-carousel-wheel-gestures@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/embla-carousel-wheel-gestures/-/embla-carousel-wheel-gestures-8.1.0.tgz#dfdb865f634058723c46539bdde45248673a43a5"
+  integrity sha512-J68jkYrxbWDmXOm2n2YHl+uMEXzkGSKjWmjaEgL9xVvPb3HqVmg6rJSKfI3sqIDVvm7mkeTy87wtG/5263XqHQ==
+  dependencies:
+    wheel-gestures "^2.2.5"
+
 embla-carousel@8.5.1:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-8.5.1.tgz#8d83217e831666f6df573b0d3727ff0ae9208002"
@@ -3242,6 +3249,11 @@ websocket-extensions@>=0.1.1:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
   integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
+
+wheel-gestures@^2.2.5:
+  version "2.2.48"
+  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.2.48.tgz#7b84b2522e66962efb50b5fe7e4a55503061255e"
+  integrity sha512-f+Gy33Oa5Z14XY9679Zze+7VFhbsQfBFXodnU2x589l4kxGM9L5Y8zETTmcMR5pWOPQyRv4Z0lNax6xCO0NSlA==
 
 which@^2.0.1:
   version "2.0.2"

@@ -13,6 +13,7 @@ import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 import NoutatiSection from '@/components/noutati-section';
 import { PartyPopper } from 'lucide-react';
 import StickyMenu from '@/components/sticky-menu';
+import CursuriSection from '@/components/CursuriSection';
 
 export const metadata = {
   title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 4,5 si 6 | In Pasi de Dans',
@@ -91,49 +92,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section id="cursuri" className="pb-16 pt-20 bg-gray-800">
-          {/* <ScrollDownArrows /> */}
-          <div className="container px-10 sm:px-20">
-            <h1 className="text-3xl font-bold mb-12 text-center text-white">
-              Cursuri de Dans în București
-            </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <ShineButton
-                title="Cursuri de dans pentru adulți"
-                href="/cursuri-dans-adulti"
-                imageSrc="/images/bachata.png?height=400&width=600"
-              />
-              <ShineButton
-                title="Cursuri de dans pentru copii"
-                href="/cursuri-dans-copii"
-                imageSrc="/images/copii.jpeg?height=400&width=600"
-              />
-              <ShineButton
-                title="Lecții private"
-                href="/lectii-private"
-                imageSrc="/images/private2.png?height=400&width=600"
-              />
-              <ShineButton
-                title="Grupe noi"
-                href="/grupe-in-formare"
-                imageSrc="/images/grupenoi.png?height=400&width=600"
-              />
-              <ShineButton
-                title="Tarife"
-                href="/tarife"
-                imageSrc="/images/tarife.png?height=400&width=600"
-              />
-              <ShineButton
-                title="Program"
-                href="/program"
-                imageSrc="/images/program.png?height=400&width=600"
-              />
-            </div>
-          </div>
-        </section>
+        <CursuriSection />
         <section
           id="grupe"
-          className="py-16 bg-gradient-to-r from-red-600 to-orange-500 text-white"
+          className="py-8 bg-gradient-to-r from-red-600 to-orange-500 text-white"
         >
           <div className="container text-center">
             <h2 className="text-3xl font-bold mb-6">
@@ -154,18 +116,43 @@ export default function Home() {
             </Link>
           </div>
         </section>
-        <section className="bg-gradient-to-r from-red-600 to-orange-500 text-white">
-          <div>
+        {/* Secțiunea Grupe în Formare */}
+        <section className="bg-gradient-to-r from-red-600 to-orange-500 text-white py-8">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Grupe în Formare
+              </h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Alătură-te grupelor noi care încep în curând
+              </p>
+            </div>
             <GrupeInFormareSection />
           </div>
+        </section>
 
-          <div className="my-12 flex flex-col items-center gap-2">
-            <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80 mb-2" />
-            <PartyPopper className="h-10 w-10 text-white drop-shadow-lg" />
-            <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80 mt-2" />
+        {/* Separator vizual */}
+        <div className="relative py-16 bg-gradient-to-b from-red-600 to-slate-800">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80" />
+              <PartyPopper className="h-12 w-12 text-white drop-shadow-lg" />
+              <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80" />
+            </div>
           </div>
+        </div>
 
-          <div id="noutati">
+        {/* Secțiunea Noutăți cu fundal diferit */}
+        <section id="noutati" className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-white py-8">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Noutăți și Evenimente
+              </h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Fii la curent cu ultimele noutăți și evenimente
+              </p>
+            </div>
             <NoutatiSection itemsToShow={4} />
           </div>
         </section>

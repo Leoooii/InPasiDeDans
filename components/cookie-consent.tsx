@@ -23,7 +23,7 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-gray-900 border-t shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-gradient-to-r dark:from-slate-800 dark:to-slate-900 border-t shadow-lg">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex-1">
           <p className="text-sm text-gray-700 dark:text-gray-300">

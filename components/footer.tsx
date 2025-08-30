@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer
       id="site-footer"
-      className="bg-gray-900 text-gray-300 dark:bg-gray-950 dark:text-gray-200"
+      className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-gray-300 dark:bg-slate-950 dark:text-gray-200"
     >
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

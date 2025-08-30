@@ -1,4 +1,6 @@
 import { MapPin, Phone } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function LocationSection() {
   return (
@@ -39,10 +41,23 @@ export default function LocationSection() {
               </div>
             </div>
           </div>
+
+          {/* Butonul de înscriere */}
+          <div className="text-center pt-4">
+            <Link href="/inscriere">
+              <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-lg">
+                Înscrie-te la curs
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Harta */}
         <div className="bg-white rounded-xl p-4 shadow-lg border border-gray-100">
+          <div className="text-center mb-4">
+            <h4 className="text-xl font-bold text-gray-900 mb-2">Ne găsești aici</h4>
+            <p className="text-gray-600 text-sm">Obține direcții</p>
+          </div>
           <div className="aspect-video w-full rounded-lg overflow-hidden">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.86803561851!2d26.0774895!3d44.415353599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff9e4072cc6f%3A0x901ceb768f754f2a!2sIn%20Pa%C8%99i%20de%20Dans!5e0!3m2!1sen!2sro!4v1743511190472!5m2!1sen!2sro"
