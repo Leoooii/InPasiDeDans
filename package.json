@@ -48,6 +48,7 @@
     "cmdk": "1.0.4",
     "critters": "^0.0.25",
     "date-fns": "4.1.0",
+    "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "8.5.1",
     "firebase": "latest",
     "input-otp": "1.4.1",

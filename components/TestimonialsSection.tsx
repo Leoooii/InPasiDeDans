@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import useEmblaCarouselAutoplay from 'embla-carousel-autoplay';
 
 interface Testimonial {
   id: number;
@@ -111,6 +112,9 @@ const societateTestimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSection({ danceType = 'default' }: TestimonialsSectionProps) {
+  // Hook pentru autoplay
+  const autoplay = useEmblaCarouselAutoplay({ delay: 3000, stopOnInteraction: false });
+  
   // Selectăm testimoniale în funcție de tipul de dans
   const getTestimonials = () => {
     switch (danceType) {
@@ -125,10 +129,10 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
 
   const testimonials = getTestimonials();
 
-  // Grupăm testimonialele în slide-uri de câte 2
+  // Grupăm testimonialele în slide-uri de câte 2 pentru mobile și 3 pentru desktop
   const testimonialSlides = [];
-  for (let i = 0; i < testimonials.length; i += 2) {
-    testimonialSlides.push(testimonials.slice(i, i + 2));
+  for (let i = 0; i < testimonials.length; i += 3) {
+    testimonialSlides.push(testimonials.slice(i, i + 3));
   }
 
   return (
@@ -149,11 +153,11 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
 
         {/* Testimonials Carousel */}
         <div className="max-w-7xl mx-auto relative">
-                     <Carousel className="w-full" opts={{ loop: true }}>
+                     <Carousel className="w-full" opts={{ loop: true }} plugins={[autoplay]}>
             <CarouselContent>
               {testimonialSlides.map((slide, slideIndex) => (
                 <CarouselItem key={slideIndex} className="pl-4">
-                                     <div className="flex flex-col gap-6">
+                                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
                     {slide.map((testimonial, index) => (
                       <div
                         key={testimonial.id}
