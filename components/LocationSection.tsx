@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 export default function LocationSection() {
   return (
     <div className="p-0 container py-12">
-      <h3 className="text-3xl font-bold tracking-tight text-center mb-8">Unde au loc aceste lecții de dans?</h3>
+      <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Unde au loc aceste lecții de dans?</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
         {/* Textul informațional */}
         <div className="space-y-6">
@@ -55,7 +55,7 @@ export default function LocationSection() {
         {/* Harta */}
         <div className="bg-white rounded-xl p-4 shadow-lg border border-gray-100">
           <div className="text-center mb-4">
-            <h4 className="text-xl font-bold text-gray-900 mb-2">Ne găsești aici</h4>
+            <div className="text-xl font-bold text-gray-900 mb-2">Ne găsești aici</div>
             <p className="text-gray-600 text-sm">Obține direcții</p>
           </div>
           <div className="aspect-video w-full rounded-lg overflow-hidden">

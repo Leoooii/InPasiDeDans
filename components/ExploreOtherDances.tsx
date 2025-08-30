@@ -59,9 +59,9 @@ export default function ExploreOtherDances({
                   
                   {/* Content Overlay */}
                   <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                    <h4 className="text-2xl font-bold mb-2 group-hover:text-yellow-200 transition-colors duration-300">
+                    <div className="text-2xl font-bold mb-2 group-hover:text-yellow-200 transition-colors duration-300">
                       {category.title}
-                    </h4>
+                    </div>
                     <p className="text-white/90 text-sm group-hover:text-white transition-colors duration-300">
                       {category.description}
                     </p>

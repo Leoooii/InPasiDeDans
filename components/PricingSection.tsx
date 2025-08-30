@@ -131,9 +131,9 @@ export default function PricingSection() {
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-amber-800 mb-3">
+                <div className="text-sm font-medium text-amber-800 mb-3">
                   Informații importante despre abonamente
-                </h3>
+                </div>
                 <div className="text-sm text-amber-700 space-y-3">
                   <p>
                     <strong>Valabilitatea abonamentelor este de 4 săptămâni</strong> și acestea se achită la prima ședință. Ședințele pierdute se pot recupera la alte grupe (dacă doriți), în aceeași lună și <strong>NU se reportează pentru lunile viitoare</strong>.

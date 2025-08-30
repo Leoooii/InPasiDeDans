@@ -52,9 +52,9 @@ export default function WhyChooseUsSection() {
             <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-600 to-orange-500 rounded-full mx-auto mb-4">
               {reason.icon}
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-3">
+            <div className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-3">
               {reason.title}
-            </h3>
+            </div>
             <p className="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
               {reason.description}
             </p>

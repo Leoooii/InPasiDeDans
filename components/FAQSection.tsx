@@ -73,6 +73,7 @@ const societateFAQData: FAQItem[] = [
           <li>Ne scrii direct pe WhatsApp la <a href="https://wa.me/40722675126" className="text-red-600 hover:text-red-700 underline">0722 675 126</a></li>
           <li>Ne trimiți un e-mail la <a href="mailto:inpasidedans@gmail.com" className="text-red-600 hover:text-red-700 underline">inpasidedans@gmail.com</a></li>
         </ul>
+        <p>Dacă ai deja experiență în dans, poți alege o grupă de nivel intermediar sau avansat. Dacă ești la primul pas în lumea dansului, îți recomandăm să te înscrii la o grupă de nivel începător.</p>
         <p>După ce te înscrii, îți confirmăm locul în grupă și îți trimitem toate detaliile despre program și abonament.</p>
       </div>
     )
@@ -85,7 +86,12 @@ const societateFAQData: FAQItem[] = [
   {
     id: 3,
     question: 'Oferiți cursuri pentru toate nivelurile (începători, intermediari, avansați)?',
-    answer: 'Da, avem grupe pentru toate nivelurile, astfel încât să evoluezi treptat și să dansezi cu încredere pe orice ritm. Poți verifica aici programul grupelor aflate în defasurare [link către Program] și grupele aflate în formare [link către Grupe in formare]'
+    answer: (
+      <div className="space-y-3">
+        <p>Da, avem grupe pentru toate nivelurile, astfel încât să evoluezi treptat și să dansezi cu încredere pe orice ritm.</p>
+        <p>Poți verifica aici <a href="/program" className="text-red-600 hover:text-red-700 underline">programul grupelor</a> aflate în desfășurare și <a href="/grupe-in-formare" className="text-red-600 hover:text-red-700 underline">grupele aflate în formare</a>.</p>
+      </div>
+    )
   },
   {
     id: 4,
@@ -180,12 +186,12 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
                 onClick={() => toggleItem(item.id)}
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
               >
-                <h3 
+                <div 
                   className="text-lg font-semibold text-gray-900 pr-4"
                   itemProp="name"
                 >
                   {item.question}
-                </h3>
+                </div>
                 <div className="flex-shrink-0">
                   {openItems.includes(item.id) ? (
                     <Minus className="w-5 h-5 text-gray-600" />

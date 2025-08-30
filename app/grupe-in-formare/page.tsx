@@ -50,7 +50,7 @@ export const metadata = {
 export default function GrupeInFormarePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-white">
-      <div className="container mx-auto py-16 px-4 md:px-0">
+      <div className="container mx-auto py-16 px-4 md:px-16">
         <Breadcrumb>
           <BreadcrumbList className="text-white/80">
             <BreadcrumbItem>

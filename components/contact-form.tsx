@@ -145,7 +145,7 @@ const ContactForm = () => {
       <CardContent className="p-6 border-orange-600 border-2 rounded-md">
         {!isSent ? (
           <>
-            <h2 className="text-xl font-bold mb-4">Trimite-ne un mesaj</h2>
+            <div className="text-xl font-bold mb-4">Trimite-ne un mesaj</div>
             <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Honeypot field – invizibil */}
               <div className="hidden">

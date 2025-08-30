@@ -18,6 +18,7 @@ import ContactForm from '@/components/contact-form';
 import StickyMenu from '@/components/sticky-menu';
 import BenefitsSection from '@/components/BenefitsSection';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
+import CourseLevelsSection from '@/components/CourseLevelsSection';
 
 export default function DansuriDeSocietate() {
   return (
@@ -41,7 +42,7 @@ export default function DansuriDeSocietate() {
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri de societate</h1>
           <div>
             <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
-           Dansurile de societate te poartă într-o lume a rafinamentului și a grație - de la eleganța valsului și pasiunea tango-ului, la ritmul vesel al quickstep-ului sau farmecul foxtrot-ului, fiecare dans îți oferă o poveste aparte
+           Dansurile de societate te poartă într-o lume a rafinamentului și a grației - de la eleganța valsului și pasiunea tango-ului, la ritmul vesel al quickstep-ului sau farmecul foxtrot-ului, fiecare dans îți oferă o poveste aparte
             </p>
             <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
            Începe acum și transformă fiecare pas într-o experiență plină de grație și armonie!
@@ -65,7 +66,7 @@ export default function DansuriDeSocietate() {
           Sunt potrivite pentru oricine își dorește să învețe să danseze, să se relaxeze și să strălucească la evenimente speciale sau pur și simplu să se bucure de mișcare. 
           </p>
         </div>
-        
+        <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">Ce stiluri de dans de societate vei învăța?</h2>
         <div id="stiluri-dans" className="p-0 container flex flex-col gap-12 items-center">
         <DancePresentationCard
             title="Vals Lent"
@@ -121,6 +122,7 @@ export default function DansuriDeSocietate() {
         {/* <div id="structura">
           <StructureFeatures/>
         </div> */}
+         <CourseLevelsSection />
         
         <div id="grupe-in-formare">
           <GrupeInFormare/>
@@ -181,6 +183,9 @@ export default function DansuriDeSocietate() {
         />
         
         <div id="inscriere" className="px-0 md:px-32">
+        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">
+          Completează formularul și înscrie-te la cursurile de dans de societate
+          </h3>
           <ContactForm/>
         </div>
       </div>
