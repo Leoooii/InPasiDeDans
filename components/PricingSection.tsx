@@ -18,7 +18,8 @@ const groupPricing = [
     currency: 'Lei',
     features: [
       '8 ședințe pe lună',
-      'Acces la o singură grupă'
+      'Acces la o singură grupă',
+      'Valabil pentru orice grupa (dans popular, dansuri latino & de societate, bachata & salsa)'
     ],
     popular: false
   },
@@ -30,7 +31,8 @@ const groupPricing = [
     currency: 'Lei',
     features: [
       '16 ședințe pe lună',
-      'Acces la 2 grupe'
+      'Acces la 2 grupe',
+      'Valabil pentru orice grupa (dans popular, dansuri latino & de societate, bachata & salsa)'
     ],
     popular: true
   },
@@ -41,7 +43,9 @@ const groupPricing = [
     price: '420',
     currency: 'Lei',
     features: [
-      'Acces nelimitat la grupe'
+      'Acces nelimitat la grupe',
+      'Valabil începând cu prima ședință efectuată',
+      'Permite acces la toate grupele în desfășurare la momentul achiziționării'
     ],
     popular: false
   },
@@ -52,7 +56,8 @@ const groupPricing = [
     price: '45',
     currency: 'Lei',
     features: [
-      'O ședință la grup'
+      'O ședință la grup',
+      'Tarif valabil pentru orice grupa (dans popular, dansuri latino & de societate, bachata & salsa)'
     ],
     popular: false
   }
@@ -101,18 +106,47 @@ export default function PricingSection() {
                 <CardContent className="flex-1 mt-2 p-6">
                   <ul className="space-y-2">
                     {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center">
+                      <li key={index} className="flex items-start">
                         <Check
-                          className="mr-2 h-4 w-4 text-green-500"
+                          className="mr-2 h-4 w-4 text-green-500 flex-shrink-0 mt-0.5"
                           aria-label="Inclus"
                         />
-                        <span>{feature}</span>
+                        <span className="text-sm leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+
+        {/* Warning Section */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-lg shadow-sm">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-amber-800 mb-3">
+                  Informații importante despre abonamente
+                </h3>
+                <div className="text-sm text-amber-700 space-y-3">
+                  <p>
+                    <strong>Valabilitatea abonamentelor este de 4 săptămâni</strong> și acestea se achită la prima ședință. Ședințele pierdute se pot recupera la alte grupe (dacă doriți), în aceeași lună și <strong>NU se reportează pentru lunile viitoare</strong>.
+                  </p>
+                  <p>
+                    În cazul în care doriți să achiziționați un <strong>abonament full pass</strong>, vă rugăm să verificați dacă grupele la care doriți să participați în baza acestui abonament se potrivesc nivelului dvs. (începător/intermediar/avansat). 
+                  </p>
+                  <p className="bg-amber-100 p-3 rounded border-l-2 border-amber-300">
+                    <strong>Exemplu:</strong> dacă sunteți începător, nu puteți participa la grupe de nivel intermediar sau avansat; dacă sunteți avansat puteți participa la orice grupă, indiferent de nivelul acesteia.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
