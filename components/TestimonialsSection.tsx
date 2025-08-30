@@ -1,3 +1,5 @@
+'use client';
+
 import { Star, Quote, Heart, Link } from 'lucide-react';
 import { Button } from './ui/button';
 import {
@@ -112,7 +114,7 @@ const societateTestimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSection({ danceType = 'default' }: TestimonialsSectionProps) {
-  // Hook pentru autoplay
+  // Hook pentru autoplay - folosit doar pe client
   const autoplay = useEmblaCarouselAutoplay({ delay: 3000, stopOnInteraction: false });
   
   // Selectăm testimoniale în funcție de tipul de dans
