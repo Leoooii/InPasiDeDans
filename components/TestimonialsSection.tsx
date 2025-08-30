@@ -1,5 +1,12 @@
 import { Star, Quote, Heart, Link } from 'lucide-react';
 import { Button } from './ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 interface Testimonial {
   id: number;
@@ -118,6 +125,12 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
 
   const testimonials = getTestimonials();
 
+  // Grupăm testimonialele în slide-uri de câte 2
+  const testimonialSlides = [];
+  for (let i = 0; i < testimonials.length; i += 2) {
+    testimonialSlides.push(testimonials.slice(i, i + 2));
+  }
+
   return (
     <div className="bg-white">
       <div className="container mx-auto px-4">
@@ -134,65 +147,78 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`relative p-8 rounded-2xl ${
-                index % 2 === 0 
-                  ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
-                  : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
-              } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2`}
-            >
-              {/* Quote Icon */}
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-                <Quote className="w-6 h-6 text-red-500" />
-              </div>
+        {/* Testimonials Carousel */}
+        <div className="max-w-7xl mx-auto relative">
+                     <Carousel className="w-full" opts={{ loop: true }}>
+            <CarouselContent>
+              {testimonialSlides.map((slide, slideIndex) => (
+                <CarouselItem key={slideIndex} className="pl-4">
+                                     <div className="flex flex-col gap-6">
+                    {slide.map((testimonial, index) => (
+                      <div
+                        key={testimonial.id}
+                        className={`relative p-6 rounded-2xl ${
+                          index % 2 === 0 
+                            ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
+                            : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
+                        } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full`}
+                      >
+                        {/* Quote Icon */}
+                        <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                          <Quote className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" />
+                        </div>
 
-              {/* Rating */}
-              <div className="flex justify-center mb-6">
-                {[...Array(testimonial.rating)].map((_, starIndex) => (
-                  <Star
-                    key={starIndex}
-                    className="w-6 h-6 text-yellow-500 fill-current mx-1"
-                  />
-                ))}
-              </div>
+                        {/* Rating */}
+                        <div className="flex justify-center mb-3 lg:mb-4">
+                          {[...Array(testimonial.rating)].map((_, starIndex) => (
+                            <Star
+                              key={starIndex}
+                              className="w-4 h-4 lg:w-5 lg:h-5 text-yellow-500 fill-current mx-0.5 lg:mx-1"
+                            />
+                          ))}
+                        </div>
 
-              {/* Highlight Text */}
-              <div className="text-center mb-6">
-                <p className="text-lg font-semibold text-gray-800 italic">
-                  "{testimonial.highlight}"
-                </p>
-              </div>
+                        {/* Highlight Text */}
+                        <div className="text-center mb-3 lg:mb-4">
+                          <p className="text-sm lg:text-base font-semibold text-gray-800 italic">
+                            "{testimonial.highlight}"
+                          </p>
+                        </div>
 
-              {/* Full Testimonial */}
-              <p className="text-gray-700 leading-relaxed mb-8 text-center">
-                {testimonial.text}
-              </p>
+                        {/* Full Testimonial */}
+                        <p className="text-gray-700 leading-relaxed mb-4 lg:mb-6 text-center text-xs lg:text-sm">
+                          {testimonial.text}
+                        </p>
 
-              {/* Author */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-red-400 to-orange-400 rounded-full mx-auto mb-3 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">
-                    {testimonial.name.split(' ').map(n => n[0]).join('')}
-                  </span>
-                </div>
-                <p className="font-bold text-gray-900 text-lg">
-                  {testimonial.name}
-                </p>
-              </div>
+                        {/* Author */}
+                        <div className="text-center">
+                          <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-400 to-orange-400 rounded-full mx-auto mb-2 lg:mb-3 flex items-center justify-center">
+                            <span className="text-white font-bold text-sm lg:text-base">
+                              {testimonial.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                          <p className="font-bold text-gray-900 text-sm lg:text-base">
+                            {testimonial.name}
+                          </p>
+                        </div>
 
-              {/* Decorative Elements */}
-              <div className="absolute top-4 right-4 opacity-10">
-                <Heart className="w-12 h-12 text-red-400" />
-              </div>
-            </div>
-          ))}
+                        {/* Decorative Elements */}
+                        <div className="absolute top-3 right-3 lg:top-4 lg:right-4 opacity-10">
+                          <Heart className="w-8 h-8 lg:w-10 lg:h-10 text-red-400" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            {/* Navigation Buttons */}
+            <CarouselPrevious className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
+            <CarouselNext className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
+          </Carousel>
         </div>
       </div>
-      
     </div>
   );
 }
