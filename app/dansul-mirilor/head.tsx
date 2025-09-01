@@ -8,7 +8,7 @@ export default function Head() {
       />
       <meta
         name="keywords"
-        content="dansul mirilor, cursuri private dans, lecții private nuntă, coregrafie dans miri, București"
+        content="dansul mirilor, cursuri private dans, lectii private nunta, coregrafie dans miri, Bucuresti"
       />
       <link rel="canonical" href="https://www.inpasidedans.ro/dansul-mirilor" />
       <meta name="robots" content="index, follow" />
@@ -18,11 +18,11 @@ export default function Head() {
       {/* Open Graph / Facebook */}
       <meta
         property="og:title"
-        content="Dansul Mirilor București | Cursuri Private | În Pași de Dans"
+        content="Dansul Mirilor Bucuresti | Cursuri Private | In Pasi de Dans"
       />
       <meta
         property="og:description"
-        content="Dansul mirilor cu coregrafie personalizată. Lecții private 1-la-1, program flexibil și instructori dedicați. București."
+        content="Dansul mirilor cu coregrafie personalizata. Lectii private 1-la-1, program flexibil si instructori dedicati. Bucuresti."
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://www.inpasidedans.ro/dansul-mirilor" />
@@ -30,17 +30,17 @@ export default function Head() {
         property="og:image"
         content="https://www.inpasidedans.ro/images/logo.png"
       />
-      <meta property="og:image:alt" content="Dansul mirilor la În Pași de Dans" />
+      <meta property="og:image:alt" content="Dansul mirilor la In Pasi de Dans" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta
         name="twitter:title"
-        content="Dansul Mirilor București | Cursuri Private | În Pași de Dans"
+        content="Dansul Mirilor Bucuresti | Cursuri Private | In Pasi de Dans"
       />
       <meta
         name="twitter:description"
-        content="Dansul mirilor cu coregrafie personalizată. Lecții private 1-la-1, program flexibil și instructori dedicați. București."
+        content="Dansul mirilor cu coregrafie personalizata. Lectii private 1-la-1, program flexibil si instructori dedicati. Bucuresti."
       />
       <meta
         name="twitter:image"

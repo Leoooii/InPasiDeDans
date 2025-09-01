@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Sitemap | În Pași de Dans',
-  description: 'Toate paginile importante ale site-ului În Pași de Dans, pentru utilizatori și crawlere.'
+  title: 'Sitemap | In Pasi de Dans',
+  description: 'Toate paginile importante ale site-ului In Pasi de Dans, pentru utilizatori si crawlere.'
 };
 
 export default function SitemapPage() {
   return (
     <div className="container py-12">
-      <h1 className="text-3xl font-bold mb-8">Sitemap - În Pași de Dans</h1>
+      <h1 className="text-3xl font-bold mb-8">Sitemap - In Pasi de Dans</h1>
       <ul className="space-y-2 text-lg">
         <li><Link href="/">Acasă</Link></li>
         <li><Link href="/grupe-in-formare">Grupe în formare</Link></li>

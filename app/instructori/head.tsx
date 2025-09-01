@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>Instructori Dans București | În Pași de Dans</title>
+      <title>Instructori Dans Bucuresti | In Pasi de Dans</title>
       <meta
         name="description"
         content="Descoperă echipa noastră de instructori profesioniști, pasionați de dans și de predare."

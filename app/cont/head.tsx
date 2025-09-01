@@ -1,20 +1,20 @@
 export default function Head() {
   return (
     <>
-      <title>Contul Meu | În Pași de Dans</title>
+      <title>Contul Meu | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Vizualizează și gestionează informațiile contului tău."
+        content="Vizualizeaza si gestioneaza informatiile contului tau."
       />
       <meta name="robots" content="noindex, nofollow" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
 
       {/* Open Graph */}
-      <meta property="og:title" content="Contul Meu | În Pași de Dans" />
+      <meta property="og:title" content="Contul Meu | In Pasi de Dans" />
       <meta
         property="og:description"
-        content="Vizualizează și gestionează informațiile contului tău."
+        content="Vizualizeaza si gestioneaza informatiile contului tau."
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://www.inpasidedans.ro/cont" />
@@ -22,7 +22,7 @@ export default function Head() {
         property="og:image"
         content="https://www.inpasidedans.ro/images/logo.png"
       />
-      <meta property="og:image:alt" content="Logo În Pași de Dans" />
+      <meta property="og:image:alt" content="Logo In Pasi de Dans" />
 
       {/* Social profiles (opțional aici, dar inclus pentru consistență) */}
       <meta

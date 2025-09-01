@@ -1,24 +1,24 @@
 export default function Head() {
   return (
     <>
-      <title>Politică de Cookie-uri | În Pași de Dans</title>
+      <title>Politica de Cookie-uri | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Aflați cum folosim cookie-urile și tehnologiile similare pe site-ul nostru pentru a asigura o experiență sigură."
+        content="Aflati cum folosim cookie-urile si tehnologiile similare pe site-ul nostru pentru a asigura o experienta sigura."
       />
-      <meta property="og:title" content="Politică de Cookie-uri | În Pași de Dans" />
+      <meta property="og:title" content="Politica de Cookie-uri | In Pasi de Dans" />
       <meta
         property="og:description"
-        content="Aflați cum folosim cookie-urile pentru a vă oferi o experiență sigură și personalizată pe site."
+        content="Aflati cum folosim cookie-urile pentru a va oferi o experienta sigura si personalizata pe site."
       />
       <meta property="og:image" content="/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/politica-cookie-uri" />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="În Pași de Dans" />
+      <meta property="og:site_name" content="In Pasi de Dans" />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Școala de dans În Pași de Dans" />
+      <meta name="author" content="Scoala de dans In Pasi de Dans" />
 
-      <meta name="keywords" content="cookie-uri, politica cookies, securitate site, confidențialitate, în pași de dans" />
+      <meta name="keywords" content="cookie-uri, politica cookies, securitate site, confidentialitate, in pasi de dans" />
 
       <meta property="og:locale" content="ro_RO" />
 

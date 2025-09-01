@@ -10,37 +10,37 @@ import {
 import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: 'Noutăți și Evenimente | În Pași de Dans',
+  title: 'Noutati si Evenimente | In Pasi de Dans',
   description:
-    'Află ultimele noutăți, evenimente și promoții de la școala noastră de dans. Fii la curent cu tot ce se întâmplă la În Pași de Dans, București!',
+    'Afla ultimele noutati, evenimente si promotii de la scoala noastra de dans. Fii la curent cu tot ce se intampla la In Pasi de Dans, Bucuresti!',
   keywords:
-    'noutăți dans, evenimente dans, știri școală de dans, promoții dans București',
+    'noutati dans, evenimente dans, stiri scoala de dans, promotii dans Bucuresti',
   robots: 'index, follow',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/noutati',
   },
   openGraph: {
     type: 'website',
-    title: 'Noutăți și Evenimente | În Pași de Dans',
+    title: 'Noutati si Evenimente | In Pasi de Dans',
     description:
-      'Află ultimele noutăți, evenimente și promoții de la școala noastră de dans. Fii la curent cu tot ce se întâmplă la În Pași de Dans, București!',
+      'Afla ultimele noutati, evenimente si promotii de la scoala noastra de dans. Fii la curent cu tot ce se intampla la In Pasi de Dans, Bucuresti!',
     url: 'https://www.inpasidedans.ro/noutati',
-    siteName: 'În Pași de Dans',
+    siteName: 'In Pasi de Dans',
     images: [
       {
         url: 'https://www.inpasidedans.ro/images/logo.png',
         width: 1200,
         height: 630,
-        alt: 'Noutăți și Evenimente În Pași de Dans',
+        alt: 'Noutati si Evenimente In Pasi de Dans',
       },
     ],
     locale: 'ro_RO',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Noutăți și Evenimente | În Pași de Dans',
+    title: 'Noutati si Evenimente | In Pasi de Dans',
     description:
-      'Află ultimele noutăți, evenimente și promoții de la școala noastră de dans. Fii la curent cu tot ce se întâmplă la În Pași de Dans, București!',
+      'Afla ultimele noutati, evenimente si promotii de la scoala noastra de dans. Fii la curent cu tot ce se intampla la In Pasi de Dans, Bucuresti!',
     images: ['https://inpasidedans.ro/images/logo.png'],
   },
 };

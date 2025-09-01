@@ -1,19 +1,19 @@
 export default function Head() {
   return (
     <>
-      <title>Înregistrare | În Pași de Dans</title>
+      <title>Inregistrare | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Creează un cont nou pentru a te înscrie la cursurile preferate."
+        content="Creeaza un cont nou pentru a te inscrie la cursurile preferate."
       />
       <meta
         name="keywords"
-        content="înregistrare, cont dans, înscriere cursuri"
+        content="inregistrare, cont dans, inscriere cursuri"
       />
-      <meta property="og:title" content="Înregistrare | În Pași de Dans" />
+      <meta property="og:title" content="Inregistrare | In Pasi de Dans" />
       <meta
         property="og:description"
-        content="Creează un cont nou pentru a te înscrie la cursurile preferate."
+        content="Creeaza un cont nou pentru a te inscrie la cursurile preferate."
       />
       <meta
         property="og:image"

@@ -1,21 +1,21 @@
 const SEO = {
-  titleTemplate: '%s | În Pași de Dans',
-  defaultTitle: 'În Pași de Dans | Școală de Dans București',
+  titleTemplate: '%s | In Pasi de Dans',
+  defaultTitle: 'In Pasi de Dans | Scoala de Dans Bucuresti',
   description:
-    'Descoperă cursuri de dans pentru toate vârstele și nivelurile, în inima Bucureștiului. Te așteptăm să dansezi cu noi!',
+    'Descopera cursuri de dans pentru toate varstele si nivelurile, in inima Bucurestiului. Te asteptam sa dansezi cu noi!',
   openGraph: {
     type: 'website',
     locale: 'ro_RO',
     url: 'https://www.inpasidedans.ro/',
-    title: 'În Pași de Dans | Școală de Dans București',
+    title: 'In Pasi de Dans | Scoala de Dans Bucuresti',
     description:
-      'Descoperă cursuri de dans pentru toate vârstele și nivelurile, în inima Bucureștiului. Te așteptăm să dansezi cu noi!',
+      'Descopera cursuri de dans pentru toate varstele si nivelurile, in inima Bucurestiului. Te asteptam cu noi!',
     images: [
       {
         url: 'https://www.inpasidedans.ro/images/logo.png',
         width: 800,
         height: 600,
-        alt: 'În Pași de Dans',
+        alt: 'In Pasi de Dans',
       },
     ],
   },

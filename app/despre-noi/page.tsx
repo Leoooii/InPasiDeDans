@@ -20,7 +20,7 @@ export default function DespreNoi() {
 
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Cine suntem</h2>
+            
             <p>
               Povestea noastră a început în urmă cu 16 ani, din pasiune pentru
               dans și din dorința sinceră de a împărtăși frumusețea și emoția pe

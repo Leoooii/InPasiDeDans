@@ -12,37 +12,37 @@ import {
 import { ChevronRight } from 'lucide-react';
 
 export const metadata = {
-  title: 'Grupe de Dans în Formare | În Pași de Dans',
+  title: 'Grupe de Dans in Formare | In Pasi de Dans',
   description:
-    'Descoperă grupele de dans în formare la școala noastră din București. Înscrie-te la cursuri de dans pentru adulți și copii!',
+    'Descopera grupele de dans in formare la scoala noastra din Bucuresti. Inscrie-te la cursuri de dans pentru adulti si copii!',
   keywords:
-    'grupe dans formare, cursuri dans București, înscrieri dans, școală dans',
+    'grupe dans formare, cursuri dans Bucuresti, inscrieri dans, scoala dans',
   robots: 'index, follow',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/grupe-in-formare',
   },
   openGraph: {
     type: 'website',
-    title: 'Grupe de Dans în Formare | În Pași de Dans',
+    title: 'Grupe de Dans in Formare | In Pasi de Dans',
     description:
-      'Descoperă grupele de dans în formare la școala noastră din București. Înscrie-te la cursuri de dans pentru adulți și copii!',
+      'Descopera grupele de dans in formare la scoala noastra din Bucuresti. Inscrie-te la cursuri de dans pentru adulti si copii!',
     url: 'https://www.inpasidedans.ro/grupe-in-formare',
-    siteName: 'În Pași de Dans',
+    siteName: 'In Pasi de Dans',
     images: [
       {
         url: 'https://www.inpasidedans.ro/images/logo.png',
         width: 1200,
         height: 630,
-        alt: 'Grupe de Dans în Formare În Pași de Dans',
+        alt: 'Grupe de Dans in Formare In Pasi de Dans',
       },
     ],
     locale: 'ro_RO',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Grupe de Dans în Formare | În Pași de Dans',
+    title: 'Grupe de Dans in Formare | In Pasi de Dans',
     description:
-      'Descoperă grupele de dans în formare la școala noastră din București. Înscrie-te la cursuri de dans pentru adulți și copii!',
+      'Descopera grupele de dans in formare la scoala noastra din Bucuresti. Inscrie-te la cursuri de dans pentru adulti si copii!',
     images: ['https://inpasidedans.ro/images/logo.png'],
   },
 };

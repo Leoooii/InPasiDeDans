@@ -10,7 +10,7 @@ export default function Head() {
         name="keywords"
         content="grupe noi dans, înscriere cursuri dans, începători dans București"
       />
-      <meta property="og:title" content="Grupe în Formare | În Pași de Dans" />
+      <meta property="og:title" content="Grupe in Formare | In Pasi de Dans" />
       <meta
         property="og:description"
         content="Alătură-te unei grupe noi de dans și începe aventura dansului chiar de la început."

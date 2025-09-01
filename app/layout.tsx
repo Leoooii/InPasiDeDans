@@ -53,9 +53,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'DanceSchool',
-              name: 'În Pași de Dans',
+              name: 'In Pasi de Dans',
               description:
-                'Școală de dans cu tradiție din 2009, oferind cursuri de dansuri latino, de societate, populare și lecții private în București.',
+                'Scoala de dans cu traditie din 2009, oferind cursuri de dansuri latino, de societate, populare si lectii private in Bucuresti.',
                       url: 'https://www.inpasidedans.ro/',
         logo: 'https://www.inpasidedans.ro/images/logo.png',
               sameAs: [

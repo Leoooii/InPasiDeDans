@@ -10,7 +10,7 @@ export default function Head() {
         name="keywords"
         content="despre școala de dans, echipa în pași de dans, povestea noastră"
       />
-      <meta property="og:title" content="Despre Noi | În Pași de Dans" />
+      <meta property="og:title" content="Despre Noi | In Pasi de Dans" />
       <meta
         property="og:description"
         content="Descoperă cine suntem și cum a început povestea școlii În Pași de Dans."

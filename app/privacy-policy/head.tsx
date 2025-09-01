@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>Politică de Confidențialitate | În Pași de Dans</title>
+      <title>Politica de Confidentialitate | In Pasi de Dans</title>
       <meta
         name="description"
         content="Citiți Politica noastră de Confidențialitate pentru a înțelege cum colectăm, utilizăm și protejăm datele dumneavoastră personale."

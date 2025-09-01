@@ -1,7 +1,7 @@
 export default function Head() {
   return (
     <>
-      <title>Înscriere Cursuri Dans | În Pași de Dans</title>
+      <title>Inscriere Cursuri Dans | In Pasi de Dans</title>
       <meta
         name="description"
         content="Completează formularul de înscriere și rezervă-ți locul la cursurile noastre de dans pentru copii și adulți în București."

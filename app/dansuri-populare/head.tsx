@@ -10,7 +10,7 @@ export default function Head() {
         name="keywords"
         content="dansuri populare, tradiții românești, dansuri românești, lecții populare"
       />
-      <meta property="og:title" content="Dansuri Populare | În Pași de Dans" />
+      <meta property="og:title" content="Dansuri Populare | In Pasi de Dans" />
       <meta
         property="og:description"
         content="Tradiție, cultură și distracție în lecțiile noastre de dansuri populare românești."
@@ -21,10 +21,10 @@ export default function Head() {
         content="https://www.inpasidedans.ro/dansuri-populare"
       />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="În Pași de Dans" />
+      <meta property="og:site_name" content="In Pasi de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Școala de dans În Pași de Dans" />
+      <meta name="author" content="Scoala de dans In Pasi de Dans" />
       <link rel="canonical" href="https://www.inpasidedans.ro/dansuri-populare" />
       <meta
         property="og:see_also"

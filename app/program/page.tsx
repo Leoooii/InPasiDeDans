@@ -8,22 +8,22 @@ import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
 
 export const metadata: Metadata = {
-  title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| În Pași de Dans',
+  title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| In Pasi de Dans',
   description:
     'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
   keywords:
-    'program cursuri dans, orar dans, cursuri dans adulți, cursuri dans copii, școală dans București',
+    'program cursuri dans, orar dans, cursuri dans adulti, cursuri dans copii, scoala dans Bucuresti',
   robots: 'index, follow',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/program',
   },
   openGraph: {
     type: 'website',
-    title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| În Pași de Dans',
+    title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| In Pasi de Dans',
     description:
       'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
     url: 'https://www.inpasidedans.ro/program',
-    siteName: 'În Pași de Dans',
+    siteName: 'In Pasi de Dans',
     images: [
       {
         url: 'https://www.inpasidedans.ro/images/program.png',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6 | În Pași de Dans',
+    title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6 | In Pasi de Dans',
     description:
       'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
     images: ['https://inpasidedans.ro/images/program.png'],

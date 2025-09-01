@@ -4,19 +4,19 @@ export default function Head() {
       <title>Cursuri de Dans Adulti Bucuresti | In Pasi de Dans</title>
       <meta
         name="description"
-        content="Cursuri de Dans pentru Adulti în București -  Vino la In pasi de Dans si invata stiluri: latino, de societate si populare cu instructori profesionisti ✅ Programe flexibile ✅Inscrie-te acum!"
+        content="Cursuri de Dans pentru Adulti in Bucuresti -  Vino la In pasi de Dans si invata stiluri: latino, de societate si populare cu instructori profesionisti ✅ Programe flexibile ✅Inscrie-te acum!"
       />
       <meta
         name="keywords"
-        content="dans adulți, cursuri dans adulți, lecții de dans, școala de dans București"
+        content="dans adulti, cursuri dans adulti, lectii de dans, scoala de dans Bucuresti"
       />
       <meta
         property="og:title"
-        content="Cursuri de Dans pentru Adulți | În Pași de Dans"
+        content="Cursuri de Dans pentru Adulti | In Pasi de Dans"
       />
       <meta
         property="og:description"
-        content="Cursuri de dans pentru adulți: distracție, mișcare și evoluție personală alături de profesioniști."
+        content="Cursuri de dans pentru adulti: distractie, miscare si evolutie personala alaturi de profesionisti."
       />
       <meta property="og:image" content="/images/logo.png" />
       <meta
@@ -24,10 +24,10 @@ export default function Head() {
         content="https://www.inpasidedans.ro/cursuri-dans-adulti"
       />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="În Pași de Dans" />
+      <meta property="og:site_name" content="In Pasi de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Școala de dans În Pași de Dans" />
+      <meta name="author" content="Scoala de dans In Pasi de Dans" />
       <link
         rel="canonical"
         href="https://www.inpasidedans.ro/cursuri-dans-adulti"

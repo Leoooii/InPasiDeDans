@@ -90,14 +90,14 @@ export default function Petreceri() {
   return (
     <>
       <Head>
-        <title>Petreceri & Social Dance | În Pași de Dans</title>
+        <title>Petreceri & Social Dance | In Pasi de Dans</title>
         <meta
           name="description"
-          content="Participă la petrecerile tematice de dans organizate de În Pași de Dans în București, Sector 5. Practică dansul într-o atmosferă relaxată!"
+          content="Participa la petrecerile tematice de dans organizate de In Pasi de Dans in Bucuresti, Sector 5. Practica dansul intr-o atmosfera relaxata!"
         />
         <meta
           name="keywords"
-          content="petreceri dans București, social dance, evenimente dans, petreceri tematice, școală dans Sector 5"
+          content="petreceri dans Bucuresti, social dance, evenimente dans, petreceri tematice, scoala dans Sector 5"
         />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

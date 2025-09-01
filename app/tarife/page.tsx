@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
   keywords:
-    'tarife cursuri dans, prețuri școală de dans, cursuri dans adulți, cursuri dans copii, lecții private dans',
+    'tarife cursuri dans, preturi scoala de dans, cursuri dans adulti, cursuri dans copii, lectii private dans',
   robots: 'index, follow',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/tarife',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description:
       'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
     url: 'https://www.inpasidedans.ro/tarife',
-    siteName: 'În Pași de Dans',
+    siteName: 'In Pasi de Dans',
     images: [
       {
         url: 'https://www.inpasidedans.ro/images/tarife.png',
@@ -60,11 +60,11 @@ export default function Tarife() {
               '@type': 'Product',
               name: 'Cursuri de Dans - Tarife',
               description:
-                'Tarife pentru cursurile de dans pentru adulți, copii și lecții private la În Pași de Dans, București, Sector 5.',
+                'Tarife pentru cursurile de dans pentru adulti, copii si lectii private la In Pasi de Dans, Bucuresti, Sector 5.',
               url: 'https://inpasidedans.ro/tarife',
               brand: {
                 '@type': 'Brand',
-                name: 'În Pași de Dans',
+                name: 'In Pasi de Dans',
               },
               offers: [
                 {
@@ -94,11 +94,11 @@ export default function Tarife() {
               ],
               location: {
                 '@type': 'Place',
-                name: 'În Pași de Dans',
+                name: 'In Pasi de Dans',
                 address: {
                   '@type': 'PostalAddress',
                   streetAddress: 'Calea Rahovei 262',
-                  addressLocality: 'București',
+                  addressLocality: 'Bucuresti',
                   addressRegion: 'Sector 5',
                   postalCode: '050897',
                   addressCountry: 'RO',
@@ -116,7 +116,7 @@ export default function Tarife() {
             </h1>
             <p className="text-gray-500 dark:text-gray-400">
               Alege abonamentul potrivit pentru cursurile de dans pentru adulți
-              la În Pași de Dans, București.
+              la In Pasi de Dans, Bucuresti.
             </p>
           </div>
 
