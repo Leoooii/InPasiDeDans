@@ -119,8 +119,8 @@ export default function FolkDancesTestimonials() {
           }} plugins={[autoplay]}>
             <CarouselContent>
               {testimonialSlides.map((slide, slideIndex) => (
-                <CarouselItem key={slideIndex} className="pl-4">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+                <CarouselItem key={slideIndex} className="pl-2 md:pl-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-4 lg:gap-6">
                     {slide.map((testimonial, index) => {
                       const isExpanded = expandedTestimonials.has(testimonial.id);
                       const needsExpansion = testimonial.text.length > 200; // Aproximativ 6 rânduri

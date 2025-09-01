@@ -21,222 +21,9 @@ import FolkDancesFAQ from '@/components/FolkDancesFAQ';
 import ExploreOtherDances from '@/components/ExploreOtherDances';
 import ContactForm from '@/components/contact-form';
 
-// Definim regiunile și dansurile asociate
-const regiuniDansuri = [
-  {
-    id: 'muntenia',
-    nume: 'Muntenia',
-    imagine: '/images/Romania/harta-muntenia.png',
-    dansuri: [
-      'Hora',
-      'Sârba (în doi, trei și patru pași)',
-      'Ofițereasca',
-      'Sârba studenților',
-      'Zvâc',
-      'Ghimpele',
-      'Alunelu',
-      'Hora Lelea',
-      'Ciuleandra',
-      'Fedeleșul',
-      'Rogojina',
-      'Hora bătută (Țigănească)',
-
-      'Breaza',
-      'Drumul dracului',
-      'Hora în două părți de la Conțești',
-      'Arnauțeasca de la Crivina',
-      'Ovreicuța',
-      'Hora Marițica',
-      'Brâul pe șase',
-      'Brâul pe opt',
-      'Brâul de la Brăiești',
-      'Sârba de la Floroaia',
-      'Aoleanul de la Fundul Părului',
-      'Brâul de la Slănic',
-      'Hora pe seară de la Vlădeni',
-      'Hora Cantacuzino',
-      'Stânga de la Gropeni',
-      'Daolică',
-      'Nuneasca',
-      'Murgulețul de la Petrești',
-      'Isa',
-      'Buceagul ca pe Teleorman',
-      'Hora mare',
-      'Brânza de la Reviga',
-    ],
-  },
-  {
-    id: 'oltenia',
-    nume: 'Oltenia',
-    imagine: '/images/Romania/harta-oltenia.png',
-    dansuri: [
-      'Alunelu de la Goicea',
-      'Ungurica',
-      'Hora olteanească',
-      'Hora ca la Gorj',
-      'Floricica',
-      'Ariciul',
-      'Vulpiuța',
-      'Hora boerească',
-      'Sârba de la Băilești',
-      'Hora peste picior de la Motăței',
-      'Trei păzește de la Bistret',
-      'Tocul',
-      'Rustemul',
-      'Brâulețul de la Bârca',
-      'Crăițele de la Meri',
-      'Găile de la Motăței',
-      'Leana de la Goicea',
-      'Hora ca la Romanați',
-      'Galaonul',
-      'Alunelul de la Dăneți',
-      'Alunelul de la Izbiceni',
-      'Trandafirul oltenesc',
-      'Ungurica țigănească de la Severin',
-      'Hora dogarilor',
-      'Cârligul',
-      'Trei păzește de la Dolj',
-      'Basarabeanca',
-      'Boereasca',
-      'Țepușul de la Bistreț',
-      'Hora boierească de la Săpata'
-    ],
-  },
-  {
-    id: 'dobrogea',
-    nume: 'Dobrogea',
-    imagine: '/images/Romania/harta-dobrogea.png',
-    dansuri: [
-      'Geampara',
-      'Cadânească',
-      'Paidușca',
-      'Sârba de la Oltina',
-      'Pamporea',
-      'Ceamcul',
-      'Sârba de la Negru Vodă',
-      'Beștepeanca',
-      'Joc bătrânesc de la Niculițel',
-      'Hora stânga de la Ostrov',
-      'Sârba de la Enisala',
-      'Dobromireasca',
-      'Floricica dobrogeană',
-      'Tropoțelul ca-n Dobrogea',
-      'Pandelasul de la Plopu',
-      'Corlu',
-    ],
-  },
-  {
-    id: 'moldova',
-    nume: 'Moldova',
-    imagine: '/images/Romania/harta-moldova.png',
-    dansuri: [
-      'Hora',
-      'Sârba (în doi, trei și patru pași)',
-      'Bătuta',
-      'Hora-n două părți',
-      'Șchioapa',
-      'Bălăceana',
-      'Zdroboleanca',
-      'Țărănească',
-      'Hora din Tudora',
-      'Promoroaca',
-      'Salcioara',
-      'Rața',
-      'Cărășelul',
-      'Hora bătută',
-      'Hangul de la Tălpigi',
-      'Sârba de la Izvoare',
-      'Hora-n două părți de la Corni',
-      'Polobocul',
-      'Ostropățul',
-      'Tantărașul',
-      'Hora de la Brăhășești',
-      'Ciobănașul de la Independența',
-      'Bordeiașul',
-      'Sârba tineretului',
-      'Sârba lui Zdrelea',
-    ],
-  },
-  {
-    id: 'bucovina',
-    nume: 'Bucovina',
-    imagine: '/images/Romania/harta-bucovina.png',
-    dansuri: [
-      'Corăgheasca',
-      'Corăgheasca de la Tarnița',
-      'Huțulca',
-      'Hangul de la Cahul',
-      'Polcuța',
-      'Coșnencuța',
-      'Bătuta ursului',
-      'Bătrânească veche de la Iaslovăț',
-      'Bătrânească de la Ciocănești',
-      'Arcanul',
-      'Bătrânească',
-    ],
-  },
-  {
-    id: 'transilvania',
-    nume: 'Transilvania',
-    imagine: '/images/Romania/harta-transilvania.png',
-    dansuri: [
-      'Brașoveanca',
-      'Hodoroaga',
-      'Învârtita',
-      'Jiana de la Jina',
-      'Jiana de la Sibiu',
-      'Jiana de la Gura Râului',
-      'Jiana de la Tilișca',
-      'Jiana de la Avrig',
-      'Brâul de la Făgăraș',
-
-      'Sârba pan’ la 10 de la Grădiștea de Munte',
-    ],
-  },
-  {
-    id: 'banat',
-    nume: 'Banat',
-    imagine: '/images/Romania/harta-banat.png',
-    dansuri: ['Ardeleana', 'Brâul bănățean', 'Hora din Banat', 'Damul'],
-  },
-  {
-    id: 'maramures',
-    nume: 'Maramureș',
-    imagine: '/images/Romania/harta-maramures.png',
-    dansuri: ['Roate', '7 pași', 'Tropotita'],
-  },
-];
-
 export default function DansuriPopulare() {
-  // State pentru regiunea selectată
-  const [currentRegion, setCurrentRegion] = useState(regiuniDansuri[0].id);
-
-  // Funcții pentru navigarea cu săgeți
-  const goToPrevious = () => {
-    const currentIndex = regiuniDansuri.findIndex(
-      regiune => regiune.id === currentRegion
-    );
-    const isFirst = currentIndex === 0;
-    const newIndex = isFirst ? regiuniDansuri.length - 1 : currentIndex - 1;
-    setCurrentRegion(regiuniDansuri[newIndex].id);
-  };
-
-  const goToNext = () => {
-    const currentIndex = regiuniDansuri.findIndex(
-      regiune => regiune.id === currentRegion
-    );
-    const isLast = currentIndex === regiuniDansuri.length - 1;
-    const newIndex = isLast ? 0 : currentIndex + 1;
-    setCurrentRegion(regiuniDansuri[newIndex].id);
-  };
-
-  // Regiunea curentă
-  const regiuneCurenta = regiuniDansuri.find(
-    regiune => regiune.id === currentRegion
-  );
-
   return (
-    <div className="container py-12 flex flex-col gap-12">
+    <div className="container py-6 md:py-12 flex flex-col gap-6 md:gap-12 px-2 md:px-4">
       <Head />
       {/* Container de început cu titlu, descriere și buton - stil Dansuri Latino */}
       <div className="p-0 container flex flex-col gap-4 items-center">
@@ -259,26 +46,19 @@ export default function DansuriPopulare() {
         </Link>
       </div>
 
-      {/* Al doilea container cu cursuri în București */}
-      <div className="container flex flex-col gap-4 items-center border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm bg-white/50 dark:bg-gray-900/50">
-        <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">
+      {/* Al doilea container cu titlul și descrierea */}
+      <div className="bg-white dark:bg-gray-900 p-4 md:p-8 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-6">
           Cursuri de dansuri populare în București
         </h2>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
-          Dansurile populare sunt o comoară a patrimoniului cultural românesc, purtând obiceiuri, tradiții și povești transmise din generație în generație.
+        <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-4xl mx-auto mb-4 md:mb-8">
+          Dansurile populare sunt o comoară a patrimoniului cultural românesc, purtând obiceiuri, tradiții și povești transmise din generație în generație. Fiecare regiune a țării are jocuri tradiționale proprii, cu ritmuri și stiluri aparte, care reflectă unicitatea și energia comunităților locale. La școala noastră vei descoperi și învăța jocuri populare din toate colțurile României – de la hora molovenească și învârtita din Transilvania, până la brâul muntenesc și dansurile pline de vitalitate din Oltenia. În plus, îți oferim ocazia să te bucuri și de dansuri grecești și machedonești, pentru o experiență culturală și mai bogată.
         </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
-          Fiecare regiune a țării are jocuri tradiționale proprii, cu ritmuri și stiluri aparte, care reflectă unicitatea și energia comunităților locale.
-        </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
-          La școala noastră vei descoperi și învăța jocuri populare din toate colțurile României – de la hora molovenească și învârtita din Transilvania, până la brâul muntenesc și dansurile pline de vitalitate din Oltenia. În plus, îți oferim ocazia să te bucuri și de dansuri grecești și machedonești, pentru o experiență culturală și mai bogată.
-        </p>
-        
-        {/* Secțiunea nouă cu informații suplimentare */}
-        <div className="w-full max-w-6xl mt-8 space-y-4">
+
+        <div className="space-y-3 md:space-y-6">
           {/* De ce sunt speciale dansurile populare */}
-          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 p-6 rounded-xl border-l-4 border-orange-400 dark:border-orange-600 shadow-sm">
-            <h3 className="text-base md:text-lg font-bold text-orange-800 dark:text-orange-200 mb-4 flex items-center">
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 p-3 md:p-6 rounded-xl border-l-4 border-orange-400 dark:border-orange-600 shadow-sm">
+            <h3 className="text-base md:text-lg font-bold text-orange-800 dark:text-orange-200 mb-3 md:mb-4 flex items-center">
               <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
               De ce sunt speciale dansurile populare?
             </h3>
@@ -288,8 +68,8 @@ export default function DansuriPopulare() {
           </div>
 
           {/* Cui se adresează cursurile */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border-l-4 border-blue-400 dark:border-blue-600 shadow-sm">
-            <h3 className="text-base md:text-lg font-bold text-blue-800 dark:text-blue-200 mb-4 flex items-center">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-3 md:p-6 rounded-xl border-l-4 border-blue-400 dark:border-blue-600 shadow-sm">
+            <h3 className="text-base md:text-lg font-bold text-blue-800 dark:text-blue-200 mb-3 md:mb-4 flex items-center">
               <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
               Cui se adresează cursurile?
             </h3>
@@ -299,8 +79,8 @@ export default function DansuriPopulare() {
           </div>
 
           {/* În ce contexte sunt potrivite */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border-l-4 border-green-400 dark:border-green-600 shadow-sm">
-            <h3 className="text-base md:text-lg font-bold text-green-800 dark:text-green-200 mb-4 flex items-center">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-3 md:p-6 rounded-xl border-l-4 border-green-400 dark:border-green-600 shadow-sm">
+            <h3 className="text-base md:text-lg font-bold text-green-800 dark:text-green-200 mb-3 md:mb-4 flex items-center">
               <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
               În ce contexte sunt potrivite?
             </h3>

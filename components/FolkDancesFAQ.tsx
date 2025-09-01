@@ -103,20 +103,20 @@ export default function FolkDancesFAQ() {
         dangerouslySetInnerHTML={{ __html: generateFAQSchema() }}
       />
       
-      <section className="py-20 bg-white" aria-labelledby="faq-heading">
-        <div className="container mx-auto px-4">
+      <section className="py-10 md:py-20 bg-white" aria-labelledby="faq-heading">
+        <div className="container mx-auto px-2 md:px-4">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h2 id="faq-heading" className="text-4xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
               Întrebări frecvente (FAQ)
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
               Răspunsuri la cele mai frecvente întrebări despre cursurile noastre de dansuri populare
             </p>
           </div>
 
           {/* FAQ Items */}
-          <div className="max-w-4xl mx-auto space-y-4" itemScope itemType="https://schema.org/FAQPage">
+          <div className="max-w-4xl mx-auto space-y-3 md:space-y-4" itemScope itemType="https://schema.org/FAQPage">
             {folkDancesFAQData.map((item) => (
               <div
                 key={item.id}
@@ -128,10 +128,10 @@ export default function FolkDancesFAQ() {
                 {/* Question Header */}
                 <button
                   onClick={() => toggleItem(item.id)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                  className="w-full px-3 md:px-6 py-3 md:py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
                 >
                   <div 
-                    className="text-lg font-semibold text-gray-900 pr-4"
+                    className="text-base md:text-lg font-semibold text-gray-900 pr-2 md:pr-4"
                     itemProp="name"
                   >
                     {item.question}
@@ -148,13 +148,13 @@ export default function FolkDancesFAQ() {
                 {/* Answer */}
                 {openItems.includes(item.id) && (
                   <div 
-                    className="px-6 pb-4 border-t border-gray-100"
+                    className="px-3 md:px-6 pb-3 md:pb-4 border-t border-gray-100"
                     itemScope
                     itemProp="acceptedAnswer"
                     itemType="https://schema.org/Answer"
                   >
                     <div 
-                      className="pt-4 text-gray-700 leading-relaxed"
+                      className="pt-3 md:pt-4 text-gray-700 leading-relaxed"
                       itemProp="text"
                     >
                       {item.answer}

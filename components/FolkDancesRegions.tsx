@@ -254,12 +254,12 @@ export default function FolkDancesRegions() {
         {/* Tabs pentru regiuni */}
         <div className="max-w-4xl mx-auto">
           <Tabs value={currentRegion.toString()} onValueChange={(value) => setCurrentRegion(parseInt(value))}>
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mb-8 bg-white shadow-lg rounded-xl p-1 gap-1">
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mb-8 bg-white shadow-lg rounded-xl p-1 gap-1">
               {regiuniDansuri.map((regiune, index) => (
                 <TabsTrigger
                   key={index}
                   value={index.toString()}
-                  className="data-[state=active]:bg-orange-500 data-[state=active]:text-white rounded-lg transition-all duration-300 text-xs md:text-sm px-2 py-2 md:px-3 md:py-2 whitespace-nowrap"
+                  className="data-[state=active]:bg-orange-500 data-[state=active]:text-white rounded-lg transition-all duration-300 text-sm md:text-base px-3 py-3 md:px-3 md:py-2 whitespace-nowrap"
                 >
                   {regiune.nume}
                 </TabsTrigger>

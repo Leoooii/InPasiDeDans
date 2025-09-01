@@ -27,9 +27,9 @@ export default function FolkDancesCarousel() {
         }} 
         plugins={[autoplay]}
       >
-        <CarouselContent className="-ml-2 md:-ml-6 lg:-ml-12">
+        <CarouselContent className="-ml-1 md:-ml-6 lg:-ml-12">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-            <CarouselItem key={num} className="pl-2 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
+            <CarouselItem key={num} className="pl-1 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
               <div className="relative group">
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                   <img 

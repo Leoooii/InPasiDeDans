@@ -42,12 +42,12 @@ const structureItems = [
 
 export default function FolkDancesStructure() {
   return (
-    <div className="container py-12">
-      <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
+    <div className="container py-6 md:py-12 px-2 md:px-4">
+      <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
         Structura dansurilor populare
       </h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-4 md:mb-8">
         {structureItems.map((item) => {
           const IconComponent = item.icon;
           return (
@@ -56,7 +56,7 @@ export default function FolkDancesStructure() {
               <div className={`absolute inset-0 bg-gradient-to-br ${item.color} rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
               
               {/* Card principal */}
-              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 group-hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-3 md:p-6 shadow-lg border border-gray-100 dark:border-gray-700 group-hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                 {/* Header cu iconița și numărul */}
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 rounded-xl bg-gradient-to-r ${item.color} text-white shadow-lg`}>
@@ -84,7 +84,7 @@ export default function FolkDancesStructure() {
       </div>
 
       {/* Concluzia */}
-      <div className="bg-gradient-to-br from-orange-100 via-red-50 to-orange-50 dark:from-orange-900/30 dark:via-red-900/20 dark:to-orange-900/30 p-8 rounded-3xl border border-orange-200 dark:border-orange-700 shadow-lg max-w-5xl mx-auto">
+      <div className="bg-gradient-to-br from-orange-100 via-red-50 to-orange-50 dark:from-orange-900/30 dark:via-red-900/20 dark:to-orange-900/30 p-4 md:p-8 rounded-3xl border border-orange-200 dark:border-orange-700 shadow-lg max-w-5xl mx-auto">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg mb-4">
             <Star className="w-8 h-8" />

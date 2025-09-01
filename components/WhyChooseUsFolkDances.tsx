@@ -43,20 +43,20 @@ const benefits = [
 
 export default function WhyChooseUsFolkDances() {
   return (
-    <div className="container py-12">
-      <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
+    <div className="container py-6 md:py-12 px-2 md:px-4">
+      <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
         De ce să alegi cursurile noastre
       </h2>
-      <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-12 max-w-4xl mx-auto">
+      <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-6 md:mb-12 max-w-4xl mx-auto">
         Pentru că îți oferă mult mai mult decât pași de dans:
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
         {benefits.map((benefit) => {
           const IconComponent = benefit.icon;
           return (
             <Card key={benefit.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="p-6">
+              <CardContent className="p-3 md:p-6">
                 <div className="flex items-start space-x-4">
                   <div className={`p-3 rounded-full bg-gradient-to-r ${benefit.color} text-white shadow-lg`}>
                     <IconComponent className="w-6 h-6" />
