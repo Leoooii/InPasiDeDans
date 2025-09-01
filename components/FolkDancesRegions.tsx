@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight, Eye, EyeOff } from 'lucide-react';
 
 // Definim regiunile și dansurile asociate
 const regiuniDansuri = [
@@ -191,151 +192,168 @@ const regiuniDansuri = [
 ];
 
 export default function FolkDancesRegions() {
-  // State pentru regiunea selectată
-  const [currentRegion, setCurrentRegion] = useState(regiuniDansuri[0].id);
+  const [currentRegion, setCurrentRegion] = useState(0);
+  const [showDances, setShowDances] = useState(false);
 
   // Funcții pentru navigarea cu săgeți
   const goToPrevious = () => {
     const currentIndex = regiuniDansuri.findIndex(
-      regiune => regiune.id === currentRegion
+      regiune => regiune.id === regiuniDansuri[currentRegion].id
     );
     const isFirst = currentIndex === 0;
     const newIndex = isFirst ? regiuniDansuri.length - 1 : currentIndex - 1;
-    setCurrentRegion(regiuniDansuri[newIndex].id);
+    setCurrentRegion(newIndex);
   };
 
   const goToNext = () => {
     const currentIndex = regiuniDansuri.findIndex(
-      regiune => regiune.id === currentRegion
+      regiune => regiune.id === regiuniDansuri[currentRegion].id
     );
     const isLast = currentIndex === regiuniDansuri.length - 1;
     const newIndex = isLast ? 0 : currentIndex + 1;
-    setCurrentRegion(regiuniDansuri[newIndex].id);
+    setCurrentRegion(newIndex);
   };
 
   // Regiunea curentă
-  const regiuneCurenta = regiuniDansuri.find(
-    regiune => regiune.id === currentRegion
-  );
+  const regiuneCurenta = regiuniDansuri[currentRegion];
 
   return (
-    <div className="space-y-6">
-      {/* Secțiunea cu taburi și imagine */}
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">
-          Explorează regiunile României și dansurile lor
-        </h2>
+    <div className="py-16 bg-gradient-to-br from-orange-50 to-red-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Dansuri populare din toate regiunile României
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Descoperă frumusețea și diversitatea dansurilor populare românești, 
+            de la Transilvania până la Dobrogea
+          </p>
+        </div>
 
-        <Tabs
-          value={currentRegion}
-          onValueChange={setCurrentRegion}
-          className="w-full"
-        >
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Taburile din stânga */}
-            <TabsList className="flex flex-col h-auto bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-              {regiuniDansuri.map(regiune => (
+        {/* Buton toggle pentru afișarea dansurilor */}
+        <div className="text-center mb-8">
+          <Button
+            onClick={() => setShowDances(!showDances)}
+            variant="outline"
+            className="bg-white hover:bg-orange-50 border-orange-200 text-orange-700 hover:text-orange-800 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            {showDances ? (
+              <>
+                <EyeOff className="w-5 h-5 mr-2" />
+                Ascunde dansurile
+              </>
+            ) : (
+              <>
+                <Eye className="w-5 h-5 mr-2" />
+                Vezi toate dansurile
+              </>
+            )}
+          </Button>
+        </div>
+
+        {/* Tabs pentru regiuni */}
+        <div className="max-w-4xl mx-auto">
+          <Tabs value={currentRegion.toString()} onValueChange={(value) => setCurrentRegion(parseInt(value))}>
+            <TabsList className="grid w-full grid-cols-5 mb-8 bg-white shadow-lg rounded-xl p-1">
+              {regiuniDansuri.map((regiune, index) => (
                 <TabsTrigger
-                  key={regiune.id}
-                  value={regiune.id}
-                  className="py-3 text-left justify-start data-[state=active]:bg-red-100 data-[state=active]:text-red-700 dark:data-[state=active]:bg-red-900 dark:data-[state=active]:text-white"
+                  key={index}
+                  value={index.toString()}
+                  className="data-[state=active]:bg-orange-500 data-[state=active]:text-white rounded-lg transition-all duration-300"
                 >
                   {regiune.nume}
                 </TabsTrigger>
               ))}
             </TabsList>
 
-            {/* Imaginea din dreapta cu săgeți */}
-            <div className="relative h-[400px] rounded-lg overflow-hidden">
-              <Image
-                src={regiuneCurenta?.imagine || '/placeholder.svg'}
-                alt={`Regiunea ${regiuneCurenta?.nume}`}
-                fill
-                className="object-contain"
-                onError={e => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/placeholder.svg?height=400&width=600';
-                }}
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4">
-                <h3 className="text-xl font-bold">{regiuneCurenta?.nume}</h3>
-              </div>
-              <button
-                onClick={goToPrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={goToNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-          </div>
-
-          {/* Lista de dansuri sub taburi și imagine */}
-          {regiuniDansuri.map(regiune => (
-            <TabsContent key={regiune.id} value={regiune.id} className="mt-6">
-              <Card className="overflow-hidden border-0 shadow-xl">
-                <CardContent className="p-0">
-                  {/* Header cu gradient */}
-                  <div className="bg-gradient-to-r from-orange-500 to-red-500 p-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2">
-                      Dansuri populare din {regiune.nume}
-                    </h3>
-                    <p className="text-orange-100">
-                      {regiune.dansuri.length} dansuri tradiționale
-                    </p>
-                  </div>
-                  
-                  {/* Grid cu dansuri stilizat */}
-                  <div className="p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {regiune.dansuri.map((dans, index) => (
-                        <div
-                          key={index}
-                          className="group relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
-                        >
-                          {/* Background gradient subtle */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          
-                          {/* Conținut */}
-                          <div className="relative z-10">
-                            {/* Numărul dansului */}
-                            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white text-sm font-bold mb-3 shadow-lg">
-                              {index + 1}
-                            </div>
-                            
-                            {/* Numele dansului */}
-                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors duration-300">
-                              {dans}
-                            </h4>
-                            
-                            {/* Linie decorativă */}
-                            <div className="w-12 h-0.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          </div>
-                          
-                          {/* Efect hover - border colorat */}
-                          <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-orange-300 dark:group-hover:border-orange-600 transition-colors duration-300"></div>
-                        </div>
-                      ))}
+            {regiuniDansuri.map((regiune, index) => (
+              <TabsContent key={index} value={index.toString()} className="mt-0">
+                <div className="bg-white rounded-2xl shadow-xl p-8">
+                  <div className="grid md:grid-cols-2 gap-8 items-center">
+                    {/* Imaginea regiunii */}
+                    <div className="relative">
+                      <img
+                        src={regiune.imagine}
+                        alt={regiune.nume}
+                        className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl" />
                     </div>
-                    
-                    {/* Footer cu statistici */}
-                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                      <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
-                        <span>Total dansuri: <span className="font-semibold text-orange-600 dark:text-orange-400">{regiune.dansuri.length}</span></span>
-                        <span>Regiunea: <span className="font-semibold text-orange-600 dark:text-orange-400">{regiune.nume}</span></span>
+
+                    {/* Informații despre regiune */}
+                    <div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                        {regiune.nume}
+                      </h3>
+                      <p className="text-gray-600 mb-6 leading-relaxed">
+                        Descoperă frumusețea dansurilor populare din {regiune.nume}, cu ritmuri și stiluri unice care reflectă tradițiile și cultura acestei regiuni.
+                      </p>
+
+                      {/* Butoane de navigare */}
+                      <div className="flex gap-4">
+                        <Button
+                          onClick={goToPrevious}
+                          variant="outline"
+                          className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                          Anterior
+                        </Button>
+                        <Button
+                          onClick={goToNext}
+                          variant="outline"
+                          className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
+                        >
+                          Următor
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
-        </Tabs>
+
+                  {/* Lista dansurilor - afișată doar când showDances este true */}
+                  {showDances && (
+                    <div className="mt-8 pt-8 border-t border-gray-200">
+                      <div className="text-center mb-6">
+                        <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                          Dansuri populare din {regiune.nume}
+                        </h4>
+                        <p className="text-gray-600">
+                          {regiune.dansuri.length} dansuri tradiționale
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {regiune.dansuri.map((dans, dansIndex) => (
+                          <div
+                            key={dansIndex}
+                            className="bg-gradient-to-br from-orange-50 to-red-50 p-4 rounded-lg border border-orange-200 hover:border-orange-300 transition-all duration-300 hover:shadow-md"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                {dansIndex + 1}
+                              </div>
+                              <div>
+                                <h5 className="font-semibold text-gray-800">{dans}</h5>
+                                <div className="w-12 h-0.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full mt-1"></div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="text-center mt-6 pt-4 border-t border-gray-200">
+                        <p className="text-sm text-gray-500">
+                          Total: <span className="font-semibold text-orange-600">{regiune.dansuri.length}</span> dansuri populare
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </div>
       </div>
     </div>
   );
