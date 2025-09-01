@@ -108,7 +108,15 @@ export default function FolkDancesTestimonials() {
 
         {/* Testimonials Carousel */}
         <div className="max-w-7xl mx-auto relative mb-12">
-          <Carousel className="w-full" opts={{ loop: true }} plugins={[autoplay]}>
+          <Carousel className="w-full" opts={{ 
+            loop: true,
+            align: "start",
+            containScroll: "trimSnaps",
+            slidesToScroll: 1,
+            dragFree: true,
+            skipSnaps: false,
+            inViewThreshold: 0.7
+          }} plugins={[autoplay]}>
             <CarouselContent>
               {testimonialSlides.map((slide, slideIndex) => (
                 <CarouselItem key={slideIndex} className="pl-4">
@@ -205,9 +213,9 @@ export default function FolkDancesTestimonials() {
               ))}
             </CarouselContent>
             
-            {/* Navigation Buttons */}
-            <CarouselPrevious className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
-            <CarouselNext className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
+            {/* Navigation Buttons - ascunse pe mobile pentru a nu interfera cu swipe */}
+            <CarouselPrevious className="hidden md:flex absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
+            <CarouselNext className="hidden md:flex absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
           </Carousel>
         </div>
 

@@ -18,16 +18,18 @@ export default function FolkDancesCarousel() {
         className="w-full" 
         opts={{ 
           loop: true,
-          align: "center",
+          align: "start",
           containScroll: "trimSnaps",
           slidesToScroll: 1,
-          dragFree: true
+          dragFree: true,
+          skipSnaps: false,
+          inViewThreshold: 0.7
         }} 
         plugins={[autoplay]}
       >
-        <CarouselContent className="-ml-6 md:-ml-12 lg:-ml-16">
+        <CarouselContent className="-ml-2 md:-ml-6 lg:-ml-12">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-            <CarouselItem key={num} className="pl-6 md:pl-12 lg:pl-16 basis-3/4 md:basis-2/3 lg:basis-1/2">
+            <CarouselItem key={num} className="pl-2 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
               <div className="relative group">
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                   <img 
@@ -41,9 +43,9 @@ export default function FolkDancesCarousel() {
           ))}
         </CarouselContent>
         
-        {/* Butoane de navigare */}
-        <CarouselPrevious className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-300 text-gray-700 hover:text-gray-900 z-20" />
-        <CarouselNext className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-300 text-gray-700 hover:text-gray-900 z-20" />
+        {/* Butoane de navigare - ascunse pe mobile pentru a nu interfera cu swipe */}
+        <CarouselPrevious className="hidden md:flex absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-300 text-gray-700 hover:text-gray-900 z-20" />
+        <CarouselNext className="hidden md:flex absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-300 text-gray-700 hover:text-gray-900 z-20" />
       </Carousel>
     </div>
   );
