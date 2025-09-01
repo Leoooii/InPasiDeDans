@@ -20,9 +20,10 @@ interface Instructor {
 
 interface InstructorsSectionProps {
   instructorNames?: string[]; // Array cu numele instructorilor de afișat
+  customTitle?: string; // Titlu personalizat pentru secțiune
 }
 
-export default function InstructorsSection({ instructorNames }: InstructorsSectionProps) {
+export default function InstructorsSection({ instructorNames, customTitle }: InstructorsSectionProps) {
   const [instructori, setInstructori] = useState<Instructor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +48,7 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
 
         // Filtrez instructorii după numele specificate în props
         let filteredInstructori = sortedInstructori;
+        console.log('Instructor names:', filteredInstructori);
         if (instructorNames && instructorNames.length > 0) {
           filteredInstructori = sortedInstructori.filter(instructor =>
             instructorNames.some(name => {
@@ -56,6 +58,7 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
               
               // Cazuri speciale pentru potriviri exacte
               if (searchNameLower === 'alexandra' && instructorNameLower.includes('alexandra')) return true;
+              if (searchNameLower === 'cătălina' && instructorNameLower.includes('cătălina')) return true;
               if (searchNameLower === 'miriam' && instructorNameLower.includes('miriam')) return true;
               if (searchNameLower === 'niko' && instructorNameLower.includes('niko')) return true;
               if (searchNameLower === 'nicholas' && instructorNameLower.includes('nicholas')) return true;
@@ -118,10 +121,11 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
   return (
     <div className="p-0 container py-12">
       <h2 className="text-3xl font-bold tracking-tight text-center mb-8">
-        {instructori.length === 2 
-          ? "Instructorii noștri de dans de societate din București"
-          : "Instructorii noștri de dans latino din București"
-        }
+        {customTitle || (
+          instructori.length === 2 
+            ? "Instructorii noștri de dans de societate din București"
+            : "Instructorii noștri de dans latino din București"
+        )}
       </h2>
       
              <div className={`flex flex-wrap justify-center gap-6 max-w-[90rem] mx-auto `}>
@@ -130,7 +134,7 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
             {/* Border animat ca un șarpe */}
             <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400 bg-[length:200%_100%] bg-left hover:bg-right transition-all duration-1000 ease-in-out opacity-0 group-hover:opacity-100"></div>
             <div className="relative bg-white rounded-xl m-0.5 flex flex-col flex-1">
-                             <div className="relative h-80 w-full bg-gradient-to-br from-orange-50 to-red-50">
+                             <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
                 <Image
                   src={instructor.imageUrl}
                   alt={`Dansuri latino in Bucuresti cu ${instructor.name}`}
@@ -161,7 +165,11 @@ export default function InstructorsSection({ instructorNames }: InstructorsSecti
                       "stilul său tehnic, carisma pe ringul de dans",
                       "2023",
                       "salsa și bachata",
-                      "dezvoltarea comunității de dansatori"
+                      "dezvoltarea comunității de dansatori",
+                      "instructor-coregraf",
+                      " dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri",
+                      "inspirație, bucurie și empatie",
+                      "susținuți și înțeleși"
                     ];
                     
                     return instructor.bio.split('\n').map((paragraph, pIndex) => (

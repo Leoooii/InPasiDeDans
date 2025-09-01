@@ -9,6 +9,17 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import FolkDancesCarousel from '@/components/FolkDancesCarousel';
+import WhyChooseUsFolkDances from '@/components/WhyChooseUsFolkDances';
+import FolkDancesStructure from '@/components/FolkDancesStructure';
+import FolkDancesRegions from '@/components/FolkDancesRegions';
+import LocationSection from '@/components/LocationSection';
+import InstructorsSection from '@/components/InstructorsSection';
+import PricingSection from '@/components/PricingSection';
+import FolkDancesTestimonials from '@/components/FolkDancesTestimonials';
+import FolkDancesFAQ from '@/components/FolkDancesFAQ';
+import ExploreOtherDances from '@/components/ExploreOtherDances';
+import ContactForm from '@/components/contact-form';
 
 // Definim regiunile și dansurile asociate
 const regiuniDansuri = [
@@ -225,142 +236,157 @@ export default function DansuriPopulare() {
   );
 
   return (
-    <div className="container py-12">
+    <div className="container py-12 flex flex-col gap-12">
       <Head />
-      <div className="space-y-6">
-        {/* Secțiunea de titlu */}
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Dansuri populare
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Descoperă frumusețea și energia dansurilor tradiționale românești
-            din diferite regiuni
+      {/* Container de început cu titlu, descriere și buton - stil Dansuri Latino */}
+      <div className="p-0 container flex flex-col gap-4 items-center">
+        <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri populare</h1>
+        <div>
+          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
+            Dansurile populare îmbină frumusețea tradițiilor cu veselia de a dansa alături de oameni.
+          </p>
+          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
+            De la voioșia molipsitoare a horii și energia sârbei, la eleganța brâului și ritmul antrenant al bătutei, fiecare pas îți aduce mai aproape autenticitatea și frumusețea culturii noastre. Vei învăța pași simpli și vei trăi emoția dansului într-o atmosferă caldă, prietenoasă și plină de viață.
+          </p>
+          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
+            Începe acum și transformă fiecare pas într-o sărbătoare a tradiției și a bucuriei de a dansa împreună!
           </p>
         </div>
+        <Link href="/inscriere" className="mt-4">
+          <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-xl" size="lg">
+            Înscrie-te la curs
+          </Button>
+        </Link>
+      </div>
 
-        {/* Secțiunea de introducere */}
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Tradiție și folclor</h2>
-            <p>
-              Dansurile populare reprezintă o parte importantă a patrimoniului
-              cultural, transmițând obiceiuri, tradiții și povești din generație
-              în generație. Fiecare regiune a României are propriile dansuri
-              tradiționale, cu stiluri și ritmuri distincte.
+      {/* Al doilea container cu cursuri în București */}
+      <div className="container flex flex-col gap-4 items-center border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm bg-white/50 dark:bg-gray-900/50">
+        <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">
+          Cursuri de dansuri populare în București
+        </h2>
+        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
+          Dansurile populare sunt o comoară a patrimoniului cultural românesc, purtând obiceiuri, tradiții și povești transmise din generație în generație.
+        </p>
+        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
+          Fiecare regiune a țării are jocuri tradiționale proprii, cu ritmuri și stiluri aparte, care reflectă unicitatea și energia comunităților locale.
+        </p>
+        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-left max-w-6xl mx-auto font-serif mb-2">
+          La școala noastră vei descoperi și învăța jocuri populare din toate colțurile României – de la hora molovenească și învârtita din Transilvania, până la brâul muntenesc și dansurile pline de vitalitate din Oltenia. În plus, îți oferim ocazia să te bucuri și de dansuri grecești și machedonești, pentru o experiență culturală și mai bogată.
+        </p>
+        
+        {/* Secțiunea nouă cu informații suplimentare */}
+        <div className="w-full max-w-6xl mt-8 space-y-4">
+          {/* De ce sunt speciale dansurile populare */}
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 p-6 rounded-xl border-l-4 border-orange-400 dark:border-orange-600 shadow-sm">
+            <h3 className="text-base md:text-lg font-bold text-orange-800 dark:text-orange-200 mb-4 flex items-center">
+              <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+              De ce sunt speciale dansurile populare?
+            </h3>
+            <p className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+              Ele impresionează prin frumusețea și diversitatea lor: ritmuri antrenante, mișcări pline de energie și un spirit comunitar care creează o legătură autentică între oameni. Dansurile populare nu sunt doar pași, ci povești vii despre tradiții, sărbători și bucuria de a fi împreună.
             </p>
-            <p>
-              La școala noastră, puteți învăța jocuri populare din toate
-              regiunile României, de la hora moldovenească și învârtita din
-              Transilvania, până la brâul muntenesc și jocurile pline de energie
-              din Oltenia, dar si dansuri grecești și machedonești.
-            </p>
-            <p>
-              Mai jos găsiți jocurile populare predate în cadrul școlii noastre.
-            </p>
-            <div className="pt-4 flex gap-2">
-              <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Înscrie-te la curs
-                </Button>
-              </Link>
-              <Link href="/program">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Verifică programul
-                </Button>
-              </Link>
-            </div>
           </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/images/dobrogea.jpg?height=400&width=600"
-              alt="Dansuri populare"
-              fill
-              className="object-cover"
-            />
+
+          {/* Cui se adresează cursurile */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border-l-4 border-blue-400 dark:border-blue-600 shadow-sm">
+            <h3 className="text-base md:text-lg font-bold text-blue-800 dark:text-blue-200 mb-4 flex items-center">
+              <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+              Cui se adresează cursurile?
+            </h3>
+            <p className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+              Cursurile sunt deschise tuturor – fie că ești la început de drum, fie că ai mai dansat, fie că vrei pur și simplu să descoperi frumusețea folclorului. Se potrivesc copiilor, adolescenților și adulților deopotrivă, fiind o modalitate minunată de a petrece timpul liber într-un mod activ și cultural.
+            </p>
           </div>
-        </div>
 
-        {/* Secțiunea cu taburi și imagine */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">
-            Explorează regiunile României și dansurile lor
-          </h2>
-
-          <Tabs
-            value={currentRegion}
-            onValueChange={setCurrentRegion}
-            className="w-full"
-          >
-            <div className="grid gap-8 md:grid-cols-2">
-              {/* Taburile din stânga */}
-              <TabsList className="flex flex-col h-auto bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                {regiuniDansuri.map(regiune => (
-                  <TabsTrigger
-                    key={regiune.id}
-                    value={regiune.id}
-                    className="py-3 text-left justify-start data-[state=active]:bg-red-100 data-[state=active]:text-red-700 dark:data-[state=active]:bg-red-900 dark:data-[state=active]:text-white"
-                  >
-                    {regiune.nume}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-
-              {/* Imaginea din dreapta cu săgeți */}
-              <div className="relative h-[400px] rounded-lg overflow-hidden">
-                <Image
-                  src={regiuneCurenta?.imagine || '/placeholder.svg'}
-                  alt={`Regiunea ${regiuneCurenta?.nume}`}
-                  fill
-                  className="object-contain"
-                  onError={e => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/placeholder.svg?height=400&width=600';
-                  }}
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4">
-                  <h3 className="text-xl font-bold">{regiuneCurenta?.nume}</h3>
-                </div>
-                <button
-                  onClick={goToPrevious}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button
-                  onClick={goToNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-            </div>
-
-            {/* Lista de dansuri sub taburi și imagine */}
-            {regiuniDansuri.map(regiune => (
-              <TabsContent key={regiune.id} value={regiune.id} className="mt-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-4">
-                      Dansuri populare din {regiune.nume}
-                    </h3>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                      {regiune.dansuri.map((dans, index) => (
-                        <li
-                          key={index}
-                          className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-orange-500 hover:bg-orange-100 dark:hover:bg-orange-900 transition duration-200"
-                        >
-                          <span className="font-medium">{dans}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            ))}
-          </Tabs>
+          {/* În ce contexte sunt potrivite */}
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border-l-4 border-green-400 dark:border-green-600 shadow-sm">
+            <h3 className="text-base md:text-lg font-bold text-green-800 dark:text-green-200 mb-4 flex items-center">
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+              În ce contexte sunt potrivite?
+            </h3>
+            <p className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+              Dansurile populare sunt ideale pentru petreceri, nunți, festivaluri sau evenimente tradiționale, dar și ca activitate recreativă ce aduce mișcare, voie bună și prietenii noi.
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Carusel cu imagini de dansuri populare */}
+      <div className="container">
+        
+        <FolkDancesCarousel />
+      </div>
+
+      {/* Secțiunea De ce să alegi cursurile noastre */}
+      <WhyChooseUsFolkDances />
+
+      {/* Secțiunea Structura dansurilor populare */}
+      <FolkDancesStructure />
+
+      {/* Secțiunea cu regiuni și dansuri */}
+      <FolkDancesRegions />
+
+      {/* Secțiunea cu locația */}
+      <LocationSection />
+
+      {/* Secțiunea cu instructorii */}
+      <InstructorsSection 
+        instructorNames={['Alexandra', 'Cătălina']} 
+        customTitle="Instructorii noștri de dans popular din București"
+      />
+
+      {/* Secțiunea cu abonamentele */}
+      <PricingSection />
+
+      {/* Secțiunea cu testimoniale */}
+      <FolkDancesTestimonials />
+
+      {/* Secțiunea FAQ */}
+      <FolkDancesFAQ />
+
+      {/* Secțiunea Explorează alte dansuri */}
+      <ExploreOtherDances 
+        danceCategories={[
+          {
+            id: 1,
+            title: 'Dansuri Latino',
+            description: 'Salsa, bachata, cha-cha și multe altele',
+            imageSrc: '/images/latino.png',
+            imageAlt: 'Dansuri latino',
+            href: '/dansuri-latino',
+            gradient: 'from-red-500 to-orange-600'
+          },
+          {
+            id: 2,
+            title: 'Dansuri de Societate',
+            description: 'Vals, tango, foxtrot și multe altele',
+            imageSrc: '/images/societate.png',
+            imageAlt: 'Dansuri de societate',
+            href: '/dansuri-de-societate',
+            gradient: 'from-blue-500 to-purple-600'
+          },
+          {
+            id: 3,
+            title: 'Lecții Private',
+            description: 'Instruire personalizată pentru progres rapid',
+            imageSrc: '/images/private.png',
+            imageAlt: 'Lecții private de dans',
+            href: '/lectii-private',
+            gradient: 'from-green-500 to-teal-600'
+          }
+        ]}
+        sectionTitle="Explorează și alte dansuri"
+        sectionDescription="Descoperă diversitatea stilurilor de dans pe care le oferim"
+      />
+
+      {/* Secțiunea de înscriere */}
+      <div id="inscriere" className="px-0 md:px-32">
+        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">
+          Completează formularul și înscrie-te la cursurile de dansuri populare
+        </h3>
+        <ContactForm/>
+      </div>
+
       <GrupeInFormare />
     </div>
   );
