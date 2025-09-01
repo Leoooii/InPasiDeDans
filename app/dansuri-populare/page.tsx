@@ -111,8 +111,8 @@ export default function DansuriPopulare() {
 
       {/* Secțiunea cu instructorii */}
       <InstructorsSection 
-        instructorNames={['Alexandra', 'Cătălina']} 
-        customTitle="Instructorii noștri de dans popular din București"
+        instructorNames={['Alexandra', 'Cătălina']} courseName="popular"
+      
       />
 
       {/* Secțiunea cu abonamentele */}

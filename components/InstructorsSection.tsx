@@ -21,9 +21,10 @@ interface Instructor {
 interface InstructorsSectionProps {
   instructorNames?: string[]; // Array cu numele instructorilor de afișat
   customTitle?: string; // Titlu personalizat pentru secțiune
+  courseName?: string; // Nume curs
 }
 
-export default function InstructorsSection({ instructorNames, customTitle }: InstructorsSectionProps) {
+export default function InstructorsSection({ instructorNames, customTitle, courseName }: InstructorsSectionProps) {
   const [instructori, setInstructori] = useState<Instructor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -121,11 +122,9 @@ export default function InstructorsSection({ instructorNames, customTitle }: Ins
   return (
     <div className="p-0 container py-12">
       <h2 className="text-3xl font-bold tracking-tight text-center mb-8">
-        {customTitle || (
-          instructori.length === 2 
-            ? "Instructorii noștri de dans de societate din București"
-            : "Instructorii noștri de dans latino din București"
-        )}
+        
+            Instructorii noștri de dans {courseName} din București
+        
       </h2>
       
              <div className={`flex flex-wrap justify-center gap-6 max-w-[90rem] mx-auto `}>

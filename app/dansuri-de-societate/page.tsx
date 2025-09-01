@@ -137,7 +137,7 @@ export default function DansuriDeSocietate() {
         </div>
         
         <div id="instructori">
-          <InstructorsSection instructorNames={['Alexandra', 'Miriam']}/>
+          <InstructorsSection instructorNames={['Alexandra', 'Miriam']} courseName="de societate"/>
         </div>
         
         <div id="testimoniale">

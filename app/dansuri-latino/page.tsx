@@ -144,7 +144,7 @@ export default function DansuriLatino() {
         <LocationSection/>
         
         <div id="instructori">
-          <InstructorsSection instructorNames={['Alexandra', 'Miriam', 'Nicholas']}/>
+          <InstructorsSection instructorNames={['Alexandra', 'Miriam', 'Nicholas']} courseName="latino"/>
         </div>
         
         <div id="tarife">
