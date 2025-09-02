@@ -10,28 +10,6 @@
       ],
       "destination": "https://www.inpasidedans.ro/:path*",
       "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "http://inpasidedans.ro"
-        }
-      ],
-      "destination": "https://www.inpasidedans.ro/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "http://www.inpasidedans.ro"
-        }
-      ],
-      "destination": "https://www.inpasidedans.ro/:path*",
-      "permanent": true
     }
   ],
   "headers": [
