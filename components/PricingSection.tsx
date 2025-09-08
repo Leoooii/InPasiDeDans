@@ -63,14 +63,14 @@ const groupPricing = [
   }
 ];
 
-export default function PricingSection() {
+export default function PricingSection({ title }: { title: string }) {
   return (
     <div className=" ">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Tarife și abonamente pentru dansuri latino
+            {title}
           </h2>
          
         </div>

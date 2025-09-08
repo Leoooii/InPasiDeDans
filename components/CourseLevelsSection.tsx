@@ -10,6 +10,9 @@ export default function CourseLevelsSection() {
         
         <div className="text-center mb-10">
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
+            La În Pași de Dans, cursurile sunt organizate în grupe de 16–20 de persoane, suficient de mari pentru a crea energie și dinamism, dar și suficient de reduse pentru ca fiecare cursant să primească atenția de care are nevoie.
+          </p>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mt-4">
             Poți învăța și evolua în ritmul tău, fără presiunea timpului. Tot ce contează este să faci pași constanți înainte și să te bucuri de fiecare moment pe ringul de dans.
           </p>
         </div>
@@ -27,7 +30,7 @@ export default function CourseLevelsSection() {
               <h4 className="text-xl font-bold text-gray-800">Începători</h4>
             </div>
             <p className="text-gray-600 leading-relaxed">
-              Înveți pașii de bază, primele combinații și exerciții de coordonare, astfel încât să capeți siguranță și plăcere în dans.
+              Primești o programă special creată, ce combină 3 stiluri de dans (latino și de societate) pe parcursul a câteva luni. Astfel, capeți o bază solidă, exersezi coordonarea, pașii fundamentali și primele combinații. Ulterior, în funcție de preferințele grupului, programa se poate ajusta: se pot adăuga sau scoate stiluri de dans latino și/sau de societate.
             </p>
           </div>
 
@@ -37,7 +40,7 @@ export default function CourseLevelsSection() {
               <h4 className="text-xl font-bold text-gray-800">Intermediari</h4>
             </div>
             <p className="text-gray-600 leading-relaxed">
-              Descoperi combinații mai variate, începi să pui accent pe muzicalitate, ritm și fluiditate, iar mișcările devin mai naturale și expresive.
+              Descoperi combinații mai variate și coregrafii mai dinamice. În această etapă pui accent pe muzicalitate, ritm și fluiditate, astfel încât mișcările tale să devină mai naturale și expresive.
             </p>
           </div>
 
@@ -47,14 +50,14 @@ export default function CourseLevelsSection() {
               <h4 className="text-xl font-bold text-gray-800">Avansați</h4>
             </div>
             <p className="text-gray-600 leading-relaxed">
-              Aprofundezi tehnici mai complexe, styling, interpretare muzicală și expresivitate, pentru a-ți crea un stil propriu și elegant.
+              Aprofundezi tehnici complexe, lucrând la stil personal, eleganță și expresivitate. Înveți elemente de styling, interpretare muzicală și rafinament în execuție, pentru a te bucura pe deplin de libertatea dansului.
             </p>
           </div>
         </div>
 
         <div className="text-center">
           <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
-            Indiferent de nivel, fiecare curs este o experiență plină de energie și bucurie, iar progresul se construiește treptat, cu sprijinul instructorilor noștri dedicați.
+            Indiferent de nivel, fiecare curs este o experiență plină de energie, comunitate și bucurie, iar progresul se construiește treptat, cu sprijinul instructorilor noștri dedicați.
           </p>
         </div>
       </div>

@@ -131,10 +131,10 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
 
   const testimonials = getTestimonials();
 
-  // Grupăm testimonialele în slide-uri de câte 2 pentru mobile și 3 pentru desktop
+  // Grupăm testimonialele în slide-uri de câte 1 pentru mobile și 3 pentru desktop
   const testimonialSlides = [];
-  for (let i = 0; i < testimonials.length; i += 3) {
-    testimonialSlides.push(testimonials.slice(i, i + 3));
+  for (let i = 0; i < testimonials.length; i += 1) {
+    testimonialSlides.push([testimonials[i]]);
   }
 
   return (

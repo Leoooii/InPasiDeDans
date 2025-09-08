@@ -48,11 +48,11 @@ export default function DansuriDeSocietate() {
            Începe acum și transformă fiecare pas într-o experiență plină de grație și armonie!
             </p>
           </div>
-          <Link href="/inscriere" className="mt-4">
+          <a href="#inscriere" className="mt-4">
             <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-xl" size="lg">
               Înscrie-te la curs
             </Button>
-          </Link>
+          </a>
         </div>
         
         <div className="container flex flex-col gap-4 items-center border-2 border-black p-4">
@@ -133,7 +133,7 @@ export default function DansuriDeSocietate() {
         </div>
         
         <div id="tarife">
-          <PricingSection/>
+          <PricingSection title="Dansuri de societate – Tarife și abonamente"/>
         </div>
         
         <div id="instructori">

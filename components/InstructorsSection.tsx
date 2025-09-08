@@ -28,6 +28,20 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
   const [instructori, setInstructori] = useState<Instructor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedInstructors, setExpandedInstructors] = useState<Set<string>>(new Set());
+
+  // Funcție pentru toggle-ul expandării descrierii
+  const toggleExpanded = (instructorId: string) => {
+    setExpandedInstructors(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(instructorId)) {
+        newSet.delete(instructorId);
+      } else {
+        newSet.add(instructorId);
+      }
+      return newSet;
+    });
+  };
 
   // Încărcăm instructorii din Firebase
   useEffect(() => {
@@ -121,11 +135,11 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
 
   return (
     <div className="p-0 container py-12">
-      <h2 className="text-3xl font-bold tracking-tight text-center mb-8">
+      <h3 className="text-3xl font-bold tracking-tight text-center mb-8">
         
             Instructorii noștri de dans {courseName} din București
         
-      </h2>
+      </h3>
       
              <div className={`flex flex-wrap justify-center gap-6 max-w-[90rem] mx-auto `}>
         {instructori.map((instructor) => (
@@ -136,7 +150,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                              <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
                 <Image
                   src={instructor.imageUrl}
-                  alt={`Dansuri latino in Bucuresti cu ${instructor.name}`}
+                  alt={`Dansuri ${courseName} in Bucuresti cu ${instructor.name}`}
                   fill
                   className="object-cover w-full h-full"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -145,7 +159,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                              <div className="p-4 flex-1 flex flex-col">
                 <div className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{instructor.name}</div>
                 <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                <div className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
                   {(() => {
                     const phrasesToHighlight = [
                       "fondator, manager și instructor",
@@ -171,23 +185,39 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                       "susținuți și înțeleși"
                     ];
                     
-                    return instructor.bio.split('\n').map((paragraph, pIndex) => (
-                      <span key={pIndex}>
-                        {(() => {
-                          let highlightedParagraph = paragraph;
-                          
-                          phrasesToHighlight.forEach(phrase => {
-                            const regex = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-                            highlightedParagraph = highlightedParagraph.replace(regex, `<strong class="text-orange-700">${phrase}</strong>`);
-                          });
-                          
-                          return <span dangerouslySetInnerHTML={{ __html: highlightedParagraph }} />;
-                        })()}
-                        {pIndex < instructor.bio.split('\n').length - 1 && <br />}
-                      </span>
-                    ));
+                    const bioParagraphs = instructor.bio.split('\n');
+                    const isExpanded = expandedInstructors.has(instructor.id);
+                    const paragraphsToShow = isExpanded ? bioParagraphs : [bioParagraphs[0]];
+                    
+                    return (
+                      <>
+                        {paragraphsToShow.map((paragraph, pIndex) => (
+                          <span key={pIndex}>
+                            {(() => {
+                              let highlightedParagraph = paragraph;
+                              
+                              phrasesToHighlight.forEach(phrase => {
+                                const regex = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                                highlightedParagraph = highlightedParagraph.replace(regex, `<strong class="text-orange-700">${phrase}</strong>`);
+                              });
+                              
+                              return <span dangerouslySetInnerHTML={{ __html: highlightedParagraph }} />;
+                            })()}
+                            {pIndex < paragraphsToShow.length - 1 && <br />}
+                          </span>
+                        ))}
+                        {bioParagraphs.length > 1 && (
+                          <button
+                            onClick={() => toggleExpanded(instructor.id)}
+                            className="text-orange-600 hover:text-orange-700 font-medium ml-1 transition-colors duration-200"
+                          >
+                            {isExpanded ? 'Mai puțin...' : 'Mai multe...'}
+                          </button>
+                        )}
+                      </>
+                    );
                   })()}
-                </p>
+                </div>
                 
                 {/* Social Media Links */}
                 <div className="flex space-x-3 mt-auto">
