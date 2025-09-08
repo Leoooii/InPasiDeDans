@@ -106,26 +106,12 @@ export default function CursuriDansCopii() {
             Grupe aflate in desfășurare:
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">
-                  Grupă intermediari (7-12 ani)
-                </h3>
-                <p className="text-gray-500 mb-4">
-                  La această grupă se predau: cha cha, jive, samba, vals lent,
-                  vals vienez, quick step, ocazional - dansuri populare.
-                </p>
-                <div className="text-sm text-gray-500">
-                  <p>Marți și Joi</p>
-                  <p>17:15 - 18:15</p>
-                </div>
-              </CardContent>
-            </Card>
+            
 
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Grupă intermediari/avansați (9-14 ani)
+                  Grupă intermediari/avansați 
                 </h3>
                 <p className="text-gray-500 mb-4">
                   La această grupă se predau: cha cha, jive, samba, vals lent,
@@ -140,22 +126,40 @@ export default function CursuriDansCopii() {
                     <p>Vineri</p>
                     <p>18:30 - 19:30</p>
                   </div>
+                  <div className="text-sm text-gray-500">
+                    <p>Sâmbătă</p>
+                    <p>11:00 - 12:00</p>
+                  </div>
                 </div>
               </CardContent>
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mx-6 mb-6">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm text-blue-700">
+                        <strong>Se pot alege oricare două din cele trei zile</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
             </Card>
 
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">
-                  Formație intermediari (10-12 ani)
+                  Formație intermediari
                 </h3>
                 <p className="text-gray-500 mb-4">
                   Coregrafii dansuri latino/standard, în vederea participării la
                   concursuri de dans.
                 </p>
                 <div className="text-sm text-gray-500">
-                  <p>Joi</p>
-                  <p>17:30 - 18:30</p>
+                  <p>Sâmbătă</p>
+                  <p>12:00 - 13:00</p>
                 </div>
               </CardContent>
             </Card>
