@@ -49,7 +49,7 @@ export default function DansuriLatino() {
             Descoperă pasiunea și vibrația stilurilor latino!
             </p>
           </div>
-          <Link href="/inscriere" className="mt-4">
+          <Link href="#inscriere" className="mt-4">
             <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-xl" size="lg">
               Înscrie-te la curs
             </Button>
@@ -148,7 +148,7 @@ export default function DansuriLatino() {
         </div>
         
         <div id="tarife">
-          <PricingSection/>
+          <PricingSection title="Dansuri Latino – Tarife și abonamente"/>
         </div>
         
         <div id="testimoniale">
