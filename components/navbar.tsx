@@ -57,6 +57,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -67,6 +68,17 @@ export default function Navbar() {
 
     return () => unsubscribe();
   }, []);
+
+  // Auto-close dropdown după 3 secunde
+  useEffect(() => {
+    if (openDropdown) {
+      const timer = setTimeout(() => {
+        setOpenDropdown(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [openDropdown]);
 
   const handleLogout = async () => {
     try {
@@ -225,7 +237,10 @@ export default function Navbar() {
                 
                 {/* Cursuri adulți -> open on click, aligned under button */}
                 <NavigationMenuItem>
-                  <DropdownMenu>
+                  <DropdownMenu 
+                    open={openDropdown === 'cursuri-adulti'} 
+                    onOpenChange={(open) => setOpenDropdown(open ? 'cursuri-adulti' : null)}
+                  >
                     <DropdownMenuTrigger asChild>
                       <button
                         className={cn(
@@ -244,6 +259,7 @@ export default function Navbar() {
                           <li key={item.title}>
                             <Link
                               href={item.href}
+                              onClick={() => setOpenDropdown(null)}
                               className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
                               title={item.title}
                             >
@@ -318,7 +334,10 @@ export default function Navbar() {
 
                 {/* Despre noi -> click */}
                 <NavigationMenuItem>
-                  <DropdownMenu>
+                  <DropdownMenu 
+                    open={openDropdown === 'despre-noi'} 
+                    onOpenChange={(open) => setOpenDropdown(open ? 'despre-noi' : null)}
+                  >
                     <DropdownMenuTrigger asChild>
                       <button
                         className={cn(
@@ -337,6 +356,7 @@ export default function Navbar() {
                           <li key={item.title}>
                             <Link
                               href={item.href}
+                              onClick={() => setOpenDropdown(null)}
                               className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
                               title={item.title}
                             >
@@ -354,7 +374,10 @@ export default function Navbar() {
 
                 {/* Activități -> click */}
                 <NavigationMenuItem>
-                  <DropdownMenu>
+                  <DropdownMenu 
+                    open={openDropdown === 'activitati'} 
+                    onOpenChange={(open) => setOpenDropdown(open ? 'activitati' : null)}
+                  >
                     <DropdownMenuTrigger asChild>
                       <button
                         className={cn(
@@ -373,6 +396,7 @@ export default function Navbar() {
                           <li key={item.title}>
                             <Link
                               href={item.href}
+                              onClick={() => setOpenDropdown(null)}
                               className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
                               title={item.title}
                             >
