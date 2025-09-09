@@ -38,13 +38,9 @@ export default function ExploreOtherDances({
         {/* Dance Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {danceCategories.map((category) => (
-            <Link 
-              key={category.id} 
-              href={category.href}
-              className="group block"
-            >
-              <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                {/* Image Container */}
+            <div key={category.id} className="group">
+              {/* Image Container */}
+              <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 mb-4">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
                     src={category.imageSrc}
@@ -54,33 +50,36 @@ export default function ExploreOtherDances({
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   
-                  {/* Gradient Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${category.gradient} opacity-80 group-hover:opacity-90 transition-opacity duration-300`} />
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
                   
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                    <div className="text-2xl font-bold mb-2 group-hover:text-yellow-200 transition-colors duration-300">
-                      {category.title}
-                    </div>
-                    <p className="text-white/90 text-sm group-hover:text-white transition-colors duration-300">
-                      {category.description}
-                    </p>
-                    
-                    {/* Arrow Icon */}
-                    <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
-                      <svg 
-                        className="w-4 h-4 text-white transform group-hover:translate-x-1 transition-transform duration-300" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
+                  {/* Arrow Icon */}
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all duration-300 opacity-0 group-hover:opacity-100">
+                    <svg 
+                      className="w-4 h-4 text-white transform group-hover:translate-x-1 transition-transform duration-300" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </div>
                 </div>
               </div>
-            </Link>
+              
+              {/* Text Content Below Image */}
+              <div className="text-center">
+                <Link 
+                  href={category.href}
+                  className="inline-block text-2xl font-bold text-gray-900 hover:text-red-600 transition-colors duration-300 mb-2 group-hover:text-red-600"
+                >
+                  {category.title}
+                </Link>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {category.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

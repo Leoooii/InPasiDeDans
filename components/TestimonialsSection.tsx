@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState } from 'react';
 import { Star, Quote, Heart, Link } from 'lucide-react';
 import { Button } from './ui/button';
 import {
@@ -9,7 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import useEmblaCarouselAutoplay from 'embla-carousel-autoplay';
 
 interface Testimonial {
   id: number;
@@ -114,9 +114,6 @@ const societateTestimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSection({ danceType = 'default' }: TestimonialsSectionProps) {
-  // Hook pentru autoplay - folosit doar pe client
-  const autoplay = useEmblaCarouselAutoplay({ delay: 3000, stopOnInteraction: false });
-  
   // Selectăm testimoniale în funcție de tipul de dans
   const getTestimonials = () => {
     switch (danceType) {
@@ -131,15 +128,52 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
 
   const testimonials = getTestimonials();
 
-  // Grupăm testimonialele în slide-uri de câte 1 pentru mobile și 3 pentru desktop
+  // JSON-LD pentru schema Review
+  const generateReviewsSchema = () => {
+    const reviewsSchema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": testimonials.map((testimonial, index) => ({
+        "@type": "Review",
+        "position": index + 1,
+        "reviewBody": testimonial.text,
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": testimonial.rating,
+          "bestRating": 5
+        },
+        "author": {
+          "@type": "Person",
+          "name": testimonial.name
+        },
+        "itemReviewed": {
+          "@type": "School",
+          "name": "In Pasi de Dans",
+          "additionalType": "https://www.productontology.org/id/Dance_school"
+        }
+      }))
+    };
+    return JSON.stringify(reviewsSchema);
+  };
+
+  // Grupăm testimonialele în slide-uri de câte 3 pentru desktop
+  // Pe mobile se va afișa doar primul testimonial din fiecare slide
   const testimonialSlides = [];
-  for (let i = 0; i < testimonials.length; i += 1) {
-    testimonialSlides.push([testimonials[i]]);
+  for (let i = 0; i < testimonials.length; i += 3) {
+    const slide = testimonials.slice(i, i + 3);
+    testimonialSlides.push(slide);
   }
 
   return (
-    <div className="bg-white">
-      <div className="container mx-auto px-4">
+    <>
+      {/* JSON-LD Schema pentru SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: generateReviewsSchema() }}
+      />
+      
+      <div className="bg-white">
+        <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full mb-6">
@@ -155,11 +189,11 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
 
         {/* Testimonials Carousel */}
         <div className="max-w-7xl mx-auto relative">
-                     <Carousel className="w-full" opts={{ loop: true }} plugins={[autoplay]}>
+                     <Carousel className="w-full" opts={{ loop: true }}>
             <CarouselContent>
               {testimonialSlides.map((slide, slideIndex) => (
                 <CarouselItem key={slideIndex} className="pl-4">
-                                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                     {slide.map((testimonial, index) => (
                       <div
                         key={testimonial.id}
@@ -167,7 +201,9 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
                           index % 2 === 0 
                             ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
                             : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
-                        } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full`}
+                        } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full ${
+                          index > 0 ? 'hidden md:block' : ''
+                        }`}
                       >
                         {/* Quote Icon */}
                         <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
@@ -226,5 +262,6 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 
 interface FAQItem {
@@ -126,6 +126,31 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
   const faqData = getFAQData();
   const [openItems, setOpenItems] = useState<number[]>([1]); // Primul item deschis implicit
 
+  // Funcție pentru extragerea textului din JSX
+  const extractTextFromJSX = (jsxElement: React.ReactNode): string => {
+    if (typeof jsxElement === 'string') {
+      return jsxElement;
+    }
+    
+    if (React.isValidElement(jsxElement)) {
+      // Extrage textul din elementele JSX
+      let text = '';
+      const children = (jsxElement.props as any)?.children;
+      if (children) {
+        React.Children.forEach(children, (child) => {
+          if (typeof child === 'string') {
+            text += child;
+          } else if (React.isValidElement(child)) {
+            text += extractTextFromJSX(child);
+          }
+        });
+      }
+      return text;
+    }
+    
+    return 'Răspuns detaliat disponibil în componenta interactivă';
+  };
+
   // JSON-LD pentru SEO
   const generateFAQSchema = () => {
     const faqSchema = {
@@ -136,7 +161,7 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
         "name": item.question,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": typeof item.answer === 'string' ? item.answer : 'Răspuns detaliat disponibil în componenta interactivă'
+          "text": extractTextFromJSX(item.answer)
         }
       }))
     };

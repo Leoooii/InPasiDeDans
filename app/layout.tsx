@@ -52,12 +52,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'DanceSchool',
+              '@type': 'School',
+              'additionalType': 'https://www.productontology.org/id/Dance_school',
               name: 'In Pasi de Dans',
               description:
                 'Scoala de dans cu traditie din 2009, oferind cursuri de dansuri latino, de societate, populare si lectii private in Bucuresti.',
-                      url: 'https://www.inpasidedans.ro/',
-        logo: 'https://www.inpasidedans.ro/images/logo.png',
+              url: 'https://www.inpasidedans.ro/',
+              logo: 'https://www.inpasidedans.ro/images/logo.png',
+              foundingDate: '2009',
+              educationalLevel: 'Adult Education',
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'Cursuri de Dans',
+                itemListElement: [
+                  {
+                    '@type': 'Course',
+                    name: 'Dansuri Latino',
+                    description: 'Salsa, bachata, cha-cha și multe altele'
+                  },
+                  {
+                    '@type': 'Course', 
+                    name: 'Dansuri de Societate',
+                    description: 'Vals, tango, foxtrot și alte dansuri elegante'
+                  },
+                  {
+                    '@type': 'Course',
+                    name: 'Dansuri Populare',
+                    description: 'Peste 200 de jocuri populare românești'
+                  }
+                ]
+              },
               sameAs: [
                 'https://www.facebook.com/scoaladedansinpasidedans',
                 'https://www.instagram.com/inpasidedans/',

@@ -82,18 +82,13 @@ export default function PricingSection({ title }: { title: string }) {
             {groupPricing.map((plan) => (
               <Card 
                 key={plan.id} 
-                className={`flex flex-col border-red-600 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+                className={`flex flex-col border-red-600 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full ${
                   plan.popular 
-                    ? 'border-red-500 scale-105' 
+                    ? 'border-red-500 ' 
                     : 'border-red-600 hover:border-red-700'
                 }`}
               >
-                {plan.popular && (
-                  <div className="bg-red-500 text-white text-center py-2 text-sm font-semibold rounded-t-lg">
-                    <Star className="w-4 h-4 inline mr-2" />
-                    Cel mai popular
-                  </div>
-                )}
+               
                 <CardHeader className={`bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg ${
                   plan.popular ? 'rounded-t-none' : ''
                 }`}>
@@ -103,8 +98,8 @@ export default function PricingSection({ title }: { title: string }) {
                   </CardDescription>
                   <div className="mt-4 text-4xl font-bold">{plan.price} {plan.currency}</div>
                 </CardHeader>
-                <CardContent className="flex-1 mt-2 p-6">
-                  <ul className="space-y-2">
+                <CardContent className="flex-1 flex flex-col justify-between mt-2 p-6">
+                  <ul className="space-y-2 flex-1">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <Check

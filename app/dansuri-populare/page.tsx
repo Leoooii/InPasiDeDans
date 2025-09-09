@@ -116,7 +116,7 @@ export default function DansuriPopulare() {
       />
 
       {/* Secțiunea cu abonamentele */}
-      <PricingSection />
+      <PricingSection title="Dansuri populare – Tarife și abonamente"/>
 
       {/* Secțiunea cu testimoniale */}
       <FolkDancesTestimonials />

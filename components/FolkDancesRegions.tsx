@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Eye, EyeOff } from 'lucide-react';
 
@@ -251,108 +250,113 @@ export default function FolkDancesRegions() {
           </Button>
         </div>
 
-        {/* Tabs pentru regiuni */}
+        {/* Regiuni cu navigare simplă */}
         <div className="max-w-4xl mx-auto">
-          <Tabs value={currentRegion.toString()} onValueChange={(value) => setCurrentRegion(parseInt(value))}>
-            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-5 mb-8 bg-white shadow-lg rounded-xl p-1 gap-1">
-              {regiuniDansuri.map((regiune, index) => (
-                <TabsTrigger
-                  key={index}
-                  value={index.toString()}
-                  className="data-[state=active]:bg-orange-500 data-[state=active]:text-white rounded-lg transition-all duration-300 text-sm md:text-base px-3 py-3 md:px-3 md:py-2 whitespace-nowrap"
-                >
-                  {regiune.nume}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          {/* Imaginea regiunii active */}
+          <div className="relative mb-8">
+            <img
+              src={regiuniDansuri[currentRegion].imagine}
+              alt={regiuniDansuri[currentRegion].nume}
+              className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-2 text-orange-500">
+                {regiuniDansuri[currentRegion].nume}
+              </h3>
+            </div>
+          </div>
 
+          {/* Butoane de navigare pentru regiuni */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
             {regiuniDansuri.map((regiune, index) => (
-              <TabsContent key={index} value={index.toString()} className="mt-0">
-                <div className="bg-white rounded-2xl shadow-xl p-8">
-                  <div className="grid md:grid-cols-2 gap-8 items-center">
-                    {/* Imaginea regiunii */}
-                    <div className="relative">
-                      <img
-                        src={regiune.imagine}
-                        alt={regiune.nume}
-                        className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl" />
-                    </div>
+              <button
+                key={index}
+                onClick={() => setCurrentRegion(index)}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 text-sm md:text-base whitespace-nowrap ${
+                  currentRegion === index
+                    ? 'bg-orange-500 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-orange-100 border border-gray-200'
+                }`}
+              >
+                {regiune.nume}
+              </button>
+            ))}
+          </div>
 
-                    {/* Informații despre regiune */}
-                    <div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                        {regiune.nume}
-                      </h3>
-                      <p className="text-gray-600 mb-6 leading-relaxed">
-                        Descoperă frumusețea dansurilor populare din {regiune.nume}, cu ritmuri și stiluri unice care reflectă tradițiile și cultura acestei regiuni.
-                      </p>
+          {/* Conținutul regiunii active */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="space-y-6">
+              {/* Informații despre regiune */}
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                  {regiuniDansuri[currentRegion].nume}
+                </h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Descoperă frumusețea dansurilor populare din {regiuniDansuri[currentRegion].nume}, cu ritmuri și stiluri unice care reflectă tradițiile și cultura acestei regiuni.
+                </p>
 
-                      {/* Butoane de navigare */}
-                      <div className="flex gap-4">
-                        <Button
-                          onClick={goToPrevious}
-                          variant="outline"
-                          className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
-                        >
-                          <ChevronLeft className="w-4 h-4" />
-                          Anterior
-                        </Button>
-                        <Button
-                          onClick={goToNext}
-                          variant="outline"
-                          className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
-                        >
-                          Următor
-                          <ChevronRight className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
+                {/* Butoane de navigare */}
+                <div className="flex gap-4">
+                  <Button
+                    onClick={goToPrevious}
+                    variant="outline"
+                    className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    Anterior
+                  </Button>
+                  <Button
+                    onClick={goToNext}
+                    variant="outline"
+                    className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
+                  >
+                    Următor
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Lista dansurilor - afișată doar când showDances este true */}
+              {showDances && (
+                <div className="mt-8 pt-8 border-t border-gray-200">
+                  <div className="text-center mb-6">
+                    <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                      Dansuri populare din {regiuniDansuri[currentRegion].nume}
+                    </h4>
+                    <p className="text-gray-600">
+                      {regiuniDansuri[currentRegion].dansuri.length} dansuri tradiționale
+                    </p>
                   </div>
 
-                  {/* Lista dansurilor - afișată doar când showDances este true */}
-                  {showDances && (
-                    <div className="mt-8 pt-8 border-t border-gray-200">
-                      <div className="text-center mb-6">
-                        <h4 className="text-xl font-semibold text-gray-800 mb-2">
-                          Dansuri populare din {regiune.nume}
-                        </h4>
-                        <p className="text-gray-600">
-                          {regiune.dansuri.length} dansuri tradiționale
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {regiune.dansuri.map((dans, dansIndex) => (
-                          <div
-                            key={dansIndex}
-                            className="bg-gradient-to-br from-orange-50 to-red-50 p-4 rounded-lg border border-orange-200 hover:border-orange-300 transition-all duration-300 hover:shadow-md"
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
-                                {dansIndex + 1}
-                              </div>
-                              <div>
-                                <h5 className="font-semibold text-gray-800">{dans}</h5>
-                                <div className="w-12 h-0.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full mt-1"></div>
-                              </div>
-                            </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {regiuniDansuri[currentRegion].dansuri.map((dans: string, dansIndex: number) => (
+                      <div
+                        key={dansIndex}
+                        className="bg-gradient-to-br from-orange-50 to-red-50 p-4 rounded-lg border border-orange-200 hover:border-orange-300 transition-all duration-300 hover:shadow-md"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                            {dansIndex + 1}
                           </div>
-                        ))}
+                          <div>
+                            <h5 className="font-semibold text-gray-800">{dans}</h5>
+                            <div className="w-12 h-0.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full mt-1"></div>
+                          </div>
+                        </div>
                       </div>
+                    ))}
+                  </div>
 
-                      <div className="text-center mt-6 pt-4 border-t border-gray-200">
-                        <p className="text-sm text-gray-500">
-                          Total: <span className="font-semibold text-orange-600">{regiune.dansuri.length}</span> dansuri populare
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                  <div className="text-center mt-6 pt-4 border-t border-gray-200">
+                    <p className="text-sm text-gray-500">
+                      Total: <span className="font-semibold text-orange-600">{regiuniDansuri[currentRegion].dansuri.length}</span> dansuri populare
+                    </p>
+                  </div>
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
