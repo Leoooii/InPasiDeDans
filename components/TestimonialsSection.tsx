@@ -156,13 +156,7 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
     return JSON.stringify(reviewsSchema);
   };
 
-  // Grupăm testimonialele în slide-uri de câte 3 pentru desktop
-  // Pe mobile se va afișa doar primul testimonial din fiecare slide
-  const testimonialSlides = [];
-  for (let i = 0; i < testimonials.length; i += 3) {
-    const slide = testimonials.slice(i, i + 3);
-    testimonialSlides.push(slide);
-  }
+  // Nu mai avem nevoie de grupare - fiecare testimonial este direct în carousel
 
   return (
     <>
@@ -188,23 +182,30 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
         </div>
 
         {/* Testimonials Carousel */}
-        <div className="max-w-7xl mx-auto relative">
-                     <Carousel className="w-full" opts={{ loop: true }}>
-            <CarouselContent>
-              {testimonialSlides.map((slide, slideIndex) => (
-                <CarouselItem key={slideIndex} className="pl-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                    {slide.map((testimonial, index) => (
-                      <div
-                        key={testimonial.id}
-                        className={`relative p-6 rounded-2xl ${
-                          index % 2 === 0 
-                            ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
-                            : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
-                        } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full ${
-                          index > 0 ? 'hidden md:block' : ''
-                        }`}
-                      >
+        <div className="w-full relative">
+          <Carousel 
+            className="w-full" 
+            opts={{ 
+              loop: true,
+              align: "start",
+              containScroll: "trimSnaps",
+              slidesToScroll: 1,
+              dragFree: true,
+              skipSnaps: false,
+              inViewThreshold: 0.7
+            }}
+          >
+            <CarouselContent className="-ml-1 md:-ml-6 lg:-ml-12">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={testimonial.id} className="pl-1 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
+                  <div className="relative group">
+                    <div
+                      className={`relative p-6 rounded-2xl w-full h-full ${
+                        index % 2 === 0 
+                          ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
+                          : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
+                      } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2`}
+                    >
                         {/* Quote Icon */}
                         <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
                           <Quote className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" />
@@ -248,16 +249,15 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
                         <div className="absolute top-3 right-3 lg:top-4 lg:right-4 opacity-10">
                           <Heart className="w-8 h-8 lg:w-10 lg:h-10 text-red-400" />
                         </div>
-                      </div>
-                    ))}
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
             
-            {/* Navigation Buttons */}
-            <CarouselPrevious className="absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
-            <CarouselNext className="absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
+            {/* Butoane de navigare - ascunse pe mobile pentru a nu interfera cu swipe */}
+            <CarouselPrevious className="hidden md:flex absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-red-500 text-red-500 hover:text-red-700 z-20" />
+            <CarouselNext className="hidden md:flex absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-red-500 text-red-500 hover:text-red-700 z-20" />
           </Carousel>
         </div>
       </div>
