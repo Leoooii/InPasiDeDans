@@ -275,7 +275,11 @@ function InstructorCard({
                 "instructor-coregraf",
                 " dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri",
                 "inspirație, bucurie și empatie",
-                "susținuți și înțeleși"
+                "susținuți și înțeleși",
+                "competiții, evenimente și proiecte naționale și internaționale de dans",
+                "dansul sportiv de 9 ani",
+                "instructoare înțelegătoare, creativă",
+                "lecții private pentru miri"
               ];
               
               const bioParagraphs = bio.split('\n');
