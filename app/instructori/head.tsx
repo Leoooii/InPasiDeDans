@@ -14,7 +14,7 @@ export default function Head() {
       <meta name="robots" content="index, follow" />
       <meta
         property="og:title"
-        content="Instructori Dans București | În Pași de Dans"
+        content="Instructori Dans Bucuresti | In Pasi de Dans"
       />
       <meta
         property="og:description"
@@ -26,11 +26,11 @@ export default function Head() {
         property="og:image"
         content="https://www.inpasidedans.ro/images/logo.png"
       />
-      <meta property="og:image:alt" content="Logo În Pași de Dans" />
+      <meta property="og:image:alt" content="Logo In Pasi de Dans" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta
         name="twitter:title"
-        content="Instructori Dans București | În Pași de Dans"
+        content="Instructori Dans Bucuresti | In Pasi de Dans"
       />
       <meta
         name="twitter:description"

@@ -11,6 +11,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
+import PricingSection from '@/components/PricingSection';
 
 export const metadata: Metadata = {
   title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
@@ -119,8 +120,8 @@ export default function Tarife() {
               la In Pasi de Dans, Bucuresti.
             </p>
           </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
+          <PricingSection />
+          {/* <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Abonament 8</CardTitle>
@@ -218,7 +219,7 @@ export default function Tarife() {
                 </ul>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">

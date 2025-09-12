@@ -31,6 +31,20 @@ export default function Instructori() {
   const [instructori, setInstructori] = useState<Instructor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedInstructors, setExpandedInstructors] = useState<Set<string>>(new Set());
+
+  // Funcție pentru toggle-ul expandării descrierii
+  const toggleExpanded = (instructorId: string) => {
+    setExpandedInstructors(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(instructorId)) {
+        newSet.delete(instructorId);
+      } else {
+        newSet.add(instructorId);
+      }
+      return newSet;
+    });
+  };
 
   // Încărcăm instructorii din Firebase
   useEffect(() => {
@@ -148,6 +162,7 @@ export default function Instructori() {
               {instructori.map(instructor => (
                 <InstructorCard
                   key={instructor.id}
+                  id={instructor.id}
                   name={instructor.name}
                   role={instructor.role}
                   bio={instructor.bio}
@@ -155,6 +170,8 @@ export default function Instructori() {
                   facebook={instructor.facebookUrl}
                   insta={instructor.instagramUrl}
                   youtube={instructor.youtubeUrl}
+                  isExpanded={expandedInstructors.has(instructor.id)}
+                  onToggleExpanded={() => toggleExpanded(instructor.id)}
                 />
               ))}
             </div>
@@ -198,6 +215,7 @@ export default function Instructori() {
 }
 
 function InstructorCard({
+  id,
   name,
   role,
   bio,
@@ -205,7 +223,10 @@ function InstructorCard({
   insta,
   facebook,
   youtube,
+  isExpanded,
+  onToggleExpanded,
 }: {
+  id: string;
   name: string;
   role: string;
   bio: string;
@@ -213,57 +234,121 @@ function InstructorCard({
   insta?: string;
   facebook?: string;
   youtube?: string;
+  isExpanded: boolean;
+  onToggleExpanded: () => void;
 }) {
   return (
-    <Card className="overflow-hidden">
-      <div className="relative h-[32rem] w-full overflow-hidden">
-        <Image
-          src={src || '/placeholder.svg'}
-          alt={name}
-          fill
-          className="object-cover"
-        />
-      </div>
-      <CardContent className="p-6">
-        <h3 className="text-xl font-bold">{name}</h3>
-        <p className="text-red-600 mb-4">{role}</p>
-        <p className="text-gray-500 text-sm mb-4">{bio}</p>
-        <div className="flex space-x-3">
-          {facebook && (
-            <a
-              href={facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-600"
-            >
-              <Facebook size={18} />
-              <span className="sr-only">Facebook</span>
-            </a>
-          )}
-          {insta && (
-            <a
-              href={insta}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-pink-600"
-            >
-              <Instagram size={18} />
-              <span className="sr-only">Instagram</span>
-            </a>
-          )}
-          {youtube && (
-            <a
-              href={youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-red-600"
-            >
-              <Youtube size={18} />
-              <span className="sr-only">YouTube</span>
-            </a>
-          )}
+    <Card className="overflow-hidden group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-transparent hover:border-orange-500">
+      <div className="relative bg-white rounded-xl flex flex-col flex-1">
+        <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
+          <Image
+            src={src || '/placeholder.svg'}
+            alt={name}
+            fill
+            className="object-cover w-full h-full"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
         </div>
-      </CardContent>
+        <CardContent className="p-4 flex-1 flex flex-col">
+          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{name}</h3>
+          <p className="text-red-600 font-medium mb-3">{role}</p>
+          <div className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+            {(() => {
+              const phrasesToHighlight = [
+                "fondator, manager și instructor",
+                "pasiunea pentru dans",
+                "experiență de peste 24 de ani",
+                "competiții naționale și internaționale",
+                "predarea dansurilor latino, de societate și dansurilor populare",
+                "organizarea și coordonarea",
+                "organizarea evenimentelor și activităților",
+                "dansuri latino și de societate",
+                "experiență de peste 13 ani",
+                "bucuria, eleganța și secretele dansului",
+                "experiență solidă de 11 ani",
+                "peste 16 ani",
+                "vicecampion național la bachata",
+                "stilul său tehnic, carisma pe ringul de dans",
+                "2023",
+                "salsa și bachata",
+                "dezvoltarea comunității de dansatori",
+                "instructor-coregraf",
+                " dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri",
+                "inspirație, bucurie și empatie",
+                "susținuți și înțeleși"
+              ];
+              
+              const bioParagraphs = bio.split('\n');
+              const paragraphsToShow = isExpanded ? bioParagraphs : [bioParagraphs[0]];
+              
+              return (
+                <>
+                  {paragraphsToShow.map((paragraph, pIndex) => (
+                    <span key={pIndex}>
+                      {(() => {
+                        let highlightedParagraph = paragraph;
+                        
+                        phrasesToHighlight.forEach(phrase => {
+                          const regex = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                          highlightedParagraph = highlightedParagraph.replace(regex, `<strong class="text-orange-700">${phrase}</strong>`);
+                        });
+                        
+                        return <span dangerouslySetInnerHTML={{ __html: highlightedParagraph }} />;
+                      })()}
+                      {pIndex < paragraphsToShow.length - 1 && <br />}
+                    </span>
+                  ))}
+                  {bioParagraphs.length > 1 && (
+                    <button
+                      onClick={onToggleExpanded}
+                      className="text-orange-600 hover:text-orange-700 font-medium ml-1 transition-colors duration-200"
+                    >
+                      {isExpanded ? 'Mai puțin...' : 'Mai multe...'}
+                    </button>
+                  )}
+                </>
+              );
+            })()}
+          </div>
+          
+          {/* Social Media Links */}
+          <div className="flex space-x-3 mt-auto">
+            {facebook && (
+              <a
+                href={facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-blue-600 transition-all duration-300 hover:scale-110"
+                aria-label={`Facebook ${name}`}
+              >
+                <Facebook size={18} />
+              </a>
+            )}
+            {insta && (
+              <a
+                href={insta}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-pink-600 transition-all duration-300 hover:scale-110"
+                aria-label={`Instagram ${name}`}
+              >
+                <Instagram size={18} />
+              </a>
+            )}
+            {youtube && (
+              <a
+                href={youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
+                aria-label={`YouTube ${name}`}
+              >
+                <Youtube size={18} />
+              </a>
+            )}
+          </div>
+        </CardContent>
+      </div>
     </Card>
   );
 }
