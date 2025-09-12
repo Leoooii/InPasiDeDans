@@ -6,7 +6,7 @@ const structureItems = [
   {
     id: 1,
     title: "Împărțirea pe grupe",
-    description: "În funcție nivel de experiență, astfel încât fiecare participant să se simtă confortabil și să progreseze natural;",
+    description: "Se face în funcție de nivelul experienței, astfel încât fiecare cursant sa se simtă confortabil si să progreseze în ritmul propriu;",
     icon: Users,
     color: "from-blue-500 to-indigo-500"
   },

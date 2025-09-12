@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { Star, Quote, Heart, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, Quote, Heart, Link } from 'lucide-react';
+import { Button } from './ui/button';
 import {
   Carousel,
   CarouselContent,
@@ -9,9 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import useEmblaCarouselAutoplay from 'embla-carousel-autoplay';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 interface Testimonial {
   id: number;
@@ -67,32 +65,44 @@ const folkDancesTestimonials: Testimonial[] = [
 ];
 
 export default function FolkDancesTestimonials() {
-  // Hook pentru autoplay - folosit doar pe client
-  const autoplay = useEmblaCarouselAutoplay({ delay: 3000, stopOnInteraction: false });
-  
-  // State pentru testimonialele extinse
-  const [expandedTestimonials, setExpandedTestimonials] = useState<Set<number>>(new Set());
-  
-  // Funcție pentru a comuta starea unui testimonial
-  const toggleTestimonial = (id: number) => {
-    const newExpanded = new Set(expandedTestimonials);
-    if (newExpanded.has(id)) {
-      newExpanded.delete(id);
-    } else {
-      newExpanded.add(id);
-    }
-    setExpandedTestimonials(newExpanded);
+  // JSON-LD pentru schema Review
+  const generateReviewsSchema = () => {
+    const reviewsSchema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": folkDancesTestimonials.map((testimonial, index) => ({
+        "@type": "Review",
+        "position": index + 1,
+        "reviewBody": testimonial.text,
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": testimonial.rating,
+          "bestRating": 5
+        },
+        "author": {
+          "@type": "Person",
+          "name": testimonial.name
+        },
+        "itemReviewed": {
+          "@type": "School",
+          "name": "In Pasi de Dans",
+          "additionalType": "https://www.productontology.org/id/Dance_school"
+        }
+      }))
+    };
+    return JSON.stringify(reviewsSchema);
   };
-  
-  // Grupăm testimonialele în slide-uri de câte 2 pentru mobile și 3 pentru desktop
-  const testimonialSlides = [];
-  for (let i = 0; i < folkDancesTestimonials.length; i += 3) {
-    testimonialSlides.push(folkDancesTestimonials.slice(i, i + 3));
-  }
 
   return (
-    <div className="bg-white">
-      <div className="container mx-auto px-4">
+    <>
+      {/* JSON-LD Schema pentru SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: generateReviewsSchema() }}
+      />
+      
+      <div className="bg-white">
+        <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full mb-6">
@@ -107,127 +117,87 @@ export default function FolkDancesTestimonials() {
         </div>
 
         {/* Testimonials Carousel */}
-        <div className="max-w-7xl mx-auto relative mb-12">
-          <Carousel className="w-full" opts={{ 
-            loop: true,
-            align: "start",
-            containScroll: "trimSnaps",
-            slidesToScroll: 1,
-            dragFree: true,
-            skipSnaps: false,
-            inViewThreshold: 0.7
-          }} plugins={[autoplay]}>
-            <CarouselContent>
-              {testimonialSlides.map((slide, slideIndex) => (
-                <CarouselItem key={slideIndex} className="pl-2 md:pl-4">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-4 lg:gap-6">
-                    {slide.map((testimonial, index) => {
-                      const isExpanded = expandedTestimonials.has(testimonial.id);
-                      const needsExpansion = testimonial.text.length > 200; // Aproximativ 6 rânduri
-                      
-                      return (
-                        <div
-                          key={testimonial.id}
-                          className={`relative p-6 rounded-2xl ${
-                            index % 2 === 0 
-                              ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
-                              : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
-                          } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full`}
-                        >
-                          {/* Quote Icon */}
-                          <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-                            <Quote className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" />
-                          </div>
-
-                          {/* Rating */}
-                          <div className="flex justify-center mb-3 lg:mb-4">
-                            {[...Array(testimonial.rating)].map((_, starIndex) => (
-                              <Star
-                                key={starIndex}
-                                className="w-4 h-4 lg:w-5 lg:h-5 text-yellow-500 fill-current mx-0.5 lg:mx-1"
-                              />
-                            ))}
-                          </div>
-
-                          {/* Highlight Text */}
-                          <div className="text-center mb-3 lg:mb-4">
-                            <p className="text-sm lg:text-base font-semibold text-gray-800 italic">
-                              "{testimonial.highlight}"
-                            </p>
-                          </div>
-
-                          {/* Full Testimonial */}
-                          <div className="mb-4 lg:mb-6">
-                            <p className={`text-gray-700 leading-relaxed text-center text-xs lg:text-sm ${
-                              !isExpanded && needsExpansion ? 'line-clamp-6' : ''
-                            }`}>
-                              {testimonial.text}
-                            </p>
-                            
-                            {/* Buton Mai mult/Mai puțin */}
-                            {needsExpansion && (
-                              <div className="text-center mt-3">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => toggleTestimonial(testimonial.id)}
-                                  className="text-red-600 hover:text-red-700 hover:bg-red-50 p-2 h-auto"
-                                >
-                                  {isExpanded ? (
-                                    <>
-                                      <span className="mr-1">Mai puțin</span>
-                                      <ChevronUp className="w-4 h-4" />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <span className="mr-1">Mai mult</span>
-                                      <ChevronDown className="w-4 h-4" />
-                                    </>
-                                  )}
-                                </Button>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Author */}
-                          <div className="text-center">
-                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-400 to-orange-400 rounded-full mx-auto mb-2 lg:mb-3 flex items-center justify-center">
-                              <span className="text-white font-bold text-sm lg:text-base">
-                                {testimonial.name.split(' ').map(n => n[0]).join('')}
-                              </span>
-                            </div>
-                            <p className="font-bold text-gray-900 text-sm lg:text-base">
-                              {testimonial.name}
-                            </p>
-                          </div>
-
-                          {/* Decorative Elements */}
-                          <div className="absolute top-3 right-3 lg:top-4 lg:right-4 opacity-10">
-                            <Heart className="w-8 h-8 lg:w-10 lg:h-10 text-red-400" />
-                          </div>
+        <div className="w-full relative">
+          <Carousel 
+            className="w-full" 
+            opts={{ 
+              loop: true,
+              align: "start",
+              containScroll: "trimSnaps",
+              slidesToScroll: 1,
+              dragFree: true,
+              skipSnaps: false,
+              inViewThreshold: 0.7
+            }}
+          >
+            <CarouselContent className="-ml-1 md:-ml-6 lg:-ml-12">
+              {folkDancesTestimonials.map((testimonial, index) => (
+                <CarouselItem key={testimonial.id} className="pl-1 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
+                  <div className="relative group">
+                    <div
+                      className={`relative p-6 rounded-2xl w-full h-full ${
+                        index % 2 === 0 
+                          ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
+                          : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
+                      } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2`}
+                    >
+                        {/* Quote Icon */}
+                        <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                          <Quote className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" />
                         </div>
-                      );
-                    })}
+
+                        {/* Rating */}
+                        <div className="flex justify-center mb-3 lg:mb-4">
+                          {[...Array(testimonial.rating)].map((_, starIndex) => (
+                            <Star
+                              key={starIndex}
+                              className="w-4 h-4 lg:w-5 lg:h-5 text-yellow-500 fill-current mx-0.5 lg:mx-1"
+                            />
+                          ))}
+                        </div>
+
+                        {/* Highlight Text */}
+                        <div className="text-center mb-3 lg:mb-4">
+                          <p className="text-sm lg:text-base font-semibold text-gray-800 italic">
+                            "{testimonial.highlight}"
+                          </p>
+                        </div>
+
+                        {/* Full Testimonial */}
+                        <p className="text-gray-700 leading-relaxed mb-4 lg:mb-6 text-center text-xs lg:text-sm">
+                          {testimonial.text}
+                        </p>
+
+                        {/* Author */}
+                        <div className="text-center">
+                          <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-400 to-orange-400 rounded-full mx-auto mb-2 lg:mb-3 flex items-center justify-center">
+                            <span className="text-white font-bold text-sm lg:text-base">
+                              {testimonial.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                          <p className="font-bold text-gray-900 text-sm lg:text-base">
+                            {testimonial.name}
+                          </p>
+                        </div>
+
+                        {/* Decorative Elements */}
+                        <div className="absolute top-3 right-3 lg:top-4 lg:right-4 opacity-10">
+                          <Heart className="w-8 h-8 lg:w-10 lg:h-10 text-red-400" />
+                        </div>
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
             
-            {/* Navigation Buttons - ascunse pe mobile pentru a nu interfera cu swipe */}
-            <CarouselPrevious className="hidden md:flex absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
-            <CarouselNext className="hidden md:flex absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white z-10" />
+            {/* Butoane de navigare */}
+            <CarouselPrevious className="flex absolute -left-2 md:-left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-red-500 text-red-500 hover:text-red-700 z-20" />
+            <CarouselNext className="flex absolute -right-2 md:-right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-red-500 text-red-500 hover:text-red-700 z-20" />
           </Carousel>
         </div>
 
-        {/* Buton Înscrie-te la curs */}
-        <div className="text-center">
-          <Link href="/inscriere">
-            <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-xl" size="lg">
-              Înscrie-te la curs
-            </Button>
-          </Link>
-        </div>
       </div>
     </div>
+    </>
   );
 }
