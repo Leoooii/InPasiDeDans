@@ -60,7 +60,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               url: 'https://www.inpasidedans.ro/',
               logo: 'https://www.inpasidedans.ro/images/logo.png',
               foundingDate: '2009',
-              educationalLevel: 'Adult Education',
               hasOfferCatalog: {
                 '@type': 'OfferCatalog',
                 name: 'Cursuri de Dans',
