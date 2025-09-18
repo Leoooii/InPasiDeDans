@@ -92,6 +92,14 @@ export default function Tarife() {
                   availability: 'https://schema.org/InStock',
                   url: 'https://inpasidedans.ro/tarife',
                 },
+                {
+                  '@type': 'Offer',
+                  name: 'Abonament Copii 4 ședințe',
+                  price: '100',
+                  priceCurrency: 'RON',
+                  availability: 'https://schema.org/InStock',
+                  url: 'https://inpasidedans.ro/tarife',
+                },
               ],
               location: {
                 '@type': 'Place',
@@ -344,6 +352,41 @@ export default function Tarife() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
+                <CardTitle>Abonament 4</CardTitle>
+                <CardDescription className="text-white/90">
+                  Valabil o lună (4 ședințe)
+                </CardDescription>
+                <div className="mt-4 text-4xl font-bold">100 Lei</div>
+              </CardHeader>
+              <CardContent className="flex-1 mt-2">
+                <ul className="space-y-2">
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>4 ședințe pe lună</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>O ședință pe săptămână</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>Acces la grupe pentru copii</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="flex flex-col border-red-600 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Abonament 8</CardTitle>
                 <CardDescription className="text-white/90">
                   Valabil o lună (8 ședințe)
@@ -376,6 +419,7 @@ export default function Tarife() {
                 </ul>
               </CardContent>
             </Card>
+            
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Abonament 12</CardTitle>
@@ -440,29 +484,29 @@ export default function Tarife() {
             </Card>
           </div>
 
-          <div className="mt-12 bg-red-50 p-8 rounded-lg">
+          <div className="mt-12 bg-red-50 p-4 sm:p-6 md:p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold dark:text-black">
+              <h2 className="text-xl sm:text-2xl font-bold dark:text-black">
                 Gata să începi dansul?
               </h2>
-              <p className="dark:text-black">
+              <p className="text-sm sm:text-base dark:text-black px-2">
                 Alege un abonament și înscrie-te astăzi sau contactează-ne
                 pentru detalii suplimentare.
               </p>
-              <div className="flex justify-center gap-4">
-                <Link href="/inscriere">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
+                <Link href="/inscriere" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                    className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
                   >
                     Înscrie-te acum
                   </Button>
                 </Link>
-                <Link href="/contact">
+                <Link href="/contact" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-red-600 text-red-600 hover:bg-red-50"
+                    className="w-full sm:w-auto border-red-600 text-red-600 hover:bg-red-50"
                   >
                     Contactează-ne
                   </Button>
