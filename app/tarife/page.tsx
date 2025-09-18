@@ -95,7 +95,7 @@ export default function Tarife() {
                 {
                   '@type': 'Offer',
                   name: 'Abonament Copii 4 ședințe',
-                  price: '100',
+                  price: '110',
                   priceCurrency: 'RON',
                   availability: 'https://schema.org/InStock',
                   url: 'https://inpasidedans.ro/tarife',
@@ -356,7 +356,7 @@ export default function Tarife() {
                 <CardDescription className="text-white/90">
                   Valabil o lună (4 ședințe)
                 </CardDescription>
-                <div className="mt-4 text-4xl font-bold">100 Lei</div>
+                <div className="mt-4 text-4xl font-bold">110 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">

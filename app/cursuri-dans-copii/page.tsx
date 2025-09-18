@@ -159,7 +159,7 @@ export default function CursuriDansCopii() {
                     </div>
                     <div className="ml-3">
                       <p className="text-sm text-blue-700">
-                        <strong>Se pot alege oricare două din cele trei zile</strong>
+                        <strong>Se pot alege oricare două din cele trei zile sau  toate trei</strong>
                       </p>
                     </div>
                   </div>
@@ -187,6 +187,16 @@ export default function CursuriDansCopii() {
         <div className="mt-12 space-y-6">
           <h2 className="text-2xl font-bold mb-6">Tarife cursuri copii</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
+          <Card className="flex flex-col border-red-600 shadow-lg ">
+              <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
+                <CardTitle>Abonament 4</CardTitle>
+
+                <CardDescription className=" text-white/90">
+                  Valabil 4 săptămâni (4 ședințe)
+                </CardDescription>
+                <div className="mt-4 text-4xl font-bold">110 Lei</div>
+              </CardHeader>
+            </Card>
             <Card className="flex flex-col border-red-600 shadow-lg ">
               <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Abonament 8</CardTitle>
