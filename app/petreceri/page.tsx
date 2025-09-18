@@ -105,14 +105,14 @@ export default function Petreceri() {
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Petreceri & Social Dance | În Pași de Dans"
+          content="Petreceri & Social Dance | In Pasi de Dans"
         />
         <meta
           property="og:description"
-          content="Participă la petrecerile tematice de dans organizate de În Pași de Dans în București, Sector 5. Practică dansul într-o atmosferă relaxată!"
+          content="Participa la petrecerile tematice de dans organizate de In Pasi de Dans in Bucuresti, Sector 5. Practica dansul intr-o atmosfera relaxata!"
         />
         <meta property="og:url" content="https://www.inpasidedans.ro/petreceri" />
-        <meta property="og:site_name" content="În Pași de Dans" />
+        <meta property="og:site_name" content="In Pasi de Dans" />
         <meta
           property="og:image"
           content="https://www.inpasidedans.ro/images/logo.png"
@@ -124,7 +124,7 @@ export default function Petreceri() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Petreceri & Social Dance | În Pași de Dans"
+          content="Petreceri & Social Dance | In Pasi de Dans"
         />
         <meta
           name="twitter:description"

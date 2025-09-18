@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
 
 // Definim interfața pentru instructor (conform Firebase)
@@ -147,17 +148,17 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
             {/* Border animat ca un șarpe */}
             <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400 bg-[length:200%_100%] bg-left hover:bg-right transition-all duration-1000 ease-in-out opacity-0 group-hover:opacity-100"></div>
             <div className="relative bg-white rounded-xl m-0.5 flex flex-col flex-1">
-                             <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
+                             <Link href="/instructori" className="relative w-full bg-gradient-to-br from-orange-50 to-red-50 block aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4]">
                 <Image
                   src={instructor.imageUrl}
                   alt={`Dansuri ${courseName} in Bucuresti cu ${instructor.name}`}
                   fill
-                  className="object-cover w-full h-full"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-              </div>
+              </Link>
                              <div className="p-4 flex-1 flex flex-col">
-                <div className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{instructor.name}</div>
+                <Link href="/instructori" className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300 hover:text-orange-600">{instructor.name}</Link>
                 <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
                 <div className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
                   {(() => {

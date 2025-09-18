@@ -11,6 +11,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
+import PricingSection from '@/components/PricingSection';
 
 export const metadata: Metadata = {
   title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
@@ -119,8 +120,8 @@ export default function Tarife() {
               la In Pasi de Dans, Bucuresti.
             </p>
           </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
+          <PricingSection />
+          {/* <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Abonament 8</CardTitle>
@@ -218,7 +219,7 @@ export default function Tarife() {
                 </ul>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">
@@ -343,7 +344,7 @@ export default function Tarife() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament lunar</CardTitle>
+                <CardTitle>Abonament 8</CardTitle>
                 <CardDescription className="text-white/90">
                   Valabil o lună (8 ședințe)
                 </CardDescription>
@@ -357,6 +358,47 @@ export default function Tarife() {
                       aria-label="Inclus"
                     />
                     <span>8 ședințe pe lună</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>2 ședințe pe săptămână</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>Acces la grupe pentru copii</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="flex flex-col border-red-600 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
+                <CardTitle>Abonament 12</CardTitle>
+                <CardDescription className="text-white/90">
+                  Valabil o lună (12 ședințe)
+                </CardDescription>
+                <div className="mt-4 text-4xl font-bold">250 Lei</div>
+              </CardHeader>
+              <CardContent className="flex-1 mt-2">
+                <ul className="space-y-2">
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>12 ședințe pe lună</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Check
+                      className="mr-2 h-4 w-4 text-green-500"
+                      aria-label="Inclus"
+                    />
+                    <span>3 ședințe pe săptămână</span>
                   </li>
                   <li className="flex items-center">
                     <Check

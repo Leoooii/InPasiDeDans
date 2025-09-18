@@ -189,12 +189,22 @@ export default function CursuriDansCopii() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
             <Card className="flex flex-col border-red-600 shadow-lg ">
               <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament lunar</CardTitle>
+                <CardTitle>Abonament 8</CardTitle>
 
                 <CardDescription className=" text-white/90">
                   Valabil 4 săptămâni (8 ședințe)
                 </CardDescription>
                 <div className="mt-4 text-4xl font-bold">200 Lei</div>
+              </CardHeader>
+            </Card>
+            <Card className="flex flex-col border-red-600 shadow-lg ">
+              <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
+                <CardTitle>Abonament 12</CardTitle>
+
+                <CardDescription className=" text-white/90">
+                  Valabil 4 săptămâni (12 ședințe)
+                </CardDescription>
+                <div className="mt-4 text-4xl font-bold">250 Lei</div>
               </CardHeader>
             </Card>
             <Card className="flex flex-col border-red-600 shadow-lg ">

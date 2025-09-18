@@ -63,10 +63,10 @@ const groupPricing = [
   }
 ];
 
-export default function PricingSection({ title }: { title: string }) {
+export default function PricingSection({ title }: { title?: string }) {
   return (
     <div className=" ">
-      <div className="container mx-auto px-4">
+      <div className="container mx-0 ">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
@@ -76,9 +76,9 @@ export default function PricingSection({ title }: { title: string }) {
         </div>
 
         {/* Group Pricing */}
-        <div className="mb-16">
+        <div className="mb-8">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl ">
             {groupPricing.map((plan) => (
               <Card 
                 key={plan.id} 

@@ -476,7 +476,7 @@ function MobileNav({
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="dansuri">
             <AccordionTrigger className="py-2 font-medium">
-              Dansuri predate
+            Cursuri dans adulți
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid gap-2 pl-4">

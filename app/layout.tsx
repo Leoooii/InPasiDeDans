@@ -60,7 +60,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               url: 'https://www.inpasidedans.ro/',
               logo: 'https://www.inpasidedans.ro/images/logo.png',
               foundingDate: '2009',
-              educationalLevel: 'Adult Education',
               hasOfferCatalog: {
                 '@type': 'OfferCatalog',
                 name: 'Cursuri de Dans',
@@ -68,17 +67,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   {
                     '@type': 'Course',
                     name: 'Dansuri Latino',
-                    description: 'Salsa, bachata, cha-cha și multe altele'
+                    description: 'Salsa, bachata, cha-cha si multe altele'
                   },
                   {
                     '@type': 'Course', 
                     name: 'Dansuri de Societate',
-                    description: 'Vals, tango, foxtrot și alte dansuri elegante'
+                    description: 'Vals, tango, foxtrot si alte dansuri elegante'
                   },
                   {
                     '@type': 'Course',
                     name: 'Dansuri Populare',
-                    description: 'Peste 200 de jocuri populare românești'
+                    description: 'Peste 200 de jocuri populare romanesti'
                   }
                 ]
               },

@@ -12,7 +12,7 @@ export default function Head() {
       />
       <meta
         property="og:title"
-        content="Excursii & Evenimente | În Pași de Dans"
+        content="Excursii & Evenimente | In Pasi de Dans"
       />
       <meta
         property="og:description"
@@ -21,10 +21,10 @@ export default function Head() {
       <meta property="og:image" content="/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/excursii" />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="În Pași de Dans" />
+      <meta property="og:site_name" content="In Pasi de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Școala de dans În Pași de Dans" />
+      <meta name="author" content="Scoala de dans In Pasi de Dans" />
       <link rel="canonical" href="https://www.inpasidedans.ro/excursii" />
       <meta
         property="og:see_also"

@@ -8,7 +8,7 @@ export default function Head() {
       />
       <meta 
         name="keywords"
-        content="grupe noi dans, înscriere cursuri dans, începători dans București"
+        content="grupe noi dans, inscriere cursuri dans, incepatori dans Bucuresti"
       />
       <meta property="og:title" content="Grupe in Formare | In Pasi de Dans" />
       <meta
@@ -21,10 +21,10 @@ export default function Head() {
         content="https://www.inpasidedans.ro/grupe-in-formare"
       />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="În Pași de Dans" />
+      <meta property="og:site_name" content="In Pasi de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Școala de dans În Pași de Dans" />
+      <meta name="author" content="Scoala de dans In Pasi de Dans" />
       <link rel="canonical" href="https://www.inpasidedans.ro/grupe-in-formare" />
       <meta
         property="og:see_also"

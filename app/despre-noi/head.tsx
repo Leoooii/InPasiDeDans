@@ -8,20 +8,20 @@ export default function Head() {
       />
       <meta
         name="keywords"
-        content="despre școala de dans, echipa în pași de dans, povestea noastră"
+        content="despre scoala de dans, echipa in pasi de dans, povestea noastra"
       />
       <meta property="og:title" content="Despre Noi | In Pasi de Dans" />
       <meta
         property="og:description"
-        content="Descoperă cine suntem și cum a început povestea școlii În Pași de Dans."
+        content="Descopera cine suntem si cum a inceput povestea scolii In Pasi de Dans."
       />
       <meta property="og:image" content="/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/despre-noi" />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="În Pași de Dans" />
+      <meta property="og:site_name" content="In Pasi de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Școala de dans În Pași de Dans" />
+      <meta name="author" content="Scoala de dans In Pasi de Dans" />
       <link rel="canonical" href="https://www.inpasidedans.ro/despre-noi" />
       <meta
         property="og:see_also"
