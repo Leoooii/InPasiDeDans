@@ -202,6 +202,12 @@ export default function Program() {
                       instructor="Alexandra"
                       room="Sala 2"
                     />
+                     <ScheduleItem
+                      time="17:30 - 18:30"
+                      course="Grupă copii incepatori (doar joi)"
+                      instructor="Alexandra"
+                      room="Sala 2"
+                    />
                     <ScheduleItem
                       time="18:30 - 19:45"
                       course="Dansuri populare (Avansați)"

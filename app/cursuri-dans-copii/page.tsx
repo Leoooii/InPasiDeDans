@@ -106,7 +106,25 @@ export default function CursuriDansCopii() {
             Grupe aflate in desfășurare:
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
-            
+          <Card>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-2">
+                  Grupă copii incepatori 
+                </h3>
+                <p className="text-gray-500 mb-4">
+                  La această grupă se predau: cha cha, jive, samba, vals lent,
+                  vals vienez, quick step, ocazional - dansuri populare.
+                </p>
+                <div className="flex justify-between">
+                  <div className="text-sm text-gray-500">
+                    <p>Joi</p>
+                    <p>17:30 - 18:30</p>
+                  </div>
+                
+                </div>
+              </CardContent>
+              
+            </Card>
 
             <Card>
               <CardContent className="p-6">
