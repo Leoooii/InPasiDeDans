@@ -10,23 +10,18 @@ import {
 import Link from 'next/link';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function CursuriDansCopii() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Cursuri dans copii" }
+  ];
+
   return (
     <div className="container py-12">
       <Head />
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Acasă</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Cursuri dans copii</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans copii</h1>

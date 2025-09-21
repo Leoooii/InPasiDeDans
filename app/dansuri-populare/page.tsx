@@ -20,11 +20,18 @@ import FolkDancesTestimonials from '@/components/FolkDancesTestimonials';
 import FolkDancesFAQ from '@/components/FolkDancesFAQ';
 import ExploreOtherDances from '@/components/ExploreOtherDances';
 import ContactForm from '@/components/contact-form';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function DansuriPopulare() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Dansuri populare" }
+  ];
+
   return (
     <div className="container py-6 md:py-12 flex flex-col gap-6 md:gap-12 px-2 md:px-4">
       <Head />
+      <SEOBreadcrumbs items={breadcrumbItems} />
       {/* Container de început cu titlu, descriere și buton - stil Dansuri Latino */}
       <div className="p-0 container flex flex-col gap-4 items-center">
         <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri populare</h1>

@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 // Definim interfața pentru excursie
 interface Excursie {
@@ -28,6 +29,11 @@ interface Excursie {
 export default function Excursii() {
   const [upcomingExcursii, setUpcomingExcursii] = useState<Excursie[]>([]);
   const [pastExcursii, setPastExcursii] = useState<Excursie[]>([]);
+
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Excursii" }
+  ];
   const [isLoading, setIsLoading] = useState(true);
 
   // Funcție pentru a extrage anul din data excursiei
@@ -103,6 +109,7 @@ export default function Excursii() {
 
   return (
     <div className="container py-12">
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">

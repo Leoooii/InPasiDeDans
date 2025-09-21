@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 // Definim interfața pentru petrecere
 interface Petrecere {
@@ -28,6 +29,11 @@ interface Petrecere {
 export default function Petreceri() {
   const [upcomingPetreceri, setUpcomingPetreceri] = useState<Petrecere[]>([]);
   const [pastPetreceri, setPastPetreceri] = useState<Petrecere[]>([]);
+
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Petreceri" }
+  ];
   const [isLoading, setIsLoading] = useState(true);
 
   // Funcție pentru a extrage anul din data petrecerii
@@ -171,6 +177,7 @@ export default function Petreceri() {
         />
       </Head>
       <div className="container py-12">
+        <SEOBreadcrumbs items={breadcrumbItems} />
         <div className="space-y-6 ">
           <div className="space-y-4 bg-gradient-to-r from-rose-50 to-amber-50 p-6 rounded-lg shadow-sm">
             <h1 className="text-3xl md:text-3xl font-extrabold tracking-tight ">

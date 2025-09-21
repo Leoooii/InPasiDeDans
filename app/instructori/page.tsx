@@ -5,14 +5,7 @@ import Image from 'next/image';
 import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import GrupeInFormare from '@/components/grupe-in-formare';
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 // Definim interfața pentru instructor
 interface Instructor {
@@ -32,6 +25,11 @@ export default function Instructori() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedInstructors, setExpandedInstructors] = useState<Set<string>>(new Set());
+
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Instructori" }
+  ];
 
   // Funcție pentru toggle-ul expandării descrierii
   const toggleExpanded = (instructorId: string) => {
@@ -80,17 +78,7 @@ export default function Instructori() {
 
   return (
     <div className="container py-12">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Acasă</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Instructori</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Instructori</h1>

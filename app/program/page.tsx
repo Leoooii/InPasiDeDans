@@ -6,6 +6,7 @@ import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| In Pasi de Dans',
@@ -44,6 +45,11 @@ export const metadata: Metadata = {
 };
 
 export default function Program() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Program" }
+  ];
+
   return (
     <>
       <Head>
@@ -96,6 +102,7 @@ export default function Program() {
         />
       </Head>
       <div className="container py-12">
+        <SEOBreadcrumbs items={breadcrumbItems} />
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">

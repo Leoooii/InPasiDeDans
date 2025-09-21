@@ -11,6 +11,7 @@ import { Check } from 'lucide-react';
 import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import PricingSection from '@/components/PricingSection';
 
 export const metadata: Metadata = {
@@ -50,6 +51,11 @@ export const metadata: Metadata = {
 };
 
 export default function Tarife() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Tarife" }
+  ];
+
   return (
     <>
       <Head>
@@ -118,6 +124,7 @@ export default function Tarife() {
         />
       </Head>
       <div className="container py-12">
+        <SEOBreadcrumbs items={breadcrumbItems} />
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">

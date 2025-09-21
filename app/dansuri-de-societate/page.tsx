@@ -19,8 +19,14 @@ import StickyMenu from '@/components/sticky-menu';
 import BenefitsSection from '@/components/BenefitsSection';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import CourseLevelsSection from '@/components/CourseLevelsSection';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function DansuriDeSocietate() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Dansuri de societate" }
+  ];
+
   return (
     <>
       <StickyMenu menuItems={[
@@ -38,6 +44,7 @@ export default function DansuriDeSocietate() {
       ]} />
       <div className="container py-12 flex flex-col gap-12">
         <Head />
+        <SEOBreadcrumbs items={breadcrumbItems} />
         <div id="despre-societate" className="p-0 container flex flex-col gap-4 items-center">
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri de societate</h1>
           <div>

@@ -25,6 +25,7 @@ import { useSimpleToast } from '@/components/simple-toast-provider';
 import Head from './head';
 import { Turnstile } from '@marsidev/react-turnstile';
 import Link from 'next/link';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 // Interfață pentru tipizarea formData
 interface FormData {
@@ -39,6 +40,11 @@ interface FormData {
 }
 
 export default function Inscriere() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Înscriere" }
+  ];
+
   const [formData, setFormData] = useState<FormData>({
     danceclass: '',
     name: '',
@@ -166,6 +172,7 @@ export default function Inscriere() {
   return (
     <div className="container py-12">
       <Head />
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="max-w-3xl mx-auto">
         <div className="space-y-2 text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight">

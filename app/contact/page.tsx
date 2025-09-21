@@ -8,11 +8,18 @@ import { Card, CardContent } from '@/components/ui/card';
 import ContactForm from '@/components/contact-form';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function Contact() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Contact" }
+  ];
+
   return (
     <div className="container py-12 ">
       <Head />
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Contact Scoala de dansuri din Bucuresti</h1>

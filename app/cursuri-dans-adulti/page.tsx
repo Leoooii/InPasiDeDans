@@ -4,23 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function CursuriDansAdulti() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Cursuri dans adulți" }
+  ];
+
   return (
     <div className="container py-12">
       <Head />
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Acasă</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Cursuri dans adulți</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans adulți</h1>

@@ -6,11 +6,18 @@ import { AlertCircle, UserCircleIcon, UserX2Icon } from 'lucide-react';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function DansulMirilor() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Dansul mirilor" }
+  ];
+
   return (
     <div className="container py-12">
       <Head />
+      <SEOBreadcrumbs items={breadcrumbItems} />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">

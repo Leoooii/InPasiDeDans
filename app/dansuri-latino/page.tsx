@@ -20,11 +20,17 @@ import LatinoSignupForm from '@/components/LatinoSignupForm';
 import ContactForm from '@/components/contact-form';
 import StickyMenu from '@/components/sticky-menu';
 import CourseLevelsSection from '@/components/CourseLevelsSection';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 
 
 
 export default function DansuriLatino() {
+  const breadcrumbItems = [
+    { name: "Acasă", url: "/" },
+    { name: "Dansuri latino" }
+  ];
+
   return (
     <>
       <StickyMenu menuItems={[
@@ -39,6 +45,7 @@ export default function DansuriLatino() {
       ]} />
       <div className="container py-12 flex flex-col gap-12">
         <Head />
+        <SEOBreadcrumbs items={breadcrumbItems} />
         <div id="despre-latino" className="p-0 container flex flex-col gap-4 items-center">
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri latino</h1>
           <div>
