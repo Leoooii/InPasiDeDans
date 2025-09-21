@@ -1,4 +1,24 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.inpasidedans.ro/sitemap.xml
+# Allow AI user-agents
+# --- Perplexity ---
+# Search Primary PerplexityBot crawler that indexes sites to build the Perplexity AI search engine.
+User-agent: PerplexityBot
+Allow: /
+# Search Real-time fetcher used by Claude to retrieve cited URLs during AI chat sessions.
+User-agent: ClaudeBot
+Allow: /
+# --- OPENAI ---
+# Search (shows my webpages as links inside ChatGPT search). NOT used for model training.
+User-agent: OAI-SearchBot
+Allow: /
+# User-driven browsing from ChatGPT and Custom GPTs. Acts after a human click.
+User-agent: ChatGPT-User
+User-agent: ChatGPT-User/2.0
+Allow: /
+# --- GOOGLE (Gemini) ---
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.inpasidedans.ro/sitemap_index.xml
