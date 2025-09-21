@@ -50,6 +50,26 @@ export const metadata = {
 export default function Home() {
   return (
     <>
+      <Head>
+        {/* Schema WebSite - specifică pentru homepage */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org/",
+              "@type": "WebSite",
+              "@id": "https://www.inpasidedans.ro/",
+              "name": "În Pași de Dans",
+              "url": "https://www.inpasidedans.ro/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.inpasidedans.ro/?s={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+      </Head>
       <div className="flex flex-col min-h-screen">
         <StickyMenu menuItems={[
           { id: 'cursuri', label: 'Cursuri' },
