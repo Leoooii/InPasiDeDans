@@ -469,7 +469,7 @@ export default function DansulMirilor() {
                 momente speciale pentru nuntă, cum ar fi dansul cu părinții sau
                 nașii, dansuri de grup sau dansuri surpriză pentru invitați.
               </p>
-              <Link href="/contact">
+              <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"

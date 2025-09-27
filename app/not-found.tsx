@@ -145,7 +145,7 @@ export default function NotFound() {
                 Tarife
               </Link>
               <Link
-                href="/contact"
+                href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile"
                 className="text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 hover:underline"
               >
                 Contact
@@ -171,7 +171,7 @@ export default function NotFound() {
             <p>
               Dacă problema persistă, te rugăm să ne contactezi la{' '}
               <Link
-                href="/contact"
+                href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile"
                 className="text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 hover:underline"
               >
                 pagina de contact

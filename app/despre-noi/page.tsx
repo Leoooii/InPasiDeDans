@@ -287,7 +287,7 @@ export default function DespreNoi() {
               </div>
             </div>
             <div className="pt-4">
-              <Link href="/contact">
+              <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
                 <Button
                   variant="outline"
                   size="lg"

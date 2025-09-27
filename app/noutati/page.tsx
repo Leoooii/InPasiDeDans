@@ -93,7 +93,7 @@ export default function NoutatiPage() {
             </a>
             <span className="text-white/60">·</span>
             <a
-              href="/contact"
+              href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile"
               className="text-orange-300 underline hover:text-orange-200 transition-colors"
             >
               Contactează-ne

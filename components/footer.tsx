@@ -8,6 +8,7 @@ import {
   Phone,
   MapPin,
 } from 'lucide-react';
+import { WEBSITE_URLS } from '@/lib/utils';
 
 export default function Footer() {
   return (
@@ -188,7 +189,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href={WEBSITE_URLS.CONTACT}
                   className="hover:text-white transition-colors"
                 >
                   Contact

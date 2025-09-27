@@ -509,7 +509,7 @@ export default function Tarife() {
                     Înscrie-te acum
                   </Button>
                 </Link>
-                <Link href="/contact" className="w-full sm:w-auto">
+                <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="outline"

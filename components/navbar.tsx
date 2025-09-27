@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, User } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, WEBSITE_URLS } from '@/lib/utils';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -413,7 +413,7 @@ export default function Navbar() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/contact" legacyBehavior passHref>
+                  <Link href={WEBSITE_URLS.CONTACT} legacyBehavior passHref>
                     <NavigationMenuLink
                       className={cn(
                         navigationMenuTriggerStyle(),
@@ -570,7 +570,7 @@ function MobileNav({
           Tarife
         </Link>
         <Link
-          href="/contact"
+          href={WEBSITE_URLS.CONTACT}
           onClick={() => setIsOpen(false)}
           className="py-2 font-medium"
           title="Contact Școala de Dans"
