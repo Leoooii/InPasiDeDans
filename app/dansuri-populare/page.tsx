@@ -36,17 +36,17 @@ export default function DansuriPopulare() {
       <div className="p-0 container flex flex-col gap-4 items-center">
         <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri populare</h1>
         <div>
-          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-6xl mx-auto font-serif mb-2">
+          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed max-w-6xl font-serif mb-2">
             Dansurile populare îmbină frumusețea tradițiilor cu veselia de a dansa alături de oameni.
           </p>
-          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
+          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed  max-w-[80rem] mx-auto font-serif mb-2">
             De la voioșia molipsitoare a horii și energia sârbei, la eleganța brâului și ritmul antrenant al bătutei, fiecare pas îți aduce mai aproape autenticitatea și frumusețea culturii noastre. Vei învăța pași simpli și vei trăi emoția dansului într-o atmosferă caldă, prietenoasă și plină de viață.
           </p>
-          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-[80rem] mx-auto font-serif mb-2">
+          <p className="text-lg md:text-2xl font-medium text-gray-700 dark:text-gray-300 leading-relaxed max-w-[80rem] mx-auto font-serif mb-2">
             Începe acum și transformă fiecare pas într-o sărbătoare a tradiției și a bucuriei de a dansa împreună!
           </p>
         </div>
-        <Link href="/inscriere" className="mt-4">
+        <Link href="#inscriere" className="mt-4">
           <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-xl" size="lg">
             Înscrie-te la curs
           </Button>
@@ -123,7 +123,7 @@ export default function DansuriPopulare() {
       />
 
       {/* Secțiunea cu abonamentele */}
-      <PricingSection title="Dansuri populare – Tarife și abonamente"/>
+      <PricingSection title="Alege abonamentul potrivit pentru tine"/>
 
       {/* Secțiunea cu testimoniale */}
       <FolkDancesTestimonials />
@@ -154,10 +154,10 @@ export default function DansuriPopulare() {
           },
           {
             id: 3,
-            title: 'Lecții Private',
+            title: 'Cursuri particulare de dans',
             description: 'Instruire personalizată pentru progres rapid',
             imageSrc: '/images/private.png',
-            imageAlt: 'Lecții private de dans',
+            imageAlt: 'Cursuri particulare de dans',
             href: '/lectii-private',
             gradient: 'from-green-500 to-teal-600'
           }

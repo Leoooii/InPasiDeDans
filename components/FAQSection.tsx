@@ -153,7 +153,7 @@ const populareFAQData: FAQItem[] = [
       <div className="space-y-3">
         <p>Înscrierea este foarte simplă, folosind una din variantele de mai jos!</p>
         <ul className="list-disc list-inside space-y-2 ml-4">
-          <li>Completezi formularul de pe site <a href="/inscriere" className="text-red-600 hover:text-red-700 underline">Completezi formularul de pe site</a></li>
+          <li><a href="/inscriere" className="text-red-600 hover:text-red-700 underline">Completezi formularul de pe site</a></li>
           <li>Ne scrii direct pe WhatsApp la <a href="https://wa.me/40722675126" className="text-red-600 hover:text-red-700 underline">0722 675 126</a></li>
           <li>Ne trimiți un e-mail la <a href="mailto:inpasidedans@gmail.com" className="text-red-600 hover:text-red-700 underline">inpasidedans@gmail.com</a></li>
         </ul>

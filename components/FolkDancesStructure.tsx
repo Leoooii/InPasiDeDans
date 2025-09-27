@@ -68,9 +68,9 @@ export default function FolkDancesStructure() {
                 </div>
                 
                 {/* Conținut */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <div className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {item.title}
-                </h3>
+                </div>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   {item.description}
                 </p>

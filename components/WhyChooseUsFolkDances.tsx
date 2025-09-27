@@ -45,7 +45,7 @@ export default function WhyChooseUsFolkDances() {
   return (
     <div className="container py-6 md:py-12 px-2 md:px-4">
       <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
-        De ce să alegi cursurile noastre
+        De ce să alegi cursurile noastre?
       </h2>
       <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-6 md:mb-12 max-w-4xl mx-auto">
         Pentru că îți oferă mult mai mult decât pași de dans:
@@ -62,9 +62,9 @@ export default function WhyChooseUsFolkDances() {
                     <IconComponent className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <div className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                       {benefit.id}. {benefit.title}
-                    </h3>
+                    </div>
                     <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                       {benefit.description}
                     </p>

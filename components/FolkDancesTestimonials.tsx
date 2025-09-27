@@ -132,7 +132,7 @@ export default function FolkDancesTestimonials() {
           >
             <CarouselContent className="-ml-1 md:-ml-6 lg:-ml-12">
               {folkDancesTestimonials.map((testimonial, index) => (
-                <CarouselItem key={testimonial.id} className="pl-1 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
+                <CarouselItem key={testimonial.id} className="pl-1 md:pl-6 lg:pl-12 basis-full md:basis-1/2 lg:basis-1/3">
                   <div className="relative group">
                     <div
                       className={`relative p-6 rounded-2xl w-full h-full ${

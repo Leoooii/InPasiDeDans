@@ -25,7 +25,7 @@ export default function FolkDancesCarousel() {
           skipSnaps: false,
           inViewThreshold: 0.7
         }} 
-        plugins={[autoplay]}
+        // plugins={[autoplay]}
       >
         <CarouselContent className="-ml-1 md:-ml-6 lg:-ml-12">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (

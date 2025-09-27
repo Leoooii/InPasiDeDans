@@ -192,7 +192,7 @@ const regiuniDansuri = [
 
 export default function FolkDancesRegions() {
   const [currentRegion, setCurrentRegion] = useState(0);
-  const [showDances, setShowDances] = useState(false);
+  const [showDances, setShowDances] = useState(true);
 
   // Funcții pentru navigarea cu săgeți
   const goToPrevious = () => {
