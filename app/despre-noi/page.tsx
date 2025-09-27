@@ -203,7 +203,7 @@ export default function DespreNoi() {
                   <div>
                     <h3 className="font-bold">Locație</h3>
                     <p className="text-gray-500 dark:text-gray-400">
-                      Calea Rahovei nr. 262, sector 5, București
+                      <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile" className="text-red-600 hover:text-red-700 transition-colors">Calea Rahovei nr. 262, sector 5, București</Link>
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
                       <span className="font-medium">Puncte de reper:</span>{' '}
