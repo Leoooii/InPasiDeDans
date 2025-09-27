@@ -10,7 +10,7 @@ interface FAQItem {
 }
 
 interface FAQSectionProps {
-  danceType?: 'latino' | 'societate' | 'default';
+  danceType?: 'latino' | 'societate' | 'populare' | 'default';
 }
 
 const latinoFAQData: FAQItem[] = [
@@ -110,6 +110,64 @@ const societateFAQData: FAQItem[] = [
   }
 ];
 
+const populareFAQData: FAQItem[] = [
+  {
+    id: 1,
+    question: 'Cât durează un modul de curs de dans popular?',
+    answer: 'Cursurile noastre au durată nelimitată – poți progresa în ritmul tău, fără presiunea unui număr fix de ședințe.'
+  },
+  {
+    id: 2,
+    question: 'Oferiți cursuri pentru toate nivelurile (începători, intermediari, avansați)?',
+    answer: 'Da. Grupele sunt structurate pe niveluri, astfel încât fiecare cursant să învețe pas cu pas, într-un mod plăcut și adaptat experienței sale.'
+  },
+  {
+    id: 3,
+    question: 'Pot încerca o lecție gratuită înainte de a alege abonamentul?',
+    answer: 'Da, dacă avem deschisă o grupă de nivel începător, puteți participa la o ședință de probă gratuită. Dacă aveți deja experiență în dans, vă putem invita la o lecție într-o grupă de nivel potrivit sau chiar puțin sub nivelul dumneavoastră, pentru a vă acomoda. De asemenea, este posibil să asistați la o lecție într-o grupă intermediară sau avansată, pentru a vedea atmosfera și stilul cursurilor noastre.'
+  },
+  {
+    id: 4,
+    question: 'Există o vârstă minimă sau maximă pentru a participa la cursurile de dansuri populare?',
+    answer: 'Dansul popular nu are vârstă! Am avut si avem cursanți cu vârste între 15 și 60 de ani la grupele de dans popular.'
+  },
+  {
+    id: 5,
+    question: 'Ce beneficii am dacă particip la cursurile de dansuri populare?',
+    answer: (
+      <div className="space-y-3">
+        <p>Pe lângă învățarea jocurilor tradiționale, cursurile noaste vă oferă:</p>
+        <ul className="list-disc list-inside space-y-2 ml-4">
+          <li>dezvoltarea coordonării și a condiției fizice,</li>
+          <li>socializare și apartenență la o comunitate,</li>
+          <li>păstrarea și transmiterea tradițiilor românești,</li>
+          <li>bucuria de a dansa la evenimente și sărbători.</li>
+        </ul>
+      </div>
+    )
+  },
+  {
+    id: 6,
+    question: 'Cum mă pot înscrie la cursurile de dansuri populare?',
+    answer: (
+      <div className="space-y-3">
+        <p>Înscrierea este foarte simplă, folosind una din variantele de mai jos!</p>
+        <ul className="list-disc list-inside space-y-2 ml-4">
+          <li>Completezi formularul de pe site <a href="/inscriere" className="text-red-600 hover:text-red-700 underline">Completezi formularul de pe site</a></li>
+          <li>Ne scrii direct pe WhatsApp la <a href="https://wa.me/40722675126" className="text-red-600 hover:text-red-700 underline">0722 675 126</a></li>
+          <li>Ne trimiți un e-mail la <a href="mailto:inpasidedans@gmail.com" className="text-red-600 hover:text-red-700 underline">inpasidedans@gmail.com</a></li>
+        </ul>
+        <p>După ce te înscrii, îți confirmăm locul în grupă și îți trimitem toate detaliile despre program și abonament.</p>
+      </div>
+    )
+  },
+  {
+    id: 7,
+    question: 'Este nevoie să vin cu partener la cursurile de dansuri populare?',
+    answer: 'Nu este obligatoriu să vii cu partener, dar dacă ai deja unul, este un plus. Grupurile noastre sunt mixte și te vei putea integra ușor.'
+  }
+];
+
 export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
   // Selectăm întrebările în funcție de tipul de dans
   const getFAQData = (): FAQItem[] => {
@@ -118,6 +176,8 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
         return latinoFAQData;
       case 'societate':
         return societateFAQData;
+      case 'populare':
+        return populareFAQData;
       default:
         return latinoFAQData; // Fallback la întrebări latino
     }
