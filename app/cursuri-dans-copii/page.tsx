@@ -112,7 +112,7 @@ export default function CursuriDansCopii() {
                 </p>
                 <div className="flex justify-between">
                   <div className="text-sm text-gray-500">
-                    <p>Joi</p>
+                    <p>Marti si Joi</p>
                     <p>17:30 - 18:30</p>
                   </div>
                 

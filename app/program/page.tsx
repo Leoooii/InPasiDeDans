@@ -205,13 +205,13 @@ export default function Program() {
                   <div className="space-y-4">
                     <ScheduleItem
                       time="17:30 - 18:30"
-                      course="Grupă copii intermediari/avansați"
+                      course="Grupă copii intermediari/avansați (doar marți)"
                       instructor="Alexandra"
                       room="Sala 2"
                     />
                      <ScheduleItem
                       time="17:30 - 18:30"
-                      course="Grupă copii incepatori (doar joi)"
+                      course="Grupă copii incepatori"
                       instructor="Alexandra"
                       room="Sala 2"
                     />
