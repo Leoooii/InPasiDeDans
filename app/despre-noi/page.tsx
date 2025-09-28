@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
+import LocationSection from '@/components/LocationSection';
 
 export default function DespreNoi() {
   const breadcrumbItems = [
@@ -181,7 +182,7 @@ export default function DespreNoi() {
                 între 7 și 14 ani.
               </p>
             </div>
-            <div className="relative rounded-lg overflow-hidden">
+            
               {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
               <Image
                 src="/images/secret-santa.png?height=800&width=600"
@@ -189,14 +190,14 @@ export default function DespreNoi() {
                 width="1000"
                 alt="group-picture"
               />
-            </div>
+            
           </div>
         </div>
 
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">Locație și program</h2>
-          <div className="grid gap-8 md:grid-cols-2">
-            <Card>
+          <div className="grid gap-8 md:grid-cols-1">
+            {/* <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4 mb-4">
                   <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
@@ -220,19 +221,11 @@ export default function DespreNoi() {
                   </div>
                 </div>
                 <div className="aspect-video w-full rounded-lg overflow-hidden border">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.8076112780785!2d26.0731!3d44.4142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff2d1e5c8a8f%3A0x9c9e5732b668aabd!2sCalea%20Rahovei%20262%2C%20Bucure%C8%99ti!5e0!3m2!1sro!2sro!4v1648218144749!5m2!1sro!2sro"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
+                 <LocationSection/>
                 </div>
               </CardContent>
-            </Card>
-
+            </Card> */}
+      <LocationSection/>
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4 mb-4">
