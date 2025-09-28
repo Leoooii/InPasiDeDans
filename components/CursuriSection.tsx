@@ -47,7 +47,7 @@ const cursuriData: CursItem[] = [
     title: "Grupe noi",
     href: "/grupe-in-formare",
     imageSrc: "/images/grupenoi.png?height=400&width=600",
-    description: "Alătură-te grupelor în formare"
+    description: "Înscriere-te acum la un curs de dans"
   },
   {
     id: 5,
