@@ -47,7 +47,7 @@ export default function StructureFeatures() {
             <p className="text-gray-600 text-center leading-relaxed">
               {feature.description.split(' ').map((word, wordIndex) => {
                 // Evidențiază cuvintele cheie
-                const keyWords = ['începător', 'intermediar', 'avansat', '9', '5', '200+', 'progres', 'improvizație', 'unice'];
+                const keyWords = ['începător', 'intermediar', 'avansat', '9', '5', '200+', 'progres', 'improvizație', 'unice','dinamice','clare'];
                 const isKeyWord = keyWords.some(key => word.toLowerCase().includes(key.toLowerCase()));
                 
                 return (

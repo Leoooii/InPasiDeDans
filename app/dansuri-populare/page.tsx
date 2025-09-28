@@ -70,7 +70,7 @@ export default function DansuriPopulare() {
               De ce sunt speciale dansurile populare?
             </h3>
             <p className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-              Ele impresionează prin frumusețea și diversitatea lor: ritmuri antrenante, mișcări pline de energie și un spirit comunitar care creează o legătură autentică între oameni. Dansurile populare nu sunt doar pași, ci povești vii despre tradiții, sărbători și bucuria de a fi împreună.
+              Dansurile populare impresionează prin frumusețea și diversitatea lor: ritmuri antrenante, mișcări pline de energie și un spirit comunitar care creează o legătură autentică între oameni. Dansurile populare nu sunt doar pași, ci povești vii despre tradiții, sărbători și bucuria de a fi împreună.
             </p>
           </div>
 

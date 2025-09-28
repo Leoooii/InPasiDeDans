@@ -27,7 +27,7 @@ const structureItems = [
   {
     id: 4,
     title: "Durata lecțiilor",
-    description: "Ședințe echilibrate, care îmbină partea tehnică, exercițul practic și distracția;",
+    description: "Ședințe echilibrate, a câte o oră care îmbină partea tehnică, exercițul practic și distracția;",
     icon: Clock,
     color: "from-purple-500 to-pink-500"
   },
