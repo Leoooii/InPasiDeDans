@@ -13,6 +13,9 @@ export default function CourseLevelsSection() {
             La În Pași de Dans, cursurile sunt organizate în grupe de 16–20 de persoane, suficient de mari pentru a crea energie și dinamism, dar și suficient de reduse pentru ca fiecare cursant să primească atenția de care are nevoie.
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mt-4">
+          Fiecare grupă de dansuri latino și de societate are două ședințe pe săptămână, astfel încât să ai timp să înveți, să repeți și să fixezi pașii de dans învățați.
+          </p>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mt-4">
             Poți învăța și evolua în ritmul tău, fără presiunea timpului. Tot ce contează este să faci pași constanți înainte și să te bucuri de fiecare moment pe ringul de dans.
           </p>
         </div>
