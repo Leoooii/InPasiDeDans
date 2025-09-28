@@ -19,6 +19,7 @@ import StickyMenu from '@/components/sticky-menu';
 import BenefitsSection from '@/components/BenefitsSection';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import CourseLevelsSection from '@/components/CourseLevelsSection';
+import CharmHarmonySection from '@/components/CharmHarmonySection';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 export default function DansuriDeSocietate() {
@@ -125,6 +126,8 @@ export default function DansuriDeSocietate() {
         <div id="de-ce-noi">
           <WhyChooseUsSection />
         </div>
+        
+        <CharmHarmonySection />
         
         {/* <div id="structura">
           <StructureFeatures/>

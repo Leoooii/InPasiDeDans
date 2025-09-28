@@ -20,6 +20,7 @@ import LatinoSignupForm from '@/components/LatinoSignupForm';
 import ContactForm from '@/components/contact-form';
 import StickyMenu from '@/components/sticky-menu';
 import CourseLevelsSection from '@/components/CourseLevelsSection';
+import LatinoAtmosphereSection from '@/components/LatinoAtmosphereSection';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 
@@ -146,6 +147,8 @@ export default function DansuriLatino() {
         </div>
         
         <CourseLevelsSection />
+        
+        <LatinoAtmosphereSection />
         
         <GrupeInFormare/>
         <LocationSection/>
