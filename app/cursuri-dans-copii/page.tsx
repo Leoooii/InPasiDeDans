@@ -107,8 +107,7 @@ export default function CursuriDansCopii() {
                   Grupă copii incepatori 
                 </h3>
                 <p className="text-gray-500 mb-4">
-                  La această grupă se predau: cha cha, jive, samba, vals lent,
-                  vals vienez, quick step, ocazional - dansuri populare.
+                  La această grupă se predau: cha cha, jive, vals lent si quick step.
                 </p>
                 <div className="flex justify-between">
                   <div className="text-sm text-gray-500">
