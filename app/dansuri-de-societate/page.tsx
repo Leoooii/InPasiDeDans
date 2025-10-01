@@ -45,7 +45,7 @@ export default function DansuriDeSocietate() {
       ]} />
       <div className="container py-12 flex flex-col gap-12">
         <Head />
-        <SEOBreadcrumbs items={breadcrumbItems} />
+        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansuri-de-societate" />
         <div id="despre-societate" className="p-0 container flex flex-col gap-4 items-center">
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri de societate</h1>
           <div>

@@ -172,7 +172,7 @@ export default function Inscriere() {
   return (
     <div className="container py-12">
       <Head />
-      <SEOBreadcrumbs items={breadcrumbItems} />
+        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/inscriere" />
       <div className="max-w-3xl mx-auto">
         <div className="space-y-2 text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight">

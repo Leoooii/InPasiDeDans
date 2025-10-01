@@ -17,7 +17,7 @@ export default function DespreNoi() {
   return (
     <div className="container py-12">
       <Head />
-      <SEOBreadcrumbs items={breadcrumbItems} />
+        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/despre-noi" />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Cine suntem?</h1>

@@ -109,7 +109,7 @@ export default function Excursii() {
 
   return (
     <div className="container py-12">
-      <SEOBreadcrumbs items={breadcrumbItems} />
+        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/excursii" />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">

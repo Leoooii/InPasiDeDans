@@ -9,21 +9,29 @@ interface BreadcrumbItem {
 interface SEOBreadcrumbsProps {
   items: BreadcrumbItem[];
   className?: string;
+  currentPageUrl?: string;
 }
 
-export default function SEOBreadcrumbs({ items, className = "" }: SEOBreadcrumbsProps) {
+export default function SEOBreadcrumbs({ items, className = "", currentPageUrl }: SEOBreadcrumbsProps) {
   // Generăm schema markup pentru breadcrumbs
   const schemaMarkup = {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@id": item.url || undefined,
-        "name": item.name
-      }
-    })).filter(item => item.item["@id"]) // Filtrează elementele fără URL (pagina curentă)
+    "@id": currentPageUrl ? `${currentPageUrl}#breadcrumbs` : undefined,
+    "itemListElement": items.map((item, index) => {
+      // Pentru elementele fără URL (pagina curentă), folosim URL-ul curent
+      const itemUrl = item.url || currentPageUrl;
+      
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        "item": itemUrl ? {
+          "@id": itemUrl.startsWith('http') ? itemUrl : `https://www.inpasidedans.ro${itemUrl}`,
+          "name": item.name
+        } : undefined
+      };
+    }).filter(item => item.item) // Păstrăm doar elementele cu item valid
   };
 
   return (

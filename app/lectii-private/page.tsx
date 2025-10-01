@@ -17,7 +17,7 @@ export default function LectiiPrivate() {
   return (
     <div className="container py-12">
       <Head />
-      <SEOBreadcrumbs items={breadcrumbItems} />
+        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/lectii-private" />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight mb-5">
