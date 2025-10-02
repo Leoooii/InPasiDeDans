@@ -23,6 +23,7 @@ const validPages = [
   '/cursuri-dans-copii',
   '/dansuri-de-societate',
   '/dansuri-latino',
+  '/dansuri-latino/salsa-bachata',
   '/dansuri-populare',
   '/cursuri-dans-nunta',
   '/grupe-in-formare',
