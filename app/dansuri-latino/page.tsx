@@ -36,7 +36,7 @@ export default function DansuriLatino() {
   ];
 
   const handleSalsaBachataClick = () => {
-    router.push('/salsa-bachata');
+    router.push('/dansuri-latino/salsa-bachata');
     // Scroll to top after navigation
     setTimeout(() => {
       window.scrollTo(0, 0);

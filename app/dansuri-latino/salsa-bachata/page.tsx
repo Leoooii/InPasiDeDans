@@ -21,6 +21,7 @@ import CourseStructureSection from '@/components/salsa-bachata/CourseStructureSe
 export default function SalsaBachata() {
   const breadcrumbItems = [
     { name: "Acasă", url: "/" },
+    { name: "Dansuri latino", url: "/dansuri-latino" },
     { name: "Salsa și Bachata" }
   ];
 
@@ -34,7 +35,7 @@ export default function SalsaBachata() {
       <Head />
       
       <div className="container py-12 flex flex-col gap-12">
-      <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/salsa-bachata" />
+      <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansuri-latino/salsa-bachata" />
         {/* HERO SECTION */}
         <HeroSection />
 

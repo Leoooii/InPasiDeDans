@@ -10,13 +10,13 @@ export default function Head() {
         content="Descoperă cursuri de salsa și bachata în București, create pentru începători și intermediari. Lecții interactive cu instructori cu experiență."
       />
       <meta property="og:image" content="/images/logo.png" />
-      <meta property="og:url" content="https://www.inpasidedans.ro/salsa-bachata" />
+            <meta property="og:url" content="https://www.inpasidedans.ro/dansuri-latino/salsa-bachata" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />
       <meta property="og:locale" content="ro_RO" />
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Scoala de dans In Pasi de Dans" />
-      <link rel="canonical" href="https://www.inpasidedans.ro/salsa-bachata" />
+      <link rel="canonical" href="https://www.inpasidedans.ro/dansuri-latino/salsa-bachata" />
       <meta property="og:see_also" content="https://www.instagram.com/inpasidedans/" />
       <meta property="og:see_also" content="https://www.facebook.com/scoaladedansinpasidedans" />
       <meta property="og:see_also" content="https://www.tiktok.com/@in.pasi.de.dans" />
