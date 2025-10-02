@@ -10,7 +10,7 @@ interface FAQItem {
 }
 
 interface FAQSectionProps {
-  danceType?: 'latino' | 'societate' | 'populare' | 'default';
+  danceType?: 'latino' | 'societate' | 'populare' | 'salsa-bachata' | 'default';
 }
 
 const latinoFAQData: FAQItem[] = [
@@ -168,6 +168,54 @@ const populareFAQData: FAQItem[] = [
   }
 ];
 
+const salsaBachataFAQData: FAQItem[] = [
+  {
+    id: 1,
+    question: 'Cum mă pot înscrie la cursurile de Salsa și Bachata și ce pași trebuie să urmez?',
+    answer: (
+      <div className="space-y-3">
+        <p>Înscrierea este foarte simplă! Poți alege una din variantele de mai jos:</p>
+        <ul className="list-disc list-inside space-y-2 ml-4">
+          <li>Completezi formularul de pe site</li>
+          <li>Ne scrii direct pe WhatsApp la <a href="https://wa.me/40722675126" className="text-red-600 hover:text-red-700 underline">0722 675 126</a></li>
+          <li>Ne trimiți un e-mail la <a href="mailto:inpasidedans@gmail.com" className="text-red-600 hover:text-red-700 underline">inpasidedans@gmail.com</a></li>
+        </ul>
+        <p>După înregistrare, îți confirmăm locul în grupa potrivită nivelului tău și îți trimitem detaliile complete despre program și abonament.</p>
+      </div>
+    )
+  },
+  {
+    id: 2,
+    question: 'Trebuie să vin cu partener la cursuri?',
+    answer: 'Nu este obligatoriu să vii cu partener. La cursuri facem rotații, astfel încât fiecare să poată dansa și să învețe pașii atât pe rolul de lider, cât și pe cel de follower.'
+  },
+  {
+    id: 3,
+    question: 'Pot testa o lecție înainte să mă decid?',
+    answer: 'Da! Poți participa la o lecție de probă pentru a descoperi atmosfera și stilul nostru de predare, înainte să alegi abonamentul.'
+  },
+  {
+    id: 4,
+    question: 'Cât durează o lecție și ce învăț la început?',
+    answer: 'O lecție durează 60 de minute. La nivel de începători, înveți pașii de bază, tehnica de mișcare și primele figuri simple, astfel încât să te poți bucura de dans încă din primele ședințe.'
+  },
+  {
+    id: 5,
+    question: 'Aveți cursuri pentru toate nivelurile?',
+    answer: 'Da! Avem grupe pentru începători, intermediari și avansați. Indiferent dacă abia faci primii pași sau dansezi deja de ceva timp, vei găsi grupa potrivită pentru tine.'
+  },
+  {
+    id: 6,
+    question: 'Pot recupera ce am pierdut dacă lipsesc mai multe ședințe?',
+    answer: 'Da, dacă lipsești, îți oferim opțiunea de a recupera într-o altă grupă de același nivel (în funcție de disponibilitate) sau prin recapitulările periodice pe care le facem la curs.'
+  },
+  {
+    id: 7,
+    question: 'Organizați și evenimente sociale pentru cursanți?',
+    answer: 'Absolut! Pe lângă cursuri, organizăm seri de practică, petreceri tematice și ieșiri de socializare, unde poți dansa liber și lega prietenii.'
+  }
+];
+
 export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
   // Selectăm întrebările în funcție de tipul de dans
   const getFAQData = (): FAQItem[] => {
@@ -178,6 +226,8 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
         return societateFAQData;
       case 'populare':
         return populareFAQData;
+      case 'salsa-bachata':
+        return salsaBachataFAQData;
       default:
         return latinoFAQData; // Fallback la întrebări latino
     }

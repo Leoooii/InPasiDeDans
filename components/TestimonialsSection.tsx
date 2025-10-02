@@ -20,7 +20,7 @@ interface Testimonial {
 }
 
 interface TestimonialsSectionProps {
-  danceType?: 'latino' | 'societate' | 'default';
+  danceType?: 'latino' | 'societate' | 'salsa-bachata' | 'default';
 }
 
 const latinoTestimonials: Testimonial[] = [
@@ -113,6 +113,51 @@ const societateTestimonials: Testimonial[] = [
   }
 ];
 
+const salsaBachataTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: 'Adriana Baluță',
+    text: 'Cursurile de salsa și bachata au devenit cea mai așteptată parte a săptămânii pentru mine. Am descoperit nu doar dansul, ci și o comunitate caldă și prietenoasă.',
+    rating: 5,
+    highlight: 'Cea mai așteptată parte a săptămânii'
+  },
+  {
+    id: 2,
+    name: 'Carmen Niculae',
+    text: 'Nu am crezut că voi învăța pașii atât de repede! Instructorii explică pe înțelesul tuturor și reușesc să facă totul foarte distractiv.',
+    rating: 5,
+    highlight: 'Învățare rapidă și distractivă'
+  },
+  {
+    id: 3,
+    name: 'Cristina Popa',
+    text: 'Pentru mine, dansul a devenit o terapie. În fiecare oră de bachata uit de griji și plec cu zâmbetul pe buze.',
+    rating: 5,
+    highlight: 'Dansul ca terapie'
+  },
+  {
+    id: 4,
+    name: 'Cătălin Nistor',
+    text: 'Atmosfera e minunată – multă energie, voie bună și muzică care te face să nu mai vrei să stai pe scaun.',
+    rating: 5,
+    highlight: 'Multă energie și voie bună'
+  },
+  {
+    id: 5,
+    name: 'Victor Păducel',
+    text: 'Cursurile de salsa m-au ajutat să am mai multă încredere în mine și să îmi dezvolt coordonarea. Plus că am cunoscut oameni super faini!',
+    rating: 5,
+    highlight: 'Încredere și coordonare'
+  },
+  {
+    id: 6,
+    name: 'Daria Mușat',
+    text: 'Recomand din toată inima! Fiecare lecție e o combinație perfectă între tehnică, distracție și socializare.',
+    rating: 5,
+    highlight: 'Combinație perfectă'
+  }
+];
+
 export default function TestimonialsSection({ danceType = 'default' }: TestimonialsSectionProps) {
   // Selectăm testimoniale în funcție de tipul de dans
   const getTestimonials = () => {
@@ -121,6 +166,8 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
         return latinoTestimonials;
       case 'societate':
         return societateTestimonials;
+      case 'salsa-bachata':
+        return salsaBachataTestimonials;
       default:
         return latinoTestimonials; // Fallback la testimoniale latino
     }
