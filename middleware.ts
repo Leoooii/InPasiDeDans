@@ -120,14 +120,7 @@ function findSimilarPage(pathname: string): string | null {
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname, hostname } = request.nextUrl;
-
-  // Redirect pentru canonicalizare domeniu - direct 301 pentru SEO
-  if (hostname === 'inpasidedans.ro') {
-    const url = request.nextUrl.clone();
-    url.hostname = 'www.inpasidedans.ro';
-    return NextResponse.redirect(url, 301);
-  }
+  const { pathname } = request.nextUrl;
 
   // Ignoră fișierele statice și API routes
   if (
