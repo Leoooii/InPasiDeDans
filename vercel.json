@@ -16,6 +16,22 @@
       "has": [
         {
           "type": "host",
+          "value": "inpasidedans.ro"
+        },
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "https"
+        }
+      ],
+      "destination": "https://www.inpasidedans.ro/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
           "value": "www.inpasidedans.ro"
         },
         {
