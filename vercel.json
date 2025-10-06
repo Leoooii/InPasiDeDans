@@ -9,8 +9,7 @@
         }
       ],
       "destination": "https://www.inpasidedans.ro/:path*",
-      "permanent": true,
-      "statusCode": 301
+      "permanent": true
     },
     {
       "source": "/:path*",
@@ -26,8 +25,7 @@
         }
       ],
       "destination": "https://www.inpasidedans.ro/:path*",
-      "permanent": true,
-      "statusCode": 301
+      "permanent": true
     }
   ],
   "headers": [
