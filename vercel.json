@@ -9,7 +9,25 @@
         }
       ],
       "destination": "https://www.inpasidedans.ro/:path*",
-      "permanent": true
+      "permanent": true,
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.inpasidedans.ro"
+        },
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
+      ],
+      "destination": "https://www.inpasidedans.ro/:path*",
+      "permanent": true,
+      "statusCode": 301
     }
   ],
   "headers": [
