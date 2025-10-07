@@ -182,9 +182,18 @@ export default function AdminPage() {
     <div className="container py-12">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Panou de administrare</h1>
-        <Button variant="outline" onClick={handleLogout}>
-          Deconectare
-        </Button>
+        <div className="flex gap-3">
+          <Button 
+            variant="default" 
+            onClick={() => router.push('/admin/studio')}
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            📝 Blog Studio
+          </Button>
+          <Button variant="outline" onClick={handleLogout}>
+            Deconectare
+          </Button>
+        </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

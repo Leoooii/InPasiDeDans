@@ -304,6 +304,20 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem>
 
+                {/* <NavigationMenuItem>
+                  <Link href="/blog" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      )}
+                      title="Blog Dans București"
+                    >
+                      Blog
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem> */}
+
                 {/* Second Row - Info & Activities */}
                 <NavigationMenuItem>
                   <Link href="/program" legacyBehavior passHref>
@@ -543,10 +557,18 @@ function MobileNav({
           href="/cursuri-dans-copii"
           onClick={() => setIsOpen(false)}
           className="py-2 font-medium"
-          title="Program Cursuri de Dans"
+          title="Cursuri dans copii"
         >
           Cursuri dans copii
         </Link>
+        {/* <Link
+          href="/blog"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Blog Dans București"
+        >
+          Blog
+        </Link> */}
         <Link
           href="/dansul-mirilor"
           onClick={() => setIsOpen(false)}

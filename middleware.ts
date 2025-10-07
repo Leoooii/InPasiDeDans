@@ -109,13 +109,14 @@ function findSimilarPage(pathname: string): string | null {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Ignoră fișierele statice și API routes
+  // Ignoră fișierele statice, API routes, blog și admin
   if (
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/api/') ||
     pathname.includes('.') ||
-    pathname.startsWith("/admin") || // Ignoră toate rutele admin
-    pathname.startsWith('/admin/api/')
+    pathname.startsWith("/admin") || // Ignoră toate rutele admin (inclusiv /admin/studio)
+    pathname.startsWith('/admin/api/') ||
+    pathname.startsWith('/blog') // Ignoră toate rutele blog
   ) {
     const response = NextResponse.next();
     // Adaugă headere CORS pentru rutele API
