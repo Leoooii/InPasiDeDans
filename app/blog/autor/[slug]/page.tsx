@@ -90,10 +90,16 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
               </p>
             )}
             
-            {author.bio && (
-              <p className="text-lg text-blue-100 max-w-3xl mx-auto">
-                {author.bio}
-              </p>
+            {author.bio && author.bio.length > 0 && (
+              <div className="text-lg text-blue-100 max-w-3xl mx-auto space-y-3">
+                {author.bio.map((block: any, index: number) => {
+                  if (block._type === 'block') {
+                    const text = block.children?.map((child: any) => child.text).join('') || ''
+                    return text ? <p key={index}>{text}</p> : null
+                  }
+                  return null
+                })}
+              </div>
             )}
             
             <p className="mt-6 text-blue-100">
