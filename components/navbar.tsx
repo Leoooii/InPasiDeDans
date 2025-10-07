@@ -14,6 +14,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import ThemeToggle from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -427,6 +428,7 @@ export default function Navbar() {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
+            {/* <ThemeToggle /> */}
           </div>
         </div>
       </div>
@@ -608,6 +610,7 @@ function MobileNav({
             Înscrie-te
           </Link>
         )}
+        
       </div>
     </div>
   );

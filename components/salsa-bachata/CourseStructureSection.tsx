@@ -7,7 +7,7 @@ export default function CourseStructureSection() {
         "Învățarea pașilor de bază pentru Salsa și Bachata.",
         "Noțiuni de postură, conexiune și ritm.",
         "Primele combinații simple și mișcări în cuplu.",
-        "Durată recomandată: ~3 luni, 2×/săptămână."
+        "Durată recomandată: minim 4 luni, 2×/săptămână."
       ]
     },
     {
@@ -17,7 +17,7 @@ export default function CourseStructureSection() {
         "Combinații variate și tehnici de rotație.",
         "Muzicalitate și interpretare coregrafică.",
         "Introducere în styling și mișcări fluide.",
-        "Durată recomandată: 3–6 luni, 2×/săptămână."
+        "Durată recomandată: 4-12 luni, 2×/săptămână."
       ]
     },
     {

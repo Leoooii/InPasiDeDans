@@ -18,12 +18,12 @@ export default function BenefitsSection() {
     {
       icon: "🏆",
       title: "Instructori specializați",
-      description: "Echipă cu experiență în Salsa (Cuban/NY) și Bachata (Dominican/Moderna/Sensual), axată pe progresul tău real."
+      description: "Echipă cu experiență în Salsa (Salsa On1/Rueda) și Bachata (Dominican/Moderna/Sensual), axată pe progresul tău real."
     },
     {
       icon: "⏱️",
       title: "Structură & progres",
-      description: "Program pe niveluri (începători/intermediari), 2×/săptămână, combinații graduale, muzicalitate și styling."
+      description: "Program pe niveluri (începători/intermediari/avansați), 2×/săptămână, combinații graduale, muzicalitate și styling."
     },
     {
       icon: "📍",
