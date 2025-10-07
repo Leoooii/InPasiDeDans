@@ -102,6 +102,13 @@ export const postsByAuthorQuery = `
       asset->,
       alt
     },
+    author->{
+      name,
+      slug,
+      image {
+        asset->
+      }
+    },
     category->{
       title,
       slug
@@ -124,7 +131,10 @@ export const postsByTagQuery = `
     },
     author->{
       name,
-      slug
+      slug,
+      image {
+        asset->
+      }
     },
     category->{
       title,
