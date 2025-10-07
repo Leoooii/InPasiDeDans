@@ -154,41 +154,41 @@ export default function DansuriLatino() {
         </div>
         
         {/* SPECIAL SALSA & BACHATA SECTION - COMMENTED OUT */}
-        {/* 
+        
         <div className="relative overflow-hidden bg-gradient-to-br from-red-500 via-red-600 to-orange-500 rounded-3xl p-8 md:p-12 text-center shadow-2xl border-4 border-white dark:border-gray-800">
           {/* Background Pattern */}
-          {/* 
+          
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full"></div>
             <div className="absolute top-8 right-8 w-16 h-16 bg-white rounded-full"></div>
             <div className="absolute bottom-6 left-8 w-12 h-12 bg-white rounded-full"></div>
             <div className="absolute bottom-4 right-4 w-24 h-24 bg-white rounded-full"></div>
           </div>
-          */}
+          
           
           {/* Content */}
-          {/* 
+          
           <div className="relative z-10 max-w-5xl mx-auto">
             {/* Badge */}
-            {/* 
+            
             <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white font-semibold text-sm mb-6 border border-white/30">
               <span className="w-2 h-2 bg-yellow-300 rounded-full mr-2 animate-pulse"></span>
               NOU! Grupe Specializate
             </div>
-            */}
+            
             
             {/* Main Title */}
-            {/* 
+             
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
               🎯 Grupe Speciale pentru 
               <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
                 Salsa și Bachata
               </span>
             </h2>
-            */}
+          
             
             {/* Description */}
-            {/* 
+            
             <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-4xl mx-auto font-medium">
               Pentru cei care doresc să se <strong className="text-yellow-300">specializeze</strong> în 
               <strong className="text-yellow-300"> Salsa și Bachata</strong>, oferim 
@@ -196,10 +196,10 @@ export default function DansuriLatino() {
               progres pas cu pas. Ideal pentru începători și intermediari care vor să învețe 
               aceste stiluri în profunzime.
             </p>
-            */}
+            
             
             {/* Features Grid */}
-            {/* 
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                 <div className="text-2xl mb-2">📚</div>
@@ -217,10 +217,10 @@ export default function DansuriLatino() {
                 <div className="text-white/80 text-sm">De la începător la avansat</div>
               </div>
             </div>
-            */}
+            
             
             {/* CTA Button */}
-            {/* 
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
                 onClick={handleSalsaBachataClick}
@@ -235,7 +235,7 @@ export default function DansuriLatino() {
             </div>
           </div>
         </div>
-        */}
+        
         
         <div id="structura">
           <StructureFeatures/>
