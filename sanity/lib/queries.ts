@@ -5,7 +5,7 @@
 
 // Toate articolele publicate (pentru index blog)
 export const allPostsQuery = `
-  *[_type == "post" && status == "published"] | order(publishedAt desc) {
+  *[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -32,7 +32,7 @@ export const allPostsQuery = `
 
 // Articolele dintr-o categorie
 export const postsByCategoryQuery = `
-  *[_type == "post" && status == "published" && category->slug.current == $categorySlug] | order(publishedAt desc) {
+  *[_type == "post" && category->slug.current == $categorySlug] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -56,7 +56,7 @@ export const postsByCategoryQuery = `
 
 // Un articol individual (cu tot conținutul)
 export const singlePostQuery = `
-  *[_type == "post" && slug.current == $slug && status == "published"][0] {
+  *[_type == "post" && slug.current == $slug][0] {
     _id,
     title,
     slug,
@@ -93,7 +93,7 @@ export const singlePostQuery = `
 
 // Articole de un autor
 export const postsByAuthorQuery = `
-  *[_type == "post" && status == "published" && author->slug.current == $authorSlug] | order(publishedAt desc) {
+  *[_type == "post" && author->slug.current == $authorSlug] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -113,7 +113,7 @@ export const postsByAuthorQuery = `
 
 // Articole cu un tag specific
 export const postsByTagQuery = `
-  *[_type == "post" && status == "published" && $tag in tags] | order(publishedAt desc) {
+  *[_type == "post" && $tag in tags] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -137,7 +137,7 @@ export const postsByTagQuery = `
 
 // Articole evidențiate (featured)
 export const featuredPostsQuery = `
-  *[_type == "post" && status == "published" && featured == true] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && featured == true] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,
@@ -160,7 +160,7 @@ export const featuredPostsQuery = `
 
 // Articole înrudite (aceeași categorie, exclud articolul curent)
 export const relatedPostsQuery = `
-  *[_type == "post" && status == "published" && category->slug.current == $categorySlug && slug.current != $currentSlug] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && category->slug.current == $categorySlug && slug.current != $currentSlug] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,
@@ -187,7 +187,7 @@ export const allCategoriesQuery = `
     slug,
     description,
     metaDescription,
-    "postCount": count(*[_type == "post" && status == "published" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id)])
   }
 `
 
@@ -199,7 +199,7 @@ export const singleCategoryQuery = `
     slug,
     description,
     metaDescription,
-    "postCount": count(*[_type == "post" && status == "published" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id)])
   }
 `
 
@@ -217,7 +217,7 @@ export const allAuthorsQuery = `
     },
     experienceYears,
     specializations,
-    "postCount": count(*[_type == "post" && status == "published" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id)])
   }
 `
 
@@ -234,7 +234,7 @@ export const singleAuthorQuery = `
     },
     experienceYears,
     specializations,
-    "postCount": count(*[_type == "post" && status == "published" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id)])
   }
 `
 
@@ -242,7 +242,7 @@ export const singleAuthorQuery = `
 
 // Toate slug-urile articolelor (pentru generare sitemap)
 export const allPostSlugsQuery = `
-  *[_type == "post" && status == "published"] {
+  *[_type == "post"] {
     "slug": slug.current,
     "category": category->slug.current,
     publishedAt,
@@ -270,15 +270,15 @@ export const allAuthorSlugsQuery = `
 
 // Toate tag-urile unice (pentru pagină "explorează tag-uri")
 export const allTagsQuery = `
-  array::unique(*[_type == "post" && status == "published"].tags[])
+  array::unique(*[_type == "post"].tags[])
 `
 
 // Număr articole per tag
 export const tagsWithCountQuery = `
   {
-    "tags": array::unique(*[_type == "post" && status == "published"].tags[]) | {
+    "tags": array::unique(*[_type == "post"].tags[]) | {
       "name": @,
-      "count": count(*[_type == "post" && status == "published" && @ in tags])
+      "count": count(*[_type == "post" && @ in tags])
     }
   }
 `

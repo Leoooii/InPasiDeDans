@@ -217,6 +217,109 @@ export default {
       validation: (Rule: any) => Rule.required()
     },
 
+    // ===== SCHEMA MARKUP (pentru SEO rich snippets) =====
+    {
+      name: 'howTo',
+      title: 'Schema HowTo (pentru ghiduri pas-cu-pas)',
+      type: 'object',
+      options: {
+        collapsible: true,
+        collapsed: true
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Activează Schema HowTo',
+          type: 'boolean',
+          description: 'Bifează dacă acest articol este un ghid "Cum să..." cu pași',
+          initialValue: false
+        },
+        {
+          name: 'totalTime',
+          title: 'Timp Total (ex: PT30D pentru 30 zile)',
+          type: 'string',
+          description: 'Format ISO 8601: PT30M (30 min), PT2H (2 ore), PT30D (30 zile)'
+        },
+        {
+          name: 'estimatedCost',
+          title: 'Cost Estimat (RON)',
+          type: 'number',
+          description: 'Ex: 250 pentru cursuri de dans'
+        },
+        {
+          name: 'supply',
+          title: 'Materiale Necesare',
+          type: 'array',
+          of: [{ type: 'string' }],
+          description: 'Ex: Pantofi de dans, Îmbrăcăminte lejeră'
+        },
+        {
+          name: 'tools',
+          title: 'Echipamente/Spații Necesare',
+          type: 'array',
+          of: [{ type: 'string' }],
+          description: 'Ex: Sală de dans, Sistem audio'
+        },
+        {
+          name: 'steps',
+          title: 'Pașii Ghidului',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              {
+                name: 'name',
+                title: 'Nume Pas',
+                type: 'string',
+                description: 'Ex: Învățați Pasul de Bază'
+              },
+              {
+                name: 'text',
+                title: 'Descriere Detaliată',
+                type: 'text',
+                rows: 4
+              },
+              {
+                name: 'image',
+                title: 'Imagine (Opțional)',
+                type: 'image'
+              }
+            ]
+          }]
+        }
+      ]
+    },
+    {
+      name: 'faq',
+      title: 'FAQ (Întrebări Frecvente)',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          {
+            name: 'question',
+            title: 'Întrebare',
+            type: 'string',
+            description: 'Ex: Cât timp durează să înveț salsa?'
+          },
+          {
+            name: 'answer',
+            title: 'Răspuns',
+            type: 'text',
+            rows: 4,
+            description: 'Răspuns complet (40-300 cuvinte recomandat)'
+          }
+        ],
+        preview: {
+          select: {
+            title: 'question',
+            subtitle: 'answer'
+          }
+        }
+      }],
+      description: 'Minim 3 întrebări recomandat pentru Schema FAQPage'
+    },
+
     // ===== SEO AVANSAT (OPȚIONAL) =====
     {
       name: 'seo',

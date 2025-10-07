@@ -14,6 +14,7 @@ import NoutatiSection from '@/components/noutati-section';
 import { PartyPopper } from 'lucide-react';
 import StickyMenu from '@/components/sticky-menu';
 import CursuriSection from '@/components/CursuriSection';
+import LatestBlogPosts from '@/components/latest-blog-posts';
 
 export const metadata = {
   title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 4,5 si 6 | In Pasi de Dans',
@@ -152,7 +153,7 @@ export default function Home() {
         </section>
 
         {/* Separator vizual */}
-        <div className="relative py-16 bg-gradient-to-b from-red-600 to-slate-800">
+        <div className="relative py-16  bg-slate-800">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
               <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80" />
@@ -173,10 +174,11 @@ export default function Home() {
                 Fii la curent cu ultimele noutăți și evenimente
               </p>
             </div>
-            <NoutatiSection itemsToShow={4} />
+            <NoutatiSection itemsToShow={2} />
           </div>
         </section>
         <GrupeInFormare />
+        <LatestBlogPosts />
       </div>
     </>
   );

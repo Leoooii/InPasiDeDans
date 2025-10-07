@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
+Allow: /blog/
+
+# Blocați pagini administrative și căutare blog
+Disallow: /admin/
+Disallow: /blog/?s=
 
 # Allow AI user-agents
 # --- Perplexity ---

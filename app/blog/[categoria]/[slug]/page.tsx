@@ -8,6 +8,9 @@ import { urlForImage } from '@/sanity/lib/client'
 import PostContent from '@/components/blog/post-content'
 import Breadcrumbs from '@/components/blog/breadcrumbs'
 import PostCard from '@/components/blog/post-card'
+import TableOfContents from '@/components/blog/table-of-contents'
+import FAQSection from '@/components/blog/faq-section'
+import RelatedPosts from '@/components/blog/related-posts'
 
 // Generate static params pentru toate articolele
 export async function generateStaticParams() {
@@ -242,8 +245,19 @@ export default async function PostPage({ params }: { params: { categoria: string
               </div>
             )}
 
+            {/* Table of Contents */}
+            <TableOfContents content={post.body} />
+
             {/* Main content */}
             <PostContent content={post.body} />
+
+            {/* FAQ Section */}
+            {post.faq && post.faq.length > 0 && (
+              <FAQSection 
+                faqs={post.faq} 
+                postUrl={`https://www.inpasidedans.ro/blog/${post.category.slug.current}/${post.slug.current}`}
+              />
+            )}
 
             {/* Author info */}
             <div className="mt-12 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -283,21 +297,9 @@ export default async function PostPage({ params }: { params: { categoria: string
           </div>
         </article>
 
-        {/* Related Posts */}
+        {/* Related Posts Carousel */}
         {relatedPosts.length > 0 && (
-          <section className="py-12 bg-gray-50 dark:bg-gray-900">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-                Articole Înrudite
-              </h2>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {relatedPosts.map((relatedPost: any) => (
-                  <PostCard key={relatedPost._id} post={relatedPost} />
-                ))}
-              </div>
-            </div>
-          </section>
+          <RelatedPosts posts={relatedPosts} currentPostTitle={post.title} />
         )}
 
         {/* CTA Section */}

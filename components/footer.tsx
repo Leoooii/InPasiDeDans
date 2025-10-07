@@ -16,8 +16,30 @@ export default function Footer() {
       id="site-footer"
       className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-gray-300 dark:bg-slate-950 dark:text-gray-200"
     >
+       {/* Secțiune Blog */}
+       {/* <div className="mt-12 border-t border-gray-800 pt-8">
+          <h3 className="text-white font-semibold mb-4 text-lg text-center">
+            📚 Ultimele Articole din Blog
+          </h3>
+          <p className="text-sm text-center text-gray-400 mb-6">
+            Descoperă sfaturi, ghiduri și povești despre dans
+          </p>
+          <div className="flex justify-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Vezi Toate Articolele
+              <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div> */}
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
             <Image
               src="/images/logo.png"
@@ -216,6 +238,8 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+       
       </div>
       <div className="border-t border-gray-800 py-6">
         <div className="container text-center text-sm">

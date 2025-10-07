@@ -34,10 +34,21 @@ export async function generateMetadata({ params }: { params: { categoria: string
     return {
       title: `${category.title} | Blog În Pași de Dans`,
       description: category.metaDescription || category.description || `Articole despre ${category.title.toLowerCase()}: ghiduri, sfaturi și povești de la instructori profesioniști.`,
+      alternates: {
+        canonical: `https://www.inpasidedans.ro/blog/${params.categoria}`,
+      },
       openGraph: {
         title: `${category.title} | Blog În Pași de Dans`,
         description: category.metaDescription || category.description || `Articole despre ${category.title.toLowerCase()}`,
+        url: `https://www.inpasidedans.ro/blog/${params.categoria}`,
+        siteName: 'În Pași de Dans',
+        locale: 'ro_RO',
         type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${category.title} | Blog În Pași de Dans`,
+        description: category.metaDescription || category.description || `Articole despre ${category.title.toLowerCase()}`,
       },
     }
   } catch (error) {

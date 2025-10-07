@@ -304,7 +304,7 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem>
 
-                {/* <NavigationMenuItem>
+                <NavigationMenuItem>
                   <Link href="/blog" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={cn(
@@ -316,7 +316,7 @@ export default function Navbar() {
                       Blog
                     </NavigationMenuLink>
                   </Link>
-                </NavigationMenuItem> */}
+                </NavigationMenuItem>
 
                 {/* Second Row - Info & Activities */}
                 <NavigationMenuItem>
@@ -561,14 +561,14 @@ function MobileNav({
         >
           Cursuri dans copii
         </Link>
-        {/* <Link
+        <Link
           href="/blog"
           onClick={() => setIsOpen(false)}
           className="py-2 font-medium"
           title="Blog Dans București"
         >
           Blog
-        </Link> */}
+        </Link>
         <Link
           href="/dansul-mirilor"
           onClick={() => setIsOpen(false)}
