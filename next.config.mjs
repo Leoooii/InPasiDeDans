@@ -14,13 +14,36 @@ const nextConfig = {
       'scontent.fotp3-2.fna.fbcdn.net',
       'i.imgur.com',
       'res.cloudinary.com',
+      'cdn.sanity.io', // Adăugăm domeniul Sanity pentru optimizare
     ],
-    unoptimized: true,
+    // Activează optimizarea imaginilor pentru performanță
+    unoptimized: false,
+    // Configurări pentru performanță
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
     optimizeCss: true,
     nextScriptWorkers: true,
+    // Optimizări pentru performanță
+    optimizePackageImports: ['@sanity/image-url', 'next-sanity'],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
+  // Optimizări pentru build
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Optimizări pentru output
+  output: 'standalone',
+  poweredByHeader: false,
   // Redirects moved to vercel.json for better performance
   // Optimizăm politica de cache pentru resurse statice
   headers: async () => {
@@ -109,6 +132,20 @@ const nextConfig = {
             value: [
               '<https://fonts.googleapis.com>; rel=preconnect',
               '<https://fonts.gstatic.com>; rel=preconnect; crossorigin',
+              '<https://cdn.sanity.io>; rel=preconnect',
+            ].join(', '),
+          },
+        ],
+      },
+      // Preload pentru blog pages
+      {
+        source: '/blog/:path*',
+        headers: [
+          {
+            key: 'Link',
+            value: [
+              '<https://cdn.sanity.io>; rel=preconnect',
+              '</blog>; rel=prefetch',
             ].join(', '),
           },
         ],
