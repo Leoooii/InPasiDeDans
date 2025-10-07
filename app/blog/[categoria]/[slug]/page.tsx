@@ -133,7 +133,18 @@ export default async function PostPage({ params }: { params: { categoria: string
       "logo": {
         "@type": "ImageObject",
         "url": "https://www.inpasidedans.ro/logo.png"
-      }
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calea Rahovei 262, sector 5",
+        "addressLocality": "București",
+        "postalCode": "050912",
+        "addressCountry": "RO"
+      },
+      "telephone": "+40 722 675 126",
+      "email": "inpasidedans@gmail.com",
+      "url": "https://www.inpasidedans.ro",
+      "image": "https://www.inpasidedans.ro/logo.png"
     },
     "datePublished": post.publishedAt,
     "dateModified": post.publishedAt,
@@ -156,23 +167,64 @@ export default async function PostPage({ params }: { params: { categoria: string
           "@type": "PostalAddress",
           "streetAddress": "Calea Rahovei 262, sector 5",
           "addressLocality": "București",
+          "postalCode": "050912",
           "addressCountry": "RO"
         },
         "telephone": "+40 722 675 126",
-        "email": "inpasidedans@gmail.com"
+        "email": "inpasidedans@gmail.com",
+        "logo": "https://www.inpasidedans.ro/logo.png"
       },
       "courseMode": "blended",
       "educationalLevel": "beginner",
-      "inLanguage": "ro"
+      "inLanguage": "ro",
+      "image": post.mainImage?.asset ? urlForImage(post.mainImage).width(1200).height(630).fit('crop').url() : "https://www.inpasidedans.ro/logo.png"
     }]
+  }
+
+  // Schema LocalBusiness pentru rezolvarea warning-ului despre imagine
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "În Pași de Dans",
+    "description": "Școală de dans în București. Cursuri de dans latino, popular și de societate pentru adulți și copii.",
+    "image": "https://www.inpasidedans.ro/logo.png",
+    "url": "https://www.inpasidedans.ro",
+    "telephone": "+40 722 675 126",
+    "email": "inpasidedans@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calea Rahovei 262, sector 5",
+      "addressLocality": "București",
+      "postalCode": "050912",
+      "addressCountry": "RO"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "44.4268",
+      "longitude": "26.1025"
+    },
+    "openingHours": "Mo-Fr 18:00-22:00, Sa 10:00-20:00",
+    "priceRange": "$$",
+    "paymentAccepted": "Cash, Card",
+    "currenciesAccepted": "RON",
+    "sameAs": [
+      "https://www.facebook.com/inpasidedans",
+      "https://www.instagram.com/inpasidedans"
+    ]
   }
 
   return (
     <>
-      {/* Schema markup */}
+      {/* Schema markup pentru articol */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      
+      {/* Schema markup pentru LocalBusiness */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
