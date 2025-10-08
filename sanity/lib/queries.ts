@@ -5,7 +5,7 @@
 
 // Toate articolele publicate (pentru index blog)
 export const allPostsQuery = `
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type == "post" && status == "published"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -32,7 +32,7 @@ export const allPostsQuery = `
 
 // Articolele dintr-o categorie
 export const postsByCategoryQuery = `
-  *[_type == "post" && category->slug.current == $categorySlug] | order(publishedAt desc) {
+  *[_type == "post" && category->slug.current == $categorySlug && status == "published"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -56,7 +56,7 @@ export const postsByCategoryQuery = `
 
 // Un articol individual (cu tot conținutul)
 export const singlePostQuery = `
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "post" && slug.current == $slug && status == "published"][0] {
     _id,
     title,
     slug,
@@ -94,7 +94,7 @@ export const singlePostQuery = `
 
 // Articole de un autor
 export const postsByAuthorQuery = `
-  *[_type == "post" && author->slug.current == $authorSlug] | order(publishedAt desc) {
+  *[_type == "post" && author->slug.current == $authorSlug && status == "published"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -121,7 +121,7 @@ export const postsByAuthorQuery = `
 
 // Articole cu un tag specific
 export const postsByTagQuery = `
-  *[_type == "post" && $tag in tags] | order(publishedAt desc) {
+  *[_type == "post" && $tag in tags && status == "published"] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -148,7 +148,7 @@ export const postsByTagQuery = `
 
 // Articole evidențiate (featured)
 export const featuredPostsQuery = `
-  *[_type == "post" && featured == true] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && featured == true && status == "published"] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,
@@ -171,7 +171,7 @@ export const featuredPostsQuery = `
 
 // Articole înrudite (aceeași categorie, exclud articolul curent)
 export const relatedPostsQuery = `
-  *[_type == "post" && category->slug.current == $categorySlug && slug.current != $currentSlug] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && category->slug.current == $categorySlug && slug.current != $currentSlug && status == "published"] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,
@@ -253,7 +253,7 @@ export const singleAuthorQuery = `
 
 // Toate slug-urile articolelor (pentru generare sitemap)
 export const allPostSlugsQuery = `
-  *[_type == "post"] {
+  *[_type == "post" && status == "published"] {
     "slug": slug.current,
     "category": category->slug.current,
     publishedAt,

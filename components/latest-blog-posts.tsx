@@ -4,7 +4,7 @@ import { client, urlForImage } from '@/sanity/lib/client'
 
 // Query pentru ultimele 3 articole
 const latestPostsQuery = `
-  *[_type == "post"] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && status == "published"] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,
