@@ -155,7 +155,7 @@ export default function DansuriLatino() {
         
         {/* SPECIAL SALSA & BACHATA SECTION - COMMENTED OUT */}
         
-        <div className="relative overflow-hidden bg-gradient-to-br from-red-500 via-red-600 to-orange-500 rounded-3xl p-8 md:p-12 text-center shadow-2xl border-4 border-white dark:border-gray-800">
+        <div className="relative overflow-hidden bg-gradient-to-br from-red-500 via-red-600 to-orange-500 rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 text-center shadow-2xl border-2 md:border-4 border-white dark:border-gray-800">
           {/* Background Pattern */}
           
           <div className="absolute inset-0 opacity-10">
@@ -179,9 +179,9 @@ export default function DansuriLatino() {
             
             {/* Main Title */}
              
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-4 md:mb-6 drop-shadow-lg leading-tight">
               🎯 Grupe Speciale pentru 
-              <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent mt-1 md:mt-0">
                 Salsa și Bachata
               </span>
             </h2>
@@ -189,7 +189,7 @@ export default function DansuriLatino() {
             
             {/* Description */}
             
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 max-w-4xl mx-auto font-medium">
+            <p className="text-sm md:text-lg lg:text-xl text-white/90 leading-relaxed mb-6 md:mb-8 max-w-4xl mx-auto font-medium px-2">
               Pentru cei care doresc să se <strong className="text-yellow-300">specializeze</strong> în 
               <strong className="text-yellow-300"> Salsa și Bachata</strong>, oferim 
               <strong className="text-yellow-300"> grupe dedicate</strong> cu program structurat și 
@@ -200,36 +200,37 @@ export default function DansuriLatino() {
             
             {/* Features Grid */}
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="text-2xl mb-2">📚</div>
-                <div className="text-white font-semibold">Program Dedicat</div>
-                <div className="text-white/80 text-sm">Structurat pas cu pas</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8 px-2">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl p-3 md:p-4 border border-white/20">
+                <div className="text-xl md:text-2xl mb-1 md:mb-2">📚</div>
+                <div className="text-white font-semibold text-sm md:text-base">Program Dedicat</div>
+                <div className="text-white/80 text-xs md:text-sm">Structurat pas cu pas</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="text-2xl mb-2">👨‍🏫</div>
-                <div className="text-white font-semibold">Instructori Specializați</div>
-                <div className="text-white/80 text-sm">Experiență în salsa & bachata</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl p-3 md:p-4 border border-white/20">
+                <div className="text-xl md:text-2xl mb-1 md:mb-2">👨‍🏫</div>
+                <div className="text-white font-semibold text-sm md:text-base">Instructori Specializați</div>
+                <div className="text-white/80 text-xs md:text-sm">Experiență în salsa & bachata</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="text-2xl mb-2">🎯</div>
-                <div className="text-white font-semibold">Progres Structurat</div>
-                <div className="text-white/80 text-sm">De la începător la avansat</div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl p-3 md:p-4 border border-white/20">
+                <div className="text-xl md:text-2xl mb-1 md:mb-2">🎯</div>
+                <div className="text-white font-semibold text-sm md:text-base">Progres Structurat</div>
+                <div className="text-white/80 text-xs md:text-sm">De la începător la avansat</div>
               </div>
             </div>
             
             
             {/* CTA Button */}
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col gap-4 justify-center items-center">
               <Button 
                 onClick={handleSalsaBachataClick}
-                className="bg-white text-red-600 hover:bg-yellow-50 text-xl font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 border-2 border-white/50"
+                className="bg-white text-red-600 hover:bg-yellow-50 text-base md:text-xl font-bold px-6 py-3 md:px-10 md:py-5 rounded-xl md:rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 md:hover:scale-110 border-2 border-white/50 w-full sm:w-auto"
               >
-                🚀 Descoperă Grupele Speciale Salsa & Bachata
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <span className="hidden sm:inline">🚀 Descoperă Grupele Speciale Salsa & Bachata</span>
+                <span className="sm:hidden">🚀 Grupe Salsa & Bachata</span>
+                <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6" />
               </Button>
-              <div className="text-white/80 text-sm font-medium">
+              <div className="text-white/80 text-xs md:text-sm font-medium text-center">
                 ✨ Grupe limitate • 📅 Program flexibil • 🎵 Muzică autentică
               </div>
             </div>
