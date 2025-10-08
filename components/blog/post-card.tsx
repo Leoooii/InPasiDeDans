@@ -76,7 +76,7 @@ export default function PostCard({ post }: PostCardProps) {
             href={`/blog/autor/${post.author?.slug?.current || ''}`}
             className="hover:text-blue-600 dark:hover:text-blue-400"
           >
-            {post.author?.name || 'Autor necunoscut'}
+            {post.author?.name || 'Alexandra Dumitrache'}
           </Link>
         </div>
 

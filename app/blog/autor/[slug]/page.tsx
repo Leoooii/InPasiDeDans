@@ -6,6 +6,9 @@ import { postsByAuthorQuery, singleAuthorQuery, allAuthorsQuery } from '@/sanity
 import PostCard from '@/components/blog/post-card'
 import Breadcrumbs from '@/components/blog/breadcrumbs'
 
+// ISR - revalidează cache-ul la fiecare 60 de secunde
+export const revalidate = 60
+
 // Generate static params
 export async function generateStaticParams() {
   try {

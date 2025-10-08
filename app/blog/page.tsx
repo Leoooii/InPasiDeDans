@@ -4,6 +4,9 @@ import { allPostsQuery, allCategoriesQuery, featuredPostsQuery } from '@/sanity/
 import PostCard from '@/components/blog/post-card'
 import Breadcrumbs from '@/components/blog/breadcrumbs'
 
+// On-Demand Revalidation - se actualizează doar când este necesar
+// export const revalidate = 60 // Comentat pentru a folosi on-demand
+
 // Metadata pentru SEO
 export const metadata: Metadata = {
   title: 'Blog Dans București | Sfaturi, Ghiduri și Povești | În Pași de Dans',
@@ -37,6 +40,9 @@ export const metadata: Metadata = {
 
 // Funcție pentru a preia datele
 async function getBlogData() {
+  // Log pentru a vedea când se revalidează
+  console.log('🔄 Blog data fetched at:', new Date().toISOString())
+  
   try {
     const [posts, categories, featuredPosts] = await Promise.all([
       client.fetch(allPostsQuery),

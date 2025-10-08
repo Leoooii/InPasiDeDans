@@ -12,6 +12,9 @@ import TableOfContents from '@/components/blog/table-of-contents'
 import FAQSection from '@/components/blog/faq-section'
 import RelatedPosts from '@/components/blog/related-posts'
 
+// ISR - revalidează cache-ul la fiecare 60 de secunde
+export const revalidate = 60
+
 // Generate static params pentru toate articolele
 export async function generateStaticParams() {
   try {
@@ -126,7 +129,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
     "image": post.mainImage?.asset ? urlForImage(post.mainImage).width(1200).height(630).fit('crop').url() : undefined,
     "author": {
       "@type": "Person",
-      "name": post.author?.name || 'Autor necunoscut',
+      "name": post.author?.name || 'Alexandra Dumitrache',
       "url": `https://www.inpasidedans.ro/blog/autor/${post.author?.slug?.current || ''}`
     },
     "publisher": {
@@ -286,13 +289,13 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
                   {post.author?.image?.asset && (
                     <Image
                       src={urlForImage(post.author.image).width(40).height(40).fit('crop').url()}
-                      alt={post.author?.name || 'Autor necunoscut'}
+                      alt={post.author?.name || 'Alexandra Dumitrache'}
                       width={40}
                       height={40}
                       className="rounded-full"
                     />
                   )}
-                  <span className="font-medium">{post.author?.name || 'Autor necunoscut'}</span>
+                  <span className="font-medium">{post.author?.name || 'Alexandra Dumitrache'}</span>
                 </Link>
               </div>
               <span>•</span>
@@ -343,7 +346,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
                 {post.author?.image?.asset && (
                   <Image
                     src={urlForImage(post.author.image).width(80).height(80).fit('crop').url()}
-                    alt={post.author?.name || 'Autor necunoscut'}
+                    alt={post.author?.name || 'Alexandra Dumitrache'}
                     width={80}
                     height={80}
                     className="rounded-full"
@@ -351,7 +354,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
                 )}
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {post.author?.name || 'Autor necunoscut'}
+                    {post.author?.name || 'Alexandra Dumitrache'}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-2">
                     {post.author?.role || 'Instructor'}
