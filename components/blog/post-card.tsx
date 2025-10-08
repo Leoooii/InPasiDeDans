@@ -6,7 +6,7 @@ interface PostCardProps {
   post: {
     _id: string
     title: string
-    slug: { current: string }
+    slug: { current?: string }
     excerpt: string
     mainImage: {
       asset: { _ref: string }
@@ -14,11 +14,11 @@ interface PostCardProps {
     }
     author: {
       name: string
-      slug: { current: string }
+      slug?: { current?: string }
     }
     category: {
       title: string
-      slug: { current: string }
+      slug?: { current?: string }
     }
     publishedAt: string
     tags?: string[]
@@ -26,6 +26,9 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
+  // Verificări de siguranță pentru datele lipsă
+  if (!post) return null
+  
   const imageUrl = post.mainImage?.asset 
     ? urlForImage(post.mainImage).width(600).height(400).fit('crop').url()
     : '/placeholder.jpg'
@@ -55,10 +58,10 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Overlay cu categoria */}
         <div className="absolute top-4 left-4">
           <Link 
-            href={`/blog/${post.category.slug.current}`}
+            href={`/blog/${post.category?.slug?.current || ''}`}
             className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700"
           >
-            {post.category.title}
+            {post.category?.title || 'Categorie necunoscută'}
           </Link>
         </div>
       </div>
@@ -70,17 +73,17 @@ export default function PostCard({ post }: PostCardProps) {
           <span>{publishedDate}</span>
           <span>•</span>
           <Link 
-            href={`/blog/autor/${post.author.slug.current}`}
+            href={`/blog/autor/${post.author?.slug?.current || ''}`}
             className="hover:text-blue-600 dark:hover:text-blue-400"
           >
-            {post.author.name}
+            {post.author?.name || 'Autor necunoscut'}
           </Link>
         </div>
 
         {/* Titlu */}
         <h2 className="mb-3 text-xl font-bold leading-tight">
           <Link 
-            href={`/blog/${post.category.slug.current}/${post.slug.current}`}
+            href={`/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
             className="text-gray-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
           >
             {post.title}
@@ -114,7 +117,7 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Link citire */}
         <div className="mt-4">
           <Link 
-            href={`/blog/${post.category.slug.current}/${post.slug.current}`}
+            href={`/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
             className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
           >
             Citește mai mult

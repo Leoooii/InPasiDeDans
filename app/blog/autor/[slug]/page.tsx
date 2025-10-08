@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   try {
     const authors = await client.fetch(allAuthorsQuery)
     return authors.map((author: any) => ({
-      slug: author.slug.current,
+      slug: author.slug?.current || '',
     }))
   } catch (error) {
     return []
@@ -19,9 +19,10 @@ export async function generateStaticParams() {
 }
 
 // Metadata
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   try {
-    const author = await client.fetch(singleAuthorQuery, { slug: params.slug })
+    const { slug } = await params
+    const author = await client.fetch(singleAuthorQuery, { slug })
     
     if (!author) {
       return {
@@ -40,10 +41,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function AuthorPage({ params }: { params: { slug: string } }) {
+export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const [author, posts] = await Promise.all([
-    client.fetch(singleAuthorQuery, { slug: params.slug }),
-    client.fetch(postsByAuthorQuery, { authorSlug: params.slug })
+    client.fetch(singleAuthorQuery, { slug }),
+    client.fetch(postsByAuthorQuery, { authorSlug: slug })
   ])
 
   if (!author) {

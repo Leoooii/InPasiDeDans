@@ -87,7 +87,8 @@ export const singlePostQuery = `
     tags,
     publishedAt,
     featured,
-    seo
+    seo,
+    faq
   }
 `
 

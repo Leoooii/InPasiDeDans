@@ -140,17 +140,17 @@ export default async function BlogPage() {
             {categories.map((category: any) => (
               <a
                 key={category._id}
-                href={`/blog/${category.slug.current}`}
+                href={`/blog/${category?.slug?.current || ''}`}
                 className="group bg-gray-50 dark:bg-gray-700 rounded-lg p-6 text-center hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
               >
                 <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2">
-                  {category.title}
+                  {category?.title || 'Categorie necunoscută'}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                  {category.postCount} articole
+                  {category?.postCount || 0} articole
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-500">
-                  {category.description}
+                  {category?.description || 'Descriere indisponibilă'}
                 </p>
               </a>
             ))}

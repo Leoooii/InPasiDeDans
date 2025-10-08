@@ -22,6 +22,7 @@ export async function GET() {
 
   <!-- Categorii -->
   ${categories
+    .filter((category: any) => category.slug?.current)
     .map((category: any) => `
   <url>
     <loc>${baseUrl}/blog/${category.slug.current}</loc>

@@ -11,7 +11,7 @@ export async function generateStaticParams() {
     const categories = await client.fetch(allCategoriesQuery)
     
     return categories.map((category: any) => ({
-      categoria: category.slug.current,
+      categoria: category.slug?.current || '',
     }))
   } catch (error) {
     console.error('Error generating static params:', error)
@@ -20,9 +20,10 @@ export async function generateStaticParams() {
 }
 
 // Metadata dinamic pentru SEO
-export async function generateMetadata({ params }: { params: { categoria: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ categoria: string }> }): Promise<Metadata> {
   try {
-    const category = await client.fetch(singleCategoryQuery, { slug: params.categoria })
+    const { categoria } = await params
+    const category = await client.fetch(singleCategoryQuery, { slug: categoria })
     
     if (!category) {
       return {
@@ -35,12 +36,12 @@ export async function generateMetadata({ params }: { params: { categoria: string
       title: `${category.title} | Blog În Pași de Dans`,
       description: category.metaDescription || category.description || `Articole despre ${category.title.toLowerCase()}: ghiduri, sfaturi și povești de la instructori profesioniști.`,
       alternates: {
-        canonical: `https://www.inpasidedans.ro/blog/${params.categoria}`,
+        canonical: `https://www.inpasidedans.ro/blog/${categoria}`,
       },
       openGraph: {
         title: `${category.title} | Blog În Pași de Dans`,
         description: category.metaDescription || category.description || `Articole despre ${category.title.toLowerCase()}`,
-        url: `https://www.inpasidedans.ro/blog/${params.categoria}`,
+        url: `https://www.inpasidedans.ro/blog/${categoria}`,
         siteName: 'În Pași de Dans',
         locale: 'ro_RO',
         type: 'website',
@@ -80,8 +81,9 @@ async function getCategoryData(categoria: string) {
   }
 }
 
-export default async function CategoryPage({ params }: { params: { categoria: string } }) {
-  const { category, posts } = await getCategoryData(params.categoria)
+export default async function CategoryPage({ params }: { params: Promise<{ categoria: string }> }) {
+  const { categoria } = await params
+  const { category, posts } = await getCategoryData(categoria)
 
   // Dacă categoria nu există, afișează 404
   if (!category) {

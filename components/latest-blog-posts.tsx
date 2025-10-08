@@ -47,6 +47,9 @@ export default async function LatestBlogPosts() {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {posts.map((post: any) => {
+            // Verificări de siguranță pentru datele lipsă
+            if (!post) return null
+            
             const imageUrl = post.mainImage?.asset 
               ? urlForImage(post.mainImage).width(400).height(250).fit('crop').url()
               : '/placeholder.jpg'
@@ -72,10 +75,10 @@ export default async function LatestBlogPosts() {
                   {/* Badge categorie */}
                   <div className="absolute top-4 left-4">
                     <Link 
-                      href={`/blog/${post.category.slug.current}`}
+                      href={`/blog/${post.category?.slug?.current || ''}`}
                       className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700"
                     >
-                      {post.category.title}
+                      {post.category?.title || 'Categorie necunoscută'}
                     </Link>
                   </div>
                 </div>
@@ -88,7 +91,7 @@ export default async function LatestBlogPosts() {
 
                   <h3 className="mb-3 text-xl font-bold leading-tight">
                     <Link 
-                      href={`/blog/${post.category.slug.current}/${post.slug.current}`}
+                      href={`/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
                       className="text-gray-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
                     >
                       {post.title}
@@ -102,7 +105,7 @@ export default async function LatestBlogPosts() {
                   )}
 
                   <Link 
-                    href={`/blog/${post.category.slug.current}/${post.slug.current}`}
+                    href={`/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
                     className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
                   >
                     Citește mai mult

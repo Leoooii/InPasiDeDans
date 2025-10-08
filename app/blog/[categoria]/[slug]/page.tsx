@@ -126,8 +126,8 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
     "image": post.mainImage?.asset ? urlForImage(post.mainImage).width(1200).height(630).fit('crop').url() : undefined,
     "author": {
       "@type": "Person",
-      "name": post.author.name,
-      "url": `https://www.inpasidedans.ro/blog/autor/${post.author.slug.current}`
+      "name": post.author?.name || 'Autor necunoscut',
+      "url": `https://www.inpasidedans.ro/blog/autor/${post.author?.slug?.current || ''}`
     },
     "publisher": {
       "@type": "Organization",
@@ -154,12 +154,12 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
       "@type": "WebPage",
       "@id": `https://www.inpasidedans.ro/blog/${categoria}/${slug}`
     },
-    "articleSection": post.category.title,
+    "articleSection": post.category?.title || 'Dans',
     "keywords": post.tags?.join(', '),
     // Adăugăm Course schema pentru articole educaționale (ghiduri)
     "mentions": [{
       "@type": "Course",
-      "name": `${post.category.title} - ${post.title}`,
+      "name": `${post.category?.title || 'Dans'} - ${post.title}`,
       "description": post.metaDescription || post.excerpt,
       "provider": {
         "@type": "Organization",
@@ -236,7 +236,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             <Breadcrumbs 
               items={[
                 { label: 'Blog', href: '/blog' },
-                { label: post.category.title, href: `/blog/${post.category.slug.current}` },
+                { label: post.category?.title || 'Categorie necunoscută', href: `/blog/${post.category?.slug?.current || ''}` },
                 { label: post.title }
               ]} 
             />
@@ -261,10 +261,10 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
           <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
             <div className="container mx-auto">
               <Link 
-                href={`/blog/${post.category.slug.current}`}
+                href={`/blog/${post.category?.slug?.current || ''}`}
                 className="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 hover:bg-blue-700 transition-colors"
               >
-                {post.category.title}
+                {post.category?.title || 'Categorie necunoscută'}
               </Link>
               <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                 {post.title}
@@ -280,19 +280,19 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-8 pb-8 border-b">
               <div className="flex items-center gap-2">
                 <Link 
-                  href={`/blog/autor/${post.author.slug.current}`}
+                  href={`/blog/autor/${post.author?.slug?.current || ''}`}
                   className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  {post.author.image?.asset && (
+                  {post.author?.image?.asset && (
                     <Image
                       src={urlForImage(post.author.image).width(40).height(40).fit('crop').url()}
-                      alt={post.author.name}
+                      alt={post.author?.name || 'Autor necunoscut'}
                       width={40}
                       height={40}
                       className="rounded-full"
                     />
                   )}
-                  <span className="font-medium">{post.author.name}</span>
+                  <span className="font-medium">{post.author?.name || 'Autor necunoscut'}</span>
                 </Link>
               </div>
               <span>•</span>
@@ -333,17 +333,17 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             {post.faq && post.faq.length > 0 && (
               <FAQSection 
                 faqs={post.faq} 
-                postUrl={`https://www.inpasidedans.ro/blog/${post.category.slug.current}/${post.slug.current}`}
+                postUrl={`https://www.inpasidedans.ro/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
               />
             )}
 
             {/* Author info */}
             <div className="mt-12 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <div className="flex items-start gap-4">
-                {post.author.image?.asset && (
+                {post.author?.image?.asset && (
                   <Image
                     src={urlForImage(post.author.image).width(80).height(80).fit('crop').url()}
-                    alt={post.author.name}
+                    alt={post.author?.name || 'Autor necunoscut'}
                     width={80}
                     height={80}
                     className="rounded-full"
@@ -351,17 +351,17 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
                 )}
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {post.author.name}
+                    {post.author?.name || 'Autor necunoscut'}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-2">
-                    {post.author.role}
+                    {post.author?.role || 'Instructor'}
                   </p>
-                  {post.author.experienceYears && (
+                  {post.author?.experienceYears && (
                     <p className="text-sm text-gray-500 dark:text-gray-500 mb-3">
                       Experiență: {post.author.experienceYears} ani
                     </p>
                   )}
-                  {post.author.bio && (
+                  {post.author?.bio && (
                     <div className="text-gray-700 dark:text-gray-300">
                       {/* Render author bio */}
                       <div className="prose prose-sm max-w-none dark:prose-invert">
@@ -384,7 +384,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
         <section className="py-16 bg-blue-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">
-              Vrei să Înveți {post.category.title.toLowerCase()}?
+              Vrei să Înveți {(post.category?.title || 'dansul').toLowerCase()}?
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               Alătură-te cursurilor noastre și descoperă bucuria dansului cu instructori profesioniști!

@@ -18,8 +18,9 @@ export async function generateStaticParams() {
 }
 
 // Metadata
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const tag = params.slug.replace(/-/g, ' ')
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const tag = slug.replace(/-/g, ' ')
   
   return {
     title: `Articole despre ${tag} | Blog În Pași de Dans`,
@@ -27,8 +28,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function TagPage({ params }: { params: { slug: string } }) {
-  const tag = params.slug.replace(/-/g, ' ')
+export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const tag = slug.replace(/-/g, ' ')
   const posts = await client.fetch(postsByTagQuery, { tag })
 
   if (!posts || posts.length === 0) {
