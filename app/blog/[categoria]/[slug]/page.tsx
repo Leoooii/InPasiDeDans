@@ -28,9 +28,10 @@ export async function generateStaticParams() {
 }
 
 // Metadata dinamic pentru SEO
-export async function generateMetadata({ params }: { params: { categoria: string; slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ categoria: string; slug: string }> }): Promise<Metadata> {
   try {
-    const post = await client.fetch(singlePostQuery, { slug: params.slug })
+    const { slug } = await params
+    const post = await client.fetch(singlePostQuery, { slug })
     
     if (!post) {
       return {
@@ -97,8 +98,9 @@ async function getPostData(categoria: string, slug: string) {
   }
 }
 
-export default async function PostPage({ params }: { params: { categoria: string; slug: string } }) {
-  const { post, relatedPosts } = await getPostData(params.categoria, params.slug)
+export default async function PostPage({ params }: { params: Promise<{ categoria: string; slug: string }> }) {
+  const { categoria, slug } = await params
+  const { post, relatedPosts } = await getPostData(categoria, slug)
 
   // Dacă articolul nu există, afișează 404
   if (!post) {
@@ -150,7 +152,7 @@ export default async function PostPage({ params }: { params: { categoria: string
     "dateModified": post.publishedAt,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.inpasidedans.ro/blog/${params.categoria}/${params.slug}`
+      "@id": `https://www.inpasidedans.ro/blog/${categoria}/${slug}`
     },
     "articleSection": post.category.title,
     "keywords": post.tags?.join(', '),
