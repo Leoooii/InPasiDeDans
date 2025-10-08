@@ -198,7 +198,7 @@ export const allCategoriesQuery = `
     slug,
     description,
     metaDescription,
-    "postCount": count(*[_type == "post" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id) && status == "published"])
   }
 `
 
@@ -210,7 +210,7 @@ export const singleCategoryQuery = `
     slug,
     description,
     metaDescription,
-    "postCount": count(*[_type == "post" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id) && status == "published"])
   }
 `
 
@@ -228,7 +228,7 @@ export const allAuthorsQuery = `
     },
     experienceYears,
     specializations,
-    "postCount": count(*[_type == "post" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id) && status == "published"])
   }
 `
 
@@ -245,7 +245,7 @@ export const singleAuthorQuery = `
     },
     experienceYears,
     specializations,
-    "postCount": count(*[_type == "post" && references(^._id)])
+    "postCount": count(*[_type == "post" && references(^._id) && status == "published"])
   }
 `
 
