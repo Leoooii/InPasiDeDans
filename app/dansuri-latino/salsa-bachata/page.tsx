@@ -17,6 +17,7 @@ import IntroSection from '@/components/salsa-bachata/IntroSection';
 import DanceStylesSection from '@/components/salsa-bachata/DanceStylesSection';
 import BenefitsSection from '@/components/salsa-bachata/BenefitsSection';
 import CourseStructureSection from '@/components/salsa-bachata/CourseStructureSection';
+import ExploreOtherDances from '@/components/ExploreOtherDances';
 
 export default function SalsaBachata() {
   const breadcrumbItems = [
@@ -73,6 +74,40 @@ export default function SalsaBachata() {
       <div id="intrebari">
         <FAQSection danceType="salsa-bachata"/>
       </div>
+
+      <ExploreOtherDances 
+          danceCategories={[
+            {
+              id: 1,
+              title: 'Dansuri de Societate',
+              description: 'Vals, tango, foxtrot și multe altele',
+              imageSrc: '/images/societate.png',
+              imageAlt: 'Dansuri de societate',
+              href: '/dansuri-de-societate',
+              gradient: 'from-blue-500 to-purple-600'
+            },
+            {
+              id: 2,
+              title: 'Lecții Private',
+              description: 'Instruire personalizată pentru progres rapid',
+              imageSrc: '/images/private.png',
+              imageAlt: 'Lecții private de dans',
+              href: '/lectii-private',
+              gradient: 'from-green-500 to-teal-600'
+            },
+            {
+              id: 3,
+              title: 'Dansuri Populare',
+              description: 'Peste 200 de jocuri populare românești',
+              imageSrc: '/images/populare.png',
+              imageAlt: 'Dansuri populare românești',
+              href: '/dansuri-populare',
+              gradient: 'from-orange-500 to-red-600'
+            }
+          ]}
+          sectionTitle="Explorează și alte dansuri"
+          sectionDescription="Descoperă diversitatea stilurilor de dans pe care le oferim"
+        />
 
       {/* CONTACT FORM SECTION */}
       <div id="inscriere" className="px-0 md:px-32">
