@@ -267,7 +267,12 @@ function InstructorCard({
                 "competiții, evenimente și proiecte naționale și internaționale de dans",
                 "dansul sportiv de 9 ani",
                 "instructoare înțelegătoare, creativă",
-                "lecții private pentru miri"
+                "lecții private pentru miri",
+                "energia pozitivă, perfecționismul său discret",
+                "12 ani de experiență",
+                "pasiunea cu răbdarea în lucrul cu grupele de copii",
+                " pregătirea dansului lor de nuntă",
+                "4 ani ca instructor"
               ];
               
               const bioParagraphs = bio.split('\n');
