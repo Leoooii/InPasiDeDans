@@ -228,7 +228,7 @@ function InstructorCard({
   return (
     <Card className="overflow-hidden group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-transparent hover:border-orange-500">
       <div className="relative bg-white rounded-xl flex flex-col flex-1">
-        <div className="relative h-96 w-full bg-gradient-to-br from-orange-50 to-red-50">
+        <div className="relative h-[28rem] w-full bg-gradient-to-br from-orange-50 to-red-50">
           <Image
             src={src || '/placeholder.svg'}
             alt={name}
