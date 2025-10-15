@@ -1,11 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 import Link from 'next/link';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';

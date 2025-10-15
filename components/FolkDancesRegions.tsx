@@ -83,7 +83,8 @@ const regiuniDansuri = [
       'Basarabeanca',
       'Boereasca',
       'Țepușul de la Bistreț',
-      'Hora boierească de la Săpata'
+      'Hora boierească de la Săpata',
+      'Sârba de la Boureni'
     ],
   },
   {
@@ -117,6 +118,7 @@ const regiuniDansuri = [
       'Hora',
       'Sârba (în doi, trei și patru pași)',
       'Bătuta',
+      'Brâul Sârbesc',
       'Hora-n două părți',
       'Șchioapa',
       'Bălăceana',
