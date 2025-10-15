@@ -307,24 +307,18 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
         </div>
 
         {/* FAQ Items */}
-        <div className="max-w-4xl mx-auto space-y-4" itemScope itemType="https://schema.org/FAQPage">
+        <div className="max-w-4xl mx-auto space-y-4">
           {faqData.map((item) => (
             <div
               key={item.id}
               className="border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow duration-200"
-              itemScope
-              itemProp="mainEntity"
-              itemType="https://schema.org/Question"
             >
               {/* Question Header */}
               <button
                 onClick={() => toggleItem(item.id)}
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
               >
-                <div 
-                  className="text-lg font-semibold text-gray-900 pr-4"
-                  itemProp="name"
-                >
+                <div className="text-lg font-semibold text-gray-900 pr-4">
                   {item.question}
                 </div>
                 <div className="flex-shrink-0">
@@ -338,16 +332,8 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
 
               {/* Answer */}
               {openItems.includes(item.id) && (
-                <div 
-                  className="px-6 pb-4 border-t border-gray-100"
-                  itemScope
-                  itemProp="acceptedAnswer"
-                  itemType="https://schema.org/Answer"
-                >
-                  <div 
-                    className="pt-4 text-gray-700 leading-relaxed"
-                    itemProp="text"
-                  >
+                <div className="px-6 pb-4 border-t border-gray-100">
+                  <div className="pt-4 text-gray-700 leading-relaxed">
                     {item.answer}
                   </div>
                 </div>
