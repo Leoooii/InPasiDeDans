@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
+import AdultDanceFAQ from '@/components/AdultDanceFAQ';
 
 export default function CursuriDansAdulti() {
   const breadcrumbItems = [
@@ -93,6 +94,8 @@ export default function CursuriDansAdulti() {
             </CardContent>
           </Card>
         </div>
+
+        <AdultDanceFAQ />
 
         <div className="mt-12 bg-red-50 p-8 rounded-lg ">
           <div className="grid md:grid-cols-2 gap-8 items-center">
