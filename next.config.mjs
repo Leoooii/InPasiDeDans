@@ -10,11 +10,12 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    domains: [
-      'scontent.fotp3-2.fna.fbcdn.net',
-      'i.imgur.com',
-      'res.cloudinary.com',
-      'cdn.sanity.io', // Adăugăm domeniul Sanity pentru optimizare
+    remotePatterns: [
+      { protocol: 'https', hostname: 'scontent.fotp3-2.fna.fbcdn.net', pathname: '/**' },
+      { protocol: 'https', hostname: 'i.imgur.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'imgur.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/**' }, // Adăugăm domeniul Sanity pentru optimizare
     ],
     // Activează optimizarea imaginilor pentru performanță
     unoptimized: false,
