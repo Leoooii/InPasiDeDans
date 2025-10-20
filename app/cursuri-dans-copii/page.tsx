@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
+import ChildrenDanceFAQ from '@/components/ChildrenDanceFAQ';
 
 export default function CursuriDansCopii() {
   const breadcrumbItems = [
@@ -177,6 +178,8 @@ export default function CursuriDansCopii() {
             </Card>
           </div>
         </div>
+
+        <ChildrenDanceFAQ />
 
         <div className="mt-12 space-y-6">
           <h2 className="text-2xl font-bold mb-6">Tarife cursuri copii</h2>
