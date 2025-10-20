@@ -14,7 +14,7 @@ import LocationSection from '@/components/LocationSection';
 import InstructorsSection from '@/components/InstructorsSection';
 import PricingSection from '@/components/PricingSection';
 import FolkDancesTestimonials from '@/components/FolkDancesTestimonials';
-import FAQSection from '@/components/FAQSection';
+import FolkPopularFAQ from '@/components/FolkPopularFAQ';
 import ExploreOtherDances from '@/components/ExploreOtherDances';
 import ContactForm from '@/components/contact-form';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
@@ -126,7 +126,7 @@ export default function DansuriPopulare() {
       <FolkDancesTestimonials />
 
       {/* Secțiunea FAQ */}
-      <FAQSection danceType="populare" />
+      <FolkPopularFAQ />
 
       {/* Secțiunea Explorează alte dansuri */}
       <ExploreOtherDances 
