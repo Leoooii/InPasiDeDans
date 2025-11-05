@@ -5,7 +5,7 @@ import PostCard from '@/components/blog/post-card'
 import Breadcrumbs from '@/components/blog/breadcrumbs'
 
 // On-Demand Revalidation - se actualizează doar când este necesar
-// export const revalidate = 60 // Comentat pentru a folosi on-demand
+export const revalidate = 60 // Activează ISR pentru a actualiza periodic conținutul
 
 // Metadata pentru SEO
 export const metadata: Metadata = {

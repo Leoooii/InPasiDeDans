@@ -26,6 +26,7 @@ export default async function LatestBlogPosts() {
   
   try {
     posts = await client.fetch(latestPostsQuery)
+    console.log(posts)
   } catch (error) {
     console.error('Error fetching latest posts:', error)
     return null
