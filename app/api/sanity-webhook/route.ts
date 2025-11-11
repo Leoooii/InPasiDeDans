@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
     if (_type === 'post') {
       // Revalidează doar paginile afectate
       revalidatePath('/blog')
+      revalidatePath('/') // Revalidează și homepage-ul pentru componenta LatestBlogPosts
       
       if (category?.slug?.current) {
         revalidatePath(`/blog/${category.slug.current}`)
@@ -31,6 +32,7 @@ export async function POST(request: NextRequest) {
 
     if (_type === 'category') {
       revalidatePath('/blog')
+      revalidatePath('/') // Revalidează și homepage-ul pentru componenta LatestBlogPosts
       if (slug?.current) {
         revalidatePath(`/blog/${slug.current}`)
       }
@@ -39,6 +41,7 @@ export async function POST(request: NextRequest) {
 
     if (_type === 'author') {
       revalidatePath('/blog')
+      revalidatePath('/') // Revalidează și homepage-ul pentru componenta LatestBlogPosts
       if (slug?.current) {
         revalidatePath(`/blog/autor/${slug.current}`)
       }

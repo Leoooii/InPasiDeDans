@@ -16,6 +16,9 @@ import StickyMenu from '@/components/sticky-menu';
 import CursuriSection from '@/components/CursuriSection';
 import LatestBlogPosts from '@/components/latest-blog-posts';
 
+// On-Demand Revalidation - se actualizează doar când este necesar
+export const revalidate = 60 // Activează ISR pentru a actualiza periodic conținutul
+
 export const metadata = {
   title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 4,5 si 6 | In Pasi de Dans',
   description:
