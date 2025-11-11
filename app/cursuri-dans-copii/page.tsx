@@ -132,10 +132,6 @@ export default function CursuriDansCopii() {
                 </p>
                 <div className="flex justify-between">
                   <div className="text-sm text-gray-500">
-                    <p>Marți</p>
-                    <p>17:30 - 18:30</p>
-                  </div>
-                  <div className="text-sm text-gray-500">
                     <p>Vineri</p>
                     <p>18:30 - 19:30</p>
                   </div>
@@ -145,7 +141,7 @@ export default function CursuriDansCopii() {
                   </div>
                 </div>
               </CardContent>
-              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mx-6 mb-6">
+              {/* <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mx-6 mb-6">
                   <div className="flex">
                     <div className="flex-shrink-0">
                       <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
@@ -158,7 +154,7 @@ export default function CursuriDansCopii() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </div> */}
             </Card>
 
             <Card>

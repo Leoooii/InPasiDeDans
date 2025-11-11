@@ -145,7 +145,7 @@ export default function Program() {
                   <div className="space-y-4">
                     <ScheduleItem
                       time="18:30 - 19:45"
-                      course="Latino și societate (Intermediari 1)"
+                      course="Latino și societate (Intermediari 2)"
                       instructor="Miriam"
                       room="Sala 3"
                     />
@@ -203,12 +203,7 @@ export default function Program() {
                     Program Marți și Joi
                   </h2>
                   <div className="space-y-4">
-                    <ScheduleItem
-                      time="17:30 - 18:30"
-                      course="Grupă copii intermediari/avansați (doar marți)"
-                      instructor="Alexandra"
-                      room="Sala 2"
-                    />
+                   
                      <ScheduleItem
                       time="17:30 - 18:30"
                       course="Grupă copii incepatori"
@@ -275,7 +270,7 @@ export default function Program() {
                     />
                     <ScheduleItem
                       time="19:30 - 20:30"
-                      course="Dansuri populare (Incepatori 1)"
+                      course="Dansuri populare (Incepatori)"
                       instructor="Cătălina"
                       room="Sala 3"
                     />
