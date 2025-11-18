@@ -40,6 +40,11 @@ export default function Head() {
         name="twitter:image"
         content="https://inpasidedans.ro/images/logo.png"
       />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `gtag('event', 'conversion', {'send_to': 'AW-803044953/q6VTCKbt_8EbENn89f4C'});`,
+        }}
+      />
     </>
   );
 }

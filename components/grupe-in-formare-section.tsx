@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import { Calendar, Clock, Users } from 'lucide-react';
 import type { Grupa } from '@/app/admin/page';
 import { useSimpleToast } from '@/components/simple-toast-provider';
+import { buildGrupaSlug } from '@/lib/utils';
 
 const GrupeInFormareSection = () => {
   const [grupe, setGrupe] = useState<Grupa[]>([]);
@@ -113,6 +114,12 @@ const GrupeInFormareSection = () => {
     router.push(`/inscriere?grupa=${grupaId}`);
   };
 
+  const handleViewDetails = (grupa: Grupa) => {
+    if (!grupa.id) return;
+    const slug = buildGrupaSlug(grupa.titlu, grupa.id);
+    router.push(`/grupe-in-formare/${slug}`);
+  };
+
   if (isLoading) {
     return (
       <div className="w-full flex items-center justify-center py-16">
@@ -138,6 +145,9 @@ const GrupeInFormareSection = () => {
           {grupe.map(grupa => (
             <Card
               key={grupa.id}
+              role="link"
+              onClick={() => handleViewDetails(grupa)}
+              aria-label={`Detalii pentru ${grupa.titlu}`}
               className="overflow-hidden hover:shadow-2xl transition-all duration-300 hover:cursor-pointer flex flex-col justify-between border-orange-400 bg-white/10 backdrop-blur-sm hover:bg-white/20"
             >
               <div>
@@ -196,15 +206,26 @@ const GrupeInFormareSection = () => {
                   </CardContent>
                 </div>
               </div>
-              <CardFooter>
+              <CardFooter className="flex flex-col gap-3 sm:flex-row">
                 <Button
                   className="w-full"
-                  onClick={() => grupa.id && handleInscriere(grupa.id)}
+                  onClick={event => {
+                    event.stopPropagation();
+                    grupa.id && handleInscriere(grupa.id);
+                  }}
                   disabled={grupa.locuriDisponibile <= 0}
                 >
-                  {grupa.locuriDisponibile > 0
-                    ? 'Înscrie-te'
-                    : 'Locuri epuizate'}
+                  {grupa.locuriDisponibile > 0 ? 'Înscrie-te' : 'Locuri epuizate'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  onClick={event => {
+                    event.stopPropagation();
+                    handleViewDetails(grupa);
+                  }}
+                >
+                  Află detalii
                 </Button>
               </CardFooter>
             </Card>

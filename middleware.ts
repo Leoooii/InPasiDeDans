@@ -131,6 +131,11 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  // Permite rutele dinamice pentru grupele în formare
+  if (pathname.startsWith('/grupe-in-formare/')) {
+    return NextResponse.next();
+  }
+
   // Încearcă să găsească o pagină similară
   const similarPage = findSimilarPage(pathname);
 

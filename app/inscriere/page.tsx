@@ -2,7 +2,11 @@
 
 import type React from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { CheckCircle2 } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -26,6 +30,8 @@ import Head from './head';
 import { Turnstile } from '@marsidev/react-turnstile';
 import Link from 'next/link';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
+import { cn } from '@/lib/utils';
+import { db } from '@/lib/firebase';
 
 // Interfață pentru tipizarea formData
 interface FormData {
@@ -38,6 +44,12 @@ interface FormData {
   honey: string;
   consent: boolean;
 }
+
+type GrupaOption = {
+  id: string;
+  label: string;
+  value: string;
+};
 
 export default function Inscriere() {
   const breadcrumbItems = [
@@ -59,7 +71,83 @@ export default function Inscriere() {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [grupeOptions, setGrupeOptions] = useState<GrupaOption[]>([]);
+  const [isGrupeLoading, setIsGrupeLoading] = useState(true);
   const { showToast } = useSimpleToast();
+  const searchParams = useSearchParams();
+  const preselectedGrupaId = searchParams.get('grupa');
+
+  const defaultOptions: GrupaOption[] = [
+    {
+      id: 'dans-adulti-latino-societate',
+      value: 'dans-adulti-latino-societate',
+      label: 'Cursuri dans adulți latino și societate',
+    },
+    {
+      id: 'dansuri-adulti-populare',
+      value: 'dansuri-adulti-populare',
+      label: 'Cursuri dans adulți populare',
+    },
+    {
+      id: 'dans-copii',
+      value: 'dans-copii',
+      label: 'Cursuri dans copii',
+    },
+    {
+      id: 'dans-privat',
+      value: 'dans-privat',
+      label: 'Lecții private',
+    },
+  ];
+
+  useEffect(() => {
+    const fetchGrupe = async () => {
+      try {
+        const grupeQuery = query(collection(db, 'grupe'), where('publica', '==', true));
+        const snapshot = await getDocs(grupeQuery);
+        const options = snapshot.docs.map(doc => {
+          const data = doc.data() as { titlu?: string };
+          return {
+            id: doc.id,
+            value: `grupa-${doc.id}`,
+            label: data.titlu || 'Grupă în formare',
+          };
+        });
+        setGrupeOptions(options);
+      } catch (error) {
+        console.error('Eroare la încărcarea grupelor pentru formular', error);
+      } finally {
+        setIsGrupeLoading(false);
+      }
+    };
+    fetchGrupe();
+  }, []);
+
+  useEffect(() => {
+    if (!preselectedGrupaId || !grupeOptions.length) return;
+    const matchedOption = grupeOptions.find(option => option.id === preselectedGrupaId);
+    if (matchedOption) {
+      setFormData(prev => ({ ...prev, danceclass: matchedOption.value }));
+    }
+  }, [preselectedGrupaId, grupeOptions]);
+
+  const isFieldComplete = (field: keyof FormData) => {
+    const value = formData[field];
+    if (typeof value === 'boolean') {
+      return value;
+    }
+    return Boolean(value && String(value).trim().length > 0);
+  };
+
+  const requiredFields: (keyof FormData)[] = ['danceclass', 'name', 'email', 'consent'];
+  const isFormValid = requiredFields.every(isFieldComplete);
+
+  const renderCompletionIcon = (field: keyof FormData) => {
+    if (!isFieldComplete(field)) return null;
+    return (
+      <CheckCircle2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-green-500" />
+    );
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -256,60 +344,89 @@ export default function Inscriere() {
                     <Label htmlFor="danceclass">
                       Ce curs te interesează? *
                     </Label>
-                    <Select
-                      required
-                      value={formData.danceclass}
-                      onValueChange={value =>
-                        handleSelectChange('danceclass', value)
-                      }
-                    >
-                      <SelectTrigger id="danceclass" className="mt-1.5">
-                        <SelectValue placeholder="Alege un curs" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="dans-adulti-latino-societate">
-                          Cursuri dans adulți latino și societate
-                        </SelectItem>
-                        <SelectItem value="dansuri-adulti-populare">
-                          Cursuri dans adulți populare
-                        </SelectItem>
-                        <SelectItem value="dans-copii">
-                          Cursuri dans copii
-                        </SelectItem>
-                        <SelectItem value="dans-privat">
-                          Lecții private
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="relative">
+                      <Select
+                        required
+                        value={formData.danceclass}
+                        onValueChange={value =>
+                          handleSelectChange('danceclass', value)
+                        }
+                      >
+                        <SelectTrigger
+                          id="danceclass"
+                          className={cn(
+                            'mt-1.5',
+                            isFieldComplete('danceclass') &&
+                              'border-green-500 ring-1 ring-green-400 pr-8'
+                          )}
+                        >
+                          <SelectValue placeholder={isGrupeLoading ? 'Se încarcă grupele...' : 'Alege un curs'} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {defaultOptions.map(option => (
+                            <SelectItem key={option.id} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                          {grupeOptions.length > 0 && (
+                            <>
+                              <SelectItem value="grupe-divider" disabled>
+                                — Grupe în formare —
+                              </SelectItem>
+                              {grupeOptions.map(option => (
+                                <SelectItem key={option.id} value={option.value}>
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </>
+                          )}
+                        </SelectContent>
+                      </Select>
+                      {renderCompletionIcon('danceclass')}
+                    </div>
                   </div>
 
                   <div>
                     <Label htmlFor="name">Spune-ne numele tău complet*</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Nume complet"
-                      required
-                      className="mt-1.5"
-                    />
+                    <div className="relative">
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Nume complet"
+                        required
+                        className={cn(
+                          'mt-1.5 pr-10',
+                          isFieldComplete('name') &&
+                            'border-green-500 ring-1 ring-green-400'
+                        )}
+                      />
+                      {renderCompletionIcon('name')}
+                    </div>
                   </div>
 
                   <div>
                     <Label htmlFor="email">
                       Pe ce adresă vrei să îți răspundem? *
                     </Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Adresa ta de e-mail"
-                      required
-                      className="mt-1.5"
-                    />
+                    <div className="relative">
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Adresa ta de e-mail"
+                        required
+                        className={cn(
+                          'mt-1.5 pr-10',
+                          isFieldComplete('email') &&
+                            'border-green-500 ring-1 ring-green-400'
+                        )}
+                      />
+                      {renderCompletionIcon('email')}
+                    </div>
                   </div>
 
                   <div>
@@ -323,22 +440,34 @@ export default function Inscriere() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Numărul tău de telefon"
-                      className="mt-1.5"
+                        className={cn(
+                          'mt-1.5 pr-10',
+                          isFieldComplete('phone') &&
+                            'border-green-500 ring-1 ring-green-400'
+                        )}
                     />
+                      {renderCompletionIcon('phone')}
                   </div>
 
                   <div>
                     <Label htmlFor="message">
                       Vrei să ne dai mai multe detalii?
                     </Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Scrie mesajul tău aici..."
-                      className="mt-1.5 min-h-[120px]"
-                    />
+                    <div className="relative">
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Scrie mesajul tău aici..."
+                        className={cn(
+                          'mt-1.5 min-h-[120px] pr-10',
+                          isFieldComplete('message') &&
+                            'border-green-500 ring-1 ring-green-400'
+                        )}
+                      />
+                      {renderCompletionIcon('message')}
+                    </div>
                   </div>
 
                   {/* Checkbox pentru consimțământ */}
@@ -387,8 +516,11 @@ export default function Inscriere() {
                 </Button> */}
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                  disabled={isSubmitting || !isFormValid}
+                  className={cn(
+                    'w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600',
+                    (!isFormValid || isSubmitting) && 'opacity-60 cursor-not-allowed'
+                  )}
                 >
                   {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}
                 </Button>
