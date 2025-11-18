@@ -224,7 +224,7 @@ export default function Home() {
                 { label: 'cursanți activi', value: '+300', accent: 'bg-orange-800/20' },
                 { label: 'stiluri de dans', value: '20+', accent: 'bg-sky-500/20' },
                 { label: 'ani de experiență', value: '15', accent: 'bg-emerald-500/20' },
-                { label: 'grupe în formare', value: '6', accent: 'bg-purple-500/20' },
+                { label: 'săli de dans', value: '3', accent: 'bg-purple-500/20' },
               ].map(item => (
                 <div
                   key={item.label}
