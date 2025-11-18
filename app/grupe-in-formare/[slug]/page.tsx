@@ -197,7 +197,7 @@ export default async function GrupaInFormareDetails({ params }: { params: { slug
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-950 to-black text-white">
       <div className="container mx-auto px-4 py-12">
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl={pageUrl} className="text-white/90" />
 
