@@ -69,7 +69,7 @@ export default function CursuriSection() {
   const autoplay = useEmblaCarouselAutoplay({ delay: 2000, stopOnInteraction: false });
 
   return (
-    <section id="cursuri" className="pb-16 pt-20 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900">
+    <section id="cursuri" className="pb-10 pt-10 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">
           Cursuri de Dans în București
@@ -90,14 +90,14 @@ export default function CursuriSection() {
            >
             <CarouselContent className="-ml-6 md:-ml-12 lg:-ml-16">
               {cursuriData.map((curs, index) => (
-                <CarouselItem key={curs.id} className="pl-6 md:pl-12 lg:pl-16 basis-1/2 md:basis-1/2 lg:basis-1/4">
+                <CarouselItem key={curs.id} className="pl-6 md:pl-12 lg:pl-10 basis-1/2 md:basis-1/2 lg:basis-1/4">
                                      <div className="relative group cursor-pointer">
                      {/* Imaginea principală */}
-                     <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                     <div className="relative overflow-hidden rounded-xl shadow-2xl">
                        <img 
                          src={curs.imageSrc} 
                          alt={curs.title}
-                         className="w-full h-48 md:h-64 lg:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+                         className="w-full h-48 md:h-64 lg:h-60 object-cover transition-transform duration-700 group-hover:scale-105"
                        />
                        
                        {/* Overlay gradient pentru text */}
