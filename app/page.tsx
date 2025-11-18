@@ -162,28 +162,28 @@ export default function Home() {
         </div>
 
         <section className="relative h-[70vh] overflow-hidden">
-          <div className="absolute inset-0">
+          <div className="sticky top-0 h-[70vh]">
             <div className="relative w-full h-full bg-orange-600">
               <GifWrapperClient />
-            </div>
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className="container text-center text-white">
-              <h2 className="text-3xl md:text-6xl font-bold mb-6">
-                "Dansul este puțină nebunie care ne face tuturor mult bine!"
-              </h2>
-              <p className="text-lg md:text-2xl mb-8 max-w-3xl mx-auto">
-                Învățăm și pe cei mici, și pe cei mari să danseze din 2009,
-                într-o atmosferă plăcută și relaxantă.
-              </p>
-              <Link href="/inscriere">
-                <Button
-                  size="sm"
-                  className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-800 text-lg"
-                >
-                  Înscrie-te
-                </Button>
-              </Link>
+              <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/30">
+                <div className="container text-center text-white px-4">
+                  <h2 className="text-3xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+                    "Dansul este puțină nebunie care ne face tuturor mult bine!"
+                  </h2>
+                  <p className="text-lg md:text-2xl mb-8 max-w-3xl mx-auto">
+                    Învățăm și pe cei mici, și pe cei mari să danseze din 2009,
+                    într-o atmosferă plăcută și relaxantă.
+                  </p>
+                  <Link href="/inscriere">
+                    <Button
+                      size="sm"
+                      className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-800 text-lg"
+                    >
+                      Înscrie-te
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>

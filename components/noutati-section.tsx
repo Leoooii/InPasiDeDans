@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Loader2, Calendar, ArrowRight } from 'lucide-react';
+import { Loader2, Calendar, ArrowRight, MapPin, Clock3 } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { cn } from '@/lib/utils';
 import {
@@ -27,6 +27,7 @@ type Eveniment = {
   description?: string;
   link?: string;
   imageUrl?: string;
+  location?: string;
 };
 
 type NoutatiSectionProps = {
@@ -82,6 +83,7 @@ export default function NoutatiSection({ itemsToShow, variant = 'default' }: Nou
           description: data.description || '',
           link: data.link || '',
           imageUrl: data.imageUrl || '',
+          location: data.location || '',
         } as Eveniment;
       });
 
@@ -180,126 +182,87 @@ export default function NoutatiSection({ itemsToShow, variant = 'default' }: Nou
           </p>
         </div>
       ) : (
-        <div
-          className={cn(
-            'grid gap-10',
-            isHomepage ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1 lg:grid-cols-2'
-          )}
-        >
+        <div className="space-y-6">
           {evenimente.slice(0, itemsToShow).map(eveniment => (
-            <Card
+            <div
               key={eveniment.id}
               className={cn(
-                'overflow-hidden flex flex-col',
+                'grid gap-6 rounded-3xl border p-6 lg:grid-cols-[minmax(0,1fr)_320px]',
                 isHomepage
-                  ? 'border border-slate-200 bg-white text-slate-900 shadow-lg'
-                  : 'border-2 shadow-lg border-red-500 bg-white/5 backdrop-blur-sm '
+                  ? 'border-slate-200 bg-white text-slate-900 shadow-lg'
+                  : 'border-white/15 bg-white/5 text-white backdrop-blur'
               )}
             >
-              {/* Header cu logo și dată */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={cn(
+                      'rounded-full px-4 py-1 text-xs uppercase tracking-[0.3em]',
+                      isHomepage ? 'bg-orange-50 text-orange-600' : 'bg-white/10 text-white/90'
+                    )}
+                  >
+                    {eveniment.eventDate ? 'Eveniment' : 'Noutate'}
+                  </div>
+                  <span className={cn('text-sm', isHomepage ? 'text-slate-500' : 'text-white/70')}>
+                    {formatDate(eveniment.date)} · {formatTime(eveniment.date)}
+                  </span>
+                </div>
               <div
                 className={cn(
-                  'p-4 border-b flex items-center',
-                  isHomepage ? 'border-slate-100' : 'border-white/20'
+                  'rounded-2xl p-4 border flex flex-col gap-4',
+                  isHomepage ? 'border-slate-100 bg-slate-50/80' : 'border-white/15 bg-black/30'
                 )}
               >
-                <div className="h-10 w-10 mr-3">
-                  <Image
-                    src="/images/logo.png"
-                    width={100}
-                    height={100}
-                    alt="Școala de Dans"
-                  />
-                </div>
-                <div>
-                  <h3 className={cn('font-semibold', isHomepage ? 'text-slate-900' : 'text-white')}>
-                    In Pasi De Dans
-                  </h3>
-                  <div
-                    className={cn(
-                      'flex items-center text-sm',
-                      isHomepage ? 'text-slate-500' : 'text-white/70'
-                    )}
-                  >
-                    <span>{formatDate(eveniment.date)}</span>
-                    <span className="mx-1">•</span>
-                    <span>{formatTime(eveniment.date)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Conținut principal - sus */}
-              <CardContent className="p-4 pt-3 flex-1">
-                {eveniment.title && (
-                  <h3
-                    className={cn(
-                      'text-xl font-semibold mb-2',
-                      isHomepage ? 'text-slate-900' : 'text-white'
-                    )}
-                  >
-                    {eveniment.title}
-                  </h3>
-                )}
-
                 {eveniment.eventDate && (
-                  <div
-                    className={cn(
-                      'flex items-center text-sm mb-3 rounded-md',
-                      isHomepage ? 'bg-orange-50 text-orange-900' : 'text-white/90 bg-white/10 p-2'
-                    )}
-                  >
-                    <Calendar
-                      className={cn(
-                        'h-4 w-4 mr-2',
-                        isHomepage ? 'text-orange-500' : 'text-red-600'
-                      )}
-                    />
-                    <span className={isHomepage ? 'text-orange-900' : undefined}>
-                      Data eveniment: {formatDate(eveniment.eventDate)}
+                  <div className="flex items-center gap-2 text-sm">
+                    <Calendar className="h-4 w-4 text-orange-500" />
+                    <span className="font-medium">
+                      {formatDate(eveniment.eventDate)}
+                      {eveniment.location && ` · ${eveniment.location}`}
                     </span>
                   </div>
                 )}
-
                 {eveniment.description && (
-                  <p
-                    className={cn('mb-4', isHomepage ? 'text-slate-600' : 'text-white/90')}
-                    style={{ whiteSpace: 'pre-wrap' }}
-                  >
+                  <p className={isHomepage ? 'text-slate-700' : 'text-white/90'}>
                     {eveniment.description}
                   </p>
                 )}
-              </CardContent>
+                <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em]">
+                  <span className="text-white/60">Latino</span>
+                  <span className="text-white/60">Workshop</span>
+                  <span className="text-white/60">Comunitate</span>
+                </div>
+              </div>
+            </div>
 
-              {/* Imagine și buton - jos */}
-              <div className="mt-auto">
-                {eveniment.imageUrl && (
-                  <div className="px-4 pb-4">
-                    <div className="relative overflow-hidden rounded-lg">
-                      <Image
-                        src={eveniment.imageUrl || '/placeholder.svg'}
-                        alt={eveniment.title || 'Imagine eveniment'}
-                        width={600}
-                        height={300}
-                        className="object-cover w-full h-auto"
-                      />
-                    </div>
+            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-inner">
+                {eveniment.imageUrl ? (
+                  <Image
+                    src={eveniment.imageUrl}
+                    alt={eveniment.title || 'Eveniment In Pasi de Dans'}
+                    width={320}
+                    height={220}
+                    className="h-64 w-full object-contain"
+                  />
+                ) : (
+                  <div className="h-52 w-full bg-gradient-to-br from-orange-200 to-pink-200 flex items-center justify-center text-slate-700">
+                    Imagine în curând
                   </div>
                 )}
-
                 {eveniment.link && (
-                  <CardFooter className="p-4 pt-0">
-                    <Link href={eveniment.link} passHref target="_blank">
+                  <div className="p-4 border-t border-slate-100">
+                    <Link href={eveniment.link} target="_blank">
                       <Button
-                        variant={isHomepage ? 'default' : 'outline'}
-                        className={cn('w-full', isHomepage ? '' : '')}
+                        variant="outline"
+                        className="w-full border-slate-300 text-slate-800 hover:bg-slate-50"
                       >
-                        Mai multe detalii <ArrowRight className="ml-2 h-4 w-4" />
+                        Vezi detalii <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </Link>
-                  </CardFooter>
+                  </div>
                 )}
               </div>
-            </Card>
+            </div>
           ))}
 
           {itemsToShow ? (
