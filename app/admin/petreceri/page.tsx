@@ -42,7 +42,7 @@ export default function PetreceriAdmin() {
       }
       const data = await response.json();
       setPetreceri(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error('Eroare:', error);
       toast({
