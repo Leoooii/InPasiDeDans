@@ -34,12 +34,15 @@ export default function PetreceriAdmin() {
   const loadPetreceri = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/petreceri');
+      const response = await fetch('/api/petreceri', {
+        cache: 'no-store', // Dezactivăm cache-ul pentru a obține datele cele mai recente
+      });
       if (!response.ok) {
         throw new Error('Eroare la încărcarea petrecerilor');
       }
       const data = await response.json();
       setPetreceri(data);
+      console.log(data);
     } catch (error) {
       console.error('Eroare:', error);
       toast({
