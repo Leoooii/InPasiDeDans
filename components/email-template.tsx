@@ -5,6 +5,7 @@ interface EmailTemplateProps {
   email?: string;
   message?: string;
   danceclass?: string;
+  instructor?: string;
   phone?: string;
 }
 
@@ -13,6 +14,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   email,
   message,
   danceclass,
+  instructor,
   phone,
 }) => (
   <div className="bg-orange-600 text-white p-4">
@@ -21,6 +23,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
     {phone && <h2>Telefon: {phone}</h2>}
     {email && <h2>Email: {email}</h2>}
     {danceclass && <h2>Clasa de dans: {danceclass}</h2>}
+    {instructor && <h2>Instructor: {instructor}</h2>}
     {message && <h2>Mesaj: {message}</h2>}
   </div>
 );

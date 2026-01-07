@@ -34,6 +34,7 @@ import { db } from '@/lib/firebase';
 
 interface FormData {
   danceclass: string;
+  instructor: string;
   name: string;
   email: string;
   phone: string;
@@ -46,6 +47,7 @@ type GrupaOption = {
   id: string;
   label: string;
   value: string;
+  instructor?: string;
 };
 
 export default function InscriereForm() {
@@ -56,6 +58,7 @@ export default function InscriereForm() {
 
   const [formData, setFormData] = useState<FormData>({
     danceclass: '',
+    instructor: '',
     name: '',
     email: '',
     phone: '',
@@ -102,11 +105,12 @@ export default function InscriereForm() {
         const grupeQuery = query(collection(db, 'grupe'), where('publica', '==', true));
         const snapshot = await getDocs(grupeQuery);
         const options = snapshot.docs.map(doc => {
-          const data = doc.data() as { titlu?: string };
+          const data = doc.data() as { titlu?: string; instructor?: string };
           return {
             id: doc.id,
-            value: `grupa-${doc.id}`,
+            value: data.titlu || 'Grupă în formare',
             label: data.titlu || 'Grupă în formare',
+            instructor: data.instructor,
           };
         });
         setGrupeOptions(options);
@@ -123,7 +127,11 @@ export default function InscriereForm() {
     if (!preselectedGrupaId || !grupeOptions.length) return;
     const matchedOption = grupeOptions.find(option => option.id === preselectedGrupaId);
     if (matchedOption) {
-      setFormData(prev => ({ ...prev, danceclass: matchedOption.value }));
+      setFormData(prev => ({
+        ...prev,
+        danceclass: matchedOption.value,
+        instructor: matchedOption.instructor || '',
+      }));
     }
   }, [preselectedGrupaId, grupeOptions]);
 
@@ -155,6 +163,15 @@ export default function InscriereForm() {
   };
 
   const handleSelectChange = (name: string, value: string) => {
+    if (name === 'danceclass') {
+      const matchedOption = grupeOptions.find(option => option.value === value);
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+        instructor: matchedOption?.instructor || '',
+      }));
+      return;
+    }
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -194,6 +211,7 @@ export default function InscriereForm() {
 
       setFormData({
         danceclass: '',
+        instructor: '',
         name: '',
         email: '',
         phone: '',

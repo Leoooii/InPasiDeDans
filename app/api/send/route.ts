@@ -12,6 +12,7 @@ const FormSchema = z.object({
   // subject: z.string().min(1, 'Subiectul este obligatoriu').max(200).default('Informatii'),
   message: z.string().max(5000, 'Mesajul este prea lung').optional().default(''),
   danceclass: z.string().max(200).optional().default(''),
+  instructor: z.string().max(200).optional().default(''),
   phone: z.string().max(20).optional().default(''),
   honey: z.string().optional().default(''),
   // 'cf-turnstile-response': z.string().min(1, 'Token Turnstile lipsă'),
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
      
       message,
       danceclass,
+      instructor,
       phone,
       honey,
       // 'cf-turnstile-response': token,
@@ -126,6 +128,7 @@ export async function POST(request: NextRequest) {
         email,
         message,
         danceclass,
+        instructor,
         phone,
       }) as React.ReactElement,
     });
