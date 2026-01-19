@@ -268,6 +268,12 @@ export default function Program() {
                 <CardContent className="p-6">
                   <h2 className="text-xl font-bold mb-4">Program Vineri</h2>
                   <div className="space-y-4">
+                  <ScheduleItem
+                      time="18:30 - 19:30"
+                      course="Dansuri populare (Începători)"
+                      instructor="Cătălina"
+                      room="Sala 3"
+                    />
                     <ScheduleItem
                       time="18:30 - 19:30"
                       course="Grupă copii intermediari"
