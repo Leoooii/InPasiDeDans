@@ -163,7 +163,7 @@ export default function Program() {
                     />
                     <ScheduleItem
                       time="19:45 - 20:45"
-                      course="Latino și societate (Începători)"
+                      course="Latino și societate (Intermediari 1)"
                       instructor="Miriam"
                       room="Sala 3"
                     />
@@ -208,7 +208,19 @@ export default function Program() {
                       time="17:30 - 18:30"
                       course="Grupă copii incepatori"
                       instructor="Luciana"
+                      room="Sala 2"
+                    />
+                    <ScheduleItem
+                      time="17:30 - 18:30"
+                      course="Dansuri populare (Intermediari 1)"
+                      instructor="Cătălina"
                       room="Sala 3"
+                    />
+                    <ScheduleItem
+                      time="18:30 - 19:45"
+                      course="Salsa și bachata (Începători)"
+                      instructor="Nicholas"
+                      room="Sala 1"
                     />
                     <ScheduleItem
                       time="18:30 - 19:45"
