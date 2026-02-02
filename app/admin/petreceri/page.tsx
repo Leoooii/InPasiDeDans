@@ -20,6 +20,7 @@ export interface Petrecere {
   isUpcoming: boolean;
   badge?: string;
   createdAt: number;
+  mapEmbed?: string;
 }
 
 export default function PetreceriAdmin() {

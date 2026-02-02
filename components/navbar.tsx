@@ -223,17 +223,18 @@ export default function Navbar() {
               <NavigationMenuList className="flex flex-wrap justify-center gap-1">
                 {/* First Row - Main Services */}
                 <NavigationMenuItem>
-                  <Link href="/grupe-in-formare" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce text-sm'
-                      )}
-                      title="Grupe de dans în formare"
-                    >
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce text-sm'
+                    )}
+                    title="Grupe de dans în formare"
+                  >
+                    <Link href="/grupe-in-formare">
                       Grupe de dans în formare
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
                 
                 {/* Cursuri adulți -> open on click, aligned under button */}
@@ -277,74 +278,69 @@ export default function Navbar() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/dansul-mirilor" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                      )}
-                      title="Dansul mirilor"
-                    >
-                      Dansul mirilor
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Dansul mirilor"
+                  >
+                    <Link href="/dansul-mirilor">Dansul mirilor</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/cursuri-dans-copii" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                      )}
-                      title="Cursuri dans copii"
-                    >
-                      Cursuri dans copii
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Cursuri dans copii"
+                  >
+                    <Link href="/cursuri-dans-copii">Cursuri dans copii</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/blog" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                      )}
-                      title="Blog Dans București"
-                    >
-                      Blog
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Blog Dans București"
+                  >
+                    <Link href="/blog">Blog</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 {/* Second Row - Info & Activities */}
                 <NavigationMenuItem>
-                  <Link href="/program" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                      )}
-                      title="Program Cursuri de Dans"
-                    >
-                      Program
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Program Cursuri de Dans"
+                  >
+                    <Link href="/program">Program</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/tarife" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                      )}
-                      title="Tarife Cursuri de Dans"
-                    >
-                      Tarife
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Tarife Cursuri de Dans"
+                  >
+                    <Link href="/tarife">Tarife</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 {/* Despre noi -> click */}
@@ -428,17 +424,16 @@ export default function Navbar() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href={WEBSITE_URLS.CONTACT} legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                      )}
-                      title="Contact Școala de Dans"
-                    >
-                      Contact
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Contact Școala de Dans"
+                  >
+                    <Link href={WEBSITE_URLS.CONTACT}>Contact</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>

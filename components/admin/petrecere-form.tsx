@@ -33,6 +33,7 @@ const petrecereSchema = z.object({
   imageUrl: z.string().url('URL-ul imaginii trebuie să fie valid'),
   isUpcoming: z.boolean().default(false),
   badge: z.string().optional(),
+  mapEmbed: z.string().optional(),
 });
 
 // Tipul pentru datele formularului
@@ -66,6 +67,7 @@ export default function PetrecereForm({
       imageUrl: '',
       isUpcoming: false,
       badge: '',
+      mapEmbed: '',
     },
   });
 
@@ -82,6 +84,7 @@ export default function PetrecereForm({
         imageUrl: petrecere.imageUrl || '',
         isUpcoming: petrecere.isUpcoming || false,
         badge: petrecere.badge || '',
+        mapEmbed: petrecere.mapEmbed || '',
       });
 
       if (petrecere.imageUrl) {
@@ -98,6 +101,7 @@ export default function PetrecereForm({
         imageUrl: '',
         isUpcoming: false,
         badge: '',
+        mapEmbed: '',
       });
       setImagePreview(null);
     }
@@ -324,6 +328,28 @@ export default function PetrecereForm({
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="mapEmbed"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Embed hartă Google Maps (opțional)</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder='Lipiți aici codul &lt;iframe&gt; generat de Google Maps pentru locația petrecerii'
+                          className="min-h-[120px] font-mono text-xs"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Folosiți opțiunea „Incorporează o hartă” din Google Maps și lipiți codul complet
+                        &lt;iframe&gt; aici. Harta va apărea pe pagina dedicată petrecerii.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

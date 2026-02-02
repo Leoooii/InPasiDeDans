@@ -10,7 +10,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
-
+import { Button } from '@/components/ui/button';
 // Definim interfața pentru petrecere
 interface Petrecere {
   id: string;
@@ -24,6 +24,7 @@ interface Petrecere {
   isUpcoming: boolean;
   badge?: string;
   createdAt: number;
+  mapEmbed?: string;
 }
 
 export default function Petreceri() {
@@ -206,29 +207,26 @@ export default function Petreceri() {
               <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {upcomingPetreceri.map(petrecere => (
-                  <Link
-                    href={petrecere.facebookLink}
+                  <Card
                     key={petrecere.id}
-                    target="_blank"
+                    className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
+                    aria-label={`Petrecere: ${petrecere.title} pe ${petrecere.date}`}
                   >
-                    <Card
-                      className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-red-600"
-                      aria-label={`Petrecere: ${petrecere.title} pe ${petrecere.date}`}
-                    >
-                      <div className="relative h-60 w-full overflow-hidden">
-                        <Image
-                          src={petrecere.imageUrl || '/placeholder.svg'}
-                          alt={petrecere.title}
-                          fill
-                          className="object-cover hover:scale-125 transition-transform duration-300"
-                        />
-                        {petrecere.badge && (
-                          <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                            {petrecere.badge}
-                          </div>
-                        )}
-                      </div>
-                      <CardContent className="p-6">
+                    <div className="relative h-60 w-full overflow-hidden">
+                      <Image
+                        src={petrecere.imageUrl || '/placeholder.svg'}
+                        alt={petrecere.title}
+                        fill
+                        className="object-cover hover:scale-125 transition-transform duration-300"
+                      />
+                      {petrecere.badge && (
+                        <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          {petrecere.badge}
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-6 flex flex-col h-full">
+                      <div className="">
                         <h3 className="text-xl font-bold mb-2">
                           {petrecere.title}
                         </h3>
@@ -252,17 +250,16 @@ export default function Petreceri() {
                             </div>
                           )}
                         </div>
-                        {petrecere.description && (
-                          <p
-                            className="text-gray-500 text-sm mb-4"
-                            style={{ whiteSpace: 'pre-wrap' }}
-                          >
-                            {petrecere.description}
-                          </p>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </Link>
+                      </div>
+                      <div className="mt-4">
+                        <Link href={`/petreceri/${petrecere.id}`}>
+                          <Button className="w-full">
+                            Mai multe informații
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </div>

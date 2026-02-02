@@ -136,6 +136,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Permite rutele dinamice pentru petreceri (pagini individuale de petrecere)
+  if (pathname.startsWith('/petreceri/')) {
+    return NextResponse.next();
+  }
+
   // Încearcă să găsească o pagină similară
   const similarPage = findSimilarPage(pathname);
 

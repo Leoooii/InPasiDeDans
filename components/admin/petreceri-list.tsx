@@ -39,6 +39,7 @@ interface Petrecere {
   isUpcoming: boolean;
   badge?: string;
   createdAt: number;
+  mapEmbed?: string;
 }
 
 // Interfața pentru props
