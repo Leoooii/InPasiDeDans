@@ -253,7 +253,10 @@ export default function Petreceri() {
                           )}
                         </div>
                         {petrecere.description && (
-                          <p className="text-gray-500 text-sm mb-4">
+                          <p
+                            className="text-gray-500 text-sm mb-4"
+                            style={{ whiteSpace: 'pre-wrap' }}
+                          >
                             {petrecere.description}
                           </p>
                         )}

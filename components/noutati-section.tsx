@@ -223,7 +223,10 @@ export default function NoutatiSection({ itemsToShow, variant = 'default' }: Nou
                   </div>
                 )}
                 {eveniment.description && (
-                  <p className={isHomepage ? 'text-slate-700' : 'text-white/90'}>
+                  <p
+                    className={isHomepage ? 'text-slate-700' : 'text-white/90'}
+                    style={{ whiteSpace: 'pre-wrap' }}
+                  >
                     {eveniment.description}
                   </p>
                 )}
