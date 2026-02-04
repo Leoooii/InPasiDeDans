@@ -246,6 +246,12 @@ export default function Program() {
                       instructor="Alexandra și Nicholas"
                       room="Sala 2"
                     />
+                     <ScheduleItem
+                      time="21:00 - 22:00"
+                      course="Salsa și Bachata (începători)"
+                      instructor="Nicholas"
+                      room="Sala 1"
+                    />
                     <ScheduleItem
                       time="21:00 - 22:15"
                       course="Latino și societate (Avansați)"
