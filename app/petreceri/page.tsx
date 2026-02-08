@@ -6,8 +6,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { Calendar, Clock, MapPin, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { db } from '@/lib/firebase';
-import { collection, getDocs } from 'firebase/firestore';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { Button } from '@/components/ui/button';
@@ -47,16 +45,17 @@ export default function Petreceri() {
     return 0;
   };
 
-  // Încărcăm petrecerile din Firebase
+  // Încărcăm petrecerile din API (fără cache Firestore client)
   useEffect(() => {
     const loadPetreceri = async () => {
       try {
-        const petreceriCollection = collection(db, 'petreceri');
-        const petreceriSnapshot = await getDocs(petreceriCollection);
-        const petreceriList = petreceriSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Petrecere[];
+        const response = await fetch('/api/petreceri', {
+          cache: 'no-store', // evită cache-ul pentru date actualizate imediat
+        });
+        if (!response.ok) {
+          throw new Error('Eroare la încărcarea petrecerilor');
+        }
+        const petreceriList = (await response.json()) as Petrecere[];
 
         const upcoming = petreceriList.filter(p => p.isUpcoming);
         const past = petreceriList.filter(p => !p.isUpcoming);

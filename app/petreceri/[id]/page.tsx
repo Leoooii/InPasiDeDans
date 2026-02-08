@@ -41,7 +41,9 @@ export default function PetrecereDetaliuPage() {
     const fetchPetrecere = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/petreceri/${id}`);
+        const res = await fetch(`/api/petreceri/${id}`, {
+          cache: 'no-store',
+        });
 
         if (!res.ok) {
           if (res.status === 404) {

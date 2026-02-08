@@ -2,6 +2,10 @@ import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
 
+// Evită cache-ul Next.js pentru date actualizate imediat
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 // GET: Obține o petrecere după ID
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
