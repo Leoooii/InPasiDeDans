@@ -210,7 +210,9 @@ export default async function GrupaInFormareDetails({ params }: { params: { slug
               <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl">
                 {grupa.titlu}
               </h1>
-              <p className="text-lg text-white/80">{grupa.descriere}</p>
+              <p className="text-lg text-white/80 whitespace-pre-line">
+                {grupa.descriere}
+              </p>
             </div>
 
             {grupa.stiluri.length > 0 && (

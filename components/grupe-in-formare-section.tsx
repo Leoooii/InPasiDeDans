@@ -198,7 +198,12 @@ const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSec
                       )}
                     </div>
 
-                    <p className={cn('text-sm', isHomepage ? 'text-slate-600' : 'text-white/80')}>
+                    <p
+                      className={cn(
+                        'text-sm whitespace-pre-line',
+                        isHomepage ? 'text-slate-600' : 'text-white/80'
+                      )}
+                    >
                       {grupa.descriere}
                     </p>
 
