@@ -277,19 +277,7 @@ export default function Navbar() {
                   </DropdownMenu>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                    )}
-                    title="Dansul mirilor"
-                  >
-                    <Link href="/dansul-mirilor">Dansul mirilor</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
+                {/* Cursuri dans copii */}
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
@@ -303,6 +291,7 @@ export default function Navbar() {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
 
+                {/* Dansul mirilor */}
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
@@ -310,36 +299,9 @@ export default function Navbar() {
                       navigationMenuTriggerStyle(),
                       'hover:text-red-600 transition-colors cursor-pointer text-sm'
                     )}
-                    title="Blog Dans București"
+                    title="Dansul mirilor"
                   >
-                    <Link href="/blog">Blog</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                {/* Second Row - Info & Activities */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                    )}
-                    title="Program Cursuri de Dans"
-                  >
-                    <Link href="/program">Program</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                    )}
-                    title="Tarife Cursuri de Dans"
-                  >
-                    <Link href="/tarife">Tarife</Link>
+                    <Link href="/dansul-mirilor">Dansul mirilor</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
 
@@ -423,6 +385,35 @@ export default function Navbar() {
                   </DropdownMenu>
                 </NavigationMenuItem>
 
+                {/* Program */}
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Program Cursuri de Dans"
+                  >
+                    <Link href="/program">Program</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+ 
+                {/* Tarife */}
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Tarife Cursuri de Dans"
+                  >
+                    <Link href="/tarife">Tarife</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                {/* Contact */}
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
@@ -433,6 +424,20 @@ export default function Navbar() {
                     title="Contact Școala de Dans"
                   >
                     <Link href={WEBSITE_URLS.CONTACT}>Contact</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                {/* Blog */}
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                    )}
+                    title="Blog Dans București"
+                  >
+                    <Link href="/blog">Blog</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -484,10 +489,11 @@ function MobileNav({
           Grupe de dans în formare
         </Link>
 
+        {/* Cursuri dans adulți */}
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="dansuri">
             <AccordionTrigger className="py-2 font-medium">
-            Cursuri dans adulți
+              Cursuri dans adulți
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid gap-2 pl-4">
@@ -505,7 +511,30 @@ function MobileNav({
               </div>
             </AccordionContent>
           </AccordionItem>
+        </Accordion>
 
+        {/* Cursuri dans copii */}
+        <Link
+          href="/cursuri-dans-copii"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Cursuri dans copii"
+        >
+          Cursuri dans copii
+        </Link>
+
+        {/* Dansul mirilor */}
+        <Link
+          href="/dansul-mirilor"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Dansul mirilor"
+        >
+          Dansul mirilor
+        </Link>
+
+        {/* Despre noi */}
+        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="despre">
             <AccordionTrigger className="py-2 font-medium">
               Despre noi
@@ -526,7 +555,10 @@ function MobileNav({
               </div>
             </AccordionContent>
           </AccordionItem>
+        </Accordion>
 
+        {/* Activități */}
+        <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="activitati">
             <AccordionTrigger className="py-2 font-medium">
               Activități
@@ -548,30 +580,8 @@ function MobileNav({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <Link
-          href="/cursuri-dans-copii"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-          title="Cursuri dans copii"
-        >
-          Cursuri dans copii
-        </Link>
-        <Link
-          href="/blog"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-          title="Blog Dans București"
-        >
-          Blog
-        </Link>
-        <Link
-          href="/dansul-mirilor"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-          title="Program Cursuri de Dans"
-        >
-          Dansul mirilor
-        </Link>
+
+        {/* Program */}
         <Link
           href="/program"
           onClick={() => setIsOpen(false)}
@@ -580,6 +590,8 @@ function MobileNav({
         >
           Program
         </Link>
+
+        {/* Tarife */}
         <Link
           href="/tarife"
           onClick={() => setIsOpen(false)}
@@ -588,6 +600,8 @@ function MobileNav({
         >
           Tarife
         </Link>
+
+        {/* Contact */}
         <Link
           href={WEBSITE_URLS.CONTACT}
           onClick={() => setIsOpen(false)}
@@ -595,6 +609,16 @@ function MobileNav({
           title="Contact Școala de Dans"
         >
           Contact
+        </Link>
+
+        {/* Blog */}
+        <Link
+          href="/blog"
+          onClick={() => setIsOpen(false)}
+          className="py-2 font-medium"
+          title="Blog Dans București"
+        >
+          Blog
         </Link>
         {user ? (
           <>
