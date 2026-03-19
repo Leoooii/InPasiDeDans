@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea"
 import type { Grupa } from "@/app/admin/page"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from "@/components/ui/badge"
 import { X } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
@@ -28,65 +27,42 @@ interface GrupaFormProps {
  * @param initialData - Date inițiale pentru editare (opțional)
  * @param onCancel - Funcție apelată la anularea editării (opțional)
  */
+function extractOra(program: string): string {
+  const parts = program.split(",")
+  if (parts.length > 0) {
+    const last = parts[parts.length - 1].trim()
+    if (last.includes(":")) return last
+  }
+  return "18:30 - 19:45"
+}
+
+const TIME_CHIPS = [
+  "17:30 - 18:30",
+  "18:30 - 19:30",
+  "18:30 - 19:45",
+  "19:45 - 20:45",
+  "19:45 - 21:00",
+  "21:00 - 22:00",
+  "21:00 - 22:15",
+]
+
 export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaFormProps) {
-  // Starea formularului
-  const [formData, setFormData] = useState<Grupa>({
-    titlu: "",
-    descriere: "",
-    dataStart: "",
-    program: "",
-    instructor: "",
-    locuriDisponibile: 0,
-    locuriTotale: 0,
-    stiluri: [], // Doar array-ul de stiluri
-    zile: ["Luni", "Miercuri"],
-  })
-
-  // Stare pentru a urmări dacă formularul este în curs de trimitere
+  // Inițializare directă din initialData — fix pentru Select nivel
+  const [formData, setFormData] = useState<Grupa>(() =>
+    initialData
+      ? { ...initialData, stiluri: initialData.stiluri || [], nivel: initialData.nivel ?? "", sala: initialData.sala ?? "" }
+      : { titlu: "", descriere: "", dataStart: "", program: "", instructor: "", locuriDisponibile: 0, locuriTotale: 0, stiluri: [], zile: ["Luni", "Miercuri"], nivel: "", sala: "" }
+  )
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [oraValue, setOraValue] = useState(() => initialData ? extractOra(initialData.program) : "18:30 - 19:45")
+  const [isPublic, setIsPublic] = useState(() => initialData?.publica !== undefined ? initialData.publica : true)
 
-  // Stare pentru ora selectată
-  const [oraSelectata, setOraSelectata] = useState("18:30 - 19:45")
-
-  // Stare pentru tipul de orar (predefinit sau personalizat)
-  const [tipOrar, setTipOrar] = useState<"predefinit" | "personalizat">("predefinit")
-
-  // Stare pentru ora personalizată
-  const [oraPersonalizata, setOraPersonalizata] = useState("")
-
-  // Stare pentru vizibilitatea grupei (publică sau privată)
-  const [isPublic, setIsPublic] = useState(true)
-
-  // Populează formularul cu datele inițiale dacă sunt disponibile
+  // Sincronizare dacă initialData se schimbă după montare (redundant cu key, dar sigur)
   useEffect(() => {
     if (initialData) {
-      // Verificăm dacă avem stiluri multiple sau un singur stil
-      const stiluri = initialData.stiluri || []
-
-      setFormData({
-        ...initialData,
-        stiluri: stiluri,
-      })
-
-      // Setăm vizibilitatea grupei
+      setFormData({ ...initialData, stiluri: initialData.stiluri || [], nivel: initialData.nivel ?? "", sala: initialData.sala ?? "" })
+      setOraValue(extractOra(initialData.program))
       setIsPublic(initialData.publica !== undefined ? initialData.publica : true)
-
-      // Extragem ora din program dacă există
-      const oraParts = initialData.program.split(",")
-      if (oraParts.length > 0) {
-        const ultimaParte = oraParts[oraParts.length - 1].trim()
-        if (ultimaParte.includes(":")) {
-          // Verificăm dacă ora este una dintre cele predefinite
-          const orePredefinite = ["18:30 - 19:45", "19:45 - 21:00", "21:00 - 22:15"]
-          if (orePredefinite.includes(ultimaParte)) {
-            setOraSelectata(ultimaParte)
-            setTipOrar("predefinit")
-          } else {
-            setOraPersonalizata(ultimaParte)
-            setTipOrar("personalizat")
-          }
-        }
-      }
     }
   }, [initialData])
 
@@ -100,18 +76,6 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         ...prev,
         [name]: Number.parseInt(value) || 0,
       }))
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }))
-    }
-  }
-
-  // Gestionează modificările în câmpurile de tip select
-  const handleSelectChange = (name: string, value: string) => {
-    if (name === "ora") {
-      setOraSelectata(value)
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -169,8 +133,8 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
 
     setIsSubmitting(true)
 
-    // Determinăm ora finală în funcție de tipul de orar
-    const oraFinala = tipOrar === "predefinit" ? oraSelectata : oraPersonalizata
+    // Determinăm ora finală
+    const oraFinala = oraValue
 
     // Actualizăm programul bazat pe zilele selectate și ora
     const programActualizat = `${formData.zile.join(", ")}, ${oraFinala}`
@@ -178,8 +142,9 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
     // Trimite datele către componenta părinte
     onSubmit({
       ...formData,
+      instructor: formData.instructor.trim(),
       program: programActualizat,
-      publica: isPublic, // Adăugăm proprietatea publica
+      publica: isPublic,
       // Păstrează ID-ul dacă există (pentru editare)
       id: initialData?.id,
     })
@@ -196,10 +161,10 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         locuriTotale: 0,
         stiluri: [],
         zile: ["Luni", "Miercuri"],
+        nivel: "",
+        sala: "",
       })
-      setOraSelectata("18:30 - 19:45")
-      setTipOrar("predefinit")
-      setOraPersonalizata("")
+      setOraValue("18:30 - 19:45")
       setIsPublic(true)
     }
 
@@ -207,190 +172,196 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="titlu">Titlu grupă *</Label>
+    <form onSubmit={handleSubmit} className="space-y-0">
+
+      {/* ── Rând 1: Titlu full-width ───────────────────────────────────────── */}
+      <div className="space-y-1.5">
+        <Label htmlFor="titlu" className="text-sm font-medium text-slate-700">Titlu grupă *</Label>
         <Input
-          id="titlu"
-          name="titlu"
-          value={formData.titlu}
-          onChange={handleChange}
-          placeholder="ex: Dans de Societate - Începători"
-          required
+          id="titlu" name="titlu" value={formData.titlu} onChange={handleChange}
+          placeholder="ex: Dans de Societate — Începători" required
+          className="border-slate-200 focus-visible:ring-slate-400"
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="descriere">Descriere *</Label>
-        <Textarea
-          id="descriere"
-          name="descriere"
-          value={formData.descriere}
-          onChange={handleChange}
-          placeholder="Descriere scurtă a grupei"
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label>Stiluri dans *</Label>
-        <Select onValueChange={(value) => handleAddStil(value)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Adaugă stiluri de dans" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Dans de societate">Dans de societate</SelectItem>
-            <SelectItem value="Dans standard">Dans standard</SelectItem>
-            <SelectItem value="Dans latino">Dans latino</SelectItem>
-            <SelectItem value="Dansuri populare">Dansuri populare</SelectItem>
-            <SelectItem value="Salsa">Salsa</SelectItem>
-            <SelectItem value="Bachata">Bachata</SelectItem>
-            <SelectItem value="Tango">Tango</SelectItem>
-            <SelectItem value="Vals">Vals</SelectItem>
-          </SelectContent>
-        </Select>
-
-        {/* Afișăm stilurile selectate */}
-        <div className="flex flex-wrap gap-2 mt-2">
-          {formData.stiluri.map((stil) => (
-            <Badge key={stil} className="flex items-center gap-1 px-3 py-1">
-              {stil}
-              <button type="button" onClick={() => handleRemoveStil(stil)} className="ml-1 text-xs hover:text-red-500">
-                <X className="h-3 w-3" />
-              </button>
-            </Badge>
-          ))}
-          {formData.stiluri.length === 0 && <p className="text-sm text-gray-500">Niciun stil selectat</p>}
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label>Zile *</Label>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"].map((zi) => (
-            <div key={zi} className="flex items-center space-x-2">
-              <Checkbox
-                id={`zi-${zi}`}
-                checked={formData.zile.includes(zi)}
-                onCheckedChange={() => handleZileChange(zi)}
-              />
-              <Label htmlFor={`zi-${zi}`} className="cursor-pointer">
-                {zi}
-              </Label>
-            </div>
-          ))}
-        </div>
-        {formData.zile.length === 0 && <p className="text-sm text-red-500">Trebuie să selectezi cel puțin o zi</p>}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="dataStart">Data de start *</Label>
-          <Input
-            id="dataStart"
-            name="dataStart"
-            type="date"
-            value={formData.dataStart}
-            onChange={handleChange}
-            required
+      {/* ── Rând 2: Descriere + Program (2 coloane) ───────────────────────── */}
+      <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Stânga: Descriere */}
+        <div className="space-y-1.5">
+          <Label htmlFor="descriere" className="text-sm font-medium text-slate-700">Descriere *</Label>
+          <Textarea
+            id="descriere" name="descriere" value={formData.descriere} onChange={handleChange}
+            placeholder="Descriere scurtă a grupei" required rows={4}
+            className="resize-none border-slate-200 focus-visible:ring-slate-400 h-full min-h-[120px]"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label>Interval orar *</Label>
-          <RadioGroup value={tipOrar} onValueChange={(value) => setTipOrar(value as "predefinit" | "personalizat")}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="predefinit" id="predefinit" />
-              <Label htmlFor="predefinit">Interval predefinit</Label>
+        {/* Dreapta: Zile + Oră + Dată */}
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-slate-700">Zile *</Label>
+            <div className="flex flex-wrap gap-1.5">
+              {["Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"].map((zi) => {
+                const active = formData.zile.includes(zi)
+                return (
+                  <button key={zi} type="button" onClick={() => handleZileChange(zi)}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all ${
+                      active ? "bg-slate-900 text-white border-slate-900" : "bg-white text-slate-600 border-slate-200 hover:border-slate-400"
+                    }`}
+                  >{zi}</button>
+                )
+              })}
             </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="personalizat" id="personalizat" />
-              <Label htmlFor="personalizat">Interval personalizat</Label>
-            </div>
-          </RadioGroup>
+            {formData.zile.length === 0 && <p className="text-xs text-red-500">Trebuie să selectezi cel puțin o zi</p>}
+          </div>
 
-          {tipOrar === "predefinit" ? (
-            <Select value={oraSelectata} onValueChange={(value) => handleSelectChange("ora", value)}>
-              <SelectTrigger id="ora">
-                <SelectValue placeholder="Selectează ora" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="18:30 - 19:45">18:30 - 19:45</SelectItem>
-                <SelectItem value="19:45 - 21:00">19:45 - 21:00</SelectItem>
-                <SelectItem value="21:00 - 22:15">21:00 - 22:15</SelectItem>
-              </SelectContent>
-            </Select>
-          ) : (
-            <Input
-              id="oraPersonalizata"
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-slate-700">Interval orar *</Label>
+            <div className="flex flex-wrap gap-1.5">
+              {TIME_CHIPS.map((chip) => (
+                <button key={chip} type="button" onClick={() => setOraValue(chip)}
+                  className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
+                    oraValue === chip ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >{chip}</button>
+              ))}
+            </div>
+            <Input value={oraValue} onChange={(e) => setOraValue(e.target.value)}
               placeholder="ex: 17:00 - 18:30"
-              value={oraPersonalizata}
-              onChange={(e) => setOraPersonalizata(e.target.value)}
-              required={tipOrar === "personalizat"}
+              className="mt-1 border-slate-200 focus-visible:ring-slate-400 text-sm"
             />
-          )}
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="dataStart" className="text-sm font-medium text-slate-700">Data de start *</Label>
+            <Input id="dataStart" name="dataStart" type="date" value={formData.dataStart}
+              onChange={handleChange} required className="border-slate-200 focus-visible:ring-slate-400 w-fit"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="instructor">Instructor *</Label>
-        <Input
-          id="instructor"
-          name="instructor"
-          value={formData.instructor}
-          onChange={handleChange}
-          placeholder="ex: Alexandru și Maria"
-          required
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="locuriDisponibile">Locuri disponibile *</Label>
-          <Input
-            id="locuriDisponibile"
-            name="locuriDisponibile"
-            type="number"
-            min="0"
-            value={formData.locuriDisponibile}
-            onChange={handleChange}
-            required
+      {/* ── Rând 3: Instructor + Nivel + Sală (3 coloane) ─────────────────── */}
+      <div className="mt-5 pt-5 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="space-y-1.5">
+          <Label htmlFor="instructor" className="text-sm font-medium text-slate-700">Instructor *</Label>
+          <Input id="instructor" name="instructor" value={formData.instructor} onChange={handleChange}
+            placeholder="ex: Alexandra" required className="border-slate-200 focus-visible:ring-slate-400"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="locuriTotale">Locuri totale *</Label>
-          <Input
-            id="locuriTotale"
-            name="locuriTotale"
-            type="number"
-            min="1"
-            value={formData.locuriTotale}
-            onChange={handleChange}
-            required
-          />
+        <div className="space-y-1.5">
+          <Label className="text-sm font-medium text-slate-700">Nivel</Label>
+          <Select value={formData.nivel || ""} onValueChange={(v) => setFormData(prev => ({ ...prev, nivel: v }))}>
+            <SelectTrigger className="border-slate-200"><SelectValue placeholder="Selectează nivelul" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Începători">Începători</SelectItem>
+              <SelectItem value="Începători 2">Începători 2</SelectItem>
+              <SelectItem value="Începători 3">Începători 3</SelectItem>
+              <SelectItem value="Începători (în formare)">Începători (în formare)</SelectItem>
+              <SelectItem value="Intermediari 1">Intermediari 1</SelectItem>
+              <SelectItem value="Intermediari 2">Intermediari 2</SelectItem>
+              <SelectItem value="Intermediari 3">Intermediari 3</SelectItem>
+              <SelectItem value="Intermediari/Avansați">Intermediari/Avansați</SelectItem>
+              <SelectItem value="Avansați">Avansați</SelectItem>
+              <SelectItem value="Avansați 1">Avansați 1</SelectItem>
+              <SelectItem value="Avansați 2">Avansați 2</SelectItem>
+              <SelectItem value="Avansați 3">Avansați 3</SelectItem>
+              <SelectItem value="Copii Începători">Copii Începători</SelectItem>
+              <SelectItem value="Copii Intermediari">Copii Intermediari</SelectItem>
+              <SelectItem value="Copii Avansați">Copii Avansați</SelectItem>
+              <SelectItem value="Formație">Formație</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label className="text-sm font-medium text-slate-700">Sală</Label>
+          <Select value={formData.sala || ""} onValueChange={(v) => setFormData(prev => ({ ...prev, sala: v }))}>
+            <SelectTrigger className="border-slate-200"><SelectValue placeholder="Selectează sala" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Sala 1">Sala 1</SelectItem>
+              <SelectItem value="Sala 2">Sala 2</SelectItem>
+              <SelectItem value="Sala 3">Sala 3</SelectItem>
+              <SelectItem value="Sala Mare">Sala Mare</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
-      {/* Adăugăm opțiunea pentru vizibilitatea grupei */}
-      <div className="flex items-center space-x-2 pt-4">
-        <Switch id="publica" checked={isPublic} onCheckedChange={setIsPublic} />
-        <Label htmlFor="publica" className="cursor-pointer">
-          Grupă publică (vizibilă pe pagina de grupe în formare)
-        </Label>
+      {/* ── Rând 4: Stiluri + Capacitate (2 coloane) ──────────────────────── */}
+      <div className="mt-5 pt-5 border-t border-slate-100 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-1.5">
+          <Label className="text-sm font-medium text-slate-700">Stiluri dans *</Label>
+          <Select onValueChange={handleAddStil}>
+            <SelectTrigger className="border-slate-200"><SelectValue placeholder="Adaugă stiluri de dans" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Dans de societate">Dans de societate</SelectItem>
+              <SelectItem value="Dans standard">Dans standard</SelectItem>
+              <SelectItem value="Dans latino">Dans latino</SelectItem>
+              <SelectItem value="Dansuri populare">Dansuri populare</SelectItem>
+              <SelectItem value="Salsa">Salsa</SelectItem>
+              <SelectItem value="Bachata">Bachata</SelectItem>
+              <SelectItem value="Tango">Tango</SelectItem>
+              <SelectItem value="Vals">Vals</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="flex flex-wrap gap-2 mt-2 min-h-[32px]">
+            {formData.stiluri.map((stil) => (
+              <Badge key={stil} className="flex items-center gap-1 px-3 py-1 bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-100">
+                {stil}
+                <button type="button" onClick={() => handleRemoveStil(stil)} className="ml-1 text-slate-400 hover:text-red-500 transition-colors">
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            ))}
+            {formData.stiluri.length === 0 && <p className="text-sm text-slate-400">Niciun stil selectat</p>}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="locuriDisponibile" className="text-sm font-medium text-slate-700">Locuri disponibile *</Label>
+              <Input id="locuriDisponibile" name="locuriDisponibile" type="number" min="0"
+                value={formData.locuriDisponibile} onChange={handleChange} required
+                className="border-slate-200 focus-visible:ring-slate-400"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="locuriTotale" className="text-sm font-medium text-slate-700">Locuri totale *</Label>
+              <Input id="locuriTotale" name="locuriTotale" type="number" min="1"
+                value={formData.locuriTotale} onChange={handleChange} required
+                className="border-slate-200 focus-visible:ring-slate-400"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100">
+            <Switch id="publica" checked={isPublic} onCheckedChange={setIsPublic} />
+            <div>
+              <Label htmlFor="publica" className="cursor-pointer text-sm font-medium text-slate-700">Grupă publică</Label>
+              <p className="text-xs text-slate-400 mt-0.5">Vizibilă pe pagina de grupe în formare</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="flex justify-end space-x-2 pt-4">
+      {/* ── Butoane ───────────────────────────────────────────────────────── */}
+      <div className="mt-6 pt-5 border-t border-slate-100 flex gap-2 justify-end">
         {onCancel && (
-          <Button type="button" variant="outline" onClick={onCancel}>
+          <Button type="button" variant="outline" onClick={onCancel} className="border-slate-200 text-slate-600 hover:bg-slate-50">
             Anulează
           </Button>
         )}
-        <Button type="submit" disabled={isSubmitting || formData.zile.length === 0 || formData.stiluri.length === 0}>
+        <Button
+          type="submit"
+          disabled={isSubmitting || formData.zile.length === 0 || formData.stiluri.length === 0}
+          className="bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white font-medium px-8"
+        >
           {initialData ? "Actualizează grupa" : "Adaugă grupa"}
         </Button>
       </div>
     </form>
   )
 }
-

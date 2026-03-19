@@ -3,8 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
+import ConditionalLayout from '@/components/conditional-layout';
 import { SimpleToastProvider } from '@/components/simple-toast-provider';
 const inter = Inter({ subsets: ['latin'] });
 import { Analytics } from '@vercel/analytics/next';
@@ -128,9 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           disableTransitionOnChange
         >
           <SimpleToastProvider>
-            <Navbar />
-            <main className="min-h-screen">{children}</main>
-            <Footer />
+            <ConditionalLayout>{children}</ConditionalLayout>
           </SimpleToastProvider>
         </ThemeProvider>
       </body>
