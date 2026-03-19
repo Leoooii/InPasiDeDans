@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, User } from 'lucide-react';
@@ -26,6 +26,7 @@ import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { Facebook, Instagram } from 'lucide-react';
+import GrupeCountBadge from '@/components/grupe-count-badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,20 +38,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 const TikTokIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-6 w-6"
+    fill="currentColor"
+    className="h-4 w-4"
   >
     <title>Icoană TikTok</title>
-    <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
-    <path d="M15 8h.01"></path>
-    <path d="M12 2v7a4 4 0 0 0 4 4h1"></path>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1-.07z" />
   </svg>
 );
 
@@ -59,6 +52,8 @@ export default function Navbar() {
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -69,6 +64,22 @@ export default function Navbar() {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY
+      if (currentY < 80) {
+        setVisible(true)
+      } else if (currentY > lastScrollY.current) {
+        setVisible(false)
+      } else {
+        setVisible(true)
+      }
+      lastScrollY.current = currentY
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Auto-close dropdown după 3 secunde
   useEffect(() => {
@@ -91,46 +102,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      {/* Social Media Bar */}
-      <div className="w-full border-b bg-gradient-to-r from-slate-800 to-slate-900">
-        <div className="container flex h-10 items-center max-w-full px-4 md:px-6">
-          <div className="w-1/4 flex items-center space-x-4">
-            <a
-              href="https://www.facebook.com/scoaladedansinpasidedans"
-              title="Urmărește-ne pe Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-              aria-label="Facebook"
-            >
-              <Facebook className="h-6 w-6" />
-            </a>
-            <a
-              href="https://www.instagram.com/inpasidedans/"
-              title="Urmărește-ne pe Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-pink-600 transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram className="h-6 w-6" />
-            </a>
-            <a
-              href="https://www.tiktok.com/@in.pasi.de.dans"
-              title="Urmărește-ne pe TikTok"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-white transition-colors"
-              aria-label="TikTok"
-            >
-              <TikTokIcon />
-            </a>
-          </div>
-          <div className="w-3/4"></div>
-        </div>
-      </div>
-
+    <header className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}>
       {/* Main Navigation */}
       <div className="container max-w-full px-4 md:px-6">
         {/* First Row - Logo and User Actions */}
@@ -148,7 +120,22 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            {/* Social icons */}
+            <div className="hidden sm:flex items-center gap-2 mr-1">
+              <a href="https://www.facebook.com/scoaladedansinpasidedans" title="Facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                className="text-slate-400 hover:text-blue-600 transition-colors">
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a href="https://www.instagram.com/inpasidedans/" title="Instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                className="text-slate-400 hover:text-pink-500 transition-colors">
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a href="https://www.tiktok.com/@in.pasi.de.dans" title="TikTok" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                className="text-slate-400 hover:text-slate-800 transition-colors">
+                <TikTokIcon />
+              </a>
+            </div>
             {user ? (
               <div className="flex items-center gap-2">
                 <Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
@@ -227,11 +214,12 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold animate-bounce text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold text-sm'
                     )}
                     title="Grupe de dans în formare"
                   >
-                    <Link href="/grupe-in-formare">
+                    <Link href="/grupe-in-formare" className="flex items-center gap-1">
+                      <GrupeCountBadge />
                       Grupe de dans în formare
                     </Link>
                   </NavigationMenuLink>

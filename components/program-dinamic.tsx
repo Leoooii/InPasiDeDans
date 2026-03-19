@@ -252,83 +252,93 @@ export default function ProgramDinamic() {
   return (
     <div className="space-y-4">
 
-      {/* ── Day group toggle ────────────────────────────────────────────── */}
-      <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100 rounded-xl w-fit">
-        {DAY_GROUPS.map(dg => (
-          <button
-            key={dg.id}
-            onClick={() => setFilterDay(dg.id)}
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
-              filterDay === dg.id
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            {dg.id === 'all' ? 'Toate' : dg.short}
-          </button>
-        ))}
-      </div>
+      {/* ── Filters ─────────────────────────────────────────────────────── */}
+      <div className="flex flex-col gap-3">
 
-      {/* ── Style chips + nivel chips + dropdowns ───────────────────────── */}
-      <div className="flex flex-wrap items-center gap-2">
-        {STYLES.filter(s => usedStyleKeys.includes(s.id)).map(s => {
-          const active = filterStyle === s.id
-          return (
+        {/* Rând 1: Zile */}
+        <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100 rounded-xl w-fit">
+          {DAY_GROUPS.map(dg => (
             <button
-              key={s.id}
-              onClick={() => setFilterStyle(active ? 'all' : s.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
-                active ? s.chip : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
+              key={dg.id}
+              onClick={() => setFilterDay(dg.id)}
+              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                filterDay === dg.id
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              <span className={`w-2 h-2 rounded-full shrink-0 ${active ? s.dot : 'bg-slate-300'}`} />
-              {s.label}
+              {dg.id === 'all' ? 'Toate' : dg.short}
             </button>
-          )
-        })}
-
-        {usedNivelGroups.length > 0 && (
-          <div className="w-px h-5 bg-slate-200 mx-0.5" />
-        )}
-
-        {usedNivelGroups.map(opt => {
-          const active = filterNivel === opt.id
-          return (
-            <button
-              key={opt.id}
-              onClick={() => setFilterNivel(active ? 'all' : opt.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
-                active
-                  ? 'bg-slate-800 text-white border-slate-800'
-                  : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
-              }`}
-            >
-              {opt.label}
-            </button>
-          )
-        })}
-
-        <div className="flex gap-2 ml-auto">
-          <Select value={filterInstructor} onValueChange={setFilterInstructor}>
-            <SelectTrigger className="h-8 min-w-36 text-xs bg-white border-slate-200 rounded-lg">
-              <SelectValue placeholder="Instructor" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toți instructorii</SelectItem>
-              {instructori.map(i => <SelectItem key={i} value={i}>{i}</SelectItem>)}
-            </SelectContent>
-          </Select>
-
-          <Select value={safeFilterTime} onValueChange={setFilterTime}>
-            <SelectTrigger className="h-8 min-w-28 text-xs bg-white border-slate-200 rounded-lg">
-              <SelectValue placeholder="Oră start" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toate orele</SelectItem>
-              {availableTimes.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-            </SelectContent>
-          </Select>
+          ))}
         </div>
+
+        {/* Rând 2: Stiluri */}
+        <div className="flex flex-wrap gap-2">
+          {STYLES.filter(s => usedStyleKeys.includes(s.id)).map(s => {
+            const active = filterStyle === s.id
+            return (
+              <button
+                key={s.id}
+                onClick={() => setFilterStyle(active ? 'all' : s.id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                  active ? s.chip : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
+                }`}
+              >
+                <span className={`w-2 h-2 rounded-full shrink-0 ${active ? s.dot : 'bg-slate-300'}`} />
+                {s.label}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Rând 3: Nivel + Dropdowns (2 coloane pe mobile) */}
+        <div className="flex flex-col sm:flex-row gap-2">
+          {/* Nivel chips */}
+          {usedNivelGroups.length > 0 && (
+            <div className="flex flex-wrap gap-2 flex-1">
+              {usedNivelGroups.map(opt => {
+                const active = filterNivel === opt.id
+                return (
+                  <button
+                    key={opt.id}
+                    onClick={() => setFilterNivel(active ? 'all' : opt.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                      active
+                        ? 'bg-slate-800 text-white border-slate-800'
+                        : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          {/* Dropdowns */}
+          <div className="grid grid-cols-2 sm:flex gap-2 shrink-0">
+            <Select value={filterInstructor} onValueChange={setFilterInstructor}>
+              <SelectTrigger className="h-8 w-full sm:min-w-36 text-xs bg-white border-slate-200 rounded-lg">
+                <SelectValue placeholder="Instructor" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toți instructorii</SelectItem>
+                {instructori.map(i => <SelectItem key={i} value={i}>{i}</SelectItem>)}
+              </SelectContent>
+            </Select>
+
+            <Select value={safeFilterTime} onValueChange={setFilterTime}>
+              <SelectTrigger className="h-8 w-full sm:min-w-28 text-xs bg-white border-slate-200 rounded-lg">
+                <SelectValue placeholder="Oră start" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Toate orele</SelectItem>
+                {availableTimes.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
       </div>
 
       {/* ── Schedule ────────────────────────────────────────────────────── */}

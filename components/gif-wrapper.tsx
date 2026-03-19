@@ -72,14 +72,10 @@ export default function GifWrapper() {
     <div className="relative w-full h-full bg-orange-500">
       {/* Fallback image - se afișează până se încarcă video-ul sau dacă video-ul nu funcționează */}
       {(!videoLoaded || videoError) && (
-        <div className="absolute inset-0 z-10">
-          <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
-            <div className="text-center text-white">
-              <h1 className="text-4xl font-bold mb-2">Școala de Dans</h1>
-              <p className="text-xl">Descoperă pasiunea dansului</p>
-            </div>
-          </div>
-        </div>
+        <div
+          className="absolute inset-0 z-10 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/images/noi.png)' }}
+        />
       )}
 
       {/* Video principal */}
@@ -93,7 +89,8 @@ export default function GifWrapper() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/images/noi.png"
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
           onClick={handleVideoClick}

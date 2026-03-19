@@ -1,18 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import Script from 'next/script';
 import { cn } from '@/lib/utils';
 import CookieConsent from '@/components/cookie-consent';
 import GifWrapperClient from './GifWrapperClient';
-import GrupeInFormare from '@/components/grupe-in-formare';
-import ScrollDownArrows from '@/components/ScrollDownArrows';
-import EvenimentePage from './evenimente/page';
-import GrupeInFormarePage from './grupe-in-formare/page';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 import NoutatiSection from '@/components/noutati-section';
-import { PartyPopper } from 'lucide-react';
 import StickyMenu from '@/components/sticky-menu';
 import CursuriSection from '@/components/CursuriSection';
 import LatestBlogPosts from '@/components/latest-blog-posts';
@@ -161,27 +155,41 @@ export default function Home() {
           />
         </div>
 
-        <section className="relative h-[70vh] overflow-hidden">
-          <div className="sticky top-0 h-[70vh]">
-            <div className="relative w-full h-full bg-orange-600">
+        <section className="relative h-[85vh] overflow-hidden">
+          <div className="sticky top-0 h-[85vh]">
+            <div className="relative w-full h-full">
               <GifWrapperClient />
-              <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/30">
+              <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/70 via-black/40 to-black/20 flex items-center justify-center">
                 <div className="container text-center text-white px-4">
-                  <h2 className="text-3xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-                    "Dansul este puțină nebunie care ne face tuturor mult bine!"
-                  </h2>
-                  <p className="text-lg md:text-2xl mb-8 max-w-3xl mx-auto">
-                    Învățăm și pe cei mici, și pe cei mari să danseze din 2009,
-                    într-o atmosferă plăcută și relaxantă.
+                  <p className="text-sm md:text-base uppercase tracking-[0.3em] text-white/70 mb-4 font-medium">
+                    Școală de dans în București din 2009
                   </p>
-                  <Link href="/inscriere">
-                    <Button
-                      size="sm"
-                      className="bg-white text-red-600 hover:bg-gray-100 hover:text-red-800 text-lg"
-                    >
-                      Înscrie-te
-                    </Button>
-                  </Link>
+                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight drop-shadow-lg">
+                    Cursuri de dans<br className="hidden md:block" /> pentru toată familia
+                  </h1>
+                  <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto text-white/85">
+                    Latino, societate, populare și cursuri pentru copii —
+                    într-o atmosferă prietenoasă și relaxantă.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link href="/inscriere">
+                      <Button
+                        size="lg"
+                        className="bg-white text-slate-900 hover:bg-slate-100 font-semibold text-base px-8"
+                      >
+                        Înscrie-te acum
+                      </Button>
+                    </Link>
+                    <Link href="/program">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="bg-transparent border-white/60 text-white hover:bg-white/10 font-medium text-base px-8"
+                      >
+                        Vezi programul
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -268,17 +276,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Separator vizual */}
-        <div className="relative py-16  bg-slate-800">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80" />
-              <PartyPopper className="h-12 w-12 text-white drop-shadow-lg" />
-              <div className="w-32 h-1 rounded-full bg-gradient-to-r from-orange-200 via-white to-orange-200 opacity-80" />
-            </div>
-          </div>
-        </div>
-
         {/* Secțiunea Noutăți cu fundal diferit */}
         <section id="noutati" className="bg-white py-16">
           <div className="container space-y-10">
@@ -304,7 +301,6 @@ export default function Home() {
             <NoutatiSection itemsToShow={3} variant="homepage" />
           </div>
         </section>
-        <GrupeInFormare />
         <LatestBlogPosts />
       </div>
     </>
