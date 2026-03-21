@@ -201,9 +201,15 @@ export default function Petreceri() {
             </a>
           </div>
 
-          {upcomingPetreceri.length > 0 && (
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">Următoarele petreceri</h2>
+            {upcomingPetreceri.length === 0 ? (
+              <p className="text-gray-500">
+                Nu există petreceri programate în acest moment. Revino curând sau urmărește-ne pe{' '}
+                <a href="https://www.facebook.com/scoaladedansinpasidedans" target="_blank" rel="noopener noreferrer" className="text-red-600 underline hover:text-orange-600">Facebook</a>{' '}
+                pentru anunțuri.
+              </p>
+            ) : (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {upcomingPetreceri.map(petrecere => (
                   <Card
@@ -261,8 +267,8 @@ export default function Petreceri() {
                   </Card>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {pastPetreceri.length > 0 && (
             <div className="mt-12">

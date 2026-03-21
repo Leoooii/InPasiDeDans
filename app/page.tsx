@@ -208,21 +208,21 @@ export default function Home() {
                 școala noastră, indiferent de vârstă sau nivel.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link href="/inscriere">
+                <Link href="/grupe-in-formare">
                   <Button
                     size="lg"
                     className="bg-white text-slate-900 hover:bg-slate-100 font-semibold"
                   >
-                    Înscrie-te la un curs
+                    Vezi grupele active
                   </Button>
                 </Link>
-                <Link href="/grupe-in-formare">
+                <Link href="/contact">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white text-black hover:bg-white/10"
+                    className="bg-transparent border-white text-white hover:bg-white/10"
                   >
-                    Vezi grupele active
+                    Contactează-ne
                   </Button>
                 </Link>
               </div>
@@ -304,38 +304,5 @@ export default function Home() {
         <LatestBlogPosts />
       </div>
     </>
-  );
-}
-
-function ShineButton({
-  title,
-  href,
-  imageSrc,
-}: {
-  title: string;
-  href: string;
-  imageSrc?: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="relative block overflow-hidden rounded-lg group"
-    >
-      <div className="relative h-64 w-full overflow-hidden">
-        <Image
-          src={imageSrc || '/placeholder.svg?height=400&width=600'}
-          alt={title}
-          title={title}
-          fill
-          className="object-fit transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-white/10"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-orange-800/60 to-white/20 animate-continuous-shine"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-6">
-          <h3 className="text-xl font-bold text-white">{title}</h3>
-          <div className="w-0 h-0.5 bg-white mt-2 transition-all duration-300 group-hover:w-full"></div>
-        </div>
-      </div>
-    </Link>
   );
 }

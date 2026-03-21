@@ -261,7 +261,7 @@ function InstructorCard({
                 "salsa și bachata",
                 "dezvoltarea comunității de dansatori",
                 "instructor-coregraf",
-                " dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri",
+                "dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri",
                 "inspirație, bucurie și empatie",
                 "susținuți și înțeleși",
                 "competiții, evenimente și proiecte naționale și internaționale de dans",
@@ -271,27 +271,29 @@ function InstructorCard({
                 "energia pozitivă, perfecționismul său discret",
                 "12 ani de experiență",
                 "pasiunea cu răbdarea în lucrul cu grupele de copii",
-                " pregătirea dansului lor de nuntă",
+                "pregătirea dansului lor de nuntă",
                 "4 ani ca instructor"
               ];
-              
+
+              const highlightText = (text: string) => {
+                const sorted = [...phrasesToHighlight].sort((a, b) => b.length - a.length);
+                const escaped = sorted.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+                const regex = new RegExp(`(${escaped.join('|')})`, 'gi');
+                const parts = text.split(regex);
+                return parts.map((part, i) => {
+                  const isMatch = sorted.some(p => p.toLowerCase() === part.toLowerCase());
+                  return isMatch ? <strong key={i} className="text-orange-700">{part}</strong> : part;
+                });
+              };
+
               const bioParagraphs = bio.split('\n');
               const paragraphsToShow = isExpanded ? bioParagraphs : [bioParagraphs[0]];
-              
+
               return (
                 <>
                   {paragraphsToShow.map((paragraph, pIndex) => (
                     <span key={pIndex}>
-                      {(() => {
-                        let highlightedParagraph = paragraph;
-                        
-                        phrasesToHighlight.forEach(phrase => {
-                          const regex = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-                          highlightedParagraph = highlightedParagraph.replace(regex, `<strong class="text-orange-700">${phrase}</strong>`);
-                        });
-                        
-                        return <span dangerouslySetInnerHTML={{ __html: highlightedParagraph }} />;
-                      })()}
+                      {highlightText(paragraph)}
                       {pIndex < paragraphsToShow.length - 1 && <br />}
                     </span>
                   ))}
