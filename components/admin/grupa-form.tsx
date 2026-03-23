@@ -50,8 +50,8 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
   // Inițializare directă din initialData — fix pentru Select nivel
   const [formData, setFormData] = useState<Grupa>(() =>
     initialData
-      ? { ...initialData, stiluri: initialData.stiluri || [], nivel: initialData.nivel ?? "", sala: initialData.sala ?? "" }
-      : { titlu: "", descriere: "", dataStart: "", program: "", instructor: "", locuriDisponibile: 0, locuriTotale: 0, stiluri: [], zile: ["Luni", "Miercuri"], nivel: "", sala: "" }
+      ? { ...initialData, stiluri: initialData.stiluri || [], nivel: initialData.nivel ?? "", sala: initialData.sala ?? "", rol: initialData.rol ?? "All" }
+      : { titlu: "", descriere: "", dataStart: "", program: "", instructor: "", locuriDisponibile: 0, locuriTotale: 0, stiluri: [], zile: ["Luni", "Miercuri"], nivel: "", sala: "", rol: "All" }
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [oraValue, setOraValue] = useState(() => initialData ? extractOra(initialData.program) : "18:30 - 19:45")
@@ -60,7 +60,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
   // Sincronizare dacă initialData se schimbă după montare (redundant cu key, dar sigur)
   useEffect(() => {
     if (initialData) {
-      setFormData({ ...initialData, stiluri: initialData.stiluri || [], nivel: initialData.nivel ?? "", sala: initialData.sala ?? "" })
+      setFormData({ ...initialData, stiluri: initialData.stiluri || [], nivel: initialData.nivel ?? "", sala: initialData.sala ?? "", rol: initialData.rol ?? "All" })
       setOraValue(extractOra(initialData.program))
       setIsPublic(initialData.publica !== undefined ? initialData.publica : true)
     }
@@ -163,6 +163,7 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         zile: ["Luni", "Miercuri"],
         nivel: "",
         sala: "",
+        rol: "All",
       })
       setOraValue("18:30 - 19:45")
       setIsPublic(true)
@@ -256,21 +257,12 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
             <SelectTrigger className="border-slate-200"><SelectValue placeholder="Selectează nivelul" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="Începători">Începători</SelectItem>
-              <SelectItem value="Începători 2">Începători 2</SelectItem>
-              <SelectItem value="Începători 3">Începători 3</SelectItem>
-              <SelectItem value="Începători (în formare)">Începători (în formare)</SelectItem>
+              <SelectItem value="Intermediari">Intermediari</SelectItem>
               <SelectItem value="Intermediari 1">Intermediari 1</SelectItem>
               <SelectItem value="Intermediari 2">Intermediari 2</SelectItem>
               <SelectItem value="Intermediari 3">Intermediari 3</SelectItem>
-              <SelectItem value="Intermediari/Avansați">Intermediari/Avansați</SelectItem>
               <SelectItem value="Avansați">Avansați</SelectItem>
-              <SelectItem value="Avansați 1">Avansați 1</SelectItem>
-              <SelectItem value="Avansați 2">Avansați 2</SelectItem>
-              <SelectItem value="Avansați 3">Avansați 3</SelectItem>
-              <SelectItem value="Copii Începători">Copii Începători</SelectItem>
-              <SelectItem value="Copii Intermediari">Copii Intermediari</SelectItem>
-              <SelectItem value="Copii Avansați">Copii Avansați</SelectItem>
-              <SelectItem value="Formație">Formație</SelectItem>
+              <SelectItem value="All levels">All levels</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -296,14 +288,13 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
           <Select onValueChange={handleAddStil}>
             <SelectTrigger className="border-slate-200"><SelectValue placeholder="Adaugă stiluri de dans" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="Dans de societate">Dans de societate</SelectItem>
-              <SelectItem value="Dans standard">Dans standard</SelectItem>
-              <SelectItem value="Dans latino">Dans latino</SelectItem>
+              <SelectItem value="Dansuri de societate">Dansuri de societate</SelectItem>
+              <SelectItem value="Dansuri latino">Dansuri latino</SelectItem>
               <SelectItem value="Dansuri populare">Dansuri populare</SelectItem>
               <SelectItem value="Salsa">Salsa</SelectItem>
               <SelectItem value="Bachata">Bachata</SelectItem>
-              <SelectItem value="Tango">Tango</SelectItem>
-              <SelectItem value="Vals">Vals</SelectItem>
+              <SelectItem value="Rueda">Rueda</SelectItem>
+              <SelectItem value="Kizomba">Kizomba</SelectItem>
             </SelectContent>
           </Select>
           <div className="flex flex-wrap gap-2 mt-2 min-h-[32px]">
@@ -320,13 +311,24 @@ export default function GrupaForm({ onSubmit, initialData, onCancel }: GrupaForm
         </div>
 
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-3">
             <div className="space-y-1.5">
               <Label htmlFor="locuriDisponibile" className="text-sm font-medium text-slate-700">Locuri disponibile *</Label>
               <Input id="locuriDisponibile" name="locuriDisponibile" type="number" min="0"
                 value={formData.locuriDisponibile} onChange={handleChange} required
                 className="border-slate-200 focus-visible:ring-slate-400"
               />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700">Rol</Label>
+              <Select value={formData.rol || "All"} onValueChange={(v) => setFormData(prev => ({ ...prev, rol: v }))}>
+                <SelectTrigger className="border-slate-200"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All">All</SelectItem>
+                  <SelectItem value="Leader">Leader</SelectItem>
+                  <SelectItem value="Follower">Follower</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="locuriTotale" className="text-sm font-medium text-slate-700">Locuri totale *</Label>

@@ -8,7 +8,7 @@ const levels = [
     description: 'Pași de bază, ritm, coordonare',
     badgeBg: 'bg-emerald-100',
     badgeText: 'text-emerald-700',
-    border: 'border-emerald-100',
+    border: 'border-emerald-200',
   },
   {
     num: 2,
@@ -17,16 +17,16 @@ const levels = [
     description: 'Variații tehnice, stilistică',
     badgeBg: 'bg-sky-100',
     badgeText: 'text-sky-700',
-    border: 'border-sky-100',
+    border: 'border-sky-200',
   },
   {
     num: 3,
     name: 'Intermediari 2',
     duration: '1 an – 2 ani',
     description: 'Combinații complexe, muzicalitate',
-    badgeBg: 'bg-blue-100',
-    badgeText: 'text-blue-700',
-    border: 'border-blue-100',
+    badgeBg: 'bg-indigo-100',
+    badgeText: 'text-indigo-700',
+    border: 'border-indigo-200',
   },
   {
     num: 4,
@@ -35,7 +35,7 @@ const levels = [
     description: 'Expresivitate, performanță',
     badgeBg: 'bg-violet-100',
     badgeText: 'text-violet-700',
-    border: 'border-violet-100',
+    border: 'border-violet-200',
   },
   {
     num: 5,
@@ -44,7 +44,7 @@ const levels = [
     description: 'Tehnici avansate, improvizație',
     badgeBg: 'bg-rose-100',
     badgeText: 'text-rose-700',
-    border: 'border-rose-100',
+    border: 'border-rose-200',
   },
 ]
 

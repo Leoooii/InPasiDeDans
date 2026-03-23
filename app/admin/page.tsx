@@ -36,6 +36,7 @@ export type Grupa = {
   zile: string[]
   publica?: boolean
   nivel?: string
+  rol?: string
   sala?: string
 }
 

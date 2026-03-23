@@ -17,6 +17,10 @@ type Grupa = {
   stiluri: string[]
   nivel?: string
   sala?: string
+  locuriDisponibile?: number
+  locuriTotale?: number
+  rol?: string
+  publica?: boolean
 }
 
 type DayGroupId = 'all' | 'lm' | 'mj' | 'vineri' | 'sambata'
@@ -43,9 +47,9 @@ const STYLES: { id: StyleKey; label: string; dot: string; chip: string }[] = [
 ]
 
 const NIVEL_GROUPS: Record<Exclude<NivelGroup, 'all'>, string[]> = {
-  incepatori:   ['Începători', 'Începători 2', 'Începători 3', 'Începători (în formare)'],
-  intermediari: ['Intermediari 1', 'Intermediari 2', 'Intermediari 3', 'Intermediari/Avansați'],
-  avansati:     ['Avansați', 'Avansați 1', 'Avansați 2', 'Avansați 3'],
+  incepatori:   ['Începători'],
+  intermediari: ['Intermediari', 'Intermediari 1', 'Intermediari 2', 'Intermediari 3'],
+  avansati:     ['Avansați'],
   copii:        ['Copii Începători', 'Copii Intermediari', 'Copii Avansați', 'Formație'],
 }
 
@@ -63,22 +67,19 @@ function matchesNivelGroup(nivel: string | undefined, group: NivelGroup): boolea
 }
 
 const NIVEL_COLOR: Record<string, string> = {
-  'Începători':              'text-emerald-600',
-  'Începători 2':            'text-emerald-600',
-  'Începători 3':            'text-emerald-700',
-  'Începători (în formare)': 'text-emerald-600',
-  'Intermediari 1':          'text-sky-600',
-  'Intermediari 2':          'text-blue-600',
-  'Intermediari 3':          'text-indigo-600',
-  'Intermediari/Avansați':   'text-indigo-600',
-  'Avansați':                'text-purple-600',
-  'Avansați 1':              'text-purple-500',
-  'Avansați 2':              'text-purple-600',
-  'Avansați 3':              'text-purple-700',
-  'Copii Începători':        'text-amber-600',
-  'Copii Intermediari':      'text-orange-600',
-  'Copii Avansați':          'text-red-600',
-  'Formație':                'text-pink-600',
+  // Progresie principală — culorile oglindesc dance-levels.tsx
+  'Începători':    'text-emerald-700',
+  'Intermediari':  'text-sky-600',
+  'Intermediari 1':'text-sky-700',
+  'Intermediari 2':'text-indigo-700',
+  'Intermediari 3':'text-violet-700',
+  'Avansați':      'text-rose-700',
+  'All levels':    'text-slate-500',
+  // Copii
+  'Copii Începători':   'text-amber-600',
+  'Copii Intermediari': 'text-orange-600',
+  'Copii Avansați':     'text-red-600',
+  'Formație':           'text-pink-600',
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -87,7 +88,7 @@ function getStyleKey(stiluri: string[], titlu: string): StyleKey {
   // Verificăm mai întâi stiluri[] cu match exact — evită coliziuni între categorii
   if (stiluri.some(s => s.toLowerCase().includes('societate'))) return 'societate'
   if (stiluri.some(s => s.toLowerCase().includes('popular'))) return 'populare'
-  if (stiluri.some(s => s.toLowerCase().includes('latin') || s.toLowerCase().includes('salsa') || s.toLowerCase().includes('bachata'))) return 'latino'
+  if (stiluri.some(s => s.toLowerCase().includes('latin') || s.toLowerCase().includes('salsa') || s.toLowerCase().includes('bachata') || s.toLowerCase().includes('rueda') || s.toLowerCase().includes('kizomba'))) return 'latino'
   if (stiluri.some(s => s.toLowerCase().includes('standard'))) return 'standard'
   if (stiluri.some(s => s.toLowerCase().includes('copii') || s.toLowerCase().includes('formați') || s.toLowerCase().includes('formatie'))) return 'copii'
   // Fallback pe titlu
@@ -144,6 +145,10 @@ export default function ProgramDinamic() {
             stiluri: d.stiluri || (d.stil ? [d.stil] : []),
             nivel: d.nivel,
             sala: d.sala,
+            locuriDisponibile: d.locuriDisponibile ?? undefined,
+            locuriTotale: d.locuriTotale ?? undefined,
+            rol: d.rol,
+            publica: d.publica,
           })
         })
         setGrupe(data)
@@ -364,10 +369,21 @@ export default function ProgramDinamic() {
                 <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
                   {section.grupe.map(g => {
                     const sc = styleCfgMap[g.styleKey]
+                    const inFormare = g.publica === true
+                    const locDisp = g.locuriDisponibile ?? 0
+                    const locTot = g.locuriTotale ?? 0
+                    const hasSpots = locTot > 0
+                    const isFull = hasSpots && locDisp === 0
+                    const isFew = hasSpots && locDisp > 0 && locDisp <= 3
+                    const rolLabel = g.rol && g.rol !== 'All' ? g.rol.toLowerCase() + 's' : null
                     return (
                       <div
                         key={g.id}
-                        className="flex items-center gap-4 px-5 py-3 bg-white hover:bg-slate-50 transition-colors"
+                        className={`flex items-center gap-4 px-5 py-3 transition-colors ${
+                          inFormare
+                            ? 'bg-emerald-50/60 hover:bg-emerald-50 border-l-2 border-l-emerald-400'
+                            : 'bg-white hover:bg-slate-50'
+                        }`}
                       >
                         {/* Start time */}
                         <span className="w-12 shrink-0 text-sm font-bold text-slate-800 tabular-nums">
@@ -377,18 +393,42 @@ export default function ProgramDinamic() {
                         {/* Style dot */}
                         <span className={`w-2 h-2 rounded-full shrink-0 ${sc?.dot ?? 'bg-slate-300'}`} />
 
-                        {/* Title + nivel */}
-                        <div className="flex-1 min-w-0 flex items-baseline gap-2">
+                        {/* Title + nivel + în formare badge */}
+                        <div className="flex-1 min-w-0 flex items-baseline gap-2 flex-wrap">
                           <span className="font-medium text-slate-900 text-sm leading-snug">{g.titlu}</span>
                           {g.nivel && (
                             <span className={`text-xs font-medium shrink-0 ${NIVEL_COLOR[g.nivel] ?? 'text-slate-500'}`}>
                               {g.nivel}
                             </span>
                           )}
+                          {inFormare && (
+                            <span className="text-[10px] font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded shrink-0">
+                              în formare
+                            </span>
+                          )}
                         </div>
 
+                        {/* Locuri — vizibil pe toate ecranele, în mijlocul rândului */}
+                        {hasSpots && (
+                          <span className={`flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-md shrink-0 ${
+                            isFull
+                              ? 'bg-red-50 text-red-500 border border-red-200'
+                              : isFew
+                              ? 'bg-amber-50 text-amber-600 border border-amber-200'
+                              : 'bg-slate-50 text-slate-500 border border-slate-200'
+                          }`}>
+                            {isFull ? 'Complet' : (
+                              <>
+                                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isFew ? 'bg-amber-400' : 'bg-emerald-400'}`} />
+                                <span className="hidden sm:inline text-slate-400">locuri disponibile:</span>
+                                {locDisp}/{locTot}{rolLabel ? <span className="hidden sm:inline"> {rolLabel}</span> : null}
+                              </>
+                            )}
+                          </span>
+                        )}
+
                         {/* Instructor */}
-                        <span className="hidden sm:block text-sm text-slate-400 w-40 shrink-0 text-right truncate">
+                        <span className="hidden sm:block text-sm text-slate-400 w-36 shrink-0 text-right truncate">
                           {g.instructor}
                         </span>
 
@@ -398,7 +438,7 @@ export default function ProgramDinamic() {
                             {g.sala}
                           </span>
                         ) : (
-                          <span className="hidden md:block w-16 shrink-0" />
+                          <span className="hidden md:block w-14 shrink-0" />
                         )}
                       </div>
                     )
