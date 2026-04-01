@@ -150,7 +150,7 @@ export default function Tarife() {
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Pachet 4 ședințe</CardTitle>
-                <div className="mt-4 text-4xl font-bold">640 Lei</div>
+                <div className="mt-4 text-4xl font-bold">680 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
@@ -175,7 +175,7 @@ export default function Tarife() {
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Pachet 6 ședințe</CardTitle>
-                <div className="mt-4 text-4xl font-bold">900 Lei</div>
+                <div className="mt-4 text-4xl font-bold">960 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
@@ -200,7 +200,7 @@ export default function Tarife() {
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Pachet 8 ședințe</CardTitle>
-                <div className="mt-4 text-4xl font-bold">1120 Lei</div>
+                <div className="mt-4 text-4xl font-bold">1200 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
@@ -225,7 +225,7 @@ export default function Tarife() {
             <Card className="flex flex-col border-red-600 shadow-lg">
               <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
                 <CardTitle>Plata la ședință</CardTitle>
-                <div className="mt-4 text-4xl font-bold">180 Lei</div>
+                <div className="mt-4 text-4xl font-bold">200 Lei</div>
               </CardHeader>
               <CardContent className="flex-1 mt-2">
                 <ul className="space-y-2">
