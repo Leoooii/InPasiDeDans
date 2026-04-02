@@ -1,3 +1,5 @@
+'use client'
+
 import Head from 'next/head';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,51 +12,93 @@ import {
 import { Check } from 'lucide-react';
 import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
-import type { Metadata } from 'next';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import PricingSection from '@/components/PricingSection';
+import { useEffect, useState } from 'react';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-export const metadata: Metadata = {
-  title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
-  description:
-    'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
-  keywords:
-    'tarife cursuri dans, preturi scoala de dans, cursuri dans adulti, cursuri dans copii, lectii private dans',
-  robots: 'index, follow',
-  alternates: {
-    canonical: 'https://www.inpasidedans.ro/tarife',
-  },
-  openGraph: {
-    type: 'website',
-    title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
-    description:
-      'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
-    url: 'https://www.inpasidedans.ro/tarife',
-    siteName: 'In Pasi de Dans',
-    images: [
-      {
-        url: 'https://www.inpasidedans.ro/images/tarife.png',
-        width: 1200,
-        height: 630,
-        alt: 'Tarife Cursuri de Dans',
-      },
-    ],
-    locale: 'ro_RO',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
-    description:
-      'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
-    images: ['https://inpasidedans.ro/images/tarife.png'],
-  },
-};
+type Tarif = {
+  id: string
+  titlu: string
+  descriere: string
+  pret: number
+  moneda: string
+  categorie: 'grup' | 'privat' | 'copii'
+  beneficii: string[]
+  popular: boolean
+  ordine: number
+}
+
+const FALLBACK_PRIVAT: Tarif[] = [
+  { id: 'p1', titlu: 'Pachet 4 ședințe', descriere: '', pret: 640, moneda: 'Lei', categorie: 'privat', beneficii: ['4 ședințe private', 'Instructor dedicat'], popular: false, ordine: 1 },
+  { id: 'p2', titlu: 'Pachet 6 ședințe', descriere: '', pret: 900, moneda: 'Lei', categorie: 'privat', beneficii: ['6 ședințe private', 'Instructor dedicat'], popular: false, ordine: 2 },
+  { id: 'p3', titlu: 'Pachet 8 ședințe', descriere: '', pret: 1120, moneda: 'Lei', categorie: 'privat', beneficii: ['8 ședințe private', 'Instructor dedicat'], popular: false, ordine: 3 },
+  { id: 'p4', titlu: 'Plata la ședință', descriere: '', pret: 180, moneda: 'Lei', categorie: 'privat', beneficii: ['O ședință privată', 'Instructor dedicat'], popular: false, ordine: 4 },
+]
+
+const FALLBACK_COPII: Tarif[] = [
+  { id: 'c1', titlu: 'Abonament 4', descriere: 'Valabil o lună (4 ședințe)', pret: 110, moneda: 'Lei', categorie: 'copii', beneficii: ['4 ședințe pe lună', 'O ședință pe săptămână', 'Acces la grupe pentru copii'], popular: false, ordine: 1 },
+  { id: 'c2', titlu: 'Abonament 8', descriere: 'Valabil o lună (8 ședințe)', pret: 200, moneda: 'Lei', categorie: 'copii', beneficii: ['8 ședințe pe lună', '2 ședințe pe săptămână', 'Acces la grupe pentru copii'], popular: false, ordine: 2 },
+  { id: 'c3', titlu: 'Abonament 12', descriere: 'Valabil o lună (12 ședințe)', pret: 250, moneda: 'Lei', categorie: 'copii', beneficii: ['12 ședințe pe lună', '3 ședințe pe săptămână', 'Acces la grupe pentru copii'], popular: false, ordine: 3 },
+  { id: 'c4', titlu: 'Plata la ședință', descriere: 'Ședință de grup', pret: 35, moneda: 'Lei', categorie: 'copii', beneficii: ['O ședință la grup', 'Acces la grupe pentru copii'], popular: false, ordine: 4 },
+]
+
+function TarifCards({ tarife }: { tarife: Tarif[] }) {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
+      {tarife.map((tarif) => (
+        <Card key={tarif.id} className="flex flex-col border-red-600 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
+            <CardTitle>{tarif.titlu}</CardTitle>
+            {tarif.descriere && (
+              <CardDescription className="text-white/90">{tarif.descriere}</CardDescription>
+            )}
+            <div className="mt-4 text-4xl font-bold">{tarif.pret} {tarif.moneda}</div>
+          </CardHeader>
+          <CardContent className="flex-1 mt-2">
+            <ul className="space-y-2">
+              {tarif.beneficii.map((b, i) => (
+                <li key={i} className="flex items-center">
+                  <Check className="mr-2 h-4 w-4 text-green-500" aria-label="Inclus" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  )
+}
 
 export default function Tarife() {
+  const [tarifPrivat, setTarifPrivat] = useState<Tarif[]>(FALLBACK_PRIVAT)
+  const [tarifCopii, setTarifCopii] = useState<Tarif[]>(FALLBACK_COPII)
+
+  useEffect(() => {
+    const fetch = async (categorie: 'privat' | 'copii', setter: (t: Tarif[]) => void, fallback: Tarif[]) => {
+      try {
+        const q = query(collection(db, 'tarife'), where('categorie', '==', categorie))
+        const snapshot = await getDocs(q)
+        if (!snapshot.empty) {
+          const data = snapshot.docs
+            .map((d) => ({ id: d.id, ...d.data() } as Tarif))
+            .sort((a, b) => a.ordine - b.ordine)
+          setter(data)
+        }
+      } catch {
+        setter(fallback)
+      }
+    }
+    fetch('privat', setTarifPrivat, FALLBACK_PRIVAT)
+    fetch('copii', setTarifCopii, FALLBACK_COPII)
+  }, [])
+
   const breadcrumbItems = [
-    { name: "Acasă", url: "/" },
-    { name: "Tarife" }
-  ];
+    { name: 'Acasă', url: '/' },
+    { name: 'Tarife' },
+  ]
 
   return (
     <>
@@ -69,43 +113,12 @@ export default function Tarife() {
               description:
                 'Tarife pentru cursurile de dans pentru adulti, copii si lectii private la In Pasi de Dans, Bucuresti, Sector 5.',
               url: 'https://inpasidedans.ro/tarife',
-              brand: {
-                '@type': 'Brand',
-                name: 'In Pasi de Dans',
-              },
+              brand: { '@type': 'Brand', name: 'In Pasi de Dans' },
               offers: [
-                {
-                  '@type': 'Offer',
-                  name: 'Abonament 8',
-                  price: '250',
-                  priceCurrency: 'RON',
-                  availability: 'https://schema.org/InStock',
-                  url: 'https://inpasidedans.ro/tarife',
-                },
-                {
-                  '@type': 'Offer',
-                  name: 'Abonament 16',
-                  price: '350',
-                  priceCurrency: 'RON',
-                  availability: 'https://schema.org/InStock',
-                  url: 'https://inpasidedans.ro/tarife',
-                },
-                {
-                  '@type': 'Offer',
-                  name: 'Abonament Full Pass',
-                  price: '420',
-                  priceCurrency: 'RON',
-                  availability: 'https://schema.org/InStock',
-                  url: 'https://inpasidedans.ro/tarife',
-                },
-                {
-                  '@type': 'Offer',
-                  name: 'Abonament Copii 4 ședințe',
-                  price: '110',
-                  priceCurrency: 'RON',
-                  availability: 'https://schema.org/InStock',
-                  url: 'https://inpasidedans.ro/tarife',
-                },
+                { '@type': 'Offer', name: 'Abonament 8', price: '250', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
+                { '@type': 'Offer', name: 'Abonament 16', price: '350', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
+                { '@type': 'Offer', name: 'Abonament Full Pass', price: '420', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
+                { '@type': 'Offer', name: 'Abonament Copii 4 ședințe', price: '110', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
               ],
               location: {
                 '@type': 'Place',
@@ -128,7 +141,7 @@ export default function Tarife() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">
-            Tarife cursuri de dans din Bucuresti
+              Tarife cursuri de dans din Bucuresti
             </h1>
             <p className="text-gray-500 dark:text-gray-400">
               Alege abonamentul potrivit pentru cursurile de dans pentru adulți
@@ -146,107 +159,7 @@ export default function Tarife() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Pachet 4 ședințe</CardTitle>
-                <div className="mt-4 text-4xl font-bold">680 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>4 ședințe private</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Instructor dedicat</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Pachet 6 ședințe</CardTitle>
-                <div className="mt-4 text-4xl font-bold">960 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>6 ședințe private</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Instructor dedicat</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Pachet 8 ședințe</CardTitle>
-                <div className="mt-4 text-4xl font-bold">1200 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>8 ședințe private</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Instructor dedicat</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Plata la ședință</CardTitle>
-                <div className="mt-4 text-4xl font-bold">200 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>O ședință privată</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Instructor dedicat</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+          <TarifCards tarife={tarifPrivat} />
 
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">
@@ -257,140 +170,7 @@ export default function Tarife() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament 4</CardTitle>
-                <CardDescription className="text-white/90">
-                  Valabil o lună (4 ședințe)
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">110 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>4 ședințe pe lună</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>O ședință pe săptămână</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Acces la grupe pentru copii</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament 8</CardTitle>
-                <CardDescription className="text-white/90">
-                  Valabil o lună (8 ședințe)
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">200 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>8 ședințe pe lună</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>2 ședințe pe săptămână</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Acces la grupe pentru copii</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament 12</CardTitle>
-                <CardDescription className="text-white/90">
-                  Valabil o lună (12 ședințe)
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">250 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>12 ședințe pe lună</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>3 ședințe pe săptămână</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Acces la grupe pentru copii</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Plata la ședință</CardTitle>
-                <CardDescription className="text-white/90">
-                  Ședință de grup
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">35 Lei</div>
-              </CardHeader>
-              <CardContent className="flex-1 mt-2">
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>O ședință la grup</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Check
-                      className="mr-2 h-4 w-4 text-green-500"
-                      aria-label="Inclus"
-                    />
-                    <span>Acces la grupe pentru copii</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+          <TarifCards tarife={tarifCopii} />
 
           <div className="mt-12 bg-red-50 p-4 sm:p-6 md:p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
@@ -426,5 +206,5 @@ export default function Tarife() {
         <GrupeInFormare />
       </div>
     </>
-  );
+  )
 }

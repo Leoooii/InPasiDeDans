@@ -1,69 +1,114 @@
-import { Button } from '@/components/ui/button';
+'use client'
+
+import { useEffect, useState } from 'react'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Check, Star } from 'lucide-react';
-import Link from 'next/link';
+} from '@/components/ui/card'
+import { Check, Star } from 'lucide-react'
+import Link from 'next/link'
 
-const groupPricing = [
+type Tarif = {
+  id: string
+  titlu: string
+  descriere: string
+  pret: number
+  moneda: string
+  categorie: 'grup' | 'privat' | 'copii'
+  beneficii: string[]
+  popular: boolean
+  ordine: number
+}
+
+const FALLBACK: Tarif[] = [
   {
-    id: 1,
-    title: 'Abonament 8',
-    description: 'Valabil 4 săptămâni',
-    price: '250',
-    currency: 'Lei',
-    features: [
+    id: '1',
+    titlu: 'Abonament 8',
+    descriere: 'Valabil 4 săptămâni',
+    pret: 250,
+    moneda: 'Lei',
+    categorie: 'grup',
+    beneficii: [
       '8 ședințe pe lună',
       'Acces la o singură grupă',
-      'Valabil pentru orice grupa (dans popular, dansuri latino & de societate, bachata & salsa)'
+      'Valabil pentru orice grupă (dans popular, dansuri latino & de societate, bachata & salsa)',
     ],
-    popular: false
+    popular: false,
+    ordine: 1,
   },
   {
-    id: 2,
-    title: 'Abonament 16',
-    description: 'Valabil 4 săptămâni',
-    price: '350',
-    currency: 'Lei',
-    features: [
+    id: '2',
+    titlu: 'Abonament 16',
+    descriere: 'Valabil 4 săptămâni',
+    pret: 350,
+    moneda: 'Lei',
+    categorie: 'grup',
+    beneficii: [
       '16 ședințe pe lună',
       'Acces la 2 grupe',
-      'Valabil pentru orice grupa (dans popular, dansuri latino & de societate, bachata & salsa)'
+      'Valabil pentru orice grupă (dans popular, dansuri latino & de societate, bachata & salsa)',
     ],
-    popular: true
+    popular: true,
+    ordine: 2,
   },
   {
-    id: 3,
-    title: 'Abonament Full Pass',
-    description: 'Valabil 4 săptămâni',
-    price: '420',
-    currency: 'Lei',
-    features: [
+    id: '3',
+    titlu: 'Abonament Full Pass',
+    descriere: 'Valabil 4 săptămâni',
+    pret: 420,
+    moneda: 'Lei',
+    categorie: 'grup',
+    beneficii: [
       'Acces nelimitat la grupe',
       'Valabil începând cu prima ședință efectuată',
-      'Permite acces la toate grupele în desfășurare la momentul achiziționării'
+      'Permite acces la toate grupele în desfășurare la momentul achiziționării',
     ],
-    popular: false
+    popular: false,
+    ordine: 3,
   },
   {
-    id: 4,
-    title: 'Plata la ședință',
-    description: 'Orice stil de dans',
-    price: '45',
-    currency: 'Lei',
-    features: [
+    id: '4',
+    titlu: 'Plata la ședință',
+    descriere: 'Orice stil de dans',
+    pret: 45,
+    moneda: 'Lei',
+    categorie: 'grup',
+    beneficii: [
       'O ședință la grup',
-      'Tarif valabil pentru orice grupa (dans popular, dansuri latino & de societate, bachata & salsa)'
+      'Tarif valabil pentru orice grupă (dans popular, dansuri latino & de societate, bachata & salsa)',
     ],
-    popular: false
-  }
-];
+    popular: false,
+    ordine: 4,
+  },
+]
 
 export default function PricingSection({ title }: { title?: string }) {
+  const [plans, setPlans] = useState<Tarif[]>(FALLBACK)
+
+  useEffect(() => {
+    const fetchTarife = async () => {
+      try {
+        const q = query(collection(db, 'tarife'), where('categorie', '==', 'grup'))
+        const snapshot = await getDocs(q)
+        if (!snapshot.empty) {
+          const data = snapshot.docs
+            .map((d) => ({ id: d.id, ...d.data() } as Tarif))
+            .sort((a, b) => a.ordine - b.ordine)
+          setPlans(data)
+        }
+      } catch {
+        // fallback to hardcoded data
+      }
+    }
+    fetchTarife()
+  }, [])
+
   return (
     <div className=" ">
       <div className="container mx-0 ">
@@ -72,35 +117,32 @@ export default function PricingSection({ title }: { title?: string }) {
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
             {title}
           </h2>
-         
         </div>
 
         {/* Group Pricing */}
         <div className="mb-8">
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl ">
-            {groupPricing.map((plan) => (
-              <Card 
-                key={plan.id} 
+            {plans.map((plan) => (
+              <Card
+                key={plan.id}
                 className={`flex flex-col border-red-600 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full ${
-                  plan.popular 
-                    ? 'border-red-500 ' 
+                  plan.popular
+                    ? 'border-red-500 '
                     : 'border-red-600 hover:border-red-700'
                 }`}
               >
-               
                 <CardHeader className={`bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg ${
                   plan.popular ? 'rounded-t-none' : ''
                 }`}>
-                  <CardTitle>{plan.title}</CardTitle>
+                  <CardTitle>{plan.titlu}</CardTitle>
                   <CardDescription className="text-white/90">
-                    {plan.description}
+                    {plan.descriere}
                   </CardDescription>
-                  <div className="mt-4 text-4xl font-bold">{plan.price} {plan.currency}</div>
+                  <div className="mt-4 text-4xl font-bold">{plan.pret} {plan.moneda}</div>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col justify-between mt-2 p-6">
                   <ul className="space-y-2 flex-1">
-                    {plan.features.map((feature, index) => (
+                    {plan.beneficii.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <Check
                           className="mr-2 h-4 w-4 text-green-500 flex-shrink-0 mt-0.5"
@@ -134,7 +176,7 @@ export default function PricingSection({ title }: { title?: string }) {
                     <strong>Valabilitatea abonamentelor este de 4 săptămâni</strong> și acestea se achită la prima ședință. Ședințele pierdute se pot recupera la alte grupe (dacă doriți), în aceeași lună și <strong>NU se reportează pentru lunile viitoare</strong>.
                   </p>
                   <p>
-                    În cazul în care doriți să achiziționați un <strong>abonament full pass</strong>, vă rugăm să verificați dacă grupele la care doriți să participați în baza acestui abonament se potrivesc nivelului dvs. (începător/intermediar/avansat). 
+                    În cazul în care doriți să achiziționați un <strong>abonament full pass</strong>, vă rugăm să verificați dacă grupele la care doriți să participați în baza acestui abonament se potrivesc nivelului dvs. (începător/intermediar/avansat).
                   </p>
                   <p className="bg-amber-100 p-3 rounded border-l-2 border-amber-300">
                     <strong>Exemplu:</strong> dacă sunteți începător, nu puteți participa la grupe de nivel intermediar sau avansat; dacă sunteți avansat puteți participa la orice grupă, indiferent de nivelul acesteia.
@@ -144,9 +186,7 @@ export default function PricingSection({ title }: { title?: string }) {
             </div>
           </div>
         </div>
-
-        
       </div>
     </div>
-  );
+  )
 }

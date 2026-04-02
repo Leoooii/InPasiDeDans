@@ -21,6 +21,7 @@ import {
   LogOut,
   ChevronRight,
   X,
+  Tag,
 } from 'lucide-react';
 
 const navItems = [
@@ -33,6 +34,7 @@ const navItems = [
   { href: '/admin/excursii', label: 'Excursii', icon: Map },
   { href: '/admin/petreceri', label: 'Petreceri', icon: Music },
   { href: '/admin/instructori', label: 'Instructori', icon: UserCog },
+  { href: '/admin/tarife', label: 'Tarife', icon: Tag },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
