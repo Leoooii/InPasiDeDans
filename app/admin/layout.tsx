@@ -11,7 +11,6 @@ import {
   LayoutDashboard,
   Users,
   Calendar,
-  BookOpen,
   Menu,
   CreditCard,
   FileText,
@@ -22,20 +21,38 @@ import {
   ChevronRight,
   X,
   Tag,
+  GraduationCap,
+  BookOpen,
+  Image,
 } from 'lucide-react';
 
-const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { href: '/admin/utilizatori', label: 'Utilizatori', icon: Users },
-  { href: '/admin/grupe', label: 'Grupe', icon: BookOpen },
-  { href: '/admin/prezenta', label: 'Prezență zilnică', icon: Calendar },
-  { href: '/admin/abonamente', label: 'Abonamente', icon: CreditCard },
-  { href: '/admin/evenimente', label: 'Evenimente', icon: FileText },
-  { href: '/admin/excursii', label: 'Excursii', icon: Map },
-  { href: '/admin/petreceri', label: 'Petreceri', icon: Music },
-  { href: '/admin/instructori', label: 'Instructori', icon: UserCog },
-  { href: '/admin/tarife', label: 'Tarife', icon: Tag },
+const navGroups = [
+  {
+    label: 'Management',
+    items: [
+      { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
+      { href: '/admin/cursanti', label: 'Cursanți', icon: GraduationCap },
+      { href: '/admin/grupe', label: 'Grupe', icon: BookOpen },
+      { href: '/admin/prezenta', label: 'Prezență', icon: Calendar },
+      { href: '/admin/abonamente', label: 'Abonamente', icon: CreditCard },
+    ],
+  },
+  {
+    label: 'Conținut site',
+    items: [
+      { href: '/admin/utilizatori', label: 'Utilizatori', icon: Users },
+      { href: '/admin/evenimente', label: 'Evenimente', icon: FileText },
+      { href: '/admin/excursii', label: 'Excursii', icon: Map },
+      { href: '/admin/petreceri', label: 'Petreceri', icon: Music },
+      { href: '/admin/instructori', label: 'Instructori', icon: UserCog },
+      { href: '/admin/tarife', label: 'Tarife', icon: Tag },
+      { href: '/admin/galerie', label: 'Galerie', icon: Image },
+    ],
+  },
 ];
+
+// flat list used for active-state detection
+const navItems = navGroups.flatMap(g => g.items);
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -113,25 +130,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        {navItems.map(({ href, label, icon: Icon, exact }) => {
-          const active = exact ? isDashboardActive : isActive(href);
-          return (
-            <Link key={href} href={href} onClick={onNavigate}>
-              <span
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group cursor-pointer ${
-                  active
-                    ? 'bg-white/10 text-white'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Icon className={`h-4 w-4 flex-shrink-0 ${active ? 'text-red-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
-                {label}
-                {active && <ChevronRight className="h-3 w-3 ml-auto text-slate-500" />}
-              </span>
-            </Link>
-          );
-        })}
+      <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto">
+        {navGroups.map(group => (
+          <div key={group.label}>
+            <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+              {group.label}
+            </p>
+            <div className="space-y-0.5">
+              {group.items.map(({ href, label, icon: Icon, exact }) => {
+                const active = exact ? isDashboardActive : isActive(href);
+                return (
+                  <Link key={href} href={href} onClick={onNavigate}>
+                    <span
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group cursor-pointer ${
+                        active
+                          ? 'bg-white/10 text-white'
+                          : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <Icon className={`h-4 w-4 flex-shrink-0 ${active ? 'text-red-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
+                      {label}
+                      {active && <ChevronRight className="h-3 w-3 ml-auto text-slate-500" />}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
 
       {/* Logout */}

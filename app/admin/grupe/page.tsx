@@ -1,516 +1,389 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useSimpleToast } from "@/components/simple-toast-provider"
-import { auth, db } from "@/lib/firebase"
-import { onAuthStateChanged } from "firebase/auth"
-import { collection, getDocs, query, where, doc, getDoc, updateDoc } from "firebase/firestore"
-import { Loader2, Users, Calendar, Search, UserPlus } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
+import { db } from '@/lib/firebase'
+import {
+  collection, getDocs, query, where, doc, updateDoc,
+  arrayUnion, arrayRemove, orderBy, addDoc, deleteDoc,
+} from 'firebase/firestore'
+import {
+  Loader2, Users, Search, UserPlus, UserMinus, ArrowLeft,
+  GraduationCap, UserCircle2, BookOpen, Plus, X,
+} from 'lucide-react'
+import Link from 'next/link'
+import GrupaForm from '@/components/admin/grupa-form'
+import GrupeList from '@/components/admin/grupe-list'
+import type { Grupa } from '@/app/admin/page'
 
-// Actualizăm tipul Grupa pentru a include array-ul de stiluri
-type Grupa = {
-  id: string
-  titlu: string
-  descriere: string
-  dataStart: string
-  program: string
-  instructor: string
-  locuriDisponibile: number
-  locuriTotale: number
-  stiluri: string[] // Păstrăm doar array-ul de stiluri
-  zile: string[]
-  ora: string
-  public?: boolean
-}
-
-type UserData = {
+type CursantInGrupa = {
   id: string
   nume: string
-  prenume: string
-  email: string
-  telefon: string
   grupe: string[]
 }
 
 export default function GrupePage() {
   const [grupe, setGrupe] = useState<Grupa[]>([])
-  const [filteredGrupe, setFilteredGrupe] = useState<Grupa[]>([])
-  const [selectedGrupa, setSelectedGrupa] = useState<Grupa | null>(null)
-  const [cursanti, setCursanti] = useState<UserData[]>([])
-  const [utilizatoriDisponibili, setUtilizatoriDisponibili] = useState<UserData[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [showForm, setShowForm] = useState(false)
+  const [editingGrupa, setEditingGrupa] = useState<Grupa | null>(null)
+
+  // Cursanți management
+  const [selectedGrupa, setSelectedGrupa] = useState<Grupa | null>(null)
+  const [cursantiGrupa, setCursantiGrupa] = useState<CursantInGrupa[]>([])
+  const [cursantiDisponibili, setCursantiDisponibili] = useState<CursantInGrupa[]>([])
+  const [search, setSearch] = useState('')
   const [isLoadingCursanti, setIsLoadingCursanti] = useState(false)
-  const [activeTab, setActiveTab] = useState("toate")
-  const router = useRouter()
-  const { showToast } = useSimpleToast()
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        // Verificăm dacă este admin
-        if (currentUser.email !== "admin@gmail.com") {
-          router.push("/cont")
-          return
-        }
+  const { toast } = useToast()
 
-        // Încărcăm lista de grupe
-        await fetchGrupe()
-      } else {
-        // Dacă nu este autentificat, redirecționăm către pagina de login
-        router.push("/autentificare")
-      }
+  useEffect(() => { fetchGrupe() }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-      setIsLoading(false)
-    })
-
-    return () => unsubscribe()
-  }, [router])
-
-  useEffect(() => {
-    // Filtrăm grupele în funcție de tab-ul activ
-    if (activeTab === "toate") {
-      setFilteredGrupe(grupe)
-    } else {
-      // Filtrăm grupele care conțin stilul selectat în array-ul de stiluri
-      setFilteredGrupe(grupe.filter((grupa) => grupa.stiluri.includes(activeTab)))
-    }
-  }, [activeTab, grupe])
-
-  // Actualizăm funcția fetchGrupe pentru a folosi datele reale
   const fetchGrupe = async () => {
     try {
-      const grupeQuery = query(collection(db, "grupe"))
-      const querySnapshot = await getDocs(grupeQuery)
-
-      const grupeData: Grupa[] = []
-      querySnapshot.forEach((doc) => {
-        const data = doc.data()
-
-        // Folosim datele reale din baza de date sau valori implicite dacă nu există
-        const grupa = {
-          id: doc.id,
-          ...data,
-          zile: data.zile || (data.program.includes("Luni") ? ["Luni", "Miercuri"] : ["Marți", "Joi"]),
-          ora:
-            data.program.split(",").pop()?.trim() ||
-            (data.program.includes("19:00") ? "19:00 - 20:30" : "20:30 - 22:00"),
-          // Asigurăm-ne că avem mereu un array de stiluri
-          stiluri: data.stiluri || (data.stil ? [data.stil] : ["Dans de societate"]),
-        } as Grupa
-
-        grupeData.push(grupa)
+      const snapshot = await getDocs(query(collection(db, 'grupe'), orderBy('dataStart')))
+      const data: Grupa[] = snapshot.docs.map(d => {
+        const raw = d.data()
+        return {
+          id: d.id,
+          titlu: raw.titlu || '',
+          descriere: raw.descriere || '',
+          dataStart: raw.dataStart || '',
+          program: raw.program || '',
+          instructor: raw.instructor || '',
+          locuriDisponibile: raw.locuriDisponibile ?? 0,
+          locuriTotale: raw.locuriTotale ?? 0,
+          stiluri: raw.stiluri || (raw.stil ? [raw.stil] : []),
+          zile: raw.zile || [],
+          publica: raw.publica !== undefined ? raw.publica : true,
+          nivel: raw.nivel,
+          rol: raw.rol,
+          sala: raw.sala,
+        }
       })
-
-      setGrupe(grupeData)
-      setFilteredGrupe(grupeData)
-    } catch (error) {
-      console.error("Eroare la încărcarea grupelor:", error)
-      showToast( "Nu s-au putut încărca grupele","error"
-       
-      )
+      setGrupe(data)
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-au putut încărca grupele.', variant: 'destructive' })
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  const handleAddGrupa = async (grupa: Grupa) => {
+    try {
+      const { id, ...grupaData } = grupa
+      await addDoc(collection(db, 'grupe'), grupaData)
+      toast({ title: 'Grupă adăugată.' })
+      setShowForm(false)
+      fetchGrupe()
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-a putut adăuga grupa.', variant: 'destructive' })
+    }
+  }
+
+  const handleUpdateGrupa = async (grupa: Grupa) => {
+    if (!grupa.id) return
+    try {
+      const { id, ...grupaData } = grupa
+      await updateDoc(doc(db, 'grupe', grupa.id), grupaData)
+      toast({ title: 'Grupă actualizată.' })
+      setEditingGrupa(null)
+      fetchGrupe()
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-a putut actualiza grupa.', variant: 'destructive' })
+    }
+  }
+
+  const handleDeleteGrupa = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, 'grupe', id))
+      toast({ title: 'Grupă ștearsă.' })
+      fetchGrupe()
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-a putut șterge grupa.', variant: 'destructive' })
+    }
+  }
+
+  const handleEditGrupa = (grupa: Grupa) => {
+    setEditingGrupa(grupa)
+    setShowForm(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const fetchCursantiGrupa = async (grupa: Grupa) => {
     setIsLoadingCursanti(true)
     setSelectedGrupa(grupa)
-    setSearchTerm("")
-
+    setSearch('')
     try {
-      // Obținem toți utilizatorii care sunt în grupa selectată
-      const usersQuery = query(collection(db, "users"), where("grupe", "array-contains", grupa.titlu))
+      const inGrupa = await getDocs(
+        query(collection(db, 'cursanti'), where('grupe', 'array-contains', grupa.id))
+      )
+      const insc: CursantInGrupa[] = inGrupa.docs.map(d => ({
+        id: d.id,
+        ...(d.data() as Omit<CursantInGrupa, 'id'>),
+      }))
+      setCursantiGrupa(insc)
 
-      const querySnapshot = await getDocs(usersQuery)
-
-      const cursantiData: UserData[] = []
-      querySnapshot.forEach((doc) => {
-        // Extragem datele și adăugăm id-ul separat pentru a evita duplicarea
-        const userData = doc.data() as UserData
-        cursantiData.push({
-          ...userData,
-          id: doc.id,
-        })
-      })
-
-      setCursanti(cursantiData)
-
-      // Încărcăm și utilizatorii disponibili pentru adăugare
-      await fetchUtilizatoriDisponibili(grupa.titlu)
-    } catch (error) {
-      console.error("Eroare la încărcarea cursanților:", error)
-      showToast( "Nu s-au putut încărca cursanții","error"
-       )
+      const toti = await getDocs(query(collection(db, 'cursanti'), orderBy('nume')))
+      const inscIds = new Set(insc.map(c => c.id))
+      const disponibili: CursantInGrupa[] = toti.docs
+        .filter(d => !inscIds.has(d.id))
+        .map(d => ({ id: d.id, ...(d.data() as Omit<CursantInGrupa, 'id'>) }))
+      setCursantiDisponibili(disponibili)
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-au putut încărca cursanții.', variant: 'destructive' })
     } finally {
       setIsLoadingCursanti(false)
     }
   }
 
-  const fetchUtilizatoriDisponibili = async (grupaTitlu: string) => {
-    try {
-      // Obținem toți utilizatorii aprobați care nu sunt în grupa selectată
-      const usersQuery = query(collection(db, "users"), where("aprobat", "==", true), where("role", "==", "cursant"))
-
-      const querySnapshot = await getDocs(usersQuery)
-
-      const utilizatoriData: UserData[] = []
-      querySnapshot.forEach((doc) => {
-        const userData = doc.data() as UserData
-        // Verificăm dacă utilizatorul nu este deja în grupă
-        if (!userData.grupe || !userData.grupe.includes(grupaTitlu)) {
-          // Extragem datele și adăugăm id-ul separat pentru a evita duplicarea
-          utilizatoriData.push({
-            ...userData,
-            id: doc.id,
-          })
-        }
-      })
-
-      setUtilizatoriDisponibili(utilizatoriData)
-    } catch (error) {
-      console.error("Eroare la încărcarea utilizatorilor disponibili:", error)
-      showToast( "Nu s-au putut încărca utilizatorii disponibili","error")
-    }
-  }
-
-  const handleAddToGroup = async (userId: string) => {
+  const handleAddToCursanti = async (cursantId: string) => {
     if (!selectedGrupa) return
-
     try {
-      const userRef = doc(db, "users", userId)
-      const userDoc = await getDoc(userRef)
-
-      if (!userDoc.exists()) {
-        showToast("Utilizatorul nu a fost găsit","info"
-          )
-        return
-      }
-
-      const userData = userDoc.data()
-      const grupe = userData.grupe || []
-
-      // Adăugăm grupa la lista de grupe a utilizatorului
-      await updateDoc(userRef, {
-        grupe: [...grupe, selectedGrupa.titlu],
-      })
-
-      showToast(
-        "Utilizatorul a fost adăugat în grupă","success"
-      )
-
-      // Actualizăm listele de utilizatori
-      await fetchCursantiGrupa(selectedGrupa)
-    } catch (error) {
-      console.error("Eroare la adăugarea utilizatorului în grupă:", error)
-      showToast( "Nu s-a putut adăuga utilizatorul în grupă","error"
-       )
+      await updateDoc(doc(db, 'cursanti', cursantId), { grupe: arrayUnion(selectedGrupa.id) })
+      toast({ title: 'Cursant adăugat în grupă.' })
+      fetchCursantiGrupa(selectedGrupa)
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-a putut adăuga cursantul.', variant: 'destructive' })
     }
   }
 
-  const handleRemoveFromGroup = async (userId: string) => {
+  const handleRemoveFromGrupa = async (cursantId: string) => {
     if (!selectedGrupa) return
-
     try {
-      const userRef = doc(db, "users", userId)
-      const userDoc = await getDoc(userRef)
-
-      if (!userDoc.exists()) {
-        showToast( "Utilizatorul nu a fost găsit","info"
-         )
-        return
-      }
-
-      const userData = userDoc.data()
-      const grupe = userData.grupe || []
-
-      // Eliminăm grupa din lista de grupe a utilizatorului
-      await updateDoc(userRef, {
-        grupe: grupe.filter((g: string) => g !== selectedGrupa.titlu),
-      })
-
-      showToast( "Utilizatorul a fost eliminat din grupă","success"
-      )
-
-      // Actualizăm listele de utilizatori
-      await fetchCursantiGrupa(selectedGrupa)
-    } catch (error) {
-      console.error("Eroare la eliminarea utilizatorului din grupă:", error)
-      showToast( "Nu s-a putut elimina utilizatorul din grupă","error"
-       )
+      await updateDoc(doc(db, 'cursanti', cursantId), { grupe: arrayRemove(selectedGrupa.id) })
+      toast({ title: 'Cursant eliminat din grupă.' })
+      fetchCursantiGrupa(selectedGrupa)
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-a putut elimina cursantul.', variant: 'destructive' })
     }
   }
 
-  const filteredUtilizatori = utilizatoriDisponibili.filter((user) => {
-    if (!searchTerm) return true
-
-    const fullName = `${user.nume} ${user.prenume}`.toLowerCase()
-    const email = user.email.toLowerCase()
-    const search = searchTerm.toLowerCase()
-
-    return fullName.includes(search) || email.includes(search)
-  })
+  const filteredDisponibili = cursantiDisponibili.filter(c =>
+    !search || c.nume.toLowerCase().includes(search.toLowerCase())
+  )
 
   if (isLoading) {
     return (
-      <div className="container py-12 flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin mx-auto text-red-600" />
-          <p className="mt-4 text-gray-500">Se încarcă grupele...</p>
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-red-600 mx-auto" />
+          <p className="mt-3 text-sm text-slate-500">Se încarcă grupele...</p>
         </div>
       </div>
     )
   }
 
-  return (
-    <div className="container py-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold">Gestionare Grupe</h1>
-          <p className="text-gray-500">Vizualizează și gestionează grupele de dans</p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={() => router.push("/admin/prezenta")}>
-            <Calendar className="h-4 w-4 mr-2" />
-            Prezență zilnică
+  /* ── Vista: gestionare cursanți ─────────────────────────────── */
+  if (selectedGrupa) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center gap-3 flex-wrap">
+          <Button variant="outline" size="sm" onClick={() => setSelectedGrupa(null)}>
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Înapoi la grupe
           </Button>
-          <Button variant="outline" onClick={() => router.push("/admin")}>
-            Înapoi la panou
-          </Button>
-        </div>
-      </div>
-
-      {selectedGrupa ? (
-        <div className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => setSelectedGrupa(null)}>
-              Înapoi la lista de grupe
-            </Button>
-            <h2 className="text-xl font-semibold">{selectedGrupa.titlu}</h2>
-            <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">{selectedGrupa.stiluri}</Badge>
+          <div className="w-px h-6 bg-slate-200 hidden sm:block" />
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg font-bold text-slate-900 leading-tight">{selectedGrupa.titlu}</h1>
+            {selectedGrupa.instructor && (
+              <div className="flex items-center gap-1 mt-0.5 text-xs text-slate-500">
+                <UserCircle2 className="h-3 w-3" />
+                {selectedGrupa.instructor}
+              </div>
+            )}
           </div>
+          <div className="flex flex-wrap gap-1">
+            {selectedGrupa.stiluri.map((s, i) => (
+              <span key={i} className="inline-flex items-center rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Cursanți înscriși</CardTitle>
-                <CardDescription>Lista cursanților înscriși în această grupă</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isLoadingCursanti ? (
-                  <div className="text-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin mx-auto text-red-600" />
-                    <p className="mt-4 text-gray-500">Se încarcă cursanții...</p>
-                  </div>
-                ) : cursanti.length > 0 ? (
-                  <div className="rounded-md border overflow-hidden overflow-x-auto">
-                    <table className="w-full">
-                      <thead className="bg-muted">
-                        <tr>
-                          <th className="p-3 text-left font-medium">Nume</th>
-                          <th className="p-3 text-left font-medium">Email</th>
-                          <th className="p-3 text-left font-medium hidden md:table-cell">Telefon</th>
-                          <th className="p-3 text-center font-medium">Acțiuni</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {cursanti.map((cursant) => (
-                          <tr key={cursant.id} className="border-t">
-                            <td className="p-3">
-                              {cursant.nume} {cursant.prenume}
-                            </td>
-                            <td className="p-3">{cursant.email}</td>
-                            <td className="p-3 hidden md:table-cell">{cursant.telefon}</td>
-                            <td className="p-3 text-center">
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => handleRemoveFromGroup(cursant.id)}
-                                className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                              >
-                                Elimină
-                              </Button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+        {isLoadingCursanti ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="h-6 w-6 animate-spin text-slate-300" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Cursanți înscriși */}
+            <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+              <div className="px-5 py-4 border-b border-slate-50 flex items-center gap-2">
+                <GraduationCap className="h-4 w-4 text-slate-400" />
+                <span className="text-sm font-semibold text-slate-900">Cursanți înscriși</span>
+                {cursantiGrupa.length > 0 && (
+                  <span className="ml-auto text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                    {cursantiGrupa.length}
+                  </span>
+                )}
+              </div>
+              <div className="p-4">
+                {cursantiGrupa.length === 0 ? (
+                  <p className="text-sm text-slate-400 text-center py-8">Niciun cursant înscris încă.</p>
                 ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">Nu există cursanți înscriși în această grupă</p>
+                  <div className="divide-y divide-slate-50">
+                    {cursantiGrupa.map(c => (
+                      <div key={c.id} className="flex items-center justify-between py-2.5">
+                        <Link
+                          href={`/admin/cursanti/${c.id}`}
+                          className="text-sm font-medium text-slate-800 hover:text-indigo-600 transition-colors"
+                        >
+                          {c.nume}
+                        </Link>
+                        <button
+                          onClick={() => handleRemoveFromGrupa(c.id)}
+                          className="text-xs text-red-500 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded-md font-medium flex items-center gap-1 transition-colors"
+                        >
+                          <UserMinus className="h-3.5 w-3.5" />
+                          Elimină
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Adaugă cursanți</CardTitle>
-                <CardDescription>Adaugă cursanți noi în această grupă</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 border rounded-md px-3 py-2">
-                    <Search className="h-4 w-4 text-gray-400" />
-                    <Input
-                      placeholder="Caută după nume sau email..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-
-                  {filteredUtilizatori.length > 0 ? (
-                    <div className="rounded-md border overflow-hidden overflow-x-auto">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="p-3 text-left font-medium">Nume</th>
-                            <th className="p-3 text-left font-medium hidden md:table-cell">Email</th>
-                            <th className="p-3 text-center font-medium">Acțiuni</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredUtilizatori.map((user) => (
-                            <tr key={user.id} className="border-t">
-                              <td className="p-3">
-                                {user.nume} {user.prenume}
-                              </td>
-                              <td className="p-3 hidden md:table-cell">{user.email}</td>
-                              <td className="p-3 text-center">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => handleAddToGroup(user.id)}
-                                  className="flex items-center gap-1 text-green-600 hover:text-green-800 hover:bg-green-50"
-                                >
-                                  <UserPlus className="h-4 w-4" />
-                                  <span className="hidden md:inline">Adaugă</span>
-                                </Button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <p className="text-gray-500">
-                        {searchTerm
-                          ? "Nu s-au găsit utilizatori care să corespundă căutării"
-                          : "Nu există utilizatori disponibili pentru adăugare"}
-                      </p>
-                    </div>
-                  )}
+            {/* Adaugă cursanți */}
+            <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+              <div className="px-5 py-4 border-b border-slate-50 flex items-center gap-2">
+                <UserPlus className="h-4 w-4 text-slate-400" />
+                <span className="text-sm font-semibold text-slate-900">Adaugă cursanți</span>
+              </div>
+              <div className="p-4 space-y-3">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="Caută după nume..."
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    className="pl-9 text-sm h-9"
+                  />
                 </div>
-              </CardContent>
-            </Card>
+                {filteredDisponibili.length === 0 ? (
+                  <p className="text-sm text-slate-400 text-center py-8">
+                    {search ? 'Niciun rezultat.' : 'Toți cursanții sunt deja în grupă.'}
+                  </p>
+                ) : (
+                  <div className="divide-y divide-slate-50 max-h-80 overflow-y-auto">
+                    {filteredDisponibili.map(c => (
+                      <div key={c.id} className="flex items-center justify-between py-2.5">
+                        <span className="text-sm text-slate-700">{c.nume}</span>
+                        <button
+                          onClick={() => handleAddToCursanti(c.id)}
+                          className="text-xs text-green-600 hover:text-green-800 hover:bg-green-50 px-2.5 py-1 rounded-md font-medium flex items-center gap-1 transition-colors"
+                        >
+                          <UserPlus className="h-3.5 w-3.5" />
+                          Adaugă
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  /* ── Vista: lista grupe ──────────────────────────────────────── */
+  const isAddingNew = showForm && !editingGrupa
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-bold text-slate-900">Grupe</h1>
+          <p className="text-sm text-slate-500 mt-0.5">{grupe.length} {grupe.length === 1 ? 'grupă' : 'grupe'}</p>
+        </div>
+        <Button
+          size="sm"
+          onClick={() => {
+            if (isAddingNew) {
+              setShowForm(false)
+            } else {
+              setEditingGrupa(null)
+              setShowForm(true)
+            }
+          }}
+          className="bg-slate-900 hover:bg-slate-800 shrink-0"
+        >
+          {isAddingNew
+            ? <><X className="h-4 w-4 mr-1.5" />Anulează</>
+            : <><Plus className="h-4 w-4 mr-1.5" />Grupă nouă</>}
+        </Button>
+      </div>
+
+      {/* Form: adaugă */}
+      {showForm && !editingGrupa && (
+        <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-50 flex items-center justify-between">
+            <span className="text-sm font-semibold text-slate-900">Grupă nouă</span>
+            <button
+              onClick={() => setShowForm(false)}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="p-5">
+            <GrupaForm key="new" onSubmit={handleAddGrupa} />
+          </div>
+        </div>
+      )}
+
+      {/* Form: editează */}
+      {editingGrupa && (
+        <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-50 flex items-center justify-between">
+            <span className="text-sm font-semibold text-slate-900">
+              Editează — {editingGrupa.titlu}
+            </span>
+            <button
+              onClick={() => setEditingGrupa(null)}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="p-5">
+            <GrupaForm
+              key={editingGrupa.id}
+              onSubmit={handleUpdateGrupa}
+              initialData={editingGrupa}
+              onCancel={() => setEditingGrupa(null)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Lista */}
+      {grupe.length === 0 && !showForm && !editingGrupa ? (
+        <div className="bg-white rounded-xl border border-slate-100 shadow-sm flex items-center justify-center py-16 text-slate-400">
+          <div className="text-center">
+            <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-30" />
+            <p className="text-sm">Nu există grupe încă.</p>
           </div>
         </div>
       ) : (
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-1 md:grid-cols-5">
-            <TabsTrigger value="toate">Toate</TabsTrigger>
-            <TabsTrigger value="Dans de societate">Dans de societate</TabsTrigger>
-            <TabsTrigger value="Dans standard">Dans standard</TabsTrigger>
-            <TabsTrigger value="Dans latino">Dans latino</TabsTrigger>
-            <TabsTrigger value="Dansuri populare">Dansuri populare</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value={activeTab}>
-            <Card>
-              <CardHeader>
-                <CardTitle>{activeTab === "toate" ? "Toate grupele" : `Grupe de ${activeTab}`}</CardTitle>
-                <CardDescription>Selectează o grupă pentru a vedea și gestiona cursanții</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {filteredGrupe.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredGrupe.map((grupa) => (
-                      <Card
-                        key={grupa.id}
-                        className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
-                        onClick={() => fetchCursantiGrupa(grupa)}
-                      >
-                        <CardHeader className="pb-2">
-                          <div className="flex justify-between items-start">
-                            <CardTitle className="text-lg">{grupa.titlu}</CardTitle>
-                            <div className="flex flex-wrap gap-1 justify-end">
-                              {grupa.stiluri.map((stil, index) => (
-                                <Badge
-                                  key={index}
-                                  className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-                                >
-                                  {stil}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                          <CardDescription>{grupa.descriere}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-2">
-                            <div className="flex justify-between">
-                              <span className="text-sm text-gray-500">Instructor:</span>
-                              <span className="text-sm font-medium">{grupa.instructor}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-sm text-gray-500">Zile:</span>
-                              <span className="text-sm font-medium">{grupa.zile.join(", ")}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-sm text-gray-500">Ora:</span>
-                              <span className="text-sm font-medium">{grupa.ora}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-sm text-gray-500">Data start:</span>
-                              <span className="text-sm font-medium">
-                                {new Date(grupa.dataStart).toLocaleDateString("ro-RO")}
-                              </span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-sm text-gray-500">Locuri:</span>
-                              <span className="text-sm font-medium">
-                                {grupa.locuriDisponibile} / {grupa.locuriTotale}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="mt-4 flex justify-end">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="flex items-center"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                fetchCursantiGrupa(grupa)
-                              }}
-                            >
-                              <Users className="h-4 w-4 mr-2" />
-                              Gestionează cursanți
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">Nu există grupe în această categorie</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+        <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+          <div className="p-5">
+            <GrupeList
+              grupe={grupe}
+              onEdit={handleEditGrupa}
+              onDelete={handleDeleteGrupa}
+              onManageCursanti={fetchCursantiGrupa}
+            />
+          </div>
+        </div>
       )}
     </div>
   )
 }
-
