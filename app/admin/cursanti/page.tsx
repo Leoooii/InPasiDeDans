@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import CursantForm from '@/components/admin/cursant-form'
-import { Loader2, Plus, User, Pencil, X } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Loader2, Plus, User, Pencil, X, Search } from 'lucide-react'
 
 export interface Cursant {
   id: string
@@ -24,6 +25,7 @@ export default function CursantiPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [selectedCursant, setSelectedCursant] = useState<Cursant | null>(null)
+  const [search, setSearch] = useState('')
   const { toast } = useToast()
 
   const fetchCursanti = async () => {
@@ -115,6 +117,19 @@ export default function CursantiPage() {
         </div>
       )}
 
+      {/* ─── Search ─────────────────────────────────────────── */}
+      {!isLoading && cursanti.length > 0 && (
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Input
+            placeholder="Caută după nume..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="pl-9 h-9 text-sm bg-white border-slate-200"
+          />
+        </div>
+      )}
+
       {/* ─── Grid ───────────────────────────────────────────── */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
@@ -128,6 +143,7 @@ export default function CursantiPage() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
           {[...cursanti]
+            .filter(c => !search || c.nume.toLowerCase().includes(search.toLowerCase()))
             .sort((a, b) => a.nume.localeCompare(b.nume, 'ro'))
             .map(c => (
               <Link
