@@ -31,7 +31,6 @@ import Link from 'next/link';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { cn } from '@/lib/utils';
 import { db } from '@/lib/firebase';
-import { Turnstile } from '@marsidev/react-turnstile';
 
 interface FormData {
   danceclass: string;
@@ -68,7 +67,6 @@ export default function InscriereForm() {
     consent: false,
   });
 
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [grupeOptions, setGrupeOptions] = useState<GrupaOption[]>([]);
@@ -187,12 +185,6 @@ export default function InscriereForm() {
       return;
     }
 
-    if (!turnstileToken) {
-      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
-      setIsSubmitting(false);
-      return;
-    }
-
     if (!formData.consent) {
       showToast(
         'Trebuie să acceptați Politica de Confidențialitate pentru a continua.',
@@ -208,10 +200,7 @@ export default function InscriereForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          'cf-turnstile-response': turnstileToken,
-        }),
+        body: JSON.stringify({ ...formData }),
       });
       if (!response.ok) {
         throw new Error('Eroare la trimiterea formularului');
@@ -227,7 +216,6 @@ export default function InscriereForm() {
         honey: '',
         consent: false,
       });
-      setTurnstileToken(null);
       showToast(
         'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
         'success'
@@ -243,24 +231,6 @@ export default function InscriereForm() {
       setIsSubmitting(false);
     }
   };
-
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-  if (!siteKey) {
-    return (
-      <div className="container py-12">
-        <Head />
-        <div className="max-w-3xl mx-auto">
-          <Card>
-            <CardContent>
-              <p className="text-red-600">
-                Eroare: Cheia Turnstile nu este configurată. Contactați administratorul.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="container py-12">
@@ -477,21 +447,12 @@ export default function InscriereForm() {
                   </div>
                 </div>
 
-                <Turnstile
-                  siteKey={siteKey}
-                  onSuccess={token => setTurnstileToken(token)}
-                  onError={() => {
-                    setTurnstileToken(null);
-                    showToast('Eroare la verificarea CAPTCHA.', 'error');
-                  }}
-                />
-
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !isFormValid || !turnstileToken}
+                  disabled={isSubmitting || !isFormValid}
                   className={cn(
                     'w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600',
-                    (!isFormValid || isSubmitting || !turnstileToken) && 'opacity-60 cursor-not-allowed'
+                    (!isFormValid || isSubmitting) && 'opacity-60 cursor-not-allowed'
                   )}
                 >
                   {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}

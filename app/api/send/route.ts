@@ -15,7 +15,6 @@ const FormSchema = z.object({
   instructor: z.string().max(200).optional().default(''),
   phone: z.string().max(20).optional().default(''),
   honey: z.string().optional().default(''),
-  'cf-turnstile-response': z.string().min(1, 'Token Turnstile lipsă'),
   consent: z
     .boolean({ required_error: 'Consimțământul este obligatoriu' })
     .refine(val => val === true, { message: 'Trebuie să acceptați Politica de Confidențialitate' }),
@@ -34,11 +33,6 @@ export async function POST(request: NextRequest) {
       console.error('RESEND_API_KEY lipsește');
       return NextResponse.json({ error: 'Configurație server invalidă' }, { status: 500 });
     }
-    if (!process.env.TURNSTILE_SECRET_KEY) {
-      console.error('TURNSTILE_SECRET_KEY lipsește');
-      return NextResponse.json({ error: 'Configurație server invalidă' }, { status: 500 });
-    }
-
     await rateLimitMiddleware(ip);
 
     // Validează originea cererii
@@ -75,7 +69,6 @@ export async function POST(request: NextRequest) {
       instructor,
       phone,
       honey,
-      'cf-turnstile-response': token,
       consent,
     } = validatedData.data;
 
@@ -83,24 +76,6 @@ export async function POST(request: NextRequest) {
     if (honey) {
       console.warn('Spam detectat prin honeypot', { ip: ip });
       return NextResponse.json({ error: 'Spam detectat' }, { status: 400 });
-    }
-
-    // Validare token Turnstile
-    const turnstileResponse = await fetch(
-      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: process.env.TURNSTILE_SECRET_KEY,
-          response: token,
-        }),
-      }
-    );
-    const turnstileResult = await turnstileResponse.json();
-    if (!turnstileResult.success) {
-      console.warn('Validare Turnstile eșuată', { ip: ip });
-      return NextResponse.json({ error: 'Validare Turnstile eșuată' }, { status: 400 });
     }
 
     // Documentează consimțământul (ex. salvează în baza de date)
