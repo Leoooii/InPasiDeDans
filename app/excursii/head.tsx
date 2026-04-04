@@ -18,7 +18,7 @@ export default function Head() {
         property="og:description"
         content="Ieșim din sala de dans și creăm amintiri memorabile în excursii și evenimente."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/excursii" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />

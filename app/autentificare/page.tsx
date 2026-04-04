@@ -19,7 +19,7 @@ import { Label } from '@/components/ui/label';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import { auth } from '@/lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import Head from './head';
+
 
 export default function AutentificarePage() {
   const [email, setEmail] = useState('');
@@ -44,7 +44,7 @@ export default function AutentificarePage() {
       showToast('Autentificare reușită', 'success');
 
       // Redirecționează în funcție de email
-      if (email === 'admin@gmail.com') {
+      if (email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
         router.push('/admin');
       } else {
         router.push('/cont');
@@ -72,7 +72,6 @@ export default function AutentificarePage() {
 
   return (
     <div className="container flex items-center justify-center min-h-[calc(100vh-5rem)] py-12">
-      <Head />
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Autentificare</CardTitle>

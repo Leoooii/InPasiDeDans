@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 
 import Link from 'next/link';
-import Head from './head';
+
 import GrupeInFormare from '@/components/grupe-in-formare';
 import FolkDancesCarousel from '@/components/FolkDancesCarousel';
 import WhyChooseUsFolkDances from '@/components/WhyChooseUsFolkDances';
@@ -27,7 +27,6 @@ export default function DansuriPopulare() {
 
   return (
     <div className="container py-6 md:py-12 flex flex-col gap-6 md:gap-12 px-2 md:px-4">
-      <Head />
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansuri-populare" />
       {/* Container de început cu titlu, descriere și buton - stil Dansuri Latino */}
       <div className="p-0 container flex flex-col gap-4 items-center">

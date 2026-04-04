@@ -2,15 +2,16 @@ import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const data = await request.json()
 
     if (!data.titlu || !data.pret || !data.categorie) {
       return NextResponse.json({ error: "Lipsesc câmpuri obligatorii" }, { status: 400 })
     }
 
-    const tarifRef = doc(db, "tarife", params.id)
+    const tarifRef = doc(db, "tarife", id)
     const snap = await getDoc(tarifRef)
     if (!snap.exists()) {
       return NextResponse.json({ error: "Tariful nu a fost găsit" }, { status: 404 })
@@ -27,16 +28,17 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       ordine: data.ordine ?? 99,
     })
 
-    return NextResponse.json({ id: params.id })
+    return NextResponse.json({ id })
   } catch (error) {
     console.error("Eroare la actualizarea tarifului:", error)
     return NextResponse.json({ error: "Eroare la actualizarea tarifului" }, { status: 500 })
   }
 }
 
-export async function DELETE(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const tarifRef = doc(db, "tarife", params.id)
+    const { id } = await params
+    const tarifRef = doc(db, "tarife", id)
     const snap = await getDoc(tarifRef)
     if (!snap.exists()) {
       return NextResponse.json({ error: "Tariful nu a fost găsit" }, { status: 404 })

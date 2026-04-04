@@ -19,7 +19,7 @@ import { useSimpleToast } from '@/components/simple-toast-provider';
 import { auth, db } from '@/lib/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc, Timestamp } from 'firebase/firestore';
-import Head from './head';
+
 
 export default function InregistrarePage() {
   const [nume, setNume] = useState('');
@@ -97,7 +97,6 @@ export default function InregistrarePage() {
 
   return (
     <div className="container flex items-center justify-center min-h-[calc(100vh-5rem)] py-12">
-      <Head />
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">

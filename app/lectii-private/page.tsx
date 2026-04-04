@@ -3,8 +3,30 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserCircleIcon, UserX2Icon, AlertCircle } from 'lucide-react';
-import Head from './head';
+import type { Metadata } from 'next';
 import GrupeInFormare from '@/components/grupe-in-formare';
+
+export const metadata: Metadata = {
+  title: 'Lecții Private Dans București – Instructor Dedicat | În Pași de Dans',
+  description: 'Lecții private de dans în București – progres rapid cu instructor dedicat. Program flexibil, toate vârstele, Sector 4-5-6. Înscrie-te acum!',
+  keywords: 'lectii private dans, instructor privat dans, cursuri private dans Bucuresti',
+  alternates: { canonical: 'https://www.inpasidedans.ro/lectii-private' },
+  openGraph: {
+    title: 'Lecții Private Dans București | În Pași de Dans',
+    description: 'Programează lecții private de dans cu instructori dedicați și progresează rapid, la ritmul tău.',
+    url: 'https://www.inpasidedans.ro/lectii-private',
+    images: [{ url: 'https://www.inpasidedans.ro/images/logo.png', alt: 'Lecții private dans București' }],
+    locale: 'ro_RO',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Lecții Private Dans București | În Pași de Dans',
+    description: 'Programează lecții private de dans cu instructori dedicați și progresează rapid, la ritmul tău.',
+    images: ['https://www.inpasidedans.ro/images/logo.png'],
+  },
+  robots: { index: true, follow: true },
+};
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
@@ -16,7 +38,6 @@ export default function LectiiPrivate() {
 
   return (
     <div className="container py-12">
-      <Head />
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/lectii-private" />
       <div className="space-y-6">
         <div className="space-y-2">

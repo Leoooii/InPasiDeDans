@@ -15,7 +15,7 @@ export default function Head() {
         property="og:description"
         content="Descopera cine suntem si cum a inceput povestea scolii In Pasi de Dans."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/despre-noi" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />

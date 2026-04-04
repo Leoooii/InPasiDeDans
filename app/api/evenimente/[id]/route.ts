@@ -2,9 +2,9 @@ import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore"
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await params
     const evenimentRef = doc(db, "evenimente", id)
     const evenimentSnap = await getDoc(evenimentRef)
 
@@ -28,9 +28,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await params
     const data = await request.json()
 
     const evenimentRef = doc(db, "evenimente", id)
@@ -46,9 +46,9 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await params
     const evenimentRef = doc(db, "evenimente", id)
     await deleteDoc(evenimentRef)
 

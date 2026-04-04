@@ -64,7 +64,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
-        if (user.email === 'admin@gmail.com') {
+        if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
           setIsAdmin(true);
         } else {
           router.push('/cont');

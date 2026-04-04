@@ -18,7 +18,7 @@ export default function Head() {
         property="og:description"
         content="Cursuri de dans pentru adulti: distractie, miscare si evolutie personala alaturi de profesionisti."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta
         property="og:url"
         content="https://www.inpasidedans.ro/cursuri-dans-adulti"

@@ -1,28 +1,55 @@
+import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AlertCircle, UserCircleIcon, UserX2Icon } from 'lucide-react';
-import Head from './head';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import WeddingDanceTestimonials from '@/components/WeddingDanceTestimonials';
 
-export default function DansulMirilor() {
-  const breadcrumbItems = [
-    { name: "Acasă", url: "/" },
-    { name: "Dansul mirilor" }
-  ];
+export const metadata: Metadata = {
+  title: 'Dans Nuntă București – Coregrafie Mirilor | 3-4 Lecții | În Pași de Dans',
+  description: 'Dansul mirilor în București - Transformă primul dans în cea mai emoționantă amintire a nunții. Coregrafii personalizate, program flexibil, instructori dedicați. Înscrie-te acum!',
+  keywords: 'dansul mirilor, cursuri private dans, lectii private nunta, coregrafie dans miri, Bucuresti',
+  alternates: {
+    canonical: 'https://www.inpasidedans.ro/dansul-mirilor',
+  },
+  openGraph: {
+    title: 'Dansul Mirilor București | Cursuri Private | În Pași de Dans',
+    description: 'Dansul mirilor cu coregrafie personalizată. Lecții private 1-la-1, program flexibil și instructori dedicați. București.',
+    url: 'https://www.inpasidedans.ro/dansul-mirilor',
+    type: 'website',
+    images: [
+      {
+        url: 'https://www.inpasidedans.ro/images/logo.png',
+        alt: 'Dansul mirilor la În Pași de Dans',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dansul Mirilor București | Cursuri Private | În Pași de Dans',
+    description: 'Dansul mirilor cu coregrafie personalizată. Lecții private 1-la-1, program flexibil și instructori dedicați. București.',
+    images: ['https://www.inpasidedans.ro/images/logo.png'],
+  },
+  robots: { index: true, follow: true },
+};
 
+const breadcrumbItems = [
+  { name: 'Acasă', url: '/' },
+  { name: 'Dansul mirilor' },
+];
+
+export default function DansulMirilor() {
   return (
     <div className="container py-12">
-      <Head />
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansul-mirilor" />
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">
-            Dansul mirilor
+            Dans Nuntă București – Coregrafie Mirilor
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Oferim lecții private atât pentru miri, cât și pentru persoane mai
@@ -456,6 +483,52 @@ export default function DansulMirilor() {
                 vă simțiți confortabil.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Ce înveți în primele 4 ședințe */}
+        <div className="mt-12 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/20 dark:to-orange-950/20 rounded-2xl p-8 border border-red-200 dark:border-red-800">
+          <h2 className="text-2xl font-bold mb-2 text-center">
+            Ce se întâmplă în primele 4 ședințe
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
+            Fiecare ședință are un obiectiv clar — la final veți fi pregătiți să dansați cu
+            încredere în fața invitaților.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                nr: '1',
+                titlu: 'Consultare coregrafică',
+                desc: 'Ascultăm melodia aleasă, discutăm despre stilul preferat (vals, tango, latino) și stabilim nivelul de dificultate potrivit pentru voi.',
+              },
+              {
+                nr: '2',
+                titlu: 'Pași de bază',
+                desc: 'Învățați postura de cuplu, conexiunea cu partenerul și pașii fundamentali ai stilului ales, pas cu pas, fără presiune.',
+              },
+              {
+                nr: '3',
+                titlu: 'Prima coregrafie',
+                desc: 'Construim primele secvențe: intrarea pe ring, prima parte a dansului și un element surpriză dacă doriți.',
+              },
+              {
+                nr: '4',
+                titlu: 'Repetiție + video',
+                desc: 'Repetăm coregra­fia completă și facem o înregistrare video ca să o puteți exersa și acasă. Ajustăm dacă e nevoie.',
+              },
+            ].map((item) => (
+              <div
+                key={item.nr}
+                className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-red-100 dark:border-red-900"
+              >
+                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg mb-3">
+                  {item.nr}
+                </div>
+                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{item.titlu}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 

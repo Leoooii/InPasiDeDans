@@ -15,7 +15,7 @@ export default function Head() {
         property="og:description"
         content="Tradiție, cultură și distracție în lecțiile noastre de dansuri populare românești."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta
         property="og:url"
         content="https://www.inpasidedans.ro/dansuri-populare"

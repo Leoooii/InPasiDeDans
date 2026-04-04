@@ -15,7 +15,7 @@ export default function Head() {
         property="og:description"
         content="Alătură-te unei grupe noi de dans și începe aventura dansului chiar de la început."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta
         property="og:url"
         content="https://www.inpasidedans.ro/grupe-in-formare"

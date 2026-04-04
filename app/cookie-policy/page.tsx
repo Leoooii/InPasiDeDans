@@ -1,10 +1,23 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import Head from './head';
+
+export const metadata: Metadata = {
+  title: 'Politică de Cookie-uri | În Pași de Dans',
+  description: 'Aflați cum folosim cookie-urile și tehnologiile similare pe site-ul nostru pentru a asigura o experiență sigură și personalizată.',
+  alternates: { canonical: 'https://www.inpasidedans.ro/cookie-policy' },
+  openGraph: {
+    title: 'Politică de Cookie-uri | În Pași de Dans',
+    description: 'Aflați cum folosim cookie-urile pentru a vă oferi o experiență sigură și personalizată pe site.',
+    url: 'https://www.inpasidedans.ro/cookie-policy',
+    images: [{ url: 'https://www.inpasidedans.ro/images/logo.png' }],
+    type: 'website',
+  },
+  robots: { index: true, follow: true },
+};
 
 export default function CookiePolicy() {
   return (
     <div className="bg-gray-100 text-gray-800 min-h-screen">
-      <Head />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <h1 className="text-3xl font-bold mb-6 text-center">
           Politică de Cookie-uri
