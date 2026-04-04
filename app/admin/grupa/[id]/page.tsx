@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -36,7 +36,8 @@ type UserData = {
   grupe: string[]
 }
 
-export default function GrupaDetailPage({ params }: { params: { id: string } }) {
+export default function GrupaDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: grupaId } = use(params)
   const [grupa, setGrupa] = useState<Grupa | null>(null)
   const [cursanti, setCursanti] = useState<UserData[]>([])
   const [utilizatoriDisponibili, setUtilizatoriDisponibili] = useState<UserData[]>([])
@@ -45,7 +46,6 @@ export default function GrupaDetailPage({ params }: { params: { id: string } }) 
   const [isLoadingUsers, setIsLoadingUsers] = useState(false)
   const router = useRouter()
   const { showToast } = useSimpleToast()
-  const grupaId = params.id
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
