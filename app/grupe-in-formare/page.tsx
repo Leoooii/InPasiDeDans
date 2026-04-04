@@ -1,6 +1,22 @@
 
-import Head from './head';
+import type { Metadata } from 'next';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
+
+export const metadata: Metadata = {
+  title: 'Grupe Noi de Dans în Formare București | Locuri Limitate | În Pași de Dans',
+  description: 'Grupe de dans în formare București – salsa, bachata, dans de societate, dans latino pentru nivel începător. Locuri limitate, înscrie-te acum!',
+  keywords: 'grupe noi dans, inscriere cursuri dans, incepatori dans Bucuresti',
+  alternates: { canonical: 'https://www.inpasidedans.ro/grupe-in-formare' },
+  openGraph: {
+    title: 'Grupe în Formare | În Pași de Dans București',
+    description: 'Alătură-te unei grupe noi de dans și începe aventura dansului chiar de la început.',
+    url: 'https://www.inpasidedans.ro/grupe-in-formare',
+    images: [{ url: 'https://www.inpasidedans.ro/images/logo.png', alt: 'Grupe dans în formare București' }],
+    locale: 'ro_RO',
+    type: 'website',
+  },
+  robots: { index: true, follow: true },
+};
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -10,42 +26,6 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { ChevronRight } from 'lucide-react';
-
-export const metadata = {
-  title: 'Grupe de Dans in Formare | In Pasi de Dans',
-  description:
-    'Descopera grupele de dans in formare la scoala noastra din Bucuresti. Inscrie-te la cursuri de dans pentru adulti si copii!',
-  keywords:
-    'grupe dans formare, cursuri dans Bucuresti, inscrieri dans, scoala dans',
-  robots: 'index, follow',
-  alternates: {
-    canonical: 'https://www.inpasidedans.ro/grupe-in-formare',
-  },
-  openGraph: {
-    type: 'website',
-    title: 'Grupe de Dans in Formare | In Pasi de Dans',
-    description:
-      'Descopera grupele de dans in formare la scoala noastra din Bucuresti. Inscrie-te la cursuri de dans pentru adulti si copii!',
-    url: 'https://www.inpasidedans.ro/grupe-in-formare',
-    siteName: 'In Pasi de Dans',
-    images: [
-      {
-        url: 'https://www.inpasidedans.ro/images/logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'Grupe de Dans in Formare In Pasi de Dans',
-      },
-    ],
-    locale: 'ro_RO',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Grupe de Dans in Formare | In Pasi de Dans',
-    description:
-      'Descopera grupele de dans in formare la scoala noastra din Bucuresti. Inscrie-te la cursuri de dans pentru adulti si copii!',
-    images: ['https://inpasidedans.ro/images/logo.png'],
-  },
-};
 
 export default function GrupeInFormarePage() {
   return (

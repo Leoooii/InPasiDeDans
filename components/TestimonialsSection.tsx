@@ -17,10 +17,11 @@ interface Testimonial {
   text: string;
   rating: number;
   highlight: string;
+  date?: string;
 }
 
 interface TestimonialsSectionProps {
-  danceType?: 'latino' | 'societate' | 'salsa-bachata' | 'default';
+  danceType?: 'latino' | 'societate' | 'salsa-bachata' | 'copii' | 'default';
 }
 
 const latinoTestimonials: Testimonial[] = [
@@ -119,42 +120,99 @@ const salsaBachataTestimonials: Testimonial[] = [
     name: 'Adriana Baluță',
     text: 'Cursurile de salsa și bachata au devenit cea mai așteptată parte a săptămânii pentru mine. Am descoperit nu doar dansul, ci și o comunitate caldă și prietenoasă.',
     rating: 5,
-    highlight: 'Cea mai așteptată parte a săptămânii'
+    highlight: 'Cea mai așteptată parte a săptămânii',
+    date: 'Octombrie 2025'
   },
   {
     id: 2,
     name: 'Carmen Niculae',
     text: 'Nu am crezut că voi învăța pașii atât de repede! Instructorii explică pe înțelesul tuturor și reușesc să facă totul foarte distractiv.',
     rating: 5,
-    highlight: 'Învățare rapidă și distractivă'
+    highlight: 'Învățare rapidă și distractivă',
+    date: 'Septembrie 2025'
   },
   {
     id: 3,
     name: 'Cristina Popa',
     text: 'Pentru mine, dansul a devenit o terapie. În fiecare oră de bachata uit de griji și plec cu zâmbetul pe buze.',
     rating: 5,
-    highlight: 'Dansul ca terapie'
+    highlight: 'Dansul ca terapie',
+    date: 'Noiembrie 2025'
   },
   {
     id: 4,
     name: 'Cătălin Nistor',
     text: 'Atmosfera e minunată – multă energie, voie bună și muzică care te face să nu mai vrei să stai pe scaun.',
     rating: 5,
-    highlight: 'Multă energie și voie bună'
+    highlight: 'Multă energie și voie bună',
+    date: 'August 2025'
   },
   {
     id: 5,
     name: 'Victor Păducel',
     text: 'Cursurile de salsa m-au ajutat să am mai multă încredere în mine și să îmi dezvolt coordonarea. Plus că am cunoscut oameni super faini!',
     rating: 5,
-    highlight: 'Încredere și coordonare'
+    highlight: 'Încredere și coordonare',
+    date: 'Ianuarie 2026'
   },
   {
     id: 6,
     name: 'Daria Mușat',
     text: 'Recomand din toată inima! Fiecare lecție e o combinație perfectă între tehnică, distracție și socializare.',
     rating: 5,
-    highlight: 'Combinație perfectă'
+    highlight: 'Combinație perfectă',
+    date: 'Decembrie 2025'
+  }
+];
+
+const copiiTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: 'Ioana Marinescu',
+    text: 'Fiica mea are 9 ani și de când a început cursurile la În Pași de Dans s-a transformat complet. Este mai sigură pe ea, mai coordonată și abia așteaptă fiecare oră de dans.',
+    rating: 5,
+    highlight: 'Mai sigură pe ea și mai coordonată',
+    date: 'Octombrie 2025'
+  },
+  {
+    id: 2,
+    name: 'Radu Ionescu',
+    text: 'Băiatul meu era timid și nu voia să iasă din cochilie. Cursurile de dans l-au ajutat enorm — acum participă la concursuri și e mândru de el. Mulțumim instructorilor!',
+    rating: 5,
+    highlight: 'Participă la concursuri și e mândru de el',
+    date: 'Noiembrie 2025'
+  },
+  {
+    id: 3,
+    name: 'Alina Georgescu',
+    text: 'Atmosfera la cursurile de copii este extraordinară. Instructorii au o răbdare incredibilă și știu să facă orele distractive și educative în același timp.',
+    rating: 5,
+    highlight: 'Ore distractive și educative',
+    date: 'Septembrie 2025'
+  },
+  {
+    id: 4,
+    name: 'Mihai Dumitrescu',
+    text: 'Fetița noastră face dans de 2 ani la această școală. Progresul ei este vizibil de la lună la lună. A participat la primul concurs și a câștigat locul 2!',
+    rating: 5,
+    highlight: 'Progres vizibil, locul 2 la concurs',
+    date: 'Ianuarie 2026'
+  },
+  {
+    id: 5,
+    name: 'Elena Petre',
+    text: 'Recomand cu toată inima! Copiii se simt ca acasă, instructorii sunt minunați și sala este dotată perfect. Cel mai bun cadou pe care l-am putut face copilului meu.',
+    rating: 5,
+    highlight: 'Cel mai bun cadou pentru copilul meu',
+    date: 'Decembrie 2025'
+  },
+  {
+    id: 6,
+    name: 'Cristina Voicu',
+    text: 'De la prima lecție, fiul meu a adorat cursurile. Acum dansează și acasă, singur, din plăcere. Este o activitate extraordinară pentru dezvoltarea lor.',
+    rating: 5,
+    highlight: 'Dansează și acasă din plăcere',
+    date: 'Octombrie 2025'
   }
 ];
 
@@ -168,6 +226,8 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
         return societateTestimonials;
       case 'salsa-bachata':
         return salsaBachataTestimonials;
+      case 'copii':
+        return copiiTestimonials;
       default:
         return latinoTestimonials; // Fallback la testimoniale latino
     }
@@ -184,6 +244,7 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
         "@type": "Review",
         "position": index + 1,
         "reviewBody": testimonial.text,
+        ...(testimonial.date ? { "datePublished": testimonial.date } : {}),
         "reviewRating": {
           "@type": "Rating",
           "ratingValue": testimonial.rating,
@@ -290,6 +351,11 @@ export default function TestimonialsSection({ danceType = 'default' }: Testimoni
                           <p className="font-bold text-gray-900 text-sm lg:text-base">
                             {testimonial.name}
                           </p>
+                          {testimonial.date && (
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {testimonial.date}
+                            </p>
+                          )}
                         </div>
 
                         {/* Decorative Elements */}

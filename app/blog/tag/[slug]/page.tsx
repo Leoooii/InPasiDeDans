@@ -34,7 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const tag = slug.replace(/-/g, ' ')
-  const posts = await client.fetch(postsByTagQuery, { tag })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const posts = await client.fetch(postsByTagQuery, { tag } as any)
 
   if (!posts || posts.length === 0) {
     notFound()

@@ -12,7 +12,7 @@ export default function Head() {
         property="og:description"
         content="Dans pentru copii într-un mediu distractiv și educativ. Grupe pe vârstă și ritm individual."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/cursuri-dans-copii" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />

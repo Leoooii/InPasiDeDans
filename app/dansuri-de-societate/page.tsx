@@ -1,8 +1,24 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
-import Head from './head';
+
+export const metadata: Metadata = {
+  title: 'Dansuri de Societate București | Vals, Tango, Foxtrot | În Pași de Dans',
+  description: 'Cursuri dansuri de societate București – vals lent, vals vienez, tango, foxtrot pentru toate nivelurile. Instructori profesioniști, Sector 4-5-6. Înscrie-te acum!',
+  keywords: 'dansuri de societate, vals, tango, foxtrot, lectii elegante de dans',
+  alternates: { canonical: 'https://www.inpasidedans.ro/dansuri-de-societate' },
+  openGraph: {
+    title: 'Dansuri de Societate București | În Pași de Dans',
+    description: 'Participă la cursuri de dansuri de societate într-o atmosferă elegantă și relaxantă.',
+    url: 'https://www.inpasidedans.ro/dansuri-de-societate',
+    images: [{ url: 'https://www.inpasidedans.ro/images/logo.png', alt: 'Dansuri de societate București' }],
+    locale: 'ro_RO',
+    type: 'website',
+  },
+  robots: { index: true, follow: true },
+};
 import GrupeInFormare from '@/components/grupe-in-formare';
 import { ArrowRight } from 'lucide-react';
 import StructureFeatures from '@/components/StructureFeatures';
@@ -44,7 +60,6 @@ export default function DansuriDeSocietate() {
         { id: 'inscriere', label: 'Înscriere' }
       ]} />
       <div className="container py-12 flex flex-col gap-12">
-        <Head />
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansuri-de-societate" />
         <div id="despre-societate" className="p-0 container flex flex-col gap-4 items-center">
           <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-center">Dansuri de societate</h1>

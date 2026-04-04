@@ -31,6 +31,7 @@ import Link from 'next/link';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { cn } from '@/lib/utils';
 import { db } from '@/lib/firebase';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 interface FormData {
   danceclass: string;
@@ -186,6 +187,12 @@ export default function InscriereForm() {
       return;
     }
 
+    if (!turnstileToken) {
+      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
+      setIsSubmitting(false);
+      return;
+    }
+
     if (!formData.consent) {
       showToast(
         'Trebuie să acceptați Politica de Confidențialitate pentru a continua.',
@@ -203,6 +210,7 @@ export default function InscriereForm() {
         },
         body: JSON.stringify({
           ...formData,
+          'cf-turnstile-response': turnstileToken,
         }),
       });
       if (!response.ok) {
@@ -469,12 +477,21 @@ export default function InscriereForm() {
                   </div>
                 </div>
 
+                <Turnstile
+                  siteKey={siteKey}
+                  onSuccess={token => setTurnstileToken(token)}
+                  onError={() => {
+                    setTurnstileToken(null);
+                    showToast('Eroare la verificarea CAPTCHA.', 'error');
+                  }}
+                />
+
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !isFormValid}
+                  disabled={isSubmitting || !isFormValid || !turnstileToken}
                   className={cn(
                     'w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600',
-                    (!isFormValid || isSubmitting) && 'opacity-60 cursor-not-allowed'
+                    (!isFormValid || isSubmitting || !turnstileToken) && 'opacity-60 cursor-not-allowed'
                   )}
                 >
                   {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}

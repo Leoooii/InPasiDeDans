@@ -3,8 +3,24 @@ import { Clock, MapPin, Phone, Mail, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-import Head from './head';
+import type { Metadata } from 'next';
 import GrupeInFormare from '@/components/grupe-in-formare';
+
+export const metadata: Metadata = {
+  title: 'Despre Noi – Școala de Dans În Pași de Dans București | Din 2009',
+  description: 'Descoperă povestea școlii În Pași de Dans din București – experiență din 2009, 12.000+ cursanți, instructori pasionați, Sector 4-5-6.',
+  keywords: 'despre scoala de dans, echipa in pasi de dans, povestea noastra',
+  alternates: { canonical: 'https://www.inpasidedans.ro/despre-noi' },
+  openGraph: {
+    title: 'Despre Noi | În Pași de Dans București',
+    description: 'Descoperă cine suntem și cum a început povestea școlii În Pași de Dans.',
+    url: 'https://www.inpasidedans.ro/despre-noi',
+    images: [{ url: 'https://www.inpasidedans.ro/images/logo.png', alt: 'Școala de dans În Pași de Dans' }],
+    locale: 'ro_RO',
+    type: 'website',
+  },
+  robots: { index: true, follow: true },
+};
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import LocationSection from '@/components/LocationSection';
 
@@ -16,7 +32,6 @@ export default function DespreNoi() {
 
   return (
     <div className="container py-12">
-      <Head />
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/despre-noi" />
       <div className="space-y-6">
         <div className="space-y-2">

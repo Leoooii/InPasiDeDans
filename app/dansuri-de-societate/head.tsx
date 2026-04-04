@@ -9,7 +9,7 @@ export default function Head() {
         property="og:description"
         content="Participă la cursuri de dansuri de societate într-o atmosferă elegantă și relaxantă."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/dansuri-de-societate" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />

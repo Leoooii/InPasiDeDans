@@ -11,7 +11,7 @@ export default function Head() {
         property="og:description"
         content="Aflati cum folosim cookie-urile pentru a va oferi o experienta sigura si personalizata pe site."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/politica-cookie-uri" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />

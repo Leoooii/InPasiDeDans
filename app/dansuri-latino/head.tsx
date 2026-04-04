@@ -9,7 +9,7 @@ export default function Head() {
         property="og:description"
         content="Ritmuri pasionale și distracție garantată la cursurile noastre de dansuri latino."
       />
-      <meta property="og:image" content="/images/logo.png" />
+      <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
       <meta property="og:url" content="https://www.inpasidedans.ro/dansuri-latino" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="In Pasi de Dans" />

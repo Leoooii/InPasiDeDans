@@ -7,7 +7,7 @@ import ConditionalLayout from '@/components/conditional-layout';
 import { SimpleToastProvider } from '@/components/simple-toast-provider';
 const inter = Inter({ subsets: ['latin'] });
 import { Analytics } from '@vercel/analytics/next';
-
+import { SCHOOL_SCHEMA } from '@/lib/schema-constants';
 import Script from 'next/script';
 
 export default function RootLayout({
@@ -65,59 +65,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           id="schema"
           type="application/ld+json"
           strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'School',
-              'additionalType': 'https://www.productontology.org/id/Dance_school',
-              name: 'In Pasi de Dans',
-              description:
-                'Scoala de dans cu traditie din 2009, oferind cursuri de dansuri latino, de societate, populare si lectii private in Bucuresti.',
-              url: 'https://www.inpasidedans.ro/',
-              logo: 'https://www.inpasidedans.ro/images/logo.png',
-              foundingDate: '2009',
-              hasOfferCatalog: {
-                '@type': 'OfferCatalog',
-                name: 'Cursuri de Dans',
-                itemListElement: [
-                  {
-                    '@type': 'Course',
-                    name: 'Dansuri Latino',
-                    description: 'Salsa, bachata, cha-cha si multe altele'
-                  },
-                  {
-                    '@type': 'Course', 
-                    name: 'Dansuri de Societate',
-                    description: 'Vals, tango, foxtrot si alte dansuri elegante'
-                  },
-                  {
-                    '@type': 'Course',
-                    name: 'Dansuri Populare',
-                    description: 'Peste 200 de jocuri populare romanesti'
-                  }
-                ]
-              },
-              sameAs: [
-                'https://www.facebook.com/scoaladedansinpasidedans',
-                'https://www.instagram.com/inpasidedans/',
-                'https://www.tiktok.com/@in.pasi.de.dans',
-              ],
-              contactPoint: {
-                '@type': 'ContactPoint',
-                telephone: '+40722675126',
-                contactType: 'customer service',
-                areaServed: 'RO',
-              },
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Calea Rahovei 262',
-                addressLocality: 'București',
-                addressRegion: 'Sector 5',
-                postalCode: '050897',
-                addressCountry: 'RO',
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHOOL_SCHEMA) }}
         />
         <Analytics />
         <ThemeProvider

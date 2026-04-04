@@ -6,7 +6,7 @@ import { Mail, MapPin, Phone, Navigation, Clock } from 'lucide-react';
 
 import { Card, CardContent } from '@/components/ui/card';
 import ContactForm from '@/components/contact-form';
-import Head from './head';
+
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import LocationSection from '@/components/LocationSection';
@@ -130,7 +130,6 @@ export default function Contact() {
       />
 
       <div className="container py-12 gap-6 flex flex-col">
-        <Head />
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/contact" />
       <div className="space-y-6">
         <div className="space-y-2">
