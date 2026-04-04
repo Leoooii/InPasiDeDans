@@ -89,8 +89,9 @@ const buildPageUrl = (slug: string) => `https://www.inpasidedans.ro/grupe-in-for
 
 export const revalidate = 1800
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const grupa = await getGrupa(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const grupa = await getGrupa(slug)
 
   if (!grupa) {
     return {
@@ -145,8 +146,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function GrupaInFormareDetails({ params }: { params: { slug: string } }) {
-  const grupa = await getGrupa(params.slug)
+export default async function GrupaInFormareDetails({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const grupa = await getGrupa(slug)
 
   if (!grupa) {
     notFound()
