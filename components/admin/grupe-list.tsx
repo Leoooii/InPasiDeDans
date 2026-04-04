@@ -41,12 +41,13 @@ interface GrupeListProps {
   grupe: Grupa[]
   onEdit: (grupa: Grupa) => void
   onDelete: (id: string) => void
+  onManageCursanti?: (grupa: Grupa) => void
 }
 
 type SortField = "titlu" | "dataStart" | "locuriDisponibile" | "ocupare" | "publica"
 type SortDir = "asc" | "desc"
 
-export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
+export default function GrupeList({ grupe, onEdit, onDelete, onManageCursanti }: GrupeListProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [grupaToDelete, setGrupaToDelete] = useState<string | null>(null)
 
@@ -436,6 +437,17 @@ export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
                     {/* Acțiuni */}
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {onManageCursanti && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50"
+                            onClick={() => onManageCursanti(grupa)}
+                            title="Gestionează cursanți"
+                          >
+                            <Users className="h-3.5 w-3.5" />
+                          </Button>
+                        )}
                         <Button
                           variant="ghost"
                           size="icon"

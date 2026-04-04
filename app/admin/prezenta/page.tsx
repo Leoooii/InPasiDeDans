@@ -1,260 +1,268 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useSimpleToast } from "@/components/simple-toast-provider"
-import { auth, db } from "@/lib/firebase"
-import { onAuthStateChanged } from "firebase/auth"
-import { collection, getDocs, query, where, doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore"
-import { Loader2, Check, Calendar, Clock, AlertCircle } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
+import { db } from '@/lib/firebase'
+import {
+  collection, getDocs, query, where, doc,
+  updateDoc, arrayUnion, Timestamp,
+} from 'firebase/firestore'
+import {
+  Loader2, Check, Calendar, Clock, AlertCircle, Users,
+  ChevronLeft, ChevronRight, UserCircle2,
+} from 'lucide-react'
 
 type Grupa = {
   id: string
   titlu: string
-  descriere: string
-  dataStart: string
-  program: string
   instructor: string
-  locuriDisponibile: number
-  locuriTotale: number
-  stiluri: string[] // Păstrăm doar array-ul de stiluri
+  stiluri: string[]
   zile: string[]
   ora: string
 }
 
-type UserData = {
-  id: string
-  nume: string
-  prenume: string
-  email: string
-  telefon: string
-  grupe: string[]
-  abonamente: any[]
-  prezente?: {
-    data: any
-    grupa: string
-    profesor: string
-  }[]
+type Abonament = {
+  tip: string
+  sedinteTotal: number
+  dataStart: { toDate: () => Date }
+  dataExpirare: { toDate: () => Date }
 }
 
+type Prezenta = {
+  data: { toDate: () => Date }
+  grupaId: string
+  grupaTitlu: string
+  profesor: string
+}
+
+type Cursant = {
+  id: string
+  nume: string
+  abonamente?: Abonament[]
+  prezente?: Prezenta[]
+}
+
+const ZILE_RO = ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă']
+const MONTHS_RO = ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie',
+  'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie']
+const DAYS_SHORT = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
+
+/* ─── Mini calendar ──────────────────────────────────────── */
+function MiniCalendar({ value, onChange }: { value: string; onChange: (d: string) => void }) {
+  const todayStr = new Date().toISOString().split('T')[0]
+
+  const [viewYear, setViewYear] = useState(() => parseInt(value.split('-')[0]))
+  const [viewMonth, setViewMonth] = useState(() => parseInt(value.split('-')[1]) - 1)
+
+  // Sync view when parent changes value (e.g., "Înapoi la azi")
+  useEffect(() => {
+    setViewYear(parseInt(value.split('-')[0]))
+    setViewMonth(parseInt(value.split('-')[1]) - 1)
+  }, [value])
+
+  const firstDow = new Date(viewYear, viewMonth, 1).getDay() // 0=Sun
+  // Convert to Mon-based: Mon=0 … Sun=6
+  const startOffset = (firstDow + 6) % 7
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate()
+
+  const cells: (number | null)[] = [
+    ...Array(startOffset).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ]
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  const toStr = (day: number) => {
+    const m = String(viewMonth + 1).padStart(2, '0')
+    const d = String(day).padStart(2, '0')
+    return `${viewYear}-${m}-${d}`
+  }
+
+  const prevMonth = () => {
+    if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11) }
+    else setViewMonth(m => m - 1)
+  }
+  const nextMonth = () => {
+    if (viewMonth === 11) { setViewYear(y => y + 1); setViewMonth(0) }
+    else setViewMonth(m => m + 1)
+  }
+
+  return (
+    <div>
+      {/* Month navigation */}
+      <div className="flex items-center justify-between mb-3">
+        <button
+          onClick={prevMonth}
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+        <span className="text-sm font-semibold text-slate-900">
+          {MONTHS_RO[viewMonth]} {viewYear}
+        </span>
+        <button
+          onClick={nextMonth}
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Day headers */}
+      <div className="grid grid-cols-7 mb-1">
+        {DAYS_SHORT.map((d, i) => (
+          <div key={i} className="text-center text-[10px] font-semibold text-slate-400 py-1">{d}</div>
+        ))}
+      </div>
+
+      {/* Day cells */}
+      <div className="grid grid-cols-7 gap-y-0.5">
+        {cells.map((day, i) => {
+          if (!day) return <div key={i} />
+          const ds = toStr(day)
+          const isSelected = ds === value
+          const isToday = ds === todayStr
+          const isFuture = ds > todayStr
+          return (
+            <button
+              key={i}
+              onClick={() => !isFuture && onChange(ds)}
+              disabled={isFuture}
+              className={[
+                'mx-auto w-8 h-8 rounded-full text-xs flex items-center justify-center transition-colors',
+                isSelected ? 'bg-slate-900 text-white font-bold' : '',
+                isToday && !isSelected ? 'ring-2 ring-red-500 text-red-600 font-semibold' : '',
+                !isSelected && !isToday && !isFuture ? 'text-slate-700 hover:bg-slate-100' : '',
+                isFuture ? 'text-slate-300 cursor-not-allowed' : '',
+              ].filter(Boolean).join(' ')}
+            >
+              {day}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ─── Pagina ─────────────────────────────────────────────── */
 export default function PrezentaPage() {
-  const [grupe, setGrupe] = useState<Grupa[]>([])
   const [grupeAzi, setGrupeAzi] = useState<Grupa[]>([])
   const [selectedGrupa, setSelectedGrupa] = useState<Grupa | null>(null)
-  const [cursanti, setCursanti] = useState<UserData[]>([])
-  const [selectedCursanti, setSelectedCursanti] = useState<string[]>([])
+  const [cursanti, setCursanti] = useState<Cursant[]>([])
+  const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isLoadingCursanti, setIsLoadingCursanti] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  const router = useRouter()
-  const { showToast } = useSimpleToast()
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        // Verificăm dacă este admin
-        if (currentUser.email !== "admin@gmail.com") {
-          router.push("/cont")
-          return
-        }
+  const todayStr = new Date().toISOString().split('T')[0]
+  const [dataSelectata, setDataSelectata] = useState(todayStr)
 
-        // Încărcăm lista de grupe
-        await fetchGrupe()
-      } else {
-        // Dacă nu este autentificat, redirecționăm către pagina de login
-        router.push("/autentificare")
-      }
+  const { toast } = useToast()
 
-      setIsLoading(false)
-    })
+  const dataObj = new Date(dataSelectata + 'T12:00:00')
+  const ziuaSelectata = ZILE_RO[dataObj.getDay()]
+  const esteAzi = dataSelectata === todayStr
 
-    return () => unsubscribe()
-  }, [router])
+  const dataCurenta = dataObj.toLocaleDateString('ro-RO', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+  })
 
-  // Actualizăm funcția fetchGrupe pentru a folosi datele reale și a filtra corect după ziua curentă
+  useEffect(() => { fetchGrupe() }, [ziuaSelectata]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const fetchGrupe = async () => {
+    setIsLoading(true)
+    setSelectedGrupa(null)
+    setCursanti([])
+    setSelectedIds([])
     try {
-      const grupeQuery = query(collection(db, "grupe"))
-      const querySnapshot = await getDocs(grupeQuery)
-
-      const grupeData: Grupa[] = []
-      querySnapshot.forEach((doc) => {
-        const data = doc.data()
-
-        // Folosim datele reale din baza de date sau valori implicite dacă nu există
-        const grupa = {
-          id: doc.id,
-          ...data,
-          zile: data.zile || (data.program.includes("Luni") ? ["Luni", "Miercuri"] : ["Marți", "Joi"]),
-          ora:
-            data.program.split(",").pop()?.trim() ||
-            (data.program.includes("19:00") ? "19:00 - 20:30" : "20:30 - 22:00"),
-          // Asigurăm-ne că avem mereu un array de stiluri
-          stiluri: data.stiluri || (data.stil ? [data.stil] : ["Dans de societate"]),
-        } as Grupa
-
-        grupeData.push(grupa)
+      const snapshot = await getDocs(collection(db, 'grupe'))
+      const all: Grupa[] = snapshot.docs.map(d => {
+        const raw = d.data()
+        return {
+          id: d.id,
+          titlu: raw.titlu,
+          instructor: raw.instructor || '',
+          stiluri: raw.stiluri || (raw.stil ? [raw.stil] : []),
+          zile: raw.zile || [],
+          ora: raw.program?.split(',').pop()?.trim() || '',
+        }
       })
-
-      setGrupe(grupeData)
-
-      // Obținem ziua curentă în română
-      const zileCuRomana = ["Duminică", "Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"]
-      const ziuaCurenta = zileCuRomana[new Date().getDay()]
-
-      // Filtrăm grupele pentru ziua curentă
-      const grupeAziData = grupeData.filter((grupa) => grupa.zile && grupa.zile.includes(ziuaCurenta))
-
-      // Dacă nu avem grupe pentru ziua curentă, adăugăm una pentru demonstrație
-      if (grupeAziData.length === 0 && grupeData.length > 0) {
-        // Clonăm prima grupă și modificăm zilele pentru a include ziua curentă
-        const grupaDemo = { ...grupeData[0] }
-        grupaDemo.zile = [ziuaCurenta]
-        grupaDemo.id = "demo_" + grupaDemo.id
-        grupaDemo.titlu = `${grupaDemo.titlu} (Demo pentru ${ziuaCurenta})`
-        grupeAziData.push(grupaDemo)
-      }
-
-      setGrupeAzi(grupeAziData)
-    } catch (error) {
-      console.error("Eroare la încărcarea grupelor:", error)
-      showToast("Nu s-au putut încărca grupele", "error")
-      
+      setGrupeAzi(all.filter(g => g.zile.includes(ziuaSelectata)))
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-au putut încărca grupele.', variant: 'destructive' })
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  // Actualizăm funcția fetchCursantiGrupa pentru a evita duplicarea id-ului
   const fetchCursantiGrupa = async (grupa: Grupa) => {
     setIsLoadingCursanti(true)
     setSelectedGrupa(grupa)
-    setSelectedCursanti([])
-
+    setSelectedIds([])
     try {
-      // Obținem toți utilizatorii care sunt în grupa selectată
-      const usersQuery = query(collection(db, "users"), where("grupe", "array-contains", grupa.titlu))
-
-      const querySnapshot = await getDocs(usersQuery)
-
-      const cursantiData: UserData[] = []
-      querySnapshot.forEach((doc) => {
-        // Extragem datele și adăugăm id-ul separat pentru a evita duplicarea
-        const userData = doc.data() as UserData
-        cursantiData.push({
-          ...userData,
-          id: doc.id,
-        })
-      })
-
-      setCursanti(cursantiData)
-    } catch (error) {
-      console.error("Eroare la încărcarea cursanților:", error)
-      showToast(
-         "Nu s-au putut încărca cursanții","error"
-       )
+      const snapshot = await getDocs(
+        query(collection(db, 'cursanti'), where('grupe', 'array-contains', grupa.id))
+      )
+      setCursanti(snapshot.docs.map(d => ({ id: d.id, ...(d.data() as Omit<Cursant, 'id'>) })))
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-au putut încărca cursanții.', variant: 'destructive' })
     } finally {
       setIsLoadingCursanti(false)
     }
   }
 
-  // Verifică dacă un cursant are deja prezență pentru grupa și data curentă
-  const hasAttendanceToday = (cursant: UserData, grupaTitlu: string) => {
-    if (!cursant.prezente || !Array.isArray(cursant.prezente)) return false
-
-    const today = new Date()
-    today.setHours(0, 0, 0, 0) // Setăm ora la 00:00:00 pentru a compara doar data
-
-    return cursant.prezente.some((prezenta) => {
-      if (!prezenta.data || !prezenta.data.toDate) return false
-
-      const prezentaDate = prezenta.data.toDate()
-      prezentaDate.setHours(0, 0, 0, 0) // Setăm ora la 00:00:00 pentru a compara doar data
-
-      return prezentaDate.getTime() === today.getTime() && prezenta.grupa === grupaTitlu
+  const hasAttendanceOn = (cursant: Cursant, grupaId: string) => {
+    if (!cursant.prezente) return false
+    const target = new Date(dataSelectata + 'T12:00:00')
+    target.setHours(0, 0, 0, 0)
+    return cursant.prezente.some(p => {
+      if (!p.data?.toDate) return false
+      const d = p.data.toDate(); d.setHours(0, 0, 0, 0)
+      return d.getTime() === target.getTime() && p.grupaId === grupaId
     })
   }
 
-  const toggleSelectCursant = (cursantId: string) => {
-    setSelectedCursanti((prev) =>
-      prev.includes(cursantId) ? prev.filter((id) => id !== cursantId) : [...prev, cursantId],
-    )
+  const getAbonamentCurent = (cursant: Cursant): Abonament | null => {
+    if (!cursant.abonamente?.length) return null
+    return [...cursant.abonamente].sort(
+      (a, b) => b.dataStart.toDate().getTime() - a.dataStart.toDate().getTime()
+    )[0]
   }
 
-  const handleSavePrezenta = async () => {
-    if (!selectedGrupa || selectedCursanti.length === 0) return
+  const sedinteFacute = (cursant: Cursant, ab: Abonament) => {
+    if (!cursant.prezente) return 0
+    const start = ab.dataStart.toDate().getTime()
+    return cursant.prezente.filter(p => p.data?.toDate().getTime() >= start).length
+  }
 
+  const toggle = (id: string) =>
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+
+  const handleSave = async () => {
+    if (!selectedGrupa || selectedIds.length === 0) return
     setIsSaving(true)
-
     try {
-      const dataPrezenta = Timestamp.now()
-      const today = new Date()
-      today.setHours(0, 0, 0, 0) // Setăm ora la 00:00:00 pentru a compara doar data
-
-      // Pentru fiecare cursant selectat, adăugăm prezența
-      for (const cursantId of selectedCursanti) {
-        const cursantRef = doc(db, "users", cursantId)
-        const cursant = cursanti.find((c) => c.id === cursantId)
-
-        if (!cursant) continue
-
-        // Verificăm dacă cursantul are deja prezență pentru această grupă astăzi
-        if (hasAttendanceToday(cursant, selectedGrupa.titlu)) {
-          console.log(
-            `Cursantul ${cursant.nume} ${cursant.prenume} are deja prezență pentru astăzi la grupa ${selectedGrupa.titlu}`,
-          )
-          continue // Sărim peste acest cursant
-        }
-
-        // Adăugăm prezența în lista de prezențe a cursantului
-        await updateDoc(cursantRef, {
+      const timestamp = Timestamp.fromDate(new Date(dataSelectata + 'T12:00:00'))
+      let salvati = 0
+      for (const cursantId of selectedIds) {
+        const cursant = cursanti.find(c => c.id === cursantId)
+        if (!cursant || hasAttendanceOn(cursant, selectedGrupa.id)) continue
+        await updateDoc(doc(db, 'cursanti', cursantId), {
           prezente: arrayUnion({
-            data: dataPrezenta,
-            grupa: selectedGrupa.titlu,
+            data: timestamp,
+            grupaId: selectedGrupa.id,
+            grupaTitlu: selectedGrupa.titlu,
             profesor: selectedGrupa.instructor,
           }),
         })
-
-        // Actualizăm numărul de ședințe rămase în abonament
-        if (cursant.abonamente && cursant.abonamente.length > 0) {
-          // Găsim primul abonament activ cu ședințe rămase
-          const abonamenteActualizate = [...cursant.abonamente]
-
-          for (let i = 0; i < abonamenteActualizate.length; i++) {
-            const abonament = abonamenteActualizate[i]
-
-            // Verificăm dacă abonamentul este activ și mai are ședințe
-            if (abonament.sedinteRamase > 0 && new Date() < new Date(abonament.dataExpirare.toDate())) {
-              // Decrementăm numărul de ședințe rămase
-              abonamenteActualizate[i] = {
-                ...abonament,
-                sedinteRamase: abonament.sedinteRamase - 1,
-              }
-
-              // Actualizăm abonamentele în baza de date
-              await updateDoc(cursantRef, {
-                abonamente: abonamenteActualizate,
-              })
-
-              break
-            }
-          }
-        }
+        salvati++
       }
-
-      showToast(`Prezența a fost salvată pentru ${selectedCursanti.length} cursanți`,"success"
-      )
-
-      // Reîncărcăm cursanții pentru a actualiza datele
+      toast({ title: 'Prezența salvată', description: `${salvati} cursanți marcați.` })
       await fetchCursantiGrupa(selectedGrupa)
-
-      // Resetăm selecția
-      setSelectedCursanti([])
-    } catch (error) {
-      console.error("Eroare la salvarea prezenței:", error)
-      showToast("Nu s-a putut salva prezența","error"
-       )
+      setSelectedIds([])
+    } catch {
+      toast({ title: 'Eroare', description: 'Nu s-a putut salva prezența.', variant: 'destructive' })
     } finally {
       setIsSaving(false)
     }
@@ -262,201 +270,243 @@ export default function PrezentaPage() {
 
   if (isLoading) {
     return (
-      <div className="container py-12 flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin mx-auto text-red-600" />
-          <p className="mt-4 text-gray-500">Se încarcă datele...</p>
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-red-600 mx-auto" />
+          <p className="mt-3 text-sm text-slate-500">Se încarcă...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="container py-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold">Prezență zilnică</h1>
-          <p className="text-gray-500">
-            {new Date().toLocaleDateString("ro-RO", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-        <Button variant="outline" onClick={() => router.push("/admin")}>
-          Înapoi la panou
-        </Button>
+    <div className="space-y-6">
+
+      {/* ─── Header ─────────────────────────────────────────── */}
+      <div>
+        <h1 className="text-xl font-bold text-slate-900">Prezență</h1>
+        <p className="text-sm text-slate-500 mt-0.5 capitalize">{dataCurenta}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-1">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                Grupe astăzi
-              </CardTitle>
-              <CardDescription>Grupele programate pentru astăzi</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {grupeAzi.length > 0 ? (
-                <div className="space-y-3">
-                  {grupeAzi.map((grupa) => (
-                    <div
-                      key={grupa.id}
-                      className={`border rounded-lg p-3 cursor-pointer transition-colors ${
-                        selectedGrupa?.id === grupa.id
-                          ? "border-red-500 bg-red-50 dark:bg-red-900/10"
-                          : "hover:border-red-200 hover:bg-red-50/50 dark:hover:bg-red-900/5"
-                      }`}
-                      onClick={() => fetchCursantiGrupa(grupa)}
-                    >
-                      <div className="flex justify-between items-start">
-                        <h3 className="font-medium">{grupa.titlu}</h3>
-                        <div className="flex flex-wrap gap-1 justify-end">
-                          {grupa.stiluri.map((stil, index) => (
-                            <Badge key={index} className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
-                              {stil}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
-                        <Clock className="h-4 w-4" />
-                        <span>{grupa.ora}</span>
-                      </div>
-                      <p className="text-sm text-gray-500 mt-1">Instructor: {grupa.instructor}</p>
-                    </div>
-                  ))}
-                </div>
+      {/* ─── Past date warning ───────────────────────────────── */}
+      {!esteAzi && (
+        <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-100 px-3 py-2.5 rounded-lg">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          Marchezi prezența pentru o dată din trecut: <strong className="ml-1 capitalize">{dataCurenta}</strong>
+        </div>
+      )}
+
+      {/* ─── Main grid ──────────────────────────────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {/* ── Left: Calendar + Grupe ── */}
+        <div className="space-y-4">
+
+          {/* Calendar card */}
+          <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-50 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-slate-400" />
+                <span className="text-sm font-semibold text-slate-900">Calendar</span>
+              </div>
+              {!esteAzi && (
+                <button
+                  onClick={() => setDataSelectata(todayStr)}
+                  className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
+                >
+                  Azi
+                </button>
+              )}
+            </div>
+            <div className="p-4">
+              <MiniCalendar value={dataSelectata} onChange={setDataSelectata} />
+            </div>
+          </div>
+
+          {/* Grupe for selected day */}
+          <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-50">
+              <p className="text-sm font-semibold text-slate-900">Grupe — {ziuaSelectata}</p>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {grupeAzi.length === 0
+                  ? 'Nicio grupă programată'
+                  : `${grupeAzi.length} ${grupeAzi.length === 1 ? 'grupă' : 'grupe'}`}
+              </p>
+            </div>
+            <div className="p-3">
+              {grupeAzi.length === 0 ? (
+                <p className="text-sm text-slate-400 text-center py-6">Nicio grupă în această zi.</p>
               ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500">Nu există grupe programate pentru astăzi</p>
+                <div className="space-y-2">
+                  {grupeAzi.map(grupa => {
+                    const isSelected = selectedGrupa?.id === grupa.id
+                    return (
+                      <button
+                        key={grupa.id}
+                        onClick={() => fetchCursantiGrupa(grupa)}
+                        className={`w-full text-left rounded-lg border p-3 transition-all ${
+                          isSelected
+                            ? 'border-red-200 bg-red-50'
+                            : 'border-slate-100 hover:border-slate-200 hover:bg-slate-50'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <span className={`font-medium text-sm ${isSelected ? 'text-red-700' : 'text-slate-800'}`}>
+                            {grupa.titlu}
+                          </span>
+                          {isSelected && <span className="shrink-0 w-2 h-2 mt-1 rounded-full bg-red-500" />}
+                        </div>
+                        {grupa.instructor && (
+                          <div className="mt-1 flex items-center gap-1 text-xs text-slate-400">
+                            <UserCircle2 className="h-3 w-3" />
+                            {grupa.instructor}
+                          </div>
+                        )}
+                        {grupa.ora && (
+                          <div className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                            <Clock className="h-3 w-3" />
+                            {grupa.ora}
+                          </div>
+                        )}
+                        {grupa.stiluri.length > 0 && (
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {grupa.stiluri.map((s, i) => (
+                              <span key={i} className="inline-flex items-center rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500">
+                                {s}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </button>
+                    )
+                  })}
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
-        <div className="md:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {selectedGrupa ? `Cursanți - ${selectedGrupa.titlu}` : "Selectează o grupă pentru a vedea cursanții"}
-              </CardTitle>
-              <CardDescription>
-                {selectedGrupa
-                  ? `Marchează prezența pentru cursanții din grupa ${selectedGrupa.titlu}`
-                  : "Alege o grupă din lista din stânga"}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {isLoadingCursanti ? (
-                <div className="text-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin mx-auto text-red-600" />
-                  <p className="mt-4 text-gray-500">Se încarcă cursanții...</p>
+        {/* ── Right: Cursanți ── */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden h-full">
+            <div className="px-5 py-4 border-b border-slate-50 flex items-center gap-2">
+              <Users className="h-4 w-4 text-slate-400" />
+              <span className="text-sm font-semibold text-slate-900">
+                {selectedGrupa ? `Cursanți — ${selectedGrupa.titlu}` : 'Cursanți'}
+              </span>
+              {selectedGrupa && cursanti.length > 0 && (
+                <span className="ml-auto text-xs font-medium bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                  {cursanti.length}
+                </span>
+              )}
+            </div>
+
+            <div className="p-4">
+              {!selectedGrupa ? (
+                <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+                  <Calendar className="h-10 w-10 mb-3 opacity-30" />
+                  <p className="text-sm">Selectează o grupă din stânga</p>
                 </div>
-              ) : selectedGrupa ? (
-                cursanti.length > 0 ? (
-                  <div className="space-y-4">
-                    <div className="rounded-md border overflow-hidden overflow-x-auto">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="p-3 text-left font-medium">Nume</th>
-                            <th className="p-3 text-left font-medium">Abonament</th>
-                            <th className="p-3 text-left font-medium">Ședințe rămase</th>
-                            <th className="p-3 text-center font-medium">Prezent</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {cursanti.map((cursant) => {
-                            // Găsim primul abonament activ
-                            const abonamentActiv = cursant.abonamente?.find(
-                              (a) => a.sedinteRamase > 0 && new Date() < new Date(a.dataExpirare.toDate()),
-                            )
+              ) : isLoadingCursanti ? (
+                <div className="flex items-center justify-center py-20">
+                  <Loader2 className="h-6 w-6 animate-spin text-slate-300" />
+                </div>
+              ) : cursanti.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+                  <Users className="h-10 w-10 mb-3 opacity-30" />
+                  <p className="text-sm">Nu există cursanți înscriși în această grupă.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="rounded-lg border border-slate-100 overflow-hidden">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-slate-50 border-b border-slate-100">
+                          <th className="px-4 py-3 text-left font-medium text-slate-600">Nume</th>
+                          <th className="px-4 py-3 text-left font-medium text-slate-600 hidden sm:table-cell">Abonament</th>
+                          <th className="px-4 py-3 text-left font-medium text-slate-600 hidden sm:table-cell">Ședințe</th>
+                          <th className="px-4 py-3 text-center font-medium text-slate-600">Prezent</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {cursanti.map(cursant => {
+                          const ab = getAbonamentCurent(cursant)
+                          const facute = ab ? sedinteFacute(cursant, ab) : 0
+                          const ramase = ab ? ab.sedinteTotal - facute : null
+                          const depasit = ramase !== null && ramase < 0
+                          const arePrezenta = hasAttendanceOn(cursant, selectedGrupa.id)
+                          const isSelected = selectedIds.includes(cursant.id)
 
-                            // Verificăm dacă cursantul are deja prezență pentru astăzi
-                            const arePrezentaAzi = hasAttendanceToday(cursant, selectedGrupa.titlu)
-
-                            return (
-                              <tr key={cursant.id} className="border-t">
-                                <td className="p-3">
-                                  {cursant.nume} {cursant.prenume}
-                                </td>
-                                <td className="p-3">
-                                  {abonamentActiv ? (
-                                    abonamentActiv.tip
-                                  ) : (
-                                    <span className="text-red-500">Fără abonament activ</span>
-                                  )}
-                                </td>
-                                <td className="p-3">{abonamentActiv ? abonamentActiv.sedinteRamase : "-"}</td>
-                                <td className="p-3 text-center">
-                                  {arePrezentaAzi ? (
-                                    <div className="flex items-center justify-center">
-                                      <span className="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center">
-                                        <Check className="h-4 w-4" />
-                                      </span>
-                                    </div>
+                          return (
+                            <tr key={cursant.id} className="hover:bg-slate-50/50 transition-colors">
+                              <td className="px-4 py-3 font-medium text-slate-800">{cursant.nume}</td>
+                              <td className="px-4 py-3 text-slate-600 hidden sm:table-cell">
+                                {ab
+                                  ? <span className="text-xs">{ab.tip}</span>
+                                  : <span className="text-xs text-red-500">Fără abonament</span>
+                                }
+                              </td>
+                              <td className="px-4 py-3 hidden sm:table-cell">
+                                {ab ? (
+                                  <span className={`text-sm font-medium ${depasit ? 'text-red-500' : 'text-slate-800'}`}>
+                                    {facute} / {ab.sedinteTotal}
+                                    {depasit && ' ⚠'}
+                                  </span>
+                                ) : (
+                                  <span className="text-slate-300">—</span>
+                                )}
+                              </td>
+                              <td className="px-4 py-3">
+                                <div className="flex justify-center">
+                                  {arePrezenta ? (
+                                    <span className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center">
+                                      <Check className="h-4 w-4 text-white" />
+                                    </span>
                                   ) : (
                                     <button
-                                      className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                                        selectedCursanti.includes(cursant.id)
-                                          ? "bg-green-500 text-white"
-                                          : "bg-gray-200 text-gray-400 hover:bg-gray-300"
+                                      onClick={() => toggle(cursant.id)}
+                                      className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-colors ${
+                                        isSelected ? 'bg-green-500 border-green-500' : 'border-slate-200 hover:border-slate-300'
                                       }`}
-                                      onClick={() => toggleSelectCursant(cursant.id)}
-                                      disabled={!abonamentActiv || abonamentActiv.sedinteRamase <= 0}
-                                      title={
-                                        !abonamentActiv || abonamentActiv.sedinteRamase <= 0
-                                          ? "Nu are abonament activ sau ședințe rămase"
-                                          : ""
-                                      }
                                     >
-                                      {selectedCursanti.includes(cursant.id) && <Check className="h-4 w-4" />}
+                                      {isSelected && <Check className="h-4 w-4 text-white" />}
                                     </button>
                                   )}
-                                </td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    {/* Afișăm un mesaj informativ despre prezențele deja înregistrate */}
-                    {cursanti.some((cursant) => hasAttendanceToday(cursant, selectedGrupa.titlu)) && (
-                      <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 p-3 rounded-md">
-                        <AlertCircle className="h-4 w-4" />
-                        <p>Cursanții cu bifa verde au deja prezența înregistrată pentru astăzi la această grupă.</p>
-                      </div>
-                    )}
-
-                    <div className="flex justify-end">
-                      <Button onClick={handleSavePrezenta} disabled={selectedCursanti.length === 0 || isSaving}>
-                        {isSaving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                        Salvează prezența ({selectedCursanti.length})
-                      </Button>
-                    </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
                   </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">Nu există cursanți înscriși în această grupă</p>
+
+                  {cursanti.some(c => hasAttendanceOn(c, selectedGrupa.id)) && (
+                    <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-100 px-3 py-2.5 rounded-lg">
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                      Cursanții cu bifa verde au prezența deja înregistrată pentru această dată.
+                    </div>
+                  )}
+
+                  <div className="flex justify-end">
+                    <Button
+                      onClick={handleSave}
+                      disabled={selectedIds.length === 0 || isSaving}
+                      className="bg-slate-900 hover:bg-slate-800"
+                    >
+                      {isSaving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                      Salvează prezența
+                      {selectedIds.length > 0 && (
+                        <span className="ml-2 bg-white/20 px-1.5 py-0.5 rounded text-xs">{selectedIds.length}</span>
+                      )}
+                    </Button>
                   </div>
-                )
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-500">Selectează o grupă pentru a vedea cursanții</p>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
-
