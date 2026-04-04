@@ -10,7 +10,6 @@ import { useToast } from '@/components/ui/use-toast';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Turnstile } from '@marsidev/react-turnstile';
 
 // Tipizări explicite pentru evenimente
 interface FormData {
@@ -38,7 +37,6 @@ const ContactForm = () => {
     honey: '',
     consent: false,
   });
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
@@ -75,23 +73,13 @@ const ContactForm = () => {
       return;
     }
 
-    // Verifică token-ul Turnstile
-    if (!turnstileToken) {
-      showToast('Te rugăm să completezi verificarea CAPTCHA.', 'error');
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
       const response = await fetch('/api/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          'cf-turnstile-response': turnstileToken,
-        }),
+        body: JSON.stringify({ ...formData }),
       });
 
       if (!response.ok) {
@@ -108,7 +96,6 @@ const ContactForm = () => {
         honey: '',
         consent: false,
       });
-      setTurnstileToken(null);
       showToast(
         'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
         'success'
@@ -124,21 +111,6 @@ const ContactForm = () => {
       setIsSubmitting(false);
     }
   };
-
-  // Verifică dacă siteKey există
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-  if (!siteKey) {
-    return (
-      <Card>
-        <CardContent>
-          <p className="text-red-600">
-            Eroare: Cheia Turnstile nu este configurată. Contactați
-            administratorul.
-          </p>
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <Card>
@@ -242,19 +214,10 @@ const ContactForm = () => {
                 </label>
               </div>
 
-              {/* Widget Turnstile */}
-              <Turnstile
-                siteKey={siteKey}
-                onSuccess={token => setTurnstileToken(token)}
-                onError={() => {
-                  setTurnstileToken(null);
-                  showToast('Eroare la verificarea CAPTCHA.', 'error');
-                }}
-              />
               <Button
                 type="submit"
                 className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                disabled={isSubmitting || !turnstileToken}
+                disabled={isSubmitting}
               >
                 {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
               </Button>
