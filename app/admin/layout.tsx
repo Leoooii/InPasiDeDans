@@ -30,7 +30,12 @@ const navGroups = [
   {
     label: 'Management',
     items: [
-      { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
+      {
+        href: '/admin',
+        label: 'Dashboard',
+        icon: LayoutDashboard,
+        exact: true,
+      },
       { href: '/admin/cursanti', label: 'Cursanți', icon: GraduationCap },
       { href: '/admin/grupe', label: 'Grupe', icon: BookOpen },
       { href: '/admin/prezenta', label: 'Prezență', icon: Calendar },
@@ -46,7 +51,7 @@ const navGroups = [
       { href: '/admin/petreceri', label: 'Petreceri', icon: Music },
       { href: '/admin/instructori', label: 'Instructori', icon: UserCog },
       { href: '/admin/tarife', label: 'Tarife', icon: Tag },
-      { href: '/admin/galerie', label: 'Galerie', icon: Image },
+      // { href: '/admin/galerie', label: 'Galerie', icon: Image },
     ],
   },
 ];
@@ -54,7 +59,11 @@ const navGroups = [
 // flat list used for active-state detection
 const navItems = navGroups.flatMap(g => g.items);
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -88,7 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         pathname === href ||
         (pathname === '/admin' &&
           !navItems.some(
-            item => !item.exact && pathname?.startsWith(item.href + '/')
+            item => !item.exact && pathname?.startsWith(item.href + '/'),
           ))
       );
     }
@@ -114,7 +123,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!isAdmin) return null;
 
-  const SidebarContent = ({ onNavigate = () => {} }: { onNavigate?: () => void }) => (
+  const SidebarContent = ({
+    onNavigate = () => {},
+  }: {
+    onNavigate?: () => void;
+  }) => (
     <div className="flex flex-col h-full">
       {/* Brand */}
       <div className="px-5 py-6 border-b border-white/10">
@@ -123,7 +136,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="text-white text-xs font-bold">IP</span>
           </div>
           <div>
-            <p className="text-white font-semibold text-sm leading-tight">În Pași de Dans</p>
+            <p className="text-white font-semibold text-sm leading-tight">
+              În Pași de Dans
+            </p>
             <p className="text-slate-400 text-xs">Panou Admin</p>
           </div>
         </div>
@@ -148,9 +163,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                           : 'text-slate-400 hover:text-white hover:bg-white/5'
                       }`}
                     >
-                      <Icon className={`h-4 w-4 flex-shrink-0 ${active ? 'text-red-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
+                      <Icon
+                        className={`h-4 w-4 flex-shrink-0 ${active ? 'text-red-400' : 'text-slate-500 group-hover:text-slate-300'}`}
+                      />
                       {label}
-                      {active && <ChevronRight className="h-3 w-3 ml-auto text-slate-500" />}
+                      {active && (
+                        <ChevronRight className="h-3 w-3 ml-auto text-slate-500" />
+                      )}
                     </span>
                   </Link>
                 );
@@ -207,7 +226,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <Menu className="h-5 w-5" />
           </button>
-          <span className="text-sm font-semibold text-slate-700">Panou Admin</span>
+          <span className="text-sm font-semibold text-slate-700">
+            Panou Admin
+          </span>
           <div className="w-9" />
         </header>
 
