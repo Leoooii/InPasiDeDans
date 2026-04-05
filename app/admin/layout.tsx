@@ -40,7 +40,7 @@ const navGroups = [
   {
     label: 'Conținut site',
     items: [
-      { href: '/admin/utilizatori', label: 'Utilizatori', icon: Users },
+      // { href: '/admin/utilizatori', label: 'Utilizatori', icon: Users },
       { href: '/admin/evenimente', label: 'Evenimente', icon: FileText },
       { href: '/admin/excursii', label: 'Excursii', icon: Map },
       { href: '/admin/petreceri', label: 'Petreceri', icon: Music },
