@@ -1,194 +1,204 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserCircleIcon, UserX2Icon, AlertCircle } from 'lucide-react';
-import type { Metadata } from 'next';
+import {
+  Award,
+  Calendar,
+  Clock,
+  Heart,
+  Layers,
+  Sparkles,
+  Target,
+  Users,
+} from 'lucide-react';
 import GrupeInFormare from '@/components/grupe-in-formare';
-
-export const metadata: Metadata = {
-  title: 'Lecții Private Dans București – Instructor Dedicat | În Pași de Dans',
-  description: 'Lecții private de dans în București – progres rapid cu instructor dedicat. Program flexibil, toate vârstele, Sector 4-5-6. Înscrie-te acum!',
-  keywords: 'lectii private dans, instructor privat dans, cursuri private dans Bucuresti',
-  alternates: { canonical: 'https://www.inpasidedans.ro/lectii-private' },
-  openGraph: {
-    title: 'Lecții Private Dans București | În Pași de Dans',
-    description: 'Programează lecții private de dans cu instructori dedicați și progresează rapid, la ritmul tău.',
-    url: 'https://www.inpasidedans.ro/lectii-private',
-    images: [{ url: 'https://www.inpasidedans.ro/images/logo.png', alt: 'Lecții private dans București' }],
-    locale: 'ro_RO',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Lecții Private Dans București | În Pași de Dans',
-    description: 'Programează lecții private de dans cu instructori dedicați și progresează rapid, la ritmul tău.',
-    images: ['https://www.inpasidedans.ro/images/logo.png'],
-  },
-  robots: { index: true, follow: true },
-};
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
+import ContactForm from '@/components/contact-form';
+import DansulMirilorPricing from '@/components/DansulMirilorPricing';
+
+const forWhom = [
+  {
+    icon: Clock,
+    title: 'Program variabil',
+    desc: 'Nu poți participa constant la cursurile de grup? Stabilim noi împreună orarul.',
+    color: 'text-blue-500',
+    bg: 'bg-blue-50 dark:bg-blue-950/30',
+  },
+  {
+    icon: Heart,
+    title: 'Abordare personală',
+    desc: 'Preferi să înveți fără presiunea grupului, în propriul ritm.',
+    color: 'text-red-500',
+    bg: 'bg-red-50 dark:bg-red-950/30',
+  },
+  {
+    icon: Layers,
+    title: 'Stil specific',
+    desc: 'Vrei să te concentrezi pe un singur stil de dans sau să aprofundezi tehnica.',
+    color: 'text-orange-500',
+    bg: 'bg-orange-50 dark:bg-orange-950/30',
+  },
+];
+
+const benefits = [
+  {
+    icon: Award,
+    title: 'Instructori cu experiență',
+    desc: 'Lucrezi 1-la-1 cu un instructor dedicat, care se adaptează nivelului și ritmului tău.',
+    color: 'text-yellow-500',
+    bg: 'bg-yellow-50 dark:bg-yellow-950/30',
+  },
+  {
+    icon: Target,
+    title: 'Plan personalizat',
+    desc: 'Fiecare ședință urmează un plan adaptat obiectivelor și progresului tău.',
+    color: 'text-purple-500',
+    bg: 'bg-purple-50 dark:bg-purple-950/30',
+  },
+  {
+    icon: Calendar,
+    title: 'Program flexibil',
+    desc: 'Programăm ședințele în funcție de disponibilitatea ta, inclusiv în weekend.',
+    color: 'text-green-500',
+    bg: 'bg-green-50 dark:bg-green-950/30',
+  },
+  {
+    icon: Users,
+    title: 'Sală privată',
+    desc: 'Toate ședințele au loc în sală privată — vei fi doar tu și instructorul.',
+    color: 'text-blue-500',
+    bg: 'bg-blue-50 dark:bg-blue-950/30',
+  },
+  {
+    icon: Heart,
+    title: 'Atmosferă relaxată',
+    desc: 'Mediu prietenos și fără presiune, ca să te simți confortabil de la prima ședință.',
+    color: 'text-red-500',
+    bg: 'bg-red-50 dark:bg-red-950/30',
+  },
+  {
+    icon: Layers,
+    title: 'Orice stil de dans',
+    desc: 'Latino, populare, societate, dans pentru nuntă — alegi tu ce vrei să înveți.',
+    color: 'text-orange-500',
+    bg: 'bg-orange-50 dark:bg-orange-950/30',
+  },
+];
 
 export default function LectiiPrivate() {
   const breadcrumbItems = [
-    { name: "Acasă", url: "/" },
-    { name: "Lecții private" }
+    { name: 'Acasă', url: '/' },
+    { name: 'Lecții private' },
   ];
 
   return (
-    <div className="container py-12">
-        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/lectii-private" />
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight mb-5">
-          Cursuri particulare de dans
-          </h1>
-          <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="space-y-4">
-          <p className="text-gray-500 dark:text-gray-400">
-            Ai un program încărcat? Ești mai timid(ă) sau vrei să aprofundezi un anumit stil de dans?
-            Cursurile private sunt soluția ideală pentru tine!
-          </p>
-          <p>
-            La În Pași de Dans, oferim lecții individuale adaptate complet nevoilor tale. Fie că ești la început de drum, fie că vrei să-ți perfecționezi tehnica, îți punem la dispoziție antrenori dedicați, un mediu prietenos și un program flexibil.
-          </p>
-          <div>
-            <p className="font-semibold">Cursurile private sunt potrivite pentru:</p>
-            <ul className="list-disc pl-6 space-y-1 mt-2">
-              <li>Persoane cu program variabil, care nu pot participa constant la cursurile de grup</li>
-              <li>Cei mai timizi, care preferă o abordare personală și fără presiunea grupului</li>
-              <li>Cei care doresc să învețe doar anumite stiluri de dans</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold">Ce oferim:</p>
-            <ul className="list-disc pl-6 space-y-1 mt-2">
-              <li>Programare flexibilă (în funcție de disponibilitatea ta și de agenda școlii)</li>
-              <li>Instructor dedicat, care lucrează 1-la-1 cu tine</li>
-              <li>Plan personalizat de învățare și evoluție</li>
-              <li>Posibilitatea de a alege stilurile de dans dorite</li>
-            </ul>
-          </div>
-          <p>
-            Programează acum o ședință privată și începe călătoria ta în dans, în propriul ritm și stil.
-          </p>
-          </div>
-          <div className="relative h-[600px] lg:h-full w-full rounded-lg overflow-hidden">
-            <Image
-              src="/images/private3.png?height=800&width=600"
-              alt="Dans de societate"
-              fill
-              className="object-cover"
-            />
-          </div>
-          </div>
-          
+    <div className="container py-12 flex flex-col gap-16 px-4 md:px-6">
+      <SEOBreadcrumbs
+        items={breadcrumbItems}
+        currentPageUrl="https://www.inpasidedans.ro/lectii-private"
+      />
+
+      {/* Hero */}
+      <div className="flex flex-col items-center gap-6 text-center max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 dark:border-red-900">
+          <Sparkles className="w-4 h-4" />
+          Instructor dedicat · 1-la-1 · Program flexibil
         </div>
-
-        
-
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Pachetele noastre</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-red-600 to-orange-500">
-            <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Pachet 4 ședințe</CardTitle>
-              <div className="text-2xl font-bold mb-4">640 Lei</div>
-            </CardHeader>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-red-600 to-orange-500">
-              <CardHeader className=" text-white rounded-t-lg">
-                <CardTitle>Pachet 6 ședințe</CardTitle>
-                <div className="text-2xl font-bold mb-4">900 Lei</div>
-              </CardHeader>
-            </Card>
-
-            <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-red-600 to-orange-500">
-              <CardHeader className=" text-white rounded-t-lg">
-                <CardTitle>Pachet 8 ședințe</CardTitle>
-                <div className="text-2xl font-bold mb-4">1120 Lei</div>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
-   
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 mb-10">
-          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
-            <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Plata la ședință</CardTitle>
-
-              <div className="mt-4 text-4xl font-bold">180 Lei</div>
-            </CardHeader>
-          </Card>
-          
-        </div>
-        <div>
-          <Alert className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
-            <AlertCircle className="h-5 w-5" />
-            <AlertTitle>Informații despre plată</AlertTitle>
-            <AlertDescription>
-              <ul className="list-disc pl-5 space-y-2">
-                <li>Dacă doriți să efectuați plata la fiecare ședință, prețul pentru o lecție particulară de dans este 180 lei.</li>
-                <li>În cazul în care optați pentru unul din pachete, plata orelor particulare de dans se va face integral la prima ședință.</li>
-                <li>Anularea și reprogramarea unei ședințe se va face cu cel puțin 24 de ore înainte, telefonic. În caz contrar, ședința se consideră efectuată.</li>
-              </ul>
-            </AlertDescription>
-          </Alert>
-        </div>
-
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">
-            De ce să alegeți cursurile noastre
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Instructori cu experiență</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Instructorii noștri au pregătit mii de cupluri pentru momentul
-                special al nunții.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Coregrafii personalizate</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Creăm coregrafii adaptate nivelului, stilului, personalității și
-                aptitudinilor fiecărui cuplu.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Săli private</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Toate ședințele se desfășoară în săli private, pentru a vă oferi
-                confortul necesar. Veti fi doar voi și instructorul in sala
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Program flexibil</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Programăm ședințele în funcție de disponibilitatea voastră și de
-                agenda noastră, inclusiv în weekend.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Atmosferă relaxată</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Creăm o atmosferă prietenoasă și relaxată, pentru a vă ajuta să
-                vă simțiți confortabil.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        
-
-        
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+          Cursuri{' '}
+          <span className="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+            particulare de dans
+          </span>
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
+          Progresezi în ritmul tău, cu un instructor dedicat, program flexibil și un plan personalizat
+          adaptat exact nevoilor tale.
+        </p>
+        <Link href="#inscriere" className="mt-2">
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30 text-base"
+          >
+            Programează o ședință
+          </Button>
+        </Link>
       </div>
+
+      {/* Hero image + pentru cine */}
+      <div className="grid gap-8 md:grid-cols-2 items-center">
+        <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-xl">
+          <Image
+            src="/images/private3.png"
+            alt="Lecții private dans București"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        </div>
+        <div className="flex flex-col gap-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Pentru cine sunt potrivite?
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+              Lecțiile private se adaptează oricărui stil de viață și oricărui nivel.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            {forWhom.map(({ icon: Icon, title, desc, color, bg }) => (
+              <div key={title} className="flex items-start gap-4">
+                <div
+                  className={`w-10 h-10 ${bg} rounded-xl flex items-center justify-center flex-shrink-0`}
+                >
+                  <Icon className={`w-5 h-5 ${color}`} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* De ce noi */}
+      <div className="flex flex-col gap-8">
+        <div className="text-center space-y-2">
+          <h2 className="text-3xl font-bold">De ce să alegi lecțiile private?</h2>
+          <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+            Totul este adaptat la tine — nu invers.
+          </p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {benefits.map(({ icon: Icon, title, desc, color, bg }) => (
+            <div
+              key={title}
+              className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
+                <Icon className={`w-5 h-5 ${color}`} />
+              </div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Pachete — același component ca /dansul-mirilor */}
+      <DansulMirilorPricing />
+
+      {/* Contact form */}
+      <div id="inscriere" className="px-0 md:px-32">
+        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">
+          Completează formularul și programează prima ta ședință
+        </h3>
+        <ContactForm />
+      </div>
+
       <GrupeInFormare />
     </div>
   );

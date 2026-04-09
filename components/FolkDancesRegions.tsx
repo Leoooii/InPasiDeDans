@@ -219,24 +219,23 @@ export default function FolkDancesRegions() {
   const regiuneCurenta = regiuniDansuri[currentRegion];
 
   return (
-    <div className="py-16 bg-gradient-to-br from-orange-50 to-red-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Dansuri populare din toate regiunile României
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Descoperă frumusețea și diversitatea dansurilor populare românești, 
-            de la Transilvania până la Dobrogea
-          </p>
-        </div>
+    <div className="flex flex-col gap-8">
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold">
+          Dansuri din toate regiunile României
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+          Descoperă diversitatea dansurilor populare românești, de la Transilvania până la Dobrogea.
+        </p>
+      </div>
+      <div className="container mx-auto px-0">
 
         {/* Buton toggle pentru afișarea dansurilor */}
         <div className="text-center mb-8">
           <Button
             onClick={() => setShowDances(!showDances)}
             variant="outline"
-            className="bg-white hover:bg-orange-50 border-orange-200 text-orange-700 hover:text-orange-800 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+            className="bg-white dark:bg-gray-900 hover:bg-orange-50 border-orange-200 text-orange-700 hover:text-orange-800 px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
           >
             {showDances ? (
               <>
@@ -287,11 +286,11 @@ export default function FolkDancesRegions() {
           </div>
 
           {/* Conținutul regiunii active */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
             <div className="space-y-6">
               {/* Informații despre regiune */}
               <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
                   {regiuniDansuri[currentRegion].nume}
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">

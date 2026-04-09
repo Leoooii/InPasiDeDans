@@ -11,6 +11,7 @@ import {
   doc,
   query,
   orderBy,
+  where,
 } from "firebase/firestore"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -106,31 +107,49 @@ const INITIAL_TARIFE: Omit<Tarif, "id">[] = [
   // Lecții private
   {
     titlu: "Pachet 4 ședințe",
-    descriere: "",
+    descriere: "Ideal pentru cuplurile care doresc un dans simplu și elegant.",
     pret: 640,
     moneda: "Lei",
     categorie: "privat",
-    beneficii: ["4 ședințe private", "Instructor dedicat"],
+    beneficii: [
+      "4 ședințe private (60 min/sed)",
+      "Coregrafie simplă pe melodia aleasă",
+      "Înregistrare video a coregrafiei",
+      "Editare personalizată a melodiei",
+      "Pachetul poate fi prelungit cu oricate ședințe la prețul/ședință din pachetul ales inițial",
+    ],
     popular: false,
     ordine: 1,
   },
   {
     titlu: "Pachet 6 ședințe",
-    descriere: "",
+    descriere: "Pentru cuplurile care doresc un dans memorabil cu elemente speciale.",
     pret: 900,
     moneda: "Lei",
     categorie: "privat",
-    beneficii: ["6 ședințe private", "Instructor dedicat"],
-    popular: false,
+    beneficii: [
+      "6 ședințe private (60 min/sed)",
+      "Coregrafie cu grad de dificultate mediu pe melodia aleasă",
+      "Înregistrare video a coregrafiei",
+      "Editare personalizată a melodiei",
+      "Pachetul poate fi prelungit cu oricate ședințe la prețul/ședință din pachetul ales inițial",
+    ],
+    popular: true,
     ordine: 2,
   },
   {
     titlu: "Pachet 8 ședințe",
-    descriere: "",
+    descriere: "Experiența completă pentru un moment cu adevărat spectaculos.",
     pret: 1120,
     moneda: "Lei",
     categorie: "privat",
-    beneficii: ["8 ședințe private", "Instructor dedicat"],
+    beneficii: [
+      "8 ședințe private (60 min/sed)",
+      "Coregrafie personalizată cu grad de dificultate mediu sau ridicat, ținând cont de abilitățile voastre",
+      "Înregistrare video a coregrafiei",
+      "Editare personalizată a melodiei",
+      "Pachetul poate fi prelungit cu oricate ședințe la prețul/ședință din pachetul ales inițial",
+    ],
     popular: false,
     ordine: 3,
   },
@@ -140,9 +159,19 @@ const INITIAL_TARIFE: Omit<Tarif, "id">[] = [
     pret: 180,
     moneda: "Lei",
     categorie: "privat",
-    beneficii: ["O ședință privată", "Instructor dedicat"],
+    beneficii: [],
     popular: false,
     ordine: 4,
+  },
+  {
+    titlu: "Ședință la restaurant (în București)",
+    descriere: "",
+    pret: 200,
+    moneda: "Lei",
+    categorie: "privat",
+    beneficii: [],
+    popular: false,
+    ordine: 5,
   },
   // Copii
   {
@@ -239,6 +268,31 @@ export default function TarifePage() {
     }
   }
 
+  const handleMigratePrivat = async () => {
+    if (!confirm("Actualizează descrierile și beneficiile pentru tarifele private? Prețurile rămân neschimbate.")) return
+    try {
+      const q = query(collection(db, "tarife"), where("categorie", "==", "privat"))
+      const snapshot = await getDocs(q)
+      const updates = INITIAL_TARIFE.filter((t) => t.categorie === "privat")
+      for (const fireDoc of snapshot.docs) {
+        const data = fireDoc.data() as Omit<Tarif, "id">
+        const match = updates.find((u) => u.titlu === data.titlu)
+        if (match) {
+          await updateDoc(doc(db, "tarife", fireDoc.id), {
+            descriere: match.descriere,
+            beneficii: match.beneficii,
+            popular: match.popular,
+            ordine: match.ordine,
+          })
+        }
+      }
+      showToast("Tarifele private au fost actualizate", "success")
+      fetchTarife()
+    } catch {
+      showToast("Eroare la actualizare", "error")
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.titlu || !form.pret || !form.categorie) {
@@ -324,7 +378,7 @@ export default function TarifePage() {
           <h1 className="text-2xl font-bold text-slate-900">Tarife</h1>
           <p className="text-sm text-slate-500 mt-0.5">Gestionează tarifele afișate pe pagina /tarife</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {tarife.length === 0 && (
             <Button
               variant="outline"
@@ -335,7 +389,7 @@ export default function TarifePage() {
               {isSeeding ? "Se populează..." : "Populare automată"}
             </Button>
           )}
-          <Button
+<Button
             onClick={() => { resetForm(); setActiveTab("formular") }}
             className="bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm"
           >

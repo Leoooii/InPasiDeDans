@@ -1,18 +1,14 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import { Calendar, Clock, Droplets, Shirt, Sparkles, Star, Trophy, Users } from 'lucide-react';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import ChildrenDanceFAQ from '@/components/ChildrenDanceFAQ';
 import TestimonialsSection from '@/components/TestimonialsSection';
+import TarifeCopiiSection from '@/components/TarifeCopiiSection';
 
 export const metadata: Metadata = {
   title: 'Cursuri Dans Copii București – Sector 4, 5 și 6 | În Pași de Dans',
@@ -128,74 +124,81 @@ export default function CursuriDansCopii() {
         currentPageUrl="https://www.inpasidedans.ro/cursuri-dans-copii"
       />
       <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Cursuri dans copii București – Sector 4, 5 și 6
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Dezvoltă coordonarea, încrederea și pasiunea pentru dans de la vârste fragede.
-            <br />
-            <span className="block mt-2">
-              <a href="/inscriere" className="text-red-600 underline hover:text-orange-600">
-                Înscrie-ți copilul
-              </a>{' '}
-              ·
-              <a href="/program" className="text-red-600 underline hover:text-orange-600 ml-2">
-                Vezi programul
-              </a>{' '}
-              ·
-              <a href="/tarife" className="text-red-600 underline hover:text-orange-600 ml-2">
-                Tarife
-              </a>
-            </span>
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
+        {/* Hero Section */}
+        <div className="grid gap-8 md:grid-cols-2 items-center">
+          <div className="space-y-5">
+            <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 dark:border-red-900">
+              <Sparkles className="w-4 h-4" />
+              Copii între 7 și 14 ani · Sector 4, 5 și 6
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight leading-tight">
+              Cursuri dans copii{' '}
+              <span className="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                București
+              </span>
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+              Dansul este o activitate completă — coordonare, flexibilitate, ritm
+              și lucru în echipă. Cursurile noastre sunt adaptate pe grupe de vârstă
+              și nivel, astfel încât fiecare copil să progreseze în ritmul său.
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              Predăm dans sportiv (latino și standard) și, ocazional, dansuri
+              populare: horă, alunelul, bătuta ursului, jiana.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link href="/inscriere">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30"
+                >
+                  Înscrie-ți copilul
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="relative h-[440px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
               src="/images/copii2.png?height=800&width=600"
               alt="Copii dansând"
               fill
               className="object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
           </div>
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">De ce dans pentru copii?</h2>
-            <p>
-              Dansul este o activitate completă care ajută copiii să se dezvolte armonios, atât
-              fizic cât și mental. Prin dans, copiii își îmbunătățesc coordonarea, flexibilitatea
-              și condiția fizică, în timp ce învață să lucreze în echipă și să-și exprime emoțiile.
-            </p>
-            <p>
-              La școala noastră, cursurile sunt adaptate pe grupe de vârsta și nivel, astfel încât
-              fiecare copil să se simtă confortabil și să progreseze în ritmul său.
-            </p>
-            <p>
-              La grupele de copii predăm dans sportiv (dansuri latino și dansuri standard) și,
-              ocazional, dansuri populare precum horă, alunelul, bătuta ursului, jiana etc.
-            </p>
-            <div className="space-y-4">
-              <p className="text-lg font-semibold">
-                La <span className="font-bold">În Pași de Dans</span>, primim cu bucurie copii
-                care au împlinit vârsta de 7 ani.
+        </div>
+
+        {/* Echipament + varsta */}
+        <div className="mt-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-8 shadow-sm">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">De ce dans pentru copii?</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">
+                Prin dans, copiii își îmbunătățesc coordonarea, flexibilitatea și condiția fizică,
+                în timp ce învață să lucreze în echipă și să-și exprime emoțiile.
               </p>
-              <div>
-                <p className="font-medium">Echipamentul recomandat:</p>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>Îmbrăcăminte lejeră, care permite mișcarea: tricou, colanți sau pantaloni de trening;</li>
-                  <li>Încălțăminte adecvată pentru dans (pantofi de sală sau balerini flexibili);</li>
-                  <li>Pentru fetițe: părul prins bine (de preferat în coc sau coadă);</li>
-                  <li>Sticlă cu apă pentru hidratare.</li>
-                </ul>
-              </div>
+              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mt-4">
+                Primim cu bucurie copii care au împlinit{' '}
+                <span className="text-red-600">vârsta de 7 ani.</span>
+              </p>
             </div>
-            <div className="pt-4">
-              <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Înscrie-ți copilul
-                </Button>
-              </Link>
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Echipament recomandat</h3>
+              <ul className="space-y-3">
+                {[
+                  { icon: Shirt, text: 'Îmbrăcăminte lejeră: tricou, colanți sau pantaloni de trening' },
+                  { icon: Star, text: 'Pantofi de sală sau balerini flexibili' },
+                  { icon: Sparkles, text: 'Fetițe: părul prins bine (coc sau coadă)' },
+                  { icon: Droplets, text: 'Sticlă cu apă pentru hidratare' },
+                ].map(({ icon: Icon, text }) => (
+                  <li key={text} className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-red-50 dark:bg-red-950/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon className="w-4 h-4 text-red-500" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{text}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -243,53 +246,73 @@ export default function CursuriDansCopii() {
           </div>
         </div>
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Grupe aflate in desfășurare:</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Grupă copii incepatori</h3>
-                <p className="text-gray-500 mb-4">
-                  La această grupă se predau: cha cha, jive, vals lent si quick step.
+        <div className="mt-16">
+          <div className="text-center mb-8 space-y-2">
+            <h2 className="text-3xl font-bold">Grupe aflate în desfășurare</h2>
+            <p className="text-gray-500 dark:text-gray-400">Alegeti grupa potrivită nivelului copilului vostru</p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            <Card className="border-2 border-green-200 dark:border-green-900 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              <CardContent className="p-7">
+                <div className="inline-flex items-center gap-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                  <Users className="w-3 h-3" />
+                  Începători
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">Grupă copii începători</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-5 leading-relaxed">
+                  Cha cha, jive, vals lent și quick step.
                 </p>
-                <div className="flex justify-between">
-                  <div className="text-sm text-gray-500">
-                    <p>Marti si Joi</p>
-                    <p>17:30 - 18:30</p>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <Calendar className="w-4 h-4 text-green-500" />
+                  <span>Marți și Joi</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mt-1.5">
+                  <Clock className="w-4 h-4 text-green-500" />
+                  <span>17:30 – 18:30</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-orange-200 dark:border-orange-900 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              <CardContent className="p-7">
+                <div className="inline-flex items-center gap-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                  <Star className="w-3 h-3" />
+                  Intermediari / Avansați
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">Grupă intermediari / avansați</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-5 leading-relaxed">
+                  Cha cha, jive, samba, vals lent, vals vienez, quick step, ocazional dansuri populare.
+                </p>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                    <Calendar className="w-4 h-4 text-orange-500" />
+                    <span>Vineri 18:30 – 19:30</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                    <Calendar className="w-4 h-4 text-orange-500" />
+                    <span>Sâmbătă 11:00 – 12:00</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Grupă intermediari/avansați</h3>
-                <p className="text-gray-500 mb-4">
-                  La această grupă se predau: cha cha, jive, samba, vals lent, vals vienez, quick
-                  step, ocazional - dansuri populare.
-                </p>
-                <div className="flex justify-between">
-                  <div className="text-sm text-gray-500">
-                    <p>Vineri</p>
-                    <p>18:30 - 19:30</p>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    <p>Sâmbătă</p>
-                    <p>11:00 - 12:00</p>
-                  </div>
+            <Card className="border-2 border-red-200 dark:border-red-900 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              <CardContent className="p-7">
+                <div className="inline-flex items-center gap-1.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                  <Trophy className="w-3 h-3" />
+                  Formație concurs
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Formație intermediari</h3>
-                <p className="text-gray-500 mb-4">
-                  Coregrafii dansuri latino/standard, în vederea participării la concursuri de dans.
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">Formație intermediari</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-5 leading-relaxed">
+                  Coregrafii dans latino/standard, în vederea participării la concursuri de dans.
                 </p>
-                <div className="text-sm text-gray-500">
-                  <p>Sâmbătă</p>
-                  <p>12:00 - 13:00</p>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <Calendar className="w-4 h-4 text-red-500" />
+                  <span>Sâmbătă</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mt-1.5">
+                  <Clock className="w-4 h-4 text-red-500" />
+                  <span>12:00 – 13:00</span>
                 </div>
               </CardContent>
             </Card>
@@ -300,44 +323,12 @@ export default function CursuriDansCopii() {
 
         <TestimonialsSection danceType="copii" />
 
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold mb-6">Tarife cursuri copii</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-8">
-            <Card className="flex flex-col border-red-600 shadow-lg ">
-              <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament 4</CardTitle>
-                <CardDescription className=" text-white/90">
-                  Valabil 4 săptămâni (4 ședințe)
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">110 Lei</div>
-              </CardHeader>
-            </Card>
-            <Card className="flex flex-col border-red-600 shadow-lg ">
-              <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament 8</CardTitle>
-                <CardDescription className=" text-white/90">
-                  Valabil 4 săptămâni (8 ședințe)
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">200 Lei</div>
-              </CardHeader>
-            </Card>
-            <Card className="flex flex-col border-red-600 shadow-lg ">
-              <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Abonament 12</CardTitle>
-                <CardDescription className=" text-white/90">
-                  Valabil 4 săptămâni (12 ședințe)
-                </CardDescription>
-                <div className="mt-4 text-4xl font-bold">250 Lei</div>
-              </CardHeader>
-            </Card>
-            <Card className="flex flex-col border-red-600 shadow-lg ">
-              <CardHeader className="bg-gradient-to-r from-pink-600 to-orange-500 text-white rounded-t-lg">
-                <CardTitle>Plata la ședință</CardTitle>
-                <CardDescription className=" text-white/90">Ședință de grup</CardDescription>
-                <div className="mt-4 text-4xl font-bold">35 Lei</div>
-              </CardHeader>
-            </Card>
+        <div className="mt-16 space-y-6">
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl font-bold">Tarife cursuri copii</h2>
+            <p className="text-gray-500 dark:text-gray-400">Abonamente flexibile, adaptate nevoilor voastre</p>
           </div>
+          <TarifeCopiiSection />
         </div>
       </div>
       <GrupeInFormare />

@@ -13,6 +13,13 @@ export default function FolkDancesCarousel() {
   const autoplay = useEmblaCarouselAutoplay({ delay: 2000, stopOnInteraction: false });
 
   return (
+    <div className="flex flex-col gap-6">
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold">Atmosfera de la cursurile noastre</h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Energie, voie bună și tradiție autentică — la fiecare ședință.
+        </p>
+      </div>
     <div className="w-full relative">
       <Carousel 
         className="w-full" 
@@ -47,6 +54,7 @@ export default function FolkDancesCarousel() {
         <CarouselPrevious className="hidden md:flex absolute -left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-300 text-gray-700 hover:text-gray-900 z-20" />
         <CarouselNext className="hidden md:flex absolute -right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-300 text-gray-700 hover:text-gray-900 z-20" />
       </Carousel>
+    </div>
     </div>
   );
 }

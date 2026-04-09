@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AlertCircle, UserCircleIcon, UserX2Icon } from 'lucide-react';
+import { AlertCircle, Award, Clock, Heart, Music, Shield, Sparkles, Users } from 'lucide-react';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import WeddingDanceTestimonials from '@/components/WeddingDanceTestimonials';
+import DansulMirilorPricing from '@/components/DansulMirilorPricing';
 
 export const metadata: Metadata = {
   title: 'Dans Nuntă București – Coregrafie Mirilor | 3-4 Lecții | În Pași de Dans',
@@ -47,384 +47,52 @@ export default function DansulMirilor() {
     <div className="container py-12">
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansul-mirilor" />
       <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Dans Nuntă București – Coregrafie Mirilor
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Oferim lecții private atât pentru miri, cât și pentru persoane mai
-            timide sau pentru cei care vor să aprofundeze doar anumite stiluri
-            de dans.
-          </p>
-        </div>
-
+        {/* Hero Section */}
         <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">
-              Dansul mirilor - un moment magic
-            </h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              Creează un moment special și memorabil pentru ziua nunții tale!
+          <div className="space-y-5">
+            <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 dark:border-red-900">
+              <Sparkles className="w-4 h-4" />
+              Cursuri private pentru miri
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight leading-tight">
+              Dans Nuntă București –{' '}
+              <span className="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+                Coregrafie Mirilor
+              </span>
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+              Dansul mirilor este unul dintre cele mai emoționante momente ale
+              nunții. Vă ghidăm pas cu pas pentru a crea o coregrafie
+              personalizată — vals clasic, tango, dans latino sau o surpriză
+              plină de personalitate.
             </p>
-            <p>
-              Dansul mirilor este unul dintre cele mai emoționante și memorabile
-              momente ale nunții. La școala noastră, vă oferim cursuri private
-              pentru a vă ajuta să creați un moment special, adaptat stilului și
-              personalității voastre.
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              Indiferent de nivelul vostru, instructorii noștri vă vor ajuta
+              să vă simțiți încrezători și pregătiți pentru marele moment.
             </p>
-            <p>
-              Indiferent dacă doriți un vals clasic, un tango,un dans latino sau
-              o coregrafie surprinzătoare și plină de personalitate,
-              instructorii noștri vă vor ghida pas cu pas pentru a vă simți
-              încrezători și pregătiți pentru marele moment.
-            </p>
-            {/* <div className="pt-4">
-              <div className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 p-2 text-white text-center text-sm font-medium rounded-lg w-1/2">
-                Ne poți contacta pe mail ( inpasidedans@gmail.com ) sau pe
-                whatsapp ( 0722675126 ) pentru o consiliere.
-              </div>
-            </div> */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30"
+                >
+                  Programează o ședință
+                </Button>
+              </Link>
+            </div>
           </div>
-          <div className="relative h-[400px] rounded-lg overflow-hidden">
+          <div className="relative h-[440px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
               src="/images/private.png?height=800&width=600"
               alt="Dans de societate"
               fill
               className="object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
           </div>
         </div>
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Pachetele noastre</h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="border-red-600 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Pachet 4 ședințe</h3>
-                <div className="text-2xl font-bold mb-4">640 Lei</div>
-                <p className="text-gray-500 mb-4">
-                  Ideal pentru cuplurile care doresc un dans simplu și elegant.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>4 ședințe private (60 min/sed)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Coregrafie simplă pe melodia aleasă</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Înregistrare video a coregrafiei </span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Editare personalizată a melodiei</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div>
-                      <svg
-                        className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <span>
-                      Pachetul poate fi prelungit cu oricate ședințe la
-                      prețul/ședință din pachetul ales inițial{' '}
-                    </span>
-                  </li>
-                </ul>
-                {/* <Button className="w-full">Rezervă acum</Button> */}
-              </CardContent>
-            </Card>
-
-            <Card className="border-red-600 shadow-lg">
-              <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white p-2 text-center text-sm font-medium">
-                Cel mai popular
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Pachet 6 ședințe</h3>
-                <div className="text-2xl font-bold mb-4">900 Lei</div>
-                <p className="text-gray-500 mb-4">
-                  Pentru cuplurile care doresc un dans memorabil cu elemente
-                  speciale.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>6 ședințe private (60 min/sed)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>
-                      Coregrafie cu grad de dificultate mediu pe melodia aleasa
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Înregistrare video a coregrafiei</span>
-                  </li>
-
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Editare personalizată a melodiei</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div>
-                      <svg
-                        className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <span>
-                      Pachetul poate fi prelungit cu oricate ședințe la
-                      prețul/ședință din pachetul ales inițial{' '}
-                    </span>
-                  </li>
-                </ul>
-                {/* <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
-                  Rezervă acum
-                </Button> */}
-              </CardContent>
-            </Card>
-
-            <Card className="border-red-600 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-2">Pachet 8 ședințe</h3>
-                <div className="text-2xl font-bold mb-4">1120 Lei</div>
-                <p className="text-gray-500 mb-4">
-                  Experiența completă pentru un moment cu adevărat spectaculos.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>8 ședințe private (60 min/sed)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div>
-                      <svg
-                        className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <span>
-                      Coregrafie personalizată cu grad de dificultate mediu sau
-                      ridicat, tinand cont de abilitatile voastre
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Înregistrare video a coregrafiei</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Editare personalizată a melodiei</span>
-                  </li>
-
-                  <li className="flex items-start">
-                    <div>
-                      <svg
-                        className="h-5 w-5 text-green-500 mr-2 mt-0.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <span>
-                      Pachetul poate fi prelungit cu oricate ședințe la
-                      prețul/ședință din pachetul ales inițial{' '}
-                    </span>
-                  </li>
-                </ul>
-                {/* <Button className="w-full">Rezervă acum</Button> */}
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-        <h2 className="text-2xl font-bold mb-6">Alte opțiuni:</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8 mb-10">
-          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
-            <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Plata la ședință</CardTitle>
-
-              <div className="mt-4 text-4xl font-bold">180 Lei</div>
-            </CardHeader>
-          </Card>
-          <Card className="flex flex-col border-red-600 shadow-lg bg-gradient-to-r from-blue-600 to-orange-500">
-            <CardHeader className=" text-white rounded-t-lg">
-              <CardTitle>Ședință la restaurant (in București)</CardTitle>
-
-              <div className="mt-4 text-4xl font-bold">200 Lei</div>
-            </CardHeader>
-          </Card>
-        </div>
+        <DansulMirilorPricing />
         <div>
           <Alert className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
             <AlertCircle className="h-5 w-5" />
@@ -439,50 +107,62 @@ export default function DansulMirilor() {
           </Alert>
         </div>
 
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">
-            De ce să alegeți cursurile noastre
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Instructori cu experiență</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Instructorii noștri au pregătit mii de cupluri pentru momentul
-                special al nunții.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Coregrafii personalizate</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Creăm coregrafii adaptate nivelului, stilului, personalității și
-                aptitudinilor fiecărui cuplu.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Săli private</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Toate ședințele se desfășoară în săli private, pentru a vă oferi
-                confortul necesar. Veti fi doar voi și instructorul in sala
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Program flexibil</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Programăm ședințele în funcție de disponibilitatea voastră și de
-                agenda noastră, inclusiv în weekend.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Atmosferă relaxată</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
-                Creăm o atmosferă prietenoasă și relaxată, pentru a vă ajuta să
-                vă simțiți confortabil.
-              </p>
-            </div>
+        <div className="mt-16 space-y-6">
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl font-bold">De ce să alegeți cursurile noastre</h2>
+            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+              Tot ce aveți nevoie pentru un dans al mirilor memorabil, într-un singur loc.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 pt-4">
+            {[
+              {
+                icon: Award,
+                title: 'Instructori cu experiență',
+                desc: 'Instructorii noștri au pregătit mii de cupluri pentru momentul special al nunții.',
+                color: 'text-red-500',
+                bg: 'bg-red-50 dark:bg-red-950/30',
+              },
+              {
+                icon: Music,
+                title: 'Coregrafii personalizate',
+                desc: 'Creăm coregrafii adaptate nivelului, stilului, personalității și aptitudinilor fiecărui cuplu.',
+                color: 'text-orange-500',
+                bg: 'bg-orange-50 dark:bg-orange-950/30',
+              },
+              {
+                icon: Shield,
+                title: 'Săli private',
+                desc: 'Toate ședințele se desfășoară în săli private. Veți fi doar voi și instructorul în sală.',
+                color: 'text-rose-500',
+                bg: 'bg-rose-50 dark:bg-rose-950/30',
+              },
+              {
+                icon: Clock,
+                title: 'Program flexibil',
+                desc: 'Programăm ședințele în funcție de disponibilitatea voastră, inclusiv în weekend.',
+                color: 'text-amber-500',
+                bg: 'bg-amber-50 dark:bg-amber-950/30',
+              },
+              {
+                icon: Heart,
+                title: 'Atmosferă relaxată',
+                desc: 'Creăm o atmosferă prietenoasă și relaxată, pentru a vă ajuta să vă simțiți confortabil.',
+                color: 'text-pink-500',
+                bg: 'bg-pink-50 dark:bg-pink-950/30',
+              },
+            ].map(({ icon: Icon, title, desc, color, bg }) => (
+              <div
+                key={title}
+                className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              >
+                <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
+                  <Icon className={`w-5 h-5 ${color}`} />
+                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -532,33 +212,38 @@ export default function DansulMirilor() {
           </div>
         </div>
 
-        <div className="mt-12 bg-red-50 dark:bg-red-900/20 p-8 rounded-lg">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">
+        <div className="mt-16 rounded-3xl overflow-hidden border border-red-100 dark:border-red-900/50 shadow-lg">
+          <div className="grid md:grid-cols-2 items-stretch">
+            <div className="bg-gradient-to-br from-red-600 to-orange-500 p-10 flex flex-col justify-center gap-5">
+              <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-medium px-3 py-1 rounded-full w-fit">
+                <Users className="w-4 h-4" />
+                Mai mult decât dansul mirilor
+              </div>
+              <h2 className="text-3xl font-bold text-white leading-snug">
                 Pregătiți și pentru alte dansuri?
               </h2>
-              <p className="mb-6">
+              <p className="text-white/85 leading-relaxed">
                 Pe lângă dansul mirilor, vă putem ajuta să pregătiți și alte
-                momente speciale pentru nuntă, cum ar fi dansul cu părinții sau
-                nașii, dansuri de grup sau dansuri surpriză pentru invitați.
+                momente speciale pentru nuntă — dansul cu părinții sau nașii,
+                dansuri de grup sau coregrafii surpriză pentru invitați.
               </p>
               <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
+                  className="bg-white text-red-600 hover:bg-white/90 font-semibold shadow-md w-fit"
                 >
                   Contactează-ne pentru detalii
                 </Button>
               </Link>
             </div>
-            <div className="relative h-72 rounded-lg overflow-hidden">
+            <div className="relative h-72 md:h-auto min-h-[280px]">
               <Image
                 src="/images/nunta2.png?height=800&width=600"
                 alt="Dans de societate"
                 fill
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-transparent" />
             </div>
           </div>
         </div>

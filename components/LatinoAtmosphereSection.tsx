@@ -31,19 +31,13 @@ export default function LatinoAtmosphereSection() {
 
   return (
     <div className="container flex flex-col gap-6 items-center py-12">
-      <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">
-        Atmosfera de la cursurile de dans latino
-      </h2>
-      
-      <div className="max-w-6xl mx-auto text-center space-y-4 mb-8">
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-          Cursurile noastre de dans latino sunt mult mai mult decât simple lecții - sunt experiențe pline de viață, energie și conexiune umană. Fiecare sesiune aduce cu ea o atmosferă vibrantă unde pasiunea pentru dans se îmbină cu bucuria de a învăța și de a crea amintiri frumoase.
-        </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-          În sala noastră de dans, vei descoperi o comunitate prietenoasă și primitoare, unde fiecare pas este o ocazie de a te conecta cu alții prin limbajul universal al muzicii și mișcării. Atmosfera este una de încurajare, râs și progres comun.
-        </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-          De la salsa energică la bachata senzuală, fiecare stil de dans latino aduce cu el propria sa magie și farmec. Vei trăi momente de pură bucurie când vei simți cum ritmul te cucerește și cum dansul devine o extensie naturală a personalității tale.
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight">
+          Atmosfera de la cursurile noastre
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Mai mult decât simple lecții — o comunitate prietenoasă, energie vibrantă și momente de
+          bucurie autentică la fiecare ședință.
         </p>
       </div>
 

@@ -1,98 +1,78 @@
 'use client';
 
-import { Users, Target, MapPin, Clock, BookOpen, Star } from 'lucide-react';
+import { Users, Target, MapPin, Clock, BookOpen } from 'lucide-react';
 
 const structureItems = [
   {
-    id: 1,
-    title: "Împărțirea pe grupe",
-    description: "Se face în funcție de nivelul experienței, astfel încât fiecare cursant sa se simtă confortabil si să progreseze în ritmul propriu;",
     icon: Users,
-    color: "from-blue-500 to-indigo-500"
+    title: 'Împărțirea pe grupe',
+    desc: 'Se face în funcție de nivel, astfel încât fiecare cursant să progreseze în ritmul propriu.',
+    color: 'text-blue-500',
+    bg: 'bg-blue-50 dark:bg-blue-950/30',
   },
   {
-    id: 2,
-    title: "Niveluri",
-    description: "De la începători, unde se învață pașii de bază, până la avansați, unde se lucrează jocuri populare complexe și suite din diferite zone ale țării;",
     icon: Target,
-    color: "from-green-500 to-emerald-500"
+    title: 'Niveluri',
+    desc: 'De la începători (pași de bază) până la avansați (jocuri complexe și suite din diferite zone).',
+    color: 'text-green-500',
+    bg: 'bg-green-50 dark:bg-green-950/30',
   },
   {
-    id: 3,
-    title: "Stiluri și regiuni folclorice",
-    description: "Dansuri tradiționale din diferite zone ale României, fiecare cu specificul și frumusețea lui;",
     icon: MapPin,
-    color: "from-red-500 to-orange-500"
+    title: 'Stiluri și regiuni folclorice',
+    desc: 'Dansuri tradiționale din diferite zone ale României, fiecare cu specificul și frumusețea lui.',
+    color: 'text-red-500',
+    bg: 'bg-red-50 dark:bg-red-950/30',
   },
   {
-    id: 4,
-    title: "Durata lecțiilor",
-    description: "Ședințe echilibrate, a câte o oră care îmbină partea tehnică, exercițul practic și distracția;",
     icon: Clock,
-    color: "from-purple-500 to-pink-500"
+    title: 'Durata lecțiilor',
+    desc: 'Ședințe de o oră care îmbină partea tehnică, exercițiul practic și distracția.',
+    color: 'text-purple-500',
+    bg: 'bg-purple-50 dark:bg-purple-950/30',
   },
   {
-    id: 5,
-    title: "Conținutul lecțiilor",
-    description: "Pași, ritm, coordonare, exerciții de grup și punerea în scenă a coregrafiilor si suitelor.",
     icon: BookOpen,
-    color: "from-yellow-500 to-orange-500"
-  }
+    title: 'Conținutul lecțiilor',
+    desc: 'Pași, ritm, coordonare, exerciții de grup și punerea în scenă a coregrafiilor și suitelor.',
+    color: 'text-orange-500',
+    bg: 'bg-orange-50 dark:bg-orange-950/30',
+  },
 ];
 
 export default function FolkDancesStructure() {
   return (
-    <div className="container py-6 md:py-12 px-2 md:px-4">
-      <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
-        Structura dansurilor populare
-      </h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-4 md:mb-8">
-        {structureItems.map((item) => {
-          const IconComponent = item.icon;
-          return (
-            <div key={item.id} className="relative group">
-              {/* Background card cu gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.color} rounded-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-              
-              {/* Card principal */}
-              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-3 md:p-6 shadow-lg border border-gray-100 dark:border-gray-700 group-hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                {/* Header cu iconița și numărul */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`p-3 rounded-xl bg-gradient-to-r ${item.color} text-white shadow-lg`}>
-                    <IconComponent className="w-6 h-6" />
-                  </div>
-                  <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${item.color} text-white text-sm font-bold flex items-center justify-center`}>
-                    {item.id}
-                  </div>
-                </div>
-                
-                {/* Conținut */}
-                <div className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  {item.title}
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {item.description}
-                </p>
-                
-                {/* Linie decorativă de jos */}
-                <div className={`mt-4 w-16 h-1 bg-gradient-to-r ${item.color} rounded-full`}></div>
-              </div>
-            </div>
-          );
-        })}
+    <div className="flex flex-col gap-8">
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold">Structura cursurilor</h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+          Organizăm cursurile astfel încât fiecare cursant să înțeleagă tehnica și să trăiască
+          bucuria folclorului autentic.
+        </p>
       </div>
 
-      {/* Concluzia */}
-      <div className="bg-gradient-to-br from-orange-100 via-red-50 to-orange-50 dark:from-orange-900/30 dark:via-red-900/20 dark:to-orange-900/30 p-4 md:p-8 rounded-3xl border border-orange-200 dark:border-orange-700 shadow-lg max-w-5xl mx-auto">
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg mb-4">
-            <Star className="w-8 h-8" />
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {structureItems.map(({ icon: Icon, title, desc, color, bg }, index) => (
+          <div
+            key={title}
+            className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          >
+            <div className="flex items-start gap-4">
+              <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                <Icon className={`w-5 h-5 ${color}`} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xs font-bold text-gray-400 dark:text-gray-500">
+                    0{index + 1}
+                  </span>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{title}</h3>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
+              </div>
+            </div>
           </div>
-          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
-            În acest fel, fiecare cursant are ocazia să înțeleagă atât partea tehnică a dansului, cât și să trăiască energia și bucuria folclorului autentic.
-          </p>
-        </div>
+        ))}
       </div>
     </div>
   );

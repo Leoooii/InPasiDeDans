@@ -3,13 +3,13 @@ import React from 'react';
 export default function CourseLevelsSection() {
   return (
     <div id="structura-niveluri" className="p-0 container flex flex-col gap-8">
-      <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 rounded-3xl p-8 md:p-12 shadow-xl border border-purple-100">
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">
-         Structură și niveluri de cursuri
-         </h2>
+      <div className="bg-gray-50 dark:bg-gray-900/50 rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-800">
+                <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-8">
+          Structură și niveluri de cursuri
+        </h2>
         
         <div className="text-center mb-10">
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto">
             La În Pași de Dans, cursurile sunt organizate în grupe de 16–20 de persoane, suficient de mari pentru a crea energie și dinamism, dar și suficient de reduse pentru ca fiecare cursant să primească atenția de care are nevoie.
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mt-4">
@@ -21,7 +21,7 @@ export default function CourseLevelsSection() {
         </div>
 
         <div className="mb-10">
-          <h3 className="text-xl md:text-2xl font-semibold text-center text-gray-800 mb-6">
+          <h3 className="text-xl md:text-2xl font-semibold text-center text-gray-800 dark:text-gray-200 mb-6">
             Pentru a sprijini o evoluție firească și bine organizată, am împărțit cursurile noastre de dans pe niveluri:
           </h3>
         </div>

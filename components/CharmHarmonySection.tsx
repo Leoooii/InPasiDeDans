@@ -25,19 +25,13 @@ export default function CharmHarmonySection() {
 
   return (
     <div className="container flex flex-col gap-6 items-center py-12">
-      <h2 className="text-xl md:text-3xl font-bold tracking-tight text-center">
-        Farmecul și armonia pe care le aduce dansul
-      </h2>
-      
-      <div className="max-w-6xl mx-auto text-center space-y-4 mb-8">
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-          Dansurile de societate nu sunt doar mișcări și pași corecti - sunt o artă care transformă fiecare întâlnire într-un moment de rafinament și eleganță. Prin grația naturală și armonia perfectă dintre parteneri, dansul devine o limbă universală a frumuseții.
-        </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-          Fiecare rotație în vals, fiecare pas în tango sau fiecare mișcare în foxtrot îți oferă posibilitatea de a exprima personalitatea ta într-un mod sofisticat și memorabil. Dansul aduce farmec în viața de zi cu zi, transformând momentele obișnuite în experiențe extraordinare.
-        </p>
-        <p className="text-base md:text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed font-serif">
-          Descoperă cum poți transforma orice eveniment într-o ocazie specială prin puterea dansului - de la petreceri private la evenimente corporative, dansurile de societate îți oferă șansa de a străluci și de a crea amintiri de neuitat.
+      <div className="text-center space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight">
+          Atmosfera de la cursurile noastre
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Rafinament, grație și momente autentice — descoperă farmecul dansurilor de societate
+          într-o atmosferă caldă și primitoare.
         </p>
       </div>
 
