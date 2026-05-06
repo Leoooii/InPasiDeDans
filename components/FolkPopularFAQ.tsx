@@ -57,6 +57,11 @@ const folkPopularFAQData: FAQItem[] = [
     id: 10,
     question: "Cum mă pot înscrie la cursurile de dansuri populare pentru adulți în București?",
     answer: "Înscrierea se face online, prin completarea formularului de pe site, sau direct la sediul școlii, în funcție de programul grupelor."
+  },
+  {
+    id: 11,
+    question: "Ce beneficii aduc cursurile de dansuri populare pentru copii în București?",
+    answer: "Participarea la cursuri de dansuri populare ajută copiii să descopere tradițiile românești, să-și îmbunătățească echilibrul și să își dezvolte spiritul de echipă."
   }
 ];
 

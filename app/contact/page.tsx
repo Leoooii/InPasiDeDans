@@ -122,7 +122,7 @@ export default function Contact() {
             "sameAs": [
               "https://www.facebook.com/scoaladedansinpasidedans",
               "https://www.instagram.com/inpasidedans/",
-              "https://www.tiktok.com/@in.pasi.de.dans",
+              "https://www.tiktok.com/@inpasidedans",
               "https://www.youtube.com/@inpasidedans"
             ]
           })
@@ -161,7 +161,7 @@ export default function Contact() {
               <div className="flex items-start space-x-3">
                 <Clock className="h-6 w-6 text-red-600 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-red-900 dark:text-red-100 mb-1">Program de lucru</h3>
+                  <h3 className="font-semibold text-red-900 dark:text-red-100 mb-1">Ne puteți contacta telefonic</h3>
                   <div className="space-y-1 text-gray-700 dark:text-gray-300">
                     <p>Luni - Vineri: 10:00 - 17:00</p>
                     <p>Sâmbătă: 14:00 - 18:00</p>

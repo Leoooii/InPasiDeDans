@@ -33,7 +33,7 @@ export default function Head() {
       />
       <meta
         property="og:see_also"
-        content="https://www.tiktok.com/@in.pasi.de.dans"
+        content="https://www.tiktok.com/@inpasidedans"
       />
     </>
   );

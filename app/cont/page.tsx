@@ -81,7 +81,7 @@ export default function ContPage() {
         setUser(currentUser);
 
         // Verificăm dacă este admin și redirecționăm
-        if (currentUser.email === 'admin@gmail.com') {
+        if (currentUser.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
           router.push('/admin');
           return;
         }

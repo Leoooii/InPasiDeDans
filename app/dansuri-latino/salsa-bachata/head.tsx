@@ -19,7 +19,7 @@ export default function Head() {
       <link rel="canonical" href="https://www.inpasidedans.ro/dansuri-latino/salsa-bachata" />
       <meta property="og:see_also" content="https://www.instagram.com/inpasidedans/" />
       <meta property="og:see_also" content="https://www.facebook.com/scoaladedansinpasidedans" />
-      <meta property="og:see_also" content="https://www.tiktok.com/@in.pasi.de.dans" />
+      <meta property="og:see_also" content="https://www.tiktok.com/@inpasidedans" />
     </>
   );
 }

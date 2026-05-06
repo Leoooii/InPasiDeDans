@@ -131,7 +131,7 @@ export default function Navbar() {
                 className="text-slate-400 hover:text-pink-500 transition-colors">
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="https://www.tiktok.com/@in.pasi.de.dans" title="TikTok" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+              <a href="https://www.tiktok.com/@inpasidedans" title="TikTok" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
                 className="text-slate-400 hover:text-slate-800 transition-colors">
                 <TikTokIcon />
               </a>

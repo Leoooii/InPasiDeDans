@@ -127,7 +127,7 @@ const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSec
             Nu există grupe în formare momentan.
           </p>
           <p className={cn('mt-2', isHomepage ? 'text-slate-500' : 'text-white/70')}>
-            Vă rugăm să reveniți mai târziu.
+            Puteți completa un formular de înscriere pentru a vă trece pe o listă de așteptare și vă vom informa când începem înscrieri pentru grupe noi.
           </p>
         </div>
       ) : (

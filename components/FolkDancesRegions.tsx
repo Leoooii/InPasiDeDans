@@ -47,6 +47,8 @@ const regiuniDansuri = [
       'Buceagul ca pe Teleorman',
       'Hora mare',
       'Brânza de la Reviga',
+      'Chilabaua de la Roseți',
+      'Căzăcelul',
     ],
   },
   {
@@ -73,7 +75,7 @@ const regiuniDansuri = [
       'Leana de la Goicea',
       'Hora ca la Romanați',
       'Galaonul',
-      'Alunelul de la Dăneți',
+      'Alunelul de la Daneți',
       'Alunelul de la Izbiceni',
       'Trandafirul oltenesc',
       'Ungurica țigănească de la Severin',
@@ -141,6 +143,8 @@ const regiuniDansuri = [
       'Bordeiașul',
       'Sârba tineretului',
       'Sârba lui Zdrelea',
+      'Pădurețul',
+      'Ruseasca',
     ],
   },
   {
@@ -162,8 +166,8 @@ const regiuniDansuri = [
     ],
   },
   {
-    id: 'transilvania',
-    nume: 'Transilvania',
+    id: 'ardeal',
+    nume: 'Ardeal',
     imagine: '/images/Romania/harta-transilvania.png',
     dansuri: [
       'Brașoveanca',
@@ -176,6 +180,7 @@ const regiuniDansuri = [
       'Jiana de la Avrig',
       'Brâul de la Făgăraș',
       "Sârba pan' la 10 de la Grădiștea de Munte",
+      'Țarina',
     ],
   },
   {
@@ -225,7 +230,7 @@ export default function FolkDancesRegions() {
           Dansuri din toate regiunile României
         </h2>
         <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-          Descoperă diversitatea dansurilor populare românești, de la Transilvania până la Dobrogea.
+          Descoperă diversitatea dansurilor populare românești, de la Ardeal până la Dobrogea.
         </p>
       </div>
       <div className="container mx-auto px-0">

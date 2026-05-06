@@ -83,7 +83,7 @@ export default function Home() {
               "sameAs": [
                 "https://www.facebook.com/scoaladedansinpasidedans",
                 "https://www.instagram.com/inpasidedans/",
-                "https://www.tiktok.com/@in.pasi.de.dans"
+                "https://www.tiktok.com/@inpasidedans"
               ],
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",

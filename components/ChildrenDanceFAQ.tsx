@@ -32,31 +32,26 @@ const childrenDanceFAQData: FAQItem[] = [
   },
   {
     id: 5,
-    question: "Ce beneficii aduc cursurile de dansuri populare pentru copii în București?",
-    answer: "Participarea la cursuri de dansuri populare ajută copiii să descopere tradițiile românești, să-și îmbunătățească echilibrul și să își dezvolte spiritul de echipă."
-  },
-  {
-    id: 6,
     question: "Cât costă participarea la lecții de dans pentru copii la școala În Pași de Dans?",
     answer: "Prețul variază în funcție de abonament, iar pachetele lunare includ de la 4 la 12 ședințe interactive și pline de energie."
   },
   {
-    id: 7,
+    id: 6,
     question: "Pot părinții asista la cursurile de dans pentru copii?",
     answer: "Da, părinții pot urmări ocazional cursurile, pentru a vedea progresul micilor dansatori și pentru a-i susține emoțional."
   },
   {
-    id: 8,
+    id: 7,
     question: "Cum se desfășoară o ședință tipică din cursurile de dans pentru copii?",
     answer: "Fiecare lecție începe cu exerciții de încălzire, urmate de învățarea pașilor de bază și se încheie cu momente de repetiție și jocuri ritmice."
   },
   {
-    id: 9,
+    id: 8,
     question: "Ce echipament este necesar pentru participarea la cursurile de dans pentru copii de la școala În Pași de Dans?",
     answer: "Recomandăm haine lejere, încălțăminte confortabilă și o atitudine pozitivă, pregătită pentru mișcare și distracție."
   },
   {
-    id: 10,
+    id: 9,
     question: "Cum pot înscrie copilul la cursurile de dans pentru copii din București la școala În Pași de Dans?",
     answer: "Înscrierea se poate face online, completând formularul disponibil pe site, sau direct la sediul școlii, în funcție de grupa și programul dorit."
   }

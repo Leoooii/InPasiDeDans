@@ -27,7 +27,7 @@ export default function Head() {
       {/* Rețele sociale */}
       <meta property="og:see_also" content="https://www.instagram.com/inpasidedans/" />
       <meta property="og:see_also" content="https://www.facebook.com/scoaladedansinpasidedans" />
-      <meta property="og:see_also" content="https://www.tiktok.com/@in.pasi.de.dans" />
+      <meta property="og:see_also" content="https://www.tiktok.com/@inpasidedans" />
     </>
   );
 }
