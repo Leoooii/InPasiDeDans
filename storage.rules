@@ -1,0 +1,52 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'admin@gmail.com';
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isReasonableSize() {
+      return request.resource.size < 10 * 1024 * 1024; // 10 MB
+    }
+
+    // ===== Foldere cu imagini afișate public pe site =====
+    // Citire publică (oricine vede imaginile pe site), scriere doar admin.
+
+    match /instructori/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || (isImage() && isReasonableSize()));
+    }
+
+    match /evenimente/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || (isImage() && isReasonableSize()));
+    }
+
+    match /petreceri/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || (isImage() && isReasonableSize()));
+    }
+
+    match /excursii/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || (isImage() && isReasonableSize()));
+    }
+
+    // ===== Galeria admin (existing) =====
+    match /imagini/{file} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || (isImage() && isReasonableSize()));
+    }
+
+    // ===== Default deny =====
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

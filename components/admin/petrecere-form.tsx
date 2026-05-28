@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
+import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from '@/components/ui/use-toast';
@@ -274,17 +275,21 @@ export default function PetrecereForm({
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>URL Imagine</FormLabel>
+                      <FormLabel>Imagine petrecere</FormLabel>
                       <FormControl>
-                        <div className="flex">
-                          <Input
-                            placeholder="https://example.com/image.jpg"
-                            {...field}
-                          />
-                        </div>
+                        <FirebaseImageUpload
+                          currentUrl={field.value}
+                          folder="petreceri"
+                          cropAspect={16 / 9}
+                          label="Încarcă imagine"
+                          onUploadComplete={url => {
+                            field.onChange(url);
+                            setImagePreview(url || null);
+                          }}
+                        />
                       </FormControl>
                       <FormDescription>
-                        Introduceți URL-ul către imaginea petrecerii
+                        Format peisaj 16:9 — vei putea decupa imaginea după upload.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

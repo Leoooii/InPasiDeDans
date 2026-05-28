@@ -122,6 +122,26 @@
   min-width: 0;
   position: relative;
 }
+
+/* Custom scrollbar for bio panels in instructor slider */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f97316, #dc2626);
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #ea580c, #b91c1c);
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #f97316 rgba(255, 255, 255, 0.04);
+}
 /* styles/globals.css */
 #eXTReme-Free-pasideda {
   display: none !important;

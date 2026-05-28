@@ -141,6 +141,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Permite rutele dinamice pentru noutati/evenimente (pagini individuale)
+  if (pathname.startsWith('/noutati/') || pathname.startsWith('/evenimente/')) {
+    return NextResponse.next();
+  }
+
   // Încearcă să găsească o pagină similară
   const similarPage = findSimilarPage(pathname);
 

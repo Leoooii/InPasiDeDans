@@ -13,7 +13,12 @@ const FormSchema = z.object({
   message: z.string().max(5000, 'Mesajul este prea lung').optional().default(''),
   danceclass: z.string().max(200).optional().default(''),
   instructor: z.string().max(200).optional().default(''),
-  phone: z.string().max(20).optional().default(''),
+  phone: z
+    .string()
+    .trim()
+    .min(7, 'Numărul de telefon trebuie să aibă cel puțin 7 caractere')
+    .max(20, 'Numărul de telefon este prea lung')
+    .regex(/^[0-9+()\s-]+$/, 'Numărul de telefon conține caractere invalide'),
   honey: z.string().optional().default(''),
   consent: z
     .boolean({ required_error: 'Consimțământul este obligatoriu' })

@@ -19,6 +19,7 @@ export type Eveniment = {
   description?: string;
   link?: string;
   imageUrl?: string;
+  slug?: string;
 };
 
 export default function EvenimentePage() {
@@ -49,6 +50,7 @@ export default function EvenimentePage() {
           description: data.description || '',
           link: data.link || '',
           imageUrl: data.imageUrl || '',
+          slug: data.slug || '',
         } as Eveniment;
       });
 

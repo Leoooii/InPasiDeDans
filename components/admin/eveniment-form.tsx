@@ -8,7 +8,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Calendar, Link2, ImageIcon } from 'lucide-react';
+import { Loader2, Calendar, Link2, Link as LinkIcon } from 'lucide-react';
+import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
 import { db } from '@/lib/firebase';
 import {
   collection,
@@ -21,6 +22,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import type { Eveniment } from '@/app/admin/evenimente/page';
+import { generateUniqueSlug, slugify } from '@/lib/slug';
 
 interface EventFormProps {
   eveniment: Eveniment | null;
@@ -39,6 +41,8 @@ export default function EventForm({
   const [link, setLink] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [slug, setSlug] = useState('');
+  const [slugEdited, setSlugEdited] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -62,10 +66,18 @@ export default function EventForm({
       setLink(eveniment.link || '');
       setImageUrl(eveniment.imageUrl || '');
       setImagePreview(eveniment.imageUrl || null);
+      setSlug(eveniment.slug || '');
+      setSlugEdited(Boolean(eveniment.slug));
     } else {
       resetForm();
     }
   }, [eveniment]);
+
+  useEffect(() => {
+    if (!slugEdited) {
+      setSlug(slugify(title));
+    }
+  }, [title, slugEdited]);
 
   const resetForm = () => {
     setTitle('');
@@ -74,6 +86,8 @@ export default function EventForm({
     setLink('');
     setImageUrl('');
     setImagePreview(null);
+    setSlug('');
+    setSlugEdited(false);
   };
 
   const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,11 +107,19 @@ export default function EventForm({
     setIsSubmitting(true);
 
     try {
+      const slugSeed = slug.trim() || title.trim() || 'noutate';
+      const finalSlug = await generateUniqueSlug(
+        'evenimente',
+        slugSeed,
+        eveniment?.id
+      );
+
       const eventData: any = {
         title: title.trim() || null,
         description: description || null,
         link: link.trim() || null,
         imageUrl: imageUrl.trim() || null,
+        slug: finalSlug,
       };
 
       // Add event date if provided
@@ -146,6 +168,26 @@ export default function EventForm({
               </div>
 
               <div>
+                <Label htmlFor="slug">URL (slug)</Label>
+                <div className="relative">
+                  <Input
+                    id="slug"
+                    value={slug}
+                    onChange={e => {
+                      setSlug(slugify(e.target.value));
+                      setSlugEdited(true);
+                    }}
+                    placeholder="se-genereaza-din-titlu"
+                    className="pl-10"
+                  />
+                  <LinkIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Va apărea ca: <span className="font-mono">/noutati/{slug || 'titlu-aici'}</span>
+                </p>
+              </div>
+
+              <div>
                 <Label htmlFor="eventDate">Data evenimentului</Label>
                 <div className="relative">
                   <Input
@@ -174,16 +216,18 @@ export default function EventForm({
               </div>
 
               <div>
-                <Label htmlFor="imageUrl">URL Imagine</Label>
-                <div className="relative">
-                  <Input
-                    id="imageUrl"
-                    value={imageUrl}
-                    onChange={handleImageUrlChange}
-                    placeholder="URL către imagine (opțional)"
-                    className="pl-10"
+                <Label>Imagine eveniment</Label>
+                <div className="mt-1.5">
+                  <FirebaseImageUpload
+                    currentUrl={imageUrl}
+                    folder="evenimente"
+                    cropAspect={16 / 9}
+                    label="Încarcă imagine"
+                    onUploadComplete={url => {
+                      setImageUrl(url);
+                      setImagePreview(url || null);
+                    }}
                   />
-                  <ImageIcon className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
                 </div>
               </div>
 

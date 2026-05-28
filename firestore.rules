@@ -1,0 +1,92 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == 'admin@gmail.com';
+    }
+
+    // ===== Conținut public al site-ului =====
+    // Citire publică (afișat pe site oricui), scriere permisivă
+    // (fiindcă API routes accesează aceste colecții fără auth — vezi nota la final).
+
+    match /tarife/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /evenimente/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /excursii/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /petreceri/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /instructori/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Grupe: citire publică doar pentru cele marcate ca publica == true,
+    // adminul vede tot. Scriere permisivă pentru API routes.
+    match /grupe/{docId} {
+      allow read: if resource.data.publica == true || isAdmin();
+      allow write: if true;
+    }
+
+    // ===== Date sensibile cursanți =====
+    // Accesate prin API routes (client SDK fără auth) — momentan permisive.
+    // ATENȚIE: aceste colecții conțin date personale. A se securiza prin
+    // migrarea API routes la firebase-admin SDK + verificare admin pe server.
+    match /cursanti/{docId} {
+      allow read, write: if true;
+    }
+
+    match /prezente/{docId} {
+      allow read, write: if true;
+    }
+
+    // ===== Galeria de imagini admin =====
+    // Nu e accesată prin API routes — pot fi admin-only safe.
+    match /imagini/{docId} {
+      allow read: if true; // imaginile sunt afișate public pe site
+      allow write: if isAdmin();
+    }
+
+    // ===== Conturi utilizatori =====
+    // Fiecare user își poate citi/modifica propriul document.
+    // Adminul are acces complet. Crearea e permisă la înregistrare
+    // (utilizatorul tocmai s-a autentificat și creează doc-ul cu UID-ul propriu).
+    match /users/{userId} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+      allow create: if isSignedIn()
+                    && request.auth.uid == userId
+                    && request.resource.data.aprobat == false
+                    && request.resource.data.role == 'cursant';
+      allow update: if isAdmin()
+                    || (isSignedIn() && request.auth.uid == userId
+                        && request.resource.data.aprobat == resource.data.aprobat
+                        && request.resource.data.role == resource.data.role);
+      allow delete: if isAdmin();
+    }
+
+    // ===== Default deny =====
+    // Orice colecție nedeclarată explicit e blocată.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

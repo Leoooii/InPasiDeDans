@@ -1,353 +1,197 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
+import {
+  Loader2,
+  Sparkles,
+  Users,
+  GraduationCap,
+  Trophy,
+  Heart,
+  ChevronRight,
+} from 'lucide-react';
 import GrupeInFormare from '@/components/grupe-in-formare';
-import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
-
-// Definim interfața pentru instructor
-interface Instructor {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  imageUrl: string;
-  facebookUrl?: string;
-  instagramUrl?: string;
-  youtubeUrl?: string;
-  order?: number;
-}
+import InstructoriSlider, { type Instructor } from '@/components/instructori-slider';
 
 export default function Instructori() {
-  const [instructori, setInstructori] = useState<Instructor[]>([]);
+  const [instructori, setInstructori] = useState<(Instructor & { order?: number })[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [expandedInstructors, setExpandedInstructors] = useState<Set<string>>(new Set());
 
-  const breadcrumbItems = [
-    { name: "Acasă", url: "/" },
-    { name: "Instructori" }
-  ];
-
-  // Funcție pentru toggle-ul expandării descrierii
-  const toggleExpanded = (instructorId: string) => {
-    setExpandedInstructors(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(instructorId)) {
-        newSet.delete(instructorId);
-      } else {
-        newSet.add(instructorId);
-      }
-      return newSet;
-    });
-  };
-
-  // Încărcăm instructorii din Firebase
   useEffect(() => {
     const fetchInstructori = async () => {
       try {
         setIsLoading(true);
         const response = await fetch('/api/instructori');
-        if (!response.ok) {
-          throw new Error('Nu s-au putut încărca instructorii');
-        }
+        if (!response.ok) throw new Error('Nu s-au putut încărca instructorii');
         const data = await response.json();
-
-        // Sortăm instructorii după ordinea de afișare
-        const sortedInstructori = [...data].sort((a, b) => {
-          const orderA = a.order || 0;
-          const orderB = b.order || 0;
-          return orderA - orderB;
-        });
-
-        setInstructori(sortedInstructori);
-      } catch (error) {
-        console.error('Eroare:', error);
-        setError(
-          'Nu s-au putut încărca instructorii. Încercați să reîmprospătați pagina.'
-        );
+        const sorted = [...data].sort((a, b) => (a.order || 0) - (b.order || 0));
+        setInstructori(sorted);
+      } catch (e) {
+        console.error('Eroare:', e);
+        setError('Nu s-au putut încărca instructorii. Încercați să reîmprospătați pagina.');
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchInstructori();
   }, []);
 
   return (
-    <div className="container py-12">
-        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/instructori" />
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Instructori</h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Cunoaște echipa noastră de instructori profesioniști.
-            <br />
-            <span className="block mt-2">
-              <a
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white overflow-hidden">
+      {/* Animated orbs — orange/red palette (standard site) */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 left-1/4 h-[36rem] w-[36rem] rounded-full bg-orange-500/15 blur-[120px] animate-pulse" />
+        <div
+          className="absolute top-1/4 -right-40 h-[34rem] w-[34rem] rounded-full bg-red-600/15 blur-[120px] animate-pulse"
+          style={{ animationDelay: '2s' }}
+        />
+        <div
+          className="absolute bottom-0 left-0 h-[28rem] w-[28rem] rounded-full bg-pink-500/10 blur-[120px] animate-pulse"
+          style={{ animationDelay: '4s' }}
+        />
+      </div>
+
+      {/* Diagonal line pattern */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(45deg, white 0 1px, transparent 1px 22px)',
+        }}
+      />
+
+      <div className="relative container mx-auto py-10 md:py-16 px-4 md:px-6">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm text-white/60">
+          <Link href="/" className="hover:text-white transition-colors">Acasă</Link>
+          <ChevronRight className="h-4 w-4 text-white/30" />
+          <span className="text-white font-medium">Instructori</span>
+        </nav>
+
+        {/* HERO */}
+        <section className="mt-10 md:mt-16 mb-14 md:mb-20">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-1.5 mb-6 text-xs uppercase tracking-[0.2em] text-orange-300">
+              <Sparkles className="h-3.5 w-3.5" />
+              Echipa noastră
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
+              <span className="text-white">Instructorii</span>{' '}
+              <span className="bg-gradient-to-r from-orange-300 via-red-400 to-pink-400 bg-clip-text text-transparent">
+                noștri
+              </span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+              Dansatori profesioniști cu experiență în competiții
+              <span className="text-white"> naționale și internaționale</span>, dedicați
+              să te ghideze pas cu pas — indiferent de stil sau nivel.
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
+              {!isLoading && (
+                <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-400/30 px-4 py-1.5 text-orange-200">
+                  <Users className="h-4 w-4" />
+                  {instructori.length} {instructori.length === 1 ? 'instructor' : 'instructori'}
+                </span>
+              )}
+              <Link
                 href="/cursuri-dans-adulti"
-                className="text-red-600 underline hover:text-orange-600"
+                className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-4 py-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
               >
-                Vezi cursurile pentru adulți
-              </a>{' '}
-              ·
-              <a
-                href="/cursuri-dans-copii"
-                className="text-red-600 underline hover:text-orange-600 ml-2"
-              >
-                Cursuri pentru copii
-              </a>{' '}
-              ·
-              <a
+                Cursuri adulți
+              </Link>
+              <Link
                 href="/inscriere"
-                className="text-red-600 underline hover:text-orange-600 ml-2"
+                className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-4 py-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
               >
                 Înscrie-te
-              </a>
-            </span>
-          </p>
-        </div>
+              </Link>
+            </div>
+          </div>
+        </section>
 
-        <div className="grid gap-8 md:grid-cols-1 items-center">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">
-              Echipa noastră de profesioniști
-            </h2>
+        {/* INSTRUCTORI SLIDER */}
+        <section className="mb-16 md:mb-20">
+          <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
             <div>
-              <p>
-                Instructorii noștri sunt dansatori profesioniști cu experiență
-                vastă atât în competiții naționale și internaționale, cât și în
-                predarea dansului pentru toate nivelurile și vârstele.
-              </p>
-              <p>
-                Pasionați și dedicați, ei sunt mereu pregătiți să împărtășească
-                cunoștințele și dragostea lor pentru dans cu toți elevii.
-                Fiecare instructor are propriul stil de predare, adaptat
-                nevoilor și nivelului cursanților.
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-orange-400 animate-pulse" />
+                Cunoaște echipa
+              </h2>
+              <p className="text-white/50 text-sm mt-1">
+                Folosește săgețile, miniaturile sau săgețile de tastatură pentru navigare
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-8">Instructorii noștri</h2>
 
           {isLoading ? (
             <div className="flex justify-center items-center h-64">
-              <Loader2 className="h-12 w-12 animate-spin text-red-600" />
-              <span className="ml-2 text-gray-500">
-                Se încarcă instructorii...
-              </span>
+              <Loader2 className="h-12 w-12 animate-spin text-orange-400" />
+              <span className="ml-3 text-white/70">Se încarcă instructorii...</span>
             </div>
           ) : error ? (
-            <div className="text-center text-red-500 p-8 border border-red-200 rounded-lg">
+            <div className="text-center py-12 rounded-2xl border border-dashed border-red-400/30 bg-red-500/5 text-red-300">
               {error}
             </div>
           ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {instructori.map(instructor => (
-                <InstructorCard
-                  key={instructor.id}
-                  id={instructor.id}
-                  name={instructor.name}
-                  role={instructor.role}
-                  bio={instructor.bio}
-                  src={instructor.imageUrl}
-                  facebook={instructor.facebookUrl}
-                  insta={instructor.instagramUrl}
-                  youtube={instructor.youtubeUrl}
-                  isExpanded={expandedInstructors.has(instructor.id)}
-                  onToggleExpanded={() => toggleExpanded(instructor.id)}
-                />
-              ))}
-            </div>
+            <InstructoriSlider instructori={instructori} />
           )}
-        </div>
+        </section>
 
-        <div className="mt-12 space-y-6">
-          <h2 className="text-2xl font-bold">Specializări</h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Formare continuă</h3>
-              <p className="text-gray-500 text-sm">
-                Echipa noastră participă regulat la workshop-uri și seminarii
-                nationale și internaționale, pentru a fi la curent cu cele mai
-                noi tendințe și tehnici.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Experiență competițională</h3>
-              <p className="text-gray-500 text-sm">
-                Majoritatea instructorilor noștri au participat la competiții
-                naționale și internaționale, unii fiind campioni naționali sau
-                finaliști internaționali.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold mb-2">Pedagogie adaptată</h3>
-              <p className="text-gray-500 text-sm">
-                Instructorii sunt pregătiți să adapteze metodele de predare în
-                funcție de vârsta, nivelul și obiectivele cursanților.
+        {/* SPECIALIZĂRI */}
+        <section className="mb-16 md:mb-20">
+          <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-orange-400 animate-pulse" />
+                Specializări
+              </h2>
+              <p className="text-white/50 text-sm mt-1">
+                Ce face echipa noastră diferită
               </p>
             </div>
           </div>
-        </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            <SpecCard
+              icon={<GraduationCap className="h-5 w-5" />}
+              title="Formare continuă"
+              text="Workshop-uri și seminarii naționale și internaționale, mereu la curent cu cele mai noi tendințe."
+            />
+            <SpecCard
+              icon={<Trophy className="h-5 w-5" />}
+              title="Experiență competițională"
+              text="Majoritatea instructorilor sunt campioni naționali sau finaliști internaționali."
+            />
+            <SpecCard
+              icon={<Heart className="h-5 w-5" />}
+              title="Pedagogie adaptată"
+              text="Metode de predare ajustate la vârsta, nivelul și obiectivele fiecărui cursant."
+            />
+          </div>
+        </section>
       </div>
-      <GrupeInFormare />
+
+      <div className="relative">
+        <GrupeInFormare />
+      </div>
     </div>
   );
 }
 
-function InstructorCard({
-  id,
-  name,
-  role,
-  bio,
-  src,
-  insta,
-  facebook,
-  youtube,
-  isExpanded,
-  onToggleExpanded,
-}: {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  src: string;
-  insta?: string;
-  facebook?: string;
-  youtube?: string;
-  isExpanded: boolean;
-  onToggleExpanded: () => void;
-}) {
+function SpecCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
   return (
-    <Card className="overflow-hidden group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border-2 border-transparent hover:border-orange-500">
-      <div className="relative bg-white rounded-xl flex flex-col flex-1">
-        <div className="relative h-[28rem] w-full bg-gradient-to-br from-orange-50 to-red-50">
-          <Image
-            src={src || '/placeholder.svg'}
-            alt={name}
-            fill
-            className="object-cover w-full h-full"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        </div>
-        <CardContent className="p-4 flex-1 flex flex-col">
-          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{name}</h3>
-          <p className="text-red-600 font-medium mb-3">{role}</p>
-          <div className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
-            {(() => {
-              const phrasesToHighlight = [
-                "fondator, manager și instructor",
-                "pasiunea pentru dans",
-                "experiență de peste 24 de ani",
-                "competiții naționale și internaționale",
-                "predarea dansurilor latino, de societate și dansurilor populare",
-                "organizarea și coordonarea",
-                "organizarea evenimentelor și activităților",
-                "dansuri latino și de societate",
-                "experiență de peste 13 ani",
-                "bucuria, eleganța și secretele dansului",
-                "experiență solidă de 11 ani",
-                "peste 16 ani",
-                "vicecampion național la bachata",
-                "stilul său tehnic, carisma pe ringul de dans",
-                "2023",
-                "salsa și bachata",
-                "dezvoltarea comunității de dansatori",
-                "instructor-coregraf",
-                "dansuri populare adulți, lecții private pentru viitori miri, precum și workshopuri",
-                "inspirație, bucurie și empatie",
-                "susținuți și înțeleși",
-                "competiții, evenimente și proiecte naționale și internaționale de dans",
-                "dansul sportiv de 9 ani",
-                "instructoare înțelegătoare, creativă",
-                "lecții private pentru miri",
-                "energia pozitivă, perfecționismul său discret",
-                "12 ani de experiență",
-                "pasiunea cu răbdarea în lucrul cu grupele de copii",
-                "pregătirea dansului lor de nuntă",
-                "4 ani ca instructor"
-              ];
-
-              const highlightText = (text: string) => {
-                const sorted = [...phrasesToHighlight].sort((a, b) => b.length - a.length);
-                const escaped = sorted.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-                const regex = new RegExp(`(${escaped.join('|')})`, 'gi');
-                const parts = text.split(regex);
-                return parts.map((part, i) => {
-                  const isMatch = sorted.some(p => p.toLowerCase() === part.toLowerCase());
-                  return isMatch ? <strong key={i} className="text-orange-700">{part}</strong> : part;
-                });
-              };
-
-              const bioParagraphs = bio.split('\n');
-              const paragraphsToShow = isExpanded ? bioParagraphs : [bioParagraphs[0]];
-
-              return (
-                <>
-                  {paragraphsToShow.map((paragraph, pIndex) => (
-                    <span key={pIndex}>
-                      {highlightText(paragraph)}
-                      {pIndex < paragraphsToShow.length - 1 && <br />}
-                    </span>
-                  ))}
-                  {bioParagraphs.length > 1 && (
-                    <button
-                      onClick={onToggleExpanded}
-                      className="text-orange-600 hover:text-orange-700 font-medium ml-1 transition-colors duration-200"
-                    >
-                      {isExpanded ? 'Mai puțin...' : 'Mai multe...'}
-                    </button>
-                  )}
-                </>
-              );
-            })()}
-          </div>
-          
-          {/* Social Media Links */}
-          <div className="flex space-x-3 mt-auto">
-            {facebook && (
-              <a
-                href={facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-600 transition-all duration-300 hover:scale-110"
-                aria-label={`Facebook ${name}`}
-              >
-                <Facebook size={18} />
-              </a>
-            )}
-            {insta && (
-              <a
-                href={insta}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-pink-600 transition-all duration-300 hover:scale-110"
-                aria-label={`Instagram ${name}`}
-              >
-                <Instagram size={18} />
-              </a>
-            )}
-            {youtube && (
-              <a
-                href={youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
-                aria-label={`YouTube ${name}`}
-              >
-                <Youtube size={18} />
-              </a>
-            )}
-          </div>
-        </CardContent>
+    <div className="group rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/10 p-6 hover:border-orange-400/40 hover:-translate-y-1 transition-all">
+      <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500/30 to-red-500/30 border border-orange-400/30 text-orange-200 mb-4 group-hover:scale-110 transition-transform">
+        {icon}
       </div>
-    </Card>
+      <h3 className="font-semibold text-white mb-2 text-lg">{title}</h3>
+      <p className="text-white/60 text-sm leading-relaxed">{text}</p>
+    </div>
   );
 }
+

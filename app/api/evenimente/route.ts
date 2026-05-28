@@ -18,6 +18,7 @@ export async function GET() {
         description: data.description || "",
         link: data.link || "",
         imageUrl: data.imageUrl || "",
+        slug: data.slug || "",
       }
     })
 

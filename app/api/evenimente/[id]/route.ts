@@ -21,6 +21,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
       description: data.description || "",
       link: data.link || "",
       imageUrl: data.imageUrl || "",
+      slug: data.slug || "",
     })
   } catch (error) {
     console.error("Eroare la obținerea evenimentului:", error)

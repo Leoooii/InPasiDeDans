@@ -16,9 +16,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, ImageIcon } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import type { Instructor } from '@/app/admin/instructori/page';
+import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
 
 // Schema de validare pentru formular
 const instructorSchema = z.object({
@@ -192,19 +193,22 @@ export default function InstructorForm({
               name="imageUrl"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL Imagine</FormLabel>
+                  <FormLabel>Fotografie instructor</FormLabel>
                   <FormControl>
-                    <div className="flex">
-                      <Input
-                        placeholder="https://example.com/image.jpg"
-                        {...field}
-                        className="rounded-r-none"
-                      />
-                      <div className="bg-muted flex items-center px-3 rounded-r-md border border-l-0 border-input">
-                        <ImageIcon className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                    </div>
+                    <FirebaseImageUpload
+                      currentUrl={field.value}
+                      folder="instructori"
+                      cropAspect={3 / 4}
+                      label="Încarcă fotografie"
+                      onUploadComplete={(url) => {
+                        field.onChange(url);
+                        setImagePreview(url || null);
+                      }}
+                    />
                   </FormControl>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Format portret 3:4 — vei putea decupa imaginea după ce o alegi.
+                  </p>
                   <FormMessage />
                 </FormItem>
               )}

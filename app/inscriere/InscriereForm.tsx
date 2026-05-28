@@ -142,7 +142,7 @@ export default function InscriereForm() {
     return Boolean(value && String(value).trim().length > 0);
   };
 
-  const requiredFields: (keyof FormData)[] = ['danceclass', 'name', 'email', 'consent'];
+  const requiredFields: (keyof FormData)[] = ['danceclass', 'name', 'email', 'phone', 'consent'];
   const isFormValid = requiredFields.every(isFieldComplete);
 
   const renderCompletionIcon = (field: keyof FormData) => {
@@ -389,7 +389,7 @@ export default function InscriereForm() {
                   </div>
 
                   <div>
-                    <Label htmlFor="phone">Lasă-ne numărul dacă vrei să te sunăm</Label>
+                    <Label htmlFor="phone">La ce număr de telefon te putem suna? *</Label>
                     <div className="relative">
                       <Input
                         id="phone"
@@ -398,6 +398,7 @@ export default function InscriereForm() {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="Numărul tău de telefon"
+                        required
                         className={cn(
                           'mt-1.5 pr-10',
                           isFieldComplete('phone') && 'border-green-500 ring-1 ring-green-400'

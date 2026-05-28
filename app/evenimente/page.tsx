@@ -26,6 +26,7 @@ type Eveniment = {
   description?: string;
   link?: string;
   imageUrl?: string;
+  slug?: string;
 };
 
 export default function EvenimentePage() {
@@ -76,6 +77,7 @@ export default function EvenimentePage() {
           description: data.description || '',
           link: data.link || '',
           imageUrl: data.imageUrl || '',
+          slug: data.slug || '',
         } as Eveniment;
       });
 
@@ -235,15 +237,25 @@ export default function EvenimentePage() {
                 )}
               </CardContent>
 
-              {eveniment.link && (
-                <CardFooter className="p-4 pt-0">
-                  <Link href={eveniment.link} passHref target="_blank">
+              <CardFooter className="p-4 pt-0 flex flex-col gap-2">
+                {eveniment.slug && (
+                  <Link
+                    href={`/${eveniment.eventDate ? 'evenimente' : 'noutati'}/${eveniment.slug}`}
+                    className="w-full"
+                  >
+                    <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white">
+                      Citește mai mult <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                )}
+                {eveniment.link && (
+                  <Link href={eveniment.link} passHref target="_blank" className="w-full">
                     <Button variant="outline" className="w-full">
                       Mai multe detalii <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
-                </CardFooter>
-              )}
+                )}
+              </CardFooter>
             </Card>
           ))}
 
