@@ -77,6 +77,7 @@ type AnalyticsData = {
   landingPages: { path: string; sessions: number }[];
   conversions: { name: string; count: number }[];
   leadRate: number;
+  leadsBySource: { channel: string; leads: number }[];
   suggestions: Suggestion[];
   series: Series;
 };
@@ -451,6 +452,84 @@ export default function StatisticiPage() {
               </CardContent>
             </Card>
           )}
+
+          {/* Funnel formular + Lead-uri pe sursă */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Funnel formular */}
+            <Card>
+              <CardContent className="p-5">
+                <h2 className="text-sm font-semibold text-slate-900 mb-1">Funnel formular</h2>
+                <p className="text-xs text-slate-500 mb-4">Câți încep formularul vs câți îl trimit</p>
+                {(() => {
+                  const started = data.conversions.find(c => c.name === 'form_start')?.count ?? 0;
+                  const sent = data.conversions.find(c => c.name === 'generate_lead')?.count ?? 0;
+                  const completion = started > 0 ? Math.round((sent / started) * 100) : 0;
+                  const lost = started - sent;
+                  const lostPct = started > 0 ? 100 - completion : 0;
+                  const steps = [
+                    { label: 'Au început formularul', value: started, pct: 100, color: '#2563eb' },
+                    { label: 'Au trimis (lead)', value: sent, pct: completion, color: '#16a34a' },
+                  ];
+                  return (
+                    <div className="space-y-4">
+                      {steps.map(s => (
+                        <div key={s.label}>
+                          <div className="flex items-center justify-between mb-1.5 text-sm">
+                            <span className="text-slate-700">{s.label}</span>
+                            <span className="font-semibold text-slate-900 tabular-nums">
+                              {s.value.toLocaleString('ro-RO')}{' '}
+                              <span className="text-slate-400 font-normal">({s.pct}%)</span>
+                            </span>
+                          </div>
+                          <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
+                            <div className="h-full rounded-full" style={{ width: `${s.pct}%`, background: s.color }} />
+                          </div>
+                        </div>
+                      ))}
+                      {started > 0 && (
+                        <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 p-3 mt-2">
+                          <TrendingDown className="h-4 w-4 mt-0.5 shrink-0 text-amber-600" />
+                          <p className="text-sm text-slate-700 leading-snug">
+                            <span className="font-semibold">{lost.toLocaleString('ro-RO')} ({lostPct}%)</span> abandonează după ce încep formularul. Un formular mai scurt sau câmpuri mai puține pot recupera o parte.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+              </CardContent>
+            </Card>
+
+            {/* Lead-uri pe sursă */}
+            <Card>
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <Target className="h-4 w-4 text-slate-400" />
+                  <h2 className="text-sm font-semibold text-slate-900">Lead-uri pe sursă</h2>
+                </div>
+                <p className="text-xs text-slate-500 mb-3">Care canal aduce clienți (nu doar vizite)</p>
+                {data.leadsBySource.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={260}>
+                    <BarChart data={data.leadsBySource} layout="vertical" margin={{ top: 0, right: 24, left: 8, bottom: 0 }}>
+                      <XAxis type="number" hide allowDecimals={false} />
+                      <YAxis type="category" dataKey="channel" width={110} tick={{ fontSize: 11, fill: '#64748b' }} />
+                      <Tooltip
+                        contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e2e8f0' }}
+                        formatter={(v: number) => [v.toLocaleString('ro-RO'), 'lead-uri']}
+                      />
+                      <Bar dataKey="leads" radius={[0, 4, 4, 0]} maxBarSize={22}>
+                        {data.leadsBySource.map((_, i) => (
+                          <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <p className="text-sm text-slate-400 py-8 text-center">Niciun lead în perioada selectată.</p>
+                )}
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Overlay trenduri pe pagini */}
           <Card>
