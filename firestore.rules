@@ -40,10 +40,13 @@ service cloud.firestore {
       allow write: if true;
     }
 
-    // Grupe: citire publică doar pentru cele marcate ca publica == true,
-    // adminul vede tot. Scriere permisivă pentru API routes.
+    // Grupe: orarul public al cursurilor (titlu, instructor, locuri) — date
+    // nesensibile, citire publică. Pagina /program face un list query nefiltrat
+    // pe toată colecția (vezi components/program-dinamic.tsx); o regulă care
+    // depinde de resource.data.publica ar respinge acel query cu „Missing or
+    // insufficient permissions". Scriere permisivă pentru API routes.
     match /grupe/{docId} {
-      allow read: if resource.data.publica == true || isAdmin();
+      allow read: if true;
       allow write: if true;
     }
 
