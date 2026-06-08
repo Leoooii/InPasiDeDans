@@ -24,6 +24,7 @@ import {
   GraduationCap,
   BookOpen,
   Image,
+  BarChart3,
 } from 'lucide-react';
 
 const navGroups = [
@@ -40,6 +41,7 @@ const navGroups = [
       { href: '/admin/grupe', label: 'Grupe', icon: BookOpen },
       { href: '/admin/prezenta', label: 'Prezență', icon: Calendar },
       { href: '/admin/abonamente', label: 'Abonamente', icon: CreditCard },
+      { href: '/admin/statistici', label: 'Statistici', icon: BarChart3 },
     ],
   },
   {

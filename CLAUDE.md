@@ -6,6 +6,12 @@
 - Sanity pentru blog
 - Tailwind + shadcn/ui
 
+## Statistici admin (GA4 Data API)
+Pagina [app/admin/statistici/page.tsx](app/admin/statistici/page.tsx) afișează vizite din Google Analytics 4 prin [app/api/admin/analytics/route.ts](app/api/admin/analytics/route.ts) (folosește `@google-analytics/data` + service account, server-only — vezi [lib/ga.ts](lib/ga.ts)). Route-ul e păzit de un token static `ANALYTICS_API_SECRET` (header `x-analytics-token`); UI-ul cere cheia o dată și o ține în `localStorage` (nu e în bundle). Env necesare: `GA_PROPERTY_ID` (ID numeric, NU measurement ID `G-...`), `GA_CLIENT_EMAIL`, `GA_PRIVATE_KEY` (cu `\n` literal), `ANALYTICS_API_SECRET`. Service account-ul trebuie adăugat ca Viewer în GA4 → Property Access.
+
+## Instalare dependențe: `--legacy-peer-deps` obligatoriu
+`npm install` simplu eșuează cu ERESOLVE (`react-day-picker@8` cere `date-fns@^2||^3`, root are `date-fns@3.6`). Folosește mereu `npm install <pkg> --legacy-peer-deps`.
+
 ## Gotchas care s-au pierdut deja timp
 
 ### Middleware redirects prin keyword similarity
