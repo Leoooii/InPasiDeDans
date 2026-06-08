@@ -16,7 +16,10 @@ import { join } from 'node:path';
 import { spawn } from 'node:child_process';
 import { OAuth2Client } from 'google-auth-library';
 
-const SCOPE = 'https://www.googleapis.com/auth/analytics.readonly';
+const SCOPES = [
+  'https://www.googleapis.com/auth/analytics.readonly',
+  'https://www.googleapis.com/auth/webmasters.readonly',
+];
 const ENV_PATH = '.env.local';
 
 // ── 1. Găsește JSON-ul de OAuth client ────────────────────────────────────
@@ -114,7 +117,7 @@ server.listen(0, '127.0.0.1', () => {
   const authUrl = oauth.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
-    scope: [SCOPE],
+    scope: SCOPES,
   });
   console.log('\n🔑 Deschide acest link în browser și autorizează cu contul care are acces în GA4:\n');
   console.log(authUrl + '\n');

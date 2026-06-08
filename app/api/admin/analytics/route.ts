@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAnalyticsClient, getPropertyId, isGaConfigured } from '@/lib/ga';
+import { getSearchConsole, type SearchConsoleData } from '@/lib/gsc';
 
 // GA4 Data API e Node-only (gRPC). Forțăm runtime Node, nu Edge.
 export const runtime = 'nodejs';
@@ -357,6 +358,14 @@ export async function POST(req: NextRequest) {
       };
     }
 
+    // ── Search Console (SEO) — non-fatal, dashboard merge și fără ──────────────
+    let searchConsole: SearchConsoleData | null = null;
+    try {
+      searchConsole = await getSearchConsole(startDate, endDate);
+    } catch (e) {
+      console.error('[analytics] GSC error:', e);
+    }
+
     // ── Sugestii automate (reguli, fără AI) ──────────────────────────────────
     const suggestions = buildSuggestions({
       summary,
@@ -365,6 +374,7 @@ export async function POST(req: NextRequest) {
       geography,
       leads,
       leadRate,
+      searchConsole,
     });
 
     return NextResponse.json({
@@ -378,6 +388,7 @@ export async function POST(req: NextRequest) {
       conversions,
       leadRate,
       leadsBySource,
+      searchConsole,
       suggestions,
       series,
     });
@@ -402,6 +413,7 @@ function buildSuggestions(d: {
   geography: { city: string; users: number }[];
   leads: number;
   leadRate: number;
+  searchConsole: SearchConsoleData | null;
 }): Suggestion[] {
   const out: Suggestion[] = [];
 
@@ -460,7 +472,23 @@ function buildSuggestions(d: {
     out.push({ severity: 'info', text: `Cei mai mulți vizitatori sunt din ${topCity.city} (${pct}%) — targetează reclamele acolo și menționează zona în conținut.` });
   }
 
+  // 7) Oportunitate SEO: cuvânt non-brand cu multe afișări dar poziție 4–15.
+  if (d.searchConsole) {
+    const opp = d.searchConsole.queries
+      .filter(q =>
+        q.impressions >= 80 &&
+        q.position >= 4 &&
+        q.position <= 15 &&
+        !q.query.includes('pasi de dans') &&
+        !q.query.includes('pași de dans'),
+      )
+      .sort((a, b) => b.impressions - a.impressions)[0];
+    if (opp) {
+      out.push({ severity: 'info', text: `SEO: ești pe poziția ${opp.position} la „${opp.query}" (${opp.impressions} afișări) — optimizează pagina relevantă (titlu, conținut, viteză internă) ca să urci în top 3 și să prinzi click-uri.` });
+    }
+  }
+
   // Ordonăm: warn → good → info; maxim 6.
   const order: Record<Sev, number> = { warn: 0, good: 1, info: 2 };
-  return out.sort((a, b) => order[a.severity] - order[b.severity]).slice(0, 6);
+  return out.sort((a, b) => order[a.severity] - order[b.severity]).slice(0, 8);
 }

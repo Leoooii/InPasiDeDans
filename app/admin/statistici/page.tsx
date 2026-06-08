@@ -39,6 +39,7 @@ import {
   Navigation,
   FileText,
   MousePointer,
+  Search,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -67,6 +68,11 @@ type Series = {
   pages: { path: string; title: string; points: number[] }[];
 };
 type Suggestion = { severity: 'good' | 'warn' | 'info'; text: string };
+type SearchConsole = {
+  totals: { clicks: number; impressions: number; ctr: number; position: number };
+  queries: { query: string; clicks: number; impressions: number; ctr: number; position: number }[];
+  pages: { page: string; clicks: number; impressions: number; position: number }[];
+};
 type AnalyticsData = {
   summary: Summary;
   topPages: TopPage[];
@@ -78,6 +84,7 @@ type AnalyticsData = {
   conversions: { name: string; count: number }[];
   leadRate: number;
   leadsBySource: { channel: string; leads: number }[];
+  searchConsole: SearchConsole | null;
   suggestions: Suggestion[];
   series: Series;
 };
@@ -412,6 +419,79 @@ export default function StatisticiPage() {
                       </div>
                     );
                   })}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Căutări Google (Search Console / SEO) */}
+          {data.searchConsole && (
+            <Card>
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <Search className="h-4 w-4 text-slate-400" />
+                  <h2 className="text-sm font-semibold text-slate-900">Căutări Google (SEO)</h2>
+                </div>
+                <p className="text-xs text-slate-500 mb-4">Ce caută oamenii pe Google ca să te găsească</p>
+
+                {/* Totaluri */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+                  <div className="rounded-lg border border-slate-200 p-3">
+                    <div className="text-xs text-slate-500 mb-1">Click-uri</div>
+                    <div className="text-xl font-bold text-slate-900 tabular-nums">{data.searchConsole.totals.clicks.toLocaleString('ro-RO')}</div>
+                  </div>
+                  <div className="rounded-lg border border-slate-200 p-3">
+                    <div className="text-xs text-slate-500 mb-1">Afișări în Google</div>
+                    <div className="text-xl font-bold text-slate-900 tabular-nums">{data.searchConsole.totals.impressions.toLocaleString('ro-RO')}</div>
+                  </div>
+                  <div className="rounded-lg border border-slate-200 p-3">
+                    <div className="text-xs text-slate-500 mb-1">CTR mediu</div>
+                    <div className="text-xl font-bold text-slate-900 tabular-nums">{data.searchConsole.totals.ctr}%</div>
+                  </div>
+                  <div className="rounded-lg border border-slate-200 p-3">
+                    <div className="text-xs text-slate-500 mb-1">Poziție medie</div>
+                    <div className="text-xl font-bold text-slate-900 tabular-nums">{data.searchConsole.totals.position}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  {/* Top căutări */}
+                  <div>
+                    <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-slate-400 px-2 mb-1">
+                      <span>Top căutări</span>
+                      <span className="flex gap-3"><span className="w-10 text-right">click</span><span className="w-12 text-right">poziție</span></span>
+                    </div>
+                    <div className="space-y-0.5 max-h-[360px] overflow-y-auto">
+                      {data.searchConsole.queries.map(q => (
+                        <div key={q.query} className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-slate-50">
+                          <span className="flex-1 min-w-0 text-sm text-slate-700 truncate" title={`${q.query} · ${q.impressions} afișări · CTR ${q.ctr}%`}>
+                            {q.query}
+                          </span>
+                          <span className="w-10 text-right text-sm font-semibold text-slate-900 tabular-nums">{q.clicks}</span>
+                          <span className="w-12 text-right text-xs tabular-nums text-slate-500">{q.position}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Top pagini în Google */}
+                  <div>
+                    <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-slate-400 px-2 mb-1">
+                      <span>Top pagini în Google</span>
+                      <span className="flex gap-3"><span className="w-10 text-right">click</span><span className="w-12 text-right">poziție</span></span>
+                    </div>
+                    <div className="space-y-0.5 max-h-[360px] overflow-y-auto">
+                      {data.searchConsole.pages.map(pg => (
+                        <div key={pg.page} className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-slate-50">
+                          <span className="flex-1 min-w-0 text-sm text-slate-700 truncate" title={`${pg.page} · ${pg.impressions} afișări`}>
+                            {shortPath(pg.page.replace(/^https?:\/\/[^/]+/, '') || '/')}
+                          </span>
+                          <span className="w-10 text-right text-sm font-semibold text-slate-900 tabular-nums">{pg.clicks}</span>
+                          <span className="w-12 text-right text-xs tabular-nums text-slate-500">{pg.position}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
