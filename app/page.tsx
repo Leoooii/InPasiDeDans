@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Script from 'next/script';
@@ -49,14 +48,13 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <Head>
-        {/* Schema Organization + WebSite - specifică pentru homepage */}
-        <script
+      {/* Schema DanceSchool + WebSite — randate în body (App Router) ca să fie sigur indexate */}
+      <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org/",
-              "@type": "Organization",
+              "@type": "DanceSchool",
               "@id": "https://www.inpasidedans.ro/#organization",
               "name": "În Pași de Dans",
               "alternateName": "Scoala de Dans In Pasi de Dans",
@@ -65,6 +63,19 @@ export default function Home() {
               "logo": "https://www.inpasidedans.ro/images/logo.png",
               "image": "https://www.inpasidedans.ro/images/logo.png",
               "foundingDate": "2009",
+              "telephone": "+40722675126",
+              "email": "inpasidedans@gmail.com",
+              "priceRange": "$$",
+              "currenciesAccepted": "RON",
+              "knowsLanguage": "ro",
+              "areaServed": ["București", "Sector 5", "Sector 4", "Sector 6", "Ilfov"],
+              "hasMap": "https://maps.google.com/?q=Calea+Rahovei+262+Sector+5+Bucuresti",
+              "openingHoursSpecification": [{
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "10:00",
+                "closes": "17:00"
+              }],
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Calea Rahovei 262",
@@ -83,7 +94,8 @@ export default function Home() {
               "sameAs": [
                 "https://www.facebook.com/scoaladedansinpasidedans",
                 "https://www.instagram.com/inpasidedans/",
-                "https://www.tiktok.com/@inpasidedans"
+                "https://www.tiktok.com/@inpasidedans",
+                "https://www.youtube.com/@inpasidedans"
               ],
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
@@ -138,7 +150,6 @@ export default function Home() {
             })
           }}
         />
-      </Head>
       <div className="flex flex-col min-h-screen">
         <StickyMenu menuItems={[
           { id: 'cursuri', label: 'Cursuri' },
