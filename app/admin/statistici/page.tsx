@@ -92,6 +92,9 @@ type AnalyticsData = {
 // ─── Config ────────────────────────────────────────────────────────────────
 
 const TOKEN_KEY = 'ipd_analytics_token';
+// Dacă e setat, pagina se deblochează automat (fără prompt). Pagina e oricum
+// în spatele login-ului de admin, iar datele sunt agregate (non-personale).
+const ENV_TOKEN = process.env.NEXT_PUBLIC_ANALYTICS_TOKEN || '';
 
 const PRESETS: { id: string; label: string; days: number }[] = [
   { id: '7d', label: '7 zile', days: 7 },
@@ -197,7 +200,7 @@ function StatCard({
 // ─── Pagina ──────────────────────────────────────────────────────────────────
 
 export default function StatisticiPage() {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(ENV_TOKEN || null);
   const [tokenInput, setTokenInput] = useState('');
 
   const [preset, setPreset] = useState('30d');
@@ -208,8 +211,9 @@ export default function StatisticiPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Încarcă token-ul salvat o singură dată.
+  // Auto-deblocare dacă există token în env; altfel încarcă din localStorage.
   useEffect(() => {
+    if (ENV_TOKEN) return;
     const t = localStorage.getItem(TOKEN_KEY);
     if (t) setToken(t);
   }, []);
