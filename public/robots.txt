@@ -25,5 +25,28 @@ Allow: /
 # --- GOOGLE (Gemini) ---
 User-agent: Google-Extended
 Allow: /
+# Index suplimentar Google (AI Overviews / alte produse)
+User-agent: GoogleOther
+Allow: /
+
+# --- OPENAI (index + training; permis pentru vizibilitate în ChatGPT) ---
+User-agent: GPTBot
+Allow: /
+
+# --- APPLE (Apple Intelligence / Siri) ---
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+# --- AMAZON ---
+User-agent: Amazonbot
+Allow: /
+
+# --- BYTEDANCE / TikTok ---
+User-agent: Bytespider
+Allow: /
+
+# Rezumat pentru asistenți AI: https://www.inpasidedans.ro/llms.txt
 
 Sitemap: https://www.inpasidedans.ro/sitemap_index.xml
