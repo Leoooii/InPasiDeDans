@@ -47,8 +47,15 @@ export async function POST(req: NextRequest) {
   }
 
   if (!isGaConfigured()) {
+    // Raportăm care env-uri lipsesc la runtime (doar nume, fără valori).
+    const missing = [
+      'GA_PROPERTY_ID',
+      'GA_OAUTH_CLIENT_ID',
+      'GA_OAUTH_CLIENT_SECRET',
+      'GA_OAUTH_REFRESH_TOKEN',
+    ].filter(k => !process.env[k]);
     return NextResponse.json(
-      { error: 'GA4 nu este configurat (lipsesc env-urile GA_*).', setup: true },
+      { error: 'GA4 nu este configurat (lipsesc env-urile GA_*).', setup: true, missing },
       { status: 503 },
     );
   }
