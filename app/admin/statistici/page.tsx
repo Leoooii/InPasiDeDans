@@ -24,6 +24,21 @@ import {
   TrendingDown,
   KeyRound,
   RefreshCw,
+  MapPin,
+  Smartphone,
+  Monitor,
+  Tablet,
+  Target,
+  Lightbulb,
+  AlertTriangle,
+  CheckCircle2,
+  Info,
+  LogIn,
+  Phone,
+  Mail,
+  Navigation,
+  FileText,
+  MousePointer,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,16 +53,31 @@ type Summary = {
   avgDuration: number;
   delta: { views: Delta; users: Delta; sessions: Delta };
 };
-type TopPage = { path: string; title: string; views: number; users: number };
+type TopPage = {
+  path: string;
+  title: string;
+  views: number;
+  users: number;
+  engagementRate: number;
+  delta: Delta;
+};
 type Source = { channel: string; sessions: number; users: number };
 type Series = {
   dates: string[];
   pages: { path: string; title: string; points: number[] }[];
 };
+type Suggestion = { severity: 'good' | 'warn' | 'info'; text: string };
 type AnalyticsData = {
   summary: Summary;
   topPages: TopPage[];
   sources: Source[];
+  sourceMedium: { label: string; sessions: number }[];
+  geography: { city: string; users: number }[];
+  devices: { category: string; users: number }[];
+  landingPages: { path: string; sessions: number }[];
+  conversions: { name: string; count: number }[];
+  leadRate: number;
+  suggestions: Suggestion[];
   series: Series;
 };
 
@@ -66,6 +96,28 @@ const COLORS = [
   '#e11d48', '#2563eb', '#16a34a', '#d97706', '#7c3aed',
   '#0891b2', '#db2777', '#65a30d', '#475569', '#ea580c',
 ];
+
+// Etichete prietenoase pentru evenimentele de conversie.
+const CONV_META: Record<string, { label: string; icon: typeof Target }> = {
+  generate_lead: { label: 'Lead-uri (formular trimis)', icon: Target },
+  form_start: { label: 'Formulare începute', icon: FileText },
+  click_phone: { label: 'Click pe telefon', icon: Phone },
+  click_email: { label: 'Click pe email', icon: Mail },
+  click_directions: { label: 'Click pe direcții', icon: Navigation },
+  click: { label: 'Click-uri (link-uri)', icon: MousePointer },
+};
+
+const DEVICE_META: Record<string, { label: string; icon: typeof Smartphone }> = {
+  mobile: { label: 'Mobil', icon: Smartphone },
+  desktop: { label: 'Desktop', icon: Monitor },
+  tablet: { label: 'Tabletă', icon: Tablet },
+};
+
+const SEV_STYLE = {
+  warn: { wrap: 'bg-amber-50 border-amber-200', icon: AlertTriangle, color: 'text-amber-600' },
+  good: { wrap: 'bg-emerald-50 border-emerald-200', icon: CheckCircle2, color: 'text-emerald-600' },
+  info: { wrap: 'bg-sky-50 border-sky-200', icon: Info, color: 'text-sky-600' },
+} as const;
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
@@ -337,6 +389,69 @@ export default function StatisticiPage() {
             <StatCard icon={Clock} label="Durată medie sesiune" value={fmtDuration(data.summary.avgDuration)} />
           </div>
 
+          {/* Sugestii automate */}
+          {data.suggestions.length > 0 && (
+            <Card>
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <Lightbulb className="h-4 w-4 text-amber-500" />
+                  <h2 className="text-sm font-semibold text-slate-900">Sugestii de îmbunătățire</h2>
+                </div>
+                <div className="space-y-2">
+                  {data.suggestions.map((s, i) => {
+                    const st = SEV_STYLE[s.severity];
+                    const SIcon = st.icon;
+                    return (
+                      <div
+                        key={i}
+                        className={`flex items-start gap-3 rounded-lg border p-3 ${st.wrap}`}
+                      >
+                        <SIcon className={`h-4 w-4 mt-0.5 shrink-0 ${st.color}`} />
+                        <p className="text-sm text-slate-700 leading-snug">{s.text}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Conversii */}
+          {data.conversions.length > 0 && (
+            <Card>
+              <CardContent className="p-5">
+                <div className="flex items-center justify-between mb-1">
+                  <h2 className="text-sm font-semibold text-slate-900">Conversii & interacțiuni</h2>
+                  <span className="text-xs text-slate-500">
+                    Rată lead-uri: <span className="font-semibold text-slate-900">{data.leadRate}%</span>
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 mb-4">Acțiuni cu intenție din partea vizitatorilor</p>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                  {data.conversions.map(ev => {
+                    const meta = CONV_META[ev.name] ?? { label: ev.name, icon: Target };
+                    const EIcon = meta.icon;
+                    const isLead = ev.name === 'generate_lead';
+                    return (
+                      <div
+                        key={ev.name}
+                        className={`rounded-lg border p-3 ${
+                          isLead ? 'bg-emerald-50 border-emerald-200' : 'bg-white border-slate-200'
+                        }`}
+                      >
+                        <EIcon className={`h-4 w-4 mb-2 ${isLead ? 'text-emerald-600' : 'text-slate-400'}`} />
+                        <div className="text-xl font-bold text-slate-900 tabular-nums">
+                          {ev.count.toLocaleString('ro-RO')}
+                        </div>
+                        <div className="text-[11px] text-slate-500 leading-tight mt-0.5">{meta.label}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Overlay trenduri pe pagini */}
           <Card>
             <CardContent className="p-5">
@@ -411,7 +526,8 @@ export default function StatisticiPage() {
                         <span className="flex-1 min-w-0 text-sm text-slate-700 truncate" title={pg.path}>
                           {shortPath(pg.path)}
                         </span>
-                        <span className="text-sm font-semibold text-slate-900 tabular-nums">
+                        <DeltaBadge value={pg.delta} />
+                        <span className="text-sm font-semibold text-slate-900 tabular-nums w-14 text-right">
                           {pg.views.toLocaleString('ro-RO')}
                         </span>
                       </label>
@@ -450,6 +566,120 @@ export default function StatisticiPage() {
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Geografie + Dispozitive */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Geografie */}
+            <Card>
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <MapPin className="h-4 w-4 text-slate-400" />
+                  <h2 className="text-sm font-semibold text-slate-900">Geografie (orașe)</h2>
+                </div>
+                <p className="text-xs text-slate-500 mb-3">De unde sunt vizitatorii (utilizatori)</p>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={data.geography} layout="vertical" margin={{ top: 0, right: 16, left: 8, bottom: 0 }}>
+                    <XAxis type="number" hide />
+                    <YAxis type="category" dataKey="city" width={100} tick={{ fontSize: 11, fill: '#64748b' }} />
+                    <Tooltip
+                      contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e2e8f0' }}
+                      formatter={(v: number) => [v.toLocaleString('ro-RO'), 'utilizatori']}
+                    />
+                    <Bar dataKey="users" radius={[0, 4, 4, 0]} maxBarSize={20}>
+                      {data.geography.map((_, i) => (
+                        <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Dispozitive */}
+            <Card>
+              <CardContent className="p-5">
+                <h2 className="text-sm font-semibold text-slate-900 mb-1">Dispozitive</h2>
+                <p className="text-xs text-slate-500 mb-4">Pe ce intră vizitatorii</p>
+                {(() => {
+                  const total = data.devices.reduce((s, d) => s + d.users, 0) || 1;
+                  return (
+                    <div className="space-y-4 pt-2">
+                      {data.devices.map((d, i) => {
+                        const meta = DEVICE_META[d.category] ?? { label: d.category, icon: Monitor };
+                        const DIcon = meta.icon;
+                        const pct = Math.round((d.users / total) * 100);
+                        return (
+                          <div key={d.category}>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="flex items-center gap-2 text-sm text-slate-700">
+                                <DIcon className="h-4 w-4 text-slate-400" />
+                                {meta.label}
+                              </span>
+                              <span className="text-sm font-semibold text-slate-900 tabular-nums">
+                                {pct}% <span className="text-slate-400 font-normal">({d.users.toLocaleString('ro-RO')})</span>
+                              </span>
+                            </div>
+                            <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+                              <div
+                                className="h-full rounded-full"
+                                style={{ width: `${pct}%`, background: COLORS[i % COLORS.length] }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Surse detaliate + Landing pages */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Source / medium */}
+            <Card>
+              <CardContent className="p-5">
+                <h2 className="text-sm font-semibold text-slate-900 mb-1">Surse detaliate</h2>
+                <p className="text-xs text-slate-500 mb-3">Platformă / canal exact (sesiuni)</p>
+                <div className="space-y-1">
+                  {data.sourceMedium.map((s, i) => (
+                    <div key={s.label} className="flex items-center gap-3 px-2 py-1.5 rounded-md hover:bg-slate-50">
+                      <span className="w-2 h-2 rounded-full shrink-0" style={{ background: COLORS[i % COLORS.length] }} />
+                      <span className="flex-1 min-w-0 text-sm text-slate-700 truncate" title={s.label}>{s.label}</span>
+                      <span className="text-sm font-semibold text-slate-900 tabular-nums">
+                        {s.sessions.toLocaleString('ro-RO')}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Landing pages */}
+            <Card>
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <LogIn className="h-4 w-4 text-slate-400" />
+                  <h2 className="text-sm font-semibold text-slate-900">Pagini de intrare</h2>
+                </div>
+                <p className="text-xs text-slate-500 mb-3">Unde aterizează oamenii din Google/social (sesiuni)</p>
+                <div className="space-y-1">
+                  {data.landingPages.map((lp, i) => (
+                    <div key={lp.path} className="flex items-center gap-3 px-2 py-1.5 rounded-md hover:bg-slate-50">
+                      <span className="text-xs text-slate-300 tabular-nums w-4 text-right">{i + 1}</span>
+                      <span className="flex-1 min-w-0 text-sm text-slate-700 truncate" title={lp.path}>
+                        {shortPath(lp.path)}
+                      </span>
+                      <span className="text-sm font-semibold text-slate-900 tabular-nums">
+                        {lp.sessions.toLocaleString('ro-RO')}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </div>
