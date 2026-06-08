@@ -57,7 +57,7 @@ export default function DansulMirilor() {
             <h1 className="text-4xl font-bold tracking-tight leading-tight">
               Dans Nuntă București –{' '}
               <span className="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
-                Coregrafie Mirilor
+                Dansul Mirilor
               </span>
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -99,7 +99,7 @@ export default function DansulMirilor() {
             <AlertTitle>Informații despre plată</AlertTitle>
             <AlertDescription>
               <ul className="list-disc pl-5 space-y-2">
-                <li>Dacă doriți să efectuați plata la fiecare ședință, prețul pentru o lecție particulară de dans este 180 lei.</li>
+                <li>Dacă doriți să efectuați plata la fiecare ședință, prețul pentru o lecție particulară de dans este 200 lei.</li>
                 <li>În cazul în care optați pentru unul din pachete, plata orelor particulare de dans se va face integral la prima ședință.</li>
                 <li>Anularea și reprogramarea unei ședințe se va face cu cel puțin 24 de ore înainte, telefonic. În caz contrar, ședința se consideră efectuată.</li>
               </ul>
