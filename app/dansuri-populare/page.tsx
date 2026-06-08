@@ -65,11 +65,11 @@ export default function DansuriPopulare() {
           </span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
-          De la hora molovenească și sârba energică, până la brâul muntenesc și bătuta ursului —
+          De la hora moldovenească și sârba energică, până la brâul muntenesc și bătuta ursului —
           fiecare pas te apropie de autenticitatea și frumusețea culturii românești.
         </p>
         <p className="text-base text-gray-500 dark:text-gray-400 max-w-2xl">
-          Vei învăța jocuri din toate colțurile României, plus dansuri grecești și macedonești,
+          Vei învăța jocuri din toate colțurile României, plus dansuri grecești și machedonești,
           într-o atmosferă caldă, prietenoasă și plină de viață.
         </p>
         <Link href="#inscriere" className="mt-2">

@@ -327,14 +327,14 @@ export default function StatisticiPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {/* Header + controale */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Statistici vizite</h1>
           <p className="text-sm text-slate-500">Date din Google Analytics 4</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-1 p-1 bg-slate-100 rounded-lg">
             {PRESETS.map(p => (
               <button
@@ -399,8 +399,8 @@ export default function StatisticiPage() {
 
           {/* Sugestii automate */}
           {data.suggestions.length > 0 && (
-            <Card>
-              <CardContent className="p-5">
+            <Card className="order-last">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Lightbulb className="h-4 w-4 text-amber-500" />
                   <h2 className="text-sm font-semibold text-slate-900">Sugestii de îmbunătățire</h2>
@@ -426,8 +426,8 @@ export default function StatisticiPage() {
 
           {/* Căutări Google (Search Console / SEO) */}
           {data.searchConsole && (
-            <Card>
-              <CardContent className="p-5">
+            <Card className="order-last">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-1">
                   <Search className="h-4 w-4 text-slate-400" />
                   <h2 className="text-sm font-semibold text-slate-900">Căutări Google (SEO)</h2>
@@ -499,8 +499,8 @@ export default function StatisticiPage() {
 
           {/* Conversii */}
           {data.conversions.length > 0 && (
-            <Card>
-              <CardContent className="p-5">
+            <Card className="order-last">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center justify-between mb-1">
                   <h2 className="text-sm font-semibold text-slate-900">Conversii & interacțiuni</h2>
                   <span className="text-xs text-slate-500">
@@ -534,10 +534,10 @@ export default function StatisticiPage() {
           )}
 
           {/* Funnel formular + Lead-uri pe sursă */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="order-last grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Funnel formular */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <h2 className="text-sm font-semibold text-slate-900 mb-1">Funnel formular</h2>
                 <p className="text-xs text-slate-500 mb-4">Câți încep formularul vs câți îl trimit</p>
                 {(() => {
@@ -582,7 +582,7 @@ export default function StatisticiPage() {
 
             {/* Lead-uri pe sursă */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-1">
                   <Target className="h-4 w-4 text-slate-400" />
                   <h2 className="text-sm font-semibold text-slate-900">Lead-uri pe sursă</h2>
@@ -613,7 +613,7 @@ export default function StatisticiPage() {
 
           {/* Overlay trenduri pe pagini */}
           <Card>
-            <CardContent className="p-5">
+            <CardContent className="p-4 sm:p-5">
               <h2 className="text-sm font-semibold text-slate-900 mb-1">
                 Trend afișări pe pagină
               </h2>
@@ -655,7 +655,7 @@ export default function StatisticiPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Top pagini + selecție overlay */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <h2 className="text-sm font-semibold text-slate-900 mb-1">Top pagini</h2>
                 <p className="text-xs text-slate-500 mb-3">
                   Bifează pentru a le suprapune în grafic
@@ -698,7 +698,7 @@ export default function StatisticiPage() {
 
             {/* Surse trafic */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <h2 className="text-sm font-semibold text-slate-900 mb-1">Surse de trafic</h2>
                 <p className="text-xs text-slate-500 mb-3">De unde vin vizitatorii (sesiuni)</p>
                 <ResponsiveContainer width="100%" height={300}>
@@ -733,7 +733,7 @@ export default function StatisticiPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Geografie */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-1">
                   <MapPin className="h-4 w-4 text-slate-400" />
                   <h2 className="text-sm font-semibold text-slate-900">Geografie (orașe)</h2>
@@ -759,7 +759,7 @@ export default function StatisticiPage() {
 
             {/* Dispozitive */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <h2 className="text-sm font-semibold text-slate-900 mb-1">Dispozitive</h2>
                 <p className="text-xs text-slate-500 mb-4">Pe ce intră vizitatorii</p>
                 {(() => {
@@ -801,7 +801,7 @@ export default function StatisticiPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Source / medium */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <h2 className="text-sm font-semibold text-slate-900 mb-1">Surse detaliate</h2>
                 <p className="text-xs text-slate-500 mb-3">Platformă / canal exact (sesiuni)</p>
                 <div className="space-y-1">
@@ -820,7 +820,7 @@ export default function StatisticiPage() {
 
             {/* Landing pages */}
             <Card>
-              <CardContent className="p-5">
+              <CardContent className="p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-1">
                   <LogIn className="h-4 w-4 text-slate-400" />
                   <h2 className="text-sm font-semibold text-slate-900">Pagini de intrare</h2>
