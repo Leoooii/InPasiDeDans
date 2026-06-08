@@ -111,6 +111,7 @@ export async function POST(req: NextRequest) {
       deviceResp,
       landingResp,
       eventsResp,
+      leadsBySourceResp,
     ] = await Promise.all([
       // 0) Sumar curent + precedent (trend).
       client.runReport({
@@ -198,6 +199,18 @@ export async function POST(req: NextRequest) {
           filter: { fieldName: 'eventName', inListFilter: { values: CONVERSION_EVENTS } },
         },
         limit: 20,
+      }),
+      // 9) Lead-uri (generate_lead) pe canal — ce sursă aduce clienți, nu doar vizite.
+      client.runReport({
+        property,
+        dateRanges: curr,
+        dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+        metrics: [{ name: 'eventCount' }],
+        dimensionFilter: {
+          filter: { fieldName: 'eventName', stringFilter: { value: 'generate_lead' } },
+        },
+        orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+        limit: 12,
       }),
     ]);
 
@@ -296,6 +309,14 @@ export async function POST(req: NextRequest) {
       ? Math.round((leads / summary.sessions) * 1000) / 10
       : 0;
 
+    // ── Lead-uri pe canal ────────────────────────────────────────────────────
+    const leadsBySource = (leadsBySourceResp[0].rows ?? [])
+      .map(r => ({
+        channel: r.dimensionValues?.[0]?.value || '(necunoscut)',
+        leads: num(r.metricValues?.[0]?.value),
+      }))
+      .filter(x => x.leads > 0);
+
     // ── Serie temporală pentru overlay ───────────────────────────────────────
     const selected =
       pagePaths.length > 0 ? pagePaths : topPages.slice(0, 5).map(pg => pg.path);
@@ -356,6 +377,7 @@ export async function POST(req: NextRequest) {
       landingPages,
       conversions,
       leadRate,
+      leadsBySource,
       suggestions,
       series,
     });
