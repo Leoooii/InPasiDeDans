@@ -175,7 +175,7 @@ export default function PetrecereDetaliuPage() {
       </Head>
 
       <div className="bg-gradient-to-b from-slate-900 via-slate-950 to-black py-10">
-        <div className="container space-y-6">
+        <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-6 lg:px-8 space-y-6">
           <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl={canonicalUrl} />
 
           <Button
@@ -191,7 +191,7 @@ export default function PetrecereDetaliuPage() {
             {/* Coloană principală */}
             <div>
               <Card className="overflow-hidden border-red-600 bg-slate-950/70 text-slate-50">
-              <div className="relative h-60 lg:h-[400px] w-full overflow-hidden">
+              <div className="relative aspect-video lg:aspect-auto lg:h-[400px] w-full overflow-hidden">
                   <Image
                     src={petrecere.imageUrl || '/placeholder.svg'}
                     alt={petrecere.title}
