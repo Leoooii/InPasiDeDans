@@ -10,6 +10,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'imgur.com', pathname: '/**' },
       { protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' },
       { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/**' }, // Adăugăm domeniul Sanity pentru optimizare
+      { protocol: 'https', hostname: 'firebasestorage.googleapis.com', pathname: '/**' }, // imagini încărcate în admin (petreceri, evenimente, instructori)
     ],
     // Activează optimizarea imaginilor pentru performanță
     unoptimized: false,
