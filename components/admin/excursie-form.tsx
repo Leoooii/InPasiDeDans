@@ -40,6 +40,7 @@ const formSchema = z.object({
     .string()
     .url('URL-ul imaginii trebuie să fie valid')
     .min(1, 'URL-ul imaginii este obligatoriu'),
+  mapEmbed: z.string().optional(),
   isUpcoming: z.boolean().default(false),
 });
 
@@ -71,6 +72,7 @@ export function ExcursieForm({
       description: '',
       facebookLink: '',
       imageUrl: '',
+      mapEmbed: '',
       isUpcoming: false,
     },
   });
@@ -87,6 +89,7 @@ export function ExcursieForm({
         description: excursie.description || '',
         facebookLink: excursie.facebookLink || '',
         imageUrl: excursie.imageUrl || '',
+        mapEmbed: excursie.mapEmbed || '',
         isUpcoming: excursie.isUpcoming || false,
       });
 
@@ -103,6 +106,7 @@ export function ExcursieForm({
         description: '',
         facebookLink: '',
         imageUrl: '',
+        mapEmbed: '',
         isUpcoming: false,
       });
       setImagePreview(null);
@@ -333,6 +337,28 @@ export function ExcursieForm({
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="mapEmbed"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Embed hartă Google Maps (opțional)</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Lipiți aici codul <iframe> generat de Google Maps pentru destinația excursiei"
+                        className="min-h-[120px] font-mono text-xs"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Folosiți opțiunea „Incorporează o hartă” din Google Maps și lipiți codul complet
+                      &lt;iframe&gt; aici. Harta va apărea pe pagina dedicată excursiei.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

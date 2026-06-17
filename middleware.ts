@@ -141,6 +141,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Permite rutele dinamice pentru excursii (pagini individuale de excursie)
+  if (pathname.startsWith('/excursii/')) {
+    return NextResponse.next();
+  }
+
   // Permite rutele dinamice pentru noutati/evenimente (pagini individuale)
   if (pathname.startsWith('/noutati/') || pathname.startsWith('/evenimente/')) {
     return NextResponse.next();

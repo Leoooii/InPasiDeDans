@@ -21,6 +21,7 @@ export interface Excursie {
   description?: string;
   facebookLink?: string;
   imageUrl: string;
+  mapEmbed?: string;
   isUpcoming: boolean;
   createdAt: number;
 }
