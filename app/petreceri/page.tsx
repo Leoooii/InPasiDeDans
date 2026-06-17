@@ -204,7 +204,7 @@ export default function Petreceri() {
               </div>
             </div>
 
-            {upcomingPetreceri.length === 0 ? (
+            {upcomingPetreceri.length === 0 && (
               <div className="text-center py-16 rounded-2xl border border-dashed border-white/10 bg-white/[0.02]">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 mb-4">
                   <PartyPopper className="h-8 w-8 text-orange-300" />
@@ -222,7 +222,22 @@ export default function Petreceri() {
                   pentru anunțuri.
                 </p>
               </div>
-            ) : (
+            )}
+
+            {upcomingPetreceri.length === 1 && (
+              <WidePetrecere petrecere={upcomingPetreceri[0]} featured />
+            )}
+
+            {upcomingPetreceri.length === 2 && (
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="md:col-span-2">
+                  <WidePetrecere petrecere={upcomingPetreceri[0]} featured />
+                </div>
+                <UpcomingCard petrecere={upcomingPetreceri[1]} />
+              </div>
+            )}
+
+            {upcomingPetreceri.length >= 3 && (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {upcomingPetreceri.map(p => (
                   <UpcomingCard key={p.id} petrecere={p} />
@@ -286,6 +301,85 @@ function ConfettiBackground() {
         />
       ))}
     </div>
+  );
+}
+
+function WidePetrecere({ petrecere, featured }: { petrecere: Petrecere; featured?: boolean }) {
+  return (
+    <Link
+      href={`/petreceri/${petrecere.id}`}
+      className="group grid md:grid-cols-[1.4fr_1fr] rounded-3xl overflow-hidden bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/15 hover:border-orange-400/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/20"
+    >
+      {/* Image — large, left side on desktop */}
+      <div className="relative h-72 sm:h-96 md:h-auto md:min-h-[420px] overflow-hidden bg-slate-900">
+        <Image
+          src={petrecere.imageUrl || '/placeholder.svg'}
+          alt={petrecere.title}
+          fill
+          priority
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 66vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-slate-950/40" />
+
+        {/* Floating chips on image */}
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+          {featured && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40">
+              ★ Cea mai apropiată
+            </span>
+          )}
+          {petrecere.location && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 text-slate-900 px-3 py-1.5 text-xs font-bold backdrop-blur-sm shadow-lg shadow-black/40">
+              <MapPin className="h-3.5 w-3.5 text-red-600" />
+              {petrecere.location}
+            </span>
+          )}
+        </div>
+
+        {petrecere.badge && (
+          <div className="absolute top-4 right-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40">
+            ★ {petrecere.badge}
+          </div>
+        )}
+      </div>
+
+      {/* Content — right side on desktop */}
+      <div className="p-6 md:p-10 lg:p-12 flex flex-col justify-center">
+        <div className="inline-flex flex-wrap items-center gap-x-4 gap-y-2 self-start text-xs uppercase tracking-[0.2em] text-orange-300 mb-4">
+          <span className="inline-flex items-center gap-2">
+            <Calendar className="h-4 w-4" />
+            {petrecere.date}
+          </span>
+          {petrecere.time && (
+            <span className="inline-flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              {petrecere.time}
+            </span>
+          )}
+        </div>
+
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-black leading-tight mb-5 text-white group-hover:text-orange-200 transition-colors">
+          {petrecere.title}
+        </h3>
+
+        {petrecere.description && (
+          <p className="text-base leading-relaxed text-white/75 mb-7 line-clamp-5">
+            {petrecere.description}
+          </p>
+        )}
+
+        <Button
+          asChild
+          className="self-start bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-lg shadow-orange-500/30 group-hover:shadow-xl group-hover:shadow-orange-500/40 px-7 py-6 text-base"
+        >
+          <span className="inline-flex items-center gap-2">
+            Mai multe informații
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </Button>
+      </div>
+    </Link>
   );
 }
 

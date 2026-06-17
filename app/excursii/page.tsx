@@ -331,17 +331,15 @@ function WideExcursie({ excursie, featured }: { excursie: Excursie; featured?: b
           </p>
         )}
 
-        {excursie.facebookLink && (
-          <Button
-            asChild
-            className="self-start bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-lg shadow-orange-500/30 group-hover:shadow-xl group-hover:shadow-orange-500/40 px-7 py-6 text-base"
-          >
-            <span className="inline-flex items-center gap-2">
-              Detalii și înscriere
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </span>
-          </Button>
-        )}
+        <Button
+          asChild
+          className="self-start bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-lg shadow-orange-500/30 group-hover:shadow-xl group-hover:shadow-orange-500/40 px-7 py-6 text-base"
+        >
+          <span className="inline-flex items-center gap-2">
+            Detalii și înscriere
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </Button>
       </div>
     </>
   );
@@ -349,19 +347,11 @@ function WideExcursie({ excursie, featured }: { excursie: Excursie; featured?: b
   const baseClasses =
     'group grid md:grid-cols-[1.4fr_1fr] rounded-3xl overflow-hidden bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/15 hover:border-orange-400/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/20';
 
-  if (excursie.facebookLink) {
-    return (
-      <a
-        href={excursie.facebookLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={baseClasses}
-      >
-        {content}
-      </a>
-    );
-  }
-  return <article className={baseClasses}>{content}</article>;
+  return (
+    <Link href={`/excursii/${excursie.id}`} className={baseClasses}>
+      {content}
+    </Link>
+  );
 }
 
 function PostcardExcursie({ excursie }: { excursie: Excursie }) {
@@ -411,12 +401,10 @@ function PostcardExcursie({ excursie }: { excursie: Excursie }) {
           </p>
         )}
 
-        {excursie.facebookLink && (
-          <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-md shadow-orange-500/30 group-hover:shadow-lg group-hover:shadow-orange-500/40">
-            Detalii și înscriere
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </Button>
-        )}
+        <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-md shadow-orange-500/30 group-hover:shadow-lg group-hover:shadow-orange-500/40">
+          Detalii și înscriere
+          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </Button>
       </div>
     </>
   );
@@ -424,20 +412,11 @@ function PostcardExcursie({ excursie }: { excursie: Excursie }) {
   const baseClasses =
     'group relative flex flex-col rounded-3xl overflow-hidden bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 hover:border-orange-400/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/20';
 
-  if (excursie.facebookLink) {
-    return (
-      <a
-        href={excursie.facebookLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={baseClasses}
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return <article className={baseClasses}>{content}</article>;
+  return (
+    <Link href={`/excursii/${excursie.id}`} className={baseClasses}>
+      {content}
+    </Link>
+  );
 }
 
 function PastExcursie({ excursie }: { excursie: Excursie }) {
@@ -461,12 +440,5 @@ function PastExcursie({ excursie }: { excursie: Excursie }) {
     </div>
   );
 
-  if (excursie.facebookLink) {
-    return (
-      <a href={excursie.facebookLink} target="_blank" rel="noopener noreferrer">
-        {content}
-      </a>
-    );
-  }
-  return content;
+  return <Link href={`/excursii/${excursie.id}`}>{content}</Link>;
 }
