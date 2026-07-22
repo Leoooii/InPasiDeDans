@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Script from 'next/script';
-import { cn } from '@/lib/utils';
 import CookieConsent from '@/components/cookie-consent';
 import GifWrapperClient from './GifWrapperClient';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
@@ -186,7 +185,7 @@ export default function Home() {
                     <Link href="/inscriere">
                       <Button
                         size="lg"
-                        className="bg-white text-slate-900 hover:bg-slate-100 font-semibold text-base px-8"
+                        className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-semibold text-base px-8 border-0 shadow-md shadow-orange-500/30"
                       >
                         Înscrie-te acum
                       </Button>
@@ -207,62 +206,8 @@ export default function Home() {
           </div>
         </section>
         <CursuriSection />
-        <section id="grupe" className="py-16 bg-slate-950 text-white relative overflow-hidden">
-          <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top,_rgba(244,114,182,0.3),transparent_50%)]" />
-          <div className="container relative flex flex-col gap-12 lg:flex-row lg:items-center">
-            <div className="lg:w-1/2 text-center lg:text-left">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
-                Pregătit să începi călătoria ta în lumea dansului?
-              </h2>
-              <p className="text-lg lg:text-xl text-white/80 mb-8">
-                Alătură-te celor peste 12.000 de cursanți care au descoperit energia dansului la
-                școala noastră, indiferent de vârstă sau nivel.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link href="/grupe-in-formare">
-                  <Button
-                    size="lg"
-                    className="bg-white text-slate-900 hover:bg-slate-100 font-semibold"
-                  >
-                    Vezi grupele active
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="bg-transparent border-white text-white hover:bg-white/10"
-                  >
-                    Contactează-ne
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <div className="lg:w-1/2 grid grid-cols-2 gap-4 text-left">
-              {[
-                { label: 'cursanți activi', value: '+300', accent: 'bg-orange-800/20' },
-                { label: 'stiluri de dans', value: '20+', accent: 'bg-sky-500/20' },
-                { label: 'ani de experiență', value: '16', accent: 'bg-emerald-500/20' },
-                { label: 'săli de dans', value: '3', accent: 'bg-purple-500/20' },
-              ].map(item => (
-                <div
-                  key={item.label}
-                  className={cn(
-                    'rounded-2xl p-5 border border-white/10 shadow-lg',
-                    item.accent
-                  )}
-                >
-                  <p className="text-3xl font-bold">{item.value}</p>
-                  <p className="text-sm uppercase tracking-wide text-white/70 mt-2">
-                    {item.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
         {/* Secțiunea Grupe în Formare */}
-        <section className="bg-slate-100 py-16">
+        <section id="grupe" className="bg-slate-100 py-16">
           <div className="container space-y-10">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div>
@@ -287,6 +232,56 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="py-16 bg-slate-950 text-white">
+          <div className="container flex flex-col gap-12 lg:flex-row lg:items-center">
+            <div className="lg:w-1/2 text-center lg:text-left">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+                Pregătit să începi călătoria ta în lumea dansului?
+              </h2>
+              <p className="text-lg lg:text-xl text-white/80 mb-8">
+                Alătură-te celor peste 12.000 de cursanți care au descoperit energia dansului la
+                școala noastră, indiferent de vârstă sau nivel.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link href="/grupe-in-formare">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-semibold border-0 shadow-md shadow-orange-500/30"
+                  >
+                    Vezi grupele active
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-transparent border-white/60 text-white hover:bg-white/10 font-medium"
+                  >
+                    Contactează-ne
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="lg:w-1/2 grid grid-cols-2 gap-4 text-left">
+              {[
+                { label: 'cursanți activi', value: '+300' },
+                { label: 'stiluri de dans', value: '20+' },
+                { label: 'ani de experiență', value: '16' },
+                { label: 'săli de dans', value: '3' },
+              ].map(item => (
+                <div
+                  key={item.label}
+                  className="rounded-2xl p-5 border border-white/10 shadow-lg bg-white/5"
+                >
+                  <p className="text-3xl font-bold text-orange-400">{item.value}</p>
+                  <p className="text-sm uppercase tracking-wide text-white/70 mt-2">
+                    {item.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         {/* Secțiunea Noutăți cu fundal diferit */}
         <section id="noutati" className="bg-white py-16">
           <div className="container space-y-10">
@@ -304,7 +299,7 @@ export default function Home() {
                 </p>
               </div>
               <Link href="/noutati">
-                <Button variant="default" className="bg-slate-900 hover:bg-slate-800">
+                <Button variant="outline" className="border-slate-300 text-slate-800">
                   Vezi toate noutățile
                 </Button>
               </Link>
@@ -312,6 +307,37 @@ export default function Home() {
             <NoutatiSection itemsToShow={3} variant="homepage" />
           </div>
         </section>
+
+        {/* Bandă CTA contact */}
+        <section className="bg-slate-950 text-white py-10">
+          <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-center md:text-left">
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold">
+                Nu știi ce curs ți se potrivește?
+              </h2>
+              <p className="text-white/70 mt-1">
+                Sună-ne la{' '}
+                <a href="tel:+40722675126" className="font-semibold text-orange-400 hover:text-orange-300">
+                  0722 675 126
+                </a>{' '}
+                și te ajutăm să alegi.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center shrink-0">
+              <Link href="/inscriere">
+                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-semibold border-0 shadow-md shadow-orange-500/30 w-full sm:w-auto">
+                  Înscrie-te acum
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" className="bg-transparent border-white/60 text-white hover:bg-white/10 font-medium w-full sm:w-auto">
+                  Contactează-ne
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <LatestBlogPosts />
       </div>
     </>

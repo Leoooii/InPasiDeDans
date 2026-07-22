@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { db } from '@/lib/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Calendar, Clock, Users } from 'lucide-react';
 import type { Grupa } from '@/app/admin/page';
@@ -122,12 +123,16 @@ const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSec
   return (
     <div className="w-full">
       {displayedGrupe.length === 0 ? (
-        <div className="text-center py-12">
-          <p className={cn('text-xl', isHomepage ? 'text-slate-600' : 'text-white/90')}>
-            Nu există grupe în formare momentan.
-          </p>
-          <p className={cn('mt-2', isHomepage ? 'text-slate-500' : 'text-white/70')}>
-            Puteți completa un formular de înscriere pentru a vă trece pe o listă de așteptare și vă vom informa când începem înscrieri pentru grupe noi.
+        <div className={cn(
+          'rounded-xl border border-dashed px-5 py-4 text-center',
+          isHomepage ? 'border-slate-300 bg-white/60' : 'border-white/20 bg-white/[0.03]'
+        )}>
+          <p className={cn('text-sm', isHomepage ? 'text-slate-600' : 'text-white/80')}>
+            Nu există grupe în formare momentan — completează{' '}
+            <Link href="/inscriere" className="font-semibold text-orange-600 hover:text-orange-700 underline underline-offset-2">
+              formularul de înscriere
+            </Link>{' '}
+            și te anunțăm când pornesc grupe noi.
           </p>
         </div>
       ) : (

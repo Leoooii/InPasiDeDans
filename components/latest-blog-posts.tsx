@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { client, urlForImage } from '@/sanity/lib/client'
 
 // Query pentru ultimele 3 articole
@@ -23,10 +25,9 @@ const latestPostsQuery = `
 
 export default async function LatestBlogPosts() {
   let posts = []
-  
+
   try {
     posts = await client.fetch(latestPostsQuery)
-    console.log(posts)
   } catch (error) {
     console.error('Error fetching latest posts:', error)
     return null
@@ -35,23 +36,33 @@ export default async function LatestBlogPosts() {
   if (!posts || posts.length === 0) return null
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            📚 Ultimele Articole din Blog
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Descoperă sfaturi, ghiduri și povești despre dans direct de la instructorii noștri
-          </p>
+    <section className="bg-slate-100 py-16">
+      <div className="container space-y-10">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-slate-500 mb-2">
+              Blog
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+              Ultimele articole din blog
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mt-4">
+              Descoperă sfaturi, ghiduri și povești despre dans direct de la
+              instructorii noștri.
+            </p>
+          </div>
+          <Link href="/blog">
+            <Button variant="outline" className="border-slate-300 text-slate-800">
+              Vezi toate articolele
+            </Button>
+          </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6">
           {posts.map((post: any) => {
-            // Verificări de siguranță pentru datele lipsă
             if (!post) return null
-            
-            const imageUrl = post.mainImage?.asset 
+
+            const imageUrl = post.mainImage?.asset
               ? urlForImage(post.mainImage).width(400).height(250).fit('crop').url()
               : '/placeholder.jpg'
 
@@ -61,10 +72,16 @@ export default async function LatestBlogPosts() {
               day: 'numeric'
             })
 
+            const postHref = `/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`
+
             return (
-              <article key={post._id} className="group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl">
+              <Link
+                key={post._id}
+                href={postHref}
+                className="group rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl flex flex-col bg-white cursor-pointer hover:-translate-y-1"
+              >
                 {/* Imagine */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden bg-slate-100 shrink-0">
                   <Image
                     src={imageUrl}
                     alt={post.mainImage?.alt || post.title}
@@ -72,68 +89,39 @@ export default async function LatestBlogPosts() {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  
-                  {/* Badge categorie */}
-                  <div className="absolute top-4 left-4">
-                    <Link 
-                      href={`/blog/${post.category?.slug?.current || ''}`}
-                      className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700"
-                    >
-                      {post.category?.title || 'Categorie necunoscută'}
-                    </Link>
+                  <div className="absolute top-3 left-3">
+                    <span className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-slate-800/80 text-white backdrop-blur-sm">
+                      {post.category?.title || 'Blog'}
+                    </span>
                   </div>
                 </div>
 
                 {/* Conținut */}
-                <div className="p-6">
-                  <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
-                    {publishedDate}
-                  </p>
+                <div className="p-5 flex flex-col flex-1">
+                  <p className="text-xs mb-2 text-slate-400">{publishedDate}</p>
 
-                  <h3 className="mb-3 text-xl font-bold leading-tight">
-                    <Link 
-                      href={`/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
-                      className="text-gray-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
-                    >
-                      {post.title}
-                    </Link>
+                  <h3 className="font-semibold text-base mb-2 line-clamp-2 transition-colors text-slate-900 group-hover:text-orange-600">
+                    {post.title}
                   </h3>
 
                   {post.excerpt && (
-                    <p className="mb-4 text-gray-600 line-clamp-2 dark:text-gray-300">
+                    <p className="text-sm leading-relaxed line-clamp-3 flex-1 text-slate-600">
                       {post.excerpt}
                     </p>
                   )}
 
-                  <Link 
-                    href={`/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
-                  >
-                    Citește mai mult
-                    <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                  <div className="mt-4 pt-4 border-t border-slate-100/40">
+                    <span className="inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold shadow-sm transition-all bg-gradient-to-r from-red-600 to-orange-500 text-white group-hover:from-red-700 group-hover:to-orange-600 group-hover:shadow-md group-hover:shadow-orange-500/30">
+                      Citește mai mult
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
                 </div>
-              </article>
+              </Link>
             )
           })}
-        </div>
-
-        {/* CTA către blog */}
-        <div className="text-center mt-12">
-          <Link
-            href="/blog"
-            className="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
-          >
-            Vezi Toate Articolele
-            <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </Link>
         </div>
       </div>
     </section>
   )
 }
-

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Loader2, Calendar, ArrowRight } from 'lucide-react';
 import { db } from '@/lib/firebase';
@@ -268,7 +267,7 @@ export default function NoutatiSection({
                         className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-orange-200 to-pink-300 flex items-center justify-center">
+                      <div className="w-full h-full bg-gradient-to-br from-orange-100 to-red-200 flex items-center justify-center">
                         <span className="text-slate-500 text-sm">Imagine în curând</span>
                       </div>
                     )}
@@ -366,30 +365,17 @@ export default function NoutatiSection({
             })}
           </div>
 
-          {itemsToShow ? (
-            <div className="flex justify-center">
-              <Link href="/noutati" passHref>
-                <Button
-                  variant={isHomepage ? 'outline' : 'outline'}
-                  className={cn(isHomepage ? 'border-slate-300 text-slate-800' : 'text-white border-white/40')}
-                >
-                  Mai multe noutăți <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+          {!itemsToShow && hasMore && filter === 'all' && (
+            <div ref={loadMoreRef} className="flex justify-center mt-8 mb-16">
+              {loadingMore && (
+                <div className="text-center">
+                  <Loader2 className="h-8 w-8 animate-spin mx-auto text-red-600" />
+                  <p className={cn('mt-2 text-sm', isHomepage ? 'text-slate-500' : 'text-white/70')}>
+                    Se încarcă mai multe noutăți...
+                  </p>
+                </div>
+              )}
             </div>
-          ) : (
-            hasMore && filter === 'all' && (
-              <div ref={loadMoreRef} className="flex justify-center mt-8 mb-16">
-                {loadingMore && (
-                  <div className="text-center">
-                    <Loader2 className="h-8 w-8 animate-spin mx-auto text-red-600" />
-                    <p className={cn('mt-2 text-sm', isHomepage ? 'text-slate-500' : 'text-white/70')}>
-                      Se încarcă mai multe noutăți...
-                    </p>
-                  </div>
-                )}
-              </div>
-            )
           )}
         </div>
       )}
@@ -421,7 +407,7 @@ function FeaturedCard({ item, isHomepage, formatDate }: FeaturedCardProps) {
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/40 via-red-600/40 to-pink-500/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/40 to-red-700/40" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/30" />
 

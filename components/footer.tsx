@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="flex justify-center">
             <Link
               href="/blog"
-              className="inline-flex items-center bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center bg-gradient-to-r from-red-600 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:from-red-700 hover:to-orange-600 transition-colors"
             >
               Vezi Toate Articolele
               <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -124,11 +124,11 @@ export default function Navbar() {
             {/* Social icons */}
             <div className="hidden sm:flex items-center gap-2 mr-1">
               <a href="https://www.facebook.com/scoaladedansinpasidedans" title="Facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
-                className="text-slate-400 hover:text-blue-600 transition-colors">
+                className="text-slate-400 hover:text-red-600 transition-colors">
                 <Facebook className="h-4 w-4" />
               </a>
               <a href="https://www.instagram.com/inpasidedans/" title="Instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                className="text-slate-400 hover:text-pink-500 transition-colors">
+                className="text-slate-400 hover:text-red-600 transition-colors">
                 <Instagram className="h-4 w-4" />
               </a>
               <a href="https://www.tiktok.com/@inpasidedans" title="TikTok" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
