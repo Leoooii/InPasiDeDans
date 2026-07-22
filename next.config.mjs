@@ -48,12 +48,19 @@ const nextConfig = {
         source: '/:path*',
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-          {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
+          },
+        ],
+      },
+      // API-urile nu au voie în cache-ul browserului — listele din admin
+      // (cursanți, grupe, prezențe) trebuie să fie mereu proaspete
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store',
           },
         ],
       },
