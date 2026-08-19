@@ -203,49 +203,6 @@ export default function CursuriDansCopii() {
           </div>
         </div>
 
-        {/* Ce înveți în primele 4 lecții */}
-        <div className="mt-12 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/20 dark:to-orange-950/20 rounded-2xl p-8 border border-red-200 dark:border-red-800">
-          <h2 className="text-2xl font-bold mb-2 text-center">Ce înveță copilul în primele 4 lecții</h2>
-          <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
-            Fiecare lecție este gândită să construiască baza dansului în mod natural și distractiv.
-          </p>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                nr: '1',
-                titlu: 'Ritm și postură',
-                desc: 'Copilul descoperă pulsul muzicii și învață primii pași de Cha Cha. Exerciții de postură corectă și mișcări de bază.',
-              },
-              {
-                nr: '2',
-                titlu: 'Coordonare',
-                desc: 'Sincronizarea mâinilor cu picioarele prin pașii de Jive. Jocuri ritmice care fac coordonarea amuzantă.',
-              },
-              {
-                nr: '3',
-                titlu: 'Dans în pereche',
-                desc: 'Introducere în dansul în cuplu: cum se ține mâna partenerului și cum se mișcă împreună în ritm.',
-              },
-              {
-                nr: '4',
-                titlu: 'Prima coregrafie',
-                desc: 'O mini-coregrafie de 4–8 pași combinați, prezentată în fața grupei. Primul moment de scenă!',
-              },
-            ].map((item) => (
-              <div
-                key={item.nr}
-                className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-red-100 dark:border-red-900"
-              >
-                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg mb-3">
-                  {item.nr}
-                </div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{item.titlu}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         <div className="mt-16">
           <div className="text-center mb-8 space-y-2">
             <h2 className="text-3xl font-bold">Grupe aflate în desfășurare</h2>
