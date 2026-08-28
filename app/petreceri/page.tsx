@@ -311,21 +311,21 @@ function WidePetrecere({ petrecere, featured }: { petrecere: Petrecere; featured
       className="group grid md:grid-cols-[1.4fr_1fr] rounded-3xl overflow-hidden bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/15 hover:border-orange-400/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/20"
     >
       {/* Image — large, left side on desktop */}
-      <div className="relative h-72 sm:h-96 md:h-auto md:min-h-[420px] overflow-hidden bg-slate-900">
+      <div className="relative aspect-[4/3] md:aspect-auto md:h-auto md:min-h-[420px] overflow-hidden bg-slate-900">
         <Image
           src={petrecere.imageUrl || '/placeholder.svg'}
           alt={petrecere.title}
           fill
           priority
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-contain transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 66vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-slate-950/40" />
 
-        {/* Floating chips on image */}
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+        {/* Floating chips on image — un singur rând flex cu wrap, ca să nu se suprapună pe mobil */}
+        <div className="absolute top-4 inset-x-4 flex flex-wrap items-start gap-2">
           {featured && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40">
+            <span className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40">
               ★ Cea mai apropiată
             </span>
           )}
@@ -336,16 +336,15 @@ function WidePetrecere({ petrecere, featured }: { petrecere: Petrecere; featured
             </span>
           )}
         </div>
-
-        {petrecere.badge && (
-          <div className="absolute top-4 right-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40">
-            ★ {petrecere.badge}
-          </div>
-        )}
       </div>
 
       {/* Content — right side on desktop */}
       <div className="p-6 md:p-10 lg:p-12 flex flex-col justify-center">
+        {petrecere.badge && (
+          <span className="self-start inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40 mb-4">
+            ★ {petrecere.badge}
+          </span>
+        )}
         <div className="inline-flex flex-wrap items-center gap-x-4 gap-y-2 self-start text-xs uppercase tracking-[0.2em] text-orange-300 mb-4">
           <span className="inline-flex items-center gap-2">
             <Calendar className="h-4 w-4" />
@@ -413,15 +412,14 @@ function UpcomingCard({ petrecere }: { petrecere: Petrecere }) {
             </span>
           </div>
         )}
-
-        {petrecere.badge && (
-          <div className="absolute top-4 right-4 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-400 to-red-500 text-slate-950 px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-lg shadow-black/40">
-            ★ {petrecere.badge}
-          </div>
-        )}
       </div>
 
       <div className="p-6 flex flex-col flex-1">
+        {petrecere.badge && (
+          <span className="self-start inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-orange-400 to-red-500 text-slate-950 px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-md shadow-black/20 mb-3">
+            ★ {petrecere.badge}
+          </span>
+        )}
         <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-200 transition-colors line-clamp-2">
           {petrecere.title}
         </h3>
