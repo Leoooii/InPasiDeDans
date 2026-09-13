@@ -164,9 +164,9 @@ const INITIAL_TARIFE: Omit<Tarif, "id">[] = [
     ordine: 4,
   },
   {
-    titlu: "Ședință la restaurant (în București)",
-    descriere: "",
-    pret: 200,
+    titlu: "Ședință la restaurant",
+    descriere: "La cerere, dacă instructorul are disponibilitate și restaurantul este în București.",
+    pret: 300,
     moneda: "Lei",
     categorie: "privat",
     beneficii: [],

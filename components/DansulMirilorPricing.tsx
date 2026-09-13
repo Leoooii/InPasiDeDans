@@ -22,7 +22,7 @@ const FALLBACK: Tarif[] = [
   { id: 'p2', titlu: 'Pachet 6 ședințe', descriere: 'Pentru cuplurile care doresc un dans memorabil cu elemente speciale.', pret: 900, moneda: 'Lei', beneficii: ['6 ședințe private (60 min/sed)', 'Coregrafie cu grad de dificultate mediu pe melodia aleasă', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei', 'Pachetul poate fi prelungit cu oricate ședințe la prețul/ședință din pachetul ales inițial'], popular: true, ordine: 2 },
   { id: 'p3', titlu: 'Pachet 8 ședințe', descriere: 'Experiența completă pentru un moment cu adevărat spectaculos.', pret: 1120, moneda: 'Lei', beneficii: ['8 ședințe private (60 min/sed)', 'Coregrafie personalizată cu grad de dificultate mediu sau ridicat', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei', 'Pachetul poate fi prelungit cu oricate ședințe la prețul/ședință din pachetul ales inițial'], popular: false, ordine: 3 },
   { id: 'p4', titlu: 'Plata la ședință', descriere: '', pret: 200, moneda: 'Lei', beneficii: [], popular: false, ordine: 4 },
-  { id: 'p5', titlu: 'Ședință la restaurant (în București)', descriere: '', pret: 200, moneda: 'Lei', beneficii: [], popular: false, ordine: 5 },
+  { id: 'p5', titlu: 'Ședință la restaurant', descriere: 'La cerere, dacă instructorul are disponibilitate și restaurantul este în București.', pret: 300, moneda: 'Lei', beneficii: [], popular: false, ordine: 5 },
 ]
 
 export default function DansulMirilorPricing() {
