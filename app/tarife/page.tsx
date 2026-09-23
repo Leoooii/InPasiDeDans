@@ -31,9 +31,9 @@ type Tarif = {
 }
 
 const FALLBACK_PRIVAT: Tarif[] = [
-  { id: 'p1', titlu: 'Pachet 4 ședințe', descriere: '', pret: 680, moneda: 'Lei', categorie: 'privat', beneficii: ['4 ședințe private', 'Instructor dedicat'], popular: false, ordine: 1 },
-  { id: 'p2', titlu: 'Pachet 6 ședințe', descriere: '', pret: 960, moneda: 'Lei', categorie: 'privat', beneficii: ['6 ședințe private', 'Instructor dedicat'], popular: false, ordine: 2 },
-  { id: 'p3', titlu: 'Pachet 8 ședințe', descriere: '', pret: 1200, moneda: 'Lei', categorie: 'privat', beneficii: ['8 ședințe private', 'Instructor dedicat'], popular: false, ordine: 3 },
+  { id: 'p1', titlu: 'Pachet 4 ședințe', descriere: '', pret: 680, moneda: 'Lei', categorie: 'privat', beneficii: ['4 ședințe private', 'Valabilitate 2 luni', 'Instructor dedicat'], popular: false, ordine: 1 },
+  { id: 'p2', titlu: 'Pachet 6 ședințe', descriere: '', pret: 960, moneda: 'Lei', categorie: 'privat', beneficii: ['6 ședințe private', 'Valabilitate 3 luni', 'Instructor dedicat'], popular: false, ordine: 2 },
+  { id: 'p3', titlu: 'Pachet 8 ședințe', descriere: '', pret: 1200, moneda: 'Lei', categorie: 'privat', beneficii: ['8 ședințe private', 'Valabilitate 4 luni', 'Instructor dedicat'], popular: false, ordine: 3 },
   { id: 'p4', titlu: 'Plata la ședință', descriere: '', pret: 200, moneda: 'Lei', categorie: 'privat', beneficii: ['O ședință privată', 'Instructor dedicat'], popular: false, ordine: 4 },
   { id: 'p5', titlu: 'Ședință la restaurant', descriere: 'La cerere, dacă instructorul are disponibilitate și restaurantul este în București.', pret: 300, moneda: 'Lei', categorie: 'privat', beneficii: [], popular: false, ordine: 5 },
 ]
