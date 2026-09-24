@@ -39,3 +39,13 @@ Slug-uri generate cu [lib/slug.ts](lib/slug.ts) (curăță diacritice + asigură
 
 ## Formulare contact
 [components/contact-form.tsx](components/contact-form.tsx), [components/LatinoSignupForm.tsx](components/LatinoSignupForm.tsx), [app/inscriere/InscriereForm.tsx](app/inscriere/InscriereForm.tsx) — toate cer telefon obligatoriu (atât HTML5 `required` cât și validare server-side în [app/api/send/route.ts](app/api/send/route.ts) cu Zod).
+
+## Componente comune (nu mai crea variante noi)
+- Butoane: `<Button variant="brand">` (gradient), `outline`, `outlineLight` (pe fundal închis); link-uri cu `<Button asChild><Link>`.
+- Prețuri: [components/tarif-card.tsx](components/tarif-card.tsx) (`useTarife`, `TarifCard`, `TarifTile`, `TarifBanda`); rezervă în [lib/tarife-fallback.ts](lib/tarife-fallback.ts) — ține-o aliniată cu Firestore.
+- FAQ: [components/faq-block.tsx](components/faq-block.tsx) (emite și schema FAQPage); conținut în `lib/faq-*.ts`.
+- Pagini închise la culoare: [components/dark-page.tsx](components/dark-page.tsx); detalii petreceri/excursii: [components/detaliu-activitate.tsx](components/detaliu-activitate.tsx).
+- Formulare publice: hook-ul [hooks/use-trimitere-formular.ts](hooks/use-trimitere-formular.ts).
+- Butonul plutitor „Grupe noi!” e montat în [components/conditional-layout.tsx](components/conditional-layout.tsx) (lista de rute acolo).
+
+Istoric modificări și pași rămași: [docs/jurnal-modificari.md](docs/jurnal-modificari.md).
