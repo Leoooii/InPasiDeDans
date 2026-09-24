@@ -345,7 +345,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
             {/* Imagine completă în ramă cu glow */}
             {item.imageUrl && (
               <div className="relative">
-                <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-orange-400/40 via-red-500/30 to-pink-500/40 blur-2xl" />
+                <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-orange-400/40 via-red-500/30 to-orange-500/40 blur-2xl" />
                 <div className="relative rounded-2xl overflow-hidden ring-1 ring-white/20 shadow-2xl shadow-black/60 bg-slate-950">
                   <img
                     src={item.imageUrl}
@@ -433,7 +433,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
                   className="group flex flex-col items-center gap-1.5 rounded-xl bg-white/[0.03] hover:bg-orange-500/20 ring-1 ring-white/10 hover:ring-orange-500/40 px-3 py-3 transition-all"
                 >
                   {copied ? (
-                    <Check className="h-5 w-5 text-green-400" />
+                    <Check className="h-5 w-5 text-orange-400" />
                   ) : (
                     <Link2 className="h-5 w-5 text-white group-hover:text-orange-300 transition-colors" />
                   )}
@@ -446,7 +446,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
 
             {/* Event date card */}
             {isEvent && (
-              <div className="relative overflow-hidden rounded-3xl p-px bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 shadow-2xl shadow-orange-500/20">
+              <div className="relative overflow-hidden rounded-3xl p-px bg-gradient-to-br from-orange-400 via-red-500 to-orange-500 shadow-2xl shadow-orange-500/20">
                 <div className="rounded-[calc(1.5rem-1px)] bg-slate-950 p-6">
                   <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-orange-300 mb-3">
                     <Calendar className="h-3.5 w-3.5" />

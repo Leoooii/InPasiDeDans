@@ -78,8 +78,8 @@ const reasons = [
     icon: Heart,
     title: 'Atmosferă relaxată',
     desc: 'Te simți ca între prieteni, indiferent dacă vii singur(ă) sau cu partener.',
-    color: 'text-pink-500',
-    bg: 'bg-pink-50 ',
+    color: 'text-orange-500',
+    bg: 'bg-orange-50 ',
   },
   {
     icon: Award,
@@ -92,8 +92,8 @@ const reasons = [
     icon: Users,
     title: 'Comunitate',
     desc: 'Faci parte dintr-un grup cu aceleași pasiuni și creezi amintiri frumoase.',
-    color: 'text-blue-500',
-    bg: 'bg-blue-50 ',
+    color: 'text-red-500',
+    bg: 'bg-red-50 ',
   },
   {
     icon: Clock,
@@ -268,7 +268,7 @@ export default function DansuriDeSocietate() {
               imageSrc: '/images/private.png',
               imageAlt: 'Lecții private de dans',
               href: '/lectii-private',
-              gradient: 'from-green-500 to-teal-600',
+              gradient: 'from-orange-500 to-orange-600',
             },
             {
               id: 3,

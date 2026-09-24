@@ -189,7 +189,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                       href={instructor.facebookUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-blue-600 transition-all duration-300 hover:scale-110"
+                      className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
                       aria-label={`Facebook ${instructor.name}`}
                     >
                       <Facebook size={18} />
@@ -200,7 +200,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                       href={instructor.instagramUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-pink-600 transition-all duration-300 hover:scale-110"
+                      className="text-gray-400 hover:text-orange-600 transition-all duration-300 hover:scale-110"
                       aria-label={`Instagram ${instructor.name}`}
                     >
                       <Instagram size={18} />

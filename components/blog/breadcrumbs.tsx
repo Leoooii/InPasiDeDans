@@ -18,7 +18,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         <li>
           <Link 
             href="/" 
-            className="flex items-center text-gray-500 hover:text-blue-600 "
+            className="flex items-center text-gray-500 hover:text-red-600 "
           >
             <Home className="h-4 w-4" />
             <span className="sr-only">Acasă</span>
@@ -31,7 +31,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
             {item.href ? (
               <Link 
                 href={item.href}
-                className="text-gray-500 hover:text-blue-600 "
+                className="text-gray-500 hover:text-red-600 "
               >
                 {item.label}
               </Link>

@@ -253,7 +253,7 @@ export default function DansuriLatino() {
               imageSrc: '/images/societate.png',
               imageAlt: 'Dansuri de societate',
               href: '/dansuri-de-societate',
-              gradient: 'from-blue-500 to-purple-600',
+              gradient: 'from-red-500 to-orange-600',
             },
             {
               id: 2,
@@ -262,7 +262,7 @@ export default function DansuriLatino() {
               imageSrc: '/images/private.png',
               imageAlt: 'Lecții private de dans',
               href: '/lectii-private',
-              gradient: 'from-green-500 to-teal-600',
+              gradient: 'from-orange-500 to-orange-600',
             },
             {
               id: 3,

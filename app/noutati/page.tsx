@@ -60,7 +60,7 @@ export default async function NoutatiPage() {
           style={{ animationDelay: '2s' }}
         />
         <div
-          className="absolute bottom-0 left-1/3 h-[28rem] w-[28rem] rounded-full bg-pink-500/10 blur-[120px] animate-pulse"
+          className="absolute bottom-0 left-1/3 h-[28rem] w-[28rem] rounded-full bg-orange-500/10 blur-[120px] animate-pulse"
           style={{ animationDelay: '4s' }}
         />
       </div>
@@ -100,15 +100,15 @@ export default async function NoutatiPage() {
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-1.5 mb-6 text-xs uppercase tracking-[0.2em] text-orange-300">
               <Sparkles className="h-3.5 w-3.5" />
-              Magazinul școlii de dans
+              Noutăți din școala de dans
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
-              <span className="bg-gradient-to-r from-orange-300 via-red-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-300 via-red-400 to-orange-400 bg-clip-text text-transparent">
                 Noutăți
               </span>{' '}
               &{' '}
-              <span className="bg-gradient-to-r from-pink-400 via-red-400 to-orange-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-400 via-red-400 to-orange-300 bg-clip-text text-transparent">
                 Evenimente
               </span>
             </h1>

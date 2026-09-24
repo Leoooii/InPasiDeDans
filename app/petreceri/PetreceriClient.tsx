@@ -101,7 +101,7 @@ export default function Petreceri({ initial }: { initial?: Petrecere[] | null })
             style={{ animationDelay: '1.5s' }}
           />
           <div
-            className="absolute bottom-0 right-1/3 h-[28rem] w-[28rem] rounded-full bg-pink-500/10 blur-[120px] animate-pulse"
+            className="absolute bottom-0 right-1/3 h-[28rem] w-[28rem] rounded-full bg-orange-500/10 blur-[120px] animate-pulse"
             style={{ animationDelay: '3.5s' }}
           />
         </div>
@@ -127,7 +127,7 @@ export default function Petreceri({ initial }: { initial?: Petrecere[] | null })
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
-                  <span className="bg-gradient-to-r from-orange-300 via-red-400 to-pink-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-orange-300 via-red-400 to-orange-400 bg-clip-text text-transparent">
                     Petreceri
                   </span>
                   <br />
@@ -270,13 +270,13 @@ function ConfettiBackground() {
     { top: '22%', left: '45%', color: 'bg-orange-500/60', size: 'h-2.5 w-2.5', delay: '1.1s' },
     { top: '38%', left: '8%', color: 'bg-red-300/60', size: 'h-2 w-2', delay: '0.8s' },
     { top: '44%', left: '88%', color: 'bg-orange-300/55', size: 'h-2 w-2', delay: '1.6s' },
-    { top: '55%', left: '32%', color: 'bg-pink-400/50', size: 'h-1.5 w-1.5', delay: '0.6s' },
+    { top: '55%', left: '32%', color: 'bg-orange-400/50', size: 'h-1.5 w-1.5', delay: '0.6s' },
     { top: '62%', left: '62%', color: 'bg-orange-400/55', size: 'h-2.5 w-2.5', delay: '2.1s' },
     { top: '72%', left: '18%', color: 'bg-red-400/50', size: 'h-2 w-2', delay: '1.3s' },
     { top: '78%', left: '82%', color: 'bg-orange-500/60', size: 'h-1.5 w-1.5', delay: '0.2s' },
     { top: '85%', left: '50%', color: 'bg-orange-300/60', size: 'h-2 w-2', delay: '1.8s' },
     { top: '30%', left: '25%', color: 'bg-red-300/45', size: 'h-1 w-1', delay: '2.4s' },
-    { top: '52%', left: '92%', color: 'bg-pink-300/55', size: 'h-1.5 w-1.5', delay: '0.9s' },
+    { top: '52%', left: '92%', color: 'bg-orange-300/55', size: 'h-1.5 w-1.5', delay: '0.9s' },
   ];
 
   return (

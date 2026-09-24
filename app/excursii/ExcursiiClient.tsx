@@ -99,7 +99,7 @@ export default function Excursii({ initial }: { initial?: Excursie[] | null }) {
           style={{ animationDelay: '2s' }}
         />
         <div
-          className="absolute bottom-0 -left-20 h-[28rem] w-[28rem] rounded-full bg-pink-500/10 blur-[120px] animate-pulse"
+          className="absolute bottom-0 -left-20 h-[28rem] w-[28rem] rounded-full bg-orange-500/10 blur-[120px] animate-pulse"
           style={{ animationDelay: '4s' }}
         />
       </div>
@@ -127,7 +127,7 @@ export default function Excursii({ initial }: { initial?: Excursie[] | null }) {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
                 <span className="text-white">Călătorește</span>
                 <br />
-                <span className="bg-gradient-to-r from-orange-300 via-red-400 to-pink-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-300 via-red-400 to-orange-400 bg-clip-text text-transparent">
                   și dansează
                 </span>
               </h1>

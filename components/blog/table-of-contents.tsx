@@ -120,9 +120,9 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
               >
                 <button
                   onClick={() => scrollToHeading(heading.id)}
-                  className={`w-full text-left transition-colors hover:text-blue-600 ${
+                  className={`w-full text-left transition-colors hover:text-red-600 ${
                     activeId === heading.id
-                      ? 'font-semibold text-blue-600 '
+                      ? 'font-semibold text-red-600 '
                       : 'text-gray-600 '
                   }`}
                 >

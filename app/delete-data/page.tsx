@@ -8,7 +8,7 @@ export default function DeleteData() {
         Pentru a solicita ștergerea datelor dumneavoastră, contactați-ne la{' '}
         <Link
           href="mailto:lioneh39@gmail.com"
-          className="text-blue-600 underline"
+          className="text-red-600 underline"
         >
           lioneh39@gmail.com
         </Link>

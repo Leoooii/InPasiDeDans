@@ -191,7 +191,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             <div className="container mx-auto">
               <Link 
                 href={`/blog/${post.category?.slug?.current || ''}`}
-                className="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 hover:bg-blue-700 transition-colors"
+                className="inline-block bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 hover:bg-red-700 transition-colors"
               >
                 {post.category?.title || 'Categorie necunoscută'}
               </Link>
@@ -210,7 +210,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
               <div className="flex items-center gap-2">
                 <Link 
                   href={`/blog/autor/${post.author?.slug?.current || ''}`}
-                  className="flex items-center gap-2 hover:text-blue-600 transition-colors"
+                  className="flex items-center gap-2 hover:text-red-600 transition-colors"
                 >
                   {post.author?.image?.asset && (
                     <Image
@@ -245,7 +245,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
 
             {/* Excerpt */}
             {post.excerpt && (
-              <div className="mb-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+              <div className="mb-8 p-6 bg-red-50 rounded-lg border-l-4 border-red-500">
                 <p className="text-lg text-gray-700 italic">
                   {post.excerpt}
                 </p>
@@ -310,24 +310,24 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
         )}
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-red-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">
               Vrei să Înveți {(post.category?.title || 'dansul').toLowerCase()}?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
               Alătură-te cursurilor noastre și descoperă bucuria dansului cu instructori profesioniști!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/inscriere"
-                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
                 Înscrie-te la Cursuri
               </Link>
               <Link
                 href="/contact"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition-colors"
               >
                 Contactează-ne
               </Link>

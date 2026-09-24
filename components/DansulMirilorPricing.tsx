@@ -66,8 +66,8 @@ export default function DansulMirilorPricing() {
                   <ul className="space-y-3">
                     {tarif.beneficii.map((b, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <div className="mt-0.5 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                          <Check className="h-3 w-3 text-green-600 " />
+                        <div className="mt-0.5 w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                          <Check className="h-3 w-3 text-orange-600 " />
                         </div>
                         <span className="text-sm text-gray-700 leading-snug">{b}</span>
                       </li>

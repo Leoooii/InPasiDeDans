@@ -51,9 +51,9 @@ export default function LocationSection() {
         </div>
 
         {/* Harta cu butoane de navigație */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-lg border border-blue-200 ">
+        <div className="bg-gradient-to-br from-red-50 to-red-50 rounded-xl p-6 shadow-lg border border-red-200 ">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-bold text-blue-900 mb-2">Ne găsești aici</h3>
+            <h3 className="text-xl font-bold text-red-900 mb-2">Ne găsești aici</h3>
             <p className="text-gray-600 text-sm">Obține direcții către școala noastră</p>
           </div>
           
@@ -94,7 +94,7 @@ export default function LocationSection() {
               href="https://www.google.com/maps/search/?api=1&query=Calea+Rahovei+262+Sector+5+Bucuresti+Romania"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl text-sm"
+              className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl text-sm"
             >
               <MapPin className="h-4 w-4" />
               Vezi pe Maps
@@ -103,7 +103,7 @@ export default function LocationSection() {
               href="https://www.google.com/maps/dir/?api=1&destination=Calea+Rahovei+262+Sector+5+Bucuresti+Romania"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl text-sm"
+              className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl text-sm"
             >
               <Navigation className="h-4 w-4" />
               Direcții

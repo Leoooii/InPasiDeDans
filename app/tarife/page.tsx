@@ -53,7 +53,7 @@ function TarifCards({ tarife }: { tarife: Tarif[] }) {
                 <ul className="space-y-2">
                   {tarif.beneficii.map((b, i) => (
                     <li key={i} className="flex items-center">
-                      <Check className="mr-2 h-4 w-4 text-green-500" aria-label="Inclus" />
+                      <Check className="mr-2 h-4 w-4 text-orange-500" aria-label="Inclus" />
                       <span>{b}</span>
                     </li>
                   ))}

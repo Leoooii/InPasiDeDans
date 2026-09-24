@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   return (
     <div className="min-h-screen bg-gray-50 ">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+      <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs 
             items={[
@@ -109,10 +109,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               {category.title}
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-4">
+            <p className="text-xl md:text-2xl text-red-100 mb-4">
               {category.description}
             </p>
-            <p className="text-lg text-blue-100">
+            <p className="text-lg text-red-100">
               {posts.length} {posts.length === 1 ? 'articol' : 'articole'} disponibile
             </p>
           </div>
@@ -141,7 +141,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
               </p>
               <a
                 href="/blog"
-                className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
               >
                 Vezi toate articolele
                 <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,24 +154,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-red-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">
             Interesat de {category.title.toLowerCase()}?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
             Descoperă cursurile noastre de {category.title.toLowerCase()} și începe să înveți cu instructori profesioniști!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/inscriere"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Înscrie-te la Cursuri
             </a>
             <a
               href="/contact"
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition-colors"
             >
               Află Mai Multe
             </a>

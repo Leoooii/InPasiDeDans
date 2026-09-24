@@ -149,7 +149,7 @@ export default function PrivacyPolicy() {
             Pentru a exercita aceste drepturi, vă rugăm să ne contactați la{' '}
             <Link
               href="mailto:inpasidedans@gmail.com"
-              className="text-blue-600 underline"
+              className="text-red-600 underline"
             >
               inpasidedans@gmail.com
             </Link>
@@ -180,7 +180,7 @@ export default function PrivacyPolicy() {
             Confidențialitate, vă rugăm să ne contactați la{' '}
             <Link
               href="mailto:inpasidedans@gmail.com"
-              className="text-blue-600 underline"
+              className="text-red-600 underline"
             >
               inpasidedans@gmail.com
             </Link>

@@ -5,22 +5,22 @@ const structureFeatures = [
     icon: Users,
     title: "Grupe pe nivel de experiență",
     description: "Dansăm împreună, dar în ritmul potrivit pentru tine: începători, intermediari sau avansați.",
-    iconBgColor: "from-blue-500 to-blue-600",
-    accentColor: "text-blue-600"
+    iconBgColor: "from-red-500 to-red-600",
+    accentColor: "text-red-600"
   },
   {
     icon: CheckSquare,
     title: "9 Stiluri diferite de Dansuri Latino",
     description: "Explorează 9 stiluri de dans: salsa, bachata, rueda, cha cha, samba, rumba, jive, lindy hop și paso doble.",
-    iconBgColor: "from-purple-500 to-purple-600",
-    accentColor: "text-purple-600"
+    iconBgColor: "from-orange-500 to-orange-600",
+    accentColor: "text-orange-600"
   },
   {
     icon: Clock,
     title: "Lecții de dans structurate pentru progres",
     description: "Ore gândite să fie dinamice și clare, astfel încât să vezi rapid evoluția ta pe ringul de dans.",
-    iconBgColor: "from-green-500 to-green-600",
-    accentColor: "text-green-600"
+    iconBgColor: "from-orange-500 to-orange-600",
+    accentColor: "text-orange-600"
   },
   {
     icon: Smile,

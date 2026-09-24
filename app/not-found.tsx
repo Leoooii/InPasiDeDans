@@ -35,12 +35,12 @@ export default function NotFound() {
   const progressPercentage = ((10 - countdown) / 10) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl mx-auto shadow-2xl">
         <CardContent className="p-8 text-center">
           {/* Logo */}
           <div className="mb-8">
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4">
+            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-orange-500 to-orange-500 rounded-full flex items-center justify-center mb-4">
               <Search className="w-12 h-12 text-white" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -52,7 +52,7 @@ export default function NotFound() {
           </div>
 
           {/* Mesaj explicativ */}
-          <div className="mb-8 p-6 bg-blue-50 rounded-lg">
+          <div className="mb-8 p-6 bg-red-50 rounded-lg">
             <p className="text-gray-700 mb-4">
               Este posibil că link-ul pe care l-ai accesat să fie din vechiul
               nostru site. Am actualizat recent structura site-ului pentru o
@@ -69,7 +69,7 @@ export default function NotFound() {
             <div className="mb-6">
               <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
                 <div
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000 ease-linear"
+                  className="bg-gradient-to-r from-orange-500 to-orange-500 h-2 rounded-full transition-all duration-1000 ease-linear"
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
@@ -99,7 +99,7 @@ export default function NotFound() {
                   variant="outline"
                   size="lg"
                   onClick={handleCancelRedirect}
-                  className="border-purple-300 text-purple-600 hover:bg-purple-50 "
+                  className="border-orange-300 text-orange-600 hover:bg-orange-50 "
                 >
                   <ArrowLeft className="w-5 h-5 mr-2" />
                   Anulează redirectul
@@ -116,50 +116,50 @@ export default function NotFound() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
               <Link
                 href="/cursuri-dans-adulti"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Cursuri Dans Adulți
               </Link>
               <Link
                 href="/cursuri-dans-copii"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Cursuri Dans Copii
               </Link>
               <Link
                 href="/grupe-in-formare"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Grupe în Formare
               </Link>
               <Link
                 href="/instructori"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Instructori
               </Link>
               <Link
                 href="/tarife"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Tarife
               </Link>
               <Link
                 href="/contact"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Contact
               </Link>
 
               <Link
                 href="/noutati"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Evenimente
               </Link>
               <Link
                 href="/excursii"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 Excursii
               </Link>
@@ -172,7 +172,7 @@ export default function NotFound() {
               Dacă problema persistă, te rugăm să ne contactezi la{' '}
               <Link
                 href="/contact"
-                className="text-purple-600 hover:text-purple-800 hover:underline"
+                className="text-orange-600 hover:text-orange-800 hover:underline"
               >
                 pagina de contact
               </Link>

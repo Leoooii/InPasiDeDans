@@ -199,7 +199,7 @@ function Slide({ instructor, isFirst }: { instructor: Instructor; isFirst?: bool
       <div className="relative flex items-center justify-center p-6 md:p-8">
         <div className="relative w-[260px] sm:w-[300px] md:w-[320px] lg:w-[360px] max-w-full">
           {/* Soft orange/red halo behind image */}
-          <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-orange-400/25 via-red-500/15 to-pink-500/25 blur-2xl" />
+          <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-orange-400/25 via-red-500/15 to-orange-500/25 blur-2xl" />
 
           <img
             src={imageUrl || '/placeholder.svg'}
@@ -254,7 +254,7 @@ function Slide({ instructor, isFirst }: { instructor: Instructor; isFirst?: bool
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Instagram ${name}`}
-                className="h-10 w-10 inline-flex items-center justify-center rounded-full bg-white/5 border border-white/15 text-white hover:bg-pink-600 hover:border-pink-600 hover:scale-110 transition-all"
+                className="h-10 w-10 inline-flex items-center justify-center rounded-full bg-white/5 border border-white/15 text-white hover:bg-orange-600 hover:border-orange-600 hover:scale-110 transition-all"
               >
                 <Instagram className="h-4 w-4" />
               </a>

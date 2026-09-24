@@ -30,15 +30,15 @@ const infoCards = [
     icon: Users,
     title: 'Cui se adresează?',
     text: 'Cursurile sunt deschise tuturor — fie că ești la început, fie că ai mai dansat. Se potrivesc copiilor, adolescenților și adulților, fiind o modalitate minunată de a petrece timpul liber activ și cultural.',
-    color: 'text-blue-500',
-    bg: 'bg-blue-50 ',
+    color: 'text-red-500',
+    bg: 'bg-red-50 ',
   },
   {
     icon: Calendar,
     title: 'Când sunt potrivite?',
     text: 'Ideale pentru nunți, petreceri, festivaluri sau evenimente tradiționale, dar și ca activitate recreativă ce aduce mișcare, voie bună și prietenii noi.',
-    color: 'text-green-500',
-    bg: 'bg-green-50 ',
+    color: 'text-orange-500',
+    bg: 'bg-orange-50 ',
   },
 ];
 
@@ -135,7 +135,7 @@ export default function DansuriPopulare() {
             imageSrc: '/images/societate.png',
             imageAlt: 'Dansuri de societate',
             href: '/dansuri-de-societate',
-            gradient: 'from-blue-500 to-purple-600',
+            gradient: 'from-red-500 to-orange-600',
           },
           {
             id: 3,
@@ -144,7 +144,7 @@ export default function DansuriPopulare() {
             imageSrc: '/images/private.png',
             imageAlt: 'Cursuri particulare de dans',
             href: '/lectii-private',
-            gradient: 'from-green-500 to-teal-600',
+            gradient: 'from-orange-500 to-orange-600',
           },
         ]}
         sectionTitle="Explorează și alte dansuri"

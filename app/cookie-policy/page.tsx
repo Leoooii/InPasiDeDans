@@ -90,7 +90,7 @@ export default function CookiePolicy() {
             să ne contactați la adresa:{' '}
             <Link
               href="mailto:lioneh39@gmail.com"
-              className="text-blue-600 underline"
+              className="text-red-600 underline"
             >
               lioneh39@gmail.com
             </Link>

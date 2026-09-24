@@ -116,7 +116,7 @@ export default function PricingSection({ title }: { title?: string }) {
                     {plan.beneficii.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <Check
-                          className="mr-2 h-4 w-4 text-green-500 flex-shrink-0 mt-0.5"
+                          className="mr-2 h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5"
                           aria-label="Inclus"
                         />
                         <span className="text-sm leading-relaxed">{feature}</span>

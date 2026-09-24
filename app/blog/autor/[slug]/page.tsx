@@ -58,7 +58,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   return (
     <div className="min-h-screen bg-gray-50 ">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+      <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs 
             items={[
@@ -84,19 +84,19 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
             </h1>
             
             {author.role && (
-              <p className="text-xl text-blue-100 mb-4">
+              <p className="text-xl text-red-100 mb-4">
                 {author.role}
               </p>
             )}
             
             {author.experienceYears && (
-              <p className="text-lg text-blue-100 mb-6">
+              <p className="text-lg text-red-100 mb-6">
                 Experiență: {author.experienceYears} ani în predarea dansului
               </p>
             )}
             
             {author.bio && author.bio.length > 0 && (
-              <div className="text-lg text-blue-100 max-w-3xl mx-auto space-y-3">
+              <div className="text-lg text-red-100 max-w-3xl mx-auto space-y-3">
                 {author.bio.map((block: any, index: number) => {
                   if (block._type === 'block') {
                     const text = block.children?.map((child: any) => child.text).join('') || ''
@@ -107,7 +107,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
               </div>
             )}
             
-            <p className="mt-6 text-blue-100">
+            <p className="mt-6 text-red-100">
               {posts.length} {posts.length === 1 ? 'articol publicat' : 'articole publicate'}
             </p>
           </div>

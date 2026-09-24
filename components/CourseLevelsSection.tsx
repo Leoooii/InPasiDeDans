@@ -27,9 +27,9 @@ export default function CourseLevelsSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-green-400 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-orange-400 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div className="flex items-center mb-4">
-              <div className="w-4 h-4 bg-green-400 rounded-full mr-3"></div>
+              <div className="w-4 h-4 bg-orange-400 rounded-full mr-3"></div>
               <h4 className="text-xl font-bold text-gray-800">Începători</h4>
             </div>
             <p className="text-gray-600 leading-relaxed">

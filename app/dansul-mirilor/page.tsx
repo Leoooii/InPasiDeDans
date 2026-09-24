@@ -138,8 +138,8 @@ export default async function DansulMirilor() {
                 icon: Shield,
                 title: 'Săli private',
                 desc: 'Toate ședințele se desfășoară în săli private. Veți fi doar voi și instructorul în sală.',
-                color: 'text-rose-500',
-                bg: 'bg-rose-50 ',
+                color: 'text-red-500',
+                bg: 'bg-red-50 ',
               },
               {
                 icon: Clock,
@@ -152,8 +152,8 @@ export default async function DansulMirilor() {
                 icon: Heart,
                 title: 'Atmosferă relaxată',
                 desc: 'Creăm o atmosferă prietenoasă și relaxată, pentru a vă ajuta să vă simțiți confortabil.',
-                color: 'text-pink-500',
-                bg: 'bg-pink-50 ',
+                color: 'text-orange-500',
+                bg: 'bg-orange-50 ',
               },
             ].map(({ icon: Icon, title, desc, color, bg }) => (
               <div

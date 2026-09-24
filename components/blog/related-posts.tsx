@@ -119,7 +119,7 @@ export default function RelatedPosts({ posts, currentPostTitle }: RelatedPostsPr
                   onClick={() => setCurrentSlide(index)}
                   className={`h-2 rounded-full transition-all ${
                     index === currentSlide
-                      ? 'w-8 bg-blue-600'
+                      ? 'w-8 bg-red-600'
                       : 'w-2 bg-gray-300 '
                   }`}
                   aria-label={`Slide ${index + 1}`}

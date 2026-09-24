@@ -71,7 +71,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
               'rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide backdrop-blur-sm',
               isDark
                 ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-md shadow-black/40'
-                : 'bg-blue-600 text-white'
+                : 'bg-red-600 text-white'
             )}
           >
             {post.category?.title || 'Categorie'}
@@ -96,7 +96,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
             'mb-3 text-xl font-bold leading-tight line-clamp-2 transition-colors',
             isDark
               ? 'text-white group-hover:text-orange-300'
-              : 'text-gray-900 group-hover:text-blue-600 '
+              : 'text-gray-900 group-hover:text-red-600 '
           )}
         >
           {post.title}
@@ -147,7 +147,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
               'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all',
               isDark
                 ? 'bg-gradient-to-r from-red-600 to-orange-500 text-white group-hover:from-red-700 group-hover:to-orange-600 group-hover:shadow-md group-hover:shadow-orange-500/30'
-                : 'text-blue-600 hover:text-blue-700 '
+                : 'text-red-600 hover:text-red-700 '
             )}
           >
             Citește mai mult

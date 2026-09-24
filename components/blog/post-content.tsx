@@ -40,7 +40,7 @@ function PortableText({ content }: PostContentProps) {
                       href={linkMark.href}
                       target={linkMark.blank ? '_blank' : '_self'}
                       rel={linkMark.blank ? 'noopener noreferrer' : undefined}
-                      className="text-blue-600 hover:text-blue-700 "
+                      className="text-red-600 hover:text-red-700 "
                     >
                       {element}
                     </a>
@@ -63,7 +63,7 @@ function PortableText({ content }: PostContentProps) {
               return <h4 key={index} className="text-lg font-semibold mt-4 mb-2 text-gray-900 ">{children}</h4>
             case 'blockquote':
               return (
-                <blockquote key={index} className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6">
+                <blockquote key={index} className="border-l-4 border-red-500 pl-4 italic text-gray-700 my-6">
                   {children}
                 </blockquote>
               )

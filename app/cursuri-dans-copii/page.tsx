@@ -220,9 +220,9 @@ export default async function CursuriDansCopii() {
             <p className="text-gray-500 ">Alegeti grupa potrivită nivelului copilului vostru</p>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
-            <Card className="border-2 border-green-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+            <Card className="border-2 border-orange-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
               <CardContent className="p-7">
-                <div className="inline-flex items-center gap-1.5 bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                <div className="inline-flex items-center gap-1.5 bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">
                   <Users className="w-3 h-3" />
                   Începători
                 </div>
@@ -231,11 +231,11 @@ export default async function CursuriDansCopii() {
                   Cha cha, jive, vals lent și quick step.
                 </p>
                 <div className="flex items-center gap-2 text-sm text-gray-600 ">
-                  <Calendar className="w-4 h-4 text-green-500" />
+                  <Calendar className="w-4 h-4 text-orange-500" />
                   <span>Marți și Joi</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600 mt-1.5">
-                  <Clock className="w-4 h-4 text-green-500" />
+                  <Clock className="w-4 h-4 text-orange-500" />
                   <span>17:30 – 18:30</span>
                 </div>
               </CardContent>
