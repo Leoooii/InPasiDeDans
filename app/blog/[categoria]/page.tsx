@@ -94,7 +94,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-slate-50 ">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
@@ -136,10 +136,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           ) : (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📂</div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-2xl font-semibold text-slate-900 mb-2">
                 Încă nu sunt articole în această categorie
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-slate-600 mb-6">
                 Categoria "{category.title}" va fi populată în curând cu conținut nou.
               </p>
               <a
@@ -168,7 +168,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/inscriere"
-              className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors"
             >
               Înscrie-te la Cursuri
             </a>

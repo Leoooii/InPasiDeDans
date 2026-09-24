@@ -229,7 +229,7 @@ export default function FolkDancesRegions() {
         <h2 className="text-3xl font-bold">
           Dansuri din toate regiunile României
         </h2>
-        <p className="text-gray-500 max-w-xl mx-auto">
+        <p className="text-slate-500 max-w-xl mx-auto">
           Descoperă diversitatea dansurilor populare românești, de la Ardeal până la Dobrogea.
         </p>
       </div>
@@ -286,7 +286,7 @@ export default function FolkDancesRegions() {
                 className={`px-4 py-2 rounded-lg transition-all duration-300 text-sm md:text-base whitespace-nowrap ${
                   currentRegion === index
                     ? 'bg-orange-500 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-orange-100 border border-gray-200'
+                    : 'bg-white text-slate-700 hover:bg-orange-100 border border-slate-200'
                 }`}
               >
                 {regiune.nume}
@@ -295,14 +295,14 @@ export default function FolkDancesRegions() {
           </div>
 
           {/* Conținutul regiunii active */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
             <div className="space-y-6">
               {/* Informații despre regiune */}
               <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
                   {regiuniDansuri[currentRegion].nume}
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-slate-600 mb-6 leading-relaxed">
                   Descoperă frumusețea dansurilor populare din {regiuniDansuri[currentRegion].nume}, cu ritmuri și stiluri unice care reflectă tradițiile și cultura acestei regiuni.
                 </p>
 
@@ -329,12 +329,12 @@ export default function FolkDancesRegions() {
 
               {/* Lista dansurilor - afișată doar când showDances este true */}
               {showDances && (
-                <div className="mt-8 pt-8 border-t border-gray-200">
+                <div className="mt-8 pt-8 border-t border-slate-200">
                   <div className="text-center mb-6">
-                    <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                    <h4 className="text-xl font-semibold text-slate-800 mb-2">
                       Dansuri populare din {regiuniDansuri[currentRegion].nume}
                     </h4>
-                    <p className="text-gray-600">
+                    <p className="text-slate-600">
                       {regiuniDansuri[currentRegion].dansuri.length} dansuri tradiționale
                     </p>
                   </div>
@@ -350,7 +350,7 @@ export default function FolkDancesRegions() {
                             {dansIndex + 1}
                           </div>
                           <div>
-                            <h5 className="font-semibold text-gray-800">{dans}</h5>
+                            <h5 className="font-semibold text-slate-800">{dans}</h5>
                             <div className="w-12 h-0.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full mt-1"></div>
                           </div>
                         </div>
@@ -358,8 +358,8 @@ export default function FolkDancesRegions() {
                     ))}
                   </div>
 
-                  <div className="text-center mt-6 pt-4 border-t border-gray-200">
-                    <p className="text-sm text-gray-500">
+                  <div className="text-center mt-6 pt-4 border-t border-slate-200">
+                    <p className="text-sm text-slate-500">
                       Total: <span className="font-semibold text-orange-600">{regiuniDansuri[currentRegion].dansuri.length}</span> dansuri populare
                     </p>
                   </div>

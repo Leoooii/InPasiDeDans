@@ -14,14 +14,14 @@ export default function Footer() {
   return (
     <footer
       id="site-footer"
-      className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-gray-300 "
+      className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-slate-300 "
     >
        {/* Secțiune Blog */}
-       {/* <div className="mt-12 border-t border-gray-800 pt-8">
+       {/* <div className="mt-12 border-t border-slate-800 pt-8">
           <h3 className="text-white font-semibold mb-4 text-lg text-center">
             📚 Ultimele Articole din Blog
           </h3>
-          <p className="text-sm text-center text-gray-400 mb-6">
+          <p className="text-sm text-center text-slate-400 mb-6">
             Descoperă sfaturi, ghiduri și povești despre dans
           </p>
           <div className="flex justify-center">
@@ -241,7 +241,7 @@ export default function Footer() {
 
        
       </div>
-      <div className="border-t border-gray-800 py-6">
+      <div className="border-t border-slate-800 py-6">
         <div className="container text-center text-sm">
           <p>
             © {new Date().getFullYear()} În Pași de Dans. Toate drepturile

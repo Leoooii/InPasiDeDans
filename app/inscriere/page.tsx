@@ -22,7 +22,7 @@ export default function InscrierePage() {
     <Suspense
       fallback={
         <div className="container py-12">
-          <div className="max-w-3xl mx-auto text-center text-gray-500">
+          <div className="max-w-3xl mx-auto text-center text-slate-500">
             Se încarcă formularul de înscriere...
           </div>
         </div>

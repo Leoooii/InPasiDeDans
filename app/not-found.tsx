@@ -43,22 +43,22 @@ export default function NotFound() {
             <div className="w-24 h-24 mx-auto bg-gradient-to-br from-orange-500 to-orange-500 rounded-full flex items-center justify-center mb-4">
               <Search className="w-12 h-12 text-white" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="text-4xl font-bold text-slate-900 mb-2">
               Pagina nu a fost găsită
             </h1>
-            <p className="text-xl text-gray-600 ">
+            <p className="text-xl text-slate-600 ">
               Oops! Se pare că această pagină nu există sau a fost mutată.
             </p>
           </div>
 
           {/* Mesaj explicativ */}
           <div className="mb-8 p-6 bg-red-50 rounded-lg">
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-700 mb-4">
               Este posibil că link-ul pe care l-ai accesat să fie din vechiul
               nostru site. Am actualizat recent structura site-ului pentru o
               experiență mai bună.
             </p>
-            <p className="text-sm text-gray-600 ">
+            <p className="text-sm text-slate-600 ">
               Te vom redirecționa automat către pagina principală în {countdown}{' '}
               secunde.
             </p>
@@ -67,13 +67,13 @@ export default function NotFound() {
           {/* Bară de progres */}
           {shouldRedirect && (
             <div className="mb-6">
-              <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+              <div className="w-full bg-slate-200 rounded-full h-2 mb-2">
                 <div
                   className="bg-gradient-to-r from-orange-500 to-orange-500 h-2 rounded-full transition-all duration-1000 ease-linear"
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
-              <div className="flex items-center justify-center text-sm text-gray-600 ">
+              <div className="flex items-center justify-center text-sm text-slate-600 ">
                 <Clock className="w-4 h-4 mr-1" />
                 Redirect în {countdown} secunde
               </div>
@@ -110,7 +110,7 @@ export default function NotFound() {
 
           {/* Link-uri utile */}
           <div className="border-t pt-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">
               Poate cauți una dintre aceste pagini?
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
@@ -167,7 +167,7 @@ export default function NotFound() {
           </div>
 
           {/* Informații de contact */}
-          <div className="mt-8 pt-6 border-t text-sm text-gray-600 ">
+          <div className="mt-8 pt-6 border-t text-sm text-slate-600 ">
             <p>
               Dacă problema persistă, te rugăm să ne contactezi la{' '}
               <Link

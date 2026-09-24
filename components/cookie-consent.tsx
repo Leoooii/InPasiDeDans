@@ -26,7 +26,7 @@ export default function CookieConsent() {
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t shadow-lg">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex-1">
-          <p className="text-sm text-gray-700 ">
+          <p className="text-sm text-slate-700 ">
             Acest site nu folosește cookie-uri direct, dar folosește servicii
             terțe (ex. Cloudflare) care pot utiliza tehnologii similare pentru
             securitate. Pentru detalii, consultați{' '}
@@ -45,7 +45,7 @@ export default function CookieConsent() {
             variant="outline"
             size="sm"
             onClick={() => setIsVisible(false)}
-            className="text-gray-500"
+            className="text-slate-500"
           >
             <X className="h-4 w-4 mr-1" />
             Refuză

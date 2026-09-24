@@ -102,10 +102,10 @@ export default function Tarife() {
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/tarife" />
         <div className="space-y-6">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
               Tarife cursuri de dans din Bucuresti
             </h1>
-            <p className="text-gray-500 ">
+            <p className="text-slate-500 ">
               Alege abonamentul potrivit pentru cursurile de dans pentru adulți
               la In Pasi de Dans, Bucuresti.
             </p>
@@ -116,7 +116,7 @@ export default function Tarife() {
             <h2 className="text-3xl font-bold tracking-tight">
               Tarife lecții private
             </h2>
-            <p className="text-gray-500 ">
+            <p className="text-slate-500 ">
               Personalizează-ți experiența cu lecțiile private de dans.
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function Tarife() {
             <h2 className="text-3xl font-bold tracking-tight">
               Tarife cursuri copii
             </h2>
-            <p className="text-gray-500 ">
+            <p className="text-slate-500 ">
               Tarife accesibile pentru cursurile de dans dedicate copiilor.
             </p>
           </div>

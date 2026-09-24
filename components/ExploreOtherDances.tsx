@@ -27,9 +27,9 @@ export default function ExploreOtherDances({
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h3 className="text-3xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
             {sectionTitle}
-          </h3>
+          </h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             {sectionDescription}
           </p>

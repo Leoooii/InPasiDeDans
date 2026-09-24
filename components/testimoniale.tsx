@@ -41,10 +41,10 @@ export default function Testimoniale({
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full mb-6">
             <Heart className="w-8 h-8 text-white" />
           </div>
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-6">
             {titlu}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {subtitlu}
           </p>
         </div>
@@ -91,13 +91,13 @@ export default function Testimoniale({
 
                         {/* Highlight Text */}
                         <div className="text-center mb-3 lg:mb-4">
-                          <p className="text-sm lg:text-base font-semibold text-gray-800 italic">
+                          <p className="text-sm lg:text-base font-semibold text-slate-800 italic">
                             "{testimonial.highlight}"
                           </p>
                         </div>
 
                         {/* Full Testimonial */}
-                        <p className="text-gray-700 leading-relaxed mb-4 lg:mb-6 text-center text-xs lg:text-sm">
+                        <p className="text-slate-700 leading-relaxed mb-4 lg:mb-6 text-center text-xs lg:text-sm">
                           {testimonial.text}
                         </p>
 
@@ -108,11 +108,11 @@ export default function Testimoniale({
                               {testimonial.name.split(' ').map(n => n[0]).join('')}
                             </span>
                           </div>
-                          <p className="font-bold text-gray-900 text-sm lg:text-base">
+                          <p className="font-bold text-slate-900 text-sm lg:text-base">
                             {testimonial.name}
                           </p>
                           {testimonial.date && (
-                            <p className="text-xs text-gray-500 ">
+                            <p className="text-xs text-slate-500 ">
                               {testimonial.date}
                             </p>
                           )}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function PrivacyPolicy() {
   return (
-    <div className="bg-gray-100 text-gray-800 min-h-screen">
+    <div className="bg-slate-100 text-slate-800 min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <h1 className="text-3xl font-bold mb-6 text-center">
           Politică de Confidențialitate
@@ -189,7 +189,7 @@ export default function PrivacyPolicy() {
             (ANSPDCP).
           </p>
 
-          <p className="text-sm text-gray-500 mt-6">
+          <p className="text-sm text-slate-500 mt-6">
             Ultima actualizare: 15 mai 2025
           </p>
         </div>

@@ -9,27 +9,27 @@ export default function LocationSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
         {/* Textul informațional */}
         <div className="space-y-6">
-          <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
             <div className="flex items-start space-x-4">
               <MapPin className="h-6 w-6 text-red-600 mt-1 flex-shrink-0" />
               <div>
-                <span className="text-xl font-bold text-gray-900 mb-3">Adresa școlii de dans</span>
-                <p className="text-gray-700 leading-relaxed mb-4">
+                <span className="text-xl font-bold text-slate-900 mb-3">Adresa școlii de dans</span>
+                <p className="text-slate-700 leading-relaxed mb-4">
                   Cursurile de dans se desfășoară în cele 3 săli de dans, situate pe <Link href="/contact" className="font-semibold text-red-600 hover:text-red-700 transition-colors">Calea Rahovei 262, sector 5, București</Link>.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-slate-700 leading-relaxed">
                   Vizitele se fac doar pe bază de programare.
                 </p>
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
             <div className="flex items-start space-x-4">
               <Phone className="h-6 w-6 text-red-600 mt-1 flex-shrink-0" />
               <div>
-                <span className="text-xl font-bold text-gray-900 mb-3">Programare vizită</span>
-                <p className="text-gray-700 leading-relaxed">
+                <span className="text-xl font-bold text-slate-900 mb-3">Programare vizită</span>
+                <p className="text-slate-700 leading-relaxed">
                   Dacă dorești să vezi sălile noastre sau să ne cunoști echipa, te rugăm să ne contactezi telefonic la{' '}
                   <a 
                     href="tel:+40722675126" 
@@ -54,7 +54,7 @@ export default function LocationSection() {
         <div className="bg-gradient-to-br from-red-50 to-red-50 rounded-xl p-6 shadow-lg border border-red-200 ">
           <div className="text-center mb-6">
             <h3 className="text-xl font-bold text-red-900 mb-2">Ne găsești aici</h3>
-            <p className="text-gray-600 text-sm">Obține direcții către școala noastră</p>
+            <p className="text-slate-600 text-sm">Obține direcții către școala noastră</p>
           </div>
           
           <div 
@@ -110,7 +110,7 @@ export default function LocationSection() {
             </a>
           </div>
           
-          <p className="text-center text-xs text-gray-600 mt-3">
+          <p className="text-center text-xs text-slate-600 mt-3">
             Click pentru a deschide Google Maps
           </p>
         </div>

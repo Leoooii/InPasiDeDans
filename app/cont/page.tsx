@@ -188,7 +188,7 @@ export default function ContPage() {
       <div className="container py-12 flex items-center justify-center min-h-screen">
         <div className="text-center">
           <Loader2 className="h-12 w-12 animate-spin mx-auto text-red-600" />
-          <p className="mt-4 text-gray-500">Se încarcă datele contului...</p>
+          <p className="mt-4 text-slate-500">Se încarcă datele contului...</p>
         </div>
       </div>
     );
@@ -250,7 +250,7 @@ export default function ContPage() {
           <h1 className="text-3xl font-bold">
             Bine ai venit, {userData.nume} {userData.prenume}!
           </h1>
-          <p className="text-gray-500">
+          <p className="text-slate-500">
             {userData.dataInceputCursuri &&
             typeof userData.dataInceputCursuri.toDate === 'function'
               ? `Cursant din ${new Date(userData.dataInceputCursuri.toDate()).toLocaleDateString('ro-RO')}`
@@ -283,7 +283,7 @@ export default function ContPage() {
 
                 {uniqueGrupe.length > 0 && (
                   <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4 text-gray-500" />
+                    <Filter className="h-4 w-4 text-slate-500" />
                     <div className="flex flex-wrap gap-2">
                       <Button
                         variant={
@@ -321,7 +321,7 @@ export default function ContPage() {
                   >
                     <div>
                       <p className="font-medium">{prezenta.grupa}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-slate-500">
                         {prezenta.data &&
                         typeof prezenta.data.toDate === 'function'
                           ? new Date(prezenta.data.toDate()).toLocaleDateString(
@@ -337,7 +337,7 @@ export default function ContPage() {
                 ))
               ) : (
                 <div className="text-center py-4">
-                  <p className="text-gray-500">
+                  <p className="text-slate-500">
                     {selectedGrupa === 'toate'
                       ? 'Nu există prezențe înregistrate'
                       : `Nu există prezențe înregistrate pentru grupa ${selectedGrupa}`}
@@ -392,7 +392,7 @@ export default function ContPage() {
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-medium">{abonament.tip}</h4>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-slate-500">
                             Valabil până la:{' '}
                             {abonament.dataExpirare &&
                             typeof abonament.dataExpirare.toDate === 'function'
@@ -422,7 +422,7 @@ export default function ContPage() {
                 })
               ) : (
                 <div className="text-center py-4">
-                  <p className="text-gray-500">
+                  <p className="text-slate-500">
                     Nu există abonamente înregistrate
                   </p>
                 </div>
@@ -446,10 +446,10 @@ export default function ContPage() {
                   {userData.grupe.map((grupa, index) => (
                     <div key={index} className="border rounded-lg p-4">
                       <h3 className="font-semibold">{grupa}</h3>
-                      <p className="text-sm text-gray-500 mt-2">
+                      <p className="text-sm text-slate-500 mt-2">
                         Program: Luni și Miercuri, 19:00 - 20:30
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-slate-500">
                         Instructor: Alexandru Popescu
                       </p>
                     </div>
@@ -457,7 +457,7 @@ export default function ContPage() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <p className="text-gray-500">
+                  <p className="text-slate-500">
                     Nu ești înscris la nicio grupă momentan
                   </p>
                 </div>
@@ -479,28 +479,28 @@ export default function ContPage() {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Nume</p>
+                    <p className="text-sm text-slate-500">Nume</p>
                     <p className="font-semibold">{userData.nume}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Prenume</p>
+                    <p className="text-sm text-slate-500">Prenume</p>
                     <p className="font-semibold">{userData.prenume}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="text-sm text-slate-500">Email</p>
                     <p className="font-semibold">{userData.email}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Telefon</p>
+                    <p className="text-sm text-slate-500">Telefon</p>
                     <p className="font-semibold">{userData.telefon}</p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Data înregistrării</p>
+                  <p className="text-sm text-slate-500">Data înregistrării</p>
                   <p className="font-semibold">
                     {userData.dataInregistrare &&
                     typeof userData.dataInregistrare.toDate === 'function'

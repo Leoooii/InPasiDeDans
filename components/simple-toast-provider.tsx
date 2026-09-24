@@ -67,7 +67,7 @@ export function SimpleToastProvider({ children }: { children: React.ReactNode })
               {toast.type === "info" && <Info className="text-blue-600" size={20} />}
               <p>{toast.message}</p>
             </div>
-            <button onClick={() => removeToast(toast.id)} className="ml-4 text-gray-500 hover:text-gray-700">
+            <button onClick={() => removeToast(toast.id)} className="ml-4 text-slate-500 hover:text-slate-700">
               <X size={16} />
             </button>
           </div>

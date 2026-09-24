@@ -36,7 +36,7 @@ export default function DansulMirilorPricing() {
       <div className="mt-12">
         <div className="text-center mb-8 space-y-2">
           <h2 className="text-3xl font-bold">Pachetele noastre</h2>
-          <p className="text-gray-500 ">Alegeți pachetul potrivit pentru voi</p>
+          <p className="text-slate-500 ">Alegeți pachetul potrivit pentru voi</p>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {pachete.map((tarif) => (
@@ -45,7 +45,7 @@ export default function DansulMirilorPricing() {
               className={`relative overflow-hidden border-2 transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 ${
                 tarif.popular
                   ? 'border-red-500 shadow-lg shadow-red-100 '
-                  : 'border-gray-200 shadow-sm'
+                  : 'border-slate-200 shadow-sm'
               }`}
             >
               {tarif.popular && (
@@ -54,13 +54,13 @@ export default function DansulMirilorPricing() {
                 </div>
               )}
               <CardContent className="p-7">
-                <h3 className="text-lg font-bold mb-1 text-gray-900 ">{tarif.titlu}</h3>
+                <h3 className="text-lg font-bold mb-1 text-slate-900 ">{tarif.titlu}</h3>
                 {tarif.descriere && (
-                  <p className="text-gray-500 text-sm mb-4">{tarif.descriere}</p>
+                  <p className="text-slate-500 text-sm mb-4">{tarif.descriere}</p>
                 )}
                 <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold text-gray-900 ">{tarif.pret}</span>
-                  <span className="text-lg font-medium text-gray-500 ">{tarif.moneda}</span>
+                  <span className="text-4xl font-extrabold text-slate-900 ">{tarif.pret}</span>
+                  <span className="text-lg font-medium text-slate-500 ">{tarif.moneda}</span>
                 </div>
                 {tarif.beneficii.length > 0 && (
                   <ul className="space-y-3">
@@ -69,7 +69,7 @@ export default function DansulMirilorPricing() {
                         <div className="mt-0.5 w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
                           <Check className="h-3 w-3 text-orange-600 " />
                         </div>
-                        <span className="text-sm text-gray-700 leading-snug">{b}</span>
+                        <span className="text-sm text-slate-700 leading-snug">{b}</span>
                       </li>
                     ))}
                   </ul>
@@ -88,15 +88,15 @@ export default function DansulMirilorPricing() {
             {alteOptiuni.map((tarif) => (
               <div
                 key={tarif.id}
-                className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
-                <h3 className="font-semibold text-gray-900 mb-1">{tarif.titlu}</h3>
+                <h3 className="font-semibold text-slate-900 mb-1">{tarif.titlu}</h3>
                 {tarif.descriere && (
-                  <p className="text-gray-500 text-sm mb-3">{tarif.descriere}</p>
+                  <p className="text-slate-500 text-sm mb-3">{tarif.descriere}</p>
                 )}
                 <div className="flex items-baseline gap-1 mt-3">
-                  <span className="text-3xl font-extrabold text-gray-900 ">{tarif.pret}</span>
-                  <span className="text-base font-medium text-gray-500 ">{tarif.moneda}</span>
+                  <span className="text-3xl font-extrabold text-slate-900 ">{tarif.pret}</span>
+                  <span className="text-base font-medium text-slate-500 ">{tarif.moneda}</span>
                 </div>
               </div>
             ))}

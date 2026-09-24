@@ -32,7 +32,7 @@ export default function SitemapPage() {
         <li><Link href="/cont">Contul meu</Link></li>
         <li><Link href="/inregistrare">Înregistrare</Link></li>
       </ul>
-      <p className="mt-8 text-gray-500">Dacă nu găsești o pagină, folosește meniul principal sau contactul pentru asistență.</p>
+      <p className="mt-8 text-slate-500">Dacă nu găsești o pagină, folosește meniul principal sau contactul pentru asistență.</p>
     </div>
   );
 } 

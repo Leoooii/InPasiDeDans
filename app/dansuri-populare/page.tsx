@@ -67,11 +67,11 @@ export default function DansuriPopulare() {
             dansuri populare
           </span>
         </h1>
-        <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+        <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
           De la hora moldovenească și sârba energică, până la brâul muntenesc și bătuta ursului —
           fiecare pas te apropie de autenticitatea și frumusețea culturii românești.
         </p>
-        <p className="text-base text-gray-500 max-w-2xl">
+        <p className="text-base text-slate-500 max-w-2xl">
           Vei învăța jocuri din toate colțurile României, plus dansuri grecești și machedonești,
           într-o atmosferă caldă, prietenoasă și plină de viață.
         </p>
@@ -87,13 +87,13 @@ export default function DansuriPopulare() {
         {infoCards.map(({ icon: Icon, title, text, color, bg }) => (
           <div
             key={title}
-            className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
           >
             <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
               <Icon className={`w-5 h-5 ${color}`} />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">{text}</p>
+            <h3 className="font-semibold text-slate-900 mb-2">{title}</h3>
+            <p className="text-sm text-slate-600 leading-relaxed">{text}</p>
           </div>
         ))}
       </div>

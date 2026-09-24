@@ -158,7 +158,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div className="min-h-screen bg-gray-50 ">
+      <div className="min-h-screen bg-slate-50 ">
         {/* Breadcrumbs */}
         <div className="bg-white py-4">
           <div className="container mx-auto px-4">
@@ -209,7 +209,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
         <article className="py-12 bg-white ">
           <div className="container mx-auto px-4 max-w-4xl">
             {/* Meta information */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 mb-8 pb-8 border-b">
+            <div className="flex flex-wrap items-center gap-4 text-slate-600 mb-8 pb-8 border-b">
               <div className="flex items-center gap-2">
                 <Link 
                   href={`/blog/autor/${post.author?.slug?.current || ''}`}
@@ -236,7 +236,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
                     {post.tags.slice(0, 3).map((tag: string) => (
                       <span
                         key={tag}
-                        className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-sm"
+                        className="bg-slate-100 text-slate-600 px-2 py-1 rounded-full text-sm"
                       >
                         #{tag}
                       </span>
@@ -249,7 +249,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             {/* Excerpt */}
             {post.excerpt && (
               <div className="mb-8 p-6 bg-red-50 rounded-lg border-l-4 border-red-500">
-                <p className="text-lg text-gray-700 italic">
+                <p className="text-lg text-slate-700 italic">
                   {post.excerpt}
                 </p>
               </div>
@@ -271,7 +271,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             )}
 
             {/* Author info */}
-            <div className="mt-12 p-6 bg-gray-50 rounded-lg">
+            <div className="mt-12 p-6 bg-slate-50 rounded-lg">
               <div className="flex items-start gap-4">
                 {post.author?.image?.asset && (
                   <Image
@@ -283,19 +283,19 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
                   />
                 )}
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2">
                     {post.author?.name || 'Alexandra Dumitrache'}
                   </h3>
-                  <p className="text-gray-600 mb-2">
+                  <p className="text-slate-600 mb-2">
                     {post.author?.role || 'Instructor'}
                   </p>
                   {post.author?.experienceYears && (
-                    <p className="text-sm text-gray-500 mb-3">
+                    <p className="text-sm text-slate-500 mb-3">
                       Experiență: {post.author.experienceYears} ani
                     </p>
                   )}
                   {post.author?.bio && (
-                    <div className="text-gray-700 ">
+                    <div className="text-slate-700 ">
                       {/* Render author bio */}
                       <div className="prose prose-sm max-w-none ">
                         {/* Aici ar trebui să renderizezi bio-ul autorului similar cu PostContent */}
@@ -325,7 +325,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/inscriere"
-                className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors"
               >
                 Înscrie-te la Cursuri
               </Link>

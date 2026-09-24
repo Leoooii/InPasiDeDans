@@ -89,7 +89,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
     return (
       <div className="container py-12">
         <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Cunoaște instructorii noștri</h2>
-        <div className="text-center text-gray-600">
+        <div className="text-center text-slate-600">
           <p>Nu s-au găsit instructorii specificați.</p>
         </div>
       </div>
@@ -120,9 +120,9 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                 />
               </Link>
                              <div className="p-4 flex-1 flex flex-col">
-                <Link href={`/instructori#${instructor.name.toLowerCase().replace(/\s+/g, '-')}`} className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300 hover:text-orange-600">{instructor.name}</Link>
+                <Link href={`/instructori#${instructor.name.toLowerCase().replace(/\s+/g, '-')}`} className="text-xl font-bold text-slate-900 mb-2 group-hover:text-orange-600 transition-colors duration-300 hover:text-orange-600">{instructor.name}</Link>
                 <p className="text-red-600 font-medium mb-3">{instructor.role}</p>
-                <div className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                <div className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">
                   {(() => {
                     const phrasesToHighlight = [
                       "fondator, manager și instructor",
@@ -189,7 +189,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                       href={instructor.facebookUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
+                      className="text-slate-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
                       aria-label={`Facebook ${instructor.name}`}
                     >
                       <Facebook size={18} />
@@ -200,7 +200,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                       href={instructor.instagramUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-orange-600 transition-all duration-300 hover:scale-110"
+                      className="text-slate-400 hover:text-orange-600 transition-all duration-300 hover:scale-110"
                       aria-label={`Instagram ${instructor.name}`}
                     >
                       <Instagram size={18} />
@@ -211,7 +211,7 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
                       href={instructor.youtubeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
+                      className="text-slate-400 hover:text-red-600 transition-all duration-300 hover:scale-110"
                       aria-label={`YouTube ${instructor.name}`}
                     >
                       <Youtube size={18} />

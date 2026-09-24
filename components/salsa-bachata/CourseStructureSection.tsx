@@ -35,13 +35,13 @@ export default function CourseStructureSection() {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-4">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-4">
           Structura cursurilor de Salsa & Bachata
         </h2>
-        <p className="text-lg text-gray-700 mb-4 max-w-4xl mx-auto">
+        <p className="text-lg text-slate-700 mb-4 max-w-4xl mx-auto">
           Cursurile noastre sunt gândite pentru a-ți oferi o evoluție naturală și sigură, pas cu pas, indiferent de nivelul de la care pornești.
         </p>
-        <p className="text-lg text-gray-700 mb-8 max-w-4xl mx-auto">
+        <p className="text-lg text-slate-700 mb-8 max-w-4xl mx-auto">
           Fiecare grupă are între <strong className="text-red-600 ">16–20 de cursanți</strong>, suficient pentru a simți energia dansului, dar și pentru a primi atenție individuală de la instructori.
         </p>
       </div>
@@ -50,20 +50,20 @@ export default function CourseStructureSection() {
         {levels.map((level, index) => (
           <div 
             key={index}
-            className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300"
+            className="bg-white rounded-xl p-6 shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300"
           >
             <div className="text-center mb-4">
               <span className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white text-sm font-semibold px-4 py-2 rounded-full mb-3">
                 {level.level}
               </span>
-              <h4 className="text-xl font-bold text-gray-900 ">
+              <h4 className="text-xl font-bold text-slate-900 ">
                 {level.title}
               </h4>
             </div>
             
             <ul className="space-y-2">
               {level.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="text-gray-600 text-sm flex items-start">
+                <li key={itemIndex} className="text-slate-600 text-sm flex items-start">
                   <span className="text-red-500 mr-2 mt-1">•</span>
                   {item}
                 </li>
@@ -74,7 +74,7 @@ export default function CourseStructureSection() {
       </div>
 
       <div className="text-center">
-        <p className="text-lg text-gray-700 max-w-4xl mx-auto">
+        <p className="text-lg text-slate-700 max-w-4xl mx-auto">
           Indiferent de nivel, fiecare curs este o experiență plină de energie, comunitate și bucurie. Progresul se construiește treptat, cu sprijinul instructorilor noștri dedicați.
         </p>
       </div>

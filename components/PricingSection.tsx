@@ -81,30 +81,28 @@ export default function PricingSection({ title }: { title?: string }) {
   const plans: Tarif[] = tarife?.grup.length ? tarife.grup : FALLBACK
 
   return (
-    <div className=" ">
-      <div className="container mx-0 ">
+    <div>
+      <div className="w-full">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-6">
             {title}
           </h2>
         </div>
 
         {/* Group Pricing */}
         <div className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {plans.map((plan) => (
               <Card
                 key={plan.id}
-                className={`flex flex-col border-red-600 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full ${
+                className={`flex flex-col overflow-hidden border-red-600 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full ${
                   plan.popular
                     ? 'border-red-500 '
                     : 'border-red-600 hover:border-red-700'
                 }`}
               >
-                <CardHeader className={`bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-t-lg ${
-                  plan.popular ? 'rounded-t-none' : ''
-                }`}>
+                <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white">
                   <CardTitle>{plan.titlu}</CardTitle>
                   <CardDescription className="text-white/90">
                     {plan.descriere}

@@ -45,7 +45,7 @@ export default function WhyChooseUsFolkDances() {
     <div className="flex flex-col gap-8">
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold">De ce să alegi cursurile noastre?</h2>
-        <p className="text-gray-500 max-w-xl mx-auto">
+        <p className="text-slate-500 max-w-xl mx-auto">
           Pentru că îți oferă mult mai mult decât pași de dans.
         </p>
       </div>
@@ -53,13 +53,13 @@ export default function WhyChooseUsFolkDances() {
         {benefits.map(({ icon: Icon, title, desc, color, bg }) => (
           <div
             key={title}
-            className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
           >
             <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
               <Icon className={`w-5 h-5 ${color}`} />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">{desc}</p>
+            <h3 className="font-semibold text-slate-900 mb-2">{title}</h3>
+            <p className="text-sm text-slate-600 leading-relaxed">{desc}</p>
           </div>
         ))}
       </div>

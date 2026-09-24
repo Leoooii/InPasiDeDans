@@ -42,7 +42,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-slate-50 ">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
@@ -95,7 +95,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
           </p>
           <a
             href="/blog"
-            className="inline-flex items-center bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors"
           >
             Vezi Toate Articolele
             <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

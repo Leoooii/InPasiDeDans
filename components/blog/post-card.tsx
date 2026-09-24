@@ -83,7 +83,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
         <div
           className={cn(
             'mb-3 flex items-center gap-2 text-xs',
-            isDark ? 'text-white/50' : 'text-gray-500 '
+            isDark ? 'text-white/50' : 'text-slate-500 '
           )}
         >
           <span>{publishedDate}</span>
@@ -96,7 +96,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
             'mb-3 text-xl font-bold leading-tight line-clamp-2 transition-colors',
             isDark
               ? 'text-white group-hover:text-orange-300'
-              : 'text-gray-900 group-hover:text-red-600 '
+              : 'text-slate-900 group-hover:text-red-600 '
           )}
         >
           {post.title}
@@ -105,7 +105,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
         <p
           className={cn(
             'mb-4 line-clamp-3 text-sm leading-relaxed flex-1',
-            isDark ? 'text-white/70' : 'text-gray-600 '
+            isDark ? 'text-white/70' : 'text-slate-600 '
           )}
         >
           {post.excerpt}
@@ -120,7 +120,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
                   'rounded-full px-2 py-0.5 text-[10px]',
                   isDark
                     ? 'bg-white/10 text-white/70 border border-white/10'
-                    : 'bg-gray-100 text-gray-600 '
+                    : 'bg-slate-100 text-slate-600 '
                 )}
               >
                 #{tag}
@@ -132,7 +132,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
                   'rounded-full px-2 py-0.5 text-[10px]',
                   isDark
                     ? 'bg-white/10 text-white/70 border border-white/10'
-                    : 'bg-gray-100 text-gray-600 '
+                    : 'bg-slate-100 text-slate-600 '
                 )}
               >
                 +{post.tags.length - 3}
@@ -141,7 +141,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
           </div>
         )}
 
-        <div className={cn('pt-4 border-t', isDark ? 'border-white/10' : 'border-gray-100 ')}>
+        <div className={cn('pt-4 border-t', isDark ? 'border-white/10' : 'border-slate-100 ')}>
           <span
             className={cn(
               'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all',

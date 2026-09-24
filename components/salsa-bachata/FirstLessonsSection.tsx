@@ -24,10 +24,10 @@ export default function FirstLessonsSection() {
 
   return (
     <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 border border-red-200 ">
-      <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center text-gray-900 ">
+      <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center text-slate-900 ">
         Ce înveți în primele 4 lecții de Salsa & Bachata
       </h2>
-      <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+      <p className="text-slate-600 text-center mb-8 max-w-2xl mx-auto">
         Indiferent dacă nu ai dansat niciodată, după primele 4 lecții vei putea ține ritmul și
         dansa o combinație completă.
       </p>
@@ -40,8 +40,8 @@ export default function FirstLessonsSection() {
             <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg mb-3">
               {lesson.nr}
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{lesson.titlu}</h3>
-            <p className="text-sm text-gray-600 ">{lesson.desc}</p>
+            <h3 className="font-bold text-slate-900 mb-2">{lesson.titlu}</h3>
+            <p className="text-sm text-slate-600 ">{lesson.desc}</p>
           </div>
         ))}
       </div>

@@ -199,7 +199,7 @@ export default function Navbar() {
         </div>
 
         {/* Second Row - Navigation Menu */}
-        <div className="hidden lg:block border-t border-gray-200">
+        <div className="hidden lg:block border-t border-slate-200">
           <div className="flex justify-center py-3">
             <NavigationMenu>
               <NavigationMenuList className="flex flex-wrap justify-center gap-1">

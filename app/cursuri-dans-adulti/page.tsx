@@ -51,8 +51,8 @@ export default async function CursuriDansAdulti() {
       <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/cursuri-dans-adulti" />
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans adulți</h1>
-          <p className="text-gray-500 ">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Cursuri de dans adulți</h1>
+          <p className="text-slate-500 ">
             Descoperă pasiunea pentru dans într-un mediu prietenos și profesionist. Vino să faci parte din comunitatea În Pași de Dans!<br />
             <span className="block mt-2">
               <a href="/inscriere" className="text-red-600 underline hover:text-orange-600">Înscrie-te acum</a> ·
@@ -77,7 +77,7 @@ export default async function CursuriDansAdulti() {
             </div>
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-2">Dansuri de societate</h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-slate-500 mb-4">
                 Învață dansuri elegante precum vals, tango și quickstep,
                 perfecte pentru evenimente formale.
               </p>
@@ -97,7 +97,7 @@ export default async function CursuriDansAdulti() {
             </div>
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-2">Dansuri latino</h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-slate-500 mb-4">
                 Descoperă ritmurile pasionale de salsa, bachata, cha-cha și
                 rumba.
               </p>
@@ -117,7 +117,7 @@ export default async function CursuriDansAdulti() {
             </div>
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-2">Dansuri populare</h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-slate-500 mb-4">
                 Hai la joc! Învățati dansuri populare românești, grecești,
                 machedonești.
               </p>

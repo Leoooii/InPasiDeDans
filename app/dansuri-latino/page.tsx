@@ -121,11 +121,11 @@ export default function DansuriLatino() {
               dansuri latino
             </span>
           </h1>
-          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+          <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
             Ritmuri pline de viață, mișcări expresive și o comunitate prietenoasă. Indiferent de
             nivelul tău, vei pleca de la fiecare ședință cu mai multă încredere și bucurie.
           </p>
-          <p className="text-base text-gray-500 max-w-2xl">
+          <p className="text-base text-slate-500 max-w-2xl">
             Originare din America Latină și Caraibe, dansurile latino combină tehnici specifice de
             pași cu coordonarea dintre parteneri — o experiență completă pentru corp și minte.
           </p>
@@ -140,7 +140,7 @@ export default function DansuriLatino() {
         <div id="stiluri-dans" className="flex flex-col gap-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold">Stiluri de dans latino</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">
+            <p className="text-slate-500 max-w-xl mx-auto">
               Explorează 9 stiluri diferite — de la salsa și bachata până la paso doble și lindy hop.
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function DansuriLatino() {
             {danceStyles.map((dance) => (
               <div
                 key={dance.title}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -164,7 +164,7 @@ export default function DansuriLatino() {
                   </h3>
                 </div>
                 <div className="p-4">
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-sm text-slate-600 leading-relaxed">
                     {dance.description}
                   </p>
                 </div>
