@@ -1,5 +1,6 @@
 'use client';
 
+import EvolutieOptimizare from '@/components/admin/evolutie-optimizare';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   LineChart,
@@ -359,6 +360,8 @@ export default function StatisticiPage() {
           </Button>
         </div>
       </div>
+
+      {token && <EvolutieOptimizare token={token} />}
 
       {/* Interval custom */}
       <div className="flex flex-wrap items-center gap-2 text-sm">
