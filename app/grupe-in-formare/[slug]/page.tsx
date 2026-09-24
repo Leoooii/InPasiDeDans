@@ -194,7 +194,7 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-950 to-black text-white">
       <div className="container mx-auto px-4 py-12">
-        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl={pageUrl} className="text-white/90" />
+        <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl={pageUrl} tone="dark" />
 
         <div className="grid gap-10 lg:grid-cols-[2fr,1fr]">
           <section className="space-y-6 rounded-3xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur">

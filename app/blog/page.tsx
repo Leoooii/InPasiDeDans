@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import Link from 'next/link'
-import { ChevronRight, Sparkles, BookOpen, Tag, ArrowRight } from 'lucide-react'
+import { Sparkles, BookOpen, Tag, ArrowRight } from 'lucide-react'
 import { client } from '@/sanity/lib/client'
 import { allPostsQuery, allCategoriesQuery, featuredPostsQuery } from '@/sanity/lib/queries'
 import PostCard from '@/components/blog/post-card'
@@ -75,13 +76,6 @@ export default async function BlogPage() {
       name: 'În Pași de Dans',
       logo: { '@type': 'ImageObject', url: 'https://www.inpasidedans.ro/images/logo.png' },
     },
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Acasă', item: 'https://www.inpasidedans.ro' },
-        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.inpasidedans.ro/blog' },
-      ],
-    },
   }
 
   return (
@@ -116,13 +110,12 @@ export default async function BlogPage() {
 
         <div className="relative container mx-auto py-10 md:py-16 px-4 md:px-6">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-white/60">
-            <Link href="/" className="hover:text-white transition-colors">
-              Acasă
-            </Link>
-            <ChevronRight className="h-4 w-4 text-white/30" />
-            <span className="text-white font-medium">Blog</span>
-          </nav>
+          <SEOBreadcrumbs
+            items={[{ name: 'Acasă', url: '/' }, { name: 'Blog' }]}
+            currentPageUrl="https://www.inpasidedans.ro/blog"
+            tone="dark"
+            className="mb-0"
+          />
 
           {/* HERO */}
           <section className="mt-10 md:mt-16 mb-12 md:mb-20">

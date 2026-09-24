@@ -1,4 +1,5 @@
 
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import type { Metadata } from 'next';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 
@@ -17,37 +18,17 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
 };
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { ChevronRight } from 'lucide-react';
 
 export default function GrupeInFormarePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-white">
       <div className="container mx-auto py-16 px-4 md:px-16">
-        <Breadcrumb>
-          <BreadcrumbList className="text-white/80">
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="text-white/80 hover:text-white transition-colors">
-                Acasă
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator className="text-white/60">
-              <ChevronRight className="text-white/60" />
-            </BreadcrumbSeparator>
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-white font-medium">
-                Grupe în Formare
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <SEOBreadcrumbs
+          items={[{ name: 'Acasă', url: '/' }, { name: 'Grupe în formare' }]}
+          currentPageUrl="https://www.inpasidedans.ro/grupe-in-formare"
+          tone="dark"
+          className="mb-0"
+        />
         
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">

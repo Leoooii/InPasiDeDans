@@ -1,36 +1,36 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface DanceCategory {
-  id: number;
-  title: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  href: string;
-  gradient: string;
-}
+type Stil = 'latino' | 'societate' | 'private' | 'populare';
 
-interface ExploreOtherDancesProps {
-  danceCategories: DanceCategory[];
+// Catalogul stilurilor prezentate în secțiunea „Explorează și alte dansuri".
+const CATALOG: { id: Stil; title: string; description: string; imageSrc: string; imageAlt: string; href: string }[] = [
+  { id: 'latino', title: 'Dansuri Latino', description: 'Salsa, bachata, cha-cha și multe altele', imageSrc: '/images/latino.png', imageAlt: 'Dansuri latino', href: '/dansuri-latino' },
+  { id: 'societate', title: 'Dansuri de Societate', description: 'Vals, tango, foxtrot și multe altele', imageSrc: '/images/societate.png', imageAlt: 'Dansuri de societate', href: '/dansuri-de-societate' },
+  { id: 'private', title: 'Lecții Private', description: 'Instruire personalizată pentru progres rapid', imageSrc: '/images/private.png', imageAlt: 'Lecții private de dans', href: '/lectii-private' },
+  { id: 'populare', title: 'Dansuri Populare', description: 'Peste 200 de jocuri populare românești', imageSrc: '/images/populare.png', imageAlt: 'Dansuri populare românești', href: '/dansuri-populare' },
+];
+
+export default function ExploreOtherDances({
+  exclude,
+  sectionTitle = 'Explorează și alte dansuri',
+  sectionDescription = 'Descoperă diversitatea stilurilor de dans pe care le oferim',
+}: {
+  /** Stilul paginii curente, care nu se mai afișează în listă. */
+  exclude: Stil;
   sectionTitle?: string;
   sectionDescription?: string;
-}
-
-export default function ExploreOtherDances({ 
-  danceCategories, 
-  sectionTitle = "Explorează și alte dansuri",
-  sectionDescription = "Descoperă diversitatea stilurilor de dans pe care le oferim"
-}: ExploreOtherDancesProps) {
+}) {
+  const danceCategories = CATALOG.filter(c => c.id !== exclude).slice(0, 3);
   return (
-    <div className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div className="py-20 bg-gradient-to-br from-slate-50 to-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">
+          <h3 className="text-3xl font-bold text-slate-900 mb-4">
             {sectionTitle}
           </h3>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             {sectionDescription}
           </p>
         </div>
@@ -73,11 +73,11 @@ export default function ExploreOtherDances({
               <div className="text-center">
                 <Link 
                   href={category.href}
-                  className="inline-block text-2xl font-bold text-gray-900 hover:text-red-600 transition-colors duration-300 mb-2 group-hover:text-red-600"
+                  className="inline-block text-2xl font-bold text-slate-900 hover:text-red-600 transition-colors duration-300 mb-2 group-hover:text-red-600"
                 >
                   {category.title}
                 </Link>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed">
                   {category.description}
                 </p>
               </div>

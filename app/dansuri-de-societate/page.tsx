@@ -23,14 +23,17 @@ export const metadata: Metadata = {
 import GrupeInFormare from '@/components/grupe-in-formare';
 import LocationSection from '@/components/LocationSection';
 import InstructorsSection from '@/components/InstructorsSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
+import Testimoniale from '@/components/testimoniale';
+import { TESTIMONIALE_SOCIETATE } from '@/lib/testimoniale';
 import PricingSection from '@/components/PricingSection';
-import FAQSection from '@/components/FAQSection';
+import FaqBlock from '@/components/faq-block';
+import { FAQ_SOCIETATE } from '@/lib/faq-stiluri';
 import ExploreOtherDances from '@/components/ExploreOtherDances';
 import ContactForm from '@/components/contact-form';
 import StickyMenu from '@/components/sticky-menu';
 import CourseLevelsSection from '@/components/CourseLevelsSection';
-import CharmHarmonySection from '@/components/CharmHarmonySection';
+import GalerieFoto from '@/components/galerie-foto';
+import { GALERIE_SOCIETATE } from '@/lib/galerii';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 const danceStyles = [
@@ -222,7 +225,7 @@ export default function DansuriDeSocietate() {
           </div>
         </div>
 
-        <CharmHarmonySection />
+        <GalerieFoto imagini={GALERIE_SOCIETATE} subtitlu="Rafinament, grație și momente autentice — descoperă farmecul dansurilor de societate într-o atmosferă caldă și primitoare." />
 
         <CourseLevelsSection />
 
@@ -243,46 +246,14 @@ export default function DansuriDeSocietate() {
         </div>
 
         <div id="testimoniale">
-          <TestimonialsSection danceType="societate" />
+          <Testimoniale items={TESTIMONIALE_SOCIETATE} />
         </div>
 
         <div id="intrebari">
-          <FAQSection danceType="societate" />
+          <FaqBlock intrebari={FAQ_SOCIETATE} titlu="Întrebări frecvente (FAQ)" subtitlu="Răspunsuri la cele mai frecvente întrebări despre cursurile noastre de dans" icon="plus" deschisPrima className="py-16" />
         </div>
 
-        <ExploreOtherDances
-          danceCategories={[
-            {
-              id: 1,
-              title: 'Dansuri Latino',
-              description: 'Salsa, bachata, cha-cha și multe altele',
-              imageSrc: '/images/latino.png',
-              imageAlt: 'Dansuri latino',
-              href: '/dansuri-latino',
-              gradient: 'from-red-500 to-orange-600',
-            },
-            {
-              id: 2,
-              title: 'Lecții Private',
-              description: 'Instruire personalizată pentru progres rapid',
-              imageSrc: '/images/private.png',
-              imageAlt: 'Lecții private de dans',
-              href: '/lectii-private',
-              gradient: 'from-orange-500 to-orange-600',
-            },
-            {
-              id: 3,
-              title: 'Dansuri Populare',
-              description: 'Peste 200 de jocuri populare românești',
-              imageSrc: '/images/populare.png',
-              imageAlt: 'Dansuri populare românești',
-              href: '/dansuri-populare',
-              gradient: 'from-orange-500 to-red-600',
-            },
-          ]}
-          sectionTitle="Explorează și alte dansuri"
-          sectionDescription="Descoperă diversitatea stilurilor de dans pe care le oferim"
-        />
+        <ExploreOtherDances exclude="societate" />
 
         <div id="inscriere" className="px-0 md:px-32">
           <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">

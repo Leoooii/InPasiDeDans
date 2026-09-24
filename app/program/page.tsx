@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import CtaBanner from '@/components/cta-banner';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
@@ -68,29 +67,10 @@ export default async function Program() {
 
           <ProgramDinamic initial={grupe} />
           <DanceLevels />
-          <div className="mt-12 bg-red-50 p-8 rounded-lg">
-            <div className="text-center space-y-4 max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold ">
-                Înscrie-te la cursurile preferate
-              </h2>
-              <p className="mb-10">
-                Locurile sunt limitate pentru a asigura o experiență de
-                calitate. Rezervă-ți locul acum sau contactează-ne pentru
-                detalii.
-              </p>
-              <div className="flex justify-center gap-4">
-                <Button variant="brand"
-                    size="lg" asChild><Link href="/inscriere">
-                    Înscrie-te acum
-                  </Link></Button>
-                <Button
-                    size="lg"
-                    variant="outline" asChild><Link href="/contact">
-                    Contactează-ne
-                  </Link></Button>
-              </div>
-            </div>
-          </div>
+          <CtaBanner
+            titlu="Înscrie-te la cursurile preferate"
+            text="Locurile sunt limitate pentru a asigura o experiență de calitate. Rezervă-ți locul acum sau contactează-ne pentru detalii."
+          />
         </div>
         <GrupeInFormare />
       </div>

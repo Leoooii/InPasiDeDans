@@ -10,7 +10,8 @@ import { AlertCircle, Award, Clock, Heart, Music, Shield, Sparkles, Users } from
 import GrupeInFormare from '@/components/grupe-in-formare';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
-import WeddingDanceTestimonials from '@/components/WeddingDanceTestimonials';
+import Testimoniale from '@/components/testimoniale';
+import { TESTIMONIALE_MIRI } from '@/lib/testimoniale';
 import DansulMirilorPricing from '@/components/DansulMirilorPricing';
 
 export const metadata: Metadata = {
@@ -252,7 +253,7 @@ export default async function DansulMirilor() {
 
         <FaqBlock intrebari={faqDansulMirilor(tarife)} className="mt-16" />
 
-        <WeddingDanceTestimonials />
+        <Testimoniale items={TESTIMONIALE_MIRI} titlu="Ce spun mirii noștri" subtitlu="Descoperă experiențele autentice ale cuplurilor care și-au creat momentul magic al nunții cu noi" latime="treime" />
       </div>
       <GrupeInFormare />
     </div>

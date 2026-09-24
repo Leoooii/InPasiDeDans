@@ -1,6 +1,5 @@
 import PeScurt, { peScurtCopii } from '@/components/pe-scurt';
 import { getTarife, safe } from '@/lib/public-data';
-import { ePretIntrebare, raspunsPretCopii } from '@/lib/text-preturi';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -9,8 +8,10 @@ import Link from 'next/link';
 import { Calendar, Clock, Droplets, Shirt, Sparkles, Star, Trophy, Users } from 'lucide-react';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
-import ChildrenDanceFAQ from '@/components/ChildrenDanceFAQ';
-import TestimonialsSection from '@/components/TestimonialsSection';
+import FaqBlock from '@/components/faq-block';
+import { faqCopii } from '@/lib/faq-stiluri';
+import Testimoniale from '@/components/testimoniale';
+import { TESTIMONIALE_COPII } from '@/lib/testimoniale';
 import TarifeCopiiSection from '@/components/TarifeCopiiSection';
 
 export const metadata: Metadata = {
@@ -39,76 +40,6 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Care este vârsta minimă pentru înscrierea la cursurile de dans pentru copii?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Copiii pot începe cursurile de dans de la vârsta de 7 ani, atunci când pot urma instrucțiunile și pot învăța coregrafii simple într-un mod distractiv și sigur.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Ce stiluri sunt incluse la cursurile de dans pentru copii de la școala În Pași de Dans?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'În cadrul cursurilor de dans pentru copii, micii dansatori învață dansuri precum cha cha, jive, vals lent și quick step, dezvoltându-și postura, coordonarea și simțul ritmului.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Cât durează un program complet la cursurile de dans pentru copii din București?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Un modul are loc pe parcursul a mai multor luni, cu lecții săptămânale ce urmăresc progresul natural al fiecărui copil.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'De ce să aleg cursuri de dans pentru copii în București la În Pași de Dans?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Școala oferă un mediu cald și motivant, cu instructori pasionați care transformă cursurile de dans pentru copii într-o experiență educativă și plină de bucurie.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Cât costă participarea la lecții de dans pentru copii la școala În Pași de Dans?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Prețul variază în funcție de abonament, iar pachetele lunare includ de la 4 la 12 ședințe interactive și pline de energie.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Cum se desfășoară o ședință tipică din cursurile de dans pentru copii?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Fiecare lecție începe cu exerciții de încălzire, urmate de învățarea pașilor de bază și se încheie cu momente de repetiție și jocuri ritmice.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Ce echipament este necesar pentru participarea la cursurile de dans pentru copii de la școala În Pași de Dans?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Recomandăm haine lejere, încălțăminte confortabilă și o atitudine pozitivă, pregătită pentru mișcare și distracție.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Cum pot înscrie copilul la cursurile de dans pentru copii din București la școala În Pași de Dans?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Înscrierea se poate face online, completând formularul disponibil pe site, sau telefonic la 0722 675 126, în funcție de grupa și programul dorit.',
-      },
-    },
-  ],
-};
 
 const breadcrumbItems = [
   { name: 'Acasă', url: '/' },
@@ -117,20 +48,8 @@ const breadcrumbItems = [
 
 export default async function CursuriDansCopii() {
   const tarife = await safe(getTarife, null);
-  const faqCuPreturi = {
-    ...faqSchema,
-    mainEntity: faqSchema.mainEntity.map(q =>
-      ePretIntrebare(q.name)
-        ? { ...q, acceptedAnswer: { ...q.acceptedAnswer, text: raspunsPretCopii(tarife, q.acceptedAnswer.text) } }
-        : q
-    ),
-  };
   return (
     <div className="container py-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqCuPreturi) }}
-      />
       <SEOBreadcrumbs
         items={breadcrumbItems}
         currentPageUrl="https://www.inpasidedans.ro/cursuri-dans-copii"
@@ -287,9 +206,9 @@ export default async function CursuriDansCopii() {
           </div>
         </div>
 
-        <ChildrenDanceFAQ />
+        <FaqBlock intrebari={faqCopii(tarife)} titlu="Întrebări frecvente despre cursurile de dans pentru copii" icon="plus" deschisPrima className="py-12" />
 
-        <TestimonialsSection danceType="copii" />
+        <Testimoniale items={TESTIMONIALE_COPII} />
 
         <div className="mt-16 space-y-6">
           <div className="text-center space-y-2">

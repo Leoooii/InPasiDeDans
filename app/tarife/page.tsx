@@ -1,7 +1,7 @@
 'use client'
 
+import CtaBanner from '@/components/cta-banner';
 import type { Tarif } from '@/lib/types'
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Check } from 'lucide-react';
-import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import PricingSection from '@/components/PricingSection';
@@ -135,30 +134,10 @@ export default function Tarife() {
 
           <TarifCards tarife={tarifCopii} />
 
-          <div className="mt-12 bg-red-50 p-4 sm:p-6 md:p-8 rounded-lg">
-            <div className="text-center space-y-4 max-w-2xl mx-auto">
-              <h2 className="text-xl sm:text-2xl font-bold ">
-                Gata să începi dansul?
-              </h2>
-              <p className="text-sm sm:text-base px-2">
-                Alege un abonament și înscrie-te astăzi sau contactează-ne
-                pentru detalii suplimentare.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
-                <Button variant="brand"
-                    size="lg"
-                    className="w-full sm:w-auto" asChild><Link href="/inscriere" className="w-full sm:w-auto">
-                    Înscrie-te acum
-                  </Link></Button>
-                <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto" asChild><Link href="/contact" className="w-full sm:w-auto">
-                    Contactează-ne
-                  </Link></Button>
-              </div>
-            </div>
-          </div>
+          <CtaBanner
+            titlu="Gata să începi dansul?"
+            text="Alege un abonament și înscrie-te astăzi sau contactează-ne pentru detalii suplimentare."
+          />
         </div>
         <GrupeInFormare />
       </div>

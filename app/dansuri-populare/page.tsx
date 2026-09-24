@@ -5,15 +5,18 @@ import Link from 'next/link';
 import { Calendar, Leaf, Music2, Sparkles, Users } from 'lucide-react';
 
 import GrupeInFormare from '@/components/grupe-in-formare';
-import FolkDancesCarousel from '@/components/FolkDancesCarousel';
+import GalerieFoto from '@/components/galerie-foto';
+import { GALERIE_POPULARE } from '@/lib/galerii';
 import WhyChooseUsFolkDances from '@/components/WhyChooseUsFolkDances';
 import FolkDancesStructure from '@/components/FolkDancesStructure';
 import FolkDancesRegions from '@/components/FolkDancesRegions';
 import LocationSection from '@/components/LocationSection';
 import InstructorsSection from '@/components/InstructorsSection';
 import PricingSection from '@/components/PricingSection';
-import FolkDancesTestimonials from '@/components/FolkDancesTestimonials';
-import FolkPopularFAQ from '@/components/FolkPopularFAQ';
+import Testimoniale from '@/components/testimoniale';
+import { TESTIMONIALE_POPULARE } from '@/lib/testimoniale';
+import FaqBlock from '@/components/faq-block';
+import { FAQ_POPULARE } from '@/lib/faq-stiluri';
 import ExploreOtherDances from '@/components/ExploreOtherDances';
 import ContactForm from '@/components/contact-form';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
@@ -96,7 +99,7 @@ export default function DansuriPopulare() {
       </div>
 
       {/* Carusel */}
-      <FolkDancesCarousel />
+      <GalerieFoto imagini={GALERIE_POPULARE} subtitlu="Energie, voie bună și tradiție autentică — la fiecare ședință." autoplayMs={false} inContainer={false} />
 
       <WhyChooseUsFolkDances />
 
@@ -113,43 +116,11 @@ export default function DansuriPopulare() {
 
       <PricingSection title="Alege abonamentul potrivit pentru tine" />
 
-      <FolkDancesTestimonials />
+      <Testimoniale items={TESTIMONIALE_POPULARE} latime="treime" />
 
-      <FolkPopularFAQ />
+      <FaqBlock intrebari={FAQ_POPULARE} titlu="Întrebări frecvente despre dansurile populare" icon="plus" deschisPrima className="py-16" />
 
-      <ExploreOtherDances
-        danceCategories={[
-          {
-            id: 1,
-            title: 'Dansuri Latino',
-            description: 'Salsa, bachata, cha-cha și multe altele',
-            imageSrc: '/images/latino.png',
-            imageAlt: 'Dansuri latino',
-            href: '/dansuri-latino',
-            gradient: 'from-red-500 to-orange-600',
-          },
-          {
-            id: 2,
-            title: 'Dansuri de Societate',
-            description: 'Vals, tango, foxtrot și multe altele',
-            imageSrc: '/images/societate.png',
-            imageAlt: 'Dansuri de societate',
-            href: '/dansuri-de-societate',
-            gradient: 'from-red-500 to-orange-600',
-          },
-          {
-            id: 3,
-            title: 'Cursuri particulare de dans',
-            description: 'Instruire personalizată pentru progres rapid',
-            imageSrc: '/images/private.png',
-            imageAlt: 'Cursuri particulare de dans',
-            href: '/lectii-private',
-            gradient: 'from-orange-500 to-orange-600',
-          },
-        ]}
-        sectionTitle="Explorează și alte dansuri"
-        sectionDescription="Descoperă diversitatea stilurilor de dans pe care le oferim"
-      />
+      <ExploreOtherDances exclude="populare" />
 
       <div id="inscriere" className="px-0 md:px-32">
         <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">

@@ -10,14 +10,17 @@ import GrupeInFormare from '@/components/grupe-in-formare';
 import StructureFeatures from '@/components/StructureFeatures';
 import LocationSection from '@/components/LocationSection';
 import InstructorsSection from '@/components/InstructorsSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
+import Testimoniale from '@/components/testimoniale';
+import { TESTIMONIALE_LATINO } from '@/lib/testimoniale';
 import PricingSection from '@/components/PricingSection';
-import FAQSection from '@/components/FAQSection';
+import FaqBlock from '@/components/faq-block';
+import { FAQ_LATINO } from '@/lib/faq-stiluri';
 import ExploreOtherDances from '@/components/ExploreOtherDances';
 import ContactForm from '@/components/contact-form';
 import StickyMenu from '@/components/sticky-menu';
 import CourseLevelsSection from '@/components/CourseLevelsSection';
-import LatinoAtmosphereSection from '@/components/LatinoAtmosphereSection';
+import GalerieFoto from '@/components/galerie-foto';
+import { GALERIE_LATINO } from '@/lib/galerii';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 
 const danceStyles = [
@@ -223,7 +226,7 @@ export default function DansuriLatino() {
 
         <CourseLevelsSection />
 
-        <LatinoAtmosphereSection />
+        <GalerieFoto imagini={GALERIE_LATINO} subtitlu="Mai mult decât simple lecții — o comunitate prietenoasă, energie vibrantă și momente de bucurie autentică la fiecare ședință." inaltime="mare" />
 
         <GrupeInFormare />
         <LocationSection />
@@ -237,46 +240,14 @@ export default function DansuriLatino() {
         </div>
 
         <div id="testimoniale">
-          <TestimonialsSection danceType="latino" />
+          <Testimoniale items={TESTIMONIALE_LATINO} />
         </div>
 
         <div id="intrebari">
-          <FAQSection danceType="latino" />
+          <FaqBlock intrebari={FAQ_LATINO} titlu="Întrebări frecvente (FAQ)" subtitlu="Răspunsuri la cele mai frecvente întrebări despre cursurile noastre de dans" icon="plus" deschisPrima className="py-16" />
         </div>
 
-        <ExploreOtherDances
-          danceCategories={[
-            {
-              id: 1,
-              title: 'Dansuri de Societate',
-              description: 'Vals, tango, foxtrot și multe altele',
-              imageSrc: '/images/societate.png',
-              imageAlt: 'Dansuri de societate',
-              href: '/dansuri-de-societate',
-              gradient: 'from-red-500 to-orange-600',
-            },
-            {
-              id: 2,
-              title: 'Lecții Private',
-              description: 'Instruire personalizată pentru progres rapid',
-              imageSrc: '/images/private.png',
-              imageAlt: 'Lecții private de dans',
-              href: '/lectii-private',
-              gradient: 'from-orange-500 to-orange-600',
-            },
-            {
-              id: 3,
-              title: 'Dansuri Populare',
-              description: 'Peste 200 de jocuri populare românești',
-              imageSrc: '/images/populare.png',
-              imageAlt: 'Dansuri populare românești',
-              href: '/dansuri-populare',
-              gradient: 'from-orange-500 to-red-600',
-            },
-          ]}
-          sectionTitle="Explorează și alte dansuri"
-          sectionDescription="Descoperă diversitatea stilurilor de dans pe care le oferim"
-        />
+        <ExploreOtherDances exclude="latino" />
 
         <div id="inscriere" className="px-0 md:px-32">
           <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-center mb-8">

@@ -1,14 +1,7 @@
 import NoutatiSection from '@/components/noutati-section';
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { getEvenimente, safe } from '@/lib/public-data';
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { ChevronRight, Newspaper, CalendarDays, Sparkles } from 'lucide-react';
+import { Newspaper, CalendarDays, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
@@ -76,24 +69,12 @@ export default async function NoutatiPage() {
       />
 
       <div className="relative container mx-auto py-10 md:py-16 px-4 md:px-6">
-        <Breadcrumb>
-          <BreadcrumbList className="text-white/70">
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                href="/"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Acasă
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator className="text-white/40">
-              <ChevronRight className="text-white/40" />
-            </BreadcrumbSeparator>
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-white font-medium">Noutăți</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <SEOBreadcrumbs
+          items={[{ name: 'Acasă', url: '/' }, { name: 'Noutăți' }]}
+          currentPageUrl="https://www.inpasidedans.ro/noutati"
+          tone="dark"
+          className="mb-0"
+        />
 
         {/* HERO */}
         <section className="mt-10 md:mt-16 mb-12 md:mb-20">

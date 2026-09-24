@@ -6,10 +6,10 @@ import { client } from '@/sanity/lib/client'
 import { singlePostQuery, relatedPostsQuery, allPostSlugsQuery } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/client'
 import PostContent from '@/components/blog/post-content'
-import Breadcrumbs from '@/components/blog/breadcrumbs'
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 import PostCard from '@/components/blog/post-card'
 import TableOfContents from '@/components/blog/table-of-contents'
-import FAQSection from '@/components/blog/faq-section'
+import FaqBlock from '@/components/faq-block'
 import RelatedPosts from '@/components/blog/related-posts'
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
@@ -162,12 +162,15 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
         {/* Breadcrumbs */}
         <div className="bg-white py-4">
           <div className="container mx-auto px-4">
-            <Breadcrumbs 
+            <SEOBreadcrumbs
               items={[
-                { label: 'Blog', href: '/blog' },
-                { label: post.category?.title || 'Categorie necunoscută', href: `/blog/${post.category?.slug?.current || ''}` },
-                { label: post.title }
-              ]} 
+                { name: 'Acasă', url: '/' },
+                { name: 'Blog', url: '/blog' },
+                { name: post.category?.title || 'Categorie necunoscută', url: `/blog/${post.category?.slug?.current || ''}` },
+                { name: post.title }
+              ]}
+              currentPageUrl={`https://www.inpasidedans.ro/blog/${categoria}/${slug}`}
+              tone="light"
             />
           </div>
         </div>
@@ -260,9 +263,10 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
 
             {/* FAQ Section */}
             {post.faq && post.faq.length > 0 && (
-              <FAQSection 
-                faqs={post.faq} 
-                postUrl={`https://www.inpasidedans.ro/blog/${post.category?.slug?.current || ''}/${post.slug?.current || ''}`}
+              <FaqBlock
+                intrebari={post.faq.map((f: { question: string; answer: string }) => ({ q: f.question, a: f.answer }))}
+                aliniere="left"
+                className="my-12"
               />
             )}
 

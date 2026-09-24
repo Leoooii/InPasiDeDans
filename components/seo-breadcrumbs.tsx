@@ -10,82 +10,71 @@ interface SEOBreadcrumbsProps {
   items: BreadcrumbItem[];
   className?: string;
   currentPageUrl?: string;
+  /** light = pe fundal deschis; dark = pe fundal închis sau colorat (text alb). */
+  tone?: 'light' | 'dark';
 }
 
-export default function SEOBreadcrumbs({ items, className = "", currentPageUrl }: SEOBreadcrumbsProps) {
-  // Generăm schema markup pentru breadcrumbs
+const SITE = 'https://www.inpasidedans.ro';
+const absolut = (url: string) => (url.startsWith('http') ? url : `${SITE}${url}`);
+
+const STIL = {
+  light: {
+    home: 'text-red-600',
+    primul: 'text-red-600 hover:text-red-700 hover:underline',
+    link: 'text-slate-600 hover:text-red-600 hover:underline',
+    curent: 'text-slate-900 font-semibold bg-red-50 px-2 py-1 rounded-md',
+    separator: 'text-slate-400',
+  },
+  dark: {
+    home: 'text-orange-300',
+    primul: 'text-white/80 hover:text-white',
+    link: 'text-white/80 hover:text-white',
+    curent: 'text-white font-semibold',
+    separator: 'text-white/40',
+  },
+};
+
+// Singura componentă de breadcrumbs: afișare + schema BreadcrumbList pentru Google.
+export default function SEOBreadcrumbs({ items, className = '', currentPageUrl, tone = 'light' }: SEOBreadcrumbsProps) {
+  const s = STIL[tone];
   const schemaMarkup = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "@id": currentPageUrl ? `${currentPageUrl}#breadcrumbs` : undefined,
-    "itemListElement": items.map((item, index) => {
-      // Pentru elementele fără URL (pagina curentă), folosim URL-ul curent
-      const itemUrl = item.url || currentPageUrl;
-      
-      return {
-        "@type": "ListItem",
-        "position": index + 1,
-        "name": item.name,
-        "item": itemUrl ? {
-          "@id": itemUrl.startsWith('http') ? itemUrl : `https://www.inpasidedans.ro${itemUrl}`,
-          "name": item.name
-        } : undefined
-      };
-    }).filter(item => item.item) // Păstrăm doar elementele cu item valid
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items
+      .map((item, index) => {
+        const url = item.url || (index === items.length - 1 ? currentPageUrl : undefined);
+        return url ? { '@type': 'ListItem', position: index + 1, name: item.name, item: absolut(url) } : null;
+      })
+      .filter(Boolean),
   };
 
   return (
     <>
-      {/* Schema markup pentru SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schemaMarkup)
-        }}
-      />
-      
-      {/* Breadcrumb visual */}
-      <nav className={`flex items-center space-x-1 text-sm mb-6 ${className}`} aria-label="Breadcrumb">
-        {items.map((item, index) => (
-          <div key={index} className="flex items-center">
-            {index > 0 && (
-              <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-            )}
-            
-            {index === 0 ? (
-              <div className="flex items-center">
-                <Home className="h-4 w-4 mr-1 text-red-600" />
-                {item.url ? (
-                  <Link 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }} />
+      <nav className={`text-sm mb-6 ${className}`} aria-label="Breadcrumb">
+        <ol className="flex flex-wrap items-center gap-y-1">
+          {items.map((item, index) => {
+            const ultimul = index === items.length - 1;
+            return (
+              <li key={index} className="flex items-center">
+                {index > 0 && <ChevronRight aria-hidden className={`h-4 w-4 mx-2 ${s.separator}`} />}
+                {index === 0 && <Home aria-hidden className={`h-4 w-4 mr-1 ${s.home}`} />}
+                {item.url && !ultimul ? (
+                  <Link
                     href={item.url}
-                    className="text-red-600 hover:text-red-700 transition-colors duration-200 font-medium hover:underline"
+                    className={`font-medium transition-colors duration-200 ${index === 0 ? s.primul : s.link}`}
                   >
                     {item.name}
                   </Link>
                 ) : (
-                  <span className="text-gray-900 font-semibold">
+                  <span aria-current={ultimul ? 'page' : undefined} className={s.curent}>
                     {item.name}
                   </span>
                 )}
-              </div>
-            ) : (
-              <>
-                {item.url ? (
-                  <Link 
-                    href={item.url}
-                    className="text-gray-600 hover:text-red-600 transition-colors duration-200 font-medium hover:underline"
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <span className="text-gray-900 font-semibold bg-red-50 px-2 py-1 rounded-md">
-                    {item.name}
-                  </span>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+              </li>
+            );
+          })}
+        </ol>
       </nav>
     </>
   );

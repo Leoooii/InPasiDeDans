@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { client, urlForImage } from '@/sanity/lib/client'
 import { postsByAuthorQuery, singleAuthorQuery, allAuthorsQuery } from '@/sanity/lib/queries'
 import PostCard from '@/components/blog/post-card'
-import Breadcrumbs from '@/components/blog/breadcrumbs'
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
 export const revalidate = 3600
@@ -60,12 +60,15 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
-          <Breadcrumbs 
+          <SEOBreadcrumbs
             items={[
-              { label: 'Blog', href: '/blog' },
-              { label: 'Autori', href: '/blog' },
-              { label: author.name }
-            ]} 
+              { name: 'Acasă', url: '/' },
+              { name: 'Blog', url: '/blog' },
+              { name: 'Autori', url: '/blog' },
+              { name: author.name }
+            ]}
+            currentPageUrl={`https://www.inpasidedans.ro/blog/autor/${slug}`}
+            tone="dark"
           />
           
           <div className="max-w-4xl mx-auto text-center mt-8">

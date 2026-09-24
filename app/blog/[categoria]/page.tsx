@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { postsByCategoryQuery, singleCategoryQuery, allCategoriesQuery } from '@/sanity/lib/queries'
 import PostCard from '@/components/blog/post-card'
-import Breadcrumbs from '@/components/blog/breadcrumbs'
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
 export const revalidate = 3600
@@ -98,11 +98,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-16">
         <div className="container mx-auto px-4">
-          <Breadcrumbs 
+          <SEOBreadcrumbs
             items={[
-              { label: 'Blog', href: '/blog' },
-              { label: category.title }
-            ]} 
+              { name: 'Acasă', url: '/' },
+              { name: 'Blog', url: '/blog' },
+              { name: category.title }
+            ]}
+            currentPageUrl={`https://www.inpasidedans.ro/blog/${categoria}`}
+            tone="dark"
           />
           
           <div className="max-w-4xl mx-auto text-center">

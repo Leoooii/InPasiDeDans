@@ -1,5 +1,6 @@
 'use client';
 
+import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { usePublicData } from '@/components/public-data-provider';
 import Link from 'next/link';
 import {
@@ -9,8 +10,7 @@ import {
   GraduationCap,
   Trophy,
   Heart,
-  ChevronRight,
-} from 'lucide-react';
+  } from 'lucide-react';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import InstructoriSlider, { type Instructor } from '@/components/instructori-slider';
 
@@ -48,11 +48,12 @@ export default function Instructori() {
 
       <div className="relative container mx-auto py-10 md:py-16 px-4 md:px-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Acasă</Link>
-          <ChevronRight className="h-4 w-4 text-white/30" />
-          <span className="text-white font-medium">Instructori</span>
-        </nav>
+        <SEOBreadcrumbs
+          items={[{ name: 'Acasă', url: '/' }, { name: 'Instructori' }]}
+          currentPageUrl="https://www.inpasidedans.ro/instructori"
+          tone="dark"
+          className="mb-0"
+        />
 
         {/* HERO */}
         <section className="mt-10 md:mt-16 mb-14 md:mb-20">
