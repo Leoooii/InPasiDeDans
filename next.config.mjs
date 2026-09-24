@@ -23,7 +23,6 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    nextScriptWorkers: true,
     // Optimizări pentru performanță
     optimizePackageImports: ['@sanity/image-url', 'next-sanity'],
     turbo: {
@@ -39,8 +38,6 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // Optimizări pentru output
-  output: 'standalone',
   poweredByHeader: false,
   // Roboții din listă primesc <title>/<meta> direct în <head> (fără streaming).
   // Lista implicită Next nu include crawlerele AI, care nu rulează JavaScript.
