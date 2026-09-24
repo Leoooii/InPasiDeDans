@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { BUSINESS } from '@/lib/schema-constants';
 import Image from 'next/image';
 import {
   ArrowLeft,
@@ -210,6 +211,14 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
   );
   const encodedUrl = encodeURIComponent(shareUrl);
 
+  const canonicalUrl = `${SITE_URL}/${isEvent ? 'evenimente' : 'noutati'}/${item.slug}`;
+  const organizatie = {
+    '@type': 'DanceSchool',
+    '@id': `${SITE_URL}/#organization`,
+    name: BUSINESS.name,
+    url: SITE_URL,
+  };
+
   const jsonLd = isEvent
     ? {
         '@context': 'https://schema.org',
@@ -218,13 +227,15 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
         description: item.description,
         startDate: item.eventDate,
         image: item.imageUrl ? [item.imageUrl] : undefined,
-        url: shareUrl,
+        url: canonicalUrl,
         eventStatus: 'https://schema.org/EventScheduled',
-        organizer: {
-          '@type': 'Organization',
-          name: 'In Pași de Dans',
-          url: SITE_URL,
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+          '@type': 'Place',
+          name: BUSINESS.name,
+          address: BUSINESS.address,
         },
+        organizer: organizatie,
       }
     : {
         '@context': 'https://schema.org',
@@ -233,10 +244,9 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
         description: item.description,
         datePublished: item.date,
         image: item.imageUrl ? [item.imageUrl] : undefined,
-        url: shareUrl,
+        url: canonicalUrl,
         publisher: {
-          '@type': 'Organization',
-          name: 'In Pași de Dans',
+          ...organizatie,
           logo: {
             '@type': 'ImageObject',
             url: `${SITE_URL}/images/logo.png`,

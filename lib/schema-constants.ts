@@ -63,6 +63,8 @@ export const BUSINESS = {
 export const SCHOOL_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'DanceSchool',
+  '@id': `${BUSINESS.url}/#organization`,
+  alternateName: ['In Pasi de Dans', 'Școala de dans În Pași de Dans'],
   additionalType: 'https://www.productontology.org/id/Dance_school',
   name: BUSINESS.name,
   description: BUSINESS.description,

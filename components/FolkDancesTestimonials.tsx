@@ -65,41 +65,9 @@ const folkDancesTestimonials: Testimonial[] = [
 ];
 
 export default function FolkDancesTestimonials() {
-  // JSON-LD pentru schema Review
-  const generateReviewsSchema = () => {
-    const reviewsSchema = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": folkDancesTestimonials.map((testimonial, index) => ({
-        "@type": "Review",
-        "position": index + 1,
-        "reviewBody": testimonial.text,
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": testimonial.rating,
-          "bestRating": 5
-        },
-        "author": {
-          "@type": "Person",
-          "name": testimonial.name
-        },
-        "itemReviewed": {
-          "@type": "School",
-          "name": "In Pasi de Dans",
-          "additionalType": "https://www.productontology.org/id/Dance_school"
-        }
-      }))
-    };
-    return JSON.stringify(reviewsSchema);
-  };
 
   return (
     <>
-      {/* JSON-LD Schema pentru SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: generateReviewsSchema() }}
-      />
       
       <div className="bg-white">
         <div className="container mx-auto px-4">

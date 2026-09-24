@@ -58,6 +58,7 @@ export const postsByCategoryQuery = `
 export const singlePostQuery = `
   *[_type == "post" && slug.current == $slug && status == "published"][0] {
     _id,
+    _updatedAt,
     title,
     slug,
     excerpt,

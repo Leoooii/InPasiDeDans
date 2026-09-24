@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Script from "next/script"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 import { Calendar, Clock, Users } from "lucide-react"
@@ -8,6 +7,7 @@ import { Calendar, Clock, Users } from "lucide-react"
 import { getDocCached } from "@/lib/firestore-cache"
 import { buildGrupaSlug, extractGrupaIdFromSlug } from "@/lib/utils"
 import SEOBreadcrumbs from "@/components/seo-breadcrumbs"
+import { BUSINESS } from "@/lib/schema-constants"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -170,32 +170,24 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
     name: grupa.titlu,
     description: grupa.descriere,
     startDate: grupa.dataStart,
-    endDate: grupa.dataStart,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     location: {
       "@type": "Place",
-      name: "Școala In Pasi de Dans",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Calea Rahovei 262",
-        addressLocality: "București",
-        postalCode: "050897",
-        addressCountry: "RO",
-      },
+      name: BUSINESS.name,
+      address: BUSINESS.address,
     },
     organizer: {
-      "@type": "DanceGroup",
-      name: "In Pasi de Dans",
-      url: "https://www.inpasidedans.ro",
+      "@type": "DanceSchool",
+      "@id": "https://www.inpasidedans.ro/#organization",
+      name: BUSINESS.name,
+      url: BUSINESS.url,
     },
     offers: {
       "@type": "Offer",
       url: `https://www.inpasidedans.ro/inscriere?grupa=${grupa.id}`,
       availability:
         grupa.locuriDisponibile > 0 ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
-      price: "0",
-      priceCurrency: "RON",
     },
   }
 
@@ -307,10 +299,8 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
         </div>
       </div>
 
-      <Script
-        id={`grupa-ldjson-${grupa.id}`}
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     </div>

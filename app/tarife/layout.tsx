@@ -1,4 +1,12 @@
 import type { Metadata } from 'next'
+import { getTarife, safe } from '@/lib/public-data'
+import { BUSINESS } from '@/lib/schema-constants'
+
+const CATEGORIE: Record<string, string> = {
+  grup: 'Cursuri de grup adulți',
+  privat: 'Lecții private',
+  copii: 'Cursuri copii',
+}
 
 export const metadata: Metadata = {
   title: 'Prețuri Cursuri de Dans București | În Pași de Dans',
@@ -36,6 +44,30 @@ export const metadata: Metadata = {
   },
 }
 
-export default function TarifeLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+export default async function TarifeLayout({ children }: { children: React.ReactNode }) {
+  const tarife = await safe(getTarife, null)
+  const oferte = tarife ? [...tarife.grup, ...tarife.privat, ...tarife.copii] : []
+
+  const jsonLd = oferte.length > 0 && {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: 'Tarife cursuri de dans – În Pași de Dans',
+    url: `${BUSINESS.url}/tarife`,
+    itemListElement: oferte.map(t => ({
+      '@type': 'Offer',
+      name: `${CATEGORIE[t.categorie]}: ${t.titlu}`,
+      description: [t.descriere, ...t.beneficii].filter(Boolean).join('. ') || undefined,
+      price: t.pret,
+      priceCurrency: 'RON',
+      category: CATEGORIE[t.categorie],
+      offeredBy: { '@type': 'DanceSchool', '@id': `${BUSINESS.url}/#organization`, name: BUSINESS.name },
+    })),
+  }
+
+  return (
+    <>
+      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
+      {children}
+    </>
+  )
 }

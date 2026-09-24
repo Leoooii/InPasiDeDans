@@ -134,89 +134,21 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
     },
     "publisher": {
       "@type": "Organization",
+      "@id": "https://www.inpasidedans.ro/#organization",
       "name": "În Pași de Dans",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.inpasidedans.ro/logo.png"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Calea Rahovei 262, sector 5",
-        "addressLocality": "București",
-        "postalCode": "050912",
-        "addressCountry": "RO"
-      },
-      "telephone": "+40 722 675 126",
-      "email": "inpasidedans@gmail.com",
-      "url": "https://www.inpasidedans.ro",
-      "image": "https://www.inpasidedans.ro/logo.png"
+      "logo": { "@type": "ImageObject", "url": "https://www.inpasidedans.ro/images/logo.png" }
     },
     "datePublished": post.publishedAt,
-    "dateModified": post.publishedAt,
+    "dateModified": post._updatedAt || post.publishedAt,
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://www.inpasidedans.ro/blog/${categoria}/${slug}`
     },
     "articleSection": post.category?.title || 'Dans',
     "keywords": post.tags?.join(', '),
-    // Adăugăm Course schema pentru articole educaționale (ghiduri)
-    "mentions": [{
-      "@type": "Course",
-      "name": `${post.category?.title || 'Dans'} - ${post.title}`,
-      "description": post.metaDescription || post.excerpt,
-      "provider": {
-        "@type": "Organization",
-        "name": "În Pași de Dans",
-        "url": "https://www.inpasidedans.ro",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Calea Rahovei 262, sector 5",
-          "addressLocality": "București",
-          "postalCode": "050912",
-          "addressCountry": "RO"
-        },
-        "telephone": "+40 722 675 126",
-        "email": "inpasidedans@gmail.com",
-        "logo": "https://www.inpasidedans.ro/logo.png"
-      },
-      "courseMode": "blended",
-      "educationalLevel": "beginner",
-      "inLanguage": "ro",
-      "image": post.mainImage?.asset ? urlForImage(post.mainImage).width(1200).height(630).fit('crop').url() : "https://www.inpasidedans.ro/logo.png"
-    }]
+    "inLanguage": "ro"
   }
 
-  // Schema LocalBusiness pentru rezolvarea warning-ului despre imagine
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "În Pași de Dans",
-    "description": "Școală de dans în București. Cursuri de dans latino, popular și de societate pentru adulți și copii.",
-    "image": "https://www.inpasidedans.ro/logo.png",
-    "url": "https://www.inpasidedans.ro",
-    "telephone": "+40 722 675 126",
-    "email": "inpasidedans@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Calea Rahovei 262, sector 5",
-      "addressLocality": "București",
-      "postalCode": "050912",
-      "addressCountry": "RO"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "44.4268",
-      "longitude": "26.1025"
-    },
-    "openingHours": "Mo-Fr 18:00-22:00, Sa 10:00-20:00",
-    "priceRange": "$$",
-    "paymentAccepted": "Cash, Card",
-    "currenciesAccepted": "RON",
-    "sameAs": [
-      "https://www.facebook.com/inpasidedans",
-      "https://www.instagram.com/inpasidedans"
-    ]
-  }
 
   return (
     <>
@@ -224,12 +156,6 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      
-      {/* Schema markup pentru LocalBusiness */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
 
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

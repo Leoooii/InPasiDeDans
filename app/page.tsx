@@ -51,88 +51,7 @@ export default async function Home() {
 
   return (
     <>
-      {/* Schema DanceSchool + WebSite — randate în body (App Router) ca să fie sigur indexate */}
-      <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org/",
-              "@type": "DanceSchool",
-              "@id": "https://www.inpasidedans.ro/#organization",
-              "name": "În Pași de Dans",
-              "alternateName": "Scoala de Dans In Pasi de Dans",
-              "description": "Școală de dans cu tradiție din 2009, oferind cursuri de dansuri latino, de societate, populare și lecții private în București.",
-              "url": "https://www.inpasidedans.ro/",
-              "logo": "https://www.inpasidedans.ro/images/logo.png",
-              "image": "https://www.inpasidedans.ro/images/logo.png",
-              "foundingDate": "2009",
-              "telephone": "+40722675126",
-              "email": "inpasidedans@gmail.com",
-              "priceRange": "$$",
-              "currenciesAccepted": "RON",
-              "knowsLanguage": "ro",
-              "areaServed": ["București", "Sector 5", "Sector 4", "Sector 6", "Ilfov"],
-              "hasMap": "https://maps.google.com/?q=Calea+Rahovei+262+Sector+5+Bucuresti",
-              "openingHoursSpecification": [{
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                "opens": "10:00",
-                "closes": "17:00"
-              }],
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Calea Rahovei 262",
-                "addressLocality": "București",
-                "addressRegion": "Sector 5",
-                "postalCode": "050897",
-                "addressCountry": "RO"
-              },
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+40722675126",
-                "contactType": "customer service",
-                "areaServed": "RO",
-                "availableLanguage": "Romanian"
-              },
-              "sameAs": [
-                "https://www.facebook.com/scoaladedansinpasidedans",
-                "https://www.instagram.com/inpasidedans/",
-                "https://www.tiktok.com/@inpasidedans",
-                "https://www.youtube.com/@inpasidedans"
-              ],
-              "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "Cursuri de Dans",
-                "itemListElement": [
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Course",
-                      "name": "Dansuri Latino",
-                      "description": "Salsa, bachata, cha-cha și multe altele"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Course", 
-                      "name": "Dansuri de Societate",
-                      "description": "Vals, tango, foxtrot și alte dansuri elegante"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Course",
-                      "name": "Dansuri Populare",
-                      "description": "Peste 200 de jocuri populare românești"
-                    }
-                  }
-                ]
-              }
-            })
-          }}
-        />
+      {/* Schema WebSite; DanceSchool vine din layout-ul rădăcină (SCHOOL_SCHEMA) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -144,11 +63,6 @@ export default async function Home() {
               "url": "https://www.inpasidedans.ro/",
               "publisher": {
                 "@id": "https://www.inpasidedans.ro/#organization"
-              },
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://www.inpasidedans.ro/?s={search_term_string}",
-                "query-input": "required name=search_term_string"
               }
             })
           }}

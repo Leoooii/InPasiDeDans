@@ -10,7 +10,6 @@ import ContactForm from '@/components/contact-form';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import LocationSection from '@/components/LocationSection';
-import Script from 'next/script';
 
 export default function Contact() {
   const breadcrumbItems = [
@@ -20,114 +19,6 @@ export default function Contact() {
 
   return (
     <>
-      {/* Schema Local Business JSON-LD */}
-      <Script
-        id="local-business-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "DanceSchool",
-            "name": "În Pași de Dans",
-            "description": "Școala de dans cu tradiție din 2009, oferind cursuri de dansuri latino, de societate, populare și lecții private în București.",
-            "url": "https://www.inpasidedans.ro",
-            "logo": "https://www.inpasidedans.ro/images/logo.png",
-            "image": "https://www.inpasidedans.ro/images/logo.png",
-            "telephone": "+40722675126",
-            "email": "inpasidedans@gmail.com",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Calea Rahovei, Nr. 262",
-              "addressLocality": "București",
-              "addressRegion": "Sector 5",
-              "postalCode": "050897",
-              "addressCountry": "RO"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 44.415353599999996,
-              "longitude": 26.0774895
-            },
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                "opens": "10:00",
-                "closes": "17:00"
-              },
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Saturday",
-                "opens": "14:00",
-                "closes": "18:00"
-              },
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Sunday",
-                "opens": "00:00",
-                "closes": "00:00",
-                "validFrom": "2024-01-01",
-                "validThrough": "2024-12-31"
-              }
-            ],
-            "foundingDate": "2009",
-            "priceRange": "$$",
-            "currenciesAccepted": "RON",
-            "paymentAccepted": ["Cash", "Credit Card", "Bank Transfer"],
-            "areaServed": {
-              "@type": "City",
-              "name": "București",
-              "addressCountry": "RO"
-            },
-            "serviceArea": {
-              "@type": "GeoCircle",
-              "geoMidpoint": {
-                "@type": "GeoCoordinates",
-                "latitude": 44.415353599999996,
-                "longitude": 26.0774895
-              },
-              "geoRadius": "50000"
-            },
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Cursuri de Dans",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Course",
-                    "name": "Dansuri Latino",
-                    "description": "Salsa, bachata, cha-cha și multe altele"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Course",
-                    "name": "Dansuri de Societate",
-                    "description": "Vals, tango, foxtrot și alte dansuri elegante"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Course",
-                    "name": "Dansuri Populare",
-                    "description": "Peste 200 de jocuri populare românești"
-                  }
-                }
-              ]
-            },
-            "sameAs": [
-              "https://www.facebook.com/scoaladedansinpasidedans",
-              "https://www.instagram.com/inpasidedans/",
-              "https://www.tiktok.com/@inpasidedans",
-              "https://www.youtube.com/@inpasidedans"
-            ]
-          })
-        }}
-      />
 
       <div className="container py-12 gap-6 flex flex-col">
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/contact" />
@@ -268,26 +159,6 @@ export default function Contact() {
       <GrupeInFormare />
       </div>
 
-      {/* Schema Logo JSON-LD */}
-      <Script
-        id="logo-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "În Pași de Dans",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://www.inpasidedans.ro/images/logo.png",
-              "width": 200,
-              "height": 70
-            },
-            "url": "https://www.inpasidedans.ro"
-          })
-        }}
-      />
     </>
   );
 }
