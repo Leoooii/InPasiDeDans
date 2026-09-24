@@ -15,7 +15,9 @@ const nextConfig = {
     // Activează optimizarea imaginilor pentru performanță
     unoptimized: false,
     // Configurări pentru performanță
-    minimumCacheTTL: 60,
+    // Imaginile din public/ nu se schimbă sub același nume; 31 de zile evită
+    // recomprimări inutile (se consumă din cota Image Optimization).
+    minimumCacheTTL: 2678400,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
@@ -103,6 +105,24 @@ const nextConfig = {
       },
       {
         source: '/:path*.jpg',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:path*.jpeg',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:path*.mp4',
         headers: [
           {
             key: 'Cache-Control',

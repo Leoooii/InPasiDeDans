@@ -53,8 +53,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google Tag Manager */}
+        {/* GA4 (G-5MHT7TMSZN) vine din containerul GTM; aici rămâne doar contul Ads vechi. */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-5MHT7TMSZN"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-803044953"
           strategy="afterInteractive"
         />
         <Script
@@ -65,7 +66,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-5MHT7TMSZN');
               gtag('config', 'AW-803044953');
             `,
           }}

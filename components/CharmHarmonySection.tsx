@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
@@ -55,11 +56,15 @@ export default function CharmHarmonySection() {
               <CarouselItem key={index} className="pl-1 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
                 <div className="relative group">
                   <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                    <img 
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-48 md:h-64 lg:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                    <div className="relative w-full h-48 md:h-64 lg:h-80">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
                     {/* Overlay cu text pentru fiecare imagine */}
                     {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-4 left-4 right-4">

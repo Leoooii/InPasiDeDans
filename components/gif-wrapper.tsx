@@ -74,7 +74,7 @@ export default function GifWrapper() {
       {(!videoLoaded || videoError) && (
         <div
           className="absolute inset-0 z-10 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/noi.png)' }}
+          style={{ backgroundImage: 'url(/images/noi.webp)' }}
         />
       )}
 
@@ -90,7 +90,7 @@ export default function GifWrapper() {
           loop
           playsInline
           preload="metadata"
-          poster="/images/noi.png"
+          poster="/images/noi.webp"
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
           onClick={handleVideoClick}

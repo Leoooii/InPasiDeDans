@@ -75,7 +75,7 @@ export default function DespreNoi() {
           <div className="relative h-[400px] rounded-lg overflow-hidden flex items-center">
             {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
             <Image
-              src="/images/noi.png"
+              src="/images/noi.webp"
               height="1000"
               width="1000"
               alt="group-picture"

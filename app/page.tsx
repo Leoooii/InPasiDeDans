@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Script from 'next/script';
 import CookieConsent from '@/components/cookie-consent';
 import GifWrapperClient from './GifWrapperClient';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
@@ -74,14 +73,6 @@ export default async function Home() {
           { id: 'noutati', label: 'Noutăți' }
         ]} />
         <CookieConsent />
-        <div style={{ display: 'none' }}>
-          <Script
-            src="https://efreecode.com/js.js"
-            id="eXF-pasidans-0"
-            async
-            defer
-          />
-        </div>
 
         <section className="relative h-[85vh] overflow-hidden">
           <div className="sticky top-0 h-[85vh]">

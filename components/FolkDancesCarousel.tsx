@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
@@ -39,11 +40,15 @@ export default function FolkDancesCarousel() {
             <CarouselItem key={num} className="pl-1 md:pl-6 lg:pl-12 basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
               <div className="relative group">
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                  <img 
-                    src={`/images/populare/${num}.jpeg`}
-                    alt={`Dansuri populare ${num}`}
-                    className="w-full h-48 md:h-64 lg:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <div className="relative w-full h-48 md:h-64 lg:h-80">
+                    <Image
+                      src={`/images/populare/${num}.jpeg`}
+                      alt={`Dansuri populare ${num}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
                 </div>
               </div>
             </CarouselItem>

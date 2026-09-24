@@ -260,11 +260,15 @@ export default function FolkDancesRegions() {
         <div className="max-w-4xl mx-auto">
           {/* Imaginea regiunii active */}
           <div className="relative mb-8">
-            <img
-              src={regiuniDansuri[currentRegion].imagine}
-              alt={regiuniDansuri[currentRegion].nume}
-              className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg"
-            />
+            <div className="relative w-full h-64 md:h-80">
+              <Image
+                src={regiuniDansuri[currentRegion].imagine}
+                alt={regiuniDansuri[currentRegion].nume}
+                fill
+                sizes="(max-width: 896px) 100vw, 896px"
+                className="object-cover rounded-xl shadow-lg"
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl" />
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-2xl md:text-3xl font-bold mb-2 text-orange-500">

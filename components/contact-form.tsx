@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { useSimpleToast } from '@/components/simple-toast-provider';
-import Image from 'next/image';
 import Link from 'next/link';
 
 // Tipizări explicite pentru evenimente
@@ -227,13 +226,16 @@ const ContactForm = () => {
           <Card>
             <CardContent className="pt-6 pb-6 text-center">
               <div className="mb-4 flex justify-center">
-                <Image
-                  src="/images/Rick.gif"
-                  alt="Școala de dans"
+                <video
+                  src="/images/Rick.mp4"
                   width={300}
                   height={200}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  aria-label="Școala de dans"
                   style={{ objectFit: 'cover', borderRadius: '8px' }}
-                  priority
                 />
               </div>
               <div className="mb-4 flex justify-center">

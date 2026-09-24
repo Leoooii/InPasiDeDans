@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
@@ -244,13 +243,16 @@ export default function InscriereForm() {
           <Card className="border-green-500">
             <CardContent className="pt-6 pb-6 text-center">
               <div className="mb-4 flex justify-center">
-                <Image
-                  src="/images/Rick.gif"
-                  alt="Școala de dans"
+                <video
+                  src="/images/Rick.mp4"
                   width={300}
                   height={200}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  aria-label="Școala de dans"
                   style={{ objectFit: 'cover', borderRadius: '8px' }}
-                  priority
                 />
               </div>
               <div className="mb-4 flex justify-center">
