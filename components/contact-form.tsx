@@ -79,7 +79,7 @@ const ContactForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData }),
+        body: JSON.stringify({ ...formData, sursa: 'contact', tip: 'mesaj' }),
       });
 
       if (!response.ok) {

@@ -62,6 +62,19 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // ===== Înscrieri din formularele site-ului =====
+    // /api/send doar CREEAZĂ documente (client SDK fără auth); citirea,
+    // schimbarea statusului și ștergerea se fac din /admin/inscrieri,
+    // cu adminul autentificat în browser.
+    match /inscrieri/{docId} {
+      allow create: if request.resource.data.status == 'nou'
+                    && request.resource.data.keys().hasOnly([
+                         'name', 'email', 'phone', 'message', 'danceclass', 'instructor',
+                         'sursa', 'tip', 'grupaId', 'status', 'consent', 'createdAt'
+                       ]);
+      allow read, update, delete: if isAdmin();
+    }
+
     // ===== Galeria de imagini admin =====
     // Nu e accesată prin API routes — pot fi admin-only safe.
     match /imagini/{docId} {

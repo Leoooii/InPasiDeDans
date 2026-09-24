@@ -25,6 +25,7 @@ import {
   BookOpen,
   Image,
   BarChart3,
+  ClipboardList,
 } from 'lucide-react';
 
 const navGroups = [
@@ -37,6 +38,7 @@ const navGroups = [
         icon: LayoutDashboard,
         exact: true,
       },
+      { href: '/admin/inscrieri', label: 'Înscrieri', icon: ClipboardList },
       { href: '/admin/cursanti', label: 'Cursanți', icon: GraduationCap },
       { href: '/admin/grupe', label: 'Grupe', icon: BookOpen },
       { href: '/admin/prezenta', label: 'Prezență', icon: Calendar },

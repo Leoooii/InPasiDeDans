@@ -78,6 +78,8 @@ export default function LatinoSignupForm() {
           message: `Doresc să mă înscriu la cursurile de ${formData.dansLatinoType}. Vă rog să mă contactați pentru detalii despre program și înscriere.`,
           honey: formData.honey,
           consent: true, // Pentru form-ul de înscriere, considerăm că user-ul este de acord prin completare
+          sursa: 'latino',
+          tip: 'curs',
         }),
       });
 

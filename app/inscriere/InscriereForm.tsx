@@ -43,6 +43,8 @@ interface FormData {
   consent: boolean;
 }
 
+const LISTA_ASTEPTARE = 'Listă de așteptare – anunțați-mă când se deschide o grupă nouă';
+
 type GrupaOption = {
   id: string;
   label: string;
@@ -174,6 +176,14 @@ export default function InscriereForm() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const tipSelectie = () => {
+    if (formData.danceclass === LISTA_ASTEPTARE) {
+      return { tip: 'lista-asteptare', grupaId: '' };
+    }
+    const grupa = grupeOptions.find(option => option.value === formData.danceclass);
+    return grupa ? { tip: 'grupa', grupaId: grupa.id } : { tip: 'curs', grupaId: '' };
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -200,7 +210,7 @@ export default function InscriereForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData }),
+        body: JSON.stringify({ ...formData, sursa: 'inscriere', ...tipSelectie() }),
       });
       if (!response.ok) {
         throw new Error('Eroare la trimiterea formularului');
@@ -326,6 +336,10 @@ export default function InscriereForm() {
                           />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value={LISTA_ASTEPTARE}>{LISTA_ASTEPTARE}</SelectItem>
+                          <SelectItem value="cursuri-divider" disabled>
+                            — Cursuri —
+                          </SelectItem>
                           {defaultOptions.map(option => (
                             <SelectItem key={option.id} value={option.value}>
                               {option.label}

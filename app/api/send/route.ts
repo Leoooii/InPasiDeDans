@@ -4,6 +4,8 @@ import { EmailTemplate } from '../../../components/email-template';
 import * as React from 'react';
 import { rateLimitMiddleware } from '../../../lib/rateLimiter';
 import { z } from 'zod';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../../lib/firebase';
 
 // Schema de validare pentru datele de intrare
 const FormSchema = z.object({
@@ -20,6 +22,9 @@ const FormSchema = z.object({
     .max(20, 'Numărul de telefon este prea lung')
     .regex(/^[0-9+()\s-]+$/, 'Numărul de telefon conține caractere invalide'),
   honey: z.string().optional().default(''),
+  sursa: z.enum(['inscriere', 'contact', 'latino']).optional().default('inscriere'),
+  tip: z.enum(['lista-asteptare', 'grupa', 'curs', 'mesaj']).optional().default('curs'),
+  grupaId: z.string().max(100).optional().default(''),
   consent: z
     .boolean({ required_error: 'Consimțământul este obligatoriu' })
     .refine(val => val === true, { message: 'Trebuie să acceptați Politica de Confidențialitate' }),
@@ -75,6 +80,9 @@ export async function POST(request: NextRequest) {
       phone,
       honey,
       consent,
+      sursa,
+      tip,
+      grupaId,
     } = validatedData.data;
 
     // Verifică honeypot
@@ -83,15 +91,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Spam detectat' }, { status: 400 });
     }
 
-    // Documentează consimțământul (ex. salvează în baza de date)
-    const consentRecord = {
-      email,
-      ip: ip.split(',')[0], // Ia primul IP din x-forwarded-for
-      timestamp: new Date().toISOString(),
-      consentGiven: consent,
-    };
-    // TODO: Salvează consentRecord într-o bază de date securizată
-    // console.log('Consimțământ înregistrat:', consentRecord);
+    // Evidența din admin (/admin/inscrieri). Un eșec aici nu trebuie să blocheze
+    // emailul — altfel am pierde înscrierea cu totul.
+    try {
+      await addDoc(collection(db, 'inscrieri'), {
+        name,
+        email,
+        phone,
+        message,
+        danceclass,
+        instructor,
+        sursa,
+        tip,
+        grupaId: tip === 'grupa' ? grupaId : '',
+        status: 'nou',
+        consent,
+        createdAt: Date.now(),
+      });
+    } catch (dbError: any) {
+      console.error('Eroare la salvarea înscrierii în Firestore:', dbError?.message);
+    }
 
     // Trimite emailul folosind Resend
     const { data, error } = await resend.emails.send({
