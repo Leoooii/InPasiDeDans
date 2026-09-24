@@ -159,14 +159,10 @@ export default async function CursuriDansCopii() {
               populare: horă, alunelul, bătuta ursului, jiana.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <Link href="/inscriere">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 "
-                >
+              <Button variant="brand"
+                  size="lg" asChild><Link href="/inscriere">
                   Înscrie-ți copilul
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
           </div>
           <div className="relative h-[440px] rounded-2xl overflow-hidden shadow-2xl">

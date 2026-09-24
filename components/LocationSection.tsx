@@ -44,11 +44,9 @@ export default function LocationSection() {
 
           {/* Butonul de înscriere */}
           <div className="text-center pt-4">
-            <Link href="#inscriere">
-              <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-lg">
+            <Button variant="brand" className="text-lg" asChild><Link href="#inscriere">
                 Înscrie-te la curs
-              </Button>
-            </Link>
+              </Link></Button>
           </div>
         </div>
 

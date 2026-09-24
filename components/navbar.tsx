@@ -138,14 +138,12 @@ export default function Navbar() {
             </div>
             {user ? (
               <div className="flex items-center gap-2">
-                <Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
-                  <Button variant="outline" className="flex items-center gap-2">
+                <Button variant="outline" className="flex items-center gap-2" asChild><Link href={isAdmin ? '/admin' : '/cont'} rel="nofollow">
                     <User className="h-4 w-4" />
                     <span className="hidden sm:inline">
                       {isAdmin ? 'Admin' : 'Contul meu'}
                     </span>
-                  </Button>
-                </Link>
+                  </Link></Button>
                 <Button
                   variant="ghost"
                   className="hidden sm:flex"
@@ -156,14 +154,11 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link href="/inscriere">
-                  <Button
-                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 hidden sm:flex"
-                    title="Înscrie-te la Cursuri de Dans"
-                  >
+                <Button variant="brand"
+                    className="hidden sm:flex"
+                    title="Înscrie-te la Cursuri de Dans" asChild><Link href="/inscriere">
                     <span className="sm:inline">Înscrie-te</span>
-                  </Button>
-                </Link>
+                  </Link></Button>
               </div>
             )}
             

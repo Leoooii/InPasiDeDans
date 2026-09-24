@@ -79,23 +79,15 @@ export default async function Program() {
                 detalii.
               </p>
               <div className="flex justify-center gap-4">
-                <Link href="/inscriere">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                  >
+                <Button variant="brand"
+                    size="lg" asChild><Link href="/inscriere">
                     Înscrie-te acum
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button
+                  </Link></Button>
+                <Button
                     size="lg"
-                    variant="outline"
-                    className="border-red-600 text-red-600 hover:bg-red-50"
-                  >
+                    variant="outline" asChild><Link href="/contact">
                     Contactează-ne
-                  </Button>
-                </Link>
+                  </Link></Button>
               </div>
             </div>
           </div>

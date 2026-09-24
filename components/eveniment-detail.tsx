@@ -192,12 +192,10 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
             Articolul căutat nu există sau a fost mutat. Verifică linkul sau revino la
             listă.
           </p>
-          <Link href={listingHref}>
-            <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+          <Button variant="brand" asChild><Link href={listingHref}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Înapoi la {listingLabel.toLowerCase()}
-            </Button>
-          </Link>
+            </Link></Button>
         </div>
       </div>
     );
@@ -472,12 +470,10 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
               <p className="text-sm text-white/70 mb-4">
                 Rezervă un loc la o lecție introductivă sau scrie-ne pentru detalii.
               </p>
-              <Link href="/contact">
-                <Button className="w-full bg-white text-slate-900 hover:bg-orange-50 font-semibold">
+              <Button className="w-full bg-white text-red-700 hover:bg-orange-50 font-semibold shadow-md" asChild><Link href="/contact">
                   Contactează-ne
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
           </aside>
         </div>

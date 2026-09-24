@@ -154,14 +154,11 @@ export default function DansuriDeSocietate() {
             Potrivite pentru oricine își dorește să danseze, să se relaxeze și să se bucure de
             mișcare — indiferent de nivel sau vârstă.
           </p>
-          <Link href="#inscriere" className="mt-2">
-            <Button
+          <Button variant="brand"
               size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 text-base"
-            >
+              className="text-base" asChild><Link href="#inscriere" className="mt-2">
               Înscrie-te la curs
-            </Button>
-          </Link>
+            </Link></Button>
         </div>
 
         {/* Stiluri de dans — grid */}

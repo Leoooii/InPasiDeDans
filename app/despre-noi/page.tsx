@@ -65,11 +65,9 @@ export default function DespreNoi() {
               o zi de muncă, să socializezi și să înveți să dansezi.
             </p>
             <div className="pt-4">
-              <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+              <Button variant="brand" asChild><Link href="/inscriere">
                   Înscrie-te la un curs
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
           </div>
           <div className="relative h-[400px] rounded-lg overflow-hidden flex items-center">
@@ -297,15 +295,11 @@ export default function DespreNoi() {
               </div>
             </div>
             <div className="pt-4">
-              <Link href="/contact">
-                <Button
-                  variant="outline"
+              <Button
                   size="lg"
-                  className="bg-white text-red-600 hover:bg-gray-100 border-white hover:border-gray-100"
-                >
+                  className="bg-white text-red-700 hover:bg-orange-50 font-semibold shadow-md" asChild><Link href="/contact">
                   Contactează-ne
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
           </div>
         </div>

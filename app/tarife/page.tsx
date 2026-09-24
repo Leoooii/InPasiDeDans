@@ -145,23 +145,17 @@ export default function Tarife() {
                 pentru detalii suplimentare.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-2">
-                <Link href="/inscriere" className="w-full sm:w-auto">
-                  <Button
+                <Button variant="brand"
                     size="lg"
-                    className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                  >
+                    className="w-full sm:w-auto" asChild><Link href="/inscriere" className="w-full sm:w-auto">
                     Înscrie-te acum
-                  </Button>
-                </Link>
-                <Link href="/contact" className="w-full sm:w-auto">
-                  <Button
+                  </Link></Button>
+                <Button
                     size="lg"
                     variant="outline"
-                    className="w-full sm:w-auto border-red-600 text-red-600 hover:bg-red-50"
-                  >
+                    className="w-full sm:w-auto" asChild><Link href="/contact" className="w-full sm:w-auto">
                     Contactează-ne
-                  </Button>
-                </Link>
+                  </Link></Button>
               </div>
             </div>
           </div>

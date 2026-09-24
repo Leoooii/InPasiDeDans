@@ -222,12 +222,8 @@ const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSec
               </div>
               <CardFooter className="flex flex-col gap-3 sm:flex-row">
                 <Button
-                  className={cn(
-                    'w-full',
-                    isHomepage
-                      ? 'bg-slate-900 text-white hover:bg-slate-800'
-                      : 'bg-primary text-white'
-                  )}
+                  variant="brand"
+                  className="w-full"
                   onClick={event => {
                     event.stopPropagation();
                     grupa.id && handleInscriere(grupa.id);

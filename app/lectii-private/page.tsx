@@ -116,14 +116,11 @@ export default function LectiiPrivate() {
           Progresezi în ritmul tău, cu un instructor dedicat, program flexibil și un plan personalizat
           adaptat exact nevoilor tale.
         </p>
-        <Link href="#inscriere" className="mt-2">
-          <Button
+        <Button variant="brand"
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 text-base"
-          >
+            className="text-base" asChild><Link href="#inscriere" className="mt-2">
             Programează o ședință
-          </Button>
-        </Link>
+          </Link></Button>
       </div>
 
       {/* Hero image + pentru cine */}

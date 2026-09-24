@@ -44,20 +44,17 @@ const GrupeInFormare = () => {
       ref={buttonRef}
       className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex justify-center w-full pointer-events-none"
     >
-      <Link href="/grupe-in-formare" className="pointer-events-auto">
-        <Button
+      <Button
           size="lg"
           variant="outline"
-          className="bg-white border-2 border-red-300 text-red-600 hover:bg-red-50 hover:border-red-500 hover:text-red-700 shadow-md rounded-full px-8 py-4 text-lg font-semibold flex items-center gap-2 transition-colors duration-200"
-        >
+          className="bg-white border-2 border-red-300 text-red-600 hover:bg-red-50 hover:border-red-500 hover:text-red-700 shadow-md rounded-full px-8 py-4 text-lg font-semibold flex items-center gap-2 transition-colors duration-200" asChild><Link href="/grupe-in-formare" className="pointer-events-auto">
           <span className="flex items-center gap-2">
             <span className="relative flex h-3 w-3 mr-2">
               <span className="inline-flex rounded-full h-3 w-3 bg-red-400 animate-bounce-slow"></span>
             </span>
             Grupe noi!
           </span>
-        </Button>
-      </Link>
+        </Link></Button>
       <style jsx global>{`
         @keyframes bounce-slow {
           0%,

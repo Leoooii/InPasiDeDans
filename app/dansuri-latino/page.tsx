@@ -126,14 +126,11 @@ export default function DansuriLatino() {
             Originare din America Latină și Caraibe, dansurile latino combină tehnici specifice de
             pași cu coordonarea dintre parteneri — o experiență completă pentru corp și minte.
           </p>
-          <Link href="#inscriere" className="mt-2">
-            <Button
+          <Button variant="brand"
               size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 text-base"
-            >
+              className="text-base" asChild><Link href="#inscriere" className="mt-2">
               Înscrie-te la curs
-            </Button>
-          </Link>
+            </Link></Button>
         </div>
 
         {/* Stiluri de dans — grid */}
@@ -212,7 +209,7 @@ export default function DansuriLatino() {
             <Button
               onClick={handleSalsaBachataClick}
               size="lg"
-              className="bg-white text-red-600 hover:bg-yellow-50 font-bold shadow-xl border-2 border-white/50 transition-transform hover:scale-105"
+              className="bg-white text-red-700 hover:bg-orange-50 font-semibold shadow-md"
             >
               Descoperă grupele Salsa & Bachata
               <ArrowRight className="ml-2 h-5 w-5" />

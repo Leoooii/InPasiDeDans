@@ -50,11 +50,9 @@ export default function CookieConsent() {
             <X className="h-4 w-4 mr-1" />
             Refuză
           </Button>
-          <Button
+          <Button variant="brand"
             size="sm"
-            onClick={acceptCookies}
-            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-          >
+            onClick={acceptCookies}>
             Accept
           </Button>
         </div>

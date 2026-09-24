@@ -272,10 +272,8 @@ export default function InscriereForm() {
                 Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai scurt timp posibil
                 pentru a confirma înscrierea.
               </p>
-              <Button
-                onClick={() => setIsSubmitted(false)}
-                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-              >
+              <Button variant="brand"
+                onClick={() => setIsSubmitted(false)}>
                 Completează un nou formular
               </Button>
             </CardContent>
@@ -450,8 +448,9 @@ export default function InscriereForm() {
                 <Button
                   type="submit"
                   disabled={isSubmitting || !isFormValid}
+                  variant="brand"
                   className={cn(
-                    'w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600',
+                    'w-full',
                     (!isFormValid || isSubmitting) && 'opacity-60 cursor-not-allowed'
                   )}
                 >

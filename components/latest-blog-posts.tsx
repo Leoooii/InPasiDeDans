@@ -51,11 +51,9 @@ export default async function LatestBlogPosts() {
               instructorii noștri.
             </p>
           </div>
-          <Link href="/blog">
-            <Button variant="outline" className="border-slate-300 text-slate-800">
+          <Button variant="outline" className="border-slate-300 text-slate-800" asChild><Link href="/blog">
               Vezi toate articolele
-            </Button>
-          </Link>
+            </Link></Button>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">

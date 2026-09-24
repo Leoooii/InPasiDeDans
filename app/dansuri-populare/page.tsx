@@ -72,14 +72,11 @@ export default function DansuriPopulare() {
           Vei învăța jocuri din toate colțurile României, plus dansuri grecești și machedonești,
           într-o atmosferă caldă, prietenoasă și plină de viață.
         </p>
-        <Link href="#inscriere" className="mt-2">
-          <Button
+        <Button variant="brand"
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 text-base"
-          >
+            className="text-base" asChild><Link href="#inscriere" className="mt-2">
             Înscrie-te la curs
-          </Button>
-        </Link>
+          </Link></Button>
       </div>
 
       {/* Info cards */}

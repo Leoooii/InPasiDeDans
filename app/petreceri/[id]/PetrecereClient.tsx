@@ -178,12 +178,10 @@ export default function PetrecereClient({ initial }: { initial?: PetrecereDetali
 
                   {petrecere.facebookLink && (
                     <div className="mt-6 flex flex-wrap gap-3">
-                      <Link href={petrecere.facebookLink} target="_blank">
-                        <Button className="bg-red-600 hover:bg-red-700">
+                      <Button variant="brand" asChild><Link href={petrecere.facebookLink} target="_blank">
                           Vezi evenimentul pe Facebook
                           <ExternalLink className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
+                        </Link></Button>
                     </div>
                   )}
                 </CardContent>

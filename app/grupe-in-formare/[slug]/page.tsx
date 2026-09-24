@@ -261,20 +261,15 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
             </div>
 
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Link href={`/inscriere?grupa=${grupa.id}`} className="w-full sm:w-auto">
-                <Button size="lg" className="w-full bg-orange-500 text-white hover:bg-orange-400">
+              <Button size="lg" variant="brand" className="w-full" asChild><Link href={`/inscriere?grupa=${grupa.id}`} className="w-full sm:w-auto">
                   Înscrie-te acum
-                </Button>
-              </Link>
-              {/* <Link href="/contact" className="w-full sm:w-auto">
-                <Button
+                </Link></Button>
+              {/* <Button
                   size="lg"
                   variant="outline"
-                  className="w-full border-white/30 text-white hover:bg-white/10"
-                >
+                  className="w-full border-white/30 text-white hover:bg-white/10" asChild><Link href="/contact" className="w-full sm:w-auto">
                   Pune o întrebare
-                </Button>
-              </Link> */}
+                </Link></Button> */}
             </div>
           </section>
 

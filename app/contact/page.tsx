@@ -1,5 +1,6 @@
 'use client';
 
+import { buttonVariants } from '@/components/ui/button';
 import type React from 'react';
 
 import { Mail, MapPin, Phone, Navigation, Clock } from 'lucide-react';
@@ -103,7 +104,7 @@ export default function Contact() {
               href="https://www.google.com/maps/dir/?api=1&destination=Calea+Rahovei+262+Sector+5+Bucuresti+Romania"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl"
+              className={buttonVariants({ variant: 'brand', size: 'lg' })}
             >
               <Navigation className="h-5 w-5" />
               Navighează la locație
@@ -132,14 +133,14 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               <a
                 href="tel:+40722675126"
-                className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl"
+                className={buttonVariants({ variant: 'brand', size: 'lg' })}
               >
                 <Phone className="h-5 w-5" />
                 Programează vizita
               </a>
               <a
                 href="mailto:inpasidedans@gmail.com"
-                className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl"
+                className={buttonVariants({ variant: 'outline', size: 'lg' })}
               >
                 <Mail className="h-5 w-5" />
                 Trimite email

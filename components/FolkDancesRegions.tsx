@@ -240,7 +240,7 @@ export default function FolkDancesRegions() {
           <Button
             onClick={() => setShowDances(!showDances)}
             variant="outline"
-            className="bg-white hover:bg-orange-50 border-orange-200 text-orange-700 hover:text-orange-800 px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+            className="px-6 py-3"
           >
             {showDances ? (
               <>
@@ -311,7 +311,7 @@ export default function FolkDancesRegions() {
                   <Button
                     onClick={goToPrevious}
                     variant="outline"
-                    className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
+                    className="flex items-center gap-2"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     Anterior
@@ -319,7 +319,7 @@ export default function FolkDancesRegions() {
                   <Button
                     onClick={goToNext}
                     variant="outline"
-                    className="flex items-center gap-2 border-orange-200 text-orange-700 hover:bg-orange-50"
+                    className="flex items-center gap-2"
                   >
                     Următor
                     <ChevronRight className="w-4 h-4" />

@@ -337,10 +337,9 @@ function WideExcursie({ excursie, featured }: { excursie: Excursie; featured?: b
           </p>
         )}
 
-        <Button
+        <Button variant="brand"
           asChild
-          className="self-start bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-lg shadow-orange-500/30 group-hover:shadow-xl group-hover:shadow-orange-500/40 px-7 py-6 text-base"
-        >
+          className="self-start group-hover:shadow-xl group-hover:shadow-orange-500/40 px-7 py-6 text-base">
           <span className="inline-flex items-center gap-2">
             Detalii și înscriere
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -407,7 +406,7 @@ function PostcardExcursie({ excursie }: { excursie: Excursie }) {
           </p>
         )}
 
-        <Button className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-md shadow-orange-500/30 group-hover:shadow-lg group-hover:shadow-orange-500/40">
+        <Button variant="brand" className="w-full group-hover:shadow-lg group-hover:shadow-orange-500/40">
           Detalii și înscriere
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Button>

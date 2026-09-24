@@ -110,7 +110,7 @@ export default function AutentificarePage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" variant="brand" className="w-full" disabled={isLoading}>
               {isLoading ? 'Se procesează...' : 'Autentificare'}
             </Button>
           </form>

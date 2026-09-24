@@ -213,11 +213,10 @@ const ContactForm = () => {
                 </label>
               </div>
 
-              <Button
+              <Button variant="brand"
                 type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                disabled={isSubmitting}
-              >
+                className="w-full"
+                disabled={isSubmitting}>
                 {isSubmitting ? 'Se trimite...' : 'Trimite mesajul'}
               </Button>
             </form>
@@ -262,10 +261,8 @@ const ContactForm = () => {
                 Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai
                 scurt timp posibil pentru a confirma înscrierea.
               </p>
-              <Button
-                onClick={() => setIsSent(false)}
-                className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-              >
+              <Button variant="brand"
+                onClick={() => setIsSent(false)}>
                 Completează un nou formular
               </Button>
             </CardContent>

@@ -91,23 +91,17 @@ export default async function Home() {
                     într-o atmosferă prietenoasă și relaxantă.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link href="/inscriere">
-                      <Button
+                    <Button variant="brand"
                         size="lg"
-                        className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-semibold text-base px-8 border-0 shadow-md shadow-orange-500/30"
-                      >
+                        className="font-semibold text-base px-8" asChild><Link href="/inscriere">
                         Înscrie-te acum
-                      </Button>
-                    </Link>
-                    <Link href="/program">
-                      <Button
+                      </Link></Button>
+                    <Button
                         size="lg"
-                        variant="outline"
-                        className="bg-transparent border-white/60 text-white hover:bg-white/10 font-medium text-base px-8"
-                      >
+                        variant="outlineLight"
+                        className="font-medium text-base px-8" asChild><Link href="/program">
                         Vezi programul
-                      </Button>
-                    </Link>
+                      </Link></Button>
                   </div>
                 </div>
               </div>
@@ -131,11 +125,9 @@ export default async function Home() {
                   secunde. Actualizăm lista constant, astfel încât să ai mereu opțiuni proaspete.
                 </p>
               </div>
-              <Link href="/grupe-in-formare">
-                <Button variant="outline" className="border-slate-300 text-slate-800">
+              <Button variant="outline" className="border-slate-300 text-slate-800" asChild><Link href="/grupe-in-formare">
                   Vezi toate grupele
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
             <GrupeInFormareSection variant="homepage" limit={3} />
           </div>
@@ -152,23 +144,17 @@ export default async function Home() {
                 școala noastră, indiferent de vârstă sau nivel.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link href="/grupe-in-formare">
-                  <Button
+                <Button variant="brand"
                     size="lg"
-                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-semibold border-0 shadow-md shadow-orange-500/30"
-                  >
+                    className="font-semibold" asChild><Link href="/grupe-in-formare">
                     Vezi grupele active
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button
+                  </Link></Button>
+                <Button
                     size="lg"
-                    variant="outline"
-                    className="bg-transparent border-white/60 text-white hover:bg-white/10 font-medium"
-                  >
+                    variant="outlineLight"
+                    className="font-medium" asChild><Link href="/contact">
                     Contactează-ne
-                  </Button>
-                </Link>
+                  </Link></Button>
               </div>
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4 text-left">
@@ -207,11 +193,9 @@ export default async function Home() {
                   energia comunității noastre și te anunțăm imediat ce apare ceva nou.
                 </p>
               </div>
-              <Link href="/noutati">
-                <Button variant="outline" className="border-slate-300 text-slate-800">
+              <Button variant="outline" className="border-slate-300 text-slate-800" asChild><Link href="/noutati">
                   Vezi toate noutățile
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
             <NoutatiSection itemsToShow={3} variant="homepage" initial={evenimente} />
           </div>
@@ -233,16 +217,12 @@ export default async function Home() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 justify-center shrink-0">
-              <Link href="/inscriere">
-                <Button className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white font-semibold border-0 shadow-md shadow-orange-500/30 w-full sm:w-auto">
+              <Button variant="brand" className="font-semibold w-full sm:w-auto" asChild><Link href="/inscriere">
                   Înscrie-te acum
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline" className="bg-transparent border-white/60 text-white hover:bg-white/10 font-medium w-full sm:w-auto">
+                </Link></Button>
+              <Button variant="outlineLight" className="font-medium w-full sm:w-auto" asChild><Link href="/contact">
                   Contactează-ne
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
           </div>
         </section>

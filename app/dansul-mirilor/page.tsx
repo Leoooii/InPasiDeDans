@@ -76,14 +76,10 @@ export default async function DansulMirilor() {
               să vă simțiți încrezători și pregătiți pentru marele moment.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 "
-                >
+              <Button variant="brand"
+                  size="lg" asChild><Link href="/contact">
                   Programează o ședință
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
           </div>
           <div className="relative h-[440px] rounded-2xl overflow-hidden shadow-2xl">
@@ -235,14 +231,11 @@ export default async function DansulMirilor() {
                 momente speciale pentru nuntă — dansul cu părinții sau nașii,
                 dansuri de grup sau coregrafii surpriză pentru invitați.
               </p>
-              <Link href="/contact">
-                <Button
+              <Button
                   size="lg"
-                  className="bg-white text-red-600 hover:bg-white/90 font-semibold shadow-md w-fit"
-                >
+                  className="bg-white text-red-700 hover:bg-orange-50 font-semibold shadow-md w-fit" asChild><Link href="/contact">
                   Contactează-ne pentru detalii
-                </Button>
-              </Link>
+                </Link></Button>
             </div>
             <div className="relative h-72 md:h-auto min-h-[280px]">
               <Image

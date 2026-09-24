@@ -205,7 +205,7 @@ export default function ContPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => router.push('/autentificare')}>
+            <Button variant="brand" onClick={() => router.push('/autentificare')}>
               Înapoi la autentificare
             </Button>
           </CardContent>
@@ -231,7 +231,7 @@ export default function ContPage() {
               de către administratori. Vei fi notificat prin email când contul
               tău va fi activat.
             </p>
-            <Button onClick={() => auth.signOut().then(() => router.push('/'))}>
+            <Button variant="outline" onClick={() => auth.signOut().then(() => router.push('/'))}>
               Înapoi la pagina principală
             </Button>
           </CardContent>

@@ -178,9 +178,7 @@ export default async function CursuriDansAdulti() {
                 Învață dansuri elegante precum vals, tango și quickstep,
                 perfecte pentru evenimente formale.
               </p>
-              <Link href="/dansuri-de-societate">
-                <Button>Află mai multe</Button>
-              </Link>
+              <Button variant="outline" asChild><Link href="/dansuri-de-societate">Află mai multe</Link></Button>
             </CardContent>
           </Card>
 
@@ -200,9 +198,7 @@ export default async function CursuriDansAdulti() {
                 Descoperă ritmurile pasionale de salsa, bachata, cha-cha și
                 rumba.
               </p>
-              <Link href="/dansuri-latino">
-                <Button>Află mai multe</Button>
-              </Link>
+              <Button variant="outline" asChild><Link href="/dansuri-latino">Află mai multe</Link></Button>
             </CardContent>
           </Card>
 
@@ -222,9 +218,7 @@ export default async function CursuriDansAdulti() {
                 Hai la joc! Învățati dansuri populare românești, grecești,
                 machedonești.
               </p>
-              <Link href="/dansuri-populare">
-                <Button>Află mai multe</Button>
-              </Link>
+              <Button variant="outline" asChild><Link href="/dansuri-populare">Află mai multe</Link></Button>
             </CardContent>
           </Card>
         </div>
@@ -243,22 +237,12 @@ export default async function CursuriDansAdulti() {
                 dansului într-o atmosferă prietenoasă și relaxantă.
               </p>
               <div className="flex gap-5">
-                <Link href="/inscriere">
-                  <Button
-                    size="sm"
-                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                  >
+                <Button variant="brand" size="lg" asChild><Link href="/inscriere">
                     Înscrie-te acum
-                  </Button>
-                </Link>
-                <Link href="/program">
-                  <Button
-                    size="sm"
-                    className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600"
-                  >
+                  </Link></Button>
+                <Button variant="outline" size="lg" asChild><Link href="/program">
                     Verifică programul
-                  </Button>
-                </Link>
+                  </Link></Button>
               </div>
             </div>
 
