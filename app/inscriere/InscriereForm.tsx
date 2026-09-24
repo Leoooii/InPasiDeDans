@@ -18,7 +18,9 @@ import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
@@ -49,6 +51,11 @@ const GOL: FormData = {
   honey: '',
   consent: false,
 };
+
+// Pe telefon lista nu trebuie să depășească ecranul: textele lungi se rup pe mai multe rânduri.
+const OPTIUNE = 'py-2.5 whitespace-normal leading-snug';
+const GRUP = 'mt-1 border-t border-slate-100 pt-1 first:mt-0 first:border-t-0 first:pt-0';
+const ETICHETA_GRUP = 'pb-1 pt-2 text-xs uppercase tracking-wide text-slate-500';
 
 const LISTA_ASTEPTARE = 'Listă de așteptare – anunțați-mă când se deschide o grupă nouă';
 
@@ -258,31 +265,31 @@ export default function InscriereForm() {
                             placeholder={isGrupeLoading ? 'Se încarcă grupele...' : 'Alege un curs'}
                           />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="w-[var(--radix-select-trigger-width)] max-w-[calc(100vw-2rem)] max-h-[min(24rem,var(--radix-select-content-available-height))]">
                           {grupeOptions.length > 0 && (
-                            <>
-                              <SelectItem value="grupe-divider" disabled>
-                                — Grupe în formare —
-                              </SelectItem>
+                            <SelectGroup className={GRUP}>
+                              <SelectLabel className={ETICHETA_GRUP}>Grupe în formare</SelectLabel>
                               {grupeOptions.map(option => (
-                                <SelectItem key={option.id} value={option.value}>
+                                <SelectItem key={option.id} value={option.value} className={OPTIUNE}>
                                   {option.label}
                                 </SelectItem>
                               ))}
-                            </>
+                            </SelectGroup>
                           )}
-                          <SelectItem value="cursuri-divider" disabled>
-                            — Cursuri —
-                          </SelectItem>
-                          {defaultOptions.map(option => (
-                            <SelectItem key={option.id} value={option.value}>
-                              {option.label}
+                          <SelectGroup className={GRUP}>
+                            <SelectLabel className={ETICHETA_GRUP}>Cursuri</SelectLabel>
+                            {defaultOptions.map(option => (
+                              <SelectItem key={option.id} value={option.value} className={OPTIUNE}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                          <SelectGroup className={GRUP}>
+                            <SelectLabel className={ETICHETA_GRUP}>Nu găsești o grupă potrivită?</SelectLabel>
+                            <SelectItem value={LISTA_ASTEPTARE} className={OPTIUNE}>
+                              {LISTA_ASTEPTARE}
                             </SelectItem>
-                          ))}
-                          <SelectItem value="asteptare-divider" disabled>
-                            — Nu găsești o grupă potrivită? —
-                          </SelectItem>
-                          <SelectItem value={LISTA_ASTEPTARE}>{LISTA_ASTEPTARE}</SelectItem>
+                          </SelectGroup>
                         </SelectContent>
                       </Select>
                       {renderCompletionIcon('danceclass')}
