@@ -30,7 +30,7 @@ export default function CharmHarmonySection() {
         <h2 className="text-3xl font-bold tracking-tight">
           Atmosfera de la cursurile noastre
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
           Rafinament, grație și momente autentice — descoperă farmecul dansurilor de societate
           într-o atmosferă caldă și primitoare.
         </p>

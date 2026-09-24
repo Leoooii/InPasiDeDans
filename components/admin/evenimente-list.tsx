@@ -77,7 +77,7 @@ export default function EvenimenteList({
   if (evenimente.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 ">
           Nu există evenimente. Adăugați primul eveniment folosind butonul de
           mai sus.
         </p>
@@ -100,8 +100,8 @@ export default function EvenimenteList({
                 />
               </div>
             ) : (
-              <div className="bg-gray-200 dark:bg-gray-700 aspect-video w-full flex items-center justify-center">
-                <span className="text-gray-500 dark:text-gray-400">
+              <div className="bg-gray-200 aspect-video w-full flex items-center justify-center">
+                <span className="text-gray-500 ">
                   Fără imagine
                 </span>
               </div>
@@ -112,13 +112,13 @@ export default function EvenimenteList({
                 {eveniment.title || 'Eveniment fără titlu'}
               </h3>
 
-              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+              <div className="flex items-center text-sm text-gray-500 mb-2">
                 <Calendar className="h-4 w-4 mr-1" />
                 <span>Postat: {formatDate(eveniment.date)}</span>
               </div>
 
               {eveniment.eventDate && (
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                <div className="flex items-center text-sm text-gray-500 mb-2">
                   <Calendar className="h-4 w-4 mr-1" />
                   <span>Data eveniment: {formatDate(eveniment.eventDate)}</span>
                 </div>
@@ -139,7 +139,7 @@ export default function EvenimenteList({
               )}
 
               {eveniment.description && (
-                <p className="text-gray-600 dark:text-gray-300 mt-2 line-clamp-3">
+                <p className="text-gray-600 mt-2 line-clamp-3">
                   {eveniment.description}
                 </p>
               )}

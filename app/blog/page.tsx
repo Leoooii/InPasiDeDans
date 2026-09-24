@@ -39,7 +39,6 @@ export const metadata: Metadata = {
 }
 
 async function getBlogData() {
-  console.log('🔄 Blog data fetched at:', new Date().toISOString())
 
   try {
     const [posts, categories, featuredPosts] = await Promise.all([

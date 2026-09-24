@@ -269,8 +269,8 @@ export default function EventForm({
                       />
                     </div>
                   ) : (
-                    <div className="bg-gray-200 dark:bg-gray-700 aspect-video w-full flex items-center justify-center">
-                      <span className="text-gray-500 dark:text-gray-400">
+                    <div className="bg-gray-200 aspect-video w-full flex items-center justify-center">
+                      <span className="text-gray-500 ">
                         Fără imagine
                       </span>
                     </div>

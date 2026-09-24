@@ -87,9 +87,9 @@ export default function AdultDanceFAQ() {
         </h2>
         <div className="max-w-4xl mx-auto space-y-4">
           {intrebari.map((item) => (
-            <div key={item.id} className="border border-gray-200 dark:border-gray-700 rounded-lg">
+            <div key={item.id} className="border border-gray-200 rounded-lg">
               <button
-                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors"
                 onClick={() => toggleItem(item.id)}
               >
                 <span className="font-semibold text-lg pr-4">{item.question}</span>
@@ -100,7 +100,7 @@ export default function AdultDanceFAQ() {
                 )}
               </button>
               <div hidden={!(openItems.includes(item.id))} className="px-6 pb-4">
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed">
                   {item.answer}
                 </p>
               </div>

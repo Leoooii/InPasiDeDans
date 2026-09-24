@@ -53,10 +53,10 @@ export default function LocationSection() {
         </div>
 
         {/* Harta cu butoane de navigație */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-xl p-6 shadow-lg border border-blue-200 dark:border-blue-800">
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 shadow-lg border border-blue-200 ">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-bold text-blue-900 dark:text-blue-100 mb-2">Ne găsești aici</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">Obține direcții către școala noastră</p>
+            <h3 className="text-xl font-bold text-blue-900 mb-2">Ne găsești aici</h3>
+            <p className="text-gray-600 text-sm">Obține direcții către școala noastră</p>
           </div>
           
           <div 
@@ -112,7 +112,7 @@ export default function LocationSection() {
             </a>
           </div>
           
-          <p className="text-center text-xs text-gray-600 dark:text-gray-400 mt-3">
+          <p className="text-center text-xs text-gray-600 mt-3">
             Click pentru a deschide Google Maps
           </p>
         </div>

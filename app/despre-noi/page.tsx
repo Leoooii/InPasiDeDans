@@ -36,7 +36,7 @@ export default function DespreNoi() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Cine suntem?</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 ">
             Învățăm Bucureștiul să danseze din 1 iulie 2009!
           </p>
         </div>
@@ -135,12 +135,12 @@ export default function DespreNoi() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-full">
-                    <Check className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  <div className="bg-red-100 p-3 rounded-full">
+                    <Check className="h-6 w-6 text-red-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Săli de dans spațioase</h3>
-                    <p className="text-gray-500 dark:text-gray-400">
+                    <p className="text-gray-500 ">
                       Dotate cu aer condiționat, oglinzi și vestiare
                     </p>
                   </div>
@@ -151,12 +151,12 @@ export default function DespreNoi() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-full">
-                    <Check className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  <div className="bg-red-100 p-3 rounded-full">
+                    <Check className="h-6 w-6 text-red-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Grupe optimizate</h3>
-                    <p className="text-gray-500 dark:text-gray-400">
+                    <p className="text-gray-500 ">
                       Formate din 10 – maximum 20 persoane
                     </p>
                   </div>
@@ -167,14 +167,14 @@ export default function DespreNoi() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-full">
-                    <Check className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  <div className="bg-red-100 p-3 rounded-full">
+                    <Check className="h-6 w-6 text-red-600 " />
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">
                       Instructori profesioniști
                     </h3>
-                    <p className="text-gray-500 dark:text-gray-400">
+                    <p className="text-gray-500 ">
                       Cu pregătire, experiență, răbdători și pasionați de dans
                     </p>
                   </div>
@@ -184,7 +184,7 @@ export default function DespreNoi() {
           </div>
         </div>
 
-        <div className="mt-12 bg-red-50 dark:bg-red-900/10 p-8 rounded-lg">
+        <div className="mt-12 bg-red-50 p-8 rounded-lg">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="text-2xl font-bold mb-4">Cui ne adresăm</h2>
@@ -202,7 +202,7 @@ export default function DespreNoi() {
             
               {/* <ImageSkeleton width={600} height={400} className="w-full h-full" /> */}
               <Image
-                src="/images/secret-santa.png?height=800&width=600"
+                src="/images/secret-santa.png"
                 height="1000"
                 width="1000"
                 alt="group-picture"
@@ -220,16 +220,16 @@ export default function DespreNoi() {
                   <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Locație</h3>
-                    <p className="text-gray-500 dark:text-gray-400">
+                    <p className="text-gray-500 ">
                       <Link href="/contact" className="text-red-600 hover:text-red-700 transition-colors">Calea Rahovei nr. 262, sector 5, București</Link>
                     </p>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                    <p className="text-gray-500 mt-2">
                       <span className="font-medium">Puncte de reper:</span>{' '}
                       Liberty Mall, Electromagnetica, intersecția Trafic Greu,
                       McDonald's Progresul – la patru stații de tramvai (32) de
                       Unirii
                     </p>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                    <p className="text-gray-500 mt-2">
                       Amplasarea sălilor de dans permite accesul rapid și ușor
                       dacă locuiți în zona Piața Unirii, cartierul Rahova,
                       cartierul Berceni, zona 13 Septembrie, cartierul Drumul
@@ -249,23 +249,23 @@ export default function DespreNoi() {
                   <Clock className="h-5 w-5 text-red-600 mt-0.5" />
                   <div>
                     <h3 className="font-bold">Program</h3>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                    <p className="text-gray-500 mt-2">
                       În general, cursurile de dans pentru adulți se desfășoară
                       pe perioadă nelimitată, fiecare ședință având durata de
                       1h15min.
                     </p>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                    <p className="text-gray-500 mt-2">
                       Special gândite pentru oamenii activi, lecțiile de dans
                       încep, în cursul săptămânii, începând cu ora 18:30, astfel
                       încât lipsa timpului nu mai este o scuză.
                     </p>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                    <p className="text-gray-500 mt-2">
                       Cursurile de dans pentru copii se desfășoară în cursul
                       săptămânii și/sau în weekend.
                     </p>
                     <div className="mt-4 space-y-2">
                       <p className="font-medium">Program vizite:</p>
-                      <ul className="space-y-1 text-gray-500 dark:text-gray-400">
+                      <ul className="space-y-1 text-gray-500 ">
                         <li>Luni - Joi: 18:30 - 22:30</li>
                         <li>Vineri: 19:30 - 22:00</li>
                       </ul>
@@ -329,10 +329,10 @@ function ActivityCard({
       <Card className="h-full transition-all duration-200 hover:shadow-md">
         <CardContent className="p-6 h-full flex flex-col">
           <h3 className="font-bold mb-2">{title}</h3>
-          <p className="text-gray-500 dark:text-gray-400 flex-grow">
+          <p className="text-gray-500 flex-grow">
             {description}
           </p>
-          <div className="mt-4 text-red-600 dark:text-red-400 flex items-center">
+          <div className="mt-4 text-red-600 flex items-center">
             <span className="text-sm">Află mai multe</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

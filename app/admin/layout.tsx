@@ -4,6 +4,7 @@ import type React from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { Toaster } from '@/components/ui/toaster';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
@@ -238,6 +239,7 @@ export default function AdminLayout({
 
         {/* Page content */}
         <main className="flex-1 p-6 md:p-8">{children}</main>
+        <Toaster />
       </div>
     </div>
   );

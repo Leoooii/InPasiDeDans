@@ -29,15 +29,15 @@ export default function TarifeCopiiSection() {
       {tarife.map((tarif) => (
         <div
           key={tarif.id}
-          className="bg-white dark:bg-gray-900 border-2 border-gray-100 dark:border-gray-800 rounded-2xl p-7 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          className="bg-white border-2 border-gray-100 rounded-2xl p-7 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
         >
-          <h3 className="font-bold text-gray-900 dark:text-white mb-1">{tarif.titlu}</h3>
+          <h3 className="font-bold text-gray-900 mb-1">{tarif.titlu}</h3>
           {tarif.descriere && (
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{tarif.descriere}</p>
+            <p className="text-gray-500 text-sm mb-4">{tarif.descriere}</p>
           )}
           <div className="flex items-baseline gap-1 mt-3">
-            <span className="text-4xl font-extrabold text-gray-900 dark:text-white">{tarif.pret}</span>
-            <span className="text-base font-medium text-gray-500 dark:text-gray-400">{tarif.moneda}</span>
+            <span className="text-4xl font-extrabold text-gray-900 ">{tarif.pret}</span>
+            <span className="text-base font-medium text-gray-500 ">{tarif.moneda}</span>
           </div>
         </div>
       ))}

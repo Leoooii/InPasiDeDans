@@ -1,5 +1,6 @@
 'use client';
 
+import type { Instructor } from '@/lib/types';
 import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
@@ -13,16 +14,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export interface Instructor {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  imageUrl: string;
-  facebookUrl?: string;
-  instagramUrl?: string;
-  youtubeUrl?: string;
-}
+export type { Instructor } from '@/lib/types';
 
 const PHRASES = [
   'fondator, manager și instructor',

@@ -14,7 +14,7 @@ import { usePublicData } from '@/components/public-data-provider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Calendar, Clock, Users } from 'lucide-react';
-import type { Grupa } from '@/app/admin/page';
+import type { Grupa } from '@/lib/types';
 import { buildGrupaSlug, cn } from '@/lib/utils';
 
 type GrupeInFormareSectionProps = {

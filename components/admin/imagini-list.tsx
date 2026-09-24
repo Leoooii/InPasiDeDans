@@ -58,13 +58,13 @@ export default function ImaginiList({ imagini, onEdit, onDelete, onView }: Imagi
   const getCategoryLabel = (category: string) => {
     switch (category) {
       case "cursuri":
-        return { label: "Cursuri", color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300" }
+        return { label: "Cursuri", color: "bg-blue-100 text-blue-800 " }
       case "evenimente":
-        return { label: "Evenimente", color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" }
+        return { label: "Evenimente", color: "bg-green-100 text-green-800 " }
       case "spectacole":
-        return { label: "Spectacole", color: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300" }
+        return { label: "Spectacole", color: "bg-purple-100 text-purple-800 " }
       default:
-        return { label: "Toate", color: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300" }
+        return { label: "Toate", color: "bg-gray-100 text-gray-800 " }
     }
   }
 

@@ -1,5 +1,6 @@
 'use client';
 
+import type { Instructor } from '@/lib/types';
 import { useState } from 'react';
 import { usePublicData } from '@/components/public-data-provider';
 import Image from 'next/image';
@@ -7,18 +8,6 @@ import Link from 'next/link';
 import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
 
 // Definim interfața pentru instructor (conform Firebase)
-interface Instructor {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  imageUrl: string;
-  facebookUrl?: string;
-  instagramUrl?: string;
-  youtubeUrl?: string;
-  order?: number;
-  createdAt?: number;
-}
 
 interface InstructorsSectionProps {
   instructorNames?: string[]; // Array cu numele instructorilor de afișat

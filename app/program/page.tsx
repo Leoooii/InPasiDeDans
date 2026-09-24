@@ -60,7 +60,7 @@ export default async function Program() {
             <h1 className="text-3xl font-bold tracking-tight">
             Program cursuri de dans din Bucuresti
             </h1>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 ">
               Verifică orarul complet al cursurilor de dans pentru adulți și
               copii la În Pași de Dans, București.
             </p>
@@ -70,10 +70,10 @@ export default async function Program() {
           <DanceLevels />
           <div className="mt-12 bg-red-50 p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold dark:text-black">
+              <h2 className="text-2xl font-bold ">
                 Înscrie-te la cursurile preferate
               </h2>
-              <p className="dark:text-black mb-10">
+              <p className="mb-10">
                 Locurile sunt limitate pentru a asigura o experiență de
                 calitate. Rezervă-ți locul acum sau contactează-ne pentru
                 detalii.

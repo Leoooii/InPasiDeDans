@@ -55,7 +55,7 @@ export default async function DansulMirilor() {
         {/* Hero Section */}
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="space-y-5">
-            <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 dark:border-red-900">
+            <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 ">
               <Sparkles className="w-4 h-4" />
               Cursuri private pentru miri
             </div>
@@ -65,13 +65,13 @@ export default async function DansulMirilor() {
                 Dansul Mirilor
               </span>
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-lg text-gray-600 leading-relaxed">
               Dansul mirilor este unul dintre cele mai emoționante momente ale
               nunții. Vă ghidăm pas cu pas pentru a crea o coregrafie
               personalizată — vals clasic, tango, dans latino sau o surpriză
               plină de personalitate.
             </p>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed">
               Indiferent de nivelul vostru, instructorii noștri vă vor ajuta
               să vă simțiți încrezători și pregătiți pentru marele moment.
             </p>
@@ -79,7 +79,7 @@ export default async function DansulMirilor() {
               <Link href="/contact">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30"
+                  className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 "
                 >
                   Programează o ședință
                 </Button>
@@ -88,9 +88,10 @@ export default async function DansulMirilor() {
           </div>
           <div className="relative h-[440px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/images/private.png?height=800&width=600"
+              src="/images/private.png"
               alt="Dans de societate"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -99,7 +100,7 @@ export default async function DansulMirilor() {
 
         <DansulMirilorPricing />
         <div>
-          <Alert className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
+          <Alert className="bg-red-50 border-red-200 ">
             <AlertCircle className="h-5 w-5" />
             <AlertTitle>Informații despre plată</AlertTitle>
             <AlertDescription>
@@ -117,7 +118,7 @@ export default async function DansulMirilor() {
         <div className="mt-16 space-y-6">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold">De ce să alegeți cursurile noastre</h2>
-            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+            <p className="text-gray-500 max-w-xl mx-auto">
               Tot ce aveți nevoie pentru un dans al mirilor memorabil, într-un singur loc.
             </p>
           </div>
@@ -128,57 +129,57 @@ export default async function DansulMirilor() {
                 title: 'Instructori cu experiență',
                 desc: 'Instructorii noștri au pregătit mii de cupluri pentru momentul special al nunții.',
                 color: 'text-red-500',
-                bg: 'bg-red-50 dark:bg-red-950/30',
+                bg: 'bg-red-50 ',
               },
               {
                 icon: Music,
                 title: 'Coregrafii personalizate',
                 desc: 'Creăm coregrafii adaptate nivelului, stilului, personalității și aptitudinilor fiecărui cuplu.',
                 color: 'text-orange-500',
-                bg: 'bg-orange-50 dark:bg-orange-950/30',
+                bg: 'bg-orange-50 ',
               },
               {
                 icon: Shield,
                 title: 'Săli private',
                 desc: 'Toate ședințele se desfășoară în săli private. Veți fi doar voi și instructorul în sală.',
                 color: 'text-rose-500',
-                bg: 'bg-rose-50 dark:bg-rose-950/30',
+                bg: 'bg-rose-50 ',
               },
               {
                 icon: Clock,
                 title: 'Program flexibil',
                 desc: 'Programăm ședințele în funcție de disponibilitatea voastră, inclusiv în weekend.',
                 color: 'text-amber-500',
-                bg: 'bg-amber-50 dark:bg-amber-950/30',
+                bg: 'bg-amber-50 ',
               },
               {
                 icon: Heart,
                 title: 'Atmosferă relaxată',
                 desc: 'Creăm o atmosferă prietenoasă și relaxată, pentru a vă ajuta să vă simțiți confortabil.',
                 color: 'text-pink-500',
-                bg: 'bg-pink-50 dark:bg-pink-950/30',
+                bg: 'bg-pink-50 ',
               },
             ].map(({ icon: Icon, title, desc, color, bg }) => (
               <div
                 key={title}
-                className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
                   <Icon className={`w-5 h-5 ${color}`} />
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
+                <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Ce înveți în primele 4 ședințe */}
-        <div className="mt-12 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/20 dark:to-orange-950/20 rounded-2xl p-8 border border-red-200 dark:border-red-800">
+        <div className="mt-12 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 border border-red-200 ">
           <h2 className="text-2xl font-bold mb-2 text-center">
             Ce se întâmplă în primele 4 ședințe
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
+          <p className="text-gray-600 text-center mb-8">
             Fiecare ședință are un obiectiv clar — la final veți fi pregătiți să dansați cu
             încredere în fața invitaților.
           </p>
@@ -207,19 +208,19 @@ export default async function DansulMirilor() {
             ].map((item) => (
               <div
                 key={item.nr}
-                className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-red-100 dark:border-red-900"
+                className="bg-white rounded-xl p-5 shadow-sm border border-red-100 "
               >
                 <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg mb-3">
                   {item.nr}
                 </div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{item.titlu}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{item.desc}</p>
+                <h3 className="font-bold text-gray-900 mb-2">{item.titlu}</h3>
+                <p className="text-sm text-gray-600 ">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-16 rounded-3xl overflow-hidden border border-red-100 dark:border-red-900/50 shadow-lg">
+        <div className="mt-16 rounded-3xl overflow-hidden border border-red-100 shadow-lg">
           <div className="grid md:grid-cols-2 items-stretch">
             <div className="bg-gradient-to-br from-red-600 to-orange-500 p-10 flex flex-col justify-center gap-5">
               <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-medium px-3 py-1 rounded-full w-fit">
@@ -245,9 +246,10 @@ export default async function DansulMirilor() {
             </div>
             <div className="relative h-72 md:h-auto min-h-[280px]">
               <Image
-                src="/images/nunta2.png?height=800&width=600"
+                src="/images/nunta2.png"
                 alt="Dans de societate"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-transparent" />

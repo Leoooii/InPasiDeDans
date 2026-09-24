@@ -42,7 +42,7 @@ export default function FAQSection({ faqs, postUrl }: FAQSectionProps) {
 
       {/* FAQ Section */}
       <section className="my-12">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">
           Întrebări Frecvente
         </h2>
         
@@ -50,13 +50,13 @@ export default function FAQSection({ faqs, postUrl }: FAQSectionProps) {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 overflow-hidden"
+              className="rounded-lg border border-gray-200 bg-white overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+                className="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-gray-50 "
               >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
+                <h3 className="text-lg font-semibold text-gray-900 pr-4">
                   {faq.question}
                 </h3>
                 <ChevronDown
@@ -66,8 +66,8 @@ export default function FAQSection({ faqs, postUrl }: FAQSectionProps) {
                 />
               </button>
               
-              <div hidden={!(openIndex === index)} className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-900">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+              <div hidden={!(openIndex === index)} className="border-t border-gray-200 p-4 bg-gray-50 ">
+                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                   {faq.answer}
                 </p>
               </div>

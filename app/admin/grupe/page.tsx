@@ -16,7 +16,7 @@ import {
 import Link from 'next/link'
 import GrupaForm from '@/components/admin/grupa-form'
 import GrupeList from '@/components/admin/grupe-list'
-import type { Grupa } from '@/app/admin/page'
+import type { Grupa } from '@/lib/types'
 import { reimprospateazaSite } from '@/lib/reimprospatare-site'
 
 type CursantInGrupa = {

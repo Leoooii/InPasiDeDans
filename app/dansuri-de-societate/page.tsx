@@ -72,42 +72,42 @@ const reasons = [
     title: 'Instructori pasionați',
     desc: 'Explicăm pas cu pas, într-un mod prietenos și accesibil.',
     color: 'text-yellow-500',
-    bg: 'bg-yellow-50 dark:bg-yellow-950/30',
+    bg: 'bg-yellow-50 ',
   },
   {
     icon: Heart,
     title: 'Atmosferă relaxată',
     desc: 'Te simți ca între prieteni, indiferent dacă vii singur(ă) sau cu partener.',
     color: 'text-pink-500',
-    bg: 'bg-pink-50 dark:bg-pink-950/30',
+    bg: 'bg-pink-50 ',
   },
   {
     icon: Award,
     title: 'Diversitate de stiluri',
     desc: 'Vals, tango, quickstep, foxtrot — descoperi eleganța fiecărui dans.',
     color: 'text-red-500',
-    bg: 'bg-red-50 dark:bg-red-950/30',
+    bg: 'bg-red-50 ',
   },
   {
     icon: Users,
     title: 'Comunitate',
     desc: 'Faci parte dintr-un grup cu aceleași pasiuni și creezi amintiri frumoase.',
     color: 'text-blue-500',
-    bg: 'bg-blue-50 dark:bg-blue-950/30',
+    bg: 'bg-blue-50 ',
   },
   {
     icon: Clock,
     title: 'Program flexibil',
     desc: 'Cursuri pentru începători și avansați, pe grupe sau în privat.',
     color: 'text-amber-500',
-    bg: 'bg-amber-50 dark:bg-amber-950/30',
+    bg: 'bg-amber-50 ',
   },
   {
     icon: Zap,
     title: 'Corp și minte',
     desc: 'Mișcare, grație, încredere și bună dispoziție la fiecare lecție.',
     color: 'text-orange-500',
-    bg: 'bg-orange-50 dark:bg-orange-950/30',
+    bg: 'bg-orange-50 ',
   },
 ];
 
@@ -136,7 +136,7 @@ export default function DansuriDeSocietate() {
 
         {/* Hero */}
         <div id="despre-societate" className="flex flex-col items-center gap-6 text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 dark:border-red-900">
+          <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 ">
             <Sparkles className="w-4 h-4" />
             5 stiluri · Grupe pe nivel · București
           </div>
@@ -146,18 +146,18 @@ export default function DansuriDeSocietate() {
               dansuri de societate
             </span>
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
+          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
             De la eleganța valsului și pasiunea tango-ului, la ritmul vesel al quickstep-ului —
             fiecare dans îți oferă o poveste aparte și te ajută să strălucești la orice eveniment.
           </p>
-          <p className="text-base text-gray-500 dark:text-gray-400 max-w-2xl">
+          <p className="text-base text-gray-500 max-w-2xl">
             Potrivite pentru oricine își dorește să danseze, să se relaxeze și să se bucure de
             mișcare — indiferent de nivel sau vârstă.
           </p>
           <Link href="#inscriere" className="mt-2">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30 text-base"
+              className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 text-base"
             >
               Înscrie-te la curs
             </Button>
@@ -168,7 +168,7 @@ export default function DansuriDeSocietate() {
         <div id="stiluri-dans" className="flex flex-col gap-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold">Stiluri de dans de societate</h2>
-            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+            <p className="text-gray-500 max-w-xl mx-auto">
               Eleganță, grație și rafinament — 5 stiluri clasice pentru toate gusturile.
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function DansuriDeSocietate() {
             {danceStyles.map((dance) => (
               <div
                 key={dance.title}
-                className="group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -192,7 +192,7 @@ export default function DansuriDeSocietate() {
                   </h3>
                 </div>
                 <div className="p-4">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     {dance.description}
                   </p>
                 </div>
@@ -205,7 +205,7 @@ export default function DansuriDeSocietate() {
         <div id="de-ce-noi" className="flex flex-col gap-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold">De ce să înveți dansuri de societate cu noi?</h2>
-            <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+            <p className="text-gray-500 max-w-xl mx-auto">
               Tot ce contează pentru o experiență plăcută și un progres real.
             </p>
           </div>
@@ -213,13 +213,13 @@ export default function DansuriDeSocietate() {
             {reasons.map(({ icon: Icon, title, desc, color, bg }) => (
               <div
                 key={title}
-                className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
                   <Icon className={`w-5 h-5 ${color}`} />
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
+                <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>

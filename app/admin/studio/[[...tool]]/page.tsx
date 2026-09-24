@@ -32,10 +32,10 @@ export default function StudioPage() {
   // Ecran de loading în timpul verificării
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="flex h-screen items-center justify-center bg-gray-50 ">
         <div className="text-center">
           <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-          <p className="text-gray-600 dark:text-gray-400">Verificare autentificare...</p>
+          <p className="text-gray-600 ">Verificare autentificare...</p>
         </div>
       </div>
     )

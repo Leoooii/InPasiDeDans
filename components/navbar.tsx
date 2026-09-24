@@ -14,7 +14,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import ThemeToggle from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -114,6 +113,7 @@ export default function Navbar() {
                 alt="Logo În Pași de Dans"
                 title="Acasă - În Pași de Dans"
                 fill
+                sizes="180px"
                 className="object-contain object-left"
                 priority
               />
@@ -430,7 +430,6 @@ export default function Navbar() {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            {/* <ThemeToggle /> */}
           </div>
         </div>
       </div>
@@ -462,6 +461,7 @@ function MobileNav({
             src="/images/logo.png"
             alt="Logo În Pași de Dans"
             fill
+            sizes="180px"
             className="object-contain object-left"
             priority
           />

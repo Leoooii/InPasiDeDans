@@ -149,7 +149,7 @@ export default async function CursuriDansAdulti() {
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Cursuri de dans adulți</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 ">
             Descoperă pasiunea pentru dans într-un mediu prietenos și profesionist. Vino să faci parte din comunitatea În Pași de Dans!<br />
             <span className="block mt-2">
               <a href="/inscriere" className="text-red-600 underline hover:text-orange-600">Înscrie-te acum</a> ·
@@ -165,9 +165,10 @@ export default async function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/images/societate.png?height=400&width=600"
+                src="/images/societate.png"
                 alt="Dans de societate"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover"
               />
             </div>
@@ -186,9 +187,10 @@ export default async function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/images/latino.png?height=400&width=600"
+                src="/images/latino.png"
                 alt="Dans latino"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover"
               />
             </div>
@@ -207,9 +209,10 @@ export default async function CursuriDansAdulti() {
           <Card>
             <div className="relative h-60 w-full overflow-hidden rounded-t-lg">
               <Image
-                src="/images/populare.png?height=400&width=600"
+                src="/images/populare.png"
                 alt="Dans pentru nuntă"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover"
               />
             </div>
@@ -231,10 +234,10 @@ export default async function CursuriDansAdulti() {
         <div className="mt-12 bg-red-50 p-8 rounded-lg ">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-2xl font-bold mb-4 dark:text-black">
+              <h2 className="text-2xl font-bold mb-4 ">
                 Înscrie-te la un curs
               </h2>
-              <p className="mb-6 dark:text-black">
+              <p className="mb-6 ">
                 Fie că ești începător sau ai mai dansat înainte, avem cursuri
                 potrivite pentru toate nivelurile. Vino să descoperi bucuria
                 dansului într-o atmosferă prietenoasă și relaxantă.
@@ -261,9 +264,10 @@ export default async function CursuriDansAdulti() {
 
             <div className="relative h-80 w-full overflow-hidden ">
               <Image
-                src="/images/inscriere.png?height=400&width=600"
+                src="/images/inscriere.png"
                 alt="Cursuri de dans"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>

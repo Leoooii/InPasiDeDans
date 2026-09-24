@@ -17,7 +17,7 @@ export default function FolkDancesCarousel() {
     <div className="flex flex-col gap-6">
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold">Atmosfera de la cursurile noastre</h2>
-        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
           Energie, voie bună și tradiție autentică — la fiecare ședință.
         </p>
       </div>

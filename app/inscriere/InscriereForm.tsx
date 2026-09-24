@@ -234,7 +234,7 @@ export default function InscriereForm() {
       <div className="max-w-3xl mx-auto">
         <div className="space-y-2 text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight">Formular de înscriere</h1>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-gray-500 ">
             Completează formularul de mai jos pentru a te înscrie la cursurile noastre de dans
           </p>
         </div>
@@ -268,7 +268,7 @@ export default function InscriereForm() {
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-2 text-green-600">Formular trimis cu succes!</h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">
+              <p className="text-gray-500 mb-4">
                 Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai scurt timp posibil
                 pentru a confirma înscrierea.
               </p>

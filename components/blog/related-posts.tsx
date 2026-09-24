@@ -36,13 +36,13 @@ export default function RelatedPosts({ posts, currentPostTitle }: RelatedPostsPr
   // Desktop: afișează toate
   if (!isMobile) {
     return (
-      <section className="py-12 bg-gray-50 dark:bg-gray-900">
+      <section className="py-12 bg-gray-50 ">
         <div className="container mx-auto px-4">
           <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Articole Înrudite
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 ">
               Continuă să descoperi conținut similar
             </p>
           </div>
@@ -59,13 +59,13 @@ export default function RelatedPosts({ posts, currentPostTitle }: RelatedPostsPr
 
   // Mobile: carousel cu swipe
   return (
-    <section className="py-12 bg-gray-50 dark:bg-gray-900">
+    <section className="py-12 bg-gray-50 ">
       <div className="container mx-auto px-4">
         <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Articole Înrudite
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 ">
             Swipe pentru a vedea mai multe
           </p>
         </div>
@@ -90,20 +90,20 @@ export default function RelatedPosts({ posts, currentPostTitle }: RelatedPostsPr
             <>
               <button
                 onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors"
                 aria-label="Articol anterior"
               >
-                <svg className="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-gray-600 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               
               <button
                 onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors"
                 aria-label="Articol următor"
               >
-                <svg className="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-gray-600 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -120,7 +120,7 @@ export default function RelatedPosts({ posts, currentPostTitle }: RelatedPostsPr
                   className={`h-2 rounded-full transition-all ${
                     index === currentSlide
                       ? 'w-8 bg-blue-600'
-                      : 'w-2 bg-gray-300 dark:bg-gray-600'
+                      : 'w-2 bg-gray-300 '
                   }`}
                   aria-label={`Slide ${index + 1}`}
                 />

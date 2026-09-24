@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <footer
       id="site-footer"
-      className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-gray-300 dark:bg-slate-950 dark:text-gray-200"
+      className="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-gray-300 "
     >
        {/* Secțiune Blog */}
        {/* <div className="mt-12 border-t border-gray-800 pt-8">

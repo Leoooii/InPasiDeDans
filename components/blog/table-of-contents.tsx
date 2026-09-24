@@ -89,7 +89,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   }
 
   return (
-    <div className="my-8 rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+    <div className="my-8 rounded-lg border border-gray-200 bg-gray-50 ">
       {/* Header */}
       <div 
         className="flex cursor-pointer items-center justify-between p-4 md:cursor-default"
@@ -97,12 +97,12 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       >
         <div className="flex items-center gap-2">
           <span className="text-2xl">📋</span>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h2 className="text-lg font-bold text-gray-900 ">
             Cuprins Articol
           </h2>
         </div>
         <button 
-          className="md:hidden text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="md:hidden text-gray-500 hover:text-gray-700 "
           aria-label="Toggle TOC"
         >
           {isOpen ? '▼' : '▶'}
@@ -110,7 +110,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       </div>
 
       {/* Content */}
-      <div className={`border-t border-gray-200 dark:border-gray-700 ${isOpen ? 'block' : 'hidden md:block'}`}>
+      <div className={`border-t border-gray-200 ${isOpen ? 'block' : 'hidden md:block'}`}>
         <nav className="p-4">
           <ul className="space-y-2">
             {headings.map((heading) => (
@@ -120,10 +120,10 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
               >
                 <button
                   onClick={() => scrollToHeading(heading.id)}
-                  className={`w-full text-left transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${
+                  className={`w-full text-left transition-colors hover:text-blue-600 ${
                     activeId === heading.id
-                      ? 'font-semibold text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-400'
+                      ? 'font-semibold text-blue-600 '
+                      : 'text-gray-600 '
                   }`}
                 >
                   {heading.level === 3 && '• '}
@@ -134,7 +134,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
           </ul>
 
           {/* Reading Time */}
-          <div className="mt-4 flex items-center gap-2 border-t border-gray-200 pt-4 text-sm text-gray-600 dark:border-gray-700 dark:text-gray-400">
+          <div className="mt-4 flex items-center gap-2 border-t border-gray-200 pt-4 text-sm text-gray-600 ">
             <Clock className="h-4 w-4" />
             <span>Timp estimat citire: {readingTime} {readingTime === 1 ? 'minut' : 'minute'}</span>
           </div>

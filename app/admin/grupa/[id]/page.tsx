@@ -307,7 +307,7 @@ export default function GrupaDetailPage({ params }: { params: Promise<{ id: stri
           <div className="flex flex-wrap gap-1 mt-2">
             {grupa.stiluri &&
               grupa.stiluri.map((stil, index) => (
-                <Badge key={index} className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
+                <Badge key={index} className="bg-red-100 text-red-800 ">
                   {stil}
                 </Badge>
               ))}

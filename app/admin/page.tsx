@@ -31,22 +31,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import type { LucideIcon } from 'lucide-react';
 
-export type Grupa = {
-  id?: string;
-  titlu: string;
-  descriere: string;
-  dataStart: string;
-  program: string;
-  instructor: string;
-  locuriDisponibile: number;
-  locuriTotale: number;
-  stiluri: string[];
-  zile: string[];
-  publica?: boolean;
-  nivel?: string;
-  rol?: string;
-  sala?: string;
-};
+import type { Grupa } from '@/lib/types';
+export type { Grupa } from '@/lib/types';
 
 type RawTimestamp = { toDate: () => Date };
 type Abonament = { tip: string; sedinteTotal: number; dataStart: RawTimestamp };

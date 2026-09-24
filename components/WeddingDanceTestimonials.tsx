@@ -154,7 +154,7 @@ export default function WeddingDanceTestimonials() {
                           {testimonial.name}
                         </p>
                         {testimonial.date && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-xs text-gray-500 ">
                             {testimonial.date}
                           </p>
                         )}

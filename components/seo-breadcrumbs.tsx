@@ -63,7 +63,7 @@ export default function SEOBreadcrumbs({ items, className = "", currentPageUrl }
                     {item.name}
                   </Link>
                 ) : (
-                  <span className="text-gray-900 dark:text-gray-100 font-semibold">
+                  <span className="text-gray-900 font-semibold">
                     {item.name}
                   </span>
                 )}
@@ -73,12 +73,12 @@ export default function SEOBreadcrumbs({ items, className = "", currentPageUrl }
                 {item.url ? (
                   <Link 
                     href={item.url}
-                    className="text-gray-600 dark:text-gray-400 hover:text-red-600 transition-colors duration-200 font-medium hover:underline"
+                    className="text-gray-600 hover:text-red-600 transition-colors duration-200 font-medium hover:underline"
                   >
                     {item.name}
                   </Link>
                 ) : (
-                  <span className="text-gray-900 dark:text-gray-100 font-semibold bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-md">
+                  <span className="text-gray-900 font-semibold bg-red-50 px-2 py-1 rounded-md">
                     {item.name}
                   </span>
                 )}

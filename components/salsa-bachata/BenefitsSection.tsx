@@ -34,7 +34,7 @@ export default function BenefitsSection() {
 
   return (
     <div className="space-y-8">
-      <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-center text-gray-900 dark:text-white mb-8">
+      <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-center text-gray-900 mb-8">
         De ce să alegi cursurile de Salsa & Bachata la În Pași de Dans?
       </h2>
       
@@ -42,13 +42,13 @@ export default function BenefitsSection() {
         {benefits.map((benefit, index) => (
           <div 
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             <div className="text-4xl mb-4 text-center">{benefit.icon}</div>
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 text-center">
+            <h4 className="text-lg font-semibold text-gray-900 mb-3 text-center">
               {benefit.title}
             </h4>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed text-center">
+            <p className="text-gray-600 text-sm leading-relaxed text-center">
               {benefit.description}
             </p>
           </div>

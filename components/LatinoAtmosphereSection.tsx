@@ -36,7 +36,7 @@ export default function LatinoAtmosphereSection() {
         <h2 className="text-3xl font-bold tracking-tight">
           Atmosfera de la cursurile noastre
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
           Mai mult decât simple lecții — o comunitate prietenoasă, energie vibrantă și momente de
           bucurie autentică la fiecare ședință.
         </p>

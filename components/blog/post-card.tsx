@@ -51,7 +51,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
         'group flex flex-col rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1',
         isDark
           ? 'bg-white/[0.04] border border-white/10 hover:border-orange-400/40 hover:shadow-orange-500/20'
-          : 'bg-white hover:shadow-xl dark:bg-gray-800'
+          : 'bg-white hover:shadow-xl '
       )}
     >
       <div className="relative h-48 overflow-hidden">
@@ -83,7 +83,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
         <div
           className={cn(
             'mb-3 flex items-center gap-2 text-xs',
-            isDark ? 'text-white/50' : 'text-gray-500 dark:text-gray-400'
+            isDark ? 'text-white/50' : 'text-gray-500 '
           )}
         >
           <span>{publishedDate}</span>
@@ -96,7 +96,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
             'mb-3 text-xl font-bold leading-tight line-clamp-2 transition-colors',
             isDark
               ? 'text-white group-hover:text-orange-300'
-              : 'text-gray-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400'
+              : 'text-gray-900 group-hover:text-blue-600 '
           )}
         >
           {post.title}
@@ -105,7 +105,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
         <p
           className={cn(
             'mb-4 line-clamp-3 text-sm leading-relaxed flex-1',
-            isDark ? 'text-white/70' : 'text-gray-600 dark:text-gray-300'
+            isDark ? 'text-white/70' : 'text-gray-600 '
           )}
         >
           {post.excerpt}
@@ -120,7 +120,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
                   'rounded-full px-2 py-0.5 text-[10px]',
                   isDark
                     ? 'bg-white/10 text-white/70 border border-white/10'
-                    : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+                    : 'bg-gray-100 text-gray-600 '
                 )}
               >
                 #{tag}
@@ -132,7 +132,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
                   'rounded-full px-2 py-0.5 text-[10px]',
                   isDark
                     ? 'bg-white/10 text-white/70 border border-white/10'
-                    : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+                    : 'bg-gray-100 text-gray-600 '
                 )}
               >
                 +{post.tags.length - 3}
@@ -141,13 +141,13 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
           </div>
         )}
 
-        <div className={cn('pt-4 border-t', isDark ? 'border-white/10' : 'border-gray-100 dark:border-gray-700')}>
+        <div className={cn('pt-4 border-t', isDark ? 'border-white/10' : 'border-gray-100 ')}>
           <span
             className={cn(
               'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all',
               isDark
                 ? 'bg-gradient-to-r from-red-600 to-orange-500 text-white group-hover:from-red-700 group-hover:to-orange-600 group-hover:shadow-md group-hover:shadow-orange-500/30'
-                : 'text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300'
+                : 'text-blue-600 hover:text-blue-700 '
             )}
           >
             Citește mai mult

@@ -10,7 +10,7 @@ function PortableText({ content }: PostContentProps) {
   if (!content) return null
 
   return (
-    <div className="prose prose-lg max-w-none dark:prose-invert">
+    <div className="prose prose-lg max-w-none ">
       {content.map((block, index) => {
         // Text blocks (paragraf, heading, etc.)
         if (block._type === 'block') {
@@ -40,7 +40,7 @@ function PortableText({ content }: PostContentProps) {
                       href={linkMark.href}
                       target={linkMark.blank ? '_blank' : '_self'}
                       rel={linkMark.blank ? 'noopener noreferrer' : undefined}
-                      className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                      className="text-blue-600 hover:text-blue-700 "
                     >
                       {element}
                     </a>
@@ -56,20 +56,20 @@ function PortableText({ content }: PostContentProps) {
           // Render different block styles
           switch (style) {
             case 'h2':
-              return <h2 key={index} className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">{children}</h2>
+              return <h2 key={index} className="text-2xl font-bold mt-8 mb-4 text-gray-900 ">{children}</h2>
             case 'h3':
-              return <h3 key={index} className="text-xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white">{children}</h3>
+              return <h3 key={index} className="text-xl font-semibold mt-6 mb-3 text-gray-900 ">{children}</h3>
             case 'h4':
-              return <h4 key={index} className="text-lg font-semibold mt-4 mb-2 text-gray-900 dark:text-white">{children}</h4>
+              return <h4 key={index} className="text-lg font-semibold mt-4 mb-2 text-gray-900 ">{children}</h4>
             case 'blockquote':
               return (
-                <blockquote key={index} className="border-l-4 border-blue-500 pl-4 italic text-gray-700 dark:text-gray-300 my-6">
+                <blockquote key={index} className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-6">
                   {children}
                 </blockquote>
               )
             case 'normal':
             default:
-              return <p key={index} className="mb-4 text-gray-700 leading-relaxed dark:text-gray-300">{children}</p>
+              return <p key={index} className="mb-4 text-gray-700 leading-relaxed ">{children}</p>
           }
         }
 
@@ -87,7 +87,7 @@ function PortableText({ content }: PostContentProps) {
                 sizes="(max-width: 768px) 100vw, 800px"
               />
               {block.caption && (
-                <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400 italic">
+                <p className="mt-2 text-center text-sm text-gray-600 italic">
                   {block.caption}
                 </p>
               )}

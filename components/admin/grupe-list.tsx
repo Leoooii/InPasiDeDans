@@ -35,7 +35,7 @@ import {
   Calendar,
   Clock,
 } from "lucide-react"
-import type { Grupa } from "@/app/admin/page"
+import type { Grupa } from "@/lib/types"
 
 interface GrupeListProps {
   grupe: Grupa[]

@@ -1,5 +1,6 @@
 'use client'
 
+import type { Tarif } from '@/lib/types'
 import { usePublicData } from '@/components/public-data-provider'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,17 +13,6 @@ import {
 import { Check, Star } from 'lucide-react'
 import Link from 'next/link'
 
-type Tarif = {
-  id: string
-  titlu: string
-  descriere: string
-  pret: number
-  moneda: string
-  categorie: 'grup' | 'privat' | 'copii'
-  beneficii: string[]
-  popular: boolean
-  ordine: number
-}
 
 const FALLBACK: Tarif[] = [
   {

@@ -1,5 +1,6 @@
 'use client'
 
+import type { Tarif } from '@/lib/types'
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,17 +16,6 @@ import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import PricingSection from '@/components/PricingSection';
 import { usePublicData } from '@/components/public-data-provider';
 
-type Tarif = {
-  id: string
-  titlu: string
-  descriere: string
-  pret: number
-  moneda: string
-  categorie: 'grup' | 'privat' | 'copii'
-  beneficii: string[]
-  popular: boolean
-  ordine: number
-}
 
 const FALLBACK_PRIVAT: Tarif[] = [
   { id: 'p1', titlu: 'Pachet 4 ședințe', descriere: '', pret: 680, moneda: 'Lei', categorie: 'privat', beneficii: ['4 ședințe private', 'Valabilitate 2 luni', 'Instructor dedicat'], popular: false, ordine: 1 },
@@ -116,7 +106,7 @@ export default function Tarife() {
             <h1 className="text-3xl font-bold tracking-tight">
               Tarife cursuri de dans din Bucuresti
             </h1>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 ">
               Alege abonamentul potrivit pentru cursurile de dans pentru adulți
               la In Pasi de Dans, Bucuresti.
             </p>
@@ -127,7 +117,7 @@ export default function Tarife() {
             <h2 className="text-3xl font-bold tracking-tight">
               Tarife lecții private
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 ">
               Personalizează-ți experiența cu lecțiile private de dans.
             </p>
           </div>
@@ -138,7 +128,7 @@ export default function Tarife() {
             <h2 className="text-3xl font-bold tracking-tight">
               Tarife cursuri copii
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 ">
               Tarife accesibile pentru cursurile de dans dedicate copiilor.
             </p>
           </div>
@@ -147,10 +137,10 @@ export default function Tarife() {
 
           <div className="mt-12 bg-red-50 p-4 sm:p-6 md:p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
-              <h2 className="text-xl sm:text-2xl font-bold dark:text-black">
+              <h2 className="text-xl sm:text-2xl font-bold ">
                 Gata să începi dansul?
               </h2>
-              <p className="text-sm sm:text-base dark:text-black px-2">
+              <p className="text-sm sm:text-base px-2">
                 Alege un abonament și înscrie-te astăzi sau contactează-ne
                 pentru detalii suplimentare.
               </p>

@@ -24,21 +24,21 @@ const forWhom = [
     title: 'Program variabil',
     desc: 'Nu poți participa constant la cursurile de grup? Stabilim noi împreună orarul.',
     color: 'text-blue-500',
-    bg: 'bg-blue-50 dark:bg-blue-950/30',
+    bg: 'bg-blue-50 ',
   },
   {
     icon: Heart,
     title: 'Abordare personală',
     desc: 'Preferi să înveți fără presiunea grupului, în propriul ritm.',
     color: 'text-red-500',
-    bg: 'bg-red-50 dark:bg-red-950/30',
+    bg: 'bg-red-50 ',
   },
   {
     icon: Layers,
     title: 'Stil specific',
     desc: 'Vrei să te concentrezi pe un singur stil de dans sau să aprofundezi tehnica.',
     color: 'text-orange-500',
-    bg: 'bg-orange-50 dark:bg-orange-950/30',
+    bg: 'bg-orange-50 ',
   },
 ];
 
@@ -48,42 +48,42 @@ const benefits = [
     title: 'Instructori cu experiență',
     desc: 'Lucrezi 1-la-1 cu un instructor dedicat, care se adaptează nivelului și ritmului tău.',
     color: 'text-yellow-500',
-    bg: 'bg-yellow-50 dark:bg-yellow-950/30',
+    bg: 'bg-yellow-50 ',
   },
   {
     icon: Target,
     title: 'Plan personalizat',
     desc: 'Fiecare ședință urmează un plan adaptat obiectivelor și progresului tău.',
     color: 'text-purple-500',
-    bg: 'bg-purple-50 dark:bg-purple-950/30',
+    bg: 'bg-purple-50 ',
   },
   {
     icon: Calendar,
     title: 'Program flexibil',
     desc: 'Programăm ședințele în funcție de disponibilitatea ta, inclusiv în weekend.',
     color: 'text-green-500',
-    bg: 'bg-green-50 dark:bg-green-950/30',
+    bg: 'bg-green-50 ',
   },
   {
     icon: Users,
     title: 'Sală privată',
     desc: 'Toate ședințele au loc în sală privată — vei fi doar tu și instructorul.',
     color: 'text-blue-500',
-    bg: 'bg-blue-50 dark:bg-blue-950/30',
+    bg: 'bg-blue-50 ',
   },
   {
     icon: Heart,
     title: 'Atmosferă relaxată',
     desc: 'Mediu prietenos și fără presiune, ca să te simți confortabil de la prima ședință.',
     color: 'text-red-500',
-    bg: 'bg-red-50 dark:bg-red-950/30',
+    bg: 'bg-red-50 ',
   },
   {
     icon: Layers,
     title: 'Orice stil de dans',
     desc: 'Latino, populare, societate, dans pentru nuntă — alegi tu ce vrei să înveți.',
     color: 'text-orange-500',
-    bg: 'bg-orange-50 dark:bg-orange-950/30',
+    bg: 'bg-orange-50 ',
   },
 ];
 
@@ -102,7 +102,7 @@ export default function LectiiPrivate() {
 
       {/* Hero */}
       <div className="flex flex-col items-center gap-6 text-center max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 dark:border-red-900">
+        <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 text-sm font-medium px-4 py-1.5 rounded-full border border-red-100 ">
           <Sparkles className="w-4 h-4" />
           Instructor dedicat · 1-la-1 · Program flexibil
         </div>
@@ -112,14 +112,14 @@ export default function LectiiPrivate() {
             particulare de dans
           </span>
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl">
+        <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
           Progresezi în ritmul tău, cu un instructor dedicat, program flexibil și un plan personalizat
           adaptat exact nevoilor tale.
         </p>
         <Link href="#inscriere" className="mt-2">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30 text-base"
+            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 text-base"
           >
             Programează o ședință
           </Button>
@@ -133,16 +133,17 @@ export default function LectiiPrivate() {
             src="/images/private3.png"
             alt="Lecții private dans București"
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </div>
         <div className="flex flex-col gap-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
               Pentru cine sunt potrivite?
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-500 text-sm leading-relaxed">
               Lecțiile private se adaptează oricărui stil de viață și oricărui nivel.
             </p>
           </div>
@@ -155,8 +156,8 @@ export default function LectiiPrivate() {
                   <Icon className={`w-5 h-5 ${color}`} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">{title}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
+                  <h3 className="font-semibold text-gray-900 text-sm">{title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -168,7 +169,7 @@ export default function LectiiPrivate() {
       <div className="flex flex-col gap-8">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold">De ce să alegi lecțiile private?</h2>
-          <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+          <p className="text-gray-500 max-w-xl mx-auto">
             Totul este adaptat la tine — nu invers.
           </p>
         </div>
@@ -176,13 +177,13 @@ export default function LectiiPrivate() {
           {benefits.map(({ icon: Icon, title, desc, color, bg }) => (
             <div
               key={title}
-              className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
               <div className={`w-11 h-11 ${bg} rounded-xl flex items-center justify-center mb-4`}>
                 <Icon className={`w-5 h-5 ${color}`} />
               </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{desc}</p>
+              <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>

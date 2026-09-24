@@ -136,6 +136,7 @@ export default function PetrecereClient({ initial }: { initial?: PetrecereDetali
                     src={petrecere.imageUrl || '/placeholder.svg'}
                     alt={petrecere.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                       className="object-cover hover:scale-125 transition-transform duration-300"
                   />
                   {petrecere.badge && (

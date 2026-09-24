@@ -42,7 +42,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 ">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
         <div className="container mx-auto px-4">
@@ -71,7 +71,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
       </section>
 
       {/* Articole */}
-      <section className="py-12 bg-white dark:bg-gray-800">
+      <section className="py-12 bg-white ">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post: any) => (

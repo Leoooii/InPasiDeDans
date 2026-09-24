@@ -136,6 +136,7 @@ export default function ExcursieClient({ initial }: { initial?: ExcursieDetaliu 
                     src={excursie.imageUrl || '/placeholder.svg'}
                     alt={excursie.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-cover hover:scale-125 transition-transform duration-300"
                   />
                   {excursie.spots && (

@@ -1,37 +1,13 @@
 import { unstable_cache } from 'next/cache';
 import { collection, getDocs, query, where, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import type { Instructor, Tarif, TarifeGrupate } from '@/lib/types';
 
 // Datele publice citite pe server, ca să apară în HTML-ul trimis roboților
 // (Google, crawlerele AI nu rulează JavaScript). Cache 1h + invalidare la
 // salvarea din admin prin revalidateTag (vezi app/api/revalidate-content).
 
-export type Tarif = {
-  id: string;
-  titlu: string;
-  descriere: string;
-  pret: number;
-  moneda: string;
-  categorie: 'grup' | 'privat' | 'copii';
-  beneficii: string[];
-  popular: boolean;
-  ordine: number;
-};
-
-export type Instructor = {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  imageUrl: string;
-  facebookUrl?: string;
-  instagramUrl?: string;
-  youtubeUrl?: string;
-  order?: number;
-  createdAt?: number;
-};
-
-export type TarifeGrupate = Record<Tarif['categorie'], Tarif[]>;
+export type { Tarif, Instructor, TarifeGrupate } from '@/lib/types';
 
 export const CACHE_TAGS = ['tarife', 'instructori', 'grupe', 'evenimente', 'petreceri', 'excursii'] as const;
 export type CacheTag = (typeof CACHE_TAGS)[number];

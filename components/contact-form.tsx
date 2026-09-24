@@ -258,7 +258,7 @@ const ContactForm = () => {
               <h3 className="text-xl font-bold mb-2 text-green-600">
                 Formular trimis cu succes!
               </h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">
+              <p className="text-gray-500 mb-4">
                 Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai
                 scurt timp posibil pentru a confirma înscrierea.
               </p>

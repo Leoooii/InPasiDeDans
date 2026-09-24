@@ -94,7 +94,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 ">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
         <div className="container mx-auto px-4">
@@ -120,7 +120,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       </section>
 
       {/* Articole din Categorie */}
-      <section className="py-12 bg-white dark:bg-gray-800">
+      <section className="py-12 bg-white ">
         <div className="container mx-auto px-4">
           {posts.length > 0 ? (
             <>
@@ -133,10 +133,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           ) : (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📂</div>
-              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                 Încă nu sunt articole în această categorie
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-600 mb-6">
                 Categoria "{category.title}" va fi populată în curând cu conținut nou.
               </p>
               <a

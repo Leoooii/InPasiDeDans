@@ -229,7 +229,7 @@ export default function FolkDancesRegions() {
         <h2 className="text-3xl font-bold">
           Dansuri din toate regiunile României
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+        <p className="text-gray-500 max-w-xl mx-auto">
           Descoperă diversitatea dansurilor populare românești, de la Ardeal până la Dobrogea.
         </p>
       </div>
@@ -240,7 +240,7 @@ export default function FolkDancesRegions() {
           <Button
             onClick={() => setShowDances(!showDances)}
             variant="outline"
-            className="bg-white dark:bg-gray-900 hover:bg-orange-50 border-orange-200 text-orange-700 hover:text-orange-800 px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+            className="bg-white hover:bg-orange-50 border-orange-200 text-orange-700 hover:text-orange-800 px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
           >
             {showDances ? (
               <>
@@ -295,11 +295,11 @@ export default function FolkDancesRegions() {
           </div>
 
           {/* Conținutul regiunii active */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             <div className="space-y-6">
               {/* Informații despre regiune */}
               <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                   {regiuniDansuri[currentRegion].nume}
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">

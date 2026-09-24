@@ -153,7 +153,7 @@ export default function ImagineForm({ onSubmit, initialData, onCancel }: Imagine
 
         <div>
           <Label>Previzualizare</Label>
-          <Card className="mt-2 overflow-hidden aspect-square flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+          <Card className="mt-2 overflow-hidden aspect-square flex items-center justify-center bg-gray-100 ">
             {previewUrl ? (
               <img src={previewUrl || "/placeholder.svg"} alt="Previzualizare" className="w-full h-full object-cover" />
             ) : (

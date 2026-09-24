@@ -23,10 +23,10 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-gradient-to-r dark:from-slate-800 dark:to-slate-900 border-t shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t shadow-lg">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex-1">
-          <p className="text-sm text-gray-700 dark:text-gray-300">
+          <p className="text-sm text-gray-700 ">
             Acest site nu folosește cookie-uri direct, dar folosește servicii
             terțe (ex. Cloudflare) care pot utiliza tehnologii similare pentru
             securitate. Pentru detalii, consultați{' '}
