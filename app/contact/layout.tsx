@@ -1,3 +1,5 @@
+import FaqBlock from '@/components/faq-block';
+import { FAQ_CONTACT } from '@/lib/faq-continut';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -22,5 +24,12 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <div className="container pb-16">
+        <FaqBlock intrebari={FAQ_CONTACT} />
+      </div>
+    </>
+  );
 }

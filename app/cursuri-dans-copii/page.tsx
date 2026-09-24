@@ -1,3 +1,6 @@
+import PeScurt, { peScurtCopii } from '@/components/pe-scurt';
+import { getTarife, safe } from '@/lib/public-data';
+import { ePretIntrebare, raspunsPretCopii } from '@/lib/text-preturi';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -112,12 +115,21 @@ const breadcrumbItems = [
   { name: 'Cursuri dans copii' },
 ];
 
-export default function CursuriDansCopii() {
+export default async function CursuriDansCopii() {
+  const tarife = await safe(getTarife, null);
+  const faqCuPreturi = {
+    ...faqSchema,
+    mainEntity: faqSchema.mainEntity.map(q =>
+      ePretIntrebare(q.name)
+        ? { ...q, acceptedAnswer: { ...q.acceptedAnswer, text: raspunsPretCopii(tarife, q.acceptedAnswer.text) } }
+        : q
+    ),
+  };
   return (
     <div className="container py-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqCuPreturi) }}
       />
       <SEOBreadcrumbs
         items={breadcrumbItems}
@@ -167,6 +179,8 @@ export default function CursuriDansCopii() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
           </div>
         </div>
+
+        <PeScurt randuri={peScurtCopii(tarife)} />
 
         {/* Echipament + varsta */}
         <div className="mt-4 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-8 shadow-sm">

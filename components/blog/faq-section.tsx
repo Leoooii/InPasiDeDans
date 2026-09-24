@@ -66,13 +66,11 @@ export default function FAQSection({ faqs, postUrl }: FAQSectionProps) {
                 />
               </button>
               
-              {openIndex === index && (
-                <div className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-900">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-                    {faq.answer}
-                  </p>
-                </div>
-              )}
+              <div hidden={!(openIndex === index)} className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-900">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+                  {faq.answer}
+                </p>
+              </div>
             </div>
           ))}
         </div>

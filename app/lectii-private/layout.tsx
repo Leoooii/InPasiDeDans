@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import FaqBlock from '@/components/faq-block';
+import { faqLectiiPrivate } from '@/lib/faq-continut';
+import { getTarife, safe } from '@/lib/public-data';
 
 export const metadata: Metadata = {
   title: 'Lecții Private de Dans București | În Pași de Dans',
@@ -12,6 +15,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LectiiPrivateLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default async function LectiiPrivateLayout({ children }: { children: React.ReactNode }) {
+  const tarife = await safe(getTarife, null);
+  return (
+    <>
+      {children}
+      <div className="container pb-16">
+        <FaqBlock intrebari={faqLectiiPrivate(tarife)} />
+      </div>
+    </>
+  );
 }

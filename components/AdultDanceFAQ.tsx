@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { usePublicData } from '@/components/public-data-provider';
+import { ePretIntrebare, raspunsPretAdulti } from '@/lib/text-preturi';
 import { Plus, Minus } from 'lucide-react';
 
 interface FAQItem {
@@ -63,6 +65,10 @@ const adultDanceFAQData: FAQItem[] = [
 ];
 
 export default function AdultDanceFAQ() {
+  const { tarife } = usePublicData();
+  const intrebari = adultDanceFAQData.map(item =>
+    ePretIntrebare(item.question) ? { ...item, answer: raspunsPretAdulti(tarife, item.answer) } : item
+  );
   const [openItems, setOpenItems] = useState<number[]>([1]); // Primul item deschis implicit
 
   const toggleItem = (id: number) => {
@@ -80,7 +86,7 @@ export default function AdultDanceFAQ() {
           Întrebări frecvente despre cursurile de dans pentru adulți
         </h2>
         <div className="max-w-4xl mx-auto space-y-4">
-          {adultDanceFAQData.map((item) => (
+          {intrebari.map((item) => (
             <div key={item.id} className="border border-gray-200 dark:border-gray-700 rounded-lg">
               <button
                 className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -93,13 +99,11 @@ export default function AdultDanceFAQ() {
                   <Plus className="h-5 w-5 text-red-600 flex-shrink-0" />
                 )}
               </button>
-              {openItems.includes(item.id) && (
-                <div className="px-6 pb-4">
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {item.answer}
-                  </p>
-                </div>
-              )}
+              <div hidden={!(openItems.includes(item.id))} className="px-6 pb-4">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {item.answer}
+                </p>
+              </div>
             </div>
           ))}
         </div>

@@ -331,13 +331,11 @@ export default function FAQSection({ danceType = 'default' }: FAQSectionProps) {
               </button>
 
               {/* Answer */}
-              {openItems.includes(item.id) && (
-                <div className="px-6 pb-4 border-t border-gray-100">
-                  <div className="pt-4 text-gray-700 leading-relaxed">
-                    {item.answer}
-                  </div>
+              <div hidden={!(openItems.includes(item.id))} className="px-6 pb-4 border-t border-gray-100">
+                <div className="pt-4 text-gray-700 leading-relaxed">
+                  {item.answer}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

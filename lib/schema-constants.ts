@@ -46,7 +46,10 @@ export const BUSINESS = {
       closes: '18:00',
     },
   ],
+  // Profilul Google Business (link stabil prin CID, nu prin link-ul scurt de distribuire)
+  googleMaps: 'https://maps.google.com/?cid=10384433735255019306',
   sameAs: [
+    'https://maps.google.com/?cid=10384433735255019306',
     'https://www.facebook.com/scoaladedansinpasidedans',
     'https://www.instagram.com/inpasidedans/',
     'https://www.tiktok.com/@inpasidedans',
@@ -76,6 +79,7 @@ export const SCHOOL_SCHEMA = {
   foundingDate: BUSINESS.foundingDate,
   address: BUSINESS.address,
   geo: BUSINESS.geo,
+  hasMap: BUSINESS.googleMaps,
   openingHoursSpecification: BUSINESS.openingHoursSpecification,
   priceRange: BUSINESS.priceRange,
   currenciesAccepted: BUSINESS.currenciesAccepted,

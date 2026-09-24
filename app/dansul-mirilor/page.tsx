@@ -1,3 +1,7 @@
+import PeScurt, { peScurtMiri } from '@/components/pe-scurt';
+import FaqBlock from '@/components/faq-block';
+import { faqDansulMirilor } from '@/lib/faq-continut';
+import { getTarife, safe } from '@/lib/public-data';
 import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -42,7 +46,8 @@ const breadcrumbItems = [
   { name: 'Dansul mirilor' },
 ];
 
-export default function DansulMirilor() {
+export default async function DansulMirilor() {
+  const tarife = await safe(getTarife, null);
   return (
     <div className="container py-12">
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/dansul-mirilor" />
@@ -106,6 +111,8 @@ export default function DansulMirilor() {
             </AlertDescription>
           </Alert>
         </div>
+
+        <PeScurt randuri={peScurtMiri(tarife)} />
 
         <div className="mt-16 space-y-6">
           <div className="text-center space-y-2">
@@ -247,6 +254,8 @@ export default function DansulMirilor() {
             </div>
           </div>
         </div>
+
+        <FaqBlock intrebari={faqDansulMirilor(tarife)} className="mt-16" />
 
         <WeddingDanceTestimonials />
       </div>

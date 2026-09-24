@@ -90,11 +90,9 @@ export default function FolkPopularFAQ() {
                   <Plus className="h-5 w-5 text-red-600 flex-shrink-0" />
                 )}
               </button>
-              {openItems.includes(item.id) && (
-                <div className="px-6 pb-4">
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{item.answer}</p>
-                </div>
-              )}
+              <div hidden={!(openItems.includes(item.id))} className="px-6 pb-4">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{item.answer}</p>
+              </div>
             </div>
           ))}
         </div>

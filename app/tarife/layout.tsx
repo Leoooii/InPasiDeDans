@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { getTarife, safe } from '@/lib/public-data'
+import FaqBlock from '@/components/faq-block'
+import { faqTarife } from '@/lib/faq-continut'
 import { BUSINESS } from '@/lib/schema-constants'
 
 const CATEGORIE: Record<string, string> = {
@@ -68,6 +70,9 @@ export default async function TarifeLayout({ children }: { children: React.React
     <>
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       {children}
+      <div className="container pb-16">
+        <FaqBlock intrebari={faqTarife(tarife)} />
+      </div>
     </>
   )
 }

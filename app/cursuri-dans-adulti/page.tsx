@@ -1,3 +1,6 @@
+import PeScurt, { peScurtAdulti } from '@/components/pe-scurt';
+import { getTarife, safe } from '@/lib/public-data';
+import { ePretIntrebare, raspunsPretAdulti } from '@/lib/text-preturi';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -126,12 +129,21 @@ const breadcrumbItems = [
   { name: 'Cursuri dans adulți' },
 ];
 
-export default function CursuriDansAdulti() {
+export default async function CursuriDansAdulti() {
+  const tarife = await safe(getTarife, null);
+  const faqCuPreturi = {
+    ...faqSchema,
+    mainEntity: faqSchema.mainEntity.map(q =>
+      ePretIntrebare(q.name)
+        ? { ...q, acceptedAnswer: { ...q.acceptedAnswer, text: raspunsPretAdulti(tarife, q.acceptedAnswer.text) } }
+        : q
+    ),
+  };
   return (
     <div className="container py-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqCuPreturi) }}
       />
       <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/cursuri-dans-adulti" />
       <div className="space-y-6">
@@ -146,6 +158,8 @@ export default function CursuriDansAdulti() {
             </span>
           </p>
         </div>
+
+        <PeScurt randuri={peScurtAdulti(tarife)} />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card>

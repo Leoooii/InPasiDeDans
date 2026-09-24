@@ -45,7 +45,7 @@ export default function DespreNoi() {
           <div className="space-y-4">
             
             <p>
-              Povestea noastră a început în urmă cu 16 ani, din pasiune pentru
+              Povestea noastră a început în 2009, acum {new Date().getFullYear() - 2009} ani, din pasiune pentru
               dans și din dorința sinceră de a împărtăși frumusețea și emoția pe
               care dansul le poate oferi.
             </p>

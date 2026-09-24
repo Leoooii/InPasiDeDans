@@ -184,7 +184,7 @@ export default async function Home() {
               {[
                 { label: 'cursanți activi', value: '+300' },
                 { label: 'stiluri de dans', value: '20+' },
-                { label: 'ani de experiență', value: '16' },
+                { label: 'ani de experiență', value: String(new Date().getFullYear() - 2009) },
                 { label: 'săli de dans', value: '3' },
               ].map(item => (
                 <div
