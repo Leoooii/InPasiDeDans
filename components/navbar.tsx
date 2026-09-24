@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/sheet';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Facebook, Instagram } from 'lucide-react';
 import GrupeCountBadge from '@/components/grupe-count-badge';
 import {
@@ -54,6 +54,8 @@ export default function Navbar() {
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
   const router = useRouter();
+  const pathname = usePathname();
+  const activ = (href: string) => (pathname?.startsWith(href) ? 'bg-red-50 text-red-600' : '');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -80,16 +82,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Auto-close dropdown după 3 secunde
-  useEffect(() => {
-    if (openDropdown) {
-      const timer = setTimeout(() => {
-        setOpenDropdown(null);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [openDropdown]);
 
   const handleLogout = async () => {
     try {
@@ -132,7 +124,7 @@ export default function Navbar() {
                 <Instagram className="h-4 w-4" />
               </a>
               <a href="https://www.tiktok.com/@inpasidedans" title="TikTok" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
-                className="text-slate-400 hover:text-slate-800 transition-colors">
+                className="text-slate-400 hover:text-red-600 transition-colors">
                 <TikTokIcon />
               </a>
             </div>
@@ -155,7 +147,7 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center gap-2">
                 <Button variant="brand"
-                    className="hidden sm:flex"
+                    className="h-9 px-3 sm:h-10 sm:px-4"
                     title="Înscrie-te la Cursuri de Dans" asChild><Link href="/inscriere">
                     <span className="sm:inline">Înscrie-te</span>
                   </Link></Button>
@@ -182,7 +174,7 @@ export default function Navbar() {
                     <line x1="4" x2="20" y1="6" y2="6" />
                     <line x1="4" x2="20" y1="18" y2="18" />
                   </svg>
-                  <span className="sr-only">Toggle Menu</span>
+                  <span className="sr-only">Deschide meniul</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="pl-5">
@@ -266,7 +258,8 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/cursuri-dans-copii')
                     )}
                     title="Cursuri dans copii"
                   >
@@ -280,7 +273,8 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/dansul-mirilor')
                     )}
                     title="Dansul mirilor"
                   >
@@ -374,7 +368,8 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/program')
                     )}
                     title="Program Cursuri de Dans"
                   >
@@ -388,7 +383,8 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/tarife')
                     )}
                     title="Tarife Cursuri de Dans"
                   >
@@ -402,7 +398,8 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/contact')
                     )}
                     title="Contact Școala de Dans"
                   >
@@ -416,7 +413,8 @@ export default function Navbar() {
                     asChild
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/blog')
                     )}
                     title="Blog Dans București"
                   >
@@ -485,7 +483,7 @@ function MobileNav({
                     key={item.title}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="py-1 text-muted-foreground hover:text-foreground"
+                    className="py-2.5 text-muted-foreground hover:text-foreground"
                     title={item.title}
                   >
                     {item.title}
@@ -529,7 +527,7 @@ function MobileNav({
                     key={item.title}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="py-1 text-muted-foreground hover:text-foreground"
+                    className="py-2.5 text-muted-foreground hover:text-foreground"
                     title={item.title}
                   >
                     {item.title}
@@ -553,7 +551,7 @@ function MobileNav({
                     key={item.title}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="py-1 text-muted-foreground hover:text-foreground"
+                    className="py-2.5 text-muted-foreground hover:text-foreground"
                     title={item.title}
                   >
                     {item.title}

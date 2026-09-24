@@ -283,7 +283,7 @@ export default function DespreNoi() {
             <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8">
               <div className="flex items-center justify-center gap-2">
                 <Phone className="h-5 w-5" />
-                <span>0722.675.126</span>
+                <a href="tel:+40722675126" className="hover:underline">0722 675 126</a>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <Mail className="h-5 w-5" />

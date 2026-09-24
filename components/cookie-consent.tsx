@@ -1,61 +1,54 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+
+export const EVENIMENT_CONSIMTAMANT = 'cookie-consent';
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-    if (!cookiesAccepted) {
-      setIsVisible(true);
+    try {
+      if (!localStorage.getItem('cookiesAccepted')) setIsVisible(true);
+    } catch {
+      // localStorage indisponibil (mod privat) — nu insistăm cu bannerul
     }
   }, []);
 
-  const acceptCookies = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
+  const raspunde = (accept: boolean) => {
+    try {
+      localStorage.setItem('cookiesAccepted', accept ? 'true' : 'false');
+    } catch {}
+    // „storage" nu se declanșează în același tab; anunțăm explicit restul paginii
+    window.dispatchEvent(new Event(EVENIMENT_CONSIMTAMANT));
     setIsVisible(false);
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t shadow-lg">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex-1">
-          <p className="text-sm text-slate-700 ">
-            Acest site nu folosește cookie-uri direct, dar folosește servicii
-            terțe (ex. Cloudflare) care pot utiliza tehnologii similare pentru
-            securitate. Pentru detalii, consultați{' '}
-            <Link href="/cookie-policy" className="underline">
-              Politica de Cookie-uri
-            </Link>{' '}
-            și{' '}
-            <Link href="/privacy-policy" className="underline">
-              Politica de Confidențialitate
-            </Link>
-            .
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsVisible(false)}
-            className="text-slate-500"
-          >
-            <X className="h-4 w-4 mr-1" />
-            Refuză
-          </Button>
-          <Button variant="brand"
-            size="sm"
-            onClick={acceptCookies}>
-            Accept
-          </Button>
-        </div>
+    <div
+      role="dialog"
+      aria-label="Cookie-uri"
+      className="fixed inset-x-3 bottom-3 z-50 sm:left-auto sm:right-4 sm:max-w-md rounded-2xl border border-orange-100 bg-white/95 p-4 shadow-xl backdrop-blur animate-in slide-in-from-bottom-4"
+    >
+      <p className="text-xs sm:text-sm text-slate-700">
+        Folosim servicii terțe (ex. Cloudflare) care pot folosi tehnologii similare cookie-urilor, pentru securitate.
+        Detalii în{' '}
+        <Link href="/cookie-policy" className="text-red-600 underline underline-offset-2">
+          Politica de cookie-uri
+        </Link>
+        .
+      </p>
+      <div className="mt-3 flex justify-end gap-2">
+        <Button variant="outline" size="sm" onClick={() => raspunde(false)}>
+          Refuz
+        </Button>
+        <Button variant="brand" size="sm" onClick={() => raspunde(true)}>
+          Accept
+        </Button>
       </div>
     </div>
   );

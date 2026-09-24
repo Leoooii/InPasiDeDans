@@ -287,7 +287,7 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
             </div>
             <div className="rounded-2xl bg-black/30 p-5">
               <p className="text-sm uppercase text-white/60">Întrebări rapide?</p>
-              <p className="text-2xl font-bold text-white">0722.675.126</p>
+              <a href="tel:+40722675126" className="block text-2xl font-bold text-white hover:text-orange-200">0722 675 126</a>
               <p className="text-white/70">Sună-ne sau scrie-ne pe WhatsApp pentru detalii.</p>
             </div>
           </aside>

@@ -173,7 +173,6 @@ export default function InscriereForm() {
 
     if (formData.honey) {
       console.warn('Spam detectat. Formularul nu a fost trimis.');
-      showToast('Spam detectat. Formularul nu a fost trimis.', 'error');
       setIsSubmitting(false);
       return;
     }
@@ -246,6 +245,7 @@ export default function InscriereForm() {
                 <video
                   src="/images/Rick.mp4"
                   width={300}
+                  className="w-full max-w-[300px] h-auto"
                   height={200}
                   autoPlay
                   loop
@@ -267,7 +267,7 @@ export default function InscriereForm() {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-2 text-green-600">Formular trimis cu succes!</h3>
+              <h2 className="text-xl font-bold mb-2 text-green-600">Formular trimis cu succes!</h2>
               <p className="text-slate-500 mb-4">
                 Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai scurt timp posibil
                 pentru a confirma înscrierea.
@@ -347,7 +347,7 @@ export default function InscriereForm() {
                   </div>
 
                   <div>
-                    <Label htmlFor="name">Spune-ne numele tău complet*</Label>
+                    <Label htmlFor="name">Spune-ne numele tău complet *</Label>
                     <div className="relative">
                       <Input
                         id="name"

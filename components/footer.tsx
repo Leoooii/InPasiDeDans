@@ -55,21 +55,27 @@ export default function Footer() {
             <div className="flex space-x-4">
               <Link
                 href="https://www.facebook.com/scoaladedansinpasidedans"
-                className="hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid h-10 w-10 place-items-center rounded-full bg-white/5 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link
-                href="https://www.instagram.com/explore/locations/459372516/in-pasi-de-dans/"
-                className="hover:text-white transition-colors"
+                href="https://www.instagram.com/inpasidedans/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid h-10 w-10 place-items-center rounded-full bg-white/5 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <Instagram size={20} />
                 <span className="sr-only">Instagram</span>
               </Link>
               <Link
                 href="https://www.youtube.com/@inpasidedans"
-                className="hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid h-10 w-10 place-items-center rounded-full bg-white/5 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <Youtube size={20} />
                 <span className="sr-only">YouTube</span>
@@ -78,9 +84,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <span className="text-white font-semibold mb-4 text-lg">
+            <p className="block text-white font-semibold mb-4 text-lg">
               Cursuri și activități
-            </span>
+            </p>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -165,9 +171,9 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <span className="text-white font-semibold mb-4 text-lg">
+            <p className="block text-white font-semibold mb-4 text-lg">
               Informații utile
-            </span>
+            </p>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -221,7 +227,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <span className="text-white font-semibold mb-4 text-lg">Contact</span>
+            <p className="block text-white font-semibold mb-4 text-lg">Contact</p>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin size={18} className="mr-2 mt-1 flex-shrink-0" />
@@ -229,11 +235,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="mr-2 flex-shrink-0" />
-                <span>+40 722 675 126</span>
+                <a href="tel:+40722675126" className="hover:text-white transition-colors">0722 675 126</a>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-2 flex-shrink-0" />
-                <span>inpasidedans@gmail.com</span>
+                <a href="mailto:inpasidedans@gmail.com" className="hover:text-white transition-colors">inpasidedans@gmail.com</a>
               </li>
             </ul>
           </div>
@@ -241,7 +247,7 @@ export default function Footer() {
 
        
       </div>
-      <div className="border-t border-slate-800 py-6">
+      <div className="border-t border-white/10 py-6">
         <div className="container text-center text-sm">
           <p>
             © {new Date().getFullYear()} În Pași de Dans. Toate drepturile

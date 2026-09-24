@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { EVENIMENT_CONSIMTAMANT } from '@/components/cookie-consent';
 
 const GrupeInFormare = () => {
   const [show, setShow] = useState(false);
@@ -18,7 +19,11 @@ const GrupeInFormare = () => {
           if (localStorage.getItem('cookiesAccepted')) setShow(true);
         };
         window.addEventListener('storage', onStorage);
-        return () => window.removeEventListener('storage', onStorage);
+        window.addEventListener(EVENIMENT_CONSIMTAMANT, onStorage);
+        return () => {
+          window.removeEventListener('storage', onStorage);
+          window.removeEventListener(EVENIMENT_CONSIMTAMANT, onStorage);
+        };
       }
     }
   }, []);

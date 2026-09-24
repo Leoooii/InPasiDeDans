@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import CookieConsent from '@/components/cookie-consent';
 import GifWrapperClient from './GifWrapperClient';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 import NoutatiSection from '@/components/noutati-section';
@@ -72,10 +71,9 @@ export default async function Home() {
           { id: 'grupe', label: 'Grupe în formare' },
           { id: 'noutati', label: 'Noutăți' }
         ]} />
-        <CookieConsent />
 
-        <section className="relative h-[85vh] overflow-hidden">
-          <div className="sticky top-0 h-[85vh]">
+        <section className="relative h-[85svh] min-h-[520px] overflow-hidden">
+          <div className="sticky top-0 h-[85svh] min-h-[520px]">
             <div className="relative w-full h-full">
               <GifWrapperClient />
               <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/70 via-black/40 to-black/20 flex items-center justify-center">
@@ -90,16 +88,16 @@ export default async function Home() {
                     Latino, societate, populare și cursuri pentru copii —
                     într-o atmosferă prietenoasă și relaxantă.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
                     <Button variant="brand"
                         size="lg"
-                        className="font-semibold text-base px-8" asChild><Link href="/inscriere">
+                        className="w-full sm:w-auto font-semibold text-base px-8" asChild><Link href="/inscriere">
                         Înscrie-te acum
                       </Link></Button>
                     <Button
                         size="lg"
                         variant="outlineLight"
-                        className="font-medium text-base px-8" asChild><Link href="/program">
+                        className="w-full sm:w-auto font-medium text-base px-8" asChild><Link href="/program">
                         Vezi programul
                       </Link></Button>
                   </div>

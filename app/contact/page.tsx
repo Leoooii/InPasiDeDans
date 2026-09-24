@@ -72,7 +72,7 @@ export default function Contact() {
                     href="tel:+40722675126"
                     className="text-red-600 hover:text-red-700 font-medium transition-colors"
                   >
-                    +40 722 675 126
+                    0722 675 126
                   </a>
                   <p className="text-sm text-slate-600 mt-1">
                     Disponibil în programul de lucru

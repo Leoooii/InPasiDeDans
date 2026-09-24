@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Loader2 } from 'lucide-react'
+import { CalendarClock } from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -246,8 +246,8 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
 
   if (grupe.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-slate-400">
-        <Loader2 className="h-6 w-6 mb-2 animate-spin" />
+      <div className="flex flex-col items-center justify-center py-16 text-slate-500">
+        <CalendarClock className="h-6 w-6 mb-2" />
         <p className="text-sm">Programul va fi disponibil în curând.</p>
       </div>
     )
@@ -265,13 +265,13 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
             <button
               key={dg.id}
               onClick={() => setFilterDay(dg.id)}
-              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`min-h-10 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
                 filterDay === dg.id
                   ? 'bg-white text-slate-900 shadow-sm'
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              {dg.id === 'all' ? 'Toate' : dg.short}
+              {dg.id === 'all' ? 'Toate' : <><span className="sm:hidden">{dg.short}</span><span className="hidden sm:inline">{dg.label}</span></>}
             </button>
           ))}
         </div>
@@ -284,7 +284,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
               <button
                 key={s.id}
                 onClick={() => setFilterStyle(active ? 'all' : s.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                className={`min-h-10 flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border transition-all ${
                   active ? s.chip : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
                 }`}
               >
@@ -306,7 +306,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                   <button
                     key={opt.id}
                     onClick={() => setFilterNivel(active ? 'all' : opt.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+                    className={`min-h-10 px-3 py-2 rounded-lg text-sm font-medium border transition-all ${
                       active
                         ? 'bg-slate-800 text-white border-slate-800'
                         : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
@@ -322,7 +322,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
           {/* Dropdowns */}
           <div className="grid grid-cols-2 sm:flex gap-2 shrink-0">
             <Select value={filterInstructor} onValueChange={setFilterInstructor}>
-              <SelectTrigger className="h-8 w-full sm:min-w-36 text-xs bg-white border-slate-200 rounded-lg">
+              <SelectTrigger className="h-10 w-full sm:min-w-36 text-sm bg-white border-slate-200 rounded-lg">
                 <SelectValue placeholder="Instructor" />
               </SelectTrigger>
               <SelectContent>
@@ -332,7 +332,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
             </Select>
 
             <Select value={safeFilterTime} onValueChange={setFilterTime}>
-              <SelectTrigger className="h-8 w-full sm:min-w-28 text-xs bg-white border-slate-200 rounded-lg">
+              <SelectTrigger className="h-10 w-full sm:min-w-28 text-sm bg-white border-slate-200 rounded-lg">
                 <SelectValue placeholder="Oră start" />
               </SelectTrigger>
               <SelectContent>
@@ -347,7 +347,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
 
       {/* ── Schedule ────────────────────────────────────────────────────── */}
       {processed.length === 0 ? (
-        <div className="text-center py-12 text-sm text-slate-400">
+        <div className="text-center py-12 text-sm text-slate-500">
           Nicio grupă nu corespunde filtrelor aplicate.{' '}
           <button onClick={resetAll} className="underline hover:text-slate-600">Resetează</button>
         </div>
@@ -359,9 +359,9 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
               <div key={section.id}>
                 {filterDay === 'all' && (
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">{section.label}</span>
+                    <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest">{section.label}</span>
                     <div className="flex-1 h-px bg-slate-100" />
-                    <span className="text-xs text-slate-300">{section.grupe.length}</span>
+                    <span className="text-xs text-slate-400">{section.grupe.length}</span>
                   </div>
                 )}
 
@@ -395,13 +395,18 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                         {/* Title + nivel + în formare badge */}
                         <div className="flex-1 min-w-0 flex items-baseline gap-2 flex-wrap">
                           <span className="font-medium text-slate-900 text-sm leading-snug">{g.titlu}</span>
+                          {(g.instructor || g.sala) && (
+                            <span className="sm:hidden basis-full text-xs text-slate-500">
+                              {[g.instructor, g.sala].filter(Boolean).join(' · ')}
+                            </span>
+                          )}
                           {g.nivel && (
                             <span className={`text-xs font-medium shrink-0 ${NIVEL_COLOR[g.nivel] ?? 'text-slate-500'}`}>
                               {g.nivel}
                             </span>
                           )}
                           {inFormare && (
-                            <span className="text-[10px] font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded shrink-0">
+                            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded shrink-0">
                               în formare
                             </span>
                           )}
@@ -427,13 +432,13 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                         )}
 
                         {/* Instructor */}
-                        <span className="hidden sm:block text-sm text-slate-400 w-36 shrink-0 text-right truncate">
+                        <span className="hidden sm:block text-sm text-slate-500 w-36 shrink-0 text-right truncate">
                           {g.instructor}
                         </span>
 
                         {/* Sala */}
                         {g.sala ? (
-                          <span className="hidden md:block text-xs text-slate-400 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-md shrink-0">
+                          <span className="hidden md:block text-xs text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-md shrink-0">
                             {g.sala}
                           </span>
                         ) : (

@@ -228,6 +228,7 @@ const ContactForm = () => {
                 <video
                   src="/images/Rick.mp4"
                   width={300}
+                  className="w-full max-w-[300px] h-auto"
                   height={200}
                   autoPlay
                   loop

@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import CookieConsent from '@/components/cookie-consent';
 
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -17,6 +18,7 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
       <Navbar />
       <main className="min-h-screen">{children}</main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }

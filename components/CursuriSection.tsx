@@ -147,8 +147,8 @@ export default function CursuriSection() {
             </CarouselContent>
 
             {/* Butoane de navigare */}
-            <CarouselPrevious className="absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white backdrop-blur-sm z-20" />
-            <CarouselNext className="absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white backdrop-blur-sm z-20" />
+            <CarouselPrevious className="absolute left-1 sm:-left-4 lg:-left-6 h-10 w-10 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white backdrop-blur-sm z-20" />
+            <CarouselNext className="absolute right-1 sm:-right-4 lg:-right-6 h-10 w-10 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white backdrop-blur-sm z-20" />
           </Carousel>
         </div>
       </div>

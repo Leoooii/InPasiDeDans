@@ -111,14 +111,6 @@ export default function GifWrapper() {
         </div>
       )}
 
-      {/* Loading indicator */}
-      {isClient && !videoLoaded && !videoError && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center">
-          <div className="bg-black/50 rounded-full p-4">
-            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
