@@ -99,7 +99,8 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
 
-  const listingHref = kind === 'eveniment' ? '/evenimente' : '/noutati';
+  // /noutati listează și evenimentele; /evenimente e doar un redirect (vercel.json).
+  const listingHref = '/noutati';
   const listingLabel = kind === 'eveniment' ? 'Evenimente' : 'Noutăți';
 
   useEffect(() => {
