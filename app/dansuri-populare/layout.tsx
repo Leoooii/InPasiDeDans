@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Dansuri Populare București – Horă, Sârbă, Brașoveancă | În Pași de Dans',
+  title: 'Dansuri Populare București – Horă, Sârbă | În Pași de Dans',
   description: 'Cursuri dansuri populare București – horă, sârbă, brașoveancă și multe altele. Instructori profesioniști, Sector 4-5-6. Înscrie-te acum!',
   keywords: 'dansuri populare, traditii romanesti, dansuri romanesti, lectii populare',
   alternates: { canonical: 'https://www.inpasidedans.ro/dansuri-populare' },

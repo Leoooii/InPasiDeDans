@@ -15,7 +15,7 @@ export default function LocationSection() {
               <div>
                 <span className="text-xl font-bold text-gray-900 mb-3">Adresa școlii de dans</span>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  Cursurile de dans se desfășoară în cele 3 săli de dans, situate pe <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile" className="font-semibold text-red-600 hover:text-red-700 transition-colors">Calea Rahovei 262, sector 5, București</Link>.
+                  Cursurile de dans se desfășoară în cele 3 săli de dans, situate pe <Link href="/contact" className="font-semibold text-red-600 hover:text-red-700 transition-colors">Calea Rahovei 262, sector 5, București</Link>.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   Vizitele se fac doar pe bază de programare.

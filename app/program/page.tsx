@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
@@ -8,9 +7,9 @@ import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import ProgramDinamic from '@/components/program-dinamic';
 
 export const metadata: Metadata = {
-  title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| In Pasi de Dans',
+  title: 'Program Cursuri de Dans București | În Pași de Dans',
   description:
-    'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
+    'Programul actualizat al cursurilor de dans pentru copii și adulți, pe toate nivelurile, la În Pași de Dans, București.',
   keywords:
     'program cursuri dans, orar dans, cursuri dans adulti, cursuri dans copii, scoala dans Bucuresti',
   robots: 'index, follow',
@@ -19,9 +18,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6| In Pasi de Dans',
+    title: 'Program Cursuri de Dans București | În Pași de Dans',
     description:
-      'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
+      'Programul actualizat al cursurilor de dans pentru copii și adulți, pe toate nivelurile, la În Pași de Dans, București.',
     url: 'https://www.inpasidedans.ro/program',
     siteName: 'In Pasi de Dans',
     images: [
@@ -38,8 +37,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Program Cursuri Dans Bucuresti: Sector 4,5 si 6 | In Pasi de Dans',
     description:
-      'Program Cursuri de Dans Bucuresti - Descopera programul actualizat al cursurilor de dans pentru copii si adulti pentru toate nivelurile la In Pasi de Dans.',
-    images: ['https://inpasidedans.ro/images/program.png'],
+      'Programul actualizat al cursurilor de dans pentru copii și adulți, pe toate nivelurile, la În Pași de Dans, București.',
+    images: ['https://www.inpasidedans.ro/images/program.png'],
   },
 };
 
@@ -51,55 +50,6 @@ export default function Program() {
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Event',
-              name: 'Cursuri de Dans - Program Săptămânal',
-              description:
-                'Programul săptămânal al cursurilor de dans pentru adulți și copii la În Pași de Dans, București, Sector 5.',
-              url: 'https://inpasidedans.ro/program',
-              location: {
-                '@type': 'Place',
-                name: 'În Pași de Dans',
-                address: {
-                  '@type': 'PostalAddress',
-                  streetAddress: 'Calea Rahovei 262',
-                  addressLocality: 'București',
-                  addressRegion: 'Sector 5',
-                  postalCode: '050897',
-                  addressCountry: 'RO',
-                },
-              },
-              organizer: {
-                '@type': 'Organization',
-                name: 'În Pași de Dans',
-                url: 'https://inpasidedans.ro',
-              },
-              eventAttendanceMode:
-                'https://schema.org/OfflineEventAttendanceMode',
-              eventStatus: 'https://schema.org/EventScheduled',
-              startDate: '2025-05-29',
-              endDate: '2025-12-31',
-              recurrence: {
-                '@type': 'Schedule',
-                repeatFrequency: 'P1W',
-                byDay: [
-                  'https://schema.org/Monday',
-                  'https://schema.org/Tuesday',
-                  'https://schema.org/Wednesday',
-                  'https://schema.org/Thursday',
-                  'https://schema.org/Friday',
-                  'https://schema.org/Saturday',
-                ],
-              },
-            }),
-          }}
-        />
-      </Head>
       <div className="container py-12">
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/program" />
         <div className="space-y-6">
@@ -134,7 +84,7 @@ export default function Program() {
                     Înscrie-te acum
                   </Button>
                 </Link>
-                <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
+                <Link href="/contact">
                   <Button
                     size="lg"
                     variant="outline"

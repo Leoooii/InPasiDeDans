@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Clock, MapPin, ArrowLeft, ExternalLink, Loader2 } from 'lucide-react';
@@ -74,12 +73,6 @@ export default function PetrecereDetaliuPage() {
   ];
 
   const canonicalUrl = `https://www.inpasidedans.ro/petreceri/${id}`;
-  const seoTitle = petrecere
-    ? `${petrecere.title} | Petreceri În Pași de Dans`
-    : 'Detalii petrecere | În Pași de Dans';
-  const seoDescription =
-    (petrecere?.description && petrecere.description.slice(0, 155)) ||
-    'Detalii despre petrecerea organizată de școala de dans În Pași de Dans. Află data, locația și toate informațiile importante.';
 
   if (loading) {
     return (
@@ -120,59 +113,6 @@ export default function PetrecereDetaliuPage() {
 
   return (
     <>
-      <Head>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={canonicalUrl} />
-
-        <meta property="og:type" content="event" />
-        <meta property="og:title" content={seoTitle} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta
-          property="og:image"
-          content={petrecere.imageUrl || 'https://www.inpasidedans.ro/images/logo.png'}
-        />
-        <meta property="og:site_name" content="În Pași de Dans" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={seoTitle} />
-        <meta name="twitter:description" content={seoDescription} />
-        <meta
-          name="twitter:image"
-          content={petrecere.imageUrl || 'https://www.inpasidedans.ro/images/logo.png'}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Event',
-              name: petrecere.title,
-              description: petrecere.description,
-              url: canonicalUrl,
-              startDate: petrecere.date,
-              eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-              eventStatus: 'https://schema.org/EventScheduled',
-              image: petrecere.imageUrl,
-              location: petrecere.location
-                ? {
-                    '@type': 'Place',
-                    name: 'În Pași de Dans',
-                    address: petrecere.location,
-                  }
-                : undefined,
-              organizer: {
-                '@type': 'Organization',
-                name: 'În Pași de Dans',
-                url: 'https://www.inpasidedans.ro',
-              },
-            }),
-          }}
-        />
-      </Head>
 
       <div className="bg-gradient-to-b from-slate-900 via-slate-950 to-black py-10">
         <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-6 lg:px-8 space-y-6">

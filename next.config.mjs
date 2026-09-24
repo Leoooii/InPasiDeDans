@@ -40,6 +40,10 @@ const nextConfig = {
   // Optimizări pentru output
   output: 'standalone',
   poweredByHeader: false,
+  // Roboții din listă primesc <title>/<meta> direct în <head> (fără streaming).
+  // Lista implicită Next nu include crawlerele AI, care nu rulează JavaScript.
+  htmlLimitedBots:
+    /[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight|GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-User|Claude-SearchBot|PerplexityBot|Perplexity-User|Amazonbot|Bytespider|CCBot|meta-externalagent|DuckAssistBot|MistralAI-User/i,
   // Redirects moved to vercel.json for better performance
   // Optimizăm politica de cache pentru resurse statice
   headers: async () => {
@@ -62,6 +66,12 @@ const nextConfig = {
             key: 'Cache-Control',
             value: 'no-store',
           },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.inpasidedans.ro',
+          },
+          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type' },
         ],
       },
       {

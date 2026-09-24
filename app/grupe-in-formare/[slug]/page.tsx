@@ -95,7 +95,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!grupa) {
     return {
-      title: "Grupa nu a fost găsită | In Pasi de Dans",
+      title: "Grupa nu a fost găsită | În Pași de Dans",
       description: "Ne pare rău, grupa solicitată nu mai este disponibilă.",
       robots: {
         index: false,

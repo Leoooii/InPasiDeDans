@@ -11,15 +11,15 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import TarifeCopiiSection from '@/components/TarifeCopiiSection';
 
 export const metadata: Metadata = {
-  title: 'Cursuri Dans Copii București – Sector 4, 5 și 6 | În Pași de Dans',
+  title: 'Cursuri de Dans pentru Copii București | În Pași de Dans',
   description:
-    'Cursuri de dans pentru copii în București – dansuri latino și standard pentru copii între 7 și 14 ani. Instructori profesioniști, atmosferă prietenoasă, Sector 4-5-6. Înscrie-ți copilul acum!',
+    'Cursuri de dans pentru copii de 7–14 ani în București: dansuri latino și standard, instructori profesioniști, atmosferă prietenoasă. Sector 5.',
   keywords: 'dans copii, cursuri dans copii, scoala de dans copii, lectii dans juniori',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/cursuri-dans-copii',
   },
   openGraph: {
-    title: 'Cursuri Dans Copii București – Sector 4, 5 și 6 | În Pași de Dans',
+    title: 'Cursuri de Dans pentru Copii București | În Pași de Dans',
     description:
       'Dans pentru copii într-un mediu distractiv și educativ. Grupe pe vârstă și ritm individual. Sector 4-5-6 București.',
     url: 'https://www.inpasidedans.ro/cursuri-dans-copii',

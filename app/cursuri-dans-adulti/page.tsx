@@ -8,8 +8,8 @@ import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import AdultDanceFAQ from '@/components/AdultDanceFAQ';
 
 export const metadata: Metadata = {
-  title: 'Cursuri de Dans Adulți București 2025 – Salsa, Bachata, Vals | În Pași de Dans',
-  description: 'Cursuri dans adulți București: salsa, bachata, vals, tango, dansuri populare. Grupe mici, instructori certificați, Sector 4-5-6. 12.000+ cursanți din 2009. Înscrie-te acum!',
+  title: 'Cursuri de Dans pentru Adulți București | În Pași de Dans',
+  description: 'Cursuri de dans pentru adulți în București: salsa, bachata, vals, tango, populare. Grupe pe niveluri, instructori cu experiență, din 2009.',
   keywords: 'dans adulti, cursuri dans adulti, lectii de dans, scoala de dans Bucuresti',
   authors: [{ name: 'Scoala de dans In Pasi de Dans' }],
   alternates: {

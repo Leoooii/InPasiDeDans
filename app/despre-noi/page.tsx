@@ -221,7 +221,7 @@ export default function DespreNoi() {
                   <div>
                     <h3 className="font-bold">Locație</h3>
                     <p className="text-gray-500 dark:text-gray-400">
-                      <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile" className="text-red-600 hover:text-red-700 transition-colors">Calea Rahovei nr. 262, sector 5, București</Link>
+                      <Link href="/contact" className="text-red-600 hover:text-red-700 transition-colors">Calea Rahovei nr. 262, sector 5, București</Link>
                     </p>
                     <p className="text-gray-500 dark:text-gray-400 mt-2">
                       <span className="font-medium">Puncte de reper:</span>{' '}
@@ -297,7 +297,7 @@ export default function DespreNoi() {
               </div>
             </div>
             <div className="pt-4">
-              <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
+              <Link href="/contact">
                 <Button
                   variant="outline"
                   size="lg"

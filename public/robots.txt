@@ -1,52 +1,28 @@
+# Aceleași reguli pentru toți roboții, inclusiv cei AI. Un robot numit explicit
+# ignoră grupul „*", de aceea sunt listați toți în același grup.
 User-agent: *
-Allow: /
-Allow: /blog/
-
-# Blocați pagini administrative și căutare blog
-Disallow: /admin/
-Disallow: /blog/?s=
-
-# Allow AI user-agents
-# --- Perplexity ---
-# Search Primary PerplexityBot crawler that indexes sites to build the Perplexity AI search engine.
-User-agent: PerplexityBot
-Allow: /
-# Search Real-time fetcher used by Claude to retrieve cited URLs during AI chat sessions.
-User-agent: ClaudeBot
-Allow: /
-# --- OPENAI ---
-# Search (shows my webpages as links inside ChatGPT search). NOT used for model training.
-User-agent: OAI-SearchBot
-Allow: /
-# User-driven browsing from ChatGPT and Custom GPTs. Acts after a human click.
-User-agent: ChatGPT-User
-User-agent: ChatGPT-User/2.0
-Allow: /
-# --- GOOGLE (Gemini) ---
+User-agent: Googlebot
+User-agent: Bingbot
 User-agent: Google-Extended
-Allow: /
-# Index suplimentar Google (AI Overviews / alte produse)
 User-agent: GoogleOther
-Allow: /
-
-# --- OPENAI (index + training; permis pentru vizibilitate în ChatGPT) ---
 User-agent: GPTBot
-Allow: /
-
-# --- APPLE (Apple Intelligence / Siri) ---
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
 User-agent: Applebot
-Allow: /
 User-agent: Applebot-Extended
-Allow: /
-
-# --- AMAZON ---
 User-agent: Amazonbot
-Allow: /
-
-# --- BYTEDANCE / TikTok ---
 User-agent: Bytespider
 Allow: /
+Disallow: /admin/
+Disallow: /cont
+Disallow: /autentificare
+Disallow: /inregistrare
 
 # Rezumat pentru asistenți AI: https://www.inpasidedans.ro/llms.txt
 
-Sitemap: https://www.inpasidedans.ro/sitemap_index.xml
+Sitemap: https://www.inpasidedans.ro/sitemap.xml

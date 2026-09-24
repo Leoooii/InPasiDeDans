@@ -140,7 +140,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/evenimente"
+                  href="/noutati"
                   className="hover:text-white transition-colors"
                 >
                   Evenimente

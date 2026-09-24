@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import SalsaBachataClient from './SalsaBachataClient';
 
 export const metadata: Metadata = {
-  title: 'Cursuri Salsa & Bachata București | Grupă Începători Sector 5-6 | În Pași de Dans',
-  description: 'Descoperă cursuri de salsa și bachata în București, create pentru începători și intermediari. Lecții interactive, instructori cu experiență, Sector 5 & Sector 6. Înscrie-te acum!',
+  title: 'Cursuri Salsa și Bachata București | În Pași de Dans',
+  description: 'Cursuri de salsa și bachata în București pentru începători și intermediari. Lecții interactive cu instructori cu experiență, Sector 5.',
   keywords: 'salsa, bachata, cursuri salsa, cursuri bachata, dansuri latino, București, sector 5, sector 6',
   authors: [{ name: 'Scoala de dans In Pasi de Dans' }],
   alternates: {

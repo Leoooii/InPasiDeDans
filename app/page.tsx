@@ -13,14 +13,14 @@ import LatestBlogPosts from '@/components/latest-blog-posts';
 export const revalidate = 60 // Activează ISR pentru a actualiza periodic conținutul
 
 export const metadata = {
-  title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 4,5 si 6 | In Pasi de Dans',
+  title: 'Cursuri de Dans București, Sector 4, 5 și 6 | În Pași de Dans',
   description:
-    'Scoala de dans in Bucuresti - Descopera cursuri de dans pentru copii si adulti ✅ Invata dansuri latino, societate, populare si particulare intr-o atmosfera prietenoasa ✅ Inscrie-te acum!',
+    'Școală de dans în București din 2009: cursuri pentru adulți și copii – latino, societate, populare, salsa, bachata și dansul mirilor. Înscrie-te acum!',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/',
   },
   openGraph: {
-    title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 4,5 si 6 | In Pasi de Dans',
+    title: 'Cursuri de Dans București, Sector 4, 5 și 6 | În Pași de Dans',
     description:
       'Școală de dans în București cu cursuri pentru adulți și copii.',
     url: 'https://www.inpasidedans.ro/',
@@ -37,10 +37,10 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cursuri de Dans in Bucuresti | Scoala de Dans Sector 4,5 si 6 | In Pasi de Dans',
+    title: 'Cursuri de Dans București, Sector 4, 5 și 6 | În Pași de Dans',
     description:
       'Școală de dans în București cu cursuri pentru adulți și copii.',
-    images: ['https://inpasidedans.ro/images/logo.png'],
+    images: ['https://www.inpasidedans.ro/images/logo.png'],
   },
 };
 

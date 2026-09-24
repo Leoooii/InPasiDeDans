@@ -15,25 +15,22 @@ export type EvenimentRecord = {
 export async function fetchEvenimentBySlug(
   slug: string
 ): Promise<EvenimentRecord | null> {
-  try {
-    const snapshot = await getDocs(
-      query(collection(db, 'evenimente'), where('slug', '==', slug), limit(1))
-    );
-    if (snapshot.empty) return null;
-    const docSnap = snapshot.docs[0];
-    const data = docSnap.data();
-    return {
-      id: docSnap.id,
-      slug: data.slug || '',
-      title: data.title || '',
-      description: data.description || '',
-      link: data.link || '',
-      imageUrl: data.imageUrl || '',
-      date: data.date?.toDate().toISOString() || new Date().toISOString(),
-      eventDate: data.eventDate?.toDate().toISOString() || null,
-    };
-  } catch (err) {
-    console.error('Eroare fetch eveniment by slug:', err);
-    return null;
-  }
+  // Fără try/catch: o eroare Firestore trebuie să ajungă ca eroare (500),
+  // nu ca null — altfel pagina ar răspunde 404 pentru un articol existent.
+  const snapshot = await getDocs(
+    query(collection(db, 'evenimente'), where('slug', '==', slug), limit(1))
+  );
+  if (snapshot.empty) return null;
+  const docSnap = snapshot.docs[0];
+  const data = docSnap.data();
+  return {
+    id: docSnap.id,
+    slug: data.slug || '',
+    title: data.title || '',
+    description: data.description || '',
+    link: data.link || '',
+    imageUrl: data.imageUrl || '',
+    date: data.date?.toDate().toISOString() || new Date().toISOString(),
+    eventDate: data.eventDate?.toDate().toISOString() || null,
+  };
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
+  title: 'Prețuri Cursuri de Dans București | În Pași de Dans',
   description:
-    'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
+    'Prețurile cursurilor de dans pentru adulți și copii și ale lecțiilor private la În Pași de Dans, București. Alege abonamentul potrivit.',
   keywords:
     'tarife cursuri dans, preturi scoala de dans, cursuri dans adulti, cursuri dans copii, lectii private dans',
   robots: 'index, follow',
@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
+    title: 'Prețuri Cursuri de Dans București | În Pași de Dans',
     description:
-      'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
+      'Prețurile cursurilor de dans pentru adulți și copii și ale lecțiilor private la În Pași de Dans, București. Alege abonamentul potrivit.',
     url: 'https://www.inpasidedans.ro/tarife',
     siteName: 'In Pasi de Dans',
     images: [
@@ -29,10 +29,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Preturi Cursuri de Dans Bucuresti | In Pasi de Dans',
+    title: 'Prețuri Cursuri de Dans București | În Pași de Dans',
     description:
-      'Preturi cursuri de dans Bucuresti - Vezi preturile de cursuri de dans pentru copii si adulti din Bucuresti ✅ Alege pachetul ideal pentru tine pe In Pasi de Dans ✅',
-    images: ['https://inpasidedans.ro/images/tarife.png'],
+      'Prețurile cursurilor de dans pentru adulți și copii și ale lecțiilor private la În Pași de Dans, București. Alege abonamentul potrivit.',
+    images: ['https://www.inpasidedans.ro/images/tarife.png'],
   },
 }
 

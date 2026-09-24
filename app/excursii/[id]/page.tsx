@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Users, MapPin, ArrowLeft, ExternalLink, Loader2 } from 'lucide-react';
@@ -74,12 +73,6 @@ export default function ExcursieDetaliuPage() {
   ];
 
   const canonicalUrl = `https://www.inpasidedans.ro/excursii/${id}`;
-  const seoTitle = excursie
-    ? `${excursie.title} | Excursii În Pași de Dans`
-    : 'Detalii excursie | În Pași de Dans';
-  const seoDescription =
-    (excursie?.description && excursie.description.slice(0, 155)) ||
-    'Detalii despre excursia organizată de școala de dans În Pași de Dans. Află data, destinația și toate informațiile importante.';
 
   if (loading) {
     return (
@@ -120,59 +113,6 @@ export default function ExcursieDetaliuPage() {
 
   return (
     <>
-      <Head>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={canonicalUrl} />
-
-        <meta property="og:type" content="event" />
-        <meta property="og:title" content={seoTitle} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta
-          property="og:image"
-          content={excursie.imageUrl || 'https://www.inpasidedans.ro/images/logo.png'}
-        />
-        <meta property="og:site_name" content="În Pași de Dans" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={seoTitle} />
-        <meta name="twitter:description" content={seoDescription} />
-        <meta
-          name="twitter:image"
-          content={excursie.imageUrl || 'https://www.inpasidedans.ro/images/logo.png'}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Event',
-              name: excursie.title,
-              description: excursie.description,
-              url: canonicalUrl,
-              startDate: excursie.eventDate,
-              eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-              eventStatus: 'https://schema.org/EventScheduled',
-              image: excursie.imageUrl,
-              location: excursie.location
-                ? {
-                    '@type': 'Place',
-                    name: excursie.location,
-                    address: excursie.location,
-                  }
-                : undefined,
-              organizer: {
-                '@type': 'Organization',
-                name: 'În Pași de Dans',
-                url: 'https://www.inpasidedans.ro',
-              },
-            }),
-          }}
-        />
-      </Head>
 
       <div className="bg-gradient-to-b from-slate-900 via-slate-950 to-black py-10">
         <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-6 lg:px-8 space-y-6">

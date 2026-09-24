@@ -26,7 +26,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useSimpleToast } from '@/components/simple-toast-provider';
-import Head from './head';
 import Link from 'next/link';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { cn } from '@/lib/utils';
@@ -244,7 +243,6 @@ export default function InscriereForm() {
 
   return (
     <div className="container py-12">
-      <Head />
       <SEOBreadcrumbs
         items={breadcrumbItems}
         currentPageUrl="https://www.inpasidedans.ro/inscriere"

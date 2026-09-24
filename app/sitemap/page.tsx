@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Sitemap | In Pasi de Dans',
+  title: 'Hartă site | În Pași de Dans',
   description: 'Toate paginile importante ale site-ului In Pasi de Dans, pentru utilizatori si crawlere.'
 };
 
@@ -27,7 +27,7 @@ export default function SitemapPage() {
         <li><Link href="/excursii">Excursii</Link></li>
         <li><Link href="/petreceri">Petreceri</Link></li>
         <li><Link href="/noutati">Noutăți</Link></li>
-        <li><Link href="/evenimente">Evenimente</Link></li>
+        <li><Link href="/noutati">Evenimente</Link></li>
         <li><Link href="/autentificare">Autentificare</Link></li>
         <li><Link href="/cont">Contul meu</Link></li>
         <li><Link href="/inregistrare">Înregistrare</Link></li>

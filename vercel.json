@@ -1,6 +1,36 @@
 {
   "redirects": [
     {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_blog.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_categorii-subcategorii.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_imagini.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/grupe-in-formare/sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
       "source": "/evenimente",
       "destination": "/noutati",
       "permanent": true
@@ -66,18 +96,23 @@
       "permanent": true
     },
     {
+      "source": "/cursuri-dans-nunta",
+      "destination": "/dansul-mirilor",
+      "permanent": true
+    },
+    {
       "source": "/nunta",
-      "destination": "/cursuri-dans-nunta",
+      "destination": "/dansul-mirilor",
       "permanent": true
     },
     {
       "source": "/dans-nunta",
-      "destination": "/cursuri-dans-nunta",
+      "destination": "/dansul-mirilor",
       "permanent": true
     },
     {
       "source": "/dans_nunta",
-      "destination": "/cursuri-dans-nunta",
+      "destination": "/dansul-mirilor",
       "permanent": true
     },
     {

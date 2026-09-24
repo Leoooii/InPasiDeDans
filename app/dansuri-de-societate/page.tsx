@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Award, Clock, Heart, Sparkles, Star, Users, Zap } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Dansuri de Societate București | Vals, Tango, Foxtrot | În Pași de Dans',
+  title: 'Dansuri de Societate București – Vals, Tango | În Pași de Dans',
   description: 'Cursuri dansuri de societate București – vals lent, vals vienez, tango, foxtrot pentru toate nivelurile. Instructori profesioniști, Sector 4-5-6. Înscrie-te acum!',
   keywords: 'dansuri de societate, vals, tango, foxtrot, lectii elegante de dans',
   alternates: { canonical: 'https://www.inpasidedans.ro/dansuri-de-societate' },

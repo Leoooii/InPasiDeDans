@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact Școala de Dans În Pași de Dans București',
+  title: 'Contact Școala de Dans București | În Pași de Dans',
   description: 'Contact În Pași de Dans București – ia legătură cu echipa pentru înscrieri, întrebări sau colaborări. Răspundem rapid!',
   keywords: 'contact dans, scoala de dans, intrebari dans, inscriere dans, colaborare dans Bucuresti',
   alternates: { canonical: 'https://www.inpasidedans.ro/contact' },

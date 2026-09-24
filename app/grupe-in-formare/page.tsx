@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 
 export const metadata: Metadata = {
-  title: 'Grupe Noi de Dans în Formare București | Locuri Limitate | În Pași de Dans',
+  title: 'Grupe Noi de Dans în Formare București | În Pași de Dans',
   description: 'Grupe de dans în formare București – salsa, bachata, dans de societate, dans latino pentru nivel începător. Locuri limitate, înscrie-te acum!',
   keywords: 'grupe noi dans, inscriere cursuri dans, incepatori dans Bucuresti',
   alternates: { canonical: 'https://www.inpasidedans.ro/grupe-in-formare' },

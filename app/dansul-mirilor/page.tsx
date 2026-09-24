@@ -10,8 +10,8 @@ import WeddingDanceTestimonials from '@/components/WeddingDanceTestimonials';
 import DansulMirilorPricing from '@/components/DansulMirilorPricing';
 
 export const metadata: Metadata = {
-  title: 'Dans Nuntă București – Coregrafie Mirilor | 3-4 Lecții | În Pași de Dans',
-  description: 'Dansul mirilor în București - Transformă primul dans în cea mai emoționantă amintire a nunții. Coregrafii personalizate, program flexibil, instructori dedicați. Înscrie-te acum!',
+  title: 'Dansul Mirilor București – Coregrafie Nuntă | În Pași de Dans',
+  description: 'Dansul mirilor în București: coregrafie personalizată, lecții private în săli private, program flexibil și instructori dedicați. Pachete de la 4 ședințe.',
   keywords: 'dansul mirilor, cursuri private dans, lectii private nunta, coregrafie dans miri, Bucuresti',
   alternates: {
     canonical: 'https://www.inpasidedans.ro/dansul-mirilor',
@@ -71,7 +71,7 @@ export default function DansulMirilor() {
               să vă simțiți încrezători și pregătiți pentru marele moment.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
+              <Link href="/contact">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 shadow-lg shadow-red-200 dark:shadow-red-900/30"
@@ -227,7 +227,7 @@ export default function DansulMirilor() {
                 momente speciale pentru nuntă — dansul cu părinții sau nașii,
                 dansuri de grup sau coregrafii surpriză pentru invitați.
               </p>
-              <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile">
+              <Link href="/contact">
                 <Button
                   size="lg"
                   className="bg-white text-red-600 hover:bg-white/90 font-semibold shadow-md w-fit"

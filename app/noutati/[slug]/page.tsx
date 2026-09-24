@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import EvenimentDetail from '@/components/eveniment-detail';
 import { fetchEvenimentBySlug } from '@/lib/eveniment-loader';
 
@@ -14,7 +15,7 @@ export async function generateMetadata(
 
   if (!item) {
     return {
-      title: 'Noutate negăsită | In Pași de Dans',
+      title: 'Noutate negăsită | În Pași de Dans',
       description: 'Articolul căutat nu există sau a fost mutat.',
     };
   }
@@ -23,11 +24,11 @@ export async function generateMetadata(
   const path = isEvent ? 'evenimente' : 'noutati';
   const url = `${SITE_URL}/${path}/${item.slug}`;
   const title = item.title
-    ? `${item.title} | In Pași de Dans`
-    : `${isEvent ? 'Eveniment' : 'Noutate'} | In Pași de Dans`;
+    ? `${item.title} | În Pași de Dans`
+    : `${isEvent ? 'Eveniment' : 'Noutate'} | În Pași de Dans`;
   const description =
     item.description?.slice(0, 200) ||
-    'Află ultimele noutăți și evenimente de la In Pași de Dans, școala de dans din București.';
+    'Află ultimele noutăți și evenimente de la În Pași de Dans, școala de dans din București.';
   const image = item.imageUrl || `${SITE_URL}/images/logo.png`;
 
   return {
@@ -39,8 +40,8 @@ export async function generateMetadata(
       title,
       description,
       url,
-      siteName: 'In Pași de Dans',
-      images: [{ url: image, width: 1200, height: 630, alt: item.title || 'In Pași de Dans' }],
+      siteName: 'În Pași de Dans',
+      images: [{ url: image, width: 1200, height: 630, alt: item.title || 'În Pași de Dans' }],
       locale: 'ro_RO',
     },
     twitter: {
@@ -59,6 +60,7 @@ export default async function NoutatePage({
 }) {
   const { slug } = await params;
   const item = await fetchEvenimentBySlug(slug);
+  if (!item) notFound();
 
   return (
     <EvenimentDetail

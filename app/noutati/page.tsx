@@ -11,9 +11,9 @@ import { ChevronRight, Newspaper, CalendarDays, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Noutati si Evenimente | In Pasi de Dans',
+  title: 'Noutăți și Evenimente | În Pași de Dans',
   description:
-    'Afla ultimele noutati, evenimente si promotii de la scoala noastra de dans. Fii la curent cu tot ce se intampla la In Pasi de Dans, Bucuresti!',
+    'Află ultimele noutăți, evenimente și promoții de la școala noastră de dans. Fii la curent cu tot ce se întâmplă la În Pași de Dans, București!',
   keywords:
     'noutati dans, evenimente dans, stiri scoala de dans, promotii dans Bucuresti',
   robots: 'index, follow',
@@ -22,9 +22,9 @@ export const metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Noutati si Evenimente | In Pasi de Dans',
+    title: 'Noutăți și Evenimente | În Pași de Dans',
     description:
-      'Afla ultimele noutati, evenimente si promotii de la scoala noastra de dans. Fii la curent cu tot ce se intampla la In Pasi de Dans, Bucuresti!',
+      'Află ultimele noutăți, evenimente și promoții de la școala noastră de dans. Fii la curent cu tot ce se întâmplă la În Pași de Dans, București!',
     url: 'https://www.inpasidedans.ro/noutati',
     siteName: 'In Pasi de Dans',
     images: [
@@ -39,10 +39,10 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Noutati si Evenimente | In Pasi de Dans',
+    title: 'Noutăți și Evenimente | În Pași de Dans',
     description:
-      'Afla ultimele noutati, evenimente si promotii de la scoala noastra de dans. Fii la curent cu tot ce se intampla la In Pasi de Dans, Bucuresti!',
-    images: ['https://inpasidedans.ro/images/logo.png'],
+      'Află ultimele noutăți, evenimente și promoții de la școala noastră de dans. Fii la curent cu tot ce se întâmplă la În Pași de Dans, București!',
+    images: ['https://www.inpasidedans.ro/images/logo.png'],
   },
 };
 

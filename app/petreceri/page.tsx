@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 import {
   Calendar,
   Clock,
@@ -86,23 +85,6 @@ export default function Petreceri() {
 
   return (
     <>
-      <Head>
-        <title>Petreceri & Social Dance | In Pasi de Dans</title>
-        <meta
-          name="description"
-          content="Participa la petrecerile tematice de dans organizate de In Pasi de Dans in Bucuresti, Sector 5. Practica dansul intr-o atmosfera relaxata!"
-        />
-        <link rel="canonical" href="https://www.inpasidedans.ro/petreceri" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Petreceri & Social Dance | In Pasi de Dans" />
-        <meta
-          property="og:description"
-          content="Participa la petrecerile tematice de dans organizate de In Pasi de Dans in Bucuresti, Sector 5."
-        />
-        <meta property="og:url" content="https://www.inpasidedans.ro/petreceri" />
-        <meta property="og:image" content="https://www.inpasidedans.ro/images/logo.png" />
-        <meta property="og:locale" content="ro_RO" />
-      </Head>
 
       <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white overflow-hidden">
         {/* Animated orbs — orange/red palette (standard site) */}

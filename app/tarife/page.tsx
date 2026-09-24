@@ -1,6 +1,5 @@
 'use client'
 
-import Head from 'next/head';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -130,40 +129,6 @@ export default function Tarife() {
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Product',
-              name: 'Cursuri de Dans - Tarife',
-              description:
-                'Tarife pentru cursurile de dans pentru adulti, copii si lectii private la In Pasi de Dans, Bucuresti, Sector 5.',
-              url: 'https://inpasidedans.ro/tarife',
-              brand: { '@type': 'Brand', name: 'In Pasi de Dans' },
-              offers: [
-                { '@type': 'Offer', name: 'Abonament 8', price: '250', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
-                { '@type': 'Offer', name: 'Abonament 16', price: '350', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
-                { '@type': 'Offer', name: 'Abonament Full Pass', price: '420', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
-                { '@type': 'Offer', name: 'Abonament Copii 4 ședințe', price: '110', priceCurrency: 'RON', availability: 'https://schema.org/InStock', url: 'https://inpasidedans.ro/tarife' },
-              ],
-              location: {
-                '@type': 'Place',
-                name: 'In Pasi de Dans',
-                address: {
-                  '@type': 'PostalAddress',
-                  streetAddress: 'Calea Rahovei 262',
-                  addressLocality: 'Bucuresti',
-                  addressRegion: 'Sector 5',
-                  postalCode: '050897',
-                  addressCountry: 'RO',
-                },
-              },
-            }),
-          }}
-        />
-      </Head>
       <div className="container py-12">
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/tarife" />
         <div className="space-y-6">
@@ -218,7 +183,7 @@ export default function Tarife() {
                     Înscrie-te acum
                   </Button>
                 </Link>
-                <Link href="/contact?utm_source=google&utm_medium=trafic+organic&utm_campaign=google+business+profile" className="w-full sm:w-auto">
+                <Link href="/contact" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="outline"

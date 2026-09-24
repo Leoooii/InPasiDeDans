@@ -10,6 +10,20 @@ import { Analytics } from '@vercel/analytics/next';
 import { SCHOOL_SCHEMA } from '@/lib/schema-constants';
 import Script from 'next/script';
 
+export const metadata: Metadata = {
+  metadataBase: new URL('https://www.inpasidedans.ro'),
+  title: 'Școală de Dans București | În Pași de Dans',
+  description:
+    'Școală de dans în București din 2009: cursuri pentru adulți și copii, dansuri latino, de societate, populare și dansul mirilor.',
+  openGraph: {
+    type: 'website',
+    siteName: 'În Pași de Dans',
+    locale: 'ro_RO',
+    images: [{ url: '/images/logo.png', alt: 'În Pași de Dans' }],
+  },
+  twitter: { card: 'summary_large_image' },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          forcedTheme="light"
           disableTransitionOnChange
         >
           <SimpleToastProvider>
