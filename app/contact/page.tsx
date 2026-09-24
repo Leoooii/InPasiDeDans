@@ -8,7 +8,6 @@ import { Mail, MapPin, Phone, Navigation, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ContactForm from '@/components/contact-form';
 
-import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import LocationSection from '@/components/LocationSection';
 
@@ -157,7 +156,6 @@ export default function Contact() {
           </h3>
           <ContactForm/>
         </div>
-      <GrupeInFormare />
       </div>
 
     </>

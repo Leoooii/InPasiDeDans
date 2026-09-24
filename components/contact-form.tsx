@@ -1,20 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
-import { useSimpleToast } from '@/components/simple-toast-provider';
+import { useTrimitereFormular } from '@/hooks/use-trimitere-formular';
 import Link from 'next/link';
 
 // Tipizări explicite pentru evenimente
 interface FormData {
   name: string;
   email: string;
-
   message: string;
   danceclass: string;
   phone: string;
@@ -22,94 +19,19 @@ interface FormData {
   consent: boolean;
 }
 
+const GOL: FormData = {
+  name: '',
+  email: '',
+  message: '',
+  danceclass: '',
+  phone: '',
+  honey: '',
+  consent: false,
+};
+
 const ContactForm = () => {
-  const { toast } = useToast();
-  const { showToast } = useSimpleToast();
-
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-
-    message: '',
-    danceclass: '',
-    phone: '',
-    honey: '',
-    consent: false,
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { id, value, type } = e.target;
-    const checked =
-      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
-    setFormData(prev => ({
-      ...prev,
-      [id]: type === 'checkbox' ? checked : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Honeypot logic
-    if (formData.honey) {
-      console.warn('Spam detectat. Formularul nu a fost trimis.');
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Verifică consimțământul
-    if (!formData.consent) {
-      showToast(
-        'Trebuie să acceptați Politica de Confidențialitate pentru a continua.',
-        'error'
-      );
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...formData, sursa: 'contact', tip: 'mesaj' }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Eroare la trimiterea formularului');
-      }
-
-      setFormData({
-        name: '',
-        email: '',
-
-        message: '',
-        danceclass: '',
-        phone: '',
-        honey: '',
-        consent: false,
-      });
-      showToast(
-        'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
-        'success'
-      );
-      setIsSent(true);
-    } catch (error) {
-      console.error('Eroare:', error);
-      showToast(
-        'Eroare la trimiterea mesajului. Te rugăm să încerci din nou mai târziu.',
-        'error'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const { formData, handleChange, handleSubmit, isSubmitting, isSent, setIsSent } =
+    useTrimitereFormular(GOL, () => ({ sursa: 'contact', tip: 'mesaj' }));
 
   return (
     <Card>

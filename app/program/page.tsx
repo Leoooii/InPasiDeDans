@@ -1,5 +1,4 @@
 import CtaBanner from '@/components/cta-banner';
-import GrupeInFormare from '@/components/grupe-in-formare';
 import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
@@ -72,7 +71,6 @@ export default async function Program() {
             text="Locurile sunt limitate pentru a asigura o experiență de calitate. Rezervă-ți locul acum sau contactează-ne pentru detalii."
           />
         </div>
-        <GrupeInFormare />
       </div>
     </>
   );

@@ -13,7 +13,6 @@ import {
   Target,
   Users,
 } from 'lucide-react';
-import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import ContactForm from '@/components/contact-form';
 import DansulMirilorPricing from '@/components/DansulMirilorPricing';
@@ -197,7 +196,6 @@ export default function LectiiPrivate() {
         <ContactForm />
       </div>
 
-      <GrupeInFormare />
     </div>
   );
 }

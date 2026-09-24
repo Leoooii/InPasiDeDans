@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { Calendar, Clock, Droplets, Shirt, Sparkles, Star, Trophy, Users } from 'lucide-react';
-import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import FaqBlock from '@/components/faq-block';
 import { faqCopii } from '@/lib/faq-stiluri';
@@ -218,7 +217,6 @@ export default async function CursuriDansCopii() {
           <TarifeCopiiSection />
         </div>
       </div>
-      <GrupeInFormare />
     </div>
   );
 }

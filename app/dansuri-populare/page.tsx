@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Calendar, Leaf, Music2, Sparkles, Users } from 'lucide-react';
 
-import GrupeInFormare from '@/components/grupe-in-formare';
 import GalerieFoto from '@/components/galerie-foto';
 import { GALERIE_POPULARE } from '@/lib/galerii';
 import WhyChooseUsFolkDances from '@/components/WhyChooseUsFolkDances';
@@ -129,7 +128,6 @@ export default function DansuriPopulare() {
         <ContactForm />
       </div>
 
-      <GrupeInFormare />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
+import { DarkAntetSectiune, DarkEticheta, DarkPageShell, DarkTitlu, Evidentiat } from '@/components/dark-page';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -90,166 +90,126 @@ export default function Excursii({ initial }: { initial?: Excursie[] | null }) {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white overflow-hidden">
-      {/* Animated orbs — orange/red palette (standard site) */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-orange-500/15 blur-[120px] animate-pulse" />
-        <div
-          className="absolute top-1/4 -right-32 h-[32rem] w-[32rem] rounded-full bg-red-600/20 blur-[120px] animate-pulse"
-          style={{ animationDelay: '2s' }}
-        />
-        <div
-          className="absolute bottom-0 -left-20 h-[28rem] w-[28rem] rounded-full bg-orange-500/10 blur-[120px] animate-pulse"
-          style={{ animationDelay: '4s' }}
-        />
-      </div>
+    <DarkPageShell
+      pagina="Excursii"
+      url="https://www.inpasidedans.ro/excursii"
+      orbe={[
+        '-top-40 left-1/3 h-[36rem] w-[36rem] bg-orange-500/15',
+        'top-1/4 -right-32 h-[32rem] w-[32rem] bg-red-600/20',
+        'bottom-0 -left-20 h-[28rem] w-[28rem] bg-orange-500/10',
+      ]}
+      fundal={<TopographicBackground />}
+    >
+      {/* HERO */}
+      <section className="mt-10 md:mt-16 mb-14 md:mb-20">
+        <div className="grid md:grid-cols-[1fr_auto] gap-10 items-center max-w-6xl mx-auto">
+          <div>
+            <DarkEticheta icon={Compass}>Călătorii cu pasiune</DarkEticheta>
 
-      {/* Topographic SVG waves background */}
-      <TopographicBackground />
+            <DarkTitlu>
+              <span className="text-white">Călătorește</span>
+              <br />
+              <Evidentiat>
+                și dansează
+              </Evidentiat>
+            </DarkTitlu>
 
-      <div className="relative container mx-auto py-10 md:py-16 px-4 md:px-6">
-        {/* Breadcrumb */}
-        <SEOBreadcrumbs
-          items={[{ name: 'Acasă', url: '/' }, { name: 'Excursii' }]}
-          currentPageUrl="https://www.inpasidedans.ro/excursii"
-          tone="dark"
-          className="mb-0"
-        />
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+              Combinăm pasiunea pentru dans cu plăcerea de a descoperi locuri noi.
+              Excursii tematice în <span className="text-white">România și străinătate</span>,
+              deschise tuturor.
+            </p>
 
-        {/* HERO */}
-        <section className="mt-10 md:mt-16 mb-14 md:mb-20">
-          <div className="grid md:grid-cols-[1fr_auto] gap-10 items-center max-w-6xl mx-auto">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-1.5 mb-6 text-xs uppercase tracking-[0.2em] text-orange-300">
-                <Compass className="h-3.5 w-3.5" />
-                Călătorii cu pasiune
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
-                <span className="text-white">Călătorește</span>
-                <br />
-                <span className="bg-gradient-to-r from-orange-300 via-red-400 to-orange-400 bg-clip-text text-transparent">
-                  și dansează
+            <div className="mt-8 flex flex-wrap gap-3 text-sm">
+              {upcomingExcursii.length > 0 && (
+                <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-400/30 px-4 py-1.5 text-orange-200">
+                  <Plane className="h-4 w-4" />
+                  {upcomingExcursii.length} {upcomingExcursii.length === 1 ? 'destinație' : 'destinații'} la orizont
                 </span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
-                Combinăm pasiunea pentru dans cu plăcerea de a descoperi locuri noi.
-                Excursii tematice în <span className="text-white">România și străinătate</span>,
-                deschise tuturor.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-3 text-sm">
-                {upcomingExcursii.length > 0 && (
-                  <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-400/30 px-4 py-1.5 text-orange-200">
-                    <Plane className="h-4 w-4" />
-                    {upcomingExcursii.length} {upcomingExcursii.length === 1 ? 'destinație' : 'destinații'} la orizont
-                  </span>
-                )}
-                {pastExcursii.length > 0 && (
-                  <a
-                    href="#galerie-trecute"
-                    className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-4 py-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
-                  >
-                    <ImageIcon className="h-4 w-4" />
-                    Amintiri din excursii
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Compass-style decorative image */}
-            <div className="relative hidden md:block">
-              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-orange-400/30 to-red-500/30 blur-2xl" />
-              <div className="relative h-72 w-72 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl shadow-orange-500/30">
-                <Image
-                  src="/images/excursie.png"
-                  alt="Excursie de dans"
-                  fill
-                  className="object-cover"
-                  sizes="288px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-transparent" />
-              </div>
-              {/* Compass ring overlay */}
-              <div className="absolute inset-0 rounded-full border border-dashed border-orange-300/30 animate-[spin_30s_linear_infinite]" />
+              )}
+              {pastExcursii.length > 0 && (
+                <a
+                  href="#galerie-trecute"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-4 py-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+                >
+                  <ImageIcon className="h-4 w-4" />
+                  Amintiri din excursii
+                </a>
+              )}
             </div>
           </div>
-        </section>
 
-        {/* UPCOMING — layout adapted to count */}
-        {upcomingExcursii.length > 0 && (
-          <section className="mb-16 md:mb-20">
-            <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-orange-400 animate-pulse" />
-                  Următoarele excursii
-                </h2>
-                <p className="text-white/50 text-sm mt-1">
-                  Locuri rezervate · destinații confirmate
-                </p>
-              </div>
+          {/* Compass-style decorative image */}
+          <div className="relative hidden md:block">
+            <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-orange-400/30 to-red-500/30 blur-2xl" />
+            <div className="relative h-72 w-72 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl shadow-orange-500/30">
+              <Image
+                src="/images/excursie.png"
+                alt="Excursie de dans"
+                fill
+                className="object-cover"
+                sizes="288px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-transparent" />
             </div>
+            {/* Compass ring overlay */}
+            <div className="absolute inset-0 rounded-full border border-dashed border-orange-300/30 animate-[spin_30s_linear_infinite]" />
+          </div>
+        </div>
+      </section>
 
-            {upcomingExcursii.length === 1 && (
-              <WideExcursie excursie={upcomingExcursii[0]} featured />
-            )}
+      {/* UPCOMING — layout adapted to count */}
+      {upcomingExcursii.length > 0 && (
+        <section className="mb-16 md:mb-20">
+          <DarkAntetSectiune titlu="Următoarele excursii" subtitlu="Locuri rezervate · destinații confirmate" />
 
-            {upcomingExcursii.length === 2 && (
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="md:col-span-2">
-                  <WideExcursie excursie={upcomingExcursii[0]} featured />
-                </div>
-                <PostcardExcursie excursie={upcomingExcursii[1]} />
+          {upcomingExcursii.length === 1 && (
+            <WideExcursie excursie={upcomingExcursii[0]} featured />
+          )}
+
+          {upcomingExcursii.length === 2 && (
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="md:col-span-2">
+                <WideExcursie excursie={upcomingExcursii[0]} featured />
               </div>
-            )}
-
-            {upcomingExcursii.length >= 3 && (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {upcomingExcursii.map(e => (
-                  <PostcardExcursie key={e.id} excursie={e} />
-                ))}
-              </div>
-            )}
-          </section>
-        )}
-
-        {/* PAST */}
-        {pastExcursii.length > 0 && (
-          <section id="galerie-trecute" className="mb-16 md:mb-20 scroll-mt-20">
-            <div className="flex items-end justify-between mb-8 pb-4 border-b border-white/10">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
-                  <ImageIcon className="h-6 w-6 text-orange-300" />
-                  Excursii anterioare
-                </h2>
-                <p className="text-white/50 text-sm mt-1">
-                  Amintiri și destinații explorate împreună
-                </p>
-              </div>
+              <PostcardExcursie excursie={upcomingExcursii[1]} />
             </div>
+          )}
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {pastExcursii.map(e => (
-                <PastExcursie key={e.id} excursie={e} />
+          {upcomingExcursii.length >= 3 && (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {upcomingExcursii.map(e => (
+                <PostcardExcursie key={e.id} excursie={e} />
               ))}
             </div>
-          </section>
-        )}
+          )}
+        </section>
+      )}
 
-        {upcomingExcursii.length === 0 && pastExcursii.length === 0 && (
-          <div className="text-center py-20 rounded-3xl border border-dashed border-white/10 bg-white/[0.02]">
-            <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 mb-4">
-              <Plane className="h-8 w-8 text-orange-300" />
-            </div>
-            <p className="text-white/70">
-              Momentan nu există excursii planificate. Revino curând pentru destinații noi.
-            </p>
+      {/* PAST */}
+      {pastExcursii.length > 0 && (
+        <section id="galerie-trecute" className="mb-16 md:mb-20 scroll-mt-20">
+          <DarkAntetSectiune titlu="Excursii anterioare" subtitlu="Amintiri și destinații explorate împreună" icon={ImageIcon} />
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {pastExcursii.map(e => (
+              <PastExcursie key={e.id} excursie={e} />
+            ))}
           </div>
-        )}
-      </div>
-    </div>
+        </section>
+      )}
+
+      {upcomingExcursii.length === 0 && pastExcursii.length === 0 && (
+        <div className="text-center py-20 rounded-3xl border border-dashed border-white/10 bg-white/[0.02]">
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 mb-4">
+            <Plane className="h-8 w-8 text-orange-300" />
+          </div>
+          <p className="text-white/70">
+            Momentan nu există excursii planificate. Revino curând pentru destinații noi.
+          </p>
+        </div>
+      )}
+    </DarkPageShell>
   );
 }
 

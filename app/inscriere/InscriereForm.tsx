@@ -1,7 +1,6 @@
 'use client';
 
-import type React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
 
@@ -23,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useSimpleToast } from '@/components/simple-toast-provider';
+import { useTrimitereFormular } from '@/hooks/use-trimitere-formular';
 import Link from 'next/link';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { cn } from '@/lib/utils';
@@ -40,6 +39,17 @@ interface FormData {
   consent: boolean;
 }
 
+const GOL: FormData = {
+  danceclass: '',
+  instructor: '',
+  name: '',
+  email: '',
+  phone: '',
+  message: '',
+  honey: '',
+  consent: false,
+};
+
 const LISTA_ASTEPTARE = 'Listă de așteptare – anunțați-mă când se deschide o grupă nouă';
 
 type GrupaOption = {
@@ -55,19 +65,6 @@ export default function InscriereForm() {
     { name: 'Înscriere' },
   ];
 
-  const [formData, setFormData] = useState<FormData>({
-    danceclass: '',
-    instructor: '',
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    honey: '',
-    consent: false,
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const { grupe } = usePublicData();
   const grupeOptions: GrupaOption[] = useMemo(
     () =>
@@ -80,7 +77,6 @@ export default function InscriereForm() {
     [grupe]
   );
   const isGrupeLoading = false;
-  const { showToast } = useSimpleToast();
   const searchParams = useSearchParams();
   const preselectedGrupaId = searchParams.get('grupa');
 
@@ -106,6 +102,16 @@ export default function InscriereForm() {
       label: 'Lecții private',
     },
   ];
+
+  const {
+    formData,
+    setFormData,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isSent: isSubmitted,
+    setIsSent: setIsSubmitted,
+  } = useTrimitereFormular(GOL, () => ({ sursa: 'inscriere', ...tipSelectie() }));
 
   useEffect(() => {
     if (!preselectedGrupaId || !grupeOptions.length) return;
@@ -137,15 +143,6 @@ export default function InscriereForm() {
     );
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value, type } = e.target;
-    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
-    setFormData(prev => ({
-      ...prev,
-      [id]: type === 'checkbox' ? checked : value,
-    }));
-  };
-
   const handleSelectChange = (name: string, value: string) => {
     if (name === 'danceclass') {
       const matchedOption = grupeOptions.find(option => option.value === value);
@@ -159,69 +156,12 @@ export default function InscriereForm() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const tipSelectie = () => {
+  const tipSelectie = (): { tip: string; grupaId: string } => {
     if (formData.danceclass === LISTA_ASTEPTARE) {
       return { tip: 'lista-asteptare', grupaId: '' };
     }
     const grupa = grupeOptions.find(option => option.value === formData.danceclass);
     return grupa ? { tip: 'grupa', grupaId: grupa.id } : { tip: 'curs', grupaId: '' };
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    if (formData.honey) {
-      console.warn('Spam detectat. Formularul nu a fost trimis.');
-      setIsSubmitting(false);
-      return;
-    }
-
-    if (!formData.consent) {
-      showToast(
-        'Trebuie să acceptați Politica de Confidențialitate pentru a continua.',
-        'error'
-      );
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...formData, sursa: 'inscriere', ...tipSelectie() }),
-      });
-      if (!response.ok) {
-        throw new Error('Eroare la trimiterea formularului');
-      }
-
-      setFormData({
-        danceclass: '',
-        instructor: '',
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        honey: '',
-        consent: false,
-      });
-      showToast(
-        'Mesaj trimis cu succes! Îți mulțumim pentru mesaj. Te vom contacta în curând.',
-        'success'
-      );
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error('Eroare:', error);
-      showToast(
-        'Eroare la trimiterea mesajului. Te rugăm să încerci din nou mai târziu.',
-        'error'
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (

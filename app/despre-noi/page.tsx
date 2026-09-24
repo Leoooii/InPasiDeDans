@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import GrupeInFormare from '@/components/grupe-in-formare';
 
 export const metadata: Metadata = {
   title: 'Despre Noi – Școala de Dans În Pași de Dans București | Din 2009',
@@ -304,7 +303,6 @@ export default function DespreNoi() {
           </div>
         </div>
       </div>
-      <GrupeInFormare />
     </div>
   );
 }

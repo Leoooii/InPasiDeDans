@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, BookOpen, Layers, Smile, Sparkles, Users } from 'lucide-react';
 
-import GrupeInFormare from '@/components/grupe-in-formare';
 import StructureFeatures from '@/components/StructureFeatures';
 import LocationSection from '@/components/LocationSection';
 import InstructorsSection from '@/components/InstructorsSection';
@@ -228,7 +227,6 @@ export default function DansuriLatino() {
 
         <GalerieFoto imagini={GALERIE_LATINO} subtitlu="Mai mult decât simple lecții — o comunitate prietenoasă, energie vibrantă și momente de bucurie autentică la fiecare ședință." inaltime="mare" />
 
-        <GrupeInFormare />
         <LocationSection />
 
         <div id="instructori">

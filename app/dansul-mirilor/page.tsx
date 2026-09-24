@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AlertCircle, Award, Clock, Heart, Music, Shield, Sparkles, Users } from 'lucide-react';
-import GrupeInFormare from '@/components/grupe-in-formare';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import Testimoniale from '@/components/testimoniale';
@@ -255,7 +254,6 @@ export default async function DansulMirilor() {
 
         <Testimoniale items={TESTIMONIALE_MIRI} titlu="Ce spun mirii noștri" subtitlu="Descoperă experiențele autentice ale cuplurilor care și-au creat momentul magic al nunții cu noi" latime="treime" />
       </div>
-      <GrupeInFormare />
     </div>
   );
 }

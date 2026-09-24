@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import FaqBlock from '@/components/faq-block';
 import { faqAdulti } from '@/lib/faq-stiluri';
@@ -135,7 +134,6 @@ export default async function CursuriDansAdulti() {
           imagine={{ src: '/images/inscriere.png', alt: 'Cursuri de dans' }}
         />
       </div>
-      <GrupeInFormare />
     </div>
   );
 }

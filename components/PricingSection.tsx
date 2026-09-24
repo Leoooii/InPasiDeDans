@@ -1,84 +1,9 @@
 'use client'
 
-import type { Tarif } from '@/lib/types'
-import { usePublicData } from '@/components/public-data-provider'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Check, Star } from 'lucide-react'
-import Link from 'next/link'
-
-
-const FALLBACK: Tarif[] = [
-  {
-    id: '1',
-    titlu: 'Abonament 8',
-    descriere: 'Valabil 4 săptămâni',
-    pret: 260,
-    moneda: 'Lei',
-    categorie: 'grup',
-    beneficii: [
-      '8 ședințe pe lună',
-      'Acces la o singură grupă',
-      'Valabil pentru orice grupă (dans popular, dansuri latino & de societate, bachata & salsa)',
-    ],
-    popular: false,
-    ordine: 1,
-  },
-  {
-    id: '2',
-    titlu: 'Abonament 16',
-    descriere: 'Valabil 4 săptămâni',
-    pret: 370,
-    moneda: 'Lei',
-    categorie: 'grup',
-    beneficii: [
-      '16 ședințe pe lună',
-      'Acces la 2 grupe',
-      'Valabil pentru orice grupă (dans popular, dansuri latino & de societate, bachata & salsa)',
-    ],
-    popular: true,
-    ordine: 2,
-  },
-  {
-    id: '3',
-    titlu: 'Abonament Full Pass',
-    descriere: 'Valabil 4 săptămâni',
-    pret: 450,
-    moneda: 'Lei',
-    categorie: 'grup',
-    beneficii: [
-      'Acces nelimitat la grupe',
-      'Valabil începând cu prima ședință efectuată',
-      'Permite acces la toate grupele în desfășurare la momentul achiziționării',
-    ],
-    popular: false,
-    ordine: 3,
-  },
-  {
-    id: '4',
-    titlu: 'Plata la ședință',
-    descriere: 'Orice stil de dans',
-    pret: 50,
-    moneda: 'Lei',
-    categorie: 'grup',
-    beneficii: [
-      'O ședință la grup',
-      'Tarif valabil pentru orice grupă (dans popular, dansuri latino & de societate, bachata & salsa)',
-    ],
-    popular: false,
-    ordine: 4,
-  },
-]
+import { TarifCard, useTarife } from '@/components/tarif-card'
 
 export default function PricingSection({ title }: { title?: string }) {
-  const { tarife } = usePublicData()
-  const plans: Tarif[] = tarife?.grup.length ? tarife.grup : FALLBACK
+  const plans = useTarife('grup')
 
   return (
     <div>
@@ -94,35 +19,7 @@ export default function PricingSection({ title }: { title?: string }) {
         <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {plans.map((plan) => (
-              <Card
-                key={plan.id}
-                className={`flex flex-col overflow-hidden border-red-600 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full ${
-                  plan.popular
-                    ? 'border-red-500 '
-                    : 'border-red-600 hover:border-red-700'
-                }`}
-              >
-                <CardHeader className="bg-gradient-to-r from-red-600 to-orange-500 text-white">
-                  <CardTitle>{plan.titlu}</CardTitle>
-                  <CardDescription className="text-white/90">
-                    {plan.descriere}
-                  </CardDescription>
-                  <div className="mt-4 text-4xl font-bold">{plan.pret} {plan.moneda}</div>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col justify-between mt-2 p-6">
-                  <ul className="space-y-2 flex-1">
-                    {plan.beneficii.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <Check
-                          className="mr-2 h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5"
-                          aria-label="Inclus"
-                        />
-                        <span className="text-sm leading-relaxed">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <TarifCard key={plan.id} tarif={plan} />
             ))}
           </div>
         </div>

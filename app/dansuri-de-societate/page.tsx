@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-import GrupeInFormare from '@/components/grupe-in-formare';
 import LocationSection from '@/components/LocationSection';
 import InstructorsSection from '@/components/InstructorsSection';
 import Testimoniale from '@/components/testimoniale';
@@ -230,7 +229,6 @@ export default function DansuriDeSocietate() {
         <CourseLevelsSection />
 
         <div id="grupe-in-formare">
-          <GrupeInFormare />
         </div>
 
         <div id="locatie">
