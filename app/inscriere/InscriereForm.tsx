@@ -259,15 +259,6 @@ export default function InscriereForm() {
                           />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value={LISTA_ASTEPTARE}>{LISTA_ASTEPTARE}</SelectItem>
-                          <SelectItem value="cursuri-divider" disabled>
-                            — Cursuri —
-                          </SelectItem>
-                          {defaultOptions.map(option => (
-                            <SelectItem key={option.id} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
                           {grupeOptions.length > 0 && (
                             <>
                               <SelectItem value="grupe-divider" disabled>
@@ -280,6 +271,18 @@ export default function InscriereForm() {
                               ))}
                             </>
                           )}
+                          <SelectItem value="cursuri-divider" disabled>
+                            — Cursuri —
+                          </SelectItem>
+                          {defaultOptions.map(option => (
+                            <SelectItem key={option.id} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                          <SelectItem value="asteptare-divider" disabled>
+                            — Nu găsești o grupă potrivită? —
+                          </SelectItem>
+                          <SelectItem value={LISTA_ASTEPTARE}>{LISTA_ASTEPTARE}</SelectItem>
                         </SelectContent>
                       </Select>
                       {renderCompletionIcon('danceclass')}
