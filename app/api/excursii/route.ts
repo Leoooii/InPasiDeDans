@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { collection, getDocs, addDoc } from "firebase/firestore"
@@ -37,6 +38,7 @@ export async function POST(request: Request) {
     }
 
     const docRef = await addDoc(collection(db, "excursii"), excursieData)
+    revalidateTag('excursii')
 
     return NextResponse.json(
       {

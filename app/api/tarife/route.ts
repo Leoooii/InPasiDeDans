@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { collection, getDocs, addDoc, query, orderBy } from "firebase/firestore"
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
       popular: data.popular || false,
       ordine: data.ordine ?? 99,
     })
+    revalidateTag('tarife')
 
     return NextResponse.json({ id: docRef.id }, { status: 201 })
   } catch (error) {

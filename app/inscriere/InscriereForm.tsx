@@ -2,9 +2,8 @@
 
 import type React from 'react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { collection, getDocs, query, where } from 'firebase/firestore';
 import { CheckCircle2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -29,7 +28,7 @@ import { useSimpleToast } from '@/components/simple-toast-provider';
 import Link from 'next/link';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import { cn } from '@/lib/utils';
-import { db } from '@/lib/firebase';
+import { usePublicData } from '@/components/public-data-provider';
 
 interface FormData {
   danceclass: string;
@@ -70,8 +69,18 @@ export default function InscriereForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [grupeOptions, setGrupeOptions] = useState<GrupaOption[]>([]);
-  const [isGrupeLoading, setIsGrupeLoading] = useState(true);
+  const { grupe } = usePublicData();
+  const grupeOptions: GrupaOption[] = useMemo(
+    () =>
+      (grupe ?? []).map(g => ({
+        id: g.id,
+        value: g.titlu || 'Grupă în formare',
+        label: g.titlu || 'Grupă în formare',
+        instructor: g.instructor,
+      })),
+    [grupe]
+  );
+  const isGrupeLoading = false;
   const { showToast } = useSimpleToast();
   const searchParams = useSearchParams();
   const preselectedGrupaId = searchParams.get('grupa');
@@ -98,30 +107,6 @@ export default function InscriereForm() {
       label: 'Lecții private',
     },
   ];
-
-  useEffect(() => {
-    const fetchGrupe = async () => {
-      try {
-        const grupeQuery = query(collection(db, 'grupe'), where('publica', '==', true));
-        const snapshot = await getDocs(grupeQuery);
-        const options = snapshot.docs.map(doc => {
-          const data = doc.data() as { titlu?: string; instructor?: string };
-          return {
-            id: doc.id,
-            value: data.titlu || 'Grupă în formare',
-            label: data.titlu || 'Grupă în formare',
-            instructor: data.instructor,
-          };
-        });
-        setGrupeOptions(options);
-      } catch (error) {
-        console.error('Eroare la încărcarea grupelor pentru formular', error);
-      } finally {
-        setIsGrupeLoading(false);
-      }
-    };
-    fetchGrupe();
-  }, []);
 
   useEffect(() => {
     if (!preselectedGrupaId || !grupeOptions.length) return;

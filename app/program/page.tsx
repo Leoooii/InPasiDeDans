@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import DanceLevels from '@/components/dance-levels';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import ProgramDinamic from '@/components/program-dinamic';
+import { getToateGrupele, safe } from '@/lib/public-data';
 
 export const metadata: Metadata = {
   title: 'Program Cursuri de Dans București | În Pași de Dans',
@@ -42,7 +43,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Program() {
+export default async function Program() {
+  const grupe = await safe(getToateGrupele, null);
+
   const breadcrumbItems = [
     { name: "Acasă", url: "/" },
     { name: "Program" }
@@ -63,7 +66,7 @@ export default function Program() {
             </p>
           </div>
 
-          <ProgramDinamic />
+          <ProgramDinamic initial={grupe} />
           <DanceLevels />
           <div className="mt-12 bg-red-50 p-8 rounded-lg">
             <div className="text-center space-y-4 max-w-2xl mx-auto">

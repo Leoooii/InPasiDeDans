@@ -13,9 +13,7 @@ import Link from 'next/link';
 import GrupeInFormare from '@/components/grupe-in-formare';
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import PricingSection from '@/components/PricingSection';
-import { useEffect, useState } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { usePublicData } from '@/components/public-data-provider';
 
 type Tarif = {
   id: string
@@ -100,27 +98,9 @@ function TarifCards({ tarife }: { tarife: Tarif[] }) {
 }
 
 export default function Tarife() {
-  const [tarifPrivat, setTarifPrivat] = useState<Tarif[]>(FALLBACK_PRIVAT)
-  const [tarifCopii, setTarifCopii] = useState<Tarif[]>(FALLBACK_COPII)
-
-  useEffect(() => {
-    const fetch = async (categorie: 'privat' | 'copii', setter: (t: Tarif[]) => void, fallback: Tarif[]) => {
-      try {
-        const q = query(collection(db, 'tarife'), where('categorie', '==', categorie))
-        const snapshot = await getDocs(q)
-        if (!snapshot.empty) {
-          const data = snapshot.docs
-            .map((d) => ({ id: d.id, ...d.data() } as Tarif))
-            .sort((a, b) => a.ordine - b.ordine)
-          setter(data)
-        }
-      } catch {
-        setter(fallback)
-      }
-    }
-    fetch('privat', setTarifPrivat, FALLBACK_PRIVAT)
-    fetch('copii', setTarifCopii, FALLBACK_COPII)
-  }, [])
+  const { tarife } = usePublicData()
+  const tarifPrivat: Tarif[] = tarife?.privat.length ? tarife.privat : FALLBACK_PRIVAT
+  const tarifCopii: Tarif[] = tarife?.copii.length ? tarife.copii : FALLBACK_COPII
 
   const breadcrumbItems = [
     { name: 'Acasă', url: '/' },

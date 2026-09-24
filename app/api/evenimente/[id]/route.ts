@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore"
@@ -39,6 +40,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       ...data,
       updatedAt: serverTimestamp(),
     })
+    revalidateTag('evenimente')
 
     return NextResponse.json({ id, ...data })
   } catch (error) {
@@ -52,6 +54,7 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     const { id } = await params
     const evenimentRef = doc(db, "evenimente", id)
     await deleteDoc(evenimentRef)
+    revalidateTag('evenimente')
 
     return NextResponse.json({ success: true })
   } catch (error) {

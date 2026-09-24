@@ -23,6 +23,7 @@ import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import type { Eveniment } from '@/app/admin/evenimente/page';
 import { generateUniqueSlug, slugify } from '@/lib/slug';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 interface EventFormProps {
   eveniment: Eveniment | null;
@@ -131,10 +132,12 @@ export default function EventForm({
         // Update existing event
         const eventRef = doc(db, 'evenimente', eveniment.id);
         await updateDoc(eventRef, eventData);
+        await reimprospateazaSite('evenimente');
       } else {
         // Add new event with server timestamp
         eventData.date = serverTimestamp();
         await addDoc(collection(db, 'evenimente'), eventData);
+        await reimprospateazaSite('evenimente');
       }
 
       onSuccess();

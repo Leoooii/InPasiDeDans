@@ -17,6 +17,7 @@ import Link from 'next/link'
 import GrupaForm from '@/components/admin/grupa-form'
 import GrupeList from '@/components/admin/grupe-list'
 import type { Grupa } from '@/app/admin/page'
+import { reimprospateazaSite } from '@/lib/reimprospatare-site'
 
 type CursantInGrupa = {
   id: string
@@ -75,6 +76,7 @@ export default function GrupePage() {
     try {
       const { id, ...grupaData } = grupa
       await addDoc(collection(db, 'grupe'), grupaData)
+      await reimprospateazaSite('grupe')
       toast({ title: 'Grupă adăugată.' })
       setShowForm(false)
       fetchGrupe()
@@ -88,6 +90,7 @@ export default function GrupePage() {
     try {
       const { id, ...grupaData } = grupa
       await updateDoc(doc(db, 'grupe', grupa.id), grupaData)
+      await reimprospateazaSite('grupe')
       toast({ title: 'Grupă actualizată.' })
       setEditingGrupa(null)
       fetchGrupe()
@@ -99,6 +102,7 @@ export default function GrupePage() {
   const handleDeleteGrupa = async (id: string) => {
     try {
       await deleteDoc(doc(db, 'grupe', id))
+      await reimprospateazaSite('grupe')
       toast({ title: 'Grupă ștearsă.' })
       fetchGrupe()
     } catch {

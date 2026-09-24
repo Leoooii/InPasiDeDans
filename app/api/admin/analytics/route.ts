@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAnalyticsClient, getPropertyId, isGaConfigured } from '@/lib/ga';
@@ -92,6 +93,25 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Parametri invalizi' }, { status: 400 });
   }
 
+  try {
+    // ~10 rapoarte GA4 + Search Console costă mult CPU; același interval
+    // de date se servește din cache o oră.
+    const raport = await unstable_cache(
+      () => construiesteRaport(body),
+      ['ga-raport', JSON.stringify(body)],
+      { revalidate: 3600 },
+    )();
+    return NextResponse.json(raport);
+  } catch (err) {
+    console.error('[analytics] GA4 report error:', err);
+    return NextResponse.json(
+      { error: 'Eroare la interogarea GA4. Verifică accesul service account-ului.' },
+      { status: 500 },
+    );
+  }
+}
+
+async function construiesteRaport(body: z.infer<typeof BodySchema>) {
   const { startDate, endDate, pagePaths } = body;
   const property = `properties/${getPropertyId()}`;
   const client = getAnalyticsClient();
@@ -377,7 +397,7 @@ export async function POST(req: NextRequest) {
       searchConsole,
     });
 
-    return NextResponse.json({
+    return {
       summary,
       topPages,
       sources,
@@ -391,13 +411,10 @@ export async function POST(req: NextRequest) {
       searchConsole,
       suggestions,
       series,
-    });
+    };
   } catch (err) {
-    console.error('[analytics] GA4 report error:', err);
-    return NextResponse.json(
-      { error: 'Eroare la interogarea GA4. Verifică accesul service account-ului.' },
-      { status: 500 },
-    );
+    // Aruncăm mai departe: un eșec nu trebuie cache-uit.
+    throw err;
   }
 }
 

@@ -6,7 +6,7 @@ import { allPostsQuery, allCategoriesQuery, featuredPostsQuery } from '@/sanity/
 import PostCard from '@/components/blog/post-card'
 import FeaturedPostCard from '@/components/blog/featured-post-card'
 
-export const revalidate = 60
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Blog Dans București | Sfaturi, Ghiduri și Povești | În Pași de Dans',

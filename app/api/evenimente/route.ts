@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { collection, getDocs, addDoc, query, orderBy, serverTimestamp } from "firebase/firestore"
@@ -39,6 +40,7 @@ export async function POST(request: Request) {
       date: serverTimestamp(),
       createdAt: serverTimestamp(),
     })
+    revalidateTag('evenimente')
 
     return NextResponse.json({ id: docRef.id, ...data })
   } catch (error) {

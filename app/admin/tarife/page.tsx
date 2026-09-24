@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/select"
 import { useSimpleToast } from "@/components/simple-toast-provider"
 import { Pencil, Trash2, PlusCircle, List, X, Star } from "lucide-react"
+import { reimprospateazaSite } from "@/lib/reimprospatare-site"
 
 type Tarif = {
   id?: string
@@ -258,6 +259,7 @@ export default function TarifePage() {
     try {
       for (const tarif of INITIAL_TARIFE) {
         await addDoc(collection(db, "tarife"), tarif)
+        await reimprospateazaSite('tarife')
       }
       showToast("Tarifele inițiale au fost adăugate cu succes", "success")
       fetchTarife()
@@ -284,6 +286,7 @@ export default function TarifePage() {
             popular: match.popular,
             ordine: match.ordine,
           })
+          await reimprospateazaSite('tarife')
         }
       }
       showToast("Tarifele private au fost actualizate", "success")
@@ -302,9 +305,11 @@ export default function TarifePage() {
     try {
       if (editingId) {
         await updateDoc(doc(db, "tarife", editingId), { ...form, pret: Number(form.pret) })
+        await reimprospateazaSite('tarife')
         showToast("Tarif actualizat", "success")
       } else {
         await addDoc(collection(db, "tarife"), { ...form, pret: Number(form.pret) })
+        await reimprospateazaSite('tarife')
         showToast("Tarif adăugat", "success")
       }
       resetForm()
@@ -333,6 +338,7 @@ export default function TarifePage() {
     if (!confirm("Ești sigur că vrei să ștergi acest tarif?")) return
     try {
       await deleteDoc(doc(db, "tarife", id))
+      await reimprospateazaSite('tarife')
       showToast("Tarif șters", "success")
       fetchTarife()
     } catch {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { usePublicData } from '@/components/public-data-provider';
 import Link from 'next/link';
 import {
   Loader2,
@@ -15,28 +15,12 @@ import GrupeInFormare from '@/components/grupe-in-formare';
 import InstructoriSlider, { type Instructor } from '@/components/instructori-slider';
 
 export default function Instructori() {
-  const [instructori, setInstructori] = useState<(Instructor & { order?: number })[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchInstructori = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch('/api/instructori');
-        if (!response.ok) throw new Error('Nu s-au putut încărca instructorii');
-        const data = await response.json();
-        const sorted = [...data].sort((a, b) => (a.order || 0) - (b.order || 0));
-        setInstructori(sorted);
-      } catch (e) {
-        console.error('Eroare:', e);
-        setError('Nu s-au putut încărca instructorii. Încercați să reîmprospătați pagina.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchInstructori();
-  }, []);
+  const { instructori: toti } = usePublicData();
+  const instructori = (toti ?? []) as (Instructor & { order?: number })[];
+  const isLoading = false;
+  const error = toti === null
+    ? 'Nu s-au putut încărca instructorii. Încercați să reîmprospătați pagina.'
+    : null;
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white overflow-hidden">

@@ -8,9 +8,11 @@ import NoutatiSection from '@/components/noutati-section';
 import StickyMenu from '@/components/sticky-menu';
 import CursuriSection from '@/components/CursuriSection';
 import LatestBlogPosts from '@/components/latest-blog-posts';
+import { getEvenimente, safe } from '@/lib/public-data';
 
-// On-Demand Revalidation - se actualizează doar când este necesar
-export const revalidate = 60 // Activează ISR pentru a actualiza periodic conținutul
+// Conținutul se reîmprospătează la salvare (webhook Sanity, admin → revalidateTag);
+// intervalul e doar plasă de siguranță.
+export const revalidate = 3600
 
 export const metadata = {
   title: 'Cursuri de Dans București, Sector 4, 5 și 6 | În Pași de Dans',
@@ -44,7 +46,9 @@ export const metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const evenimente = await safe(getEvenimente, null);
+
   return (
     <>
       {/* Schema DanceSchool + WebSite — randate în body (App Router) ca să fie sigur indexate */}
@@ -304,7 +308,7 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
-            <NoutatiSection itemsToShow={3} variant="homepage" />
+            <NoutatiSection itemsToShow={3} variant="homepage" initial={evenimente} />
           </div>
         </section>
 

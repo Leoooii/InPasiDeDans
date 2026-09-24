@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { collection, getDocs, addDoc, query, orderBy } from "firebase/firestore"
@@ -46,6 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     const docRef = await addDoc(instructorRef, newInstructor)
+    revalidateTag('instructori')
 
     return NextResponse.json(
       {

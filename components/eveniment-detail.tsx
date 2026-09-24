@@ -35,6 +35,8 @@ type Props = {
   kind: 'eveniment' | 'noutate';
   initialSlug: string;
   initialItem?: EvenimentDetail | null;
+  /** Articolele similare, calculate pe server; evită descărcarea întregii liste în browser. */
+  initialRelated?: EvenimentDetail[];
 };
 
 const SITE_URL = 'https://www.inpasidedans.ro';
@@ -88,9 +90,9 @@ function renderRichText(text: string) {
   });
 }
 
-export default function EvenimentDetail({ kind, initialSlug, initialItem }: Props) {
+export default function EvenimentDetail({ kind, initialSlug, initialItem, initialRelated }: Props) {
   const [item, setItem] = useState<EvenimentDetail | null>(initialItem ?? null);
-  const [related, setRelated] = useState<EvenimentDetail[]>([]);
+  const [related, setRelated] = useState<EvenimentDetail[]>(initialRelated ?? []);
   const [loading, setLoading] = useState(!initialItem);
   const [notFound, setNotFound] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -100,6 +102,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem }: Prop
   const listingLabel = kind === 'eveniment' ? 'Evenimente' : 'Noutăți';
 
   useEffect(() => {
+    if (initialItem && initialRelated) return;
     let cancelled = false;
     async function load() {
       try {
@@ -138,7 +141,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem }: Prop
     return () => {
       cancelled = true;
     };
-  }, [initialSlug, initialItem]);
+  }, [initialSlug, initialItem, initialRelated]);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && item) {

@@ -1,4 +1,5 @@
 import NoutatiSection from '@/components/noutati-section';
+import { getEvenimente, safe } from '@/lib/public-data';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -46,7 +47,9 @@ export const metadata = {
   },
 };
 
-export default function NoutatiPage() {
+export default async function NoutatiPage() {
+  const evenimente = await safe(getEvenimente, null);
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white overflow-hidden">
       {/* Animated background orbs */}
@@ -168,7 +171,7 @@ export default function NoutatiPage() {
             </div>
           </div>
 
-          <NoutatiSection showFilters featuredFirst />
+          <NoutatiSection showFilters featuredFirst initial={evenimente} />
         </section>
       </div>
     </div>

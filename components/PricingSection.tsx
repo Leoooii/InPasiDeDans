@@ -1,8 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '@/lib/firebase'
+import { usePublicData } from '@/components/public-data-provider'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -31,7 +29,7 @@ const FALLBACK: Tarif[] = [
     id: '1',
     titlu: 'Abonament 8',
     descriere: 'Valabil 4 săptămâni',
-    pret: 250,
+    pret: 260,
     moneda: 'Lei',
     categorie: 'grup',
     beneficii: [
@@ -46,7 +44,7 @@ const FALLBACK: Tarif[] = [
     id: '2',
     titlu: 'Abonament 16',
     descriere: 'Valabil 4 săptămâni',
-    pret: 350,
+    pret: 370,
     moneda: 'Lei',
     categorie: 'grup',
     beneficii: [
@@ -61,7 +59,7 @@ const FALLBACK: Tarif[] = [
     id: '3',
     titlu: 'Abonament Full Pass',
     descriere: 'Valabil 4 săptămâni',
-    pret: 420,
+    pret: 450,
     moneda: 'Lei',
     categorie: 'grup',
     beneficii: [
@@ -76,7 +74,7 @@ const FALLBACK: Tarif[] = [
     id: '4',
     titlu: 'Plata la ședință',
     descriere: 'Orice stil de dans',
-    pret: 45,
+    pret: 50,
     moneda: 'Lei',
     categorie: 'grup',
     beneficii: [
@@ -89,25 +87,8 @@ const FALLBACK: Tarif[] = [
 ]
 
 export default function PricingSection({ title }: { title?: string }) {
-  const [plans, setPlans] = useState<Tarif[]>(FALLBACK)
-
-  useEffect(() => {
-    const fetchTarife = async () => {
-      try {
-        const q = query(collection(db, 'tarife'), where('categorie', '==', 'grup'))
-        const snapshot = await getDocs(q)
-        if (!snapshot.empty) {
-          const data = snapshot.docs
-            .map((d) => ({ id: d.id, ...d.data() } as Tarif))
-            .sort((a, b) => a.ordine - b.ordine)
-          setPlans(data)
-        }
-      } catch {
-        // fallback to hardcoded data
-      }
-    }
-    fetchTarife()
-  }, [])
+  const { tarife } = usePublicData()
+  const plans: Tarif[] = tarife?.grup.length ? tarife.grup : FALLBACK
 
   return (
     <div className=" ">

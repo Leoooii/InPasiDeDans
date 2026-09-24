@@ -1,5 +1,4 @@
-import { collection, getDocs, query, where, limit } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { getEvenimente } from '@/lib/public-data';
 
 export type EvenimentRecord = {
   id: string;
@@ -12,25 +11,16 @@ export type EvenimentRecord = {
   eventDate: string | null;
 };
 
+// Citește din lista cache-uită (lib/public-data), invalidată la salvare din admin.
+// Eroarea Firestore nu e înghițită: trebuie să devină 500, nu 404.
 export async function fetchEvenimentBySlug(
   slug: string
 ): Promise<EvenimentRecord | null> {
-  // Fără try/catch: o eroare Firestore trebuie să ajungă ca eroare (500),
-  // nu ca null — altfel pagina ar răspunde 404 pentru un articol existent.
-  const snapshot = await getDocs(
-    query(collection(db, 'evenimente'), where('slug', '==', slug), limit(1))
-  );
-  if (snapshot.empty) return null;
-  const docSnap = snapshot.docs[0];
-  const data = docSnap.data();
-  return {
-    id: docSnap.id,
-    slug: data.slug || '',
-    title: data.title || '',
-    description: data.description || '',
-    link: data.link || '',
-    imageUrl: data.imageUrl || '',
-    date: data.date?.toDate().toISOString() || new Date().toISOString(),
-    eventDate: data.eventDate?.toDate().toISOString() || null,
-  };
+  const toate = await getEvenimente();
+  return toate.find(e => e.slug === slug) ?? null;
+}
+
+export async function fetchEvenimenteSimilare(id: string, count = 3): Promise<EvenimentRecord[]> {
+  const toate = await getEvenimente();
+  return toate.filter(e => e.id !== id && e.slug).slice(0, count);
 }

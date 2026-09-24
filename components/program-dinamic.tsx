@@ -121,9 +121,27 @@ function toMinutes(t: string): number {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function ProgramDinamic() {
-  const [grupe, setGrupe] = useState<Grupa[]>([])
-  const [loading, setLoading] = useState(true)
+// Documentele brute din Firestore → forma folosită de orar.
+function normalizeaza(docs: Record<string, any>[]): Grupa[] {
+  return docs.map(d => ({
+    id: d.id,
+    titlu: d.titlu || '',
+    instructor: (d.instructor || '').trim(),
+    program: d.program || '',
+    zile: d.zile || [],
+    stiluri: d.stiluri || (d.stil ? [d.stil] : []),
+    nivel: d.nivel,
+    sala: d.sala,
+    locuriDisponibile: d.locuriDisponibile ?? undefined,
+    locuriTotale: d.locuriTotale ?? undefined,
+    rol: d.rol,
+    publica: d.publica,
+  }))
+}
+
+export default function ProgramDinamic({ initial }: { initial?: Record<string, any>[] | null }) {
+  const [grupe, setGrupe] = useState<Grupa[]>(() => (initial ? normalizeaza(initial) : []))
+  const [loading, setLoading] = useState(!initial)
   const [filterDay, setFilterDay]         = useState<DayGroupId>('all')
   const [filterStyle, setFilterStyle]     = useState<StyleKey | 'all'>('all')
   const [filterNivel, setFilterNivel]     = useState<NivelGroup>('all')
@@ -131,28 +149,9 @@ export default function ProgramDinamic() {
   const [filterTime, setFilterTime]       = useState('all')
 
   useEffect(() => {
+    if (initial) return
     getDocs(query(collection(db, 'grupe')))
-      .then(snap => {
-        const data: Grupa[] = []
-        snap.forEach(doc => {
-          const d = doc.data()
-          data.push({
-            id: doc.id,
-            titlu: d.titlu || '',
-            instructor: (d.instructor || '').trim(),
-            program: d.program || '',
-            zile: d.zile || [],
-            stiluri: d.stiluri || (d.stil ? [d.stil] : []),
-            nivel: d.nivel,
-            sala: d.sala,
-            locuriDisponibile: d.locuriDisponibile ?? undefined,
-            locuriTotale: d.locuriTotale ?? undefined,
-            rol: d.rol,
-            publica: d.publica,
-          })
-        })
-        setGrupe(data)
-      })
+      .then(snap => setGrupe(normalizeaza(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })))))
       .catch(console.error)
       .finally(() => setLoading(false))
   }, [])

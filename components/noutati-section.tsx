@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { EvenimentPublic } from '@/lib/public-data';
 
 type Eveniment = {
   id: string;
@@ -35,7 +36,12 @@ type NoutatiSectionProps = {
   variant?: 'default' | 'homepage';
   showFilters?: boolean;
   featuredFirst?: boolean;
+  /** Lista completă citită pe server; dacă există, nu mai citim din Firestore în browser. */
+  initial?: EvenimentPublic[] | null;
 };
+
+const dinServer = (list: EvenimentPublic[]): Eveniment[] =>
+  list.map(e => ({ ...e, date: new Date(e.date), eventDate: e.eventDate ? new Date(e.eventDate) : null }));
 
 type Filter = 'all' | 'events' | 'news';
 
@@ -44,11 +50,14 @@ export default function NoutatiSection({
   variant = 'default',
   showFilters = false,
   featuredFirst = false,
+  initial,
 }: NoutatiSectionProps) {
-  const [evenimente, setEvenimente] = useState<Eveniment[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [evenimente, setEvenimente] = useState<Eveniment[]>(() =>
+    initial ? dinServer(itemsToShow ? initial.slice(0, itemsToShow) : initial) : []
+  );
+  const [loading, setLoading] = useState(!initial);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(!initial);
   const [filter, setFilter] = useState<Filter>('all');
   const lastDoc = useRef<QueryDocumentSnapshot<DocumentData> | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -119,6 +128,7 @@ export default function NoutatiSection({
   }, [loadingMore, hasMore, itemsToShow]);
 
   useEffect(() => {
+    if (initial) return;
     const loadInitialData = async () => {
       setLoading(true);
       await fetchEvenimente(true);
@@ -155,6 +165,7 @@ export default function NoutatiSection({
   const formatDate = (date: Date | null | undefined) => {
     if (!date) return '';
     return date.toLocaleDateString('ro-RO', {
+      timeZone: 'Europe/Bucharest',
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -164,6 +175,7 @@ export default function NoutatiSection({
   const formatTime = (date: Date | null | undefined) => {
     if (!date) return '';
     return date.toLocaleTimeString('ro-RO', {
+      timeZone: 'Europe/Bucharest',
       hour: '2-digit',
       minute: '2-digit',
     });

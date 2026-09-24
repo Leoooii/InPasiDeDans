@@ -19,6 +19,7 @@ import { doc, deleteDoc } from 'firebase/firestore';
 import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
 import type { Eveniment } from '@/app/admin/evenimente/page';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 interface EvenimenteListProps {
   evenimente: Eveniment[];
@@ -42,6 +43,7 @@ export default function EvenimenteList({
     setIsDeleting(true);
     try {
       await deleteDoc(doc(db, 'evenimente', selectedEventId));
+      await reimprospateazaSite('evenimente');
       onDeleteSuccess();
     } catch (error) {
       console.error('Eroare la ștergerea evenimentului:', error);

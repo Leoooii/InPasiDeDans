@@ -1,8 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '@/lib/firebase'
+import { usePublicData } from '@/components/public-data-provider'
 import { Card, CardContent } from '@/components/ui/card'
 import { Check } from 'lucide-react'
 
@@ -18,33 +16,16 @@ type Tarif = {
 }
 
 const FALLBACK: Tarif[] = [
-  { id: 'p1', titlu: 'Pachet 4 ședințe', descriere: 'Ideal pentru cuplurile care doresc un dans simplu și elegant.', pret: 640, moneda: 'Lei', beneficii: ['4 ședințe private (60 min/sed)', 'Valabilitate 2 luni', 'Coregrafie simplă pe melodia aleasă', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei'], popular: false, ordine: 1 },
-  { id: 'p2', titlu: 'Pachet 6 ședințe', descriere: 'Pentru cuplurile care doresc un dans memorabil cu elemente speciale.', pret: 900, moneda: 'Lei', beneficii: ['6 ședințe private (60 min/sed)', 'Valabilitate 3 luni', 'Coregrafie cu grad de dificultate mediu pe melodia aleasă', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei'], popular: true, ordine: 2 },
-  { id: 'p3', titlu: 'Pachet 8 ședințe', descriere: 'Experiența completă pentru un moment cu adevărat spectaculos.', pret: 1120, moneda: 'Lei', beneficii: ['8 ședințe private (60 min/sed)', 'Valabilitate 4 luni', 'Coregrafie personalizată cu grad de dificultate mediu sau ridicat', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei'], popular: false, ordine: 3 },
+  { id: 'p1', titlu: 'Pachet 4 ședințe', descriere: 'Ideal pentru cuplurile care doresc un dans simplu și elegant.', pret: 680, moneda: 'Lei', beneficii: ['4 ședințe private (60 min/sed)', 'Valabilitate 2 luni', 'Coregrafie simplă pe melodia aleasă', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei'], popular: false, ordine: 1 },
+  { id: 'p2', titlu: 'Pachet 6 ședințe', descriere: 'Pentru cuplurile care doresc un dans memorabil cu elemente speciale.', pret: 960, moneda: 'Lei', beneficii: ['6 ședințe private (60 min/sed)', 'Valabilitate 3 luni', 'Coregrafie cu grad de dificultate mediu pe melodia aleasă', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei'], popular: true, ordine: 2 },
+  { id: 'p3', titlu: 'Pachet 8 ședințe', descriere: 'Experiența completă pentru un moment cu adevărat spectaculos.', pret: 1200, moneda: 'Lei', beneficii: ['8 ședințe private (60 min/sed)', 'Valabilitate 4 luni', 'Coregrafie personalizată cu grad de dificultate mediu sau ridicat', 'Înregistrare video a coregrafiei', 'Editare personalizată a melodiei'], popular: false, ordine: 3 },
   { id: 'p4', titlu: 'Plata la ședință', descriere: '', pret: 200, moneda: 'Lei', beneficii: [], popular: false, ordine: 4 },
   { id: 'p5', titlu: 'Ședință la restaurant', descriere: 'La cerere, dacă instructorul are disponibilitate și restaurantul este în București.', pret: 300, moneda: 'Lei', beneficii: [], popular: false, ordine: 5 },
 ]
 
 export default function DansulMirilorPricing() {
-  const [tarife, setTarife] = useState<Tarif[]>(FALLBACK)
-
-  useEffect(() => {
-    const fetchTarife = async () => {
-      try {
-        const q = query(collection(db, 'tarife'), where('categorie', '==', 'privat'))
-        const snapshot = await getDocs(q)
-        if (!snapshot.empty) {
-          const data = snapshot.docs
-            .map((d) => ({ id: d.id, ...d.data() } as Tarif))
-            .sort((a, b) => a.ordine - b.ordine)
-          setTarife(data)
-        }
-      } catch {
-        // fallback la datele hardcodate
-      }
-    }
-    fetchTarife()
-  }, [])
+  const { tarife: dinServer } = usePublicData()
+  const tarife: Tarif[] = dinServer?.privat.length ? dinServer.privat : FALLBACK
 
   const pachete = tarife.filter((t) => t.ordine <= 3)
   const alteOptiuni = tarife.filter((t) => t.ordine >= 4)

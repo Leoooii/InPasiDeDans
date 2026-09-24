@@ -4,9 +4,8 @@ import Script from "next/script"
 import { notFound } from "next/navigation"
 import { cache } from "react"
 import { Calendar, Clock, Users } from "lucide-react"
-import { doc, getDoc } from "firebase/firestore"
 
-import { db } from "@/lib/firebase"
+import { getDocCached } from "@/lib/firestore-cache"
 import { buildGrupaSlug, extractGrupaIdFromSlug } from "@/lib/utils"
 import SEOBreadcrumbs from "@/components/seo-breadcrumbs"
 import { Button } from "@/components/ui/button"
@@ -30,14 +29,12 @@ const getGrupa = cache(async (slug: string): Promise<PublicGrupa | null> => {
   const grupaId = extractGrupaIdFromSlug(slug)
   if (!grupaId) return null
 
-  const grupaRef = doc(db, "grupe", grupaId)
-  const grupaSnapshot = await getDoc(grupaRef)
+  // Citire cache-uită (tag 'grupe'), altfel pagina se genera la fiecare vizită.
+  const data = (await getDocCached("grupe", grupaId)) as (Partial<PublicGrupa> & { id: string }) | null
 
-  if (!grupaSnapshot.exists()) {
+  if (!data) {
     return null
   }
-
-  const data = grupaSnapshot.data() as Partial<PublicGrupa>
 
   if (data.publica === false) {
     return null
@@ -53,7 +50,7 @@ const getGrupa = cache(async (slug: string): Promise<PublicGrupa | null> => {
   const zile = Array.isArray(data.zile) ? data.zile : []
 
   return {
-    id: grupaSnapshot.id,
+    id: data.id,
     titlu: data.titlu || "Grupă de dans",
     descriere: data.descriere || "Descoperă această grupă în formare la In Pasi de Dans.",
     dataStart: data.dataStart || "",
@@ -88,6 +85,10 @@ const truncate = (text: string, limit = 155) => {
 const buildPageUrl = (slug: string) => `https://www.inpasidedans.ro/grupe-in-formare/${slug}`
 
 export const revalidate = 1800
+
+export async function generateStaticParams() {
+  return []
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params

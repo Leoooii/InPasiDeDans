@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -40,6 +41,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
     const excursieData = { ...data, updatedAt: Date.now() }
     await updateDoc(excursieDoc, excursieData)
+    revalidateTag('excursii')
 
     return NextResponse.json({ id, ...excursieData })
   } catch (error) {
@@ -59,6 +61,7 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     }
 
     await deleteDoc(excursieDoc)
+    revalidateTag('excursii')
     return NextResponse.json({ message: "Excursia a fost ștearsă cu succes" }, { status: 200 })
   } catch (error) {
     console.error("Eroare la ștergerea excursiei:", error)

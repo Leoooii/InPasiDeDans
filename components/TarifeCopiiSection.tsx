@@ -1,8 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '@/lib/firebase'
+import { usePublicData } from '@/components/public-data-provider'
 
 type Tarif = {
   id: string
@@ -23,25 +21,8 @@ const FALLBACK: Tarif[] = [
 ]
 
 export default function TarifeCopiiSection() {
-  const [tarife, setTarife] = useState<Tarif[]>(FALLBACK)
-
-  useEffect(() => {
-    const fetchTarife = async () => {
-      try {
-        const q = query(collection(db, 'tarife'), where('categorie', '==', 'copii'))
-        const snapshot = await getDocs(q)
-        if (!snapshot.empty) {
-          const data = snapshot.docs
-            .map((d) => ({ id: d.id, ...d.data() } as Tarif))
-            .sort((a, b) => a.ordine - b.ordine)
-          setTarife(data)
-        }
-      } catch {
-        // fallback la datele hardcodate
-      }
-    }
-    fetchTarife()
-  }, [])
+  const { tarife: dinServer } = usePublicData()
+  const tarife: Tarif[] = dinServer?.copii.length ? dinServer.copii : FALLBACK
 
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mt-4">

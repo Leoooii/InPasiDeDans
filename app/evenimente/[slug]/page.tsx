@@ -1,7 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EvenimentDetail from '@/components/eveniment-detail';
-import { fetchEvenimentBySlug } from '@/lib/eveniment-loader';
+import { fetchEvenimentBySlug, fetchEvenimenteSimilare } from '@/lib/eveniment-loader';
+
+// ISR: pagina se generează la prima vizită, apoi se servește din cache
+// (invalidată prin tag-ul 'evenimente' la salvarea din admin).
+export const revalidate = 3600;
+export async function generateStaticParams() {
+  return [];
+}
 
 const SITE_URL = 'https://www.inpasidedans.ro';
 
@@ -61,12 +68,14 @@ export default async function EvenimentPage({
   const { slug } = await params;
   const item = await fetchEvenimentBySlug(slug);
   if (!item) notFound();
+  const related = await fetchEvenimenteSimilare(item.id);
 
   return (
     <EvenimentDetail
       kind="eveniment"
       initialSlug={slug}
       initialItem={item}
+      initialRelated={related}
     />
   );
 }

@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -48,6 +49,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     }
 
     await updateDoc(instructorRef, updatedInstructor)
+    revalidateTag('instructori')
     return NextResponse.json({ id, ...updatedInstructor })
   } catch (error) {
     console.error("Eroare la actualizarea instructorului:", error)
@@ -66,6 +68,7 @@ export async function DELETE(_request: NextRequest, { params }: { params: Promis
     }
 
     await deleteDoc(instructorRef)
+    revalidateTag('instructori')
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error("Eroare la ștergerea instructorului:", error)

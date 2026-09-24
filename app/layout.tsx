@@ -9,6 +9,8 @@ const inter = Inter({ subsets: ['latin'] });
 import { Analytics } from '@vercel/analytics/next';
 import { SCHOOL_SCHEMA } from '@/lib/schema-constants';
 import Script from 'next/script';
+import { PublicDataProvider } from '@/components/public-data-provider';
+import { getGrupePublice, getInstructori, getTarife, safe } from '@/lib/public-data';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.inpasidedans.ro'),
@@ -24,11 +26,17 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [tarife, instructori, grupe] = await Promise.all([
+    safe(getTarife, null),
+    safe(getInstructori, null),
+    safe(getGrupePublice, null),
+  ]);
+
   return (
     <html lang="ro" suppressHydrationWarning>
       <head>
@@ -88,9 +96,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           forcedTheme="light"
           disableTransitionOnChange
         >
-          <SimpleToastProvider>
-            <ConditionalLayout>{children}</ConditionalLayout>
-          </SimpleToastProvider>
+          <PublicDataProvider value={{ tarife, instructori, grupe }}>
+            <SimpleToastProvider>
+              <ConditionalLayout>{children}</ConditionalLayout>
+            </SimpleToastProvider>
+          </PublicDataProvider>
         </ThemeProvider>
       </body>
     </html>

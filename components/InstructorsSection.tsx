@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { usePublicData } from '@/components/public-data-provider';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
@@ -26,9 +27,11 @@ interface InstructorsSectionProps {
 }
 
 export default function InstructorsSection({ instructorNames, customTitle, courseName }: InstructorsSectionProps) {
-  const [instructori, setInstructori] = useState<Instructor[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { instructori: toti } = usePublicData();
+  const isLoading = false;
+  const error = toti === null
+    ? 'Nu s-au putut încărca instructorii. Încercați să reîmprospătați pagina.'
+    : null;
   const [expandedInstructors, setExpandedInstructors] = useState<Set<string>>(new Set());
 
   // Funcție pentru toggle-ul expandării descrierii
@@ -44,62 +47,32 @@ export default function InstructorsSection({ instructorNames, customTitle, cours
     });
   };
 
-  // Încărcăm instructorii din Firebase
-  useEffect(() => {
-    const fetchInstructori = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch('/api/instructori');
-        if (!response.ok) {
-          throw new Error('Nu s-au putut încărca instructorii');
-        }
-        const data = await response.json();
+  const sortedInstructori = [...(toti ?? [])].sort((a, b) => (a.order || 0) - (b.order || 0));
 
-        // Sortăm instructorii după ordinea de afișare
-        const sortedInstructori = [...data].sort((a, b) => {
-          const orderA = a.order || 0;
-          const orderB = b.order || 0;
-          return orderA - orderB;
-        });
+  // Filtrez instructorii după numele specificate în props
+  let filteredInstructori = sortedInstructori;
+  if (instructorNames && instructorNames.length > 0) {
+    filteredInstructori = sortedInstructori.filter(instructor =>
+      instructorNames.some(name => {
+        // Verific dacă numele instructorului conține exact numele căutat
+        const instructorNameLower = instructor.name.toLowerCase();
+        const searchNameLower = name.toLowerCase();
+        
+        // Cazuri speciale pentru potriviri exacte
+        if (searchNameLower === 'alexandra' && instructorNameLower.includes('alexandra')) return true;
+        if (searchNameLower === 'cătălina' && instructorNameLower.includes('cătălina')) return true;
+        if (searchNameLower === 'miriam' && instructorNameLower.includes('miriam')) return true;
+        if (searchNameLower === 'niko' && instructorNameLower.includes('niko')) return true;
+        if (searchNameLower === 'nicholas' && instructorNameLower.includes('nicholas')) return true;
+        
+        // Pentru alte cazuri, verific dacă numele instructorului începe cu numele căutat
+        return instructorNameLower.startsWith(searchNameLower) || 
+               instructorNameLower.includes(searchNameLower);
+      })
+    );
+  }
 
-        // Filtrez instructorii după numele specificate în props
-        let filteredInstructori = sortedInstructori;
-        console.log('Instructor names:', filteredInstructori);
-        if (instructorNames && instructorNames.length > 0) {
-          filteredInstructori = sortedInstructori.filter(instructor =>
-            instructorNames.some(name => {
-              // Verific dacă numele instructorului conține exact numele căutat
-              const instructorNameLower = instructor.name.toLowerCase();
-              const searchNameLower = name.toLowerCase();
-              
-              // Cazuri speciale pentru potriviri exacte
-              if (searchNameLower === 'alexandra' && instructorNameLower.includes('alexandra')) return true;
-              if (searchNameLower === 'cătălina' && instructorNameLower.includes('cătălina')) return true;
-              if (searchNameLower === 'miriam' && instructorNameLower.includes('miriam')) return true;
-              if (searchNameLower === 'niko' && instructorNameLower.includes('niko')) return true;
-              if (searchNameLower === 'nicholas' && instructorNameLower.includes('nicholas')) return true;
-              
-              // Pentru alte cazuri, verific dacă numele instructorului începe cu numele căutat
-              return instructorNameLower.startsWith(searchNameLower) || 
-                     instructorNameLower.includes(searchNameLower);
-            })
-          );
-        }
-
-        console.log('Instructori filtrați:', filteredInstructori);
-        setInstructori(filteredInstructori);
-      } catch (error) {
-        console.error('Eroare:', error);
-        setError(
-          'Nu s-au putut încărca instructorii. Încercați să reîmprospătați pagina.'
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchInstructori();
-  }, [instructorNames]);
+  const instructori: Instructor[] = filteredInstructori;
 
   if (isLoading) {
     return (

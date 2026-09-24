@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -42,6 +43,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     }
 
     await updateDoc(petrecereDoc, data)
+    revalidateTag('petreceri')
     return NextResponse.json({ id, ...data })
   } catch (error) {
     console.error("Eroare la actualizarea petrecerii:", error)
@@ -60,6 +62,7 @@ export async function DELETE(_request: NextRequest, { params }: { params: Promis
     }
 
     await deleteDoc(petrecereDoc)
+    revalidateTag('petreceri')
     return NextResponse.json({ message: "Petrecerea a fost ștearsă cu succes" }, { status: 200 })
   } catch (error) {
     console.error("Eroare la ștergerea petrecerii:", error)

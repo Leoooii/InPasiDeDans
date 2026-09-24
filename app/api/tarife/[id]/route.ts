@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache"
 import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore"
@@ -27,6 +28,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       popular: data.popular || false,
       ordine: data.ordine ?? 99,
     })
+    revalidateTag('tarife')
 
     return NextResponse.json({ id })
   } catch (error) {
@@ -45,6 +47,7 @@ export async function DELETE(_request: NextRequest, { params }: { params: Promis
     }
 
     await deleteDoc(tarifRef)
+    revalidateTag('tarife')
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error("Eroare la ștergerea tarifului:", error)

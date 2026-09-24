@@ -27,6 +27,7 @@ import { doc, deleteDoc } from 'firebase/firestore';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 interface ExcursiiListProps {
   excursii: Excursie[];
@@ -58,6 +59,7 @@ export function ExcursiiList({
     setIsDeleting(true);
     try {
       await deleteDoc(doc(db, 'excursii', excursieToDelete.id));
+      await reimprospateazaSite('excursii');
       onDeleteSuccess();
     } catch (error) {
       console.error('Eroare la ștergerea excursiei:', error);

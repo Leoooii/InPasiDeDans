@@ -22,6 +22,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import type { Excursie } from '@/app/admin/excursii/page';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 // Schema de validare pentru formular
 const formSchema = z.object({
@@ -133,9 +134,11 @@ export function ExcursieForm({
         await setDoc(doc(db, 'excursii', excursie.id), excursieData, {
           merge: true,
         });
+        await reimprospateazaSite('excursii');
       } else {
         // Adăugăm o excursie nouă
         await addDoc(collection(db, 'excursii'), excursieData);
+        await reimprospateazaSite('excursii');
       }
 
       onSuccess();

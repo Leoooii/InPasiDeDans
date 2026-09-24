@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -11,8 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { db } from '@/lib/firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { usePublicData } from '@/components/public-data-provider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Calendar, Clock, Users } from 'lucide-react';
@@ -25,45 +23,11 @@ type GrupeInFormareSectionProps = {
 };
 
 const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSectionProps) => {
-  const [grupe, setGrupe] = useState<Grupa[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { grupe: dinServer } = usePublicData();
+  const grupe = (dinServer ?? []).map(g => ({ ...g, stiluri: g.stiluri || [] })) as Grupa[];
+  const isLoading = false;
   const router = useRouter();
   const isHomepage = variant === 'homepage';
-  useEffect(() => {
-    const fetchGrupe = async () => {
-      try {
-        // Simplificăm query-ul pentru a evita eroarea de indexare
-        // Folosim doar un singur filtru de egalitate
-        const grupeQuery = query(
-          collection(db, 'grupe'),
-          where('publica', '==', true)
-        );
-
-        const querySnapshot = await getDocs(grupeQuery);
-
-        const grupeData: Grupa[] = [];
-        querySnapshot.forEach(doc => {
-          const data = doc.data();
-          // Asigurăm compatibilitatea cu datele existente
-          const stiluri = data.stiluri || [];
-
-          grupeData.push({
-            id: doc.id,
-            ...data,
-            stiluri: stiluri,
-          } as Grupa);
-        });
-
-        setGrupe(grupeData);
-      } catch (error) {
-        console.error('Eroare la încărcarea grupelor:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchGrupe();
-  }, []);
 
   // Funcție pentru a formata data
   const formatDate = (dateString: string) => {
@@ -163,7 +127,13 @@ const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSec
                     <CardTitle
                       className={cn('text-xl', isHomepage ? 'text-slate-900' : 'text-white')}
                     >
-                      {grupa.titlu}
+                      <Link
+                        href={`/grupe-in-formare/${buildGrupaSlug(grupa.titlu, grupa.id!)}`}
+                        onClick={e => e.stopPropagation()}
+                        className="hover:underline underline-offset-4"
+                      >
+                        {grupa.titlu}
+                      </Link>
                     </CardTitle>
                   </div>
                   <CardDescription className={cn(isHomepage ? 'text-slate-500' : 'text-white/90')}>
