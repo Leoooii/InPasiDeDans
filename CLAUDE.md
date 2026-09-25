@@ -32,7 +32,7 @@ Slug-uri generate cu [lib/slug.ts](lib/slug.ts) (curăță diacritice + asigură
 [scripts/migrate-slugs.mjs](scripts/migrate-slugs.mjs) e idempotent, citește env din `.env.local`/`.env` local sau din `process.env` pe Vercel, hook-uit prin `postbuild` în [package.json](package.json). Nu îl invoca manual decât în dev pentru a face debugging.
 
 ### Securitate Firestore
-[firestore.rules](firestore.rules) sunt scrise pentru emailul admin hardcodat `admin@gmail.com` (corespunde cu `NEXT_PUBLIC_ADMIN_EMAIL` din `.env.local`). Colecțiile `cursanti` și `prezente` au reguli **permisive** deoarece API routes folosesc client SDK fără auth — limitare arhitecturală. Pentru a strânge regulile, ar trebui migrate API routes la `firebase-admin` SDK + verificare token admin pe server.
+[firestore.rules](firestore.rules) sunt scrise pentru emailul admin hardcodat `admin@gmail.com` (corespunde cu `NEXT_PUBLIC_ADMIN_EMAIL` din `.env.local`). Regulile se publică **manual** din consola Firebase (nu există firebase CLI în proiect). Colecțiile evidenței sunt protejate (admin + instructori activi); conținutul public al site-ului (tarife, grupe, evenimente...) are încă scriere permisivă din cauza API routes cu client SDK fără auth.
 
 ### Admin folosește email-check, nu role-based
 [app/admin/layout.tsx](app/admin/layout.tsx) compară `user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL`. Nu există câmp `isAdmin` pe documentul user, nu există custom claims.
@@ -49,3 +49,11 @@ Slug-uri generate cu [lib/slug.ts](lib/slug.ts) (curăță diacritice + asigură
 - Butonul plutitor „Grupe noi!” e montat în [components/conditional-layout.tsx](components/conditional-layout.tsx) (lista de rute acolo).
 
 Istoric modificări și pași rămași: [docs/jurnal-modificari.md](docs/jurnal-modificari.md).
+
+## Evidență cursanți (abonamente + prezență)
+- Admin: `/admin/evidenta` (prezență, cursanți, istoric, conturi instructori, export). Portal instructori: `/instructor` (login separat, vede doar grupele atribuite în `conturiInstructori/{uid}.grupe`).
+- Logica e în [lib/evidenta/](lib/evidenta/): `abonament.ts` (reguli: 4 săptămâni = start + 28 zile, Full Pass pornește la prima ședință, status), `repo.ts` (toate scrierile Firestore + intrare în `jurnal` în același batch), `export.ts` (PDF/Excel/CSV/backup). UI comun în [components/evidenta/](components/evidenta/).
+- Colecții: `cursanti` (câmpul `grupe` = id-uri din colecția `grupe`, păstrat pentru tabul Grupe), `abonamente`, `prezente` (id `{grupaId}_{data}_{cursantId}`), `jurnal` (doar adăugare), `conturiInstructori`. Datele sunt șiruri `YYYY-MM-DD` în ora României (`azi()` din `lib/evidenta/date.ts`, nu `toISOString`).
+- Tipurile de abonament vin din `tarife` (categoriile grup + copii); pachetele private nu intră în evidență.
+- Tabul „Grupe" rămâne separat (site-ul de prezentare); evidența doar citește grupele.
+- Conturile de instructor se creează prin REST Identity Toolkit `accounts:signUp` (SDK-ul ar deloga adminul).

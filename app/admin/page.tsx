@@ -32,32 +32,21 @@ import { Button } from '@/components/ui/button';
 import type { LucideIcon } from 'lucide-react';
 
 import type { Grupa } from '@/lib/types';
+import { statusCursant, type CodStatus } from '@/lib/evidenta/abonament';
+import type { Abonament as AbonamentEvidenta } from '@/lib/evidenta/tipuri';
 export type { Grupa } from '@/lib/types';
-
-type RawTimestamp = { toDate: () => Date };
-type Abonament = { tip: string; sedinteTotal: number; dataStart: RawTimestamp };
-type Prezenta = { data: RawTimestamp };
-type CursantRaw = {
-  id: string;
-  abonamente?: Abonament[];
-  prezente?: Prezenta[];
-};
 
 type AbStatus = 'fara' | 'depasit' | 'critic' | 'ok';
 
-function calcAbStatus(c: CursantRaw): AbStatus {
-  if (!c.abonamente?.length) return 'fara';
-  const ab = [...c.abonamente].sort(
-    (a, b) => b.dataStart.toDate().getTime() - a.dataStart.toDate().getTime(),
-  )[0];
-  const sedinteFacute = (c.prezente || []).filter(
-    p => p.data?.toDate().getTime() >= ab.dataStart.toDate().getTime(),
-  ).length;
-  const sedinteRamase = ab.sedinteTotal - sedinteFacute;
-  if (sedinteRamase <= 0) return 'depasit';
-  if (sedinteRamase <= 2) return 'critic';
-  return 'ok';
-}
+// Aceleași reguli ca în evidență (lib/evidenta/abonament.ts), grupate pe 4 categorii.
+const GRUPARE: Record<CodStatus, AbStatus> = {
+  activ: 'ok',
+  neinceput: 'ok',
+  la_limita: 'critic',
+  fara: 'fara',
+  expirat: 'depasit',
+  epuizat: 'depasit',
+};
 
 /* ─── Sub-components ──────────────────────────────────────────── */
 function StatCard({
@@ -110,9 +99,10 @@ export default function AdminPage() {
   const router = useRouter();
 
   const fetchData = useCallback(async () => {
-    const [grupeSnap, cursantiSnap] = await Promise.all([
+    const [grupeSnap, cursantiSnap, abonamenteSnap] = await Promise.all([
       getDocs(query(collection(db, 'grupe'), orderBy('dataStart'))),
       getDocs(collection(db, 'cursanti')),
+      getDocs(collection(db, 'abonamente')).catch(() => null),
     ]);
 
     const grupeData: Grupa[] = grupeSnap.docs.map(d => {
@@ -136,19 +126,17 @@ export default function AdminPage() {
     });
     setGrupe(grupeData);
 
-    const cursanti: CursantRaw[] = cursantiSnap.docs.map(d => ({
-      id: d.id,
-      ...(d.data() as Omit<CursantRaw, 'id'>),
-    }));
+    const abonamente = (abonamenteSnap?.docs ?? []).map(d => ({ id: d.id, ...d.data() }) as AbonamentEvidenta);
+    const activi = cursantiSnap.docs.filter(d => d.data().activ !== false);
     const stats = {
-      total: cursanti.length,
+      total: activi.length,
       ok: 0,
       critic: 0,
       fara: 0,
       depasit: 0,
     };
-    for (const c of cursanti) {
-      stats[calcAbStatus(c)]++;
+    for (const c of activi) {
+      stats[GRUPARE[statusCursant(abonamente.filter(a => a.cursantId === c.id)).cod]]++;
     }
     setCursantiStats(stats);
   }, []);
@@ -295,7 +283,7 @@ export default function AdminPage() {
             icon={AlertTriangle}
             iconBg="bg-amber-50"
             iconColor="text-amber-500"
-            sub="≤ 2 ședințe rămase"
+            sub="≤ 2 ședințe sau ≤ 3 zile"
           />
           <StatCard
             label="Necesită atenție"
@@ -303,7 +291,7 @@ export default function AdminPage() {
             icon={XCircle}
             iconBg="bg-red-50"
             iconColor="text-red-500"
-            sub="fără / epuizat"
+            sub="fără / expirat / epuizat"
           />
         </div>
       </div>
@@ -383,7 +371,7 @@ export default function AdminPage() {
             Status abonamente cursanți
           </h2>
           <Link
-            href="/admin/abonamente"
+            href="/admin/evidenta/cursanti"
             className="text-xs text-indigo-600 hover:underline"
           >
             Gestionează
@@ -438,7 +426,7 @@ export default function AdminPage() {
               />
               <LegendItem
                 color="bg-red-500"
-                label="Fără / epuizat"
+                label="Fără / expirat / epuizat"
                 count={needAttention}
                 total={cursantiStats.total}
               />

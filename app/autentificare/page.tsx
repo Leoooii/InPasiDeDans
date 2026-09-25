@@ -1,5 +1,6 @@
 'use client';
 
+import { contInstructor } from '@/lib/evidenta/repo';
 import type React from 'react';
 
 import { useState } from 'react';
@@ -46,6 +47,8 @@ export default function AutentificarePage() {
       // Redirecționează în funcție de email
       if (email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
         router.push('/admin');
+      } else if (await contInstructor(user.uid).catch(() => null)) {
+        router.push('/instructor');
       } else {
         router.push('/cont');
       }

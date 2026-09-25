@@ -50,16 +50,84 @@ service cloud.firestore {
       allow write: if true;
     }
 
-    // ===== Date sensibile cursanți =====
-    // Accesate prin API routes (client SDK fără auth) — momentan permisive.
-    // ATENȚIE: aceste colecții conțin date personale. A se securiza prin
-    // migrarea API routes la firebase-admin SDK + verificare admin pe server.
+    // ===== Evidență cursanți (admin + portalul instructorilor) =====
+    // Scrierile vin din browser, cu utilizatorul autentificat (lib/evidenta/repo.ts).
+    // Instructorii au un document în `conturiInstructori/{uid}` cu `activ` și `grupe`
+    // (id-uri din colecția `grupe`); lucrează doar cu grupele lor.
+
+    function contInstructor() {
+      return get(/databases/$(database)/documents/conturiInstructori/$(request.auth.uid)).data;
+    }
+
+    function isInstructor() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/conturiInstructori/$(request.auth.uid))
+        && contInstructor().activ == true;
+    }
+
+    function isStaff() {
+      return isAdmin() || isInstructor();
+    }
+
+    function predaGrupa(grupaId) {
+      return isInstructor() && grupaId in contInstructor().grupe;
+    }
+
+    function doarCampurile(campuri) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(campuri);
+    }
+
     match /cursanti/{docId} {
-      allow read, write: if true;
+      allow read: if isStaff();
+      allow create: if isAdmin()
+                    || (isInstructor()
+                        && request.resource.data.grupe.size() > 0
+                        && request.resource.data.grupe.hasOnly(contInstructor().grupe));
+      // Instructorul: date de contact + grupele LUI (adaugă/scoate doar din ale lui),
+      // pentru cursanții care sunt sau ajung într-una din grupele lui.
+      allow update: if isAdmin()
+                    || (isInstructor()
+                        && doarCampurile(['grupe', 'nume', 'telefon', 'email', 'observatii'])
+                        && (resource.data.grupe.hasAny(contInstructor().grupe)
+                            || request.resource.data.grupe.hasAny(contInstructor().grupe))
+                        && request.resource.data.grupe.toSet().difference(resource.data.grupe.toSet()).hasOnly(contInstructor().grupe)
+                        && resource.data.grupe.toSet().difference(request.resource.data.grupe.toSet()).hasOnly(contInstructor().grupe));
+      allow delete: if isAdmin();
+    }
+
+    match /abonamente/{docId} {
+      allow read: if isStaff();
+      allow create: if isAdmin()
+                    || (isInstructor()
+                        && request.resource.data.createdBy.uid == request.auth.uid
+                        && request.resource.data.anulat == false);
+      // Instructorul modifică doar contorul și perioada (prima ședință a unui Full Pass).
+      allow update: if isAdmin()
+                    || (isInstructor() && doarCampurile(['sedinteFolosite', 'dataStart', 'dataExpirare']));
+      allow delete: if isAdmin();
     }
 
     match /prezente/{docId} {
-      allow read, write: if true;
+      // `userId`: compatibilitate cu pagina veche /cont (nu mai scrie nimeni astfel de documente)
+      allow read: if isStaff() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isAdmin()
+                    || (predaGrupa(request.resource.data.grupaId)
+                        && request.resource.data.createdBy.uid == request.auth.uid);
+      // legarea unei ședințe de un abonament vândut ulterior
+      allow update: if isAdmin() || (isInstructor() && doarCampurile(['abonamentId']));
+      allow delete: if isAdmin() || predaGrupa(resource.data.grupaId);
+    }
+
+    // Istoricul acțiunilor: doar se adaugă, fiecare cu autorul real.
+    match /jurnal/{docId} {
+      allow create: if isStaff() && request.resource.data.actor.uid == request.auth.uid;
+      allow read: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    match /conturiInstructori/{uid} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == uid);
+      allow write: if isAdmin();
     }
 
     // ===== Înscrieri din formularele site-ului =====

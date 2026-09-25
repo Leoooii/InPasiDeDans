@@ -1,5 +1,6 @@
 'use client';
 
+import { contInstructor } from '@/lib/evidenta/repo';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -83,6 +84,12 @@ export default function ContPage() {
         // Verificăm dacă este admin și redirecționăm
         if (currentUser.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
           router.push('/admin');
+          return;
+        }
+
+        // Instructorii au portalul lor
+        if (await contInstructor(currentUser.uid).catch(() => null)) {
+          router.replace('/instructor');
           return;
         }
 

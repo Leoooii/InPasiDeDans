@@ -60,9 +60,21 @@ Ultima actualizare: 24–25 septembrie 2026.
   - paginile închise la culoare (blog, noutăți, instructori, petreceri, excursii) folosesc aceeași bază;
   - detaliile de petrecere și de excursie folosesc aceeași componentă.
 
+### Evidență cursanți (refăcută, 25.09.2026)
+- Prezență + abonamente + cursanți unite în **Admin → Evidență cursanți**: prezență pe zi și grupă (bife mari, anulare, recuperări, „toți prezenți"), statusul abonamentului vizibil peste tot, profil de cursant simplificat.
+- Reguli: abonament = 4 săptămâni de la start (expirarea se calculează singură și contează în status); Full Pass pornește la prima ședință; fiecare prezență se scade din abonamentul valabil; ședințele fără abonament sunt semnalate și se leagă automat de abonamentul vândut ulterior.
+- **Istoric** al tuturor acțiunilor (cine, ce, când) + avertizări automate (expiră în curând, expirat, epuizat, ședințe fără abonament).
+- **Portal pentru instructori** (`/instructor`): cont separat, doar grupele atribuite de admin; prezență, cursanți, abonamente.
+- **Export**: PDF, Excel, CSV pe lună / grupă / cursant / complet + backup complet JSON.
+- Datele sunt protejate de reguli Firestore (înainte colecțiile `cursanti`/`prezente` erau deschise public).
+
 ## Ce rămâne de făcut
 
 ### De făcut de tine
+- [ ] **Publică regulile Firestore noi** (conținutul din `firestore.rules`) în consola Firebase → Firestore → Rules. Fără ele evidența nouă nu poate citi/scrie.
+- [ ] În **Evidență → Prezență**, apasă o dată „Mută datele” (cei 2 cursanți din formatul vechi).
+- [ ] Creează conturile instructorilor în **Evidență → Conturi instructori** și atribuie-le grupele.
+- [ ] Fă un backup din **Export și backup** o dată pe lună.
 - [ ] **Trimite un formular de test** pe /contact și pe /inscriere, de exemplu ca „Leo Test”. Verifică că vine emailul și că apare în /admin/inscrieri.
 - [ ] **Google Search Console:** când `sitemap.xml` apare cu status „Success”, șterge cele 3 sitemap-uri vechi.
 - [ ] **Vercel:** setează *Deployment Retention* (Project Settings → Security), ca să nu se adune deploy-uri vechi.

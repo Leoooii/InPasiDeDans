@@ -19,6 +19,9 @@ User-agent: Amazonbot
 User-agent: Bytespider
 Allow: /
 Disallow: /admin/
+# portalul instructorilor (nu /instructori, pagina publică)
+Disallow: /instructor/
+Disallow: /instructor$
 Disallow: /cont
 Disallow: /autentificare
 Disallow: /inregistrare

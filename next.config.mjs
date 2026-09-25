@@ -44,6 +44,13 @@ const nextConfig = {
   htmlLimitedBots:
     /[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight|GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-User|Claude-SearchBot|PerplexityBot|Perplexity-User|Amazonbot|Bytespider|CCBot|meta-externalagent|DuckAssistBot|MistralAI-User/i,
   // Redirects moved to vercel.json for better performance
+  // Paginile vechi de evidență (link-uri salvate, tabul Grupe) duc în secțiunea nouă.
+  redirects: async () => [
+    { source: '/admin/cursanti/:id', destination: '/admin/evidenta/cursanti/:id', permanent: false },
+    { source: '/admin/cursanti', destination: '/admin/evidenta/cursanti', permanent: false },
+    { source: '/admin/abonamente', destination: '/admin/evidenta/cursanti', permanent: false },
+    { source: '/admin/prezenta', destination: '/admin/evidenta', permanent: false },
+  ],
   // Optimizăm politica de cache pentru resurse statice
   headers: async () => {
     return [

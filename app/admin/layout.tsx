@@ -13,7 +13,6 @@ import {
   Users,
   Calendar,
   Menu,
-  CreditCard,
   FileText,
   Map,
   Music,
@@ -27,6 +26,9 @@ import {
   Image,
   BarChart3,
   ClipboardList,
+  History,
+  KeyRound,
+  Download,
 } from 'lucide-react';
 
 const navGroups = [
@@ -40,11 +42,18 @@ const navGroups = [
         exact: true,
       },
       { href: '/admin/inscrieri', label: 'Înscrieri', icon: ClipboardList },
-      { href: '/admin/cursanti', label: 'Cursanți', icon: GraduationCap },
       { href: '/admin/grupe', label: 'Grupe', icon: BookOpen },
-      { href: '/admin/prezenta', label: 'Prezență', icon: Calendar },
-      { href: '/admin/abonamente', label: 'Abonamente', icon: CreditCard },
       { href: '/admin/statistici', label: 'Statistici', icon: BarChart3 },
+    ],
+  },
+  {
+    label: 'Evidență cursanți',
+    items: [
+      { href: '/admin/evidenta', label: 'Prezență', icon: Calendar, exact: true },
+      { href: '/admin/evidenta/cursanti', label: 'Cursanți', icon: GraduationCap },
+      { href: '/admin/evidenta/istoric', label: 'Istoric', icon: History },
+      { href: '/admin/evidenta/instructori', label: 'Conturi instructori', icon: KeyRound },
+      { href: '/admin/evidenta/export', label: 'Export și backup', icon: Download },
     ],
   },
   {
@@ -158,7 +167,7 @@ export default function AdminLayout({
             </p>
             <div className="space-y-0.5">
               {group.items.map(({ href, label, icon: Icon, exact }) => {
-                const active = exact ? isDashboardActive : isActive(href);
+                const active = href === '/admin' ? isDashboardActive : exact ? pathname === href : isActive(href);
                 return (
                   <Link key={href} href={href} onClick={onNavigate}>
                     <span
@@ -238,7 +247,7 @@ export default function AdminLayout({
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-6 md:p-8">{children}</main>
+        <main className="flex-1 p-4 sm:p-6 md:p-8">{children}</main>
         <Toaster />
       </div>
     </div>
