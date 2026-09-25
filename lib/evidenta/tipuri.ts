@@ -11,6 +11,8 @@ export type Cursant = {
   telefon?: string;
   email?: string;
   observatii?: string;
+  /** „ilustratie:<id>” sau gol (inițiale) */
+  avatar?: string;
   /** id-uri din colecția `grupe` (numele câmpului e păstrat pentru tabul Grupe) */
   grupe: string[];
   activ: boolean;
@@ -60,6 +62,7 @@ export type ContInstructor = {
   uid: string;
   nume: string;
   email: string;
+  avatar?: string;
   grupe: string[];
   activ: boolean;
   createdAt: number;
@@ -103,4 +106,6 @@ export type GrupaEvidenta = {
   zile: string[];
   ora: string;
   publica: boolean;
+  sala?: string;
+  nivel?: string;
 };

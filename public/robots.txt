@@ -22,6 +22,7 @@ Disallow: /admin/
 # portalul instructorilor (nu /instructori, pagina publică)
 Disallow: /instructor/
 Disallow: /instructor$
+Disallow: /panou
 Disallow: /cont
 Disallow: /autentificare
 Disallow: /inregistrare

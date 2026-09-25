@@ -24,7 +24,7 @@ const CU_BUTON_GRUPE_NOI = new Set([
 
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith('/admin') || pathname?.startsWith('/instructor');
+  const isAdmin = pathname?.startsWith('/admin') || pathname?.startsWith('/instructor') || pathname === '/panou';
 
   if (isAdmin) {
     return <>{children}</>;

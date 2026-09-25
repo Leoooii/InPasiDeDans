@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Toaster } from '@/components/ui/toaster';
+import { Avatar } from '@/components/evidenta/avatar';
+import { LogoPanou } from '@/components/evidenta/logo';
+import { useProfilAdmin } from '@/lib/evidenta/profil';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
@@ -29,6 +32,10 @@ import {
   History,
   KeyRound,
   Download,
+  HelpCircle,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Wallet,
 } from 'lucide-react';
 
 const navGroups = [
@@ -49,11 +56,13 @@ const navGroups = [
   {
     label: 'Evidență cursanți',
     items: [
-      { href: '/admin/evidenta', label: 'Prezență', icon: Calendar, exact: true },
+      { href: '/admin/evidenta', label: 'Grupe și prezență', icon: Users, exact: true },
       { href: '/admin/evidenta/cursanti', label: 'Cursanți', icon: GraduationCap },
       { href: '/admin/evidenta/istoric', label: 'Istoric', icon: History },
+      { href: '/admin/evidenta/incasari', label: 'Încasări', icon: Wallet },
       { href: '/admin/evidenta/instructori', label: 'Conturi instructori', icon: KeyRound },
       { href: '/admin/evidenta/export', label: 'Export și backup', icon: Download },
+      { href: '/admin/evidenta/ghid', label: 'Ghid', icon: HelpCircle },
     ],
   },
   {
@@ -81,6 +90,24 @@ export default function AdminLayout({
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  // bara laterală restrânsă (doar iconițe) pe desktop; ținută minte în browser
+  const [restrans, setRestrans] = useState(false);
+  const profil = useProfilAdmin();
+
+  useEffect(() => {
+    try {
+      setRestrans(localStorage.getItem('admin-bara-restransa') === '1');
+    } catch {}
+  }, []);
+
+  const comutaBara = () => {
+    setRestrans(r => {
+      try {
+        localStorage.setItem('admin-bara-restransa', r ? '0' : '1');
+      } catch {}
+      return !r;
+    });
+  };
   const router = useRouter();
   const pathname = usePathname();
 
@@ -90,10 +117,11 @@ export default function AdminLayout({
         if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
           setIsAdmin(true);
         } else {
-          router.push('/cont');
+          // instructorii au portalul lor; /panou îi trimite unde trebuie
+          router.push('/panou');
         }
       } else {
-        router.push('/autentificare');
+        router.push('/panou');
       }
       setIsLoading(false);
     });
@@ -102,7 +130,7 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     await signOut(auth);
-    router.push('/autentificare');
+    router.push('/panou');
   };
 
   const isActive = (href: string, exact = false) => {
@@ -139,51 +167,62 @@ export default function AdminLayout({
 
   const SidebarContent = ({
     onNavigate = () => {},
+    compact = false,
   }: {
     onNavigate?: () => void;
+    /** doar iconițele (bara restrânsă pe desktop) */
+    compact?: boolean;
   }) => (
     <div className="flex flex-col h-full">
       {/* Brand */}
-      <div className="px-5 py-6 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-orange-400 flex items-center justify-center flex-shrink-0">
-            <span className="text-white text-xs font-bold">IP</span>
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm leading-tight">
-              În Pași de Dans
-            </p>
-            <p className="text-slate-400 text-xs">Panou Admin</p>
-          </div>
+      <div className={`border-b border-white/10 ${compact ? 'px-3 py-5' : 'px-5 py-6'}`}>
+        <div className={`flex items-center gap-3 ${compact ? 'flex-col' : ''}`}>
+          <Link href="/admin" onClick={onNavigate} aria-label="Dashboard" className={compact ? '' : 'min-w-0'}>
+            <LogoPanou compact={compact} />
+          </Link>
+          {!compact && <p className="min-w-0 flex-1 text-[11px] font-semibold uppercase tracking-widest text-slate-400">Panou admin</p>}
+          <button
+            onClick={comutaBara}
+            className="hidden md:flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-white/10 hover:text-white"
+            aria-label={compact ? 'Extinde meniul' : 'Restrânge meniul'}
+            title={compact ? 'Extinde meniul' : 'Restrânge meniul'}
+          >
+            {compact ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+          </button>
         </div>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto">
+      <nav className={`flex-1 py-4 space-y-4 overflow-y-auto ${compact ? 'px-2' : 'px-3'}`}>
         {navGroups.map(group => (
           <div key={group.label}>
-            <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-              {group.label}
-            </p>
+            {compact ? (
+              <div className="mx-2 mb-2 border-t border-white/10" />
+            ) : (
+              <p className="px-3 mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{group.label}</p>
+            )}
             <div className="space-y-0.5">
               {group.items.map(({ href, label, icon: Icon, exact }) => {
-                const active = href === '/admin' ? isDashboardActive : exact ? pathname === href : isActive(href);
+                const active =
+                  href === '/admin'
+                    ? isDashboardActive
+                    : href === '/admin/evidenta'
+                      ? pathname === href || !!pathname?.match(/^\/admin\/evidenta\/(grupe|prezenta)/)
+                      : exact
+                        ? pathname === href
+                        : isActive(href);
                 return (
-                  <Link key={href} href={href} onClick={onNavigate}>
+                  <Link key={href} href={href} onClick={onNavigate} title={compact ? label : undefined} aria-label={label}>
                     <span
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group cursor-pointer ${
-                        active
-                          ? 'bg-white/10 text-white'
-                          : 'text-slate-400 hover:text-white hover:bg-white/5'
-                      }`}
+                      className={`flex items-center gap-3 rounded-lg text-sm font-medium transition-all duration-150 group cursor-pointer ${
+                        compact ? 'justify-center px-0 py-2.5' : 'px-3 py-2.5'
+                      } ${active ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                     >
                       <Icon
                         className={`h-4 w-4 flex-shrink-0 ${active ? 'text-red-400' : 'text-slate-500 group-hover:text-slate-300'}`}
                       />
-                      {label}
-                      {active && (
-                        <ChevronRight className="h-3 w-3 ml-auto text-slate-500" />
-                      )}
+                      {!compact && label}
+                      {!compact && active && <ChevronRight className="h-3 w-3 ml-auto text-slate-500" />}
                     </span>
                   </Link>
                 );
@@ -193,14 +232,33 @@ export default function AdminLayout({
         ))}
       </nav>
 
-      {/* Logout */}
-      <div className="px-3 py-4 border-t border-white/10">
+      {/* Cont + deconectare */}
+      <div className={`py-3 border-t border-white/10 space-y-1 ${compact ? 'px-2' : 'px-3'}`}>
+        <Link
+          href="/admin/cont"
+          onClick={onNavigate}
+          title="Contul meu"
+          className={`flex items-center gap-3 rounded-lg py-2 hover:bg-white/5 ${compact ? 'justify-center' : 'px-2'} ${
+            pathname === '/admin/cont' ? 'bg-white/10' : ''
+          }`}
+        >
+          <Avatar avatar={profil?.avatar} nume={profil?.nume ?? 'Admin'} className="h-9 w-9 text-xs" />
+          {!compact && (
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-medium text-white">{profil?.nume ?? 'Admin'}</span>
+              <span className="block text-xs text-slate-400">Contul meu</span>
+            </span>
+          )}
+        </Link>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-150 w-full"
+          title="Deconectare"
+          className={`flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-150 w-full ${
+            compact ? 'justify-center' : 'px-3'
+          }`}
         >
           <LogOut className="h-4 w-4" />
-          Deconectare
+          {!compact && 'Deconectare'}
         </button>
       </div>
     </div>
@@ -208,9 +266,12 @@ export default function AdminLayout({
 
   return (
     <div className="flex min-h-screen bg-slate-50">
+      {/* evidența se poate instala ca aplicație (vezi /panou); React mută link-urile în <head> */}
+      <link rel="manifest" href="/evidenta/manifest.webmanifest" />
+      <link rel="apple-touch-icon" href="/evidenta/apple-touch-icon.png" />
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex flex-col w-60 bg-slate-900 fixed inset-y-0 left-0 z-30">
-        <SidebarContent />
+      <aside className={`hidden md:flex flex-col bg-slate-900 fixed inset-y-0 left-0 z-30 transition-[width] duration-200 ${restrans ? 'w-16' : 'w-60'}`}>
+        <SidebarContent compact={restrans} />
       </aside>
 
       {/* Mobile overlay */}
@@ -231,7 +292,7 @@ export default function AdminLayout({
       </aside>
 
       {/* Main area */}
-      <div className="flex-1 md:ml-60 flex flex-col min-h-screen">
+      <div className={`flex-1 min-w-0 flex flex-col min-h-screen transition-[margin] duration-200 ${restrans ? 'md:ml-16' : 'md:ml-60'}`}>
         {/* Mobile topbar */}
         <header className="md:hidden sticky top-0 z-20 bg-white border-b border-slate-200 px-4 h-14 flex items-center justify-between">
           <button
@@ -247,7 +308,7 @@ export default function AdminLayout({
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-4 sm:p-6 md:p-8">{children}</main>
+        <main className="flex-1 min-w-0 p-4 sm:p-6 md:p-8">{children}</main>
         <Toaster />
       </div>
     </div>

@@ -1,16 +1,10 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { CalendarDays, Clock, Edit, Eye, EyeOff, MapPin, Search, Trash2, Users } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,487 +14,236 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import {
-  Edit,
-  Trash2,
-  Eye,
-  EyeOff,
-  Search,
-  ArrowUpDown,
-  ArrowUp,
-  ArrowDown,
-  X,
-  Users,
-  Calendar,
-  Clock,
-} from "lucide-react"
-import type { Grupa } from "@/lib/types"
+} from '@/components/ui/alert-dialog'
+import { Avatar } from '@/components/evidenta/avatar'
+import { areZiua, FiltruPoza } from '@/components/evidenta/grupe-lista'
+import { PozeGrupa, usePozeInstructori } from '@/components/evidenta/poze-instructori'
+import { Chip } from '@/components/evidenta/ui'
+import { azi, numeZi } from '@/lib/evidenta/date'
+import { instructoriDin, predaInstructorul } from '@/lib/evidenta/instructori-grupe'
+import type { GrupaEvidenta } from '@/lib/evidenta/tipuri'
+import type { Grupa } from '@/lib/types'
+import { cn } from '@/lib/utils'
+
+// Grupele site-ului (program, „grupe în formare”), în același stil cu evidența.
 
 interface GrupeListProps {
   grupe: Grupa[]
   onEdit: (grupa: Grupa) => void
   onDelete: (id: string) => void
-  onManageCursanti?: (grupa: Grupa) => void
 }
 
-type SortField = "titlu" | "dataStart" | "locuriDisponibile" | "ocupare" | "publica"
-type SortDir = "asc" | "desc"
+const ZILE = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică']
+const faraDiacritice = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
-export default function GrupeList({ grupe, onEdit, onDelete, onManageCursanti }: GrupeListProps) {
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [grupaToDelete, setGrupaToDelete] = useState<string | null>(null)
+/** Forma cerută de componentele evidenței (poze, zile). */
+const caEvidenta = (g: Grupa): GrupaEvidenta => ({
+  id: g.id ?? '',
+  titlu: g.titlu,
+  instructor: g.instructor,
+  zile: g.zile ?? [],
+  ora: g.program.match(/\d{1,2}:\d{2}(\s*-\s*\d{1,2}:\d{2})?/)?.[0] ?? '',
+  publica: g.publica !== false,
+  sala: g.sala,
+  nivel: g.nivel,
+})
 
-  // Filters
-  const [search, setSearch] = useState("")
-  const [filterInstructor, setFilterInstructor] = useState("all")
-  const [filterStil, setFilterStil] = useState("all")
-  const [filterVizibilitate, setFilterVizibilitate] = useState("all")
-  const [filterZi, setFilterZi] = useState("all")
+export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
+  const [deSters, setDeSters] = useState<Grupa | null>(null)
+  const [cauta, setCauta] = useState('')
+  const [zi, setZi] = useState('toate')
+  const [instructor, setInstructor] = useState('')
+  const [vizibil, setVizibil] = useState<'toate' | 'site' | 'interne'>('toate')
+  const poza = usePozeInstructori()
 
-  // Sort
-  const [sortField, setSortField] = useState<SortField>("dataStart")
-  const [sortDir, setSortDir] = useState<SortDir>("asc")
+  const evidenta = useMemo(() => grupe.map(caEvidenta), [grupe])
+  const instructori = useMemo(() => instructoriDin(evidenta), [evidenta])
+  const zileFolosite = ZILE.filter(z => evidenta.some(g => areZiua(g, z)))
+  const ziAzi = numeZi(azi())
 
-  // Derive unique filter options from data
-  const instructori = useMemo(
-    () => [...new Set(grupe.map((g) => g.instructor))].sort(),
-    [grupe]
+  const lista = useMemo(
+    () =>
+      grupe
+        .map(g => ({ g, e: caEvidenta(g) }))
+        .filter(({ g }) => !cauta.trim() || faraDiacritice(`${g.titlu} ${g.instructor} ${g.descriere}`).includes(faraDiacritice(cauta.trim())))
+        .filter(({ e }) => zi === 'toate' || areZiua(e, zi))
+        .filter(({ e }) => !instructor || predaInstructorul(e, instructor))
+        .filter(({ g }) => vizibil === 'toate' || (vizibil === 'site' ? g.publica !== false : g.publica === false))
+        .sort((a, b) => a.e.ora.localeCompare(b.e.ora) || a.g.titlu.localeCompare(b.g.titlu, 'ro')),
+    [grupe, cauta, zi, instructor, vizibil],
   )
-  const stiluri = useMemo(
-    () => [...new Set(grupe.flatMap((g) => g.stiluri || []))].sort(),
-    [grupe]
-  )
-  const zile = useMemo(
-    () => [...new Set(grupe.flatMap((g) => g.zile || []))].sort(),
-    [grupe]
-  )
 
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"))
-    } else {
-      setSortField(field)
-      setSortDir("asc")
-    }
-  }
-
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return <ArrowUpDown className="h-3.5 w-3.5 text-slate-400" />
-    return sortDir === "asc"
-      ? <ArrowUp className="h-3.5 w-3.5 text-slate-700" />
-      : <ArrowDown className="h-3.5 w-3.5 text-slate-700" />
-  }
-
-  const processed = useMemo(() => {
-    let result = [...grupe]
-
-    // Search
-    if (search.trim()) {
-      const q = search.toLowerCase()
-      result = result.filter(
-        (g) =>
-          g.titlu.toLowerCase().includes(q) ||
-          g.instructor.toLowerCase().includes(q) ||
-          g.descriere?.toLowerCase().includes(q)
-      )
-    }
-
-    // Filter instructor
-    if (filterInstructor !== "all")
-      result = result.filter((g) => g.instructor === filterInstructor)
-
-    // Filter stil
-    if (filterStil !== "all")
-      result = result.filter((g) => g.stiluri?.includes(filterStil))
-
-    // Filter vizibilitate
-    if (filterVizibilitate === "publica")
-      result = result.filter((g) => g.publica !== false)
-    else if (filterVizibilitate === "privata")
-      result = result.filter((g) => g.publica === false)
-
-    // Filter zi
-    if (filterZi !== "all")
-      result = result.filter((g) => g.zile?.includes(filterZi))
-
-    // Sort
-    result.sort((a, b) => {
-      let cmp = 0
-      switch (sortField) {
-        case "titlu":
-          cmp = a.titlu.localeCompare(b.titlu, "ro")
-          break
-        case "dataStart":
-          cmp = new Date(a.dataStart).getTime() - new Date(b.dataStart).getTime()
-          break
-        case "locuriDisponibile":
-          cmp = a.locuriDisponibile - b.locuriDisponibile
-          break
-        case "ocupare":
-          const ocupA = a.locuriTotale > 0 ? (a.locuriTotale - a.locuriDisponibile) / a.locuriTotale : 0
-          const ocupB = b.locuriTotale > 0 ? (b.locuriTotale - b.locuriDisponibile) / b.locuriTotale : 0
-          cmp = ocupA - ocupB
-          break
-        case "publica":
-          cmp = (a.publica !== false ? 1 : 0) - (b.publica !== false ? 1 : 0)
-          break
-      }
-      return sortDir === "asc" ? cmp : -cmp
-    })
-
-    return result
-  }, [grupe, search, filterInstructor, filterStil, filterVizibilitate, filterZi, sortField, sortDir])
-
-  const activeFilters = [
-    search && { label: `"${search}"`, clear: () => setSearch("") },
-    filterInstructor !== "all" && { label: filterInstructor, clear: () => setFilterInstructor("all") },
-    filterStil !== "all" && { label: filterStil, clear: () => setFilterStil("all") },
-    filterVizibilitate !== "all" && { label: filterVizibilitate === "publica" ? "Publice" : "Private", clear: () => setFilterVizibilitate("all") },
-    filterZi !== "all" && { label: filterZi, clear: () => setFilterZi("all") },
-  ].filter(Boolean) as { label: string; clear: () => void }[]
-
-  const clearAll = () => {
-    setSearch("")
-    setFilterInstructor("all")
-    setFilterStil("all")
-    setFilterVizibilitate("all")
-    setFilterZi("all")
-  }
-
-  const formatDate = (s: string) =>
-    new Date(s).toLocaleDateString("ro-RO", { day: "numeric", month: "short", year: "numeric" })
-
-  const ocuparePct = (g: Grupa) =>
-    g.locuriTotale > 0 ? Math.round(((g.locuriTotale - g.locuriDisponibile) / g.locuriTotale) * 100) : 0
+  const nrSite = grupe.filter(g => g.publica !== false).length
 
   return (
-    <>
-      {/* ── Bara de filtre ─────────────────────────────────────────────── */}
-      <div className="space-y-3 mb-5">
-        <div className="flex flex-col sm:flex-row gap-2">
-          {/* Search */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-            <Input
-              placeholder="Caută după titlu, instructor..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 bg-white border-slate-200 h-9 text-sm"
-            />
+    <div className="space-y-4">
+      <div className="relative">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <Input placeholder="Caută după titlu, instructor, descriere" value={cauta} onChange={e => setCauta(e.target.value)} className="h-11 bg-white pl-9" />
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        <Chip activ={zi === 'toate'} onClick={() => setZi('toate')}>
+          Toate zilele
+        </Chip>
+        {zileFolosite.map(z => (
+          <Chip key={z} activ={zi === z} onClick={() => setZi(z)}>
+            {z}
+            {z === ziAzi && <span className={cn('ml-1 rounded px-1 text-[10px] font-bold uppercase', zi === z ? 'bg-white/20' : 'bg-red-100 text-red-700')}>azi</span>}
+          </Chip>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        {instructori.length > 1 && (
+          <div className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1">
+            <FiltruPoza activ={!instructor} eticheta="Toți" onClick={() => setInstructor('')}>
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white ring-1 ring-slate-200">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/logo-dansatori.png" alt="" className="h-9 w-9" />
+              </span>
+            </FiltruPoza>
+            {instructori.map(i => {
+              const p = poza(i.cheie)
+              return (
+                <FiltruPoza key={i.cheie} activ={instructor === i.cheie} eticheta={i.nume} onClick={() => setInstructor(instructor === i.cheie ? '' : i.cheie)}>
+                  <Avatar avatar={p?.avatar} nume={p?.nume ?? i.nume} className="h-12 w-12 text-sm" />
+                </FiltruPoza>
+              )
+            })}
           </div>
-
-          {/* Instructor */}
-          <Select value={filterInstructor} onValueChange={setFilterInstructor}>
-            <SelectTrigger className="w-full sm:w-44 h-9 text-sm bg-white border-slate-200">
-              <SelectValue placeholder="Instructor" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toți instructorii</SelectItem>
-              {instructori.map((i) => (
-                <SelectItem key={i} value={i}>{i}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Stil */}
-          <Select value={filterStil} onValueChange={setFilterStil}>
-            <SelectTrigger className="w-full sm:w-44 h-9 text-sm bg-white border-slate-200">
-              <SelectValue placeholder="Stil" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toate stilurile</SelectItem>
-              {stiluri.map((s) => (
-                <SelectItem key={s} value={s}>{s}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Zi */}
-          <Select value={filterZi} onValueChange={setFilterZi}>
-            <SelectTrigger className="w-full sm:w-36 h-9 text-sm bg-white border-slate-200">
-              <SelectValue placeholder="Zi" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toate zilele</SelectItem>
-              {zile.map((z) => (
-                <SelectItem key={z} value={z}>{z}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Vizibilitate */}
-          <Select value={filterVizibilitate} onValueChange={setFilterVizibilitate}>
-            <SelectTrigger className="w-full sm:w-36 h-9 text-sm bg-white border-slate-200">
-              <SelectValue placeholder="Vizibilitate" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toate</SelectItem>
-              <SelectItem value="publica">Publice</SelectItem>
-              <SelectItem value="privata">Private</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Active filter chips + counter */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs text-slate-500">
-              {processed.length} din {grupe.length} grupe
-            </span>
-            {activeFilters.map((f, i) => (
-              <button
-                key={i}
-                onClick={f.clear}
-                className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-xs transition-colors"
-              >
-                {f.label}
-                <X className="h-3 w-3" />
-              </button>
-            ))}
-            {activeFilters.length > 1 && (
-              <button
-                onClick={clearAll}
-                className="text-xs text-red-500 hover:text-red-700 underline"
-              >
-                Șterge toate
-              </button>
-            )}
-          </div>
+        )}
+        <div className="flex flex-wrap gap-2">
+          <Chip activ={vizibil === 'toate'} onClick={() => setVizibil('toate')}>
+            Toate <span className="opacity-60">{grupe.length}</span>
+          </Chip>
+          <Chip activ={vizibil === 'site'} onClick={() => setVizibil('site')}>
+            Pe site <span className="opacity-60">{nrSite}</span>
+          </Chip>
+          <Chip activ={vizibil === 'interne'} onClick={() => setVizibil('interne')}>
+            Doar interne <span className="opacity-60">{grupe.length - nrSite}</span>
+          </Chip>
         </div>
       </div>
 
-      {/* ── Tabel ─────────────────────────────────────────────────────────── */}
-      {processed.length === 0 ? (
-        <div className="text-center py-16 text-slate-400">
-          <Search className="h-8 w-8 mx-auto mb-3 opacity-40" />
-          <p className="text-sm">Nicio grupă nu corespunde filtrelor aplicate.</p>
-          <button onClick={clearAll} className="mt-2 text-xs text-red-500 hover:underline">
-            Resetează filtrele
-          </button>
-        </div>
+      {lista.length === 0 ? (
+        <p className="rounded-2xl border border-dashed border-slate-200 py-10 text-center text-sm text-slate-500">Nicio grupă pentru filtrele alese.</p>
       ) : (
-        <div className="border border-slate-200 rounded-xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                {/* Titlu */}
-                <th className="text-left px-4 py-3 font-medium text-slate-600">
-                  <button
-                    onClick={() => handleSort("titlu")}
-                    className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-                  >
-                    Grupă <SortIcon field="titlu" />
-                  </button>
-                </th>
-                {/* Data */}
-                <th className="text-left px-4 py-3 font-medium text-slate-600 hidden md:table-cell">
-                  <button
-                    onClick={() => handleSort("dataStart")}
-                    className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-                  >
-                    Start <SortIcon field="dataStart" />
-                  </button>
-                </th>
-                {/* Program */}
-                <th className="text-left px-4 py-3 font-medium text-slate-600 hidden lg:table-cell">
-                  Program
-                </th>
-                {/* Locuri */}
-                <th className="text-left px-4 py-3 font-medium text-slate-600">
-                  <button
-                    onClick={() => handleSort("locuriDisponibile")}
-                    className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-                  >
-                    Locuri <SortIcon field="locuriDisponibile" />
-                  </button>
-                </th>
-                {/* Ocupare */}
-                <th className="text-left px-4 py-3 font-medium text-slate-600 hidden sm:table-cell">
-                  <button
-                    onClick={() => handleSort("ocupare")}
-                    className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-                  >
-                    Ocupare <SortIcon field="ocupare" />
-                  </button>
-                </th>
-                {/* Vizibilitate */}
-                <th className="text-left px-4 py-3 font-medium text-slate-600">
-                  <button
-                    onClick={() => handleSort("publica")}
-                    className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-                  >
-                    Vizib. <SortIcon field="publica" />
-                  </button>
-                </th>
-                <th className="px-4 py-3" />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {processed.map((grupa) => {
-                const pct = ocuparePct(grupa)
-                const epuizat = grupa.locuriDisponibile === 0
-                return (
-                  <tr
-                    key={grupa.id}
-                    className="bg-white hover:bg-slate-50 transition-colors group"
-                  >
-                    {/* Grupă: titlu + stiluri + nivel + sala + instructor */}
-                    <td className="px-4 py-3">
-                      <p className="font-medium text-slate-900 leading-snug">{grupa.titlu}</p>
-                      <div className="flex flex-wrap items-center gap-1 mt-1">
-                        {(grupa.stiluri || []).map((s) => (
-                          <span
-                            key={s}
-                            className="px-1.5 py-0.5 text-[10px] font-medium bg-blue-50 text-blue-700 rounded"
-                          >
-                            {s}
-                          </span>
-                        ))}
-                        {grupa.nivel && (
-                          <span className="px-1.5 py-0.5 text-[10px] font-medium bg-violet-50 text-violet-700 rounded">
-                            {grupa.nivel}
-                          </span>
-                        )}
-                        {grupa.sala && (
-                          <span className="px-1.5 py-0.5 text-[10px] font-medium bg-slate-100 text-slate-600 rounded">
-                            {grupa.sala}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-                        <Users className="h-3 w-3" /> {grupa.instructor}
-                      </p>
-                    </td>
-
-                    {/* Data start */}
-                    <td className="px-4 py-3 text-slate-600 whitespace-nowrap hidden md:table-cell">
-                      <span className="flex items-center gap-1.5">
-                        <Calendar className="h-3.5 w-3.5 text-slate-400" />
-                        {formatDate(grupa.dataStart)}
-                      </span>
-                    </td>
-
-                    {/* Program (zile + ora) */}
-                    <td className="px-4 py-3 text-slate-500 text-xs hidden lg:table-cell">
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="h-3.5 w-3.5 text-slate-400 flex-shrink-0" />
-                        {grupa.program}
-                      </span>
-                    </td>
-
-                    {/* Locuri */}
-                    <td className="px-4 py-3">
-                      <span
-                        className={`font-semibold ${
-                          epuizat ? "text-red-600" : "text-emerald-600"
-                        }`}
-                      >
-                        {grupa.locuriDisponibile}
-                      </span>
-                      <span className="text-slate-400 text-xs"> / {grupa.locuriTotale}</span>
-                      {epuizat && (
-                        <span className="ml-1.5 px-1.5 py-0.5 text-[10px] font-medium bg-red-50 text-red-600 rounded">
-                          epuizat
+        <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3 [&>*]:min-w-0">
+          {lista.map(({ g, e }) => {
+            const ocupate = Math.max(0, g.locuriTotale - g.locuriDisponibile)
+            const pct = g.locuriTotale > 0 ? Math.round((ocupate / g.locuriTotale) * 100) : 0
+            const publica = g.publica !== false
+            return (
+              <section key={g.id} className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                <header className="flex items-start gap-3 bg-slate-50/70 px-4 py-3">
+                  <PozeGrupa g={e} />
+                  <div className="min-w-0 flex-1">
+                    <h2 className="line-clamp-2 font-bold leading-snug text-slate-900">{g.titlu}</h2>
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-xs text-slate-600">
+                      {g.zile.length > 0 && <span className="whitespace-nowrap font-medium">{g.zile.join(', ')}</span>}
+                      {e.ora && (
+                        <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                          <Clock className="h-3 w-3" />
+                          {e.ora}
                         </span>
                       )}
-                    </td>
-
-                    {/* Ocupare bar */}
-                    <td className="px-4 py-3 hidden sm:table-cell">
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full rounded-full transition-all ${
-                              pct >= 90 ? "bg-red-500" : pct >= 60 ? "bg-orange-400" : "bg-emerald-500"
-                            }`}
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                        <span className="text-xs text-slate-500 w-8">{pct}%</span>
-                      </div>
-                    </td>
-
-                    {/* Vizibilitate */}
-                    <td className="px-4 py-3">
-                      {grupa.publica !== false ? (
-                        <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1 font-normal text-xs">
-                          <Eye className="h-3 w-3" /> Publică
-                        </Badge>
-                      ) : (
-                        <Badge variant="outline" className="bg-slate-50 text-slate-500 border-slate-200 gap-1 font-normal text-xs">
-                          <EyeOff className="h-3 w-3" /> Privată
-                        </Badge>
+                      {g.sala && (
+                        <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                          <MapPin className="h-3 w-3" />
+                          {g.sala}
+                        </span>
                       )}
-                    </td>
+                      {g.instructor && <span className="whitespace-nowrap">{g.instructor}</span>}
+                    </p>
+                  </div>
+                  <span
+                    className={cn(
+                      'inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold',
+                      publica ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600',
+                    )}
+                    title={publica ? 'Apare pe site (grupe în formare)' : 'Nu apare în „grupe în formare”'}
+                  >
+                    {publica ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                    {publica ? 'Pe site' : 'Internă'}
+                  </span>
+                </header>
 
-                    {/* Acțiuni */}
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {onManageCursanti && (
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50"
-                            onClick={() => onManageCursanti(grupa)}
-                            title="Gestionează cursanți"
-                          >
-                            <Users className="h-3.5 w-3.5" />
-                          </Button>
-                        )}
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-slate-500 hover:text-slate-900 hover:bg-slate-100"
-                          onClick={() => onEdit(grupa)}
-                          title="Editează"
-                        >
-                          <Edit className="h-3.5 w-3.5" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50"
-                          onClick={() => { setGrupaToDelete(grupa.id!); setDeleteDialogOpen(true) }}
-                          title="Șterge"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </Button>
+                <div className="flex-1 space-y-3 px-4 py-3">
+                  {(g.nivel || g.stiluri?.length > 0) && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {g.nivel && <span className="rounded-full bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-800">{g.nivel}</span>}
+                      {g.stiluri?.map(s => (
+                        <span key={s} className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-700">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {g.descriere && <p className="line-clamp-2 text-sm text-slate-600">{g.descriere}</p>}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+                    {g.dataStart && (
+                      <span className="inline-flex items-center gap-1">
+                        <CalendarDays className="h-3.5 w-3.5" /> din {new Date(g.dataStart).toLocaleDateString('ro-RO', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </span>
+                    )}
+                  </div>
+                  {g.locuriTotale > 0 && (
+                    <div>
+                      <div className="mb-1 flex justify-between text-xs">
+                        <span className="text-slate-500">Locuri ocupate</span>
+                        <span className={cn('font-semibold', g.locuriDisponibile === 0 ? 'text-red-600' : 'text-slate-700')}>
+                          {ocupate}/{g.locuriTotale} · {g.locuriDisponibile === 0 ? 'complet' : `${g.locuriDisponibile} libere`}
+                        </span>
                       </div>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+                      <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                        <div className={cn('h-full rounded-full', pct >= 100 ? 'bg-red-500' : pct >= 80 ? 'bg-amber-400' : 'bg-emerald-500')} style={{ width: `${Math.min(100, pct)}%` }} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <footer className="flex items-center gap-1.5 border-t border-slate-100 px-3 py-2">
+                  <Button variant="ghost" size="sm" className="h-9 text-red-600 hover:bg-red-50 hover:text-red-700" onClick={() => setDeSters(g)} aria-label={`Șterge ${g.titlu}`}>
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                  <Button variant="outline" size="sm" className="ml-auto h-9" asChild>
+                    <Link href={`/admin/evidenta/grupe/${g.id}`}>
+                      <Users className="mr-1.5 h-4 w-4" /> Cursanți
+                    </Link>
+                  </Button>
+                  <Button variant="brand" size="sm" className="h-9" onClick={() => onEdit(g)}>
+                    <Edit className="mr-1.5 h-4 w-4" /> Editează
+                  </Button>
+                </footer>
+              </section>
+            )
+          })}
         </div>
       )}
 
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+      <AlertDialog open={!!deSters} onOpenChange={o => !o && setDeSters(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Ștergi această grupă?</AlertDialogTitle>
+            <AlertDialogTitle>Ștergi grupa „{deSters?.titlu}”?</AlertDialogTitle>
             <AlertDialogDescription>
-              Acțiunea este ireversibilă. Toți cursanții asociați vor pierde accesul la grupă.
+              Dispare de pe site și din evidență. Prezențele și abonamentele cursanților rămân, dar nu vor mai fi legate de o grupă existentă.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Anulează</AlertDialogCancel>
+            <AlertDialogCancel>Renunță</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => {
-                if (grupaToDelete) {
-                  onDelete(grupaToDelete)
-                  setDeleteDialogOpen(false)
-                  setGrupaToDelete(null)
-                }
-              }}
               className="bg-red-600 hover:bg-red-700"
+              onClick={() => {
+                if (deSters?.id) onDelete(deSters.id)
+                setDeSters(null)
+              }}
             >
               Șterge
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </div>
   )
 }

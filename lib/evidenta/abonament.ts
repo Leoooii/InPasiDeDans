@@ -187,3 +187,10 @@ export function avertizari(abonamente: Abonament[], ziua = azi()): IntrareJurnal
   }
   return rez;
 }
+
+/** Tipul pentru „Reînnoiește”: același ca ultimul abonament (după tarif, altfel după nume). */
+export function tipPentruReinnoire(abonamente: Abonament[], tipuri: TipAbonament[]): TipAbonament | null {
+  const ultim = abonamente.filter(a => !a.anulat).sort((a, b) => b.createdAt - a.createdAt)[0];
+  if (!ultim) return null;
+  return tipuri.find(t => t.tarifId === ultim.tarifId) ?? tipuri.find(t => t.tip === ultim.tip && t.categorie === ultim.categorie) ?? null;
+}

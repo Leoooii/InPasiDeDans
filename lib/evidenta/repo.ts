@@ -19,9 +19,10 @@ import {
   type QueryConstraint,
   type WriteBatch,
 } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { acoperaZiua, alegeAbonament, laSedintaNoua, perioada, type TipAbonament } from './abonament';
 import { adaugaZile, azi, dataScurta, ziuaDin } from './date';
+import { actualizeazaContPublic, scrieContPublic } from './conturi-publice';
 import type {
   Abonament,
   Actor,
@@ -67,6 +68,8 @@ export async function incarcaGrupe(): Promise<GrupaEvidenta[]> {
         zile: Array.isArray(g.zile) ? (g.zile as string[]) : [],
         ora,
         publica: g.publica === true,
+        sala: g.sala ? String(g.sala) : undefined,
+        nivel: g.nivel ? String(g.nivel) : undefined,
       };
     })
     .sort((a, b) => a.ora.localeCompare(b.ora) || a.titlu.localeCompare(b.titlu, 'ro'));
@@ -171,13 +174,13 @@ export async function creeazaCursant(
 
 export async function actualizeazaCursant(
   c: Cursant,
-  modif: Partial<Pick<Cursant, 'nume' | 'telefon' | 'email' | 'observatii'>>,
+  modif: Partial<Pick<Cursant, 'nume' | 'telefon' | 'email' | 'observatii' | 'avatar'>>,
   actor: Actor,
 ) {
   const b = writeBatch(db);
   b.update(doc(db, 'cursanti', c.id), modif);
   const campuri = Object.keys(modif)
-    .map(k => ({ nume: 'nume', telefon: 'telefon', email: 'email', observatii: 'observații' })[k as 'nume'])
+    .map(k => ({ nume: 'nume', telefon: 'telefon', email: 'email', observatii: 'observații', avatar: 'avatar' })[k as 'nume'])
     .join(', ');
   jurnal(b, actor, 'cursant_modificat', `${c.nume}: modificat ${campuri}`, { cursantId: c.id });
   await b.commit();
@@ -389,7 +392,10 @@ const MESAJE_AUTH: Record<string, string> = {
  * Creează contul prin REST (Identity Toolkit), nu prin SDK: createUserWithEmailAndPassword
  * ar autentifica noul cont în locul adminului.
  */
-export async function creeazaContInstructor(date: { nume: string; email: string; parola: string; grupe: string[] }, actor: Actor) {
+export async function creeazaContInstructor(
+  date: { nume: string; email: string; parola: string; grupe: string[]; avatar?: string },
+  actor: Actor,
+) {
   const res = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`,
     {
@@ -407,9 +413,18 @@ export async function creeazaContInstructor(date: { nume: string; email: string;
   await setDoc(doc(db, 'conturiInstructori', uid), {
     nume: date.nume.trim(),
     email: date.email.trim().toLowerCase(),
+    avatar: date.avatar ?? '',
     grupe: date.grupe,
     activ: true,
     createdAt: Date.now(),
+  });
+  await scrieContPublic({
+    uid,
+    nume: date.nume.trim(),
+    avatar: date.avatar ?? '',
+    email: date.email.trim().toLowerCase(),
+    rol: 'instructor',
+    activ: true,
   });
   const b = writeBatch(db);
   jurnal(b, actor, 'cont_instructor', `Cont de instructor creat: ${date.nume.trim()} (${date.email.trim()})`);
@@ -419,7 +434,7 @@ export async function creeazaContInstructor(date: { nume: string; email: string;
 
 export async function actualizeazaCont(
   cont: ContInstructor,
-  modif: Partial<Pick<ContInstructor, 'nume' | 'grupe' | 'activ'>>,
+  modif: Partial<Pick<ContInstructor, 'nume' | 'grupe' | 'activ' | 'avatar'>>,
   actor: Actor,
   grupe: GrupaEvidenta[],
 ) {
@@ -432,8 +447,17 @@ export async function actualizeazaCont(
     parti.push(`grupe: ${titluri.join(', ') || 'niciuna'}`);
   }
   if (modif.nume) parti.push(`nume: ${modif.nume}`);
+  if (modif.avatar !== undefined) parti.push('avatar schimbat');
   jurnal(b, actor, 'cont_instructor', `Cont ${cont.nume}: ${parti.join('; ')}`);
   await b.commit();
+  await scrieContPublic({
+    uid: cont.uid,
+    nume: modif.nume ?? cont.nume,
+    avatar: modif.avatar ?? cont.avatar ?? '',
+    email: cont.email,
+    rol: 'instructor',
+    activ: modif.activ ?? cont.activ,
+  });
 }
 
 // ── Migrarea din formatul vechi (abonamente/prezențe ca liste în documentul cursantului) ──
@@ -521,4 +545,24 @@ export async function migreazaDateVechi(actor: Actor, grupe: GrupaEvidenta[]) {
   jurnal(b, actor, 'cursant_modificat', `Date mutate din evidența veche: ${nrC} cursanți, ${nrAb} abonamente, ${nrPr} prezențe`);
   await b.commit();
   return { cursanti: nrC, abonamente: nrAb, prezente: nrPr };
+}
+
+/**
+ * „Parolă nouă” pentru un instructor (adresele @inpasidedans.ro nu primesc emailuri):
+ * o setează serverul, cu contul de serviciu Firebase (/api/admin/parola-instructor).
+ */
+export async function parolaNouaInstructor(cont: ContInstructor, parola: string, actor: Actor) {
+  const idToken = await auth.currentUser?.getIdToken();
+  const res = await fetch('/api/admin/parola-instructor', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${idToken}` },
+    body: JSON.stringify({ uid: cont.uid, parola }),
+  });
+  if (!res.ok) {
+    const j = await res.json().catch(() => ({}));
+    throw new Error(j.error ?? 'Parola nu a putut fi schimbată.');
+  }
+  const b = writeBatch(db);
+  jurnal(b, actor, 'cont_instructor', `Parolă nouă pentru ${cont.nume}`);
+  await b.commit();
 }

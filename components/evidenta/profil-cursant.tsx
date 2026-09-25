@@ -3,15 +3,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Archive, ArrowLeft, CreditCard, Loader2, Mail, Pencil, Phone, Plus, Trash2, X } from 'lucide-react';
+import { Archive, ArrowLeft, CreditCard, Loader2, Mail, Pencil, Phone, Plus, RefreshCw, Trash2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useSimpleToast } from '@/components/simple-toast-provider';
-import { avertizari, ramase, ultimaZi } from '@/lib/evidenta/abonament';
-import { azi, dataScurta, lunaAn, oraDin, ziuaDin } from '@/lib/evidenta/date';
+import { avertizari, perioada, ramase, tipPentruReinnoire, ultimaZi } from '@/lib/evidenta/abonament';
+import { statisticaPrezenta } from '@/lib/evidenta/statistici';
+import { adaugaZile, azi, dataScurta, lunaAn, oraDin, ziuaDin } from '@/lib/evidenta/date';
 import {
   actualizeazaCursant,
   anuleazaAbonament,
@@ -21,20 +22,26 @@ import {
   incarcaPrezente,
   schimbaGrupa,
   stergeCursant,
+  vindeAbonament,
 } from '@/lib/evidenta/repo';
 import type { Abonament, Cursant, IntrareJurnal, Prezenta } from '@/lib/evidenta/tipuri';
 import { cn } from '@/lib/utils';
 import { useEvidenta } from './context';
 import { DialogAbonament } from './dialog-abonament';
 import { ExportRapid } from './export-rapid';
-import { Gol, Incarcare, Initiale, Panou, StatusBadge } from './ui';
+import { Gol, Incarcare, Panou, StatusBadge } from './ui';
+import { AlegeAvatar, Avatar } from './avatar';
+import { AlegeGrupa } from './alege-grupa';
+import { ButonWhatsapp } from './buton-whatsapp';
 
 export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
   const ev = useEvidenta();
-  const { cursanti, status, abonamenteCursant, grupa: grupaDupaId, grupe, esteAdmin, actor, reincarca, loading } = ev;
+  const { cursanti, status, abonamenteCursant, grupa: grupaDupaId, grupe, esteAdmin, actor, reincarca, loading, tipuri } = ev;
   const { showToast } = useSimpleToast();
   const router = useRouter();
   const [prezente, setPrezente] = useState<Prezenta[] | null>(null);
+  // prezențele grupelor lui (ședințele ținute), pentru procentul de prezență
+  const [prezenteGrupe, setPrezenteGrupe] = useState<Prezenta[]>([]);
   const [jurnal, setJurnal] = useState<IntrareJurnal[]>([]);
   const [dialogAbonament, setDialogAbonament] = useState(false);
   const [editez, setEditez] = useState(false);
@@ -49,11 +56,17 @@ export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
       const [p, j] = await Promise.all([incarcaPrezente({ cursantId: id }), esteAdmin ? incarcaJurnal(1000) : Promise.resolve([])]);
       setPrezente(p);
       setJurnal(j.filter(x => x.cursantId === id));
+      const c = cursanti.find(x => x.id === id);
+      if (c?.grupe.length) {
+        const deLa = adaugaZile(azi(), -60);
+        const toate = await Promise.all(c.grupe.map(g => incarcaPrezente({ grupaId: g, deLa })));
+        setPrezenteGrupe(toate.flat());
+      }
     } catch (e) {
       console.error(e);
       setPrezente([]);
     }
-  }, [id, esteAdmin]);
+  }, [id, esteAdmin, cursanti]);
 
   useEffect(() => {
     void incarca();
@@ -84,6 +97,24 @@ export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
 
   const st = status(id);
   const curent = st.abonament;
+  const reinnoire = tipPentruReinnoire(abonamente, tipuri);
+  const reinnoieste = async () => {
+    if (!reinnoire) return;
+    const per = perioada(reinnoire, azi());
+    const text = per.dataStart
+      ? `${dataScurta(per.dataStart)} – ${dataScurta(adaugaZile(per.dataExpirare!, -1))}`
+      : 'de la prima ședință';
+    if (!confirm(`Reînnoiești ${reinnoire.tip} (${reinnoire.pret} lei) pentru ${cursant.nume}, ${text}?`)) return;
+    await dupa(() => vindeAbonament(cursant, reinnoire, azi(), actor), 'Abonament reînnoit.');
+  };
+  const azii = azi();
+  // ședințele grupelor lui + prezențele lui (inclusiv recuperări), fără dubluri
+  const toatePrezentele = [...new Map([...prezenteGrupe, ...(prezente ?? [])].map(p => [p.id, p])).values()];
+  const statistica = {
+    luna: statisticaPrezenta(toatePrezentele, id, cursant.grupe, adaugaZile(azii, -30), azii),
+    abonament:
+      curent?.dataStart && curent.dataStart <= azii ? statisticaPrezenta(toatePrezentele, id, cursant.grupe, curent.dataStart, azii) : null,
+  };
   const poateModificaPrezenta = (p: Prezenta) => esteAdmin || grupe.some(g => g.id === p.grupaId);
   const dupa = async (fn: () => Promise<unknown>, ok: string) => {
     setLucrez(true);
@@ -101,13 +132,17 @@ export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
 
   return (
     <div className="mx-auto max-w-5xl space-y-4">
-      <Link href={inapoi} className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900">
-        <ArrowLeft className="h-4 w-4" /> Toți cursanții
-      </Link>
+      <button
+        type="button"
+        onClick={() => (window.history.length > 1 ? router.back() : router.push(inapoi))}
+        className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900"
+      >
+        <ArrowLeft className="h-4 w-4" /> Înapoi
+      </button>
 
       {/* Antet */}
       <div className="flex flex-wrap items-start gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-        <Initiale nume={cursant.nume} className="h-14 w-14 text-lg" />
+        <Avatar avatar={cursant.avatar} nume={cursant.nume} className="h-14 w-14 text-lg" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-xl font-bold text-slate-900">{cursant.nume}</h1>
@@ -128,20 +163,30 @@ export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
           </div>
           {cursant.observatii && <p className="mt-2 text-sm text-slate-600">{cursant.observatii}</p>}
         </div>
-        <Button variant="outline" size="sm" className="h-9" onClick={() => setEditez(true)}>
-          <Pencil className="mr-1.5 h-4 w-4" /> Editează
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <ButonWhatsapp cursant={cursant} status={st} />
+          <Button variant="outline" size="sm" className="h-9" onClick={() => setEditez(true)}>
+            <Pencil className="mr-1.5 h-4 w-4" /> Editează
+          </Button>
+        </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] [&>*]:min-w-0">
         <div className="space-y-4">
           {/* Abonament curent */}
           <Panou
             titlu="Abonament"
             actiune={
-              <Button variant="brand" size="sm" className="h-9" onClick={() => setDialogAbonament(true)}>
-                <CreditCard className="mr-1.5 h-4 w-4" /> Abonament nou
-              </Button>
+              <div className="flex flex-wrap justify-end gap-2">
+                {reinnoire && ['expirat', 'epuizat', 'la_limita'].includes(st.cod) && (
+                  <Button variant="brand" size="sm" className="h-9" disabled={lucrez} onClick={reinnoieste}>
+                    <RefreshCw className="mr-1.5 h-4 w-4" /> Reînnoiește
+                  </Button>
+                )}
+                <Button variant="outline" size="sm" className="h-9" onClick={() => setDialogAbonament(true)}>
+                  <CreditCard className="mr-1.5 h-4 w-4" /> Abonament nou
+                </Button>
+              </div>
             }
           >
             <div className="flex flex-wrap items-center gap-2">
@@ -165,6 +210,30 @@ export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
               </div>
             )}
           </Panou>
+
+          {statistica.luna.tinute > 0 && (
+            <Panou titlu="Cât de des vine">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { t: 'Ultimele 30 de zile', s: statistica.luna },
+                  ...(statistica.abonament ? [{ t: `Abonamentul curent (${curent?.tip})`, s: statistica.abonament }] : []),
+                ].map(({ t, s }) => (
+                  <div key={t} className="rounded-xl bg-slate-50 p-3">
+                    <p className="text-xs text-slate-500">{t}</p>
+                    <p className="mt-1 text-lg font-bold text-slate-900">
+                      {s.venit} din {s.tinute} ședințe
+                      {s.procent !== null && (
+                        <span className={cn('ml-2 text-sm font-semibold', s.procent >= 75 ? 'text-emerald-600' : s.procent >= 50 ? 'text-amber-600' : 'text-red-600')}>
+                          {s.procent}%
+                        </span>
+                      )}
+                    </p>
+                    {s.recuperari > 0 && <p className="text-xs text-slate-500">+ {s.recuperari} la recuperare, în alte grupe</p>}
+                  </div>
+                ))}
+              </div>
+            </Panou>
+          )}
 
           {/* Prezențe */}
           <Panou titlu={`Prezențe${prezente ? ` (${prezente.length})` : ''}`} actiune={esteAdmin ? <ExportRapid tip="cursant" id={id} /> : undefined}>
@@ -244,26 +313,13 @@ export function ProfilCursant({ id, inapoi }: { id: string; inapoi: string }) {
             }
           >
             {adaugGrupa && (
-              <select
-                className="mb-3 h-11 w-full rounded-md border border-input bg-white px-3 text-sm"
-                defaultValue=""
-                onChange={e => {
-                  const g = grupaDupaId(e.target.value);
-                  if (g) void dupa(() => schimbaGrupa(cursant, g, true, actor), `Adăugat în ${g.titlu}.`).then(() => setAdaugGrupa(false));
-                }}
-              >
-                <option value="" disabled>
-                  Alege grupa
-                </option>
-                {grupe
-                  .filter(g => !cursant.grupe.includes(g.id))
-                  .map(g => (
-                    <option key={g.id} value={g.id}>
-                      {g.titlu}
-                      {g.zile.length ? ` · ${g.zile.join(', ')}` : ''} {g.ora}
-                    </option>
-                  ))}
-              </select>
+              <div className="mb-3">
+                <AlegeGrupa
+                  grupe={grupe}
+                  exclude={cursant.grupe}
+                  onAlege={g => void dupa(() => schimbaGrupa(cursant, g, true, actor), `Adăugat în ${g.titlu}.`).then(() => setAdaugGrupa(false))}
+                />
+              </div>
             )}
             {cursant.grupe.length === 0 ? (
               <p className="text-sm text-slate-500">Nu e în nicio grupă.</p>
@@ -416,11 +472,12 @@ function DialogEditare({
 }) {
   const { actor, reincarca } = useEvidenta();
   const { showToast } = useSimpleToast();
-  const [f, setF] = useState({ nume: '', telefon: '', email: '', observatii: '' });
+  const [f, setF] = useState({ nume: '', telefon: '', email: '', observatii: '', avatar: '' });
   const [salvez, setSalvez] = useState(false);
 
   useEffect(() => {
-    if (deschis) setF({ nume: cursant.nume, telefon: cursant.telefon ?? '', email: cursant.email ?? '', observatii: cursant.observatii ?? '' });
+    if (deschis)
+      setF({ nume: cursant.nume, telefon: cursant.telefon ?? '', email: cursant.email ?? '', observatii: cursant.observatii ?? '', avatar: cursant.avatar ?? '' });
   }, [deschis, cursant]);
 
   const salveaza = async () => {
@@ -448,7 +505,7 @@ function DialogEditare({
 
   return (
     <Dialog open={deschis} onOpenChange={o => !o && onInchide()}>
-      <DialogContent className="w-[calc(100vw-1.5rem)] overflow-x-hidden rounded-2xl [&>*]:min-w-0 sm:max-w-md">
+      <DialogContent className="max-h-[90svh] w-[calc(100vw-1.5rem)] overflow-y-auto overflow-x-hidden rounded-2xl [&>*]:min-w-0 sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Editează datele</DialogTitle>
         </DialogHeader>
@@ -461,6 +518,12 @@ function DialogEditare({
               <Input id={`e-${k}`} className="mt-1.5 h-11" value={f[k]} onChange={e => setF({ ...f, [k]: e.target.value })} />
             </div>
           ))}
+          <div>
+            <Label>Avatar</Label>
+            <div className="mt-1.5 rounded-xl border border-slate-200 p-3">
+              <AlegeAvatar valoare={f.avatar} nume={f.nume} onChange={avatar => setF({ ...f, avatar })} doarIlustratii />
+            </div>
+          </div>
           <div>
             <Label htmlFor="e-obs">Observații</Label>
             <Textarea id="e-obs" rows={3} className="mt-1.5" value={f.observatii} onChange={e => setF({ ...f, observatii: e.target.value })} />

@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useSimpleToast } from '@/components/simple-toast-provider'
+import { CursantDinInscriere } from '@/components/evidenta/din-inscriere'
 import { ChevronDown, ClipboardList, Download, MessageSquare, Loader2, Mail, Phone, RotateCcw, Search, Trash2 } from 'lucide-react'
 
 type Sursa = 'inscriere' | 'contact' | 'latino'
@@ -33,6 +34,7 @@ interface Inscriere {
   grupaId: string
   status: Status
   createdAt: number
+  cursantId?: string
 }
 
 const SURSA_LABEL: Record<Sursa, string> = {
@@ -153,6 +155,9 @@ export default function InscrieriPage() {
       showToast('Statusul nu a putut fi salvat', 'error')
     }
   }
+
+  const marcheazaCursant = (id: string, cursantId: string) =>
+    setInscrieri(prev => prev.map(i => (i.id === id ? { ...i, status: 'inscris', cursantId } : i)))
 
   const handleDelete = async (i: Inscriere) => {
     if (!confirm(`Ștergi definitiv înscrierea lui ${i.name}?`)) return
@@ -373,7 +378,10 @@ export default function InscrieriPage() {
                       </td>
                       <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{SURSA_LABEL[i.sursa] ?? i.sursa}</td>
                       <td className="px-4 py-3" onClick={e => e.stopPropagation()}>
-                        <StatusSelect i={i} />
+                        <div className="flex flex-col items-start gap-1.5">
+                          <StatusSelect i={i} />
+                          {i.tip !== 'mesaj' && <CursantDinInscriere i={i} onGata={id => marcheazaCursant(i.id, id)} />}
+                        </div>
                       </td>
                       <td className="px-4 py-3 text-right" onClick={e => e.stopPropagation()}>
                         <button
@@ -434,7 +442,10 @@ export default function InscrieriPage() {
                 {i.message && (
                   <p className="text-sm text-slate-600 bg-slate-50 rounded-lg p-3 whitespace-pre-line">{i.message}</p>
                 )}
-                <StatusSelect i={i} />
+                <div className="flex flex-wrap items-center gap-2">
+                  <StatusSelect i={i} />
+                  {i.tip !== 'mesaj' && <CursantDinInscriere i={i} onGata={id => marcheazaCursant(i.id, id)} />}
+                </div>
               </div>
             ))}
           </div>

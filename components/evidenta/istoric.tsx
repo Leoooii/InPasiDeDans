@@ -103,22 +103,22 @@ export function Istoric({ linkProfil }: { linkProfil: (id: string) => string }) 
 
   return (
     <div className="space-y-4">
-      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+      <div className="flex flex-wrap gap-2">
         {CATEGORII.map(c => (
           <Chip key={c.cod} activ={categorie === c.cod} onClick={() => setCategorie(c.cod)}>
             {c.eticheta}
           </Chip>
         ))}
       </div>
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5 [&>*]:min-w-0">
         <Input placeholder="Caută (nume, grupă...)" className="h-10 bg-white lg:col-span-2" value={q} onChange={e => setQ(e.target.value)} />
-        <select className="h-10 rounded-md border border-input bg-white px-3 text-sm" value={autor} onChange={e => setAutor(e.target.value)}>
+        <select className="h-10 w-full min-w-0 rounded-md border border-input bg-white px-3 text-sm" value={autor} onChange={e => setAutor(e.target.value)}>
           <option value="">Oricine</option>
           {autori.map(a => (
             <option key={a}>{a}</option>
           ))}
         </select>
-        <select className="h-10 rounded-md border border-input bg-white px-3 text-sm" value={grupaId} onChange={e => setGrupaId(e.target.value)}>
+        <select className="h-10 w-full min-w-0 rounded-md border border-input bg-white px-3 text-sm" value={grupaId} onChange={e => setGrupaId(e.target.value)}>
           <option value="">Toate grupele</option>
           {grupe.map(g => (
             <option key={g.id} value={g.id}>
@@ -126,9 +126,9 @@ export function Istoric({ linkProfil }: { linkProfil: (id: string) => string }) 
             </option>
           ))}
         </select>
-        <div className="flex gap-2">
-          <Input type="date" className="h-10 bg-white" value={deLa} onChange={e => setDeLa(e.target.value)} aria-label="De la" />
-          <Input type="date" className="h-10 bg-white" value={panaLa} onChange={e => setPanaLa(e.target.value)} aria-label="Până la" />
+        <div className="flex min-w-0 gap-2">
+          <Input type="date" className="h-10 min-w-0 bg-white" value={deLa} onChange={e => setDeLa(e.target.value)} aria-label="De la" />
+          <Input type="date" className="h-10 min-w-0 bg-white" value={panaLa} onChange={e => setPanaLa(e.target.value)} aria-label="Până la" />
         </div>
       </div>
 

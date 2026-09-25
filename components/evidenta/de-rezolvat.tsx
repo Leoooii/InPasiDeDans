@@ -7,6 +7,7 @@ import { dataScurta } from '@/lib/evidenta/date';
 import { incarcaPrezente } from '@/lib/evidenta/repo';
 import type { Prezenta } from '@/lib/evidenta/tipuri';
 import { useEvidenta } from './context';
+import { ButonWhatsapp } from './buton-whatsapp';
 
 /** Ce trebuie rezolvat: abonamente expirate/epuizate, la limită și ședințe fără abonament. */
 export function DeRezolvat({ linkProfil }: { linkProfil: (id: string) => string }) {
@@ -36,14 +37,18 @@ export function DeRezolvat({ linkProfil }: { linkProfil: (id: string) => string 
       <ul className="space-y-0.5">{children}</ul>
     </div>
   );
-  const Rand = ({ id, nume, detaliu }: { id: string; nume: string; detaliu: string }) => (
-    <li>
-      <Link href={linkProfil(id)} className="flex items-baseline gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-white">
-        <span className="font-medium text-slate-900">{nume}</span>
-        <span className="truncate text-xs text-slate-500">{detaliu}</span>
-      </Link>
-    </li>
-  );
+  const Rand = ({ id, nume, detaliu }: { id: string; nume: string; detaliu: string }) => {
+    const c = cursanti.find(x => x.id === id);
+    return (
+      <li className="flex items-center gap-1">
+        <Link href={linkProfil(id)} className="flex min-w-0 flex-1 items-baseline gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-white">
+          <span className="shrink-0 font-medium text-slate-900">{nume}</span>
+          <span className="truncate text-xs text-slate-500">{detaliu}</span>
+        </Link>
+        {c && <ButonWhatsapp cursant={c} status={status(id)} mic />}
+      </li>
+    );
+  };
 
   return (
     <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50/70">
@@ -52,9 +57,9 @@ export function DeRezolvat({ linkProfil }: { linkProfil: (id: string) => string 
         <span className="min-w-0 flex-1 text-sm text-amber-900">
           <strong>De rezolvat:</strong>{' '}
           {[
-            terminate.length && `${terminate.length} abonamente terminate`,
+            terminate.length && (terminate.length === 1 ? '1 abonament terminat' : `${terminate.length} abonamente terminate`),
             laLimita.length && `${laLimita.length} la limită`,
-            peCursant.size && `${peCursant.size} cursanți cu ședințe fără abonament`,
+            peCursant.size && (peCursant.size === 1 ? '1 cursant cu ședințe fără abonament' : `${peCursant.size} cursanți cu ședințe fără abonament`),
           ]
             .filter(Boolean)
             .join(' · ')}

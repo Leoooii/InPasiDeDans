@@ -51,7 +51,8 @@ Slug-uri generate cu [lib/slug.ts](lib/slug.ts) (curăță diacritice + asigură
 Istoric modificări și pași rămași: [docs/jurnal-modificari.md](docs/jurnal-modificari.md).
 
 ## Evidență cursanți (abonamente + prezență)
-- Admin: `/admin/evidenta` (prezență, cursanți, istoric, conturi instructori, export). Portal instructori: `/instructor` (login separat, vede doar grupele atribuite în `conturiInstructori/{uid}.grupe`).
+- Admin: `/admin/evidenta` (prezență, cursanți, istoric, conturi instructori, export). Portal instructori: `/instructor` (vede doar grupele atribuite în `conturiInstructori/{uid}.grupe`).
+- Intrare unică pentru admin și instructori: `/panou` (alegi profilul, scrii parola). Lista vine din colecția `conturiPublice` (citire publică: nume, avatar, email, rol), sincronizată la crearea/editarea conturilor și la deschiderea „Conturi instructori”. `/admin/login` și `/instructor/login` redirecționează acolo.
 - Logica e în [lib/evidenta/](lib/evidenta/): `abonament.ts` (reguli: 4 săptămâni = start + 28 zile, Full Pass pornește la prima ședință, status), `repo.ts` (toate scrierile Firestore + intrare în `jurnal` în același batch), `export.ts` (PDF/Excel/CSV/backup). UI comun în [components/evidenta/](components/evidenta/).
 - Colecții: `cursanti` (câmpul `grupe` = id-uri din colecția `grupe`, păstrat pentru tabul Grupe), `abonamente`, `prezente` (id `{grupaId}_{data}_{cursantId}`), `jurnal` (doar adăugare), `conturiInstructori`. Datele sunt șiruri `YYYY-MM-DD` în ora României (`azi()` din `lib/evidenta/date.ts`, nu `toISOString`).
 - Tipurile de abonament vin din `tarife` (categoriile grup + copii); pachetele private nu intră în evidență.

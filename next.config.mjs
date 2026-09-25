@@ -50,6 +50,12 @@ const nextConfig = {
     { source: '/admin/cursanti', destination: '/admin/evidenta/cursanti', permanent: false },
     { source: '/admin/abonamente', destination: '/admin/evidenta/cursanti', permanent: false },
     { source: '/admin/prezenta', destination: '/admin/evidenta', permanent: false },
+    // grupele sunt pagina principală a evidenței
+    { source: '/admin/evidenta/grupe', destination: '/admin/evidenta', permanent: false },
+    { source: '/instructor/grupe', destination: '/instructor', permanent: false },
+    // o singură pagină de intrare pentru admin și instructori
+    { source: '/admin/login', destination: '/panou', permanent: false },
+    { source: '/instructor/login', destination: '/panou', permanent: false },
   ],
   // Optimizăm politica de cache pentru resurse statice
   headers: async () => {

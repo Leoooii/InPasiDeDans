@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useSimpleToast } from '@/components/simple-toast-provider';
-import { perioada } from '@/lib/evidenta/abonament';
+import { perioada, tipPentruReinnoire } from '@/lib/evidenta/abonament';
 import { adaugaZile, azi, dataScurta, VALABILITATE_ZILE } from '@/lib/evidenta/date';
 import { vindeAbonament } from '@/lib/evidenta/repo';
 import type { Cursant } from '@/lib/evidenta/tipuri';
@@ -24,7 +24,7 @@ export function DialogAbonament({
   deschis: boolean;
   onInchide: () => void;
 }) {
-  const { tipuri, actor, esteAdmin, reincarca } = useEvidenta();
+  const { tipuri, actor, esteAdmin, reincarca, abonamenteCursant } = useEvidenta();
   const { showToast } = useSimpleToast();
   const [tarifId, setTarifId] = useState('');
   const [start, setStart] = useState(azi());
@@ -33,11 +33,12 @@ export function DialogAbonament({
 
   useEffect(() => {
     if (deschis) {
-      setTarifId('');
+      // reînnoire: pornește cu același tip ca ultimul abonament
+      setTarifId(cursant ? tipPentruReinnoire(abonamenteCursant(cursant.id), tipuri)?.tarifId ?? '' : '');
       setStart(azi());
       setExpirare('');
     }
-  }, [deschis]);
+  }, [deschis]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const tip = tipuri.find(t => t.tarifId === tarifId);
   const per = tip ? perioada(tip, start) : null;
@@ -111,7 +112,7 @@ export function DialogAbonament({
           )}
 
           {tip && tip.sedinteTotal !== null && (
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
               <div>
                 <Label htmlFor="ab-start">Începe pe</Label>
                 <Input

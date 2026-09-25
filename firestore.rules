@@ -87,7 +87,7 @@ service cloud.firestore {
       // pentru cursanții care sunt sau ajung într-una din grupele lui.
       allow update: if isAdmin()
                     || (isInstructor()
-                        && doarCampurile(['grupe', 'nume', 'telefon', 'email', 'observatii'])
+                        && doarCampurile(['grupe', 'nume', 'telefon', 'email', 'observatii', 'avatar'])
                         && (resource.data.grupe.hasAny(contInstructor().grupe)
                             || request.resource.data.grupe.hasAny(contInstructor().grupe))
                         && request.resource.data.grupe.toSet().difference(resource.data.grupe.toSet()).hasOnly(contInstructor().grupe)
@@ -125,9 +125,44 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // Avatarul poate fi o poză decupată (data URL, ~30 KB); limită de siguranță.
+    function avatarMic() {
+      return !('avatar' in request.resource.data) || request.resource.data.avatar.size() < 200000;
+    }
+
     match /conturiInstructori/{uid} {
       allow read: if isAdmin() || (isSignedIn() && request.auth.uid == uid);
+      allow create, update: if isAdmin() && avatarMic();
+      allow delete: if isAdmin();
+      // instructorul activ își schimbă singur numele și avatarul („Contul meu")
+      allow update: if isSignedIn() && request.auth.uid == uid
+                    && resource.data.activ == true
+                    && doarCampurile(['nume', 'avatar'])
+                    && avatarMic();
+    }
+
+    // Profilurile de pe pagina de intrare (/panou): nume, avatar, email, rol.
+    // Citire publică (cine intră își alege profilul înainte să fie logat).
+    match /conturiPublice/{uid} {
+      allow read: if true;
+      allow create, update: if isAdmin() && avatarMic();
+      allow delete: if isAdmin();
+      // proprietarul își actualizează numele și avatarul din „Contul meu"
+      allow update: if isSignedIn() && request.auth.uid == uid
+                    && doarCampurile(['nume', 'avatar'])
+                    && avatarMic();
+    }
+
+    // Setări comune ale evidenței (ex. textele mesajelor de WhatsApp)
+    match /setari/{docId} {
+      allow read: if isStaff();
       allow write: if isAdmin();
+    }
+
+    // Profilul adminului (nume afișat, avatar)
+    match /profiluri/{uid} {
+      allow read: if isAdmin() && request.auth.uid == uid;
+      allow create, update: if isAdmin() && request.auth.uid == uid && avatarMic();
     }
 
     // ===== Înscrieri din formularele site-ului =====

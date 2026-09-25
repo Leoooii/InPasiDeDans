@@ -10,7 +10,8 @@ import type { Cursant } from '@/lib/evidenta/tipuri';
 import { useEvidenta } from './context';
 import { DialogAbonament } from './dialog-abonament';
 import { DialogCursant, potrivire } from './dialog-cursant';
-import { Chip, Gol, Incarcare, Initiale, StatusBadge } from './ui';
+import { Chip, Gol, Incarcare, StatusBadge } from './ui';
+import { Avatar } from './avatar';
 
 const FILTRE: { cod: 'toate' | 'atentie' | CodStatus; eticheta: string }[] = [
   { cod: 'toate', eticheta: 'Toți' },
@@ -59,15 +60,15 @@ export function ListaCursanti({ linkProfil }: { linkProfil: (id: string) => stri
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <div className="relative flex-1">
+      <div className="flex min-w-0 flex-col gap-2 sm:flex-row">
+        <div className="relative min-w-0 flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <Input placeholder="Caută după nume" className="h-11 bg-white pl-9" value={q} onChange={e => setQ(e.target.value)} />
         </div>
         <select
           value={grupaId}
           onChange={e => setGrupaId(e.target.value)}
-          className="h-11 rounded-md border border-input bg-white px-3 text-sm sm:max-w-64"
+          className="h-11 w-full min-w-0 rounded-md border border-input bg-white px-3 text-sm sm:w-64"
           aria-label="Filtru grupă"
         >
           <option value="">Toate grupele</option>
@@ -85,7 +86,7 @@ export function ListaCursanti({ linkProfil }: { linkProfil: (id: string) => stri
         </Button>
       </div>
 
-      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+      <div className="flex flex-wrap gap-2">
         {FILTRE.map(f => (
           <Chip key={f.cod} activ={filtru === f.cod && !arhivati} onClick={() => { setFiltru(f.cod); setArhivati(false); }}>
             {f.eticheta} <span className="opacity-60">{numar(f.cod)}</span>
@@ -108,13 +109,13 @@ export function ListaCursanti({ linkProfil }: { linkProfil: (id: string) => stri
             return (
               <li key={c.id} className="flex items-center gap-3 px-3 py-2.5 sm:px-4">
                 <Link href={linkProfil(c.id)} className="flex min-w-0 flex-1 items-center gap-3">
-                  <Initiale nume={c.nume} className="hidden sm:flex" />
+                  <Avatar avatar={c.avatar} nume={c.nume} className="h-9 w-9 text-xs sm:h-10 sm:w-10" />
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-2">
                       <span className="truncate text-sm font-medium text-slate-900">{c.nume}</span>
                       <StatusBadge status={st} className="sm:hidden" />
                     </span>
-                    <span className="block truncate text-xs text-slate-500">
+                    <span className="line-clamp-2 text-xs text-slate-500 sm:line-clamp-1">
                       {st.detaliu}
                       {numeGrupe.length > 0 && <span className="hidden md:inline"> · {numeGrupe.join(', ')}</span>}
                     </span>

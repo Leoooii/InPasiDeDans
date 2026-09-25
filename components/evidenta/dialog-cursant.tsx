@@ -11,7 +11,9 @@ import { useSimpleToast } from '@/components/simple-toast-provider';
 import { creeazaCursant, schimbaGrupa } from '@/lib/evidenta/repo';
 import type { Cursant, GrupaEvidenta } from '@/lib/evidenta/tipuri';
 import { useEvidenta } from './context';
-import { Initiale, StatusBadge } from './ui';
+import { StatusBadge } from './ui';
+import { Avatar } from './avatar';
+import { AlegeGrupa } from './alege-grupa';
 
 const faraDiacritice = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 export const potrivire = (nume: string, q: string) => faraDiacritice(nume).includes(faraDiacritice(q.trim()));
@@ -26,12 +28,14 @@ export function DialogCursant({
   onInchide,
   grupa,
   titlu,
+  descriere,
   laAlegere,
 }: {
   deschis: boolean;
   onInchide: () => void;
   grupa?: GrupaEvidenta;
   titlu?: string;
+  descriere?: string;
   laAlegere?: (c: Cursant) => void;
 }) {
   const { cursanti, actor, toateGrupele, grupe: grupePermise, status, reincarca, esteAdmin } = useEvidenta();
@@ -104,7 +108,7 @@ export function DialogCursant({
         <DialogHeader>
           <DialogTitle>{titlu ?? (grupa ? `Adaugă în ${grupa.titlu}` : 'Cursant nou')}</DialogTitle>
           <DialogDescription>
-            {nou ? 'Completează datele cursantului.' : 'Caută mai întâi: poate e deja înregistrat.'}
+            {descriere ?? (nou ? 'Completează datele cursantului.' : 'Caută mai întâi: poate e deja înregistrat.')}
           </DialogDescription>
         </DialogHeader>
 
@@ -130,7 +134,7 @@ export function DialogCursant({
                       onClick={() => alege(c)}
                       className="flex w-full items-center gap-3 px-3 py-2.5 text-left hover:bg-slate-50"
                     >
-                      <Initiale nume={c.nume} className="h-9 w-9 text-xs" />
+                      <Avatar avatar={c.avatar} nume={c.nume} className="h-9 w-9 text-xs" />
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm font-medium text-slate-900">{c.nume}</span>
                         <span className="block truncate text-xs text-slate-500">
@@ -165,7 +169,7 @@ export function DialogCursant({
               <Label htmlFor="c-nume">Nume și prenume *</Label>
               <Input id="c-nume" className="mt-1.5 h-11" value={form.nume} onChange={e => setForm({ ...form, nume: e.target.value })} />
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
               <div>
                 <Label htmlFor="c-tel">Telefon</Label>
                 <Input
@@ -190,20 +194,30 @@ export function DialogCursant({
             {!grupa && !laAlegere && (
               <div>
                 <Label>Grupe{!esteAdmin && ' *'}</Label>
-                <div className="mt-1.5 flex max-h-40 flex-wrap gap-2 overflow-y-auto">
-                  {grupePermise.map(g => {
-                    const ales = grupeAlese.includes(g.id);
-                    return (
-                      <button
-                        key={g.id}
-                        type="button"
-                        onClick={() => setGrupeAlese(ales ? grupeAlese.filter(x => x !== g.id) : [...grupeAlese, g.id])}
-                        className={`rounded-full border px-3 py-1.5 text-xs ${ales ? 'border-red-500 bg-red-50 text-red-700' : 'border-slate-200 text-slate-700'}`}
-                      >
-                        {g.titlu} {g.zile.length > 0 && <span className="text-slate-400">· {g.zile.join(', ')}</span>}
-                      </button>
-                    );
-                  })}
+                <div className="mt-1.5 space-y-2">
+                  <AlegeGrupa grupe={grupePermise} exclude={grupeAlese} onAlege={g => setGrupeAlese([...grupeAlese, g.id])} />
+                  {grupeAlese.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {grupeAlese.map(id => {
+                        const g = toateGrupele.find(x => x.id === id);
+                        return (
+                          <span key={id} className="inline-flex max-w-full items-center gap-1 rounded-full border border-red-200 bg-red-50 py-1 pl-3 pr-1 text-xs text-red-800">
+                            <span className="truncate">
+                              {g?.titlu} {g?.zile.length ? `· ${g.zile.join(', ')}` : ''}
+                            </span>
+                            <button
+                              type="button"
+                              aria-label={`Scoate ${g?.titlu}`}
+                              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full hover:bg-red-100"
+                              onClick={() => setGrupeAlese(grupeAlese.filter(x => x !== id))}
+                            >
+                              ×
+                            </button>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
             )}

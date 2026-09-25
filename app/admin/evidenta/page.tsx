@@ -1,19 +1,24 @@
 'use client';
 
 import { DeRezolvat } from '@/components/evidenta/de-rezolvat';
+import { BannerGhid } from '@/components/evidenta/ghid';
+import { GrupeLista } from '@/components/evidenta/grupe-lista';
 import { MigrareDateVechi } from '@/components/evidenta/migrare';
-import { PrezentaGrupa } from '@/components/evidenta/prezenta-grupa';
-import { AntetPagina } from '@/components/evidenta/ui';
 
 const profil = (id: string) => `/admin/evidenta/cursanti/${id}`;
 
-export default function PrezentaAdmin() {
+export default function GrupeAdmin() {
   return (
     <>
-      <AntetPagina titlu="Prezență" descriere="Alege ziua și grupa, bifează cine a venit și salvează. Ședința se scade automat din abonament." />
+      <BannerGhid rol="admin" />
       <MigrareDateVechi />
       <DeRezolvat linkProfil={profil} />
-      <PrezentaGrupa linkProfil={profil} />
+      <GrupeLista
+        titlu="Grupe"
+        linkGrupa={id => `/admin/evidenta/grupe/${id}`}
+        linkProfil={profil}
+        linkPrezenta={id => `/admin/evidenta/prezenta?grupa=${id}`}
+      />
     </>
   );
 }

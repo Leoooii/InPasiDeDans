@@ -2,6 +2,8 @@
 
 import { ramase, statusCursant, ultimaZi } from './abonament';
 import { azi, dataScurta, oraDin } from './date';
+import { cheie, predaInstructorul } from './instructori-grupe';
+import { statisticaPrezenta } from './statistici';
 import { incarcaAbonamente, incarcaConturi, incarcaCursanti, incarcaGrupe, incarcaJurnal, incarcaPrezente } from './repo';
 import type { Abonament, Cursant, GrupaEvidenta, Prezenta } from './tipuri';
 
@@ -57,7 +59,7 @@ export async function construiesteRaport(f: FiltruRaport): Promise<Raport> {
 
   let grupeRaport: GrupaEvidenta[] = grupe;
   if (f.grupaId) grupeRaport = grupe.filter(g => g.id === f.grupaId);
-  if (f.instructor) grupeRaport = grupeRaport.filter(g => g.instructor.toLowerCase().includes(f.instructor!.toLowerCase()));
+  if (f.instructor) grupeRaport = grupeRaport.filter(g => predaInstructorul(g, cheie(f.instructor!)));
   const idGrupe = new Set(grupeRaport.map(g => g.id));
   const filtruGrupa = !!(f.grupaId || f.instructor);
 
@@ -134,8 +136,8 @@ export async function construiesteRaport(f: FiltruRaport): Promise<Raport> {
 
   const tCursanti: Tabel = {
     nume: 'Cursanți',
-    coloane: ['Nume', 'Telefon', 'Email', 'Grupe', 'Status azi', 'Prezențe', 'Fără abonament', 'Abonamente', 'Total plătit (lei)'],
-    latimi: [24, 14, 24, 34, 24, 10, 12, 11, 14],
+    coloane: ['Nume', 'Telefon', 'Email', 'Grupe', 'Status azi', 'Prezențe', 'Prezență la grupele lui', 'Fără abonament', 'Abonamente', 'Total plătit (lei)'],
+    latimi: [24, 14, 24, 34, 24, 10, 16, 12, 11, 14],
     randuri: cursanti.map(c => {
       const ab = abonamente.filter(a => a.cursantId === c.id && !a.anulat);
       const pr = prezente.filter(p => p.cursantId === c.id);
@@ -147,6 +149,10 @@ export async function construiesteRaport(f: FiltruRaport): Promise<Raport> {
         c.grupe.map(g => grupa(g)?.titlu ?? '').filter(Boolean).join(', '),
         `${st.eticheta}${st.abonament ? ` (${st.detaliu})` : ''}`,
         pr.length,
+        (() => {
+          const s = statisticaPrezenta(prezente, c.id, c.grupe, deLa ?? '0000-00-00', panaLa ?? '9999-12-31');
+          return s.tinute ? `${s.venit} din ${s.tinute} (${s.procent}%)` : '—';
+        })(),
         pr.filter(p => !p.abonamentId).length,
         ab.length,
         ab.reduce((s, a) => s + (a.pret || 0), 0),

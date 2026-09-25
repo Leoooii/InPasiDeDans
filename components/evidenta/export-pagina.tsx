@@ -9,6 +9,7 @@ import { useSimpleToast } from '@/components/simple-toast-provider';
 import { azi } from '@/lib/evidenta/date';
 import { backupComplet, construiesteRaport, exportCsv, exportExcel, exportPdf, type FiltruRaport } from '@/lib/evidenta/export';
 import { useEvidenta } from './context';
+import { instructoriDin } from '@/lib/evidenta/instructori-grupe';
 import { Chip, Panou } from './ui';
 
 const TIPURI: { cod: FiltruRaport['tip']; eticheta: string; descriere: string }[] = [
@@ -31,10 +32,7 @@ export function ExportPagina() {
   const [panaLa, setPanaLa] = useState('');
   const [lucrez, setLucrez] = useState<string | null>(null);
 
-  const instructori = useMemo(
-    () => [...new Set(grupe.flatMap(g => g.instructor.split(/\s*(?:și|si|,|&)\s*/i)).map(s => s.trim()).filter(Boolean))].sort(),
-    [grupe],
-  );
+  const instructori = useMemo(() => instructoriDin(grupe).map(i => i.nume), [grupe]);
 
   const filtru: FiltruRaport = {
     tip,
@@ -83,7 +81,7 @@ export function ExportPagina() {
   );
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] [&>*]:min-w-0">
       <Panou titlu="Raport">
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">
@@ -95,7 +93,7 @@ export function ExportPagina() {
           </div>
           <p className="text-sm text-slate-500">{TIPURI.find(t => t.cod === tip)?.descriere}</p>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
             {tip === 'luna' && (
               <div>
                 <Label htmlFor="x-luna">Luna</Label>
@@ -105,7 +103,7 @@ export function ExportPagina() {
             {tip === 'grupa' && (
               <div className="sm:col-span-2">
                 <Label htmlFor="x-grupa">Grupa</Label>
-                <select id="x-grupa" className="mt-1.5 h-11 w-full rounded-md border border-input bg-white px-3 text-sm" value={grupaId} onChange={e => setGrupaId(e.target.value)}>
+                <select id="x-grupa" className="mt-1.5 h-11 w-full min-w-0 rounded-md border border-input bg-white px-3 text-sm" value={grupaId} onChange={e => setGrupaId(e.target.value)}>
                   <option value="">Alege grupa</option>
                   {grupe.map(g => (
                     <option key={g.id} value={g.id}>
@@ -118,7 +116,7 @@ export function ExportPagina() {
             {tip === 'cursant' && (
               <div className="sm:col-span-2">
                 <Label htmlFor="x-cursant">Cursant</Label>
-                <select id="x-cursant" className="mt-1.5 h-11 w-full rounded-md border border-input bg-white px-3 text-sm" value={cursantId} onChange={e => setCursantId(e.target.value)}>
+                <select id="x-cursant" className="mt-1.5 h-11 w-full min-w-0 rounded-md border border-input bg-white px-3 text-sm" value={cursantId} onChange={e => setCursantId(e.target.value)}>
                   <option value="">Alege cursantul</option>
                   {cursanti.map(c => (
                     <option key={c.id} value={c.id}>
@@ -144,7 +142,7 @@ export function ExportPagina() {
             {tip !== 'cursant' && tip !== 'grupa' && (
               <div>
                 <Label htmlFor="x-instr">Instructor (opțional)</Label>
-                <select id="x-instr" className="mt-1.5 h-11 w-full rounded-md border border-input bg-white px-3 text-sm" value={instructor} onChange={e => setInstructor(e.target.value)}>
+                <select id="x-instr" className="mt-1.5 h-11 w-full min-w-0 rounded-md border border-input bg-white px-3 text-sm" value={instructor} onChange={e => setInstructor(e.target.value)}>
                   <option value="">Toți</option>
                   {instructori.map(i => (
                     <option key={i}>{i}</option>

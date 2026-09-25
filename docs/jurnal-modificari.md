@@ -68,6 +68,14 @@ Ultima actualizare: 24–25 septembrie 2026.
 - **Export**: PDF, Excel, CSV pe lună / grupă / cursant / complet + backup complet JSON.
 - Datele sunt protejate de reguli Firestore (înainte colecțiile `cursanti`/`prezente` erau deschise public).
 
+### Evidență — completări (25.09.2026)
+- Intrare unică pentru admin și instructori: **inpasidedans.ro/panou** (alegi poza, scrii parola); se poate instala pe telefon ca aplicație.
+- Conturi pentru instructorii cu grupe (Cătălina, Nicholas, Luciana), cu pozele lor; „Parolă nouă” setată direct de admin (cheie de serviciu Firebase pe server).
+- Grupe ca pagină principală: filtre pe zile și pe instructor (poze), ceas live, stare Urmează / LIVE / Terminată, „prezența e făcută”.
+- Prezența se face doar pentru azi, din cardul grupei; istoricul (calendar) și exportul pe lună sunt în pagina grupei; adminul poate corecta zile trecute.
+- Reînnoire rapidă a abonamentului, mesaj pe WhatsApp către cursant, „cât de des vine” (procent de prezență), pagina Încasări, înscrierile de pe site → cursanți dintr-un clic.
+- Contul meu (nume, avatar, parolă), avatare ilustrate, bara din stânga restrângibilă, ghid actualizat.
+
 ## Ce rămâne de făcut
 
 ### De făcut de tine
