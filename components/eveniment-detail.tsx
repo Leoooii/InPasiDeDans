@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { BUSINESS } from '@/lib/schema-constants';
+import { schemaEveniment } from '@/lib/schema-eveniment';
 import Image from 'next/image';
 import {
   ArrowLeft,
@@ -219,23 +220,15 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
   };
 
   const jsonLd = isEvent
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'Event',
-        name: item.title,
-        description: item.description,
-        startDate: item.eventDate,
-        image: item.imageUrl ? [item.imageUrl] : undefined,
+    ? schemaEveniment({
+        nume: item.title,
+        descriere: item.description,
+        // eventDate e salvat ca miezul nopții UTC; contează doar ziua
+        start: item.eventDate!.slice(0, 10),
+        imagine: item.imageUrl,
         url: canonicalUrl,
-        eventStatus: 'https://schema.org/EventScheduled',
-        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-        location: {
-          '@type': 'Place',
-          name: BUSINESS.name,
-          address: BUSINESS.address,
-        },
-        organizer: organizatie,
-      }
+        urlInscriere: item.link,
+      })
     : {
         '@context': 'https://schema.org',
         '@type': 'NewsArticle',

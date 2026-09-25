@@ -2,6 +2,7 @@ import ExcursieClient, { type ExcursieDetaliu } from './ExcursieClient';
 import { getDocCached } from '@/lib/firestore-cache';
 import { dateEvenimentIso } from '@/lib/data-ro';
 import { BUSINESS } from '@/lib/schema-constants';
+import { schemaEveniment } from '@/lib/schema-eveniment';
 
 export const revalidate = 3600;
 export async function generateStaticParams() {
@@ -14,22 +15,16 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const date = dateEvenimentIso(initial?.eventDate, undefined);
 
   // Doar când data e completă (zi, lună, an) — altfel schema ar fi invalidă.
-  const jsonLd = initial && date && {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: initial.title,
-    description: initial.description,
-    startDate: date.start,
-    endDate: date.end,
-    image: initial.imageUrl ? [initial.imageUrl] : undefined,
+  const jsonLd = initial && date && schemaEveniment({
+    nume: initial.title,
+    descriere: initial.description,
+    start: date.start,
+    end: date.end,
+    imagine: initial.imageUrl,
     url: `${BUSINESS.url}/excursii/${id}`,
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    location: initial.location?.trim()
-      ? { '@type': 'Place', name: initial.location.trim(), address: initial.location.trim() }
-      : { '@type': 'Place', name: BUSINESS.name, address: BUSINESS.address },
-    organizer: { '@type': 'DanceSchool', '@id': `${BUSINESS.url}/#organization`, name: BUSINESS.name, url: BUSINESS.url },
-  };
+    urlInscriere: initial.facebookLink,
+    locatie: initial.location,
+  });
 
   return (
     <>
