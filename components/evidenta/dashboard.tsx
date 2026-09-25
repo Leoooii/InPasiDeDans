@@ -224,13 +224,13 @@ export function Dashboard({ numeAdmin }: { numeAdmin: string }) {
             )}
           </p>
         ) : (
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3 [&>*]:min-w-0">
             {data.live.map(({ g, stare, prezenti, membri }) => (
-              <div key={g.id} className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
+              <div key={g.id} className="flex min-w-0 items-center gap-3 rounded-xl bg-white/10 p-3">
                 <PozeGrupa g={g} className="ring-slate-800" />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold">{g.titlu}</p>
-                  <p className="text-xs text-slate-300">
+                  <p className="line-clamp-2 text-xs text-slate-300">
                     {g.sala ? `${g.sala} · ` : ''}
                     {stare!.text} · {prezenti ? `✓ ${prezenti} din ${membri} prezenți` : `${membri} cursanți, prezența nefăcută`}
                   </p>

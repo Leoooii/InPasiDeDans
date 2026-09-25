@@ -56,7 +56,7 @@ export function CeasLive() {
   const acum = useAcum(1000);
   const ora = new Intl.DateTimeFormat('ro-RO', { timeZone: FUS_ORAR, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(acum);
   return (
-    <div className="text-right" aria-live="off">
+    <div className="ml-auto text-right" aria-live="off">
       <p className="font-mono text-2xl font-bold tabular-nums tracking-tight text-slate-900 sm:text-3xl">{ora}</p>
       <p className="text-xs capitalize text-slate-500">{dataLunga(azi())}</p>
     </div>

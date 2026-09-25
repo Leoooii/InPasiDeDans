@@ -108,7 +108,7 @@ export function GrupaDetaliu({
   };
 
   const Info = ({ icon: Icon, children }: { icon: typeof Clock; children: React.ReactNode }) => (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
+    <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white/80 px-2.5 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
       <Icon className="h-3.5 w-3.5 text-slate-400" />
       {children}
     </span>
@@ -127,19 +127,18 @@ export function GrupaDetaliu({
           <div className="min-w-0 flex-1">
             <h1 className="text-xl font-bold leading-tight text-slate-900 sm:text-2xl">{g.titlu}</h1>
             {g.instructor && <p className="mt-0.5 text-sm text-slate-600">cu {g.instructor}</p>}
+            {urmatoare !== null && (
+              <span className={cn('mt-2 inline-flex rounded-full px-3 py-1 text-xs font-semibold', urmatoare === 0 ? 'bg-red-600 text-white' : 'bg-white text-slate-700 ring-1 ring-slate-200')}>
+                Următoarea ședință: {textUrmatoare(urmatoare).toLowerCase()}
+              </span>
+            )}
             <div className="mt-2 flex flex-wrap gap-1.5">
               {g.zile.length > 0 && <Info icon={CalendarCheck}>{g.zile.join(', ')}</Info>}
               {g.ora && <Info icon={Clock}>{g.ora}</Info>}
               {g.sala && <Info icon={MapPin}>{g.sala}</Info>}
               {g.nivel && <Info icon={GraduationCap}>{g.nivel}</Info>}
-
             </div>
           </div>
-          {urmatoare !== null && (
-            <span className={cn('rounded-full px-3 py-1 text-xs font-semibold', urmatoare === 0 ? 'bg-red-600 text-white' : 'bg-white text-slate-700 ring-1 ring-slate-200')}>
-              Următoarea ședință: {textUrmatoare(urmatoare).toLowerCase()}
-            </span>
-          )}
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           <Button variant="brand" className="h-11" asChild>
