@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { emailDinToken, esteInstructor, seteazaParola } from '@/lib/firebase-admin-rest';
+import { EroareConfigurare, emailDinToken, esteInstructor, seteazaParola } from '@/lib/firebase-admin-rest';
 
 // Adminul setează o parolă nouă unui instructor (adresele instructorilor nu primesc emailuri).
 export async function POST(request: NextRequest) {
@@ -21,6 +21,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error('Parolă instructor:', e);
-    return NextResponse.json({ error: 'Parola nu a putut fi schimbată.' }, { status: 500 });
+    // cererea vine doar de la admin (verificat mai sus), deci îi putem spune exact ce lipsește
+    const mesaj = e instanceof EroareConfigurare ? e.message : 'Parola nu a putut fi schimbată.';
+    return NextResponse.json({ error: mesaj }, { status: 500 });
   }
 }
