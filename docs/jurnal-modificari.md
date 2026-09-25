@@ -68,6 +68,10 @@ Ultima actualizare: 24–25 septembrie 2026.
 - [ ] **Vercel:** setează *Deployment Retention* (Project Settings → Security), ca să nu se adune deploy-uri vechi.
 - [ ] **Google Ads vechi (AW-803044953):** spune dacă mai e folosit. Dacă nu, se scoate din `app/layout.tsx`. GTM folosește deja contul nou AW-17758302054.
 
+- [ ] **Search Console → Evenimente:** apasă „Validează remedierea” (schema Event are acum endDate, performer și offers, commit a24832b).
+- [ ] **Excursia „Măgura (Buzău)”:** linkul de Facebook din admin e stricat (două linkuri lipite unul în altul); corectează-l.
+- [ ] *(opțional)* Câmp „Preț” la petreceri/excursii în admin, ca să dispară complet avertismentul Google despre `offers`.
+
 ### De urmărit în timp
 - [ ] **Evoluția traficului**, în /admin/statistici → „Evoluție după optimizarea SEO și AI”. Primele concluzii relevante apar după **4–6 săptămâni**, adică pe la începutul lui noiembrie 2026.
   - Compară **utilizatorii, sesiunile și clicurile din Search Console**, nu vizualizările de pagină. De la 25.09.2026 GA4 nu mai numără dublu, așa că vizualizările scad artificial cu ~50%.
