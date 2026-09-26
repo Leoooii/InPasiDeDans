@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import GifWrapperClient from './GifWrapperClient';
+import Image from 'next/image';
+import { HeroVideo } from '@/components/hero-video';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 import NoutatiSection from '@/components/noutati-section';
 import StickyMenu from '@/components/sticky-menu';
@@ -74,8 +75,17 @@ export default async function Home() {
 
         <section className="relative h-[85svh] min-h-[520px] overflow-hidden">
           <div className="sticky top-0 h-[85svh] min-h-[520px]">
-            <div className="relative w-full h-full">
-              <GifWrapperClient />
+            <div className="relative w-full h-full bg-slate-900">
+              {/* Poza vine direct în HTML (prioritară); videoul se încarcă după ce pagina e gata. */}
+              <Image
+                src="/images/noi.webp"
+                alt="Cursanții și instructorii școlii de dans În Pași de Dans"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+              <HeroVideo />
               <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/70 via-black/40 to-black/20 flex items-center justify-center">
                 <div className="container text-center text-white px-4">
                   <p className="text-sm md:text-base uppercase tracking-[0.3em] text-white/70 mb-4 font-medium">

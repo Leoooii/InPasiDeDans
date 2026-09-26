@@ -3,18 +3,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Loader2, Calendar, ArrowRight } from 'lucide-react';
-import { db } from '@/lib/firebase';
 import { cn } from '@/lib/utils';
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  startAfter,
-  getDocs,
-  type DocumentData,
-  type QueryDocumentSnapshot,
-} from 'firebase/firestore';
+// Firestore se încarcă doar dacă e nevoie (citire de rezervă / „mai multe”), nu la deschiderea paginii.
+import type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { EvenimentPublic } from '@/lib/public-data';
@@ -67,6 +58,10 @@ export default function NoutatiSection({
 
   const fetchEvenimente = async (isInitial = false) => {
     try {
+      const [{ db }, { collection, query, orderBy, limit, startAfter, getDocs }] = await Promise.all([
+        import('@/lib/firebase'),
+        import('firebase/firestore'),
+      ]);
       const evenimenteRef = collection(db, 'evenimente');
       let q = query(
         evenimenteRef,

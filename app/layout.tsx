@@ -40,10 +40,10 @@ export default async function RootLayout({
   return (
     <html lang="ro" suppressHydrationWarning>
       <head>
-        {/* Google Tag Manager */}
+        {/* Google Tag Manager — „lazyOnload”: se încarcă după pagină, ca să nu încetinească telefonul */}
         <Script
           id="google-tag-manager"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -53,23 +53,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google Tag Manager */}
-        {/* GA4 (G-5MHT7TMSZN) vine din containerul GTM; aici rămâne doar contul Ads vechi. */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-803044953"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="google-tag"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-803044953');
-            `,
-          }}
-        />
+        {/* GA4 (G-5MHT7TMSZN) și ambele conturi Ads (AW-803044953, AW-17758302054) se încarcă din containerul GTM;
+            tag-ul direct AW-803044953 de aici era o dublură și a fost scos. */}
       </head>
       <body className={inter.className}>
         {/* Google Tag Manager (noscript) */}

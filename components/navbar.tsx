@@ -21,8 +21,6 @@ import {
   SheetTrigger,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { auth } from '@/lib/firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { usePathname, useRouter } from 'next/navigation';
 import { Facebook, Instagram } from 'lucide-react';
 import GrupeCountBadge from '@/components/grupe-count-badge';
@@ -57,13 +55,26 @@ export default function Navbar() {
   const pathname = usePathname();
   const activ = (href: string) => (pathname?.startsWith(href) ? 'bg-red-50 text-red-600' : '');
 
+  // Firebase (~110 KB) se încarcă abia după ce pagina e gata: vizitatorii nu au nevoie de el,
+  // iar butonul „Contul meu” apare oricum doar celor logați.
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser);
-      setIsAdmin(currentUser?.email === 'admin@gmail.com');
-    });
-
-    return () => unsubscribe();
+    let anulat = false;
+    let opreste: (() => void) | undefined;
+    const porneste = async () => {
+      const [{ auth }, { onAuthStateChanged }] = await Promise.all([import('@/lib/firebase'), import('firebase/auth')]);
+      if (anulat) return;
+      opreste = onAuthStateChanged(auth, currentUser => {
+        setUser(currentUser);
+        setIsAdmin(currentUser?.email === 'admin@gmail.com');
+      });
+    };
+    const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+    if (ric) ric(() => void porneste(), { timeout: 4000 });
+    else setTimeout(() => void porneste(), 2000);
+    return () => {
+      anulat = true;
+      opreste?.();
+    };
   }, []);
 
   useEffect(() => {
@@ -85,6 +96,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
+      const [{ auth }, { signOut }] = await Promise.all([import('@/lib/firebase'), import('firebase/auth')]);
       await signOut(auth);
       router.push('/');
     } catch (error) {

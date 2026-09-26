@@ -23,6 +23,9 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    // CSS-ul (Tailwind, ~21 KB gzip) pus direct în HTML: pe mobil nu mai așteaptă
+    // o cerere separată înainte de prima afișare.
+    inlineCss: true,
     // Optimizări pentru performanță
     optimizePackageImports: ['@sanity/image-url', 'next-sanity'],
     turbo: {
