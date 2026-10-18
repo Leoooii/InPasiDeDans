@@ -7,7 +7,7 @@ import PostCard from '@/components/blog/post-card'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
-export const revalidate = 3600
+export const revalidate = 86400
 
 // Generate static params
 export async function generateStaticParams() {

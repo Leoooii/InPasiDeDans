@@ -4,7 +4,7 @@ import { db } from '@/lib/firebase';
 import type { Instructor, Tarif, TarifeGrupate } from '@/lib/types';
 
 // Datele publice citite pe server, ca să apară în HTML-ul trimis roboților
-// (Google, crawlerele AI nu rulează JavaScript). Cache 1h + invalidare la
+// (Google, crawlerele AI nu rulează JavaScript). Cache o zi + invalidare la
 // salvarea din admin prin revalidateTag (vezi app/api/revalidate-content).
 
 export type { Tarif, Instructor, TarifeGrupate } from '@/lib/types';
@@ -36,20 +36,20 @@ export const getTarife = unstable_cache(
     return grupate;
   },
   ['public-tarife'],
-  { revalidate: 3600, tags: ['tarife'] },
+  { revalidate: 86400, tags: ['tarife'] },
 );
 
 export const getInstructori = unstable_cache(
   async (): Promise<Instructor[]> =>
     (await readCollection<Instructor>('instructori')).sort((a, b) => (a.order || 0) - (b.order || 0)),
   ['public-instructori'],
-  { revalidate: 3600, tags: ['instructori'] },
+  { revalidate: 86400, tags: ['instructori'] },
 );
 
 export const getGrupePublice = unstable_cache(
   async () => readCollection<Record<string, any>>('grupe', true),
   ['public-grupe'],
-  { revalidate: 3600, tags: ['grupe'] },
+  { revalidate: 86400, tags: ['grupe'] },
 );
 
 // Un eșec Firestore nu trebuie să pice pagina; componentele au date de rezervă.
@@ -91,24 +91,24 @@ export const getEvenimente = unstable_cache(
       }))
       .sort((a, b) => b.date.localeCompare(a.date)),
   ['public-evenimente'],
-  { revalidate: 3600, tags: ['evenimente'] },
+  { revalidate: 86400, tags: ['evenimente'] },
 );
 
 // Toate grupele (inclusiv cele în desfășurare) — pentru orarul de pe /program.
 export const getToateGrupele = unstable_cache(
   async () => readCollection<Record<string, any>>('grupe'),
   ['public-toate-grupele'],
-  { revalidate: 3600, tags: ['grupe'] },
+  { revalidate: 86400, tags: ['grupe'] },
 );
 
 export const getPetreceri = unstable_cache(
   async () => readCollection<Record<string, any>>('petreceri'),
   ['public-petreceri'],
-  { revalidate: 3600, tags: ['petreceri'] },
+  { revalidate: 86400, tags: ['petreceri'] },
 );
 
 export const getExcursii = unstable_cache(
   async () => readCollection<Record<string, any>>('excursii'),
   ['public-excursii'],
-  { revalidate: 3600, tags: ['excursii'] },
+  { revalidate: 86400, tags: ['excursii'] },
 );

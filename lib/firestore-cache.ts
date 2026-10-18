@@ -13,6 +13,6 @@ export function getDocCached(colectie: string, id: string) {
       return JSON.parse(JSON.stringify({ id: snap.id, ...snap.data() })) as Record<string, any>;
     },
     ['doc', colectie, id],
-    { revalidate: 3600, tags: [colectie] },
+    { revalidate: 86400, tags: [colectie] },
   )();
 }

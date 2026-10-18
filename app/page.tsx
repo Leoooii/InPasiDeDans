@@ -11,7 +11,7 @@ import { getEvenimente, safe } from '@/lib/public-data';
 
 // Conținutul se reîmprospătează la salvare (webhook Sanity, admin → revalidateTag);
 // intervalul e doar plasă de siguranță.
-export const revalidate = 3600
+export const revalidate = 86400
 
 export const metadata = {
   title: 'Cursuri de Dans București, Sector 4, 5 și 6 | În Pași de Dans',

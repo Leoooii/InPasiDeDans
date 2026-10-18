@@ -4,7 +4,7 @@ import { dateEvenimentIso } from '@/lib/data-ro';
 import { BUSINESS } from '@/lib/schema-constants';
 import { schemaEveniment } from '@/lib/schema-eveniment';
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 export async function generateStaticParams() {
   return [];
 }

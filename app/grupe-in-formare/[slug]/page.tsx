@@ -84,7 +84,7 @@ const truncate = (text: string, limit = 155) => {
 
 const buildPageUrl = (slug: string) => `https://www.inpasidedans.ro/grupe-in-formare/${slug}`
 
-export const revalidate = 1800
+export const revalidate = 86400
 
 export async function generateStaticParams() {
   return []

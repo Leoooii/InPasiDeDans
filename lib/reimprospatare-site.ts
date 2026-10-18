@@ -3,7 +3,7 @@ import type { CacheTag } from '@/lib/public-data';
 
 // Paginile publice sunt în cache; după o salvare din admin cerem regenerarea
 // celor care folosesc datele modificate. Eșecul nu blochează salvarea:
-// în cel mai rău caz, datele apar pe site după expirarea cache-ului (1h).
+// în cel mai rău caz, datele apar pe site după expirarea cache-ului (o zi).
 export async function reimprospateazaSite(...tags: CacheTag[]) {
   try {
     const token = await auth.currentUser?.getIdToken();

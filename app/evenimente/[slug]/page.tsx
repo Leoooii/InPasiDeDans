@@ -5,7 +5,7 @@ import { fetchEvenimentBySlug, fetchEvenimenteSimilare } from '@/lib/eveniment-l
 
 // ISR: pagina se generează la prima vizită, apoi se servește din cache
 // (invalidată prin tag-ul 'evenimente' la salvarea din admin).
-export const revalidate = 3600;
+export const revalidate = 86400;
 export async function generateStaticParams() {
   return [];
 }

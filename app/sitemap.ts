@@ -5,7 +5,7 @@ import { buildGrupaSlug } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { allAuthorsQuery, allCategoriesQuery, allPostSlugsQuery } from '@/sanity/lib/queries';
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const BASE = 'https://www.inpasidedans.ro';
 

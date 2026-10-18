@@ -13,7 +13,7 @@ import FaqBlock from '@/components/faq-block'
 import RelatedPosts from '@/components/blog/related-posts'
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
-export const revalidate = 3600
+export const revalidate = 86400
 
 // Generate static params pentru toate articolele
 export async function generateStaticParams() {

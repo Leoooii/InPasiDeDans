@@ -32,6 +32,12 @@ const FormSchema = z.object({
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Roboții care trimit formularul de contact pun litere amestecate la întâmplare
+// (ex. „xOtWVhgtBXOEQpTf”): un cuvânt cu cel puțin 3 treceri literă mică → MARE.
+// Numele reale au cel mult una-două (McDonald, Ana-Maria, LACRAMIOARA).
+const pareAiurea = (text: string) =>
+  text.split(/[\s-]+/).some(cuvant => (cuvant.match(/[a-z][A-Z]/g)?.length ?? 0) >= 3);
+
 export async function POST(request: NextRequest) {
   // Obține IP-ul clientului la nivelul funcției pentru a fi accesibil în catch
   const ip = request.headers.get('x-forwarded-for') || 'unknown';
@@ -89,6 +95,12 @@ export async function POST(request: NextRequest) {
     if (honey) {
       console.warn('Spam detectat prin honeypot', { ip: ip });
       return NextResponse.json({ error: 'Spam detectat' }, { status: 400 });
+    }
+
+    // Răspundem „ok” ca robotul să nu încerce altceva, dar nu salvăm și nu trimitem email.
+    if (pareAiurea(name) || pareAiurea(danceclass)) {
+      console.warn('Spam detectat după nume', { ip });
+      return NextResponse.json({ data: null });
     }
 
     // Evidența din admin (/admin/inscrieri). Un eșec aici nu trebuie să blocheze
