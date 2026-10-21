@@ -25,6 +25,8 @@ type PublicGrupa = {
   publica?: boolean
 }
 
+const INSTRUCTOR_IMPLICIT = "Instructorii In Pasi de Dans"
+
 const getGrupa = cache(async (slug: string): Promise<PublicGrupa | null> => {
   const grupaId = extractGrupaIdFromSlug(slug)
   if (!grupaId) return null
@@ -55,7 +57,7 @@ const getGrupa = cache(async (slug: string): Promise<PublicGrupa | null> => {
     descriere: data.descriere || "Descoperă această grupă în formare la In Pasi de Dans.",
     dataStart: data.dataStart || "",
     program: data.program || "",
-    instructor: data.instructor || "Instructorii In Pasi de Dans",
+    instructor: data.instructor || INSTRUCTOR_IMPLICIT,
     locuriDisponibile: Number(data.locuriDisponibile ?? 0),
     locuriTotale: Number(data.locuriTotale ?? 0),
     stiluri,
@@ -170,6 +172,13 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
     name: grupa.titlu,
     description: grupa.descriere,
     startDate: grupa.dataStart,
+    // Evenimentul e prima ședință a grupei (aceeași zi); Google cere endDate, performer și image.
+    endDate: grupa.dataStart.slice(0, 10) || undefined,
+    image: ["https://www.inpasidedans.ro/images/grupenoi.png"],
+    performer:
+      grupa.instructor && grupa.instructor !== INSTRUCTOR_IMPLICIT
+        ? { "@type": "Person", name: grupa.instructor }
+        : { "@type": "PerformingGroup", name: BUSINESS.name, url: BUSINESS.url },
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     location: {
@@ -294,10 +303,13 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
         </div>
       </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* Fără dată de start nu e eveniment valid pentru Google (startDate e obligatoriu). */}
+      {grupa.dataStart && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
     </div>
   )
 }
