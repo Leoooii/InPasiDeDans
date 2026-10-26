@@ -71,3 +71,31 @@ export async function seteazaParola(uid: string, parola: string) {
     throw new Error(j?.error?.message ?? `HTTP ${res.status}`);
   }
 }
+
+type Valoare = string | number | boolean;
+const valoareFirestore = (v: Valoare) =>
+  typeof v === 'boolean'
+    ? { booleanValue: v }
+    : typeof v === 'number'
+      ? Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v }
+      : { stringValue: v };
+
+/** Adaugă un document nou (id generat de Firestore) și întoarce id-ul. */
+export async function adaugaDocument(colectie: string, date: Record<string, Valoare>): Promise<string> {
+  const fields = Object.fromEntries(Object.entries(date).map(([k, v]) => [k, valoareFirestore(v)]));
+  const res = await fetch(
+    `https://firestore.googleapis.com/v1/projects/${PROIECT}/databases/(default)/documents/${colectie}`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${await token()}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields }),
+      cache: 'no-store',
+    },
+  );
+  if (!res.ok) {
+    const j = await res.json().catch(() => ({}));
+    throw new Error(j?.error?.message ?? `HTTP ${res.status}`);
+  }
+  const { name } = (await res.json()) as { name: string };
+  return name.split('/').pop()!;
+}

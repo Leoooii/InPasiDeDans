@@ -4,8 +4,7 @@ import { EmailTemplate } from '../../../components/email-template';
 import * as React from 'react';
 import { rateLimitMiddleware } from '../../../lib/rateLimiter';
 import { z } from 'zod';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../../../lib/firebase';
+import { adaugaDocument } from '../../../lib/firebase-admin-rest';
 
 // Schema de validare pentru datele de intrare
 const FormSchema = z.object({
@@ -103,10 +102,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ data: null });
     }
 
-    // Evidența din admin (/admin/inscrieri). Un eșec aici nu trebuie să blocheze
-    // emailul — altfel am pierde înscrierea cu totul.
+    // Evidența din admin (/admin/inscrieri). Scrisă cu cheia de serviciu (REST), nu cu
+    // SDK-ul de browser, care pe serverele Vercel pierdea scrieri fără eroare vizibilă.
+    // Un eșec nu blochează emailul, dar e semnalat în subiect, ca înscrierea să fie
+    // adăugată de mână.
+    let salvata = true;
     try {
-      await addDoc(collection(db, 'inscrieri'), {
+      await adaugaDocument('inscrieri', {
         name,
         email,
         phone,
@@ -121,6 +123,7 @@ export async function POST(request: NextRequest) {
         createdAt: Date.now(),
       });
     } catch (dbError: any) {
+      salvata = false;
       console.error('Eroare la salvarea înscrierii în Firestore:', dbError?.message);
     }
 
@@ -128,7 +131,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: `${name} <inscriere@inpasidedans.ro>`, // Folosește domeniul tău
       to: ['inpasidedans@gmail.com'],
-      subject: 'Inscriere pe site',
+      subject: salvata ? 'Inscriere pe site' : 'Inscriere pe site (NU a fost salvata in admin)',
       replyTo: email,
       react: EmailTemplate({
         name,
