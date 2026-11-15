@@ -136,7 +136,7 @@ export default async function BlogPage() {
                       {category?.title || 'Categorie'}
                     </div>
                     {category?.description && (
-                      <div className="text-xs text-white/50 mt-0.5 max-w-[200px] truncate">
+                      <div className="text-xs text-white/65 mt-0.5 max-w-[200px] truncate">
                         {category.description}
                       </div>
                     )}

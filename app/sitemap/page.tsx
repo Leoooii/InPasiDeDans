@@ -8,7 +8,7 @@ export const metadata = {
 export default function SitemapPage() {
   return (
     <div className="container py-12">
-      <h1 className="text-3xl font-bold mb-8">Sitemap - In Pasi de Dans</h1>
+      <h1 className="text-3xl font-bold mb-8">Sitemap – În Pași de Dans</h1>
       <ul className="space-y-2 text-lg">
         <li><Link href="/">Acasă</Link></li>
         <li><Link href="/grupe-in-formare">Grupe în formare</Link></li>

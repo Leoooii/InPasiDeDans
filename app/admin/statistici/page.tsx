@@ -23,7 +23,6 @@ import {
   Clock,
   TrendingUp,
   TrendingDown,
-  KeyRound,
   RefreshCw,
   MapPin,
   Smartphone,
@@ -44,6 +43,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { antetAdmin } from '@/lib/admin-client';
 
 // ─── Tipuri (oglindesc răspunsul /api/admin/analytics) ─────────────────────
 
@@ -92,10 +92,6 @@ type AnalyticsData = {
 
 // ─── Config ────────────────────────────────────────────────────────────────
 
-const TOKEN_KEY = 'ipd_analytics_token';
-// Dacă e setat, pagina se deblochează automat (fără prompt). Pagina e oricum
-// în spatele login-ului de admin, iar datele sunt agregate (non-personale).
-const ENV_TOKEN = process.env.NEXT_PUBLIC_ANALYTICS_TOKEN || '';
 
 const PRESETS: { id: string; label: string; days: number }[] = [
   { id: '7d', label: '7 zile', days: 7 },
@@ -201,9 +197,6 @@ function StatCard({
 // ─── Pagina ──────────────────────────────────────────────────────────────────
 
 export default function StatisticiPage() {
-  const [token, setToken] = useState<string | null>(ENV_TOKEN || null);
-  const [tokenInput, setTokenInput] = useState('');
-
   const [preset, setPreset] = useState('30d');
   const [range, setRange] = useState(() => rangeFromDays(30));
   const [selectedPaths, setSelectedPaths] = useState<string[]>([]);
@@ -212,15 +205,7 @@ export default function StatisticiPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Auto-deblocare dacă există token în env; altfel încarcă din localStorage.
-  useEffect(() => {
-    if (ENV_TOKEN) return;
-    const t = localStorage.getItem(TOKEN_KEY);
-    if (t) setToken(t);
-  }, []);
-
   const fetchData = useCallback(async () => {
-    if (!token) return;
     setLoading(true);
     setError(null);
     try {
@@ -228,7 +213,7 @@ export default function StatisticiPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-analytics-token': token,
+          ...(await antetAdmin()),
         },
         body: JSON.stringify({
           startDate: range.startDate,
@@ -237,9 +222,7 @@ export default function StatisticiPage() {
         }),
       });
       if (res.status === 401) {
-        localStorage.removeItem(TOKEN_KEY);
-        setToken(null);
-        setError('Cheie de acces invalidă.');
+        setError('Sesiunea a expirat. Ieși din cont și intră din nou.');
         return;
       }
       const json = await res.json();
@@ -253,7 +236,7 @@ export default function StatisticiPage() {
     } finally {
       setLoading(false);
     }
-  }, [token, range.startDate, range.endDate, selectedPaths]);
+  }, [range.startDate, range.endDate, selectedPaths]);
 
   useEffect(() => {
     fetchData();
@@ -287,49 +270,6 @@ export default function StatisticiPage() {
     });
   }, [data]);
 
-  // ── Gate token ──────────────────────────────────────────────────────────
-  if (!token) {
-    return (
-      <div className="max-w-sm mx-auto mt-20">
-        <Card>
-          <CardContent className="p-6 space-y-4">
-            <div className="flex items-center gap-2 text-slate-900">
-              <KeyRound className="h-5 w-5 text-red-600" />
-              <h1 className="text-lg font-semibold">Acces statistici</h1>
-            </div>
-            <p className="text-sm text-slate-500">
-              Introdu cheia de acces pentru statistici (din variabila de mediu
-              <code className="mx-1 px-1 bg-slate-100 rounded">ANALYTICS_API_SECRET</code>).
-            </p>
-            <input
-              type="password"
-              value={tokenInput}
-              onChange={e => setTokenInput(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' && tokenInput) {
-                  localStorage.setItem(TOKEN_KEY, tokenInput);
-                  setToken(tokenInput);
-                }
-              }}
-              placeholder="Cheie acces"
-              className="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-            <Button
-              className="w-full"
-              disabled={!tokenInput}
-              onClick={() => {
-                localStorage.setItem(TOKEN_KEY, tokenInput);
-                setToken(tokenInput);
-              }}
-            >
-              Deblochează
-            </Button>
-            {error && <p className="text-sm text-rose-600">{error}</p>}
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -361,7 +301,7 @@ export default function StatisticiPage() {
         </div>
       </div>
 
-      {token && <EvolutieOptimizare token={token} />}
+      <EvolutieOptimizare />
 
       {/* Interval custom */}
       <div className="flex flex-wrap items-center gap-2 text-sm">

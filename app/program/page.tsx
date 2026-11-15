@@ -56,7 +56,7 @@ export default async function Program() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Program cursuri de dans din Bucuresti
+            Program cursuri de dans din București
             </h1>
             <p className="text-slate-500 ">
               Verifică orarul complet al cursurilor de dans pentru adulți și

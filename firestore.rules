@@ -12,42 +12,42 @@ service cloud.firestore {
     }
 
     // ===== Conținut public al site-ului =====
-    // Citire publică (afișat pe site oricui), scriere permisivă
-    // (fiindcă API routes accesează aceste colecții fără auth — vezi nota la final).
+    // Citire publică (afișat pe site oricui). Scrierea doar din admin, cu adminul
+    // autentificat în browser (din 11.2026 API routes nu mai scriu în aceste colecții).
 
     match /tarife/{docId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
 
     match /evenimente/{docId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
 
     match /excursii/{docId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
 
     match /petreceri/{docId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
 
     match /instructori/{docId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
 
     // Grupe: orarul public al cursurilor (titlu, instructor, locuri) — date
     // nesensibile, citire publică. Pagina /program face un list query nefiltrat
     // pe toată colecția (vezi components/program-dinamic.tsx); o regulă care
     // depinde de resource.data.publica ar respinge acel query cu „Missing or
-    // insufficient permissions". Scriere permisivă pentru API routes.
+    // insufficient permissions". Scriere doar din admin.
     match /grupe/{docId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
 
     // ===== Evidență cursanți (admin + portalul instructorilor) =====

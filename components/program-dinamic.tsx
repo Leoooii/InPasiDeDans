@@ -4,7 +4,9 @@ import { useState, useEffect, useMemo } from 'react'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Link from 'next/link'
 import { CalendarClock } from 'lucide-react'
+import { cursPentruGrupa } from '@/lib/grupe-libere'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -119,6 +121,21 @@ function toMinutes(t: string): number {
   return m ? +m[1] * 60 + +m[2] : 0
 }
 
+// „Complet” = grupa are locuri declarate și niciunul liber. Fără locuriTotale nu știm, deci nu e completă.
+function esteCompleta(g: Pick<Grupa, 'locuriDisponibile' | 'locuriTotale'>): boolean {
+  return (g.locuriTotale ?? 0) > 0 && (g.locuriDisponibile ?? 0) === 0
+}
+
+const ZILE_DUPA_EN: Record<string, string> = {
+  Mon: 'Luni', Tue: 'Marți', Wed: 'Miercuri', Thu: 'Joi', Fri: 'Vineri', Sat: 'Sâmbătă', Sun: 'Duminică',
+}
+
+// Ziua curentă în ora României (nu ora mașinii vizitatorului).
+function ziuaDeAzi(): string {
+  const zi = new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: 'Europe/Bucharest' }).format(new Date())
+  return ZILE_DUPA_EN[zi] ?? ''
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 // Documentele brute din Firestore → forma folosită de orar.
@@ -147,6 +164,13 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
   const [filterNivel, setFilterNivel]     = useState<NivelGroup>('all')
   const [filterInstructor, setFilterInstructor] = useState('all')
   const [filterTime, setFilterTime]       = useState('all')
+  const [doarLibere, setDoarLibere]       = useState(false)
+  // Calculată după montare, ca HTML-ul de pe server (cache-uit) să nu difere de client.
+  const [azi, setAzi] = useState('')
+
+  useEffect(() => {
+    setAzi(ziuaDeAzi())
+  }, [])
 
   useEffect(() => {
     if (initial) return
@@ -188,11 +212,12 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
       if (filterStyle !== 'all' && g.styleKey !== filterStyle) return false
       if (filterNivel !== 'all' && !matchesNivelGroup(g.nivel, filterNivel)) return false
       if (filterInstructor !== 'all' && g.instructor !== filterInstructor) return false
+      if (doarLibere && esteCompleta(g)) return false
       return true
     })
     return [...new Set(base.map(g => g.startTime).filter(Boolean))]
       .sort((a, b) => toMinutes(a) - toMinutes(b))
-  }, [enriched, filterDay, filterStyle, filterInstructor])
+  }, [enriched, filterDay, filterStyle, filterNivel, filterInstructor, doarLibere])
 
   // Reset time filter if it's no longer available
   const safeFilterTime = availableTimes.includes(filterTime) ? filterTime : 'all'
@@ -204,9 +229,10 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
       if (filterNivel !== 'all' && !matchesNivelGroup(g.nivel, filterNivel)) return false
       if (filterInstructor !== 'all' && g.instructor !== filterInstructor) return false
       if (safeFilterTime !== 'all' && g.startTime !== safeFilterTime) return false
+      if (doarLibere && esteCompleta(g)) return false
       return true
     }),
-    [enriched, filterDay, filterStyle, filterNivel, filterInstructor, safeFilterTime]
+    [enriched, filterDay, filterStyle, filterNivel, filterInstructor, safeFilterTime, doarLibere]
   )
 
   const usedStyleKeys = useMemo(() =>
@@ -218,11 +244,11 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
   const sections = useMemo(() => {
     if (filterDay !== 'all') {
       const dg = DAY_GROUPS.find(d => d.id === filterDay)!
-      return [{ id: filterDay, label: dg.label, grupe: processed }]
+      return [{ id: filterDay, label: dg.label, days: dg.days, grupe: processed }]
     }
     return DAY_GROUPS
       .filter(d => d.id !== 'all')
-      .map(d => ({ id: d.id, label: d.label, grupe: processed.filter(g => g.dayGroupId === d.id) }))
+      .map(d => ({ id: d.id, label: d.label, days: d.days, grupe: processed.filter(g => g.dayGroupId === d.id) }))
       .filter(s => s.grupe.length > 0)
   }, [processed, filterDay])
 
@@ -232,6 +258,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
     setFilterNivel('all')
     setFilterInstructor('all')
     setFilterTime('all')
+    setDoarLibere(false)
   }
 
   if (loading) {
@@ -297,9 +324,8 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
 
         {/* Rând 3: Nivel + Dropdowns (2 coloane pe mobile) */}
         <div className="flex flex-col sm:flex-row gap-2">
-          {/* Nivel chips */}
-          {usedNivelGroups.length > 0 && (
-            <div className="flex flex-wrap gap-2 flex-1">
+          {/* Nivel chips + „Doar cu locuri libere” */}
+          <div className="flex flex-wrap gap-2 flex-1">
               {usedNivelGroups.map(opt => {
                 const active = filterNivel === opt.id
                 return (
@@ -316,8 +342,20 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                   </button>
                 )
               })}
-            </div>
-          )}
+              <button
+                type="button"
+                aria-pressed={doarLibere}
+                onClick={() => setDoarLibere(v => !v)}
+                className={`min-h-10 flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border transition-all ${
+                  doarLibere
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                    : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300 hover:text-slate-700'
+                }`}
+              >
+                <span className={`w-2 h-2 rounded-full shrink-0 ${doarLibere ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+                Doar cu locuri libere
+              </button>
+          </div>
 
           {/* Dropdowns */}
           <div className="grid grid-cols-2 sm:flex gap-2 shrink-0">
@@ -355,11 +393,17 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
         <div className="space-y-7">
           {sections.map(section => {
             const styleCfgMap = Object.fromEntries(STYLES.map(s => [s.id, s]))
+            const sectiuneAzi = azi !== '' && section.days.includes(azi)
             return (
               <div key={section.id}>
                 {filterDay === 'all' && (
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest">{section.label}</span>
+                    <span className={`text-xs font-semibold uppercase tracking-widest ${sectiuneAzi ? 'text-slate-700' : 'text-slate-500'}`}>{section.label}</span>
+                    {sectiuneAzi && (
+                      <span className="text-[11px] font-semibold uppercase tracking-wide text-orange-700 bg-orange-50 border border-orange-200 px-1.5 py-0.5 rounded">
+                        Azi · {azi}
+                      </span>
+                    )}
                     <div className="flex-1 h-px bg-slate-100" />
                     <span className="text-xs text-slate-400">{section.grupe.length}</span>
                   </div>
@@ -372,7 +416,9 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                     const locDisp = g.locuriDisponibile ?? 0
                     const locTot = g.locuriTotale ?? 0
                     const hasSpots = locTot > 0
-                    const isFull = hasSpots && locDisp === 0
+                    const isFull = esteCompleta(g)
+                    const ruleazaAzi = azi !== '' && g.zile.includes(azi)
+                    const linkInscriere = isFull ? null : `/inscriere?curs=${cursPentruGrupa(g)}`
                     const isFew = hasSpots && locDisp > 0 && locDisp <= 3
                     const rolLabel = g.rol && g.rol !== 'All' ? g.rol.toLowerCase() + 's' : null
                     return (
@@ -382,7 +428,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                           inFormare
                             ? 'bg-emerald-50/60 hover:bg-emerald-50 border-l-2 border-l-emerald-400'
                             : 'bg-white hover:bg-slate-50'
-                        }`}
+                        } ${ruleazaAzi ? 'shadow-[inset_3px_0_0_0_#fb923c]' : ''}`}
                       >
                         {/* Start time */}
                         <span className="w-12 shrink-0 text-sm font-bold text-slate-800 tabular-nums">
@@ -410,6 +456,15 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                               în formare
                             </span>
                           )}
+                          {/* Pe telefon linkul stă sub titlu, ca să nu înghesuie rândul */}
+                          {linkInscriere && (
+                            <Link
+                              href={linkInscriere}
+                              className="sm:hidden basis-full text-xs font-semibold text-red-600 hover:text-red-700 hover:underline"
+                            >
+                              Înscrie-te →
+                            </Link>
+                          )}
                         </div>
 
                         {/* Locuri — vizibil pe toate ecranele, în mijlocul rândului */}
@@ -424,11 +479,23 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
                             {isFull ? 'Complet' : (
                               <>
                                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isFew ? 'bg-amber-400' : 'bg-emerald-400'}`} />
-                                <span className="hidden sm:inline text-slate-400">locuri disponibile:</span>
+                                <span className="hidden sm:inline text-slate-500">locuri disponibile:</span>
                                 {locDisp}/{locTot}{rolLabel ? <span className="hidden sm:inline"> {rolLabel}</span> : null}
                               </>
                             )}
                           </span>
+                        )}
+
+                        {/* Înscriere (desktop) */}
+                        {linkInscriere ? (
+                          <Link
+                            href={linkInscriere}
+                            className="hidden sm:block w-20 shrink-0 text-sm font-semibold text-red-600 hover:text-red-700 hover:underline text-right"
+                          >
+                            Înscrie-te
+                          </Link>
+                        ) : (
+                          <span className="hidden sm:block w-20 shrink-0" />
                         )}
 
                         {/* Instructor */}

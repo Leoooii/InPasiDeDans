@@ -3,11 +3,15 @@ import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { EVENIMENT_CONSIMTAMANT } from '@/components/cookie-consent';
+import { usePublicData } from '@/components/public-data-provider';
 
 const GrupeInFormare = () => {
   const [show, setShow] = useState(false);
   const [hide, setHide] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
+  // Fără grupe noi publice, pagina arată grupele de începători cu locuri libere.
+  const { grupe } = usePublicData();
+  const eticheta = grupe && grupe.length === 0 ? 'Locuri libere!' : 'Grupe noi!';
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -47,7 +51,7 @@ const GrupeInFormare = () => {
   return (
     <div
       ref={buttonRef}
-      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex justify-center w-full pointer-events-none"
+      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 hidden md:flex justify-center w-full pointer-events-none"
     >
       <Button
           size="lg"
@@ -57,7 +61,7 @@ const GrupeInFormare = () => {
             <span className="relative flex h-3 w-3 mr-2">
               <span className="inline-flex rounded-full h-3 w-3 bg-red-400 animate-bounce-slow"></span>
             </span>
-            Grupe noi!
+            {eticheta}
           </span>
         </Link></Button>
       <style jsx global>{`

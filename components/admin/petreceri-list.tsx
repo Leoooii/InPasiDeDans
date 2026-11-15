@@ -1,4 +1,7 @@
 'use client';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -63,16 +66,8 @@ export default function PetreceriList({
   const deletePetrecere = async (id: string) => {
     try {
       setIsDeleting(true);
-      const response = await fetch(`/api/petreceri/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(
-          error.message || 'A apărut o eroare la ștergerea petrecerii'
-        );
-      }
+      await deleteDoc(doc(db, 'petreceri', id));
+      await reimprospateazaSite('petreceri');
 
       onDeleteSuccess();
     } catch (error: any) {

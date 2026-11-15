@@ -1,15 +1,3 @@
-'use client';
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import useEmblaCarouselAutoplay from 'embla-carousel-autoplay';
-import { useEffect, useRef, useState } from 'react';
-
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -46,10 +34,10 @@ const cursuriData: CursItem[] = [
   },
   {
     id: 4,
-    title: "Grupe noi",
+    title: "Grupe pentru începători",
     href: "/grupe-in-formare",
     imageSrc: "/images/grupenoi.png",
-    description: "Înscrie-te acum la un curs de dans"
+    description: "Vezi grupele noi și pe cele cu locuri libere"
   },
   {
     id: 5,
@@ -72,12 +60,12 @@ function CardCurs({ curs }: { curs: CursItem }) {
     <div className="relative group cursor-pointer">
       {/* Imaginea principală */}
       <div className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10 transition-all duration-300 group-hover:ring-orange-400/60">
-        <div className="relative w-full h-48 md:h-64 lg:h-60">
+        <div className="relative w-full h-52 md:h-56 lg:h-64">
           <Image
             src={curs.imageSrc}
             alt={curs.title}
             fill
-            sizes="(max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 768px) 72vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
@@ -114,42 +102,14 @@ function CardCurs({ curs }: { curs: CursItem }) {
   );
 }
 
-// aceleași clase ca în carusel, ca varianta statică să arate identic
-const CLASA_SLIDE = 'pl-6 md:pl-12 lg:pl-10 basis-1/2 md:basis-1/2 lg:basis-1/4';
-
+// Grilă statică pe desktop; pe telefon, rând glisabil cu următorul card vizibil pe jumătate
+// (fără carusel cu autoplay: nu mai mută conținutul sub degetul vizitatorului și nu costă JS).
 export default function CursuriSection() {
-  // Caruselul (Embla) măsoară și clonează cardurile la pornire, ceea ce pe telefon costă
-  // procesor exact când se încarcă pagina. Până ajunge vizitatorul la secțiune, cardurile
-  // sunt afișate static (aceleași linkuri, același aspect).
-  const [activ, setActiv] = useState(false);
-  const sectiune = useRef<HTMLElement>(null);
-  useEffect(() => {
-    const el = sectiune.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      intrari => {
-        if (intrari.some(i => i.isIntersecting)) {
-          setActiv(true);
-          obs.disconnect();
-        }
-      },
-      { rootMargin: '400px' },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const autoplay = useEmblaCarouselAutoplay({
-    delay: 4500,
-    stopOnInteraction: false,
-    stopOnMouseEnter: true,
-  });
-
   return (
-    <section ref={sectiune} id="cursuri" className="pb-12 pt-16 bg-slate-950">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+    <section id="cursuri" className="pb-14 pt-16 bg-slate-950">
+      <div className="container">
         <div className="text-center mb-10">
-          <p className="text-sm uppercase tracking-[0.3em] text-white/50 mb-2">
+          <p className="text-sm uppercase tracking-[0.3em] text-white/60 mb-2">
             Descoperă cursurile
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white">
@@ -157,43 +117,13 @@ export default function CursuriSection() {
           </h2>
         </div>
 
-        {/* Carusel cu preview effect */}
-        <div className="w-full relative">
-          {activ ? (
-            <Carousel
-              className="w-full"
-              opts={{
-                loop: true,
-                align: "center",
-                containScroll: "trimSnaps",
-                slidesToScroll: 1,
-              }}
-              plugins={[autoplay]}
-            >
-              <CarouselContent className="-ml-6 md:-ml-12 lg:-ml-16">
-                {cursuriData.map(curs => (
-                  <CarouselItem key={curs.id} className={CLASA_SLIDE}>
-                    <CardCurs curs={curs} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-
-              {/* Butoane de navigare */}
-              <CarouselPrevious className="absolute left-1 sm:-left-4 lg:-left-6 h-10 w-10 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white backdrop-blur-sm z-20" />
-              <CarouselNext className="absolute right-1 sm:-right-4 lg:-right-6 h-10 w-10 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 text-white hover:text-white backdrop-blur-sm z-20" />
-            </Carousel>
-          ) : (
-            <div className="overflow-hidden">
-              <div className="flex -ml-6 md:-ml-12 lg:-ml-16">
-                {cursuriData.map(curs => (
-                  <div key={curs.id} className={`min-w-0 shrink-0 grow-0 ${CLASA_SLIDE}`}>
-                    <CardCurs curs={curs} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+          {cursuriData.map(curs => (
+            <li key={curs.id} className="w-[72%] shrink-0 snap-start sm:w-[45%] md:w-auto">
+              <CardCurs curs={curs} />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

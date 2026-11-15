@@ -92,18 +92,3 @@ export function TarifTile({ tarif }: { tarif: Tarif }) {
     </div>
   );
 }
-
-/** Bandă orizontală gradient, pentru tarifele doar cu preț. */
-export function TarifBanda({ tarif }: { tarif: Tarif }) {
-  return (
-    <div className="flex items-center justify-between gap-6 rounded-lg border border-red-600 bg-gradient-to-r from-red-600 to-orange-500 px-6 py-5 text-white shadow-lg">
-      <div className="min-w-0">
-        <p className="text-lg font-semibold">{tarif.titlu}</p>
-        {tarif.descriere && <p className="mt-0.5 text-sm text-white/90">{tarif.descriere}</p>}
-      </div>
-      <div className="shrink-0 text-3xl font-bold">
-        {tarif.pret} {tarif.moneda}
-      </div>
-    </div>
-  );
-}

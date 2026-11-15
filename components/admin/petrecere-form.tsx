@@ -19,6 +19,9 @@ import {
 } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
 import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from '@/components/ui/use-toast';
@@ -129,26 +132,14 @@ export default function PetrecereForm({
         createdAt: petrecere?.createdAt || Date.now(),
       };
 
-      // Determinăm metoda și URL-ul în funcție de dacă este o editare sau o adăugare
-      const method = petrecere ? 'PUT' : 'POST';
-      const url = petrecere
-        ? `/api/petreceri/${petrecere.id}`
-        : '/api/petreceri';
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(petrecereData),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(
-          error.message || 'A apărut o eroare la salvarea petrecerii'
-        );
+      // Scriere direct din browser, cu adminul autentificat (regulile Firestore
+      // permit scrierea doar adminului).
+      if (petrecere) {
+        await updateDoc(doc(db, 'petreceri', petrecere.id), petrecereData);
+      } else {
+        await addDoc(collection(db, 'petreceri'), petrecereData);
       }
+      await reimprospateazaSite('petreceri');
 
       onSuccess();
     } catch (error: any) {

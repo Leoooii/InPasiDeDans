@@ -25,7 +25,7 @@ type PublicGrupa = {
   publica?: boolean
 }
 
-const INSTRUCTOR_IMPLICIT = "Instructorii In Pasi de Dans"
+const INSTRUCTOR_IMPLICIT = "Instructorii În Pași de Dans"
 
 const getGrupa = cache(async (slug: string): Promise<PublicGrupa | null> => {
   const grupaId = extractGrupaIdFromSlug(slug)
@@ -54,7 +54,7 @@ const getGrupa = cache(async (slug: string): Promise<PublicGrupa | null> => {
   return {
     id: data.id,
     titlu: data.titlu || "Grupă de dans",
-    descriere: data.descriere || "Descoperă această grupă în formare la In Pasi de Dans.",
+    descriere: data.descriere || "Descoperă această grupă în formare la În Pași de Dans.",
     dataStart: data.dataStart || "",
     program: data.program || "",
     instructor: data.instructor || INSTRUCTOR_IMPLICIT,
@@ -289,7 +289,7 @@ export default async function GrupaInFormareDetails({ params }: { params: Promis
             </div>
             <div className="space-y-2 text-white/80">
               <p>
-                Ne întâlnim la studioul In Pasi de Dans din Calea Rahovei 262 –
+                Ne întâlnim la studioul În Pași de Dans din Calea Rahovei 262 –
                 o sală luminoasă și primitoare, pregătită pentru energia fiecărei grupe noi.
               </p>
              

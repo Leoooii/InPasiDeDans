@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAnalyticsClient, getPropertyId, isGaConfigured } from '@/lib/ga';
 import { getSearchConsole, type SearchConsoleData } from '@/lib/gsc';
+import { cerereDeLaAdmin } from '@/lib/admin-auth';
 
 // GA4 Data API e Node-only (gRPC). Forțăm runtime Node, nu Edge.
 export const runtime = 'nodejs';
@@ -67,9 +68,9 @@ function prettySource(sourceMedium: string): string {
 // ─── Handler ──────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  // Pază simplă cu token secret (server-only, nu ajunge în bundle).
-  const token = req.headers.get('x-analytics-token');
-  if (!process.env.ANALYTICS_API_SECRET || token !== process.env.ANALYTICS_API_SECRET) {
+  // Doar adminul logat (ID token Firebase). Vechea cheie statică ajunsese în
+  // JavaScript-ul public prin NEXT_PUBLIC_ANALYTICS_TOKEN, deci nu mai e acceptată.
+  if (!(await cerereDeLaAdmin(req))) {
     return NextResponse.json({ error: 'Neautorizat' }, { status: 401 });
   }
 

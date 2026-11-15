@@ -96,7 +96,7 @@ export default async function LatestBlogPosts() {
 
                 {/* Conținut */}
                 <div className="p-5 flex flex-col flex-1">
-                  <p className="text-xs mb-2 text-slate-400">{publishedDate}</p>
+                  <p className="text-xs mb-2 text-slate-500">{publishedDate}</p>
 
                   <h3 className="font-semibold text-base mb-2 line-clamp-2 transition-colors text-slate-900 group-hover:text-orange-600">
                     {post.title}
@@ -108,8 +108,8 @@ export default async function LatestBlogPosts() {
                     </p>
                   )}
 
-                  <div className="mt-4 pt-4 border-t border-slate-100/40">
-                    <span className="inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold shadow-sm transition-all bg-gradient-to-r from-red-600 to-orange-500 text-white group-hover:from-red-700 group-hover:to-orange-600 group-hover:shadow-md group-hover:shadow-orange-500/30">
+                  <div className="mt-4">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-red-600 transition-colors group-hover:text-orange-600">
                       Citește mai mult
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </span>

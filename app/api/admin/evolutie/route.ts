@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { unstable_cache } from 'next/cache';
 import { getAnalyticsClient, getPropertyId, isGaConfigured } from '@/lib/ga';
 import { getSearchConsole } from '@/lib/gsc';
+import { cerereDeLaAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -104,8 +105,9 @@ const construieste = async () => {
 };
 
 export async function POST(req: NextRequest) {
-  const token = req.headers.get('x-analytics-token');
-  if (!process.env.ANALYTICS_API_SECRET || token !== process.env.ANALYTICS_API_SECRET) {
+  // Doar adminul logat (ID token Firebase). Vechea cheie statică ajunsese în
+  // JavaScript-ul public prin NEXT_PUBLIC_ANALYTICS_TOKEN, deci nu mai e acceptată.
+  if (!(await cerereDeLaAdmin(req))) {
     return NextResponse.json({ error: 'Neautorizat' }, { status: 401 });
   }
   try {

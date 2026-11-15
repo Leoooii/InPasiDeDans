@@ -30,25 +30,25 @@ export default function CookieConsent() {
 
   return (
     <div
-      role="dialog"
+      role="region"
       aria-label="Cookie-uri"
-      className="fixed inset-x-3 bottom-3 z-50 sm:left-auto sm:right-4 sm:max-w-md rounded-2xl border border-orange-100 bg-white/95 p-4 shadow-xl backdrop-blur animate-in slide-in-from-bottom-4"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 shadow-[0_-4px_16px_rgba(15,23,42,0.08)] backdrop-blur animate-in slide-in-from-bottom-2"
     >
-      <p className="text-xs sm:text-sm text-slate-700">
-        Folosim servicii terțe (ex. Cloudflare) care pot folosi tehnologii similare cookie-urilor, pentru securitate.
-        Detalii în{' '}
-        <Link href="/cookie-policy" className="text-red-600 underline underline-offset-2">
-          Politica de cookie-uri
-        </Link>
-        .
-      </p>
-      <div className="mt-3 flex justify-end gap-2">
-        <Button variant="outline" size="sm" onClick={() => raspunde(false)}>
-          Refuz
-        </Button>
-        <Button variant="brand" size="sm" onClick={() => raspunde(true)}>
-          Accept
-        </Button>
+      <div className="container flex items-center gap-3 py-2.5 sm:gap-4">
+        <p className="flex-1 text-xs leading-snug text-slate-600 sm:text-sm">
+          Folosim servicii terțe (ex. Cloudflare) pentru securitate.{' '}
+          <Link href="/cookie-policy" className="text-red-600 underline underline-offset-2">
+            Detalii
+          </Link>
+        </p>
+        <div className="flex shrink-0 gap-2">
+          <Button variant="outline" size="sm" className="h-8 px-3" onClick={() => raspunde(false)}>
+            Refuz
+          </Button>
+          <Button variant="brand" size="sm" className="h-8 px-3" onClick={() => raspunde(true)}>
+            Accept
+          </Button>
+        </div>
       </div>
     </div>
   );

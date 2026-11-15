@@ -1,7 +1,6 @@
-import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
-import { collection, getDocs, addDoc, query, orderBy, serverTimestamp } from "firebase/firestore"
+import { collection, getDocs, query, orderBy } from "firebase/firestore"
 
 export async function GET() {
   try {
@@ -30,21 +29,3 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
-  try {
-    const data = await request.json()
-
-    const evenimenteRef = collection(db, "evenimente")
-    const docRef = await addDoc(evenimenteRef, {
-      ...data,
-      date: serverTimestamp(),
-      createdAt: serverTimestamp(),
-    })
-    revalidateTag('evenimente')
-
-    return NextResponse.json({ id: docRef.id, ...data })
-  } catch (error) {
-    console.error("Eroare la adăugarea evenimentului:", error)
-    return NextResponse.json({ error: "Eroare la adăugarea evenimentului" }, { status: 500 })
-  }
-}

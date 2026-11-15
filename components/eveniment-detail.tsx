@@ -528,7 +528,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
                       </div>
                     </div>
                     <div className="p-5">
-                      <div className="text-xs text-white/50 mb-1.5">
+                      <div className="text-xs text-white/65 mb-1.5">
                         {formatDateLong(r.date)}
                       </div>
                       <h3 className="font-semibold text-white line-clamp-2 group-hover:text-orange-300 transition-colors">

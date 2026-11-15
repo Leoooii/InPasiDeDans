@@ -19,14 +19,14 @@ export default function PricingSection({ title }: { title?: string }) {
         <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {plans.map((plan) => (
-              <TarifCard key={plan.id} tarif={plan} />
+              <TarifCard key={plan.id} tarif={plan} varianta="alb" />
             ))}
           </div>
         </div>
 
         {/* Warning Section */}
         <div className="max-w-4xl mx-auto">
-          <div className="bg-amber-50 border-l-2 sm:border-l-4 border-amber-400 p-0 sm:p-6 rounded-lg shadow-sm">
+          <div className="bg-amber-50 border-l-4 border-amber-400 p-4 sm:p-6 rounded-lg shadow-sm">
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-amber-400 hidden sm:block" viewBox="0 0 20 20" fill="currentColor">

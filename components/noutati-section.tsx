@@ -293,7 +293,7 @@ export default function NoutatiSection({
 
                   {/* Conținut */}
                   <div className="p-5 flex flex-col flex-1">
-                    <p className={cn('text-xs mb-2', isHomepage ? 'text-slate-400' : 'text-white/50')}>
+                    <p className={cn('text-xs mb-2', isHomepage ? 'text-slate-500' : 'text-white/65')}>
                       {formatDate(eveniment.date)}
                     </p>
 
@@ -324,13 +324,14 @@ export default function NoutatiSection({
                       </p>
                     )}
 
-                    <div className="mt-4 pt-4 border-t border-slate-100/40">
+                    <div className="mt-4">
                       {hasDetailPage ? (
                         <span
                           className={cn(
-                            'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold shadow-sm transition-all',
-                            'bg-gradient-to-r from-red-600 to-orange-500 text-white',
-                            'group-hover:from-red-700 group-hover:to-orange-600 group-hover:shadow-md group-hover:shadow-orange-500/30'
+                            'inline-flex items-center gap-1.5 text-sm font-semibold transition-colors',
+                            isHomepage
+                              ? 'text-red-600 group-hover:text-orange-600'
+                              : 'text-orange-300 group-hover:text-orange-200'
                           )}
                         >
                           Citește mai mult

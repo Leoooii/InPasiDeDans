@@ -1,4 +1,7 @@
 'use client';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 import { useState } from 'react';
 import {
@@ -51,13 +54,8 @@ export default function InstructoriList({
 
     setIsDeleting(true);
     try {
-      const response = await fetch(`/api/instructori/${deleteId}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Eroare la ștergerea instructorului');
-      }
+      await deleteDoc(doc(db, 'instructori', deleteId));
+      await reimprospateazaSite('instructori');
 
       onDeleteSuccess();
     } catch (error) {

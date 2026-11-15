@@ -2,6 +2,11 @@
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import type { Metadata } from 'next';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
+import GrupeLibere from '@/components/grupe-libere';
+import { getGrupePublice, getToateGrupele, safe } from '@/lib/public-data';
+import { grupeCuLocuriPentruIncepatori } from '@/lib/grupe-libere';
+
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: 'Grupe Noi de Dans în Formare București | În Pași de Dans',
@@ -19,7 +24,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function GrupeInFormarePage() {
+export default async function GrupeInFormarePage() {
+  const [inFormare, toate] = await Promise.all([
+    safe(getGrupePublice, null),
+    safe(getToateGrupele, null),
+  ]);
+  const faraGrupeNoi = inFormare !== null && inFormare.length === 0;
+  const libere = faraGrupeNoi ? grupeCuLocuriPentruIncepatori(toate) : [];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 text-white">
       <div className="container mx-auto py-16 px-4 md:px-16">
@@ -35,8 +47,10 @@ export default function GrupeInFormarePage() {
             Grupe de Dans în Formare
           </h1>
           <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
-            Dacă te gândești să te înscrii la un curs de dans, ai ajuns în locul
-            potrivit. Iată grupele pentru care facem înscrieri în această perioadă!
+            Dacă te gândești să te înscrii la un curs de dans, ai ajuns în locul potrivit.
+            {faraGrupeNoi
+              ? ' Mai jos găsești grupele în care poți începe chiar acum.'
+              : ' Iată grupele pentru care facem înscrieri în această perioadă!'}
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 text-sm">
@@ -63,7 +77,29 @@ export default function GrupeInFormarePage() {
           </div>
         </div>
         
-        <GrupeInFormareSection />
+        {faraGrupeNoi ? (
+          <section aria-labelledby="grupe-libere" className="space-y-6">
+            <div className="text-center">
+              <h2 id="grupe-libere" className="text-2xl md:text-3xl font-bold">
+                Grupe pentru începători cu locuri libere
+              </h2>
+              <p className="mt-3 text-white/75 max-w-2xl mx-auto">
+                Acum nu pornim grupe noi, dar grupele de începători de mai jos mai au locuri.
+                Alege una și te contactăm pentru prima ședință.
+              </p>
+            </div>
+            <GrupeLibere grupe={libere} ton="inchis" />
+            <p className="text-center text-sm text-white/60">
+              Vrei să aștepți o grupă nouă?{' '}
+              <a href="/inscriere" className="text-orange-300 underline hover:text-orange-200">
+                Intră pe lista de așteptare
+              </a>{' '}
+              și te anunțăm când pornește.
+            </p>
+          </section>
+        ) : (
+          <GrupeInFormareSection />
+        )}
       </div>
     </div>
   );

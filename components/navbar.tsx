@@ -24,6 +24,7 @@ import {
 import { usePathname, useRouter } from 'next/navigation';
 import { Facebook, Instagram } from 'lucide-react';
 import GrupeCountBadge from '@/components/grupe-count-badge';
+import { usePublicData } from '@/components/public-data-provider';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,6 +55,10 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const activ = (href: string) => (pathname?.startsWith(href) ? 'bg-red-50 text-red-600' : '');
+  const activInGrup = (items: { href: string }[]) =>
+    items.some(item => pathname?.startsWith(item.href)) ? 'bg-red-50 text-red-600' : '';
+  const { grupe } = usePublicData();
+  const areGrupeNoi = !!grupe && grupe.length > 0;
 
   // Firebase (~110 KB) se încarcă abia după ce pagina e gata: vizitatorii nu au nevoie de el,
   // iar butonul „Contul meu” apare oricum doar celor logați.
@@ -193,6 +198,7 @@ export default function Navbar() {
                 <SheetTitle className="sr-only">Meniu de navigare</SheetTitle>
                 <MobileNav
                   setIsOpen={setIsOpen}
+                  areGrupeNoi={areGrupeNoi}
                   user={user}
                   isAdmin={isAdmin}
                   onLogout={handleLogout}
@@ -207,169 +213,97 @@ export default function Navbar() {
           <div className="flex justify-center py-3">
             <NavigationMenu>
               <NavigationMenuList className="flex flex-wrap justify-center gap-1">
-                {/* First Row - Main Services */}
+                {/* „Grupe noi” apare doar când există grupe publice în formare */}
+                {areGrupeNoi && (
+                  <NavigationMenuItem>
+                    <NavigationMenuLink
+                      asChild
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold text-sm'
+                      )}
+                      title="Grupe de dans în formare"
+                    >
+                      <Link href="/grupe-in-formare" className="flex items-center gap-1">
+                        Grupe noi
+                        <GrupeCountBadge />
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                )}
+
+                {/* Cursuri -> click */}
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer bg-red-50 text-red-600 font-semibold text-sm'
-                    )}
-                    title="Grupe de dans în formare"
-                  >
-                    <Link href="/grupe-in-formare" className="flex items-center gap-1">
-                      <GrupeCountBadge />
-                      Grupe de dans în formare
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                
-                {/* Cursuri adulți -> open on click, aligned under button */}
-                <NavigationMenuItem>
-                  <DropdownMenu 
-                    open={openDropdown === 'cursuri-adulti'} 
-                    onOpenChange={(open) => setOpenDropdown(open ? 'cursuri-adulti' : null)}
+                  <DropdownMenu
+                    open={openDropdown === 'cursuri'}
+                    onOpenChange={(open) => setOpenDropdown(open ? 'cursuri' : null)}
                   >
                     <DropdownMenuTrigger asChild>
                       <button
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          'hover:text-red-600 transition-colors cursor-pointer text-sm'
+                          'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                          activInGrup(toateCursurile)
                         )}
-                        title="Cursuri dans adulți"
+                        title="Cursuri de dans"
                       >
-                        Cursuri dans adulți
+                        Cursuri
                         <ChevronDown className="ml-1 h-3 w-3" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" sideOffset={8} className="p-0">
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                        {dansuriPredate.map(item => (
-                          <li key={item.title}>
-                            <Link
-                              href={item.href}
-                              onClick={() => setOpenDropdown(null)}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
-                              title={item.title}
-                            >
-                              <div className="text-sm font-medium leading-none">{item.title}</div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                {item.description}
-                              </p>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </NavigationMenuItem>
-
-                {/* Cursuri dans copii */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
-                      activ('/cursuri-dans-copii')
-                    )}
-                    title="Cursuri dans copii"
-                  >
-                    <Link href="/cursuri-dans-copii">Cursuri dans copii</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                {/* Dansul mirilor */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
-                      activ('/dansul-mirilor')
-                    )}
-                    title="Dansul mirilor"
-                  >
-                    <Link href="/dansul-mirilor">Dansul mirilor</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                {/* Despre noi -> click */}
-                <NavigationMenuItem>
-                  <DropdownMenu 
-                    open={openDropdown === 'despre-noi'} 
-                    onOpenChange={(open) => setOpenDropdown(open ? 'despre-noi' : null)}
-                  >
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                        )}
-                        title="Despre noi"
-                      >
-                        Despre noi
-                        <ChevronDown className="ml-1 h-3 w-3" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" sideOffset={8} className="p-0">
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                        {despreNoi.map(item => (
-                          <li key={item.title}>
-                            <Link
-                              href={item.href}
-                              onClick={() => setOpenDropdown(null)}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
-                              title={item.title}
-                            >
-                              <div className="text-sm font-medium leading-none">{item.title}</div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                {item.description}
-                              </p>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </NavigationMenuItem>
-
-                {/* Activități -> click */}
-                <NavigationMenuItem>
-                  <DropdownMenu 
-                    open={openDropdown === 'activitati'} 
-                    onOpenChange={(open) => setOpenDropdown(open ? 'activitati' : null)}
-                  >
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          'hover:text-red-600 transition-colors cursor-pointer text-sm'
-                        )}
-                        title="Activități"
-                      >
-                        Activități
-                        <ChevronDown className="ml-1 h-3 w-3" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" sideOffset={8} className="p-0">
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                        {activitati.map(item => (
-                          <li key={item.title}>
-                            <Link
-                              href={item.href}
-                              onClick={() => setOpenDropdown(null)}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
-                              title={item.title}
-                            >
-                              <div className="text-sm font-medium leading-none">{item.title}</div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                {item.description}
-                              </p>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="grid w-[560px] grid-cols-2 gap-3 p-4 lg:w-[640px]">
+                        <div>
+                          <Link
+                            href={cursuriAdulti.href}
+                            onClick={() => setOpenDropdown(null)}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+                            title={cursuriAdulti.title}
+                          >
+                            <div className="text-sm font-semibold leading-none">{cursuriAdulti.title}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              {cursuriAdulti.description}
+                            </p>
+                          </Link>
+                          <ul className="ml-3 mt-1 grid gap-0.5 border-l border-slate-200 pl-2">
+                            {dansuriAdulti.map(item => (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  onClick={() => setOpenDropdown(null)}
+                                  className={cn(
+                                    'block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground',
+                                    item.indent && 'pl-6 text-muted-foreground'
+                                  )}
+                                  title={item.title}
+                                >
+                                  {item.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <ul className="grid content-start gap-1">
+                          {alteCursuri.map(item => (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                onClick={() => setOpenDropdown(null)}
+                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+                                title={item.title}
+                              >
+                                <div className="flex items-center text-sm font-medium leading-none">
+                                  {item.title}
+                                  {item.href === '/grupe-in-formare' && <GrupeCountBadge />}
+                                </div>
+                                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  {item.description}
+                                </p>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </NavigationMenuItem>
@@ -388,7 +322,7 @@ export default function Navbar() {
                     <Link href="/program">Program</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
- 
+
                 {/* Tarife */}
                 <NavigationMenuItem>
                   <NavigationMenuLink
@@ -401,6 +335,64 @@ export default function Navbar() {
                     title="Tarife Cursuri de Dans"
                   >
                     <Link href="/tarife">Tarife</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                {/* Activități + Despre noi -> click */}
+                {meniuriSimple.map(meniu => (
+                  <NavigationMenuItem key={meniu.id}>
+                    <DropdownMenu
+                      open={openDropdown === meniu.id}
+                      onOpenChange={(open) => setOpenDropdown(open ? meniu.id : null)}
+                    >
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          className={cn(
+                            navigationMenuTriggerStyle(),
+                            'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                            activInGrup(meniu.items)
+                          )}
+                          title={meniu.title}
+                        >
+                          {meniu.title}
+                          <ChevronDown className="ml-1 h-3 w-3" />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" sideOffset={8} className="p-0">
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                          {meniu.items.map(item => (
+                            <li key={item.title}>
+                              <Link
+                                href={item.href}
+                                onClick={() => setOpenDropdown(null)}
+                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+                                title={item.title}
+                              >
+                                <div className="text-sm font-medium leading-none">{item.title}</div>
+                                <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                  {item.description}
+                                </p>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </NavigationMenuItem>
+                ))}
+
+                {/* Blog */}
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
+                      activ('/blog')
+                    )}
+                    title="Blog Dans București"
+                  >
+                    <Link href="/blog">Blog</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
 
@@ -418,21 +410,6 @@ export default function Navbar() {
                     <Link href={WEBSITE_URLS.CONTACT}>Contact</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
-
-                {/* Blog */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'hover:text-red-600 transition-colors cursor-pointer text-sm',
-                      activ('/blog')
-                    )}
-                    title="Blog Dans București"
-                  >
-                    <Link href="/blog">Blog</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
           </div>
@@ -444,11 +421,13 @@ export default function Navbar() {
 
 function MobileNav({
   setIsOpen,
+  areGrupeNoi,
   user,
   isAdmin,
   onLogout,
 }: {
   setIsOpen: (open: boolean) => void;
+  areGrupeNoi: boolean;
   user: any;
   isAdmin: boolean;
   onLogout: () => void;
@@ -473,105 +452,86 @@ function MobileNav({
         </div>
       </Link>
       <div className="grid gap-3">
-        <Link
-          href="/grupe-in-formare"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md"
-          title="Grupe Noi Cursuri de Dans"
-        >
-          Grupe de dans în formare
-        </Link>
+        {areGrupeNoi && (
+          <Link
+            href="/grupe-in-formare"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center py-2 font-medium text-red-600 bg-red-50 px-2 rounded-md"
+            title="Grupe de dans în formare"
+          >
+            Grupe noi
+            <GrupeCountBadge />
+          </Link>
+        )}
 
-        {/* Cursuri dans adulți */}
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="dansuri">
+          {/* Cursuri */}
+          <AccordionItem value="cursuri">
             <AccordionTrigger className="py-2 font-medium">
-              Cursuri dans adulți
+              Cursuri
             </AccordionTrigger>
             <AccordionContent>
-              <div className="grid gap-2 pl-4">
-                {dansuriPredate.map(item => (
+              <div className="grid gap-1 pl-4">
+                <Link
+                  href={cursuriAdulti.href}
+                  onClick={() => setIsOpen(false)}
+                  className="py-2.5 font-medium text-foreground"
+                  title={cursuriAdulti.title}
+                >
+                  {cursuriAdulti.title}
+                </Link>
+                <div className="grid gap-1 border-l border-slate-200 pl-3">
+                  {dansuriAdulti.map(item => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={cn('py-2 text-muted-foreground hover:text-foreground', item.indent && 'pl-4')}
+                      title={item.title}
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+                {alteCursuri.map(item => (
                   <Link
-                    key={item.title}
+                    key={item.href}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="py-2.5 text-muted-foreground hover:text-foreground"
+                    className="flex items-center py-2.5 font-medium text-foreground"
                     title={item.title}
                   >
                     {item.title}
+                    {item.href === '/grupe-in-formare' && <GrupeCountBadge />}
                   </Link>
                 ))}
               </div>
             </AccordionContent>
           </AccordionItem>
-        </Accordion>
 
-        {/* Cursuri dans copii */}
-        <Link
-          href="/cursuri-dans-copii"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-          title="Cursuri dans copii"
-        >
-          Cursuri dans copii
-        </Link>
-
-        {/* Dansul mirilor */}
-        <Link
-          href="/dansul-mirilor"
-          onClick={() => setIsOpen(false)}
-          className="py-2 font-medium"
-          title="Dansul mirilor"
-        >
-          Dansul mirilor
-        </Link>
-
-        {/* Despre noi */}
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="despre">
-            <AccordionTrigger className="py-2 font-medium">
-              Despre noi
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="grid gap-2 pl-4">
-                {despreNoi.map(item => (
-                  <Link
-                    key={item.title}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="py-2.5 text-muted-foreground hover:text-foreground"
-                    title={item.title}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-
-        {/* Activități */}
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="activitati">
-            <AccordionTrigger className="py-2 font-medium">
-              Activități
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="grid gap-2 pl-4">
-                {activitati.map(item => (
-                  <Link
-                    key={item.title}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="py-2.5 text-muted-foreground hover:text-foreground"
-                    title={item.title}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+          {/* Activități + Despre noi */}
+          {meniuriSimple.map(meniu => (
+            <AccordionItem key={meniu.id} value={meniu.id}>
+              <AccordionTrigger className="py-2 font-medium">
+                {meniu.title}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="grid gap-2 pl-4">
+                  {meniu.items.map(item => (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="py-2.5 text-muted-foreground hover:text-foreground"
+                      title={item.title}
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
         </Accordion>
 
         {/* Program */}
@@ -677,30 +637,45 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = 'ListItem';
 
-const dansuriPredate = [
+type ItemMeniu = { title: string; href: string; description?: string };
+
+const cursuriAdulti: ItemMeniu = {
+  title: 'Cursuri dans adulți',
+  href: '/cursuri-dans-adulti',
+  description: 'Toate cursurile de grup pentru adulți, de la începători la avansați.',
+};
+
+const dansuriAdulti: (ItemMeniu & { indent?: boolean })[] = [
+  { title: 'Dansuri latino', href: '/dansuri-latino' },
+  { title: 'Salsa și bachata', href: '/dansuri-latino/salsa-bachata', indent: true },
+  { title: 'Dansuri de societate', href: '/dansuri-de-societate' },
+  { title: 'Dansuri populare', href: '/dansuri-populare' },
+];
+
+const alteCursuri: ItemMeniu[] = [
   {
-    title: 'Dansuri latino',
-    href: '/dansuri-latino',
-    description:
-      'Salsa, bachata, cha-cha, rumba și alte dansuri latino pline de pasiune.',
+    title: 'Cursuri dans copii',
+    href: '/cursuri-dans-copii',
+    description: 'Grupe de dans pentru copii, pe vârste.',
   },
   {
-    title: 'Dansuri de societate',
-    href: '/dansuri-de-societate',
-    description: 'Vals, tango, foxtrot și alte dansuri elegante de societate.',
+    title: 'Dansul mirilor',
+    href: '/dansul-mirilor',
+    description: 'Pregătire pentru primul dans la nuntă.',
   },
   {
-    title: 'Dansuri populare',
-    href: '/dansuri-populare',
-    description: 'Învață dansuri tradiționale românești și internaționale.',
-  },
-  {
-    title: 'Cursuri particulare de dans',
+    title: 'Lecții private',
     href: '/lectii-private',
-    description:
-      'Dansul mirilor, dansuri latino și de societate, dansuri populare etc.',
+    description: 'Dansul mirilor, dansuri latino și de societate, dansuri populare etc.',
+  },
+  {
+    title: 'Grupe în formare',
+    href: '/grupe-in-formare',
+    description: 'Grupele noi care încep în curând.',
   },
 ];
+
+const toateCursurile: ItemMeniu[] = [cursuriAdulti, ...dansuriAdulti, ...alteCursuri];
 
 const despreNoi = [
   {
@@ -733,4 +708,9 @@ const activitati = [
     href: '/noutati',
     description: 'Concursuri de dans, festivaluri și congrese.',
   },
+];
+
+const meniuriSimple: { id: string; title: string; items: ItemMeniu[] }[] = [
+  { id: 'activitati', title: 'Activități', items: activitati },
+  { id: 'despre-noi', title: 'Despre noi', items: despreNoi },
 ];

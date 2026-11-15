@@ -4,7 +4,7 @@ import CtaBanner from '@/components/cta-banner';
 import type { Tarif } from '@/lib/types'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';
 import PricingSection from '@/components/PricingSection';
-import { TarifBanda, TarifCard, useTarife } from '@/components/tarif-card';
+import { TarifCard, TarifTile, useTarife } from '@/components/tarif-card';
 
 
 function TarifCards({ tarife }: { tarife: Tarif[] }) {
@@ -16,16 +16,16 @@ function TarifCards({ tarife }: { tarife: Tarif[] }) {
       {cuBeneficii.length > 0 && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {cuBeneficii.map((tarif) => (
-            <TarifCard key={tarif.id} tarif={tarif} />
+            <TarifCard key={tarif.id} tarif={tarif} varianta="alb" />
           ))}
         </div>
       )}
 
-      {/* Tarifele doar cu preț — benzi orizontale compacte */}
+      {/* Tarifele doar cu preț — dale compacte */}
       {doarPret.length > 0 && (
         <div className="grid gap-4 md:grid-cols-2">
           {doarPret.map((tarif) => (
-            <TarifBanda key={tarif.id} tarif={tarif} />
+            <TarifTile key={tarif.id} tarif={tarif} />
           ))}
         </div>
       )}
@@ -49,11 +49,11 @@ export default function Tarife() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Tarife cursuri de dans din Bucuresti
+              Tarife cursuri de dans din București
             </h1>
             <p className="text-slate-500 ">
               Alege abonamentul potrivit pentru cursurile de dans pentru adulți
-              la In Pasi de Dans, Bucuresti.
+              la În Pași de Dans, București.
             </p>
           </div>
           <PricingSection />

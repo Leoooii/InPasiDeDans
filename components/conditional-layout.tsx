@@ -5,8 +5,9 @@ import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
 import CookieConsent from '@/components/cookie-consent';
 import GrupeInFormare from '@/components/grupe-in-formare';
+import BaraActiuniMobil from '@/components/bara-actiuni-mobil';
 
-// Paginile pe care apare butonul plutitor „Grupe noi!"
+// Paginile pe care apare (pe desktop) butonul plutitor „Grupe noi!"; pe telefon e bara de jos.
 const CU_BUTON_GRUPE_NOI = new Set([
   '/contact',
   '/cursuri-dans-adulti',
@@ -37,6 +38,7 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
       <Footer />
       <CookieConsent />
       {CU_BUTON_GRUPE_NOI.has(pathname ?? '') && <GrupeInFormare />}
+      {pathname !== '/inscriere' && <BaraActiuniMobil />}
     </>
   );
 }

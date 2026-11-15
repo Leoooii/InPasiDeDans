@@ -20,6 +20,9 @@ import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import type { Instructor } from '@/app/admin/instructori/page';
 import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
 // Schema de validare pentru formular
 const instructorSchema = z.object({
@@ -127,25 +130,24 @@ export default function InstructorForm({
   const onSubmit = async (data: InstructorFormValues) => {
     setIsSubmitting(true);
     try {
-      const url = instructor
-        ? `/api/instructori/${instructor.id}`
-        : '/api/instructori';
-      const method = instructor ? 'PUT' : 'POST';
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          createdAt: instructor?.createdAt || Date.now(),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Eroare la salvarea instructorului');
+      // Aceleași câmpuri ca vechiul API; scriere direct din browser, ca admin.
+      const date = {
+        name: data.name,
+        role: data.role,
+        bio: data.bio,
+        imageUrl: data.imageUrl,
+        facebookUrl: data.facebookUrl || null,
+        instagramUrl: data.instagramUrl || null,
+        youtubeUrl: data.youtubeUrl || null,
+        order: data.order || 0,
+        createdAt: instructor?.createdAt || Date.now(),
+      };
+      if (instructor) {
+        await updateDoc(doc(db, 'instructori', instructor.id), date);
+      } else {
+        await addDoc(collection(db, 'instructori'), date);
       }
+      await reimprospateazaSite('instructori');
 
       onSuccess();
     } catch (error) {

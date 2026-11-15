@@ -116,7 +116,7 @@ export function DarkAntetSectiune({
           )}
           {titlu}
         </h2>
-        {subtitlu && <p className="text-white/50 text-sm mt-1">{subtitlu}</p>}
+        {subtitlu && <p className="text-white/65 text-sm mt-1">{subtitlu}</p>}
       </div>
     </div>
   );

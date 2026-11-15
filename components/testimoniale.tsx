@@ -1,6 +1,6 @@
 'use client';
 
-import { Star, Quote, Heart } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import type { Testimonial } from '@/lib/testimoniale';
 import {
   Carousel,
@@ -37,23 +37,20 @@ export default function Testimoniale({
       <div className="bg-white">
         <div className="container mx-auto px-4">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full mb-6">
-            <Heart className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
             {titlu}
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {subtitlu}
           </p>
         </div>
 
         {/* Testimonials Carousel */}
         <div className="w-full relative">
-          <Carousel 
-            className="w-full" 
-            opts={{ 
+          <Carousel
+            className="w-full"
+            opts={{
               loop: true,
               align: "start",
               containScroll: "trimSnaps",
@@ -63,74 +60,43 @@ export default function Testimoniale({
               inViewThreshold: 0.7
             }}
           >
-            <CarouselContent className="-ml-1 md:-ml-6 lg:-ml-12">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={testimonial.id} className={`pl-1 md:pl-6 lg:pl-12 basis-full ${latime === 'treime' ? 'md:basis-1/2 lg:basis-1/3' : 'sm:basis-3/4 md:basis-2/3 lg:basis-1/2'}`}>
-                  <div className="relative group">
-                    <div
-                      className={`relative p-6 rounded-2xl w-full h-full ${
-                        index % 2 === 0 
-                          ? 'bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500' 
-                          : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-l-4 border-orange-500'
-                      } hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2`}
-                    >
-                        {/* Quote Icon */}
-                        <div className="absolute -top-3 -left-3 lg:-top-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-                          <Quote className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" />
-                        </div>
-
-                        {/* Rating */}
-                        <div className="flex justify-center mb-3 lg:mb-4">
-                          {[...Array(testimonial.rating)].map((_, starIndex) => (
-                            <Star
-                              key={starIndex}
-                              className="w-4 h-4 lg:w-5 lg:h-5 text-yellow-500 fill-current mx-0.5 lg:mx-1"
-                            />
-                          ))}
-                        </div>
-
-                        {/* Highlight Text */}
-                        <div className="text-center mb-3 lg:mb-4">
-                          <p className="text-sm lg:text-base font-semibold text-slate-800 italic">
-                            "{testimonial.highlight}"
-                          </p>
-                        </div>
-
-                        {/* Full Testimonial */}
-                        <p className="text-slate-700 leading-relaxed mb-4 lg:mb-6 text-center text-xs lg:text-sm">
-                          {testimonial.text}
-                        </p>
-
-                        {/* Author */}
-                        <div className="text-center">
-                          <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-400 to-orange-400 rounded-full mx-auto mb-2 lg:mb-3 flex items-center justify-center">
-                            <span className="text-white font-bold text-sm lg:text-base">
-                              {testimonial.name.split(' ').map(n => n[0]).join('')}
-                            </span>
-                          </div>
-                          <p className="font-bold text-slate-900 text-sm lg:text-base">
-                            {testimonial.name}
-                          </p>
-                          {testimonial.date && (
-                            <p className="text-xs text-slate-500 ">
-                              {testimonial.date}
-                            </p>
-                          )}
-                        </div>
-
-                        {/* Decorative Elements */}
-                        <div className="absolute top-3 right-3 lg:top-4 lg:right-4 opacity-10">
-                          <Heart className="w-8 h-8 lg:w-10 lg:h-10 text-red-400" />
-                        </div>
+            <CarouselContent className="-ml-4 md:-ml-6">
+              {testimonials.map(testimonial => (
+                <CarouselItem key={testimonial.id} className={`pl-4 md:pl-6 basis-[88%] ${latime === 'treime' ? 'md:basis-1/2 lg:basis-1/3' : 'sm:basis-3/4 md:basis-2/3 lg:basis-1/2'}`}>
+                  <figure className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <Quote className="h-8 w-8 text-orange-400" aria-hidden />
+                      <div className="flex gap-0.5" aria-label={`${testimonial.rating} din 5 stele`}>
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden />
+                        ))}
+                      </div>
                     </div>
-                  </div>
+
+                    <p className="mt-4 text-lg font-semibold leading-snug text-slate-900">
+                      {testimonial.highlight}
+                    </p>
+                    <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-600">
+                      <p>{testimonial.text}</p>
+                    </blockquote>
+
+                    <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-100 text-sm font-bold text-orange-700">
+                        {testimonial.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                      </span>
+                      <span>
+                        <span className="block font-semibold text-slate-900">{testimonial.name}</span>
+                        {testimonial.date && <span className="block text-xs text-slate-500">{testimonial.date}</span>}
+                      </span>
+                    </figcaption>
+                  </figure>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
+
             {/* Butoane de navigare */}
-            <CarouselPrevious className="flex absolute -left-2 md:-left-4 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-red-500 text-red-500 hover:text-red-700 z-20" />
-            <CarouselNext className="flex absolute -right-2 md:-right-4 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-red-500 text-red-500 hover:text-red-700 z-20" />
+            <CarouselPrevious className="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 shadow-sm z-20" />
+            <CarouselNext className="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 shadow-sm z-20" />
           </Carousel>
         </div>
       </div>

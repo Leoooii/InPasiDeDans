@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Loader2, Rocket, TrendingDown, TrendingUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { antetAdmin } from '@/lib/admin-client';
 
 type Pereche = { inainte: number; dupa: number };
 type Interval = { startDate: string; endDate: string };
@@ -95,15 +96,15 @@ function Tabel<K extends string>({
   );
 }
 
-export default function EvolutieOptimizare({ token }: { token: string }) {
+export default function EvolutieOptimizare() {
   const [date, setDate] = useState<Raspuns | null>(null);
   const [eroare, setEroare] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/admin/evolutie', { method: 'POST', headers: { 'x-analytics-token': token } })
+    antetAdmin().then(headers => fetch('/api/admin/evolutie', { method: 'POST', headers }))
       .then(async r => (r.ok ? setDate(await r.json()) : setEroare('Nu am putut încărca evoluția.')))
       .catch(() => setEroare('Nu am putut încărca evoluția.'));
-  }, [token]);
+  }, []);
 
   return (
     <Card>

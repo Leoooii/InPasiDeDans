@@ -4,10 +4,36 @@ import Image from 'next/image';
 import { HeroVideo } from '@/components/hero-video';
 import GrupeInFormareSection from '@/components/grupe-in-formare-section';
 import NoutatiSection from '@/components/noutati-section';
-import StickyMenu from '@/components/sticky-menu';
 import CursuriSection from '@/components/CursuriSection';
 import LatestBlogPosts from '@/components/latest-blog-posts';
-import { getEvenimente, safe } from '@/lib/public-data';
+import GrupeLibere from '@/components/grupe-libere';
+import Testimoniale from '@/components/testimoniale';
+import EchipaSiLocatie from '@/components/echipa-si-locatie';
+import { getEvenimente, getGrupePublice, getInstructori, getToateGrupele, safe } from '@/lib/public-data';
+import { grupeCuLocuriPentruIncepatori } from '@/lib/grupe-libere';
+import {
+  TESTIMONIALE_COPII,
+  TESTIMONIALE_LATINO,
+  TESTIMONIALE_POPULARE,
+  TESTIMONIALE_SALSA_BACHATA,
+  TESTIMONIALE_SOCIETATE,
+  type Testimonial,
+} from '@/lib/testimoniale';
+
+// Câte o părere (cea mai scurtă) din fiecare tip de curs, ca prima pagină să vorbească
+// pentru toată școala fără carduri foarte lungi.
+const ceaMaiScurta = (lista: Testimonial[]) =>
+  [...lista].sort((a, b) => a.text.length - b.text.length)[0];
+const TESTIMONIALE_ACASA = [
+  TESTIMONIALE_LATINO,
+  TESTIMONIALE_POPULARE,
+  TESTIMONIALE_COPII,
+  TESTIMONIALE_SOCIETATE,
+  TESTIMONIALE_SALSA_BACHATA,
+]
+  .map(ceaMaiScurta)
+  .filter(Boolean)
+  .map((t, i) => ({ ...t, id: 1000 + i }));
 
 // Conținutul se reîmprospătează la salvare (webhook Sanity, admin → revalidateTag);
 // intervalul e doar plasă de siguranță.
@@ -46,7 +72,15 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const evenimente = await safe(getEvenimente, null);
+  const [evenimente, grupeInFormare, toateGrupele, instructori] = await Promise.all([
+    safe(getEvenimente, null),
+    safe(getGrupePublice, null),
+    safe(getToateGrupele, null),
+    safe(getInstructori, null),
+  ]);
+  // Fără grupe noi publice, arătăm grupele de începători care mai au locuri (din orar).
+  const faraGrupeNoi = grupeInFormare !== null && grupeInFormare.length === 0;
+  const grupeLibere = faraGrupeNoi ? grupeCuLocuriPentruIncepatori(toateGrupele, 6) : [];
 
   return (
     <>
@@ -67,12 +101,6 @@ export default async function Home() {
           }}
         />
       <div className="flex flex-col min-h-screen">
-        <StickyMenu menuItems={[
-          { id: 'cursuri', label: 'Cursuri' },
-          { id: 'grupe', label: 'Grupe în formare' },
-          { id: 'noutati', label: 'Noutăți' }
-        ]} />
-
         <section className="relative h-[85svh] min-h-[520px] overflow-hidden">
           <div className="sticky top-0 h-[85svh] min-h-[520px]">
             <div className="relative w-full h-full bg-slate-900">
@@ -123,21 +151,26 @@ export default async function Home() {
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div>
                 <p className="text-sm uppercase tracking-[0.3em] text-slate-500 mb-2">
-                  Grupe în formare
+                  {faraGrupeNoi ? 'Începe chiar de săptămâna asta' : 'Grupe în formare'}
                 </p>
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                  Alege grupa potrivită pentru tine
+                  {faraGrupeNoi ? 'Grupe pentru începători cu locuri libere' : 'Alege grupa potrivită pentru tine'}
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mt-4">
-                  Descoperă grupele care încep în următoarele săptămâni și rezervă-ți locul în câteva
-                  secunde. Actualizăm lista constant, astfel încât să ai mereu opțiuni proaspete.
+                  {faraGrupeNoi
+                    ? 'Nu ai nevoie de experiență sau de partener. Alege o grupă și te contactăm pentru prima ședință.'
+                    : 'Descoperă grupele care încep în următoarele săptămâni și rezervă-ți locul în câteva secunde.'}
                 </p>
               </div>
-              <Button variant="outline" className="border-slate-300 text-slate-800" asChild><Link href="/grupe-in-formare">
-                  Vezi toate grupele
+              <Button variant="outline" className="border-slate-300 text-slate-800" asChild><Link href={faraGrupeNoi ? '/program' : '/grupe-in-formare'}>
+                  {faraGrupeNoi ? 'Vezi tot programul' : 'Vezi toate grupele'}
                 </Link></Button>
             </div>
-            <GrupeInFormareSection variant="homepage" limit={3} />
+            {faraGrupeNoi ? (
+              <GrupeLibere grupe={grupeLibere} />
+            ) : (
+              <GrupeInFormareSection variant="homepage" limit={3} />
+            )}
           </div>
         </section>
 
@@ -148,8 +181,8 @@ export default async function Home() {
                 Pregătit să începi călătoria ta în lumea dansului?
               </h2>
               <p className="text-lg lg:text-xl text-white/80 mb-8">
-                Alătură-te celor peste 12.000 de cursanți care au descoperit energia dansului la
-                școala noastră, indiferent de vârstă sau nivel.
+                Din 2009, peste 12.000 de oameni au învățat să danseze la noi — copii, adulți,
+                miri și pasionați de toate vârstele. Următorul poți fi tu.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button variant="brand"
@@ -167,8 +200,8 @@ export default async function Home() {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4 text-left">
               {[
-                { label: 'cursanți activi', value: '+300' },
-                { label: 'stiluri de dans', value: '20+' },
+                { label: 'cursanți din 2009', value: '12.000+' },
+                { label: 'cursanți activi acum', value: '300+' },
                 { label: 'ani de experiență', value: String(new Date().getFullYear() - 2009) },
                 { label: 'săli de dans', value: '3' },
               ].map(item => (
@@ -185,16 +218,27 @@ export default async function Home() {
             </div>
           </div>
         </section>
+        <section id="pareri" className="py-16 bg-white">
+          <Testimoniale
+            items={TESTIMONIALE_ACASA}
+            titlu="Ce spun cursanții noștri"
+            subtitlu="Păreri de la cursanți adulți, părinți și pasionați de dansuri populare, latino și de societate."
+            latime="treime"
+          />
+        </section>
+
+        <EchipaSiLocatie instructori={instructori} />
+
         {/* Secțiunea Noutăți cu fundal diferit */}
-        <section id="noutati" className="bg-white py-16">
+        <section id="noutati" className="bg-slate-50 py-16">
           <div className="container space-y-10">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-slate-400 mb-2">
+                <p className="text-sm uppercase tracking-[0.3em] text-slate-500 mb-2">
                   Noutăți & Evenimente
                 </p>
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                  Ce se întâmplă la In Pasi de Dans
+                  Ce se întâmplă la În Pași de Dans
                 </h2>
                 <p className="text-lg text-slate-600 max-w-2xl mt-4">
                   Vezi cele mai noi anunțuri, workshop-uri și petreceri tematice. Ținem ritmul cu

@@ -24,7 +24,7 @@ export default function Contact() {
         <SEOBreadcrumbs items={breadcrumbItems} currentPageUrl="https://www.inpasidedans.ro/contact" />
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Contact Scoala de dansuri din Bucuresti</h1>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Contact – școala de dans din București</h1>
           <p className="text-slate-500 ">
             Contactează-ne pentru orice informații sau întrebări
           </p>

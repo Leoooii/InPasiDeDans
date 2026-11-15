@@ -83,7 +83,7 @@ export default function PostCard({ post, variant = 'light' }: PostCardProps) {
         <div
           className={cn(
             'mb-3 flex items-center gap-2 text-xs',
-            isDark ? 'text-white/50' : 'text-slate-500 '
+            isDark ? 'text-white/65' : 'text-slate-500 '
           )}
         >
           <span>{publishedDate}</span>

@@ -76,9 +76,29 @@ Ultima actualizare: 24–25 septembrie 2026.
 - Reînnoire rapidă a abonamentului, mesaj pe WhatsApp către cursant, „cât de des vine” (procent de prezență), pagina Încasări, înscrierile de pe site → cursanți dintr-un clic.
 - Contul meu (nume, avatar, parolă), avatare ilustrate, bara din stânga restrângibilă, ghid actualizat.
 
+### Securitate și conversie (15.11.2026, local, nepublicat încă)
+- **Statistici:** rutele `/api/admin/analytics` și `/api/admin/evolutie` cer adminul logat (ID token Firebase). Vechea cheie `NEXT_PUBLIC_ANALYTICS_TOKEN` ajungea în JavaScript-ul public și nu mai e acceptată.
+- **Conținut public (tarife, grupe, evenimente, excursii, petreceri, instructori):** scrierile din API au fost șterse (oricine le putea apela); petrecerile și instructorii se salvează acum din browser, ca admin. `firestore.rules`: scriere doar admin.
+- **Telefon:** bară fixă jos cu Sună / WhatsApp / Înscrie-te (nu pe /inscriere); butonul plutitor „Grupe noi!” rămâne doar pe desktop.
+- **Program:** filtru „Doar cu locuri libere”, ziua de azi evidențiată, „Înscrie-te” pe fiecare grupă cu locuri.
+- **Înscriere:** câmpurile lipsă sunt marcate la trimitere (butonul nu mai e spălăcit); după trimitere apar pașii următori, WhatsApp și telefon. Video-ul vechi din mesajul de confirmare a fost scos.
+- **Meniu:** „Cursuri ▾” grupează adulți (cu stilurile), copii, dansul mirilor, lecții private, grupe în formare; „Grupe noi” apare evidențiat doar când există grupe noi.
+- **Păreri:** carduri albe, mai lizibile, pe toate paginile de cursuri.
+- Contrast mai bun la textele gri mici; `TarifBanda` (nefolosit) șters.
+
+### Design — prima pagină și conversie (15.11.2026, local, nepublicat încă)
+- Când nu există grupe în formare publice, prima pagină și /grupe-in-formare arată **grupele de începători cu locuri libere** din orar (`lib/grupe-libere.ts`, `components/grupe-libere.tsx`); cardul duce la `/inscriere?curs=...` cu cursul preselectat. Butonul plutitor devine „Locuri libere!”.
+- Prima pagină: cifre aliniate (12.000+ din 2009 / 300+ activi acum), păreri ale cursanților, secțiune „Instructorii care te învață” + locație (`components/echipa-si-locatie.tsx`), fără meniul plutitor din dreapta.
+- Cursurile de pe prima pagină: grilă pe desktop, rând glisabil pe telefon (fără carusel cu autoplay).
+- „Citește mai mult” la noutăți și blog e link simplu, nu buton portocaliu; butonul de înscriere rămâne singurul accent.
+- Banner cookie-uri: bandă subțire jos, nu mai acoperă butoane și câmpuri.
+- Tarife: carduri albe, doar „★ Cel mai popular” e evidențiat (câmpul `popular` din admin); diacritice corectate în titluri vizibile.
+- Testimoniale: săgețile nu mai ies din pagină (scroll orizontal pe desktop).
+
 ## Ce rămâne de făcut
 
 ### De făcut de tine
+- [ ] **După deploy-ul din 11.2026:** publică noul `firestore.rules` în consola Firebase (întâi deploy, apoi regulile). Apoi șterge din Vercel `NEXT_PUBLIC_ANALYTICS_TOKEN` și `ANALYTICS_API_SECRET` (nu mai sunt folosite).
 - [ ] **Publică regulile Firestore noi** (conținutul din `firestore.rules`) în consola Firebase → Firestore → Rules. Fără ele evidența nouă nu poate citi/scrie.
 - [ ] În **Evidență → Prezență**, apasă o dată „Mută datele” (cei 2 cursanți din formatul vechi).
 - [ ] Creează conturile instructorilor în **Evidență → Conturi instructori** și atribuie-le grupele.

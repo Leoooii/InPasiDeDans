@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircle2 } from 'lucide-react';
+import { CalendarClock, CheckCircle2, MapPin, MessageCircle, Phone } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -58,6 +58,25 @@ const GRUP = 'mt-1 border-t border-slate-100 pt-1 first:mt-0 first:border-t-0 fi
 const ETICHETA_GRUP = 'pb-1 pt-2 text-xs uppercase tracking-wide text-slate-500';
 
 const LISTA_ASTEPTARE = 'Listă de așteptare – anunțați-mă când se deschide o grupă nouă';
+
+const WHATSAPP_URL = `https://wa.me/40722675126?text=${encodeURIComponent(
+  'Bună! Tocmai m-am înscris pe site și aș avea o întrebare.'
+)}`;
+
+type CampObligatoriu = 'danceclass' | 'name' | 'email' | 'phone' | 'consent';
+
+// Ordinea contează: primul câmp lipsă primește focus.
+const CAMPURI_OBLIGATORII: CampObligatoriu[] = ['danceclass', 'name', 'email', 'phone', 'consent'];
+
+const MESAJE_LIPSA: Record<CampObligatoriu, string> = {
+  danceclass: 'Alege un curs',
+  name: 'Completează numele',
+  email: 'Completează adresa de e-mail',
+  phone: 'Completează numărul de telefon',
+  consent: 'Bifează acordul',
+};
+
+const EMAIL_VALID = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type GrupaOption = {
   id: string;
@@ -132,6 +151,15 @@ export default function InscriereForm() {
     }
   }, [preselectedGrupaId, grupeOptions]);
 
+  // ?curs=<id> preselectează un curs general (ex. din „Grupe cu locuri libere” de pe prima pagină).
+  const preselectedCurs = searchParams.get('curs');
+  useEffect(() => {
+    if (!preselectedCurs || preselectedGrupaId) return;
+    const optiune = defaultOptions.find(option => option.id === preselectedCurs);
+    if (optiune) setFormData(prev => (prev.danceclass ? prev : { ...prev, danceclass: optiune.value }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preselectedCurs, preselectedGrupaId]);
+
   const isFieldComplete = (field: keyof FormData) => {
     const value = formData[field];
     if (typeof value === 'boolean') {
@@ -140,8 +168,62 @@ export default function InscriereForm() {
     return Boolean(value && String(value).trim().length > 0);
   };
 
-  const requiredFields: (keyof FormData)[] = ['danceclass', 'name', 'email', 'phone', 'consent'];
-  const isFormValid = requiredFields.every(isFieldComplete);
+  // Erorile apar doar după prima încercare de trimitere, apoi se actualizează pe măsură ce se completează.
+  const [incercat, setIncercat] = useState(false);
+
+  const eroarePentru = (field: CampObligatoriu): string | null => {
+    if (!isFieldComplete(field)) return MESAJE_LIPSA[field];
+    if (field === 'email' && !EMAIL_VALID.test(formData.email.trim())) {
+      return 'Adresa de e-mail nu pare corectă';
+    }
+    return null;
+  };
+
+  const erori = incercat
+    ? (Object.fromEntries(
+        CAMPURI_OBLIGATORII.map(f => [f, eroarePentru(f)] as const).filter(([, e]) => e)
+      ) as Partial<Record<CampObligatoriu, string>>)
+    : {};
+
+  // Returnează true dacă formularul poate fi trimis; altfel marchează câmpurile și duce la primul lipsă.
+  const valideaza = (): boolean => {
+    const primulLipsa = CAMPURI_OBLIGATORII.find(f => eroarePentru(f));
+    if (!primulLipsa) return true;
+    setIncercat(true);
+    const el = document.getElementById(primulLipsa);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.focus({ preventScroll: true });
+    }
+    return false;
+  };
+
+  // Click-ul pe buton vine înaintea validării native, așa că o oprim și afișăm mesajele noastre.
+  const laClickTrimite = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!valideaza()) e.preventDefault();
+  };
+
+  const laTrimitere = (e: React.FormEvent<HTMLFormElement>) => {
+    if (!valideaza()) {
+      e.preventDefault();
+      return;
+    }
+    setIncercat(false);
+    handleSubmit(e);
+  };
+
+  const clasaEroare = (field: CampObligatoriu) =>
+    erori[field] ? 'border-red-500 ring-1 ring-red-400 focus-visible:ring-red-500' : null;
+
+  const mesajEroare = (field: CampObligatoriu) =>
+    erori[field] ? (
+      <p id={`${field}-eroare`} className="mt-1 text-sm text-red-600">
+        {erori[field]}
+      </p>
+    ) : null;
+
+  const ariaEroare = (field: CampObligatoriu) =>
+    erori[field] ? { 'aria-invalid': true as const, 'aria-describedby': `${field}-eroare` } : {};
 
   const renderCompletionIcon = (field: keyof FormData) => {
     if (!isFieldComplete(field)) return null;
@@ -187,42 +269,77 @@ export default function InscriereForm() {
 
         {isSubmitted ? (
           <Card className="border-green-500">
-            <CardContent className="pt-6 pb-6 text-center">
-              <div className="mb-4 flex justify-center">
-                <video
-                  src="/images/Rick.mp4"
-                  width={300}
-                  className="w-full max-w-[300px] h-auto"
-                  height={200}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  aria-label="Școala de dans"
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
-              </div>
-              <div className="mb-4 flex justify-center">
-                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                  <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
+            <CardContent className="pt-6 pb-6">
+              <div className="text-center">
+                <div className="mb-4 flex justify-center">
+                  <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                    <CheckCircle2 className="h-6 w-6 text-green-600" aria-hidden="true" />
+                  </div>
                 </div>
+                <h2 className="text-2xl font-bold mb-2 text-slate-900">Gata, ești înscris!</h2>
+                <p className="text-slate-600">
+                  Am primit formularul. Te contactăm telefonic în cel mai scurt timp pentru a stabili
+                  împreună grupa și prima ședință.
+                </p>
               </div>
-              <h2 className="text-xl font-bold mb-2 text-green-600">Formular trimis cu succes!</h2>
-              <p className="text-slate-500 mb-4">
-                Îți mulțumim pentru interesul arătat. Te vom contacta în cel mai scurt timp posibil
-                pentru a confirma înscrierea.
-              </p>
-              <Button variant="brand"
-                onClick={() => setIsSubmitted(false)}>
-                Completează un nou formular
-              </Button>
+
+              <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">
+                  Pașii următori
+                </h3>
+                <ol className="space-y-3 text-sm text-slate-700">
+                  <li className="flex gap-3">
+                    <Phone className="h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
+                    <span>
+                      <span className="font-semibold text-slate-900">Ține telefonul aproape.</span> Te
+                      sunăm noi ca să confirmăm înscrierea. Dacă vrei, ne poți suna și tu la{' '}
+                      <a href="tel:+40722675126" className="font-semibold text-red-600 hover:underline">
+                        0722 675 126
+                      </a>
+                      .
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CalendarClock className="h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
+                    <span>
+                      <span className="font-semibold text-slate-900">Aruncă o privire pe orar.</span>{' '}
+                      Vezi zilele și orele grupelor în{' '}
+                      <Link href="/program" className="font-semibold text-red-600 hover:underline">
+                        programul cursurilor
+                      </Link>
+                      .
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <MapPin className="h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
+                    <span>
+                      <span className="font-semibold text-slate-900">Unde ne găsești:</span> Calea
+                      Rahovei 262, sector 5, București.
+                    </span>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <Button asChild className="flex-1 bg-[#25D366] text-white hover:bg-[#1ebe5b]">
+                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
+                    Întreabă-ne pe WhatsApp
+                  </a>
+                </Button>
+                <Button asChild variant="outline" className="flex-1">
+                  <a href="tel:+40722675126">
+                    <Phone className="mr-2 h-4 w-4" aria-hidden="true" />
+                    Sună: 0722 675 126
+                  </a>
+                </Button>
+              </div>
+
+              <div className="mt-4 text-center">
+                <Button variant="link" className="text-slate-500" onClick={() => setIsSubmitted(false)}>
+                  Completează un nou formular
+                </Button>
+              </div>
             </CardContent>
           </Card>
         ) : (
@@ -232,7 +349,7 @@ export default function InscriereForm() {
               <CardDescription>Completează toate câmpurile obligatorii marcate cu *</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={laTrimitere} className="space-y-6">
                 <div className="hidden">
                   <Label htmlFor="honey">Nu completa acest câmp</Label>
                   <Input
@@ -256,9 +373,11 @@ export default function InscriereForm() {
                       >
                         <SelectTrigger
                           id="danceclass"
+                          {...ariaEroare('danceclass')}
                           className={cn(
                             'mt-1.5',
-                            isFieldComplete('danceclass') && 'border-green-500 ring-1 ring-green-400 pr-8'
+                            isFieldComplete('danceclass') && 'border-green-500 ring-1 ring-green-400 pr-8',
+                            clasaEroare('danceclass')
                           )}
                         >
                           <SelectValue
@@ -294,6 +413,7 @@ export default function InscriereForm() {
                       </Select>
                       {renderCompletionIcon('danceclass')}
                     </div>
+                    {mesajEroare('danceclass')}
                   </div>
 
                   <div>
@@ -306,13 +426,16 @@ export default function InscriereForm() {
                         onChange={handleChange}
                         placeholder="Nume complet"
                         required
+                        {...ariaEroare('name')}
                         className={cn(
                           'mt-1.5 pr-10',
-                          isFieldComplete('name') && 'border-green-500 ring-1 ring-green-400'
+                          isFieldComplete('name') && 'border-green-500 ring-1 ring-green-400',
+                          clasaEroare('name')
                         )}
                       />
                       {renderCompletionIcon('name')}
                     </div>
+                    {mesajEroare('name')}
                   </div>
 
                   <div>
@@ -326,13 +449,16 @@ export default function InscriereForm() {
                         onChange={handleChange}
                         placeholder="Adresa ta de e-mail"
                         required
+                        {...ariaEroare('email')}
                         className={cn(
                           'mt-1.5 pr-10',
-                          isFieldComplete('email') && 'border-green-500 ring-1 ring-green-400'
+                          isFieldComplete('email') && 'border-green-500 ring-1 ring-green-400',
+                          clasaEroare('email')
                         )}
                       />
                       {renderCompletionIcon('email')}
                     </div>
+                    {mesajEroare('email')}
                   </div>
 
                   <div>
@@ -346,13 +472,16 @@ export default function InscriereForm() {
                         onChange={handleChange}
                         placeholder="Numărul tău de telefon"
                         required
+                        {...ariaEroare('phone')}
                         className={cn(
                           'mt-1.5 pr-10',
-                          isFieldComplete('phone') && 'border-green-500 ring-1 ring-green-400'
+                          isFieldComplete('phone') && 'border-green-500 ring-1 ring-green-400',
+                          clasaEroare('phone')
                         )}
                       />
                       {renderCompletionIcon('phone')}
                     </div>
+                    {mesajEroare('phone')}
                   </div>
 
                   <div>
@@ -382,7 +511,11 @@ export default function InscriereForm() {
                         checked={formData.consent}
                         onChange={handleChange}
                         required
-                        className="h-4 w-4 accent-red-600 focus:ring-red-500 border-slate-300 rounded"
+                        {...ariaEroare('consent')}
+                        className={cn(
+                          'h-4 w-4 shrink-0 accent-red-600 focus:ring-red-500 border-slate-300 rounded',
+                          erori.consent && 'outline outline-2 outline-offset-2 outline-red-500'
+                        )}
                       />
                       <span className="ml-2 text-sm text-slate-700">
                         Am citit și sunt de acord cu{' '}
@@ -392,17 +525,16 @@ export default function InscriereForm() {
                         și cu procesarea datelor mele personale pentru înscrierea la grupe.
                       </span>
                     </label>
+                    {mesajEroare('consent')}
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !isFormValid}
+                  disabled={isSubmitting}
+                  onClick={laClickTrimite}
                   variant="brand"
-                  className={cn(
-                    'w-full',
-                    (!isFormValid || isSubmitting) && 'opacity-60 cursor-not-allowed'
-                  )}
+                  className={cn('w-full', isSubmitting && 'opacity-60 cursor-not-allowed')}
                 >
                   {isSubmitting ? 'Se trimite...' : 'Trimite formularul'}
                 </Button>
