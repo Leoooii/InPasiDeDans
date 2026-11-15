@@ -76,7 +76,7 @@ Ultima actualizare: 24–25 septembrie 2026.
 - Reînnoire rapidă a abonamentului, mesaj pe WhatsApp către cursant, „cât de des vine” (procent de prezență), pagina Încasări, înscrierile de pe site → cursanți dintr-un clic.
 - Contul meu (nume, avatar, parolă), avatare ilustrate, bara din stânga restrângibilă, ghid actualizat.
 
-### Securitate și conversie (15.11.2026, local, nepublicat încă)
+### Securitate și conversie (15.11.2026)
 - **Statistici:** rutele `/api/admin/analytics` și `/api/admin/evolutie` cer adminul logat (ID token Firebase). Vechea cheie `NEXT_PUBLIC_ANALYTICS_TOKEN` ajungea în JavaScript-ul public și nu mai e acceptată.
 - **Conținut public (tarife, grupe, evenimente, excursii, petreceri, instructori):** scrierile din API au fost șterse (oricine le putea apela); petrecerile și instructorii se salvează acum din browser, ca admin. `firestore.rules`: scriere doar admin.
 - **Telefon:** bară fixă jos cu Sună / WhatsApp / Înscrie-te (nu pe /inscriere); butonul plutitor „Grupe noi!” rămâne doar pe desktop.
@@ -86,7 +86,7 @@ Ultima actualizare: 24–25 septembrie 2026.
 - **Păreri:** carduri albe, mai lizibile, pe toate paginile de cursuri.
 - Contrast mai bun la textele gri mici; `TarifBanda` (nefolosit) șters.
 
-### Design — prima pagină și conversie (15.11.2026, local, nepublicat încă)
+### Design — prima pagină și conversie (15.11.2026)
 - Când nu există grupe în formare publice, prima pagină și /grupe-in-formare arată **grupele de începători cu locuri libere** din orar (`lib/grupe-libere.ts`, `components/grupe-libere.tsx`); cardul duce la `/inscriere?curs=...` cu cursul preselectat. Butonul plutitor devine „Locuri libere!”.
 - Prima pagină: cifre aliniate (12.000+ din 2009 / 300+ activi acum), păreri ale cursanților, secțiune „Instructorii care te învață” + locație (`components/echipa-si-locatie.tsx`), fără meniul plutitor din dreapta.
 - Cursurile de pe prima pagină: grilă pe desktop, rând glisabil pe telefon (fără carusel cu autoplay).
@@ -127,6 +127,16 @@ Ultima actualizare: 24–25 septembrie 2026.
 
   Ar trebui să scadă datorită cache-ului.
 
+### Amânate (discutate 15.11.2026, de reluat)
+- [ ] **Galerie / showcase video** pe pagini: plan complet în [plan-galerie-video.md](plan-galerie-video.md).
+- [ ] **Recenzii Google reale** pe site: e nevoie de o cheie Google Places API și de ID-ul locației.
+- [ ] **Clipuri scurte pe paginile de cursuri:** intră în planul galeriei video.
+- [ ] **Logo vectorial (SVG):** trimite fișierul, ca să înlocuim `logo.png`.
+- [ ] **Rol de admin în loc de email fix:** necesar abia când apare un al doilea admin. Cere schimbarea `firestore.rules` și republicare manuală.
+- [ ] **Zona veche de membri** (`/autentificare`, `/inregistrare`, `/cont`): pare abandonată. Nu e în sitemap și e blocată în `robots.txt`, dar `/panou` încă trimite acolo conturile care nu sunt de instructor, iar pe `/cont` prezențele probabil nu apar. De decis: o scoatem (cu redirecturi) sau o refacem pe evidența nouă.
+- [ ] **Poze foarte mari în `public/images`:** `private2.png` are 11 MB, `cha-cha`, `secret-santa`, `quickstep`, `bachata` și `samba` au 5–6 MB fiecare. Conversia în WebP/AVIF e cel mai mare câștig de viteză rămas.
+- [ ] **Lockfiles:** Vercel instalează cu yarn (`yarn.lock`), local se folosește npm (`package-lock.json`). Pe termen lung trebuie păstrat unul singur.
+
 ### Idei tehnice pentru mai târziu (opționale)
 - **Regulile Firestore** pentru `cursanti` și `prezente` sunt încă permisive, pentru că API-urile folosesc SDK-ul client. Soluția completă este mutarea API-urilor pe `firebase-admin`, cu verificarea tokenului de admin.
 - **ESLint** e configurat (`eslint.config.mjs`, rulează și la `next build`): 0 erori, ~129 avertismente vechi (`any`, variabile nefolosite, dependențe de hook-uri). De curățat treptat; nu lăsa erori noi, că opresc deploy-ul.
@@ -139,3 +149,5 @@ Ultima actualizare: 24–25 septembrie 2026.
 - Backup lunar automat (cron Vercel, `app/api/cron/backup`).
 - Teste pentru regulile abonamentelor: `npm test` (runner-ul din Node, fără pachete noi).
 - Scos `report-uri /api/csp-report` din CSP (ruta nu exista).
+- Curățenie: 0 avertismente ESLint; scoase 26 de componente shadcn, galeria din admin, ruta NextAuth (avea parolă implicită) și 34 de pachete npm nefolosite. Linkurile din articolele de blog apar din nou ca linkuri.
+- Bara de jos pe mobil: doar WhatsApp și Înscrie-te. Butoane „Înapoi la site” în admin, portal și `/panou`.
