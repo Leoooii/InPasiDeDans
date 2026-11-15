@@ -38,6 +38,7 @@ import { ButonWhatsapp } from './buton-whatsapp';
 import { useEvidenta } from './context';
 import { CeasLive, stareAzi, useAcum } from './grupe-lista';
 import { PozeGrupa } from './poze-instructori';
+import { PrezentaNefacuta } from './prezenta-nefacuta';
 import { Incarcare } from './ui';
 
 // Pagina principală a adminului: ce se întâmplă acum, ce trebuie rezolvat, cifrele importante.
@@ -167,7 +168,6 @@ export function Dashboard({ numeAdmin }: { numeAdmin: string }) {
       lunaTrecuta: peLuna[4].y,
       live: deAzi.filter(x => x.stare!.stare === 'live'),
       urmeaza: deAzi.filter(x => x.stare!.stare === 'urmeaza').sort((a, b) => a.g.ora.localeCompare(b.g.ora)),
-      terminateFaraPrezenta: deAzi.filter(x => x.stare!.stare === 'terminata' && !x.prezenti),
       totalAzi: deAzi.length,
       cuPrezentaAzi: deAzi.filter(x => x.prezenti).length,
       expiraCurand: avertizari(abonamente).filter(a => a.tip === 'abonament_expira'),
@@ -242,17 +242,10 @@ export function Dashboard({ numeAdmin }: { numeAdmin: string }) {
             ))}
           </div>
         )}
-        {data.terminateFaraPrezenta.length > 0 && (
-          <p className="mt-3 flex flex-wrap items-center gap-1.5 text-xs text-amber-200">
-            <AlertTriangle className="h-3.5 w-3.5" /> Terminate azi fără prezență:
-            {data.terminateFaraPrezenta.map(({ g }) => (
-              <Link key={g.id} href={`/admin/evidenta/prezenta?grupa=${g.id}`} className="rounded-full bg-amber-400/20 px-2 py-0.5 font-medium text-amber-100 hover:bg-amber-400/30">
-                {g.titlu} {g.ora.split('-')[0]}
-              </Link>
-            ))}
-          </p>
-        )}
       </section>
+
+      {/* grupe terminate (azi sau ieri) fără prezență */}
+      <PrezentaNefacuta linkPrezenta={(id, zi) => `/admin/evidenta/prezenta?grupa=${id}${zi ? `&data=${zi}` : ''}`} />
 
       {/* cifrele */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">

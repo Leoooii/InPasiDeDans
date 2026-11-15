@@ -36,6 +36,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Wallet,
+  Globe,
 } from 'lucide-react';
 
 const navGroups = [
@@ -235,6 +236,17 @@ export default function AdminLayout({
       {/* Cont + deconectare */}
       <div className={`py-3 border-t border-white/10 space-y-1 ${compact ? 'px-2' : 'px-3'}`}>
         <Link
+          href="/"
+          title="Înapoi la site"
+          aria-label="Înapoi la site"
+          className={`flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-150 ${
+            compact ? 'justify-center' : 'px-3'
+          }`}
+        >
+          <Globe className="h-4 w-4" />
+          {!compact && 'Înapoi la site'}
+        </Link>
+        <Link
           href="/admin/cont"
           onClick={onNavigate}
           title="Contul meu"
@@ -304,7 +316,14 @@ export default function AdminLayout({
           <span className="text-sm font-semibold text-slate-700">
             Panou Admin
           </span>
-          <div className="w-9" />
+          <Link
+            href="/"
+            className="p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+            aria-label="Înapoi la site"
+            title="Înapoi la site"
+          >
+            <Globe className="h-5 w-5" />
+          </Link>
         </header>
 
         {/* Page content */}

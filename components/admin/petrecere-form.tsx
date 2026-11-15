@@ -298,7 +298,7 @@ export default function PetrecereForm({
                         </FormLabel>
                         <FormDescription>
                           Activați pentru a marca această petrecere ca viitoare
-                          și a o afișa în secțiunea "Următoarele petreceri"
+                          și a o afișa în secțiunea „Următoarele petreceri”
                         </FormDescription>
                       </div>
                       <FormControl>

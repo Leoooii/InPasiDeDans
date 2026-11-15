@@ -102,7 +102,7 @@ Ultima actualizare: 24–25 septembrie 2026.
 - [ ] **Publică regulile Firestore noi** (conținutul din `firestore.rules`) în consola Firebase → Firestore → Rules. Fără ele evidența nouă nu poate citi/scrie.
 - [ ] În **Evidență → Prezență**, apasă o dată „Mută datele” (cei 2 cursanți din formatul vechi).
 - [ ] Creează conturile instructorilor în **Evidență → Conturi instructori** și atribuie-le grupele.
-- [ ] Fă un backup din **Export și backup** o dată pe lună.
+- [ ] **Backup automat:** setează `CRON_SECRET` în Vercel (Settings → Environment Variables, orice șir lung aleator). Cronul `/api/cron/backup` rulează pe 1 ale lunii la 02:00 UTC și urcă `backups/AAAA-LL-ZZ.json` în Firebase Storage. Fără variabilă, ruta răspunde 503.
 - [ ] **Trimite un formular de test** pe /contact și pe /inscriere, de exemplu ca „Leo Test”. Verifică că vine emailul și că apare în /admin/inscrieri.
 - [ ] **Google Search Console:** când `sitemap.xml` apare cu status „Success”, șterge cele 3 sitemap-uri vechi.
 - [ ] **Vercel:** setează *Deployment Retention* (Project Settings → Security), ca să nu se adune deploy-uri vechi.
@@ -129,5 +129,13 @@ Ultima actualizare: 24–25 septembrie 2026.
 
 ### Idei tehnice pentru mai târziu (opționale)
 - **Regulile Firestore** pentru `cursanti` și `prezente` sunt încă permisive, pentru că API-urile folosesc SDK-ul client. Soluția completă este mutarea API-urilor pe `firebase-admin`, cu verificarea tokenului de admin.
-- **`next lint`** nu mai e suportat în Next.js 16 și nu există o configurație ESLint. Dacă se face upgrade la Next 16, trebuie configurat ESLint.
+- **ESLint** e configurat (`eslint.config.mjs`, rulează și la `next build`): 0 erori, ~129 avertismente vechi (`any`, variabile nefolosite, dependențe de hook-uri). De curățat treptat; nu lăsa erori noi, că opresc deploy-ul.
 - **Prețuri de rezervă:** când se schimbă prețurile din /admin/tarife, actualizează și `lib/tarife-fallback.ts`. Lista e folosită doar dacă Firestore nu răspunde, dar e bine să rămână la zi.
+
+### 15.11.2026 — evidență și admin
+- Admin → Grupe: „În evidență: N cursanți activi” pe fiecare grupă și actualizarea locurilor libere din evidență (manual, cu buton; `lib/evidenta/locuri.ts`).
+- Admin → Înscrieri: buton WhatsApp (marchează „contactat”), evidențiere și filtru pentru înscrierile „nou” mai vechi de 24h.
+- Evidență: listă „Expiră în 7 zile” cu „Trimite pe rând” pe WhatsApp; alertă „Prezența nu e făcută” (azi + ieri); Încasări cu comparație față de luna anterioară și estimare de reînnoiri.
+- Backup lunar automat (cron Vercel, `app/api/cron/backup`).
+- Teste pentru regulile abonamentelor: `npm test` (runner-ul din Node, fără pachete noi).
+- Scos `report-uri /api/csp-report` din CSP (ruta nu exista).

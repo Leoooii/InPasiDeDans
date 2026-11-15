@@ -3,7 +3,9 @@
 import { useMemo, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Input } from '@/components/ui/input';
+import { reinnoireEstimata } from '@/lib/evidenta/abonament';
 import { azi } from '@/lib/evidenta/date';
+import { cn } from '@/lib/utils';
 import type { Abonament } from '@/lib/evidenta/tipuri';
 import { useEvidenta } from './context';
 import { Gol, Incarcare, Panou } from './ui';
@@ -34,8 +36,25 @@ function grupeaza(lista: Abonament[], cheie: (a: Abonament) => string) {
   return [...m.entries()].map(([nume, v]) => ({ nume, ...v })).sort((a, b) => b.suma - a.suma);
 }
 
+/** „▲ +12% (+150 lei) față de luna anterioară” */
+function Delta({ acum, inainte, format }: { acum: number; inainte: number; format: (n: number) => string }) {
+  const dif = acum - inainte;
+  const semn = dif > 0 ? '+' : dif < 0 ? '−' : '';
+  const procent = inainte ? `${dif > 0 ? '▲ ' : dif < 0 ? '▼ ' : ''}${semn}${Math.abs(Math.round((dif / inainte) * 100))}%` : null;
+  return (
+    <p className={cn('mt-0.5 text-xs font-medium', dif > 0 ? 'text-emerald-700' : dif < 0 ? 'text-red-700' : 'text-slate-500')}>
+      {procent ?? (acum ? 'nou' : '—')}
+      <span className="font-normal text-slate-500">
+        {' '}
+        ({semn}
+        {format(Math.abs(dif))}) față de luna anterioară
+      </span>
+    </p>
+  );
+}
+
 export function Incasari() {
-  const { abonamente, loading } = useEvidenta();
+  const { abonamente, cursanti, abonamenteCursant, loading } = useEvidenta();
   const [luna, setLuna] = useState(azi().slice(0, 7));
   const [tabel, setTabel] = useState(false);
 
@@ -49,12 +68,28 @@ export function Incasari() {
     [valide, luna],
   );
 
+  // estimare pentru luna curentă (nu pentru luna aleasă): abonamentele active care expiră până la final de lună
+  const lunaCurenta = azi().slice(0, 7);
+  const estimare = useMemo(() => {
+    const ziua = azi();
+    let suma = 0;
+    let nr = 0;
+    for (const c of cursanti) {
+      if (!c.activ) continue;
+      const r = reinnoireEstimata(abonamenteCursant(c.id), ziua);
+      if (r) {
+        suma += r.pret;
+        nr++;
+      }
+    }
+    return { suma, nr };
+  }, [cursanti, abonamenteCursant]);
+
   if (loading) return <Incarcare />;
 
   const dinLuna = valide.filter(a => a.dataVanzare.startsWith(luna));
   const total = dinLuna.reduce((s, a) => s + (a.pret || 0), 0);
   const anterioara = peLuni[peLuni.length - 2];
-  const diferenta = anterioara?.suma ? Math.round(((total - anterioara.suma) / anterioara.suma) * 100) : null;
 
   const sectiuni = [
     { titlu: 'Pe tip de abonament', randuri: grupeaza(dinLuna, a => a.tip) },
@@ -72,22 +107,38 @@ export function Incasari() {
         <Input type="month" className="h-10 w-44 bg-white" value={luna} max={azi().slice(0, 7)} onChange={e => e.target.value && setLuna(e.target.value)} aria-label="Luna" />
       </div>
 
-      {/* cifrele lunii */}
-      <div className="grid gap-3 sm:grid-cols-3">
+      {/* cifrele lunii, comparate cu luna anterioară */}
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <p className="text-xs text-slate-500">Încasat în {numeLuna(luna)}</p>
           <p className="mt-1 text-3xl font-bold tabular-nums text-slate-900">{lei(total)}</p>
+          {anterioara && <Delta acum={total} inainte={anterioara.suma} format={lei} />}
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <p className="text-xs text-slate-500">Abonamente vândute</p>
           <p className="mt-1 text-3xl font-bold tabular-nums text-slate-900">{dinLuna.length}</p>
+          {anterioara && <Delta acum={dinLuna.length} inainte={anterioara.nr} format={n => String(n)} />}
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-xs text-slate-500">Față de luna anterioară</p>
-          <p className="mt-1 text-3xl font-bold tabular-nums text-slate-900">
-            {diferenta === null ? '—' : `${diferenta > 0 ? '▲ +' : diferenta < 0 ? '▼ ' : ''}${diferenta}%`}
+          <p className="text-xs text-slate-500">Luna anterioară</p>
+          <p className="mt-1 text-3xl font-bold tabular-nums text-slate-900">{anterioara ? lei(anterioara.suma) : '—'}</p>
+          {anterioara && (
+            <p className="mt-0.5 text-xs text-slate-500">
+              {anterioara.nr} {anterioara.nr === 1 ? 'abonament' : 'abonamente'} în {numeLuna(anterioara.luna)}
+            </p>
+          )}
+        </div>
+        <div className="rounded-2xl border border-dashed border-sky-300 bg-sky-50/60 p-4">
+          <p className="flex items-center gap-1.5 text-xs text-sky-800">
+            Estimare reînnoiri {numeLuna(lunaCurenta)}
+            <span className="rounded-full bg-sky-100 px-1.5 text-[10px] font-semibold uppercase tracking-wide text-sky-700">estimare</span>
           </p>
-          {anterioara && <p className="text-xs text-slate-500">{lei(anterioara.suma)} în {numeLuna(anterioara.luna)}</p>}
+          <p className="mt-1 text-3xl font-bold tabular-nums text-sky-900">≈ {lei(estimare.suma)}</p>
+          <p className="mt-0.5 text-xs text-sky-800/80">
+            {estimare.nr === 0
+              ? 'Niciun abonament activ nu expiră până la sfârșitul lunii.'
+              : `${estimare.nr} ${estimare.nr === 1 ? 'abonament activ expiră' : 'abonamente active expiră'} până la sfârșitul lunii; calculat la prețul ultimului abonament al fiecăruia. Nu e încasat.`}
+          </p>
         </div>
       </div>
 

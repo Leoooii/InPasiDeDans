@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { IntrebareFaq } from '@/components/faq-block';
 import type { TarifeGrupate } from '@/lib/types';
 import { ePretIntrebare, raspunsPretAdulti, raspunsPretCopii } from '@/lib/text-preturi';
@@ -199,7 +200,7 @@ export const FAQ_SOCIETATE: IntrebareFaq[] = [
     a: (
       <div className="space-y-3">
         <p>Da, avem grupe pentru toate nivelurile, astfel încât să evoluezi treptat și să dansezi cu încredere pe orice ritm.</p>
-        <p>Poți verifica aici <a href="/program" className="text-red-600 hover:text-red-700 underline">programul grupelor</a> aflate în desfășurare și <a href="/grupe-in-formare" className="text-red-600 hover:text-red-700 underline">grupele aflate în formare</a>.</p>
+        <p>Poți verifica aici <Link href="/program" className="text-red-600 hover:text-red-700 underline">programul grupelor</Link> aflate în desfășurare și <Link href="/grupe-in-formare" className="text-red-600 hover:text-red-700 underline">grupele aflate în formare</Link>.</p>
       </div>
     )
   },

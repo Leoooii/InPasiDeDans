@@ -15,7 +15,8 @@ import {
 } from '@/components/ui/select'
 import { useSimpleToast } from '@/components/simple-toast-provider'
 import { CursantDinInscriere } from '@/components/evidenta/din-inscriere'
-import { ChevronDown, ClipboardList, Download, MessageSquare, Loader2, Mail, Phone, RotateCcw, Search, Trash2 } from 'lucide-react'
+import { AlertTriangle, ChevronDown, ClipboardList, Clock, Download, MessageCircle, MessageSquare, Loader2, Mail, Phone, RotateCcw, Search, Trash2 } from 'lucide-react'
+import { linkWhatsapp } from '@/lib/evidenta/whatsapp'
 
 type Sursa = 'inscriere' | 'contact' | 'latino'
 type Tip = 'lista-asteptare' | 'grupa' | 'curs' | 'mesaj'
@@ -81,6 +82,43 @@ const EMPTY_FILTERS = {
   status: TOATE,
   dela: '',
   panala: '',
+  /** '1' = doar înscrierile noi necontactate de peste 24 de ore */
+  necontactate: '',
+}
+
+const ZI_MS = 24 * 60 * 60 * 1000
+
+/** createdAt poate fi număr (ms) sau Timestamp Firestore (înscrieri mai vechi / adăugate de mână). */
+function inMs(v: unknown): number {
+  if (typeof v === 'number') return v
+  if (v && typeof v === 'object') {
+    const t = v as { toMillis?: () => number; seconds?: number }
+    if (typeof t.toMillis === 'function') return t.toMillis()
+    if (typeof t.seconds === 'number') return t.seconds * 1000
+  }
+  if (typeof v === 'string') {
+    const n = Date.parse(v)
+    if (!Number.isNaN(n)) return n
+  }
+  return 0
+}
+
+/** Înscriere nouă, necontactată de peste 24 de ore. */
+const intarziata = (i: { status: string; createdAt: number }, acum: number) =>
+  i.status === 'nou' && i.createdAt > 0 && acum - i.createdAt > ZI_MS
+
+/** „necontactat de 3 zile” / „de 1 zi” / „de 26 de ore”. */
+function textIntarziere(createdAt: number, acum: number) {
+  const ore = Math.floor((acum - createdAt) / (60 * 60 * 1000))
+  if (ore < 48) return `necontactat de ${ore >= 20 ? `${ore} de` : ore} ore`
+  const zile = Math.floor(ore / 24)
+  return `necontactat de ${zile % 100 >= 20 || (zile % 100 === 0) ? `${zile} de` : zile} zile`
+}
+
+function mesajWhatsapp(i: { name: string; danceclass: string; tip: string }) {
+  const prenume = (i.name ?? '').trim().split(/\s+/)[0] ?? ''
+  const curs = i.tip !== 'mesaj' ? (i.danceclass ?? '').trim() : ''
+  return `Bună${prenume ? `, ${prenume}` : ''}! Te contactăm de la școala de dans În Pași de Dans în legătură cu înscrierea ta${curs ? ` la ${curs}` : ''}.`
 }
 
 function formatData(ms: number) {
@@ -103,12 +141,18 @@ export default function InscrieriPage() {
   const [filters, setFilters] = useState(EMPTY_FILTERS)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const { showToast } = useSimpleToast()
+  // ora de referință pentru „necontactat de...”; se reîmprospătează la fiecare minut
+  const [acum, setAcum] = useState(() => Date.now())
+  useEffect(() => {
+    const t = setInterval(() => setAcum(Date.now()), 60_000)
+    return () => clearInterval(t)
+  }, [])
 
   useEffect(() => {
     const fetchInscrieri = async () => {
       try {
         const snapshot = await getDocs(query(collection(db, 'inscrieri'), orderBy('createdAt', 'desc')))
-        setInscrieri(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as Inscriere)))
+        setInscrieri(snapshot.docs.map(d => ({ ...d.data(), id: d.id, createdAt: inMs(d.data().createdAt) } as Inscriere)))
       } catch {
         showToast('Nu s-au putut încărca înscrierile', 'error')
       } finally {
@@ -139,9 +183,12 @@ export default function InscrieriPage() {
       if (filters.status !== TOATE && i.status !== filters.status) return false
       if (dela !== null && i.createdAt < dela) return false
       if (panala !== null && i.createdAt > panala) return false
+      if (filters.necontactate && !intarziata(i, acum)) return false
       return true
     })
-  }, [inscrieri, filters])
+  }, [inscrieri, filters, acum])
+
+  const nrIntarziate = useMemo(() => inscrieri.filter(i => intarziata(i, acum)).length, [inscrieri, acum])
 
   const hasFilters = JSON.stringify(filters) !== JSON.stringify(EMPTY_FILTERS)
   const countNoi = filtered.filter(i => i.status === 'nou').length
@@ -199,6 +246,35 @@ export default function InscrieriPage() {
     </Select>
   )
 
+  /** WhatsApp cu mesaj pregătit; o înscriere nouă trece automat la „Contactat”. */
+  const WhatsappLink = ({ i, className = '' }: { i: Inscriere; className?: string }) => {
+    const link = i.phone ? linkWhatsapp(i.phone, mesajWhatsapp(i)) : null
+    if (!link) return null
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Scrie pe WhatsApp (mesaj pregătit)"
+        onClick={() => {
+          if (i.status === 'nou') handleStatus(i.id, 'contactat')
+        }}
+        className={`inline-flex w-fit items-center gap-1.5 rounded-lg border border-emerald-200 bg-white px-2 py-1 text-xs font-medium text-emerald-700 hover:bg-emerald-50 ${className}`}
+      >
+        <MessageCircle className="h-3.5 w-3.5" />
+        WhatsApp
+      </a>
+    )
+  }
+
+  const Intarziere = ({ i }: { i: Inscriere }) =>
+    intarziata(i, acum) ? (
+      <span className="mt-1 flex w-fit items-center gap-1 rounded-md bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-800">
+        <Clock className="h-3 w-3" />
+        {textIntarziere(i.createdAt, acum)}
+      </span>
+    ) : null
+
   const TipBadge = ({ i }: { i: Inscriere }) => (
     <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-medium ${TIP_STYLE[i.tip] ?? TIP_STYLE.curs}`}>
       {TIP_LABEL[i.tip] ?? i.tip}
@@ -228,6 +304,27 @@ export default function InscrieriPage() {
           Export CSV
         </Button>
       </div>
+
+      {/* ─── Necontactate ───────────────────────────────────── */}
+      {!isLoading && nrIntarziate > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+          <p className="flex items-center gap-2 text-sm font-medium text-amber-900">
+            <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />
+            {nrIntarziate === 1
+              ? '1 înscriere necontactată de peste 24 de ore'
+              : `${nrIntarziate} ${nrIntarziate % 100 >= 20 || nrIntarziate % 100 === 0 ? 'de ' : ''}înscrieri necontactate de peste 24 de ore`}
+          </p>
+          {filters.necontactate ? (
+            <Button size="sm" variant="outline" className="border-amber-300 bg-white" onClick={() => setFilter('necontactate', '')}>
+              Arată toate
+            </Button>
+          ) : (
+            <Button size="sm" variant="outline" className="border-amber-300 bg-white" onClick={() => setFilters({ ...EMPTY_FILTERS, necontactate: '1' })}>
+              Arată doar necontactatele
+            </Button>
+          )}
+        </div>
+      )}
 
       {/* ─── Filtre ─────────────────────────────────────────── */}
       <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 space-y-3">
@@ -348,9 +445,12 @@ export default function InscrieriPage() {
                   <Fragment key={i.id}>
                     <tr
                       onClick={() => i.message && setExpandedId(expandedId === i.id ? null : i.id)}
-                      className={`group border-b border-slate-50 align-top ${i.message ? 'cursor-pointer hover:bg-slate-50/60' : ''}`}
+                      className={`group border-b border-slate-50 align-top ${intarziata(i, acum) ? 'bg-amber-50/60' : ''} ${i.message ? 'cursor-pointer hover:bg-slate-50/60' : ''}`}
                     >
-                      <td className="px-4 py-3 whitespace-nowrap text-slate-500">{formatData(i.createdAt)}</td>
+                      <td className={`px-4 py-3 whitespace-nowrap text-slate-500 border-l-4 ${intarziata(i, acum) ? 'border-l-amber-400' : 'border-l-transparent'}`}>
+                        {formatData(i.createdAt)}
+                        <Intarziere i={i} />
+                      </td>
                       <td className="px-4 py-3 font-medium text-slate-900">
                         {i.name}
                         {i.message && (
@@ -368,6 +468,7 @@ export default function InscrieriPage() {
                         <a href={`mailto:${i.email}`} className="flex items-center gap-1.5 text-slate-500 hover:text-red-600 mt-0.5">
                           <Mail className="h-3.5 w-3.5 text-slate-400" />{i.email}
                         </a>
+                        <WhatsappLink i={i} className="mt-1.5" />
                       </td>
                       <td className="px-4 py-3 max-w-xs">
                         <TipBadge i={i} />
@@ -411,11 +512,15 @@ export default function InscrieriPage() {
           {/* Mobil: carduri */}
           <div className="lg:hidden space-y-3">
             {filtered.map(i => (
-              <div key={i.id} className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 space-y-3">
+              <div
+                key={i.id}
+                className={`rounded-xl border shadow-sm p-4 space-y-3 ${intarziata(i, acum) ? 'border-amber-200 border-l-4 border-l-amber-400 bg-amber-50/50' : 'bg-white border-slate-100'}`}
+              >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-semibold text-slate-900">{i.name}</p>
                     <p className="text-xs text-slate-400">{formatData(i.createdAt)} · {SURSA_LABEL[i.sursa] ?? i.sursa}</p>
+                    <Intarziere i={i} />
                   </div>
                   <button
                     onClick={() => handleDelete(i)}
@@ -438,6 +543,7 @@ export default function InscrieriPage() {
                   <a href={`mailto:${i.email}`} className="flex items-center gap-1.5 text-slate-500 break-all">
                     <Mail className="h-3.5 w-3.5 text-slate-400 shrink-0" />{i.email}
                   </a>
+                  <WhatsappLink i={i} />
                 </div>
                 {i.message && (
                   <p className="text-sm text-slate-600 bg-slate-50 rounded-lg p-3 whitespace-pre-line">{i.message}</p>

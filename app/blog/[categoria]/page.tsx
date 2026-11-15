@@ -4,6 +4,7 @@ import { client } from '@/sanity/lib/client'
 import { postsByCategoryQuery, singleCategoryQuery, allCategoriesQuery } from '@/sanity/lib/queries'
 import PostCard from '@/components/blog/post-card'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
+import Link from 'next/link';
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
 export const revalidate = 86400
@@ -140,9 +141,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                 Încă nu sunt articole în această categorie
               </h3>
               <p className="text-slate-600 mb-6">
-                Categoria "{category.title}" va fi populată în curând cu conținut nou.
+                Categoria „{category.title}” va fi populată în curând cu conținut nou.
               </p>
-              <a
+              <Link
                 href="/blog"
                 className="inline-flex items-center bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
               >
@@ -150,7 +151,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                 <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </a>
+              </Link>
             </div>
           )}
         </div>

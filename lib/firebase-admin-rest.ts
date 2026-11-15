@@ -99,3 +99,63 @@ export async function adaugaDocument(colectie: string, date: Record<string, Valo
   const { name } = (await res.json()) as { name: string };
   return name.split('/').pop()!;
 }
+
+// ── Citire completă a unei colecții (backup) ────────────────────────────
+
+type ValoareRest = Record<string, any>;
+
+/** Valoare Firestore REST → JSON simplu (Timestamp → ISO string). */
+function dinRest(v: ValoareRest): unknown {
+  if ('nullValue' in v) return null;
+  if ('booleanValue' in v) return v.booleanValue;
+  if ('integerValue' in v) return Number(v.integerValue);
+  if ('doubleValue' in v) return v.doubleValue;
+  if ('timestampValue' in v) return v.timestampValue;
+  if ('stringValue' in v) return v.stringValue;
+  if ('referenceValue' in v) return v.referenceValue;
+  if ('geoPointValue' in v) return v.geoPointValue;
+  if ('bytesValue' in v) return v.bytesValue;
+  if ('arrayValue' in v) return (v.arrayValue.values ?? []).map(dinRest);
+  if ('mapValue' in v) {
+    return Object.fromEntries(Object.entries(v.mapValue.fields ?? {}).map(([k, x]) => [k, dinRest(x as ValoareRest)]));
+  }
+  return null;
+}
+
+/** Toate documentele unei colecții, ca `{ id, ...câmpuri }`. Ocolește regulile (cont de serviciu). */
+export async function citesteColectie(colectie: string): Promise<Record<string, unknown>[]> {
+  const rez: Record<string, unknown>[] = [];
+  let pagina: string | undefined;
+  do {
+    const url = new URL(`https://firestore.googleapis.com/v1/projects/${PROIECT}/databases/(default)/documents/${colectie}`);
+    url.searchParams.set('pageSize', '300');
+    if (pagina) url.searchParams.set('pageToken', pagina);
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${await token()}` }, cache: 'no-store' });
+    if (!res.ok) throw new Error(`${colectie}: HTTP ${res.status}`);
+    const j = (await res.json()) as { documents?: { name: string; fields?: Record<string, ValoareRest> }[]; nextPageToken?: string };
+    for (const d of j.documents ?? []) {
+      rez.push({ id: d.name.split('/').pop(), ...(dinRest({ mapValue: { fields: d.fields ?? {} } }) as object) });
+    }
+    pagina = j.nextPageToken;
+  } while (pagina);
+  return rez;
+}
+
+/** Urcă un fișier în bucket-ul Firebase Storage (privat: regulile nu dau acces la el din browser). */
+export async function urcaInStorage(cale: string, continut: string, tip = 'application/json') {
+  const bucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+  if (!bucket) throw new EroareConfigurare('Lipsește NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET.');
+  const res = await fetch(
+    `https://storage.googleapis.com/upload/storage/v1/b/${encodeURIComponent(bucket)}/o?uploadType=media&name=${encodeURIComponent(cale)}`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${await token()}`, 'Content-Type': tip },
+      body: continut,
+      cache: 'no-store',
+    },
+  );
+  if (!res.ok) {
+    const j = await res.json().catch(() => ({}));
+    throw new Error(j?.error?.message ?? `Storage HTTP ${res.status}`);
+  }
+}

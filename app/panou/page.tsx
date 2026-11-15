@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, type User } from 'firebase/auth';
 import { ArrowLeft, Eye, EyeOff, Loader2, Mail } from 'lucide-react';
@@ -134,6 +135,9 @@ export default function Panou() {
   return (
     <div className="flex min-h-svh items-center justify-center bg-gradient-to-br from-slate-100 via-white to-orange-50 p-4">
       <div className="w-full max-w-md">
+        <Link href="/" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800">
+          <ArrowLeft className="h-4 w-4" /> Înapoi la site
+        </Link>
         <div className="mb-6 text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/logo.png" alt="În Pași de Dans" className="mx-auto h-20 w-auto" />

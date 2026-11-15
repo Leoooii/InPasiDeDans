@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { CalendarDays, Clock, Edit, Eye, EyeOff, MapPin, Search, Trash2, Users } from 'lucide-react'
+import { CalendarDays, ClipboardList, Clock, Edit, Eye, EyeOff, MapPin, RefreshCw, Search, Trash2, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -21,6 +21,7 @@ import { PozeGrupa, usePozeInstructori } from '@/components/evidenta/poze-instru
 import { Chip } from '@/components/evidenta/ui'
 import { azi, numeZi } from '@/lib/evidenta/date'
 import { instructoriDin, predaInstructorul } from '@/lib/evidenta/instructori-grupe'
+import { libereDinEvidenta } from '@/lib/evidenta/locuri'
 import type { GrupaEvidenta } from '@/lib/evidenta/tipuri'
 import type { Grupa } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -31,7 +32,17 @@ interface GrupeListProps {
   grupe: Grupa[]
   onEdit: (grupa: Grupa) => void
   onDelete: (id: string) => void
+  /** grupaId → cursanți care ocupă un loc după evidență; null cât timp se încarcă (sau a eșuat) */
+  ocupateEvidenta?: Record<string, number> | null
+  seSalveazaLocuri?: boolean
+  onActualizeazaLocuri?: (id: string, libere: number) => void
 }
+
+/** „1 cursant activ”, „12 cursanți activi”, „20 de cursanți activi”. */
+const cursantiActivi = (n: number) =>
+  n === 1 ? '1 cursant activ' : `${n} ${n % 100 >= 20 || (n > 0 && n % 100 === 0) ? 'de ' : ''}cursanți activi`
+const locuriLibere = (n: number) =>
+  n === 1 ? '1 loc liber' : `${n} ${n % 100 >= 20 || (n > 0 && n % 100 === 0) ? 'de ' : ''}locuri libere`
 
 const ZILE = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică']
 const faraDiacritice = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
@@ -48,7 +59,7 @@ const caEvidenta = (g: Grupa): GrupaEvidenta => ({
   nivel: g.nivel,
 })
 
-export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
+export default function GrupeList({ grupe, onEdit, onDelete, ocupateEvidenta, seSalveazaLocuri, onActualizeazaLocuri }: GrupeListProps) {
   const [deSters, setDeSters] = useState<Grupa | null>(null)
   const [cauta, setCauta] = useState('')
   const [zi, setZi] = useState('toate')
@@ -134,6 +145,8 @@ export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
             const ocupate = Math.max(0, g.locuriTotale - g.locuriDisponibile)
             const pct = g.locuriTotale > 0 ? Math.round((ocupate / g.locuriTotale) * 100) : 0
             const publica = g.publica !== false
+            const ocupateEv = ocupateEvidenta && g.id ? (ocupateEvidenta[g.id] ?? 0) : null
+            const libereEv = ocupateEv !== null ? libereDinEvidenta(g.locuriTotale, ocupateEv) : null
             return (
               <section key={g.id} className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 <header className="flex items-start gap-3 bg-slate-50/70 px-4 py-3">
@@ -199,6 +212,25 @@ export default function GrupeList({ grupe, onEdit, onDelete }: GrupeListProps) {
                       <div className="h-2 overflow-hidden rounded-full bg-slate-100">
                         <div className={cn('h-full rounded-full', pct >= 100 ? 'bg-red-500' : pct >= 80 ? 'bg-amber-400' : 'bg-emerald-500')} style={{ width: `${Math.min(100, pct)}%` }} />
                       </div>
+                    </div>
+                  )}
+                  {ocupateEv !== null && (
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <span className="inline-flex items-center gap-1 text-slate-500" title="Cursanți activi în evidență, cu abonament în curs">
+                        <ClipboardList className="h-3.5 w-3.5" /> În evidență: {cursantiActivi(ocupateEv)}
+                      </span>
+                      {libereEv !== null && libereEv !== g.locuriDisponibile && g.id && onActualizeazaLocuri && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-7 px-2 text-xs"
+                          disabled={seSalveazaLocuri}
+                          title={`Pe site apar acum ${locuriLibere(g.locuriDisponibile)}`}
+                          onClick={() => onActualizeazaLocuri(g.id!, libereEv)}
+                        >
+                          <RefreshCw className="mr-1 h-3 w-3" /> Actualizează: {locuriLibere(libereEv)}
+                        </Button>
+                      )}
                     </div>
                   )}
                 </div>

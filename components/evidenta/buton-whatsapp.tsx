@@ -25,7 +25,8 @@ import {
 import { cn } from '@/lib/utils';
 import { useEvidenta } from './context';
 
-function useSabloane() {
+/** Șabloanele de mesaj (cele salvate de admin sau cele implicite), actualizate la modificare. */
+export function useSabloane() {
   const [s, setS] = useState<Sabloane>(SABLOANE_IMPLICITE);
   useEffect(() => {
     const incarca = () => void incarcaSabloane().then(setS);
@@ -39,11 +40,26 @@ function useSabloane() {
  * Butonul verde WhatsApp (mesaj pregătit după statusul abonamentului) + creionul
  * care deschide editorul: textul cu variabile și previzualizarea mesajului trimis.
  */
-export function ButonWhatsapp({ cursant, status, mic = false }: { cursant: Cursant; status: StatusCursant; mic?: boolean }) {
+export function ButonWhatsapp({
+  cursant,
+  status,
+  mic = false,
+  tip,
+  onTrimis,
+}: {
+  cursant: Cursant;
+  status: StatusCursant;
+  mic?: boolean;
+  /** șablonul folosit (implicit: după statusul abonamentului) */
+  tip?: TipMesaj;
+  /** apelat când se deschide WhatsApp */
+  onTrimis?: () => void;
+}) {
   const sabloane = useSabloane();
   const [editez, setEditez] = useState(false);
   if (!cursant.telefon || !linkWhatsapp(cursant.telefon, '')) return null;
-  const text = completeaza(sabloane[tipMesaj(status.cod)], valori(cursant.nume, status));
+  const tipFolosit = tip ?? tipMesaj(status.cod);
+  const text = completeaza(sabloane[tipFolosit], valori(cursant.nume, status));
 
   return (
     <span className="inline-flex shrink-0 overflow-hidden rounded-lg border border-emerald-200">
@@ -52,6 +68,7 @@ export function ButonWhatsapp({ cursant, status, mic = false }: { cursant: Cursa
         target="_blank"
         rel="noopener noreferrer"
         title="Trimite pe WhatsApp"
+        onClick={onTrimis}
         className={cn('inline-flex items-center gap-1.5 bg-white font-medium text-emerald-700 hover:bg-emerald-50', mic ? 'h-8 px-2 text-xs' : 'h-9 px-3 text-sm')}
       >
         <MessageCircle className="h-4 w-4" />
@@ -66,7 +83,7 @@ export function ButonWhatsapp({ cursant, status, mic = false }: { cursant: Cursa
       >
         <Pencil className="h-3.5 w-3.5" />
       </button>
-      <EditorMesaj deschis={editez} onInchide={() => setEditez(false)} cursant={cursant} status={status} sabloane={sabloane} />
+      <EditorMesaj deschis={editez} onInchide={() => setEditez(false)} cursant={cursant} status={status} sabloane={sabloane} tipInitial={tipFolosit} onTrimis={onTrimis} />
     </span>
   );
 }
@@ -77,23 +94,27 @@ function EditorMesaj({
   cursant,
   status,
   sabloane,
+  tipInitial,
+  onTrimis,
 }: {
   deschis: boolean;
   onInchide: () => void;
   cursant: Cursant;
   status: StatusCursant;
   sabloane: Sabloane;
+  tipInitial: TipMesaj;
+  onTrimis?: () => void;
 }) {
   const { esteAdmin } = useEvidenta();
   const { showToast } = useSimpleToast();
-  const [tip, setTip] = useState<TipMesaj>(tipMesaj(status.cod));
+  const [tip, setTip] = useState<TipMesaj>(tipInitial);
   const [text, setText] = useState('');
   const [salvez, setSalvez] = useState(false);
   const zona = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (deschis) {
-      const t = tipMesaj(status.cod);
+      const t = tipInitial;
       setTip(t);
       setText(sabloane[t]);
     }
@@ -195,7 +216,10 @@ function EditorMesaj({
             </Button>
           )}
           <Button className="h-11 bg-emerald-600 text-white hover:bg-emerald-700" asChild disabled={!link}>
-            <a href={link ?? '#'} target="_blank" rel="noopener noreferrer" onClick={() => onInchide()}>
+            <a href={link ?? '#'} target="_blank" rel="noopener noreferrer" onClick={() => {
+                onTrimis?.();
+                onInchide();
+              }}>
               <Send className="mr-2 h-4 w-4" /> Trimite pe WhatsApp
             </a>
           </Button>

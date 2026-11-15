@@ -97,8 +97,8 @@ export default function PetreceriList({
     return (
       <div className="text-center py-10">
         <p className="text-gray-500">
-          Nu există petreceri. Adăugați prima petrecere folosind tab-ul "Adaugă
-          Petrecere".
+          Nu există petreceri. Adăugați prima petrecere folosind tab-ul „Adaugă
+          Petrecere”.
         </p>
       </div>
     );
@@ -179,8 +179,8 @@ export default function PetreceriList({
                         <AlertDialogHeader>
                           <AlertDialogTitle>Ești sigur?</AlertDialogTitle>
                           <AlertDialogDescription>
-                            Această acțiune va șterge definitiv petrecerea "
-                            {petrecere.title}". Această acțiune nu poate fi
+                            Această acțiune va șterge definitiv petrecerea „
+                            {petrecere.title}”. Această acțiune nu poate fi
                             anulată.
                           </AlertDialogDescription>
                         </AlertDialogHeader>

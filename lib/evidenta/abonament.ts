@@ -194,3 +194,58 @@ export function tipPentruReinnoire(abonamente: Abonament[], tipuri: TipAbonament
   if (!ultim) return null;
   return tipuri.find(t => t.tarifId === ultim.tarifId) ?? tipuri.find(t => t.tip === ultim.tip && t.categorie === ultim.categorie) ?? null;
 }
+
+// ── Liste de lucru: cine expiră curând, estimarea reînnoirilor ──────────
+
+/** Are deja cumpărat un abonament care continuă după `curent` (a reînnoit din timp)? */
+export function areContinuare(abonamente: Abonament[], curent: Abonament): boolean {
+  return abonamente.some(
+    a =>
+      a.id !== curent.id &&
+      !a.anulat &&
+      ramase(a) > 0 &&
+      (a.dataExpirare === null || (curent.dataExpirare !== null && a.dataExpirare > curent.dataExpirare)),
+  );
+}
+
+export type ExpiraCurand = {
+  abonament: Abonament;
+  /** ultima zi valabilă */
+  ultimaZi: string;
+  /** Infinity pentru Full Pass */
+  ramase: number;
+  /** zile de azi până în ultima zi valabilă (0 = azi e ultima zi) */
+  zile: number;
+};
+
+/**
+ * Abonamentul curent se termină în următoarele `zile` zile (ultima zi valabilă) sau mai are
+ * cel mult 2 ședințe — și cursantul nu are deja altul cumpărat în continuare.
+ */
+export function expiraCurand(abonamente: Abonament[], ziua = azi(), zile = 7): ExpiraCurand | null {
+  const valide = abonamente.filter(a => !a.anulat);
+  const curent = alegeAbonament(valide, ziua);
+  if (!curent || curent.dataStart === null || !curent.dataExpirare) return null;
+  const uz = ultimaZi(curent)!;
+  const r = ramase(curent);
+  if (uz > adaugaZile(ziua, zile) && r > 2) return null;
+  if (areContinuare(valide, curent)) return null;
+  return { abonament: curent, ultimaZi: uz, ramase: r, zile: zileIntre(ziua, uz) };
+}
+
+/**
+ * Estimare: abonamentul curent expiră până la sfârșitul lunii lui `ziua` (fără altul cumpărat
+ * în continuare) → valoarea reînnoirii, la prețul ultimului abonament cumpărat. null = nu intră.
+ */
+export function reinnoireEstimata(abonamente: Abonament[], ziua = azi()): { abonament: Abonament; pret: number } | null {
+  const valide = abonamente.filter(a => !a.anulat);
+  const curent = alegeAbonament(valide, ziua);
+  if (!curent || !curent.dataExpirare) return null;
+  const [y, m] = ziua.split('-').map(Number);
+  const lunaUrmatoare = `${m === 12 ? y + 1 : y}-${String(m === 12 ? 1 : m + 1).padStart(2, '0')}-01`;
+  // dataExpirare e exclusivă: ultima zi valabilă cade în luna curentă
+  if (curent.dataExpirare > lunaUrmatoare) return null;
+  if (areContinuare(valide, curent)) return null;
+  const ultim = [...valide].sort((a, b) => b.dataVanzare.localeCompare(a.dataVanzare) || b.createdAt - a.createdAt)[0];
+  return { abonament: curent, pret: ultim?.pret || curent.pret || 0 };
+}

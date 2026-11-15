@@ -58,4 +58,6 @@ Istoric modificări și pași rămași: [docs/jurnal-modificari.md](docs/jurnal-
 - Colecții: `cursanti` (câmpul `grupe` = id-uri din colecția `grupe`, păstrat pentru tabul Grupe), `abonamente`, `prezente` (id `{grupaId}_{data}_{cursantId}`), `jurnal` (doar adăugare), `conturiInstructori`. Datele sunt șiruri `YYYY-MM-DD` în ora României (`azi()` din `lib/evidenta/date.ts`, nu `toISOString`).
 - Tipurile de abonament vin din `tarife` (categoriile grup + copii); pachetele private nu intră în evidență.
 - Tabul „Grupe" rămâne separat (site-ul de prezentare); evidența doar citește grupele.
+- Backup lunar: cron Vercel → [app/api/cron/backup/route.ts](app/api/cron/backup/route.ts) (cere `CRON_SECRET`), citește colecțiile prin REST cu cheia de serviciu și urcă JSON în Storage `backups/`.
+- Teste: `npm test` (node --test + [tests/ts-resolve.mjs](tests/ts-resolve.mjs)) pentru `abonament.ts`. Rulează-le după orice schimbare a regulilor.
 - Conturile de instructor se creează prin REST Identity Toolkit `accounts:signUp` (SDK-ul ar deloga adminul).

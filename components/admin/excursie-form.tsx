@@ -257,7 +257,7 @@ export function ExcursieForm({
                       </FormLabel>
                       <FormDescription>
                         Activați pentru a afișa această excursie în secțiunea
-                        "Următoarele excursii"
+                        „Următoarele excursii”
                       </FormDescription>
                     </div>
                     <FormControl>

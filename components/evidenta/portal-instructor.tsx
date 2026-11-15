@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
-import { GraduationCap, HelpCircle, LogOut, Users } from 'lucide-react';
+import { Globe, GraduationCap, HelpCircle, LogOut, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/firebase';
 import { contInstructor } from '@/lib/evidenta/repo';
@@ -107,8 +107,17 @@ export function PortalInstructor({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
             <Link
+              href="/"
+              className="ml-auto flex h-11 items-center gap-1.5 rounded-xl px-2.5 text-sm text-slate-400 hover:bg-white/10 hover:text-white"
+              title="Înapoi la site"
+              aria-label="Înapoi la site"
+            >
+              <Globe className="h-4 w-4" />
+              <span className="hidden md:inline">Site</span>
+            </Link>
+            <Link
               href="/instructor/cont"
-              className="ml-auto flex min-w-0 items-center gap-2 rounded-xl px-1.5 py-1 hover:bg-white/10"
+              className="flex min-w-0 items-center gap-2 rounded-xl px-1.5 py-1 hover:bg-white/10"
               title="Contul meu"
               aria-label="Contul meu"
             >
