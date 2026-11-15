@@ -9,15 +9,13 @@
 ## Statistici admin (GA4 Data API)
 Pagina [app/admin/statistici/page.tsx](app/admin/statistici/page.tsx) afișează vizite din Google Analytics 4 prin [app/api/admin/analytics/route.ts](app/api/admin/analytics/route.ts) (folosește `@google-analytics/data` + service account, server-only — vezi [lib/ga.ts](lib/ga.ts)). Rutele `/api/admin/analytics` și `/api/admin/evolutie` acceptă doar adminul logat: browserul trimite ID token-ul Firebase (`antetAdmin()` din [lib/admin-client.ts](lib/admin-client.ts)), serverul îl verifică cu `cerereDeLaAdmin()` din [lib/admin-auth.ts](lib/admin-auth.ts). Nu mai există cheie statică (`NEXT_PUBLIC_ANALYTICS_TOKEN` ajungea în JS-ul public). Env necesare: `GA_PROPERTY_ID` (ID numeric, NU measurement ID `G-...`), `GA_OAUTH_CLIENT_ID`, `GA_OAUTH_CLIENT_SECRET`, `GA_OAUTH_REFRESH_TOKEN`. Service account-ul trebuie adăugat ca Viewer în GA4 → Property Access.
 
-## Instalare dependențe: `--legacy-peer-deps` obligatoriu
-`npm install` simplu eșuează cu ERESOLVE (`react-day-picker@8` cere `date-fns@^2||^3`, root are `date-fns@3.6`). Folosește mereu `npm install <pkg> --legacy-peer-deps`.
+## Instalare dependențe
+Folosește `npm install <pkg> --legacy-peer-deps` ca arborele local să rămână la fel (fără flag, npm adaugă peer-uri în plus). Vercel instalează cu **yarn** din `yarn.lock` — npm îl actualizează automat, păstrează-l comis.
 
 ## Gotchas care s-au pierdut deja timp
 
-### Middleware redirects prin keyword similarity
-[middleware.ts](middleware.ts) rulează `findSimilarPage()` pe orice request non-API/non-blog. Verifică `validPages` (allowlist) și un dicționar `similarityMappings` cu cuvinte cheie (`evenimente`, `noutati`, `cursuri`, etc.). Match-ul e `pathname.includes(keyword)` — orice rută nouă care conține un keyword cunoscut și nu e în `validPages` va fi 301-redirectată spre destinația mapată.
-
-**Când adaugi o rută dinamică nouă** sub un segment cu keyword (ex. `/cursuri-dans-adulti/[slug]`, `/petreceri/[id]`), pune un `if (pathname.startsWith('/prefix/')) return NextResponse.next()` în middleware **înainte** de apelul `findSimilarPage`. Există deja excepții pentru `/grupe-in-formare/`, `/petreceri/`, `/noutati/`, `/evenimente/` — urmează pattern-ul. Simptom dacă uiți: pagina returnează 301 către listing-ul părinte.
+### Nu există middleware
+`middleware.ts` (redirecturi după cuvinte cheie) a fost scos în commitul 875ddcd. Rutele noi nu mai au nevoie de excepții.
 
 ### Colecția `evenimente` ține atât evenimente cât și noutăți
 Distincția se face pe câmpul `eventDate`:

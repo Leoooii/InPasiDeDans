@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { postsByTagQuery, allTagsQuery } from '@/sanity/lib/queries'
-import PostCard from '@/components/blog/post-card'
+import PostCard, { type PostCardData } from '@/components/blog/post-card'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 import Link from 'next/link';
 
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
     return tags.map((tag: string) => ({
       slug: tag.toLowerCase().replace(/\s+/g, '-'),
     }))
-  } catch (error) {
+  } catch {
     return []
   }
 }
@@ -78,7 +78,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
       <section className="py-12 bg-white ">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post: any) => (
+            {posts.map((post: PostCardData) => (
               <PostCard key={post._id} post={post} />
             ))}
           </div>

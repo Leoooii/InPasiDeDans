@@ -5,7 +5,6 @@ import type React from 'react';
 
 import { Mail, MapPin, Phone, Navigation, Clock } from 'lucide-react';
 
-import { Card, CardContent } from '@/components/ui/card';
 import ContactForm from '@/components/contact-form';
 
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs';

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, BookOpen, Layers, Smile, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, Layers, Sparkles, Users } from 'lucide-react';
 
 import StructureFeatures from '@/components/StructureFeatures';
 import LocationSection from '@/components/LocationSection';

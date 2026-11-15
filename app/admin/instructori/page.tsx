@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
@@ -31,7 +31,7 @@ export default function InstructoriPage() {
   const { toast } = useToast();
 
   // Funcție pentru a încărca instructorii
-  const fetchInstructori = async () => {
+  const fetchInstructori = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await fetch('/api/instructori');
@@ -50,12 +50,12 @@ export default function InstructoriPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toast]);
 
   // Încărcăm instructorii la încărcarea paginii
   useEffect(() => {
     fetchInstructori();
-  }, []);
+  }, [fetchInstructori]);
 
   // Funcție pentru a gestiona editarea unui instructor
   const handleEditInstructor = (instructor: Instructor) => {

@@ -77,15 +77,16 @@ export default function InregistrarePage() {
 
       // Redirecționăm către pagina de cont
       router.push('/cont');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Eroare la înregistrare:', error);
+      const cod = (error as { code?: string } | null)?.code;
 
       let errorMessage = 'A apărut o eroare la înregistrare';
-      if (error.code === 'auth/email-already-in-use') {
+      if (cod === 'auth/email-already-in-use') {
         errorMessage = 'Există deja un cont cu acest email';
-      } else if (error.code === 'auth/weak-password') {
+      } else if (cod === 'auth/weak-password') {
         errorMessage = 'Parola este prea slabă';
-      } else if (error.code === 'auth/invalid-email') {
+      } else if (cod === 'auth/invalid-email') {
         errorMessage = 'Adresa de email nu este validă';
       }
 

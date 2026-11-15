@@ -308,6 +308,7 @@ export function ExcursieForm({
                   <CardContent className="p-0">
                     {imagePreview ? (
                       <div className="relative h-60 w-full">
+                        {/* eslint-disable-next-line @next/next/no-img-element -- previzualizare din Firebase Storage / blob */}
                         <img
                           src={imagePreview || '/placeholder.svg'}
                           alt="Previzualizare"

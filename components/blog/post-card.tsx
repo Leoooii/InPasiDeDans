@@ -28,6 +28,9 @@ interface PostCardProps {
   variant?: 'light' | 'dark'
 }
 
+// Forma unui articol din interogările Sanity, refolosită de listări
+export type PostCardData = PostCardProps['post']
+
 export default function PostCard({ post, variant = 'light' }: PostCardProps) {
   if (!post) return null
 

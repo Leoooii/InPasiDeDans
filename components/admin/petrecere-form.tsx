@@ -19,12 +19,13 @@ import {
 } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
 import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from '@/components/ui/use-toast';
+import type { Petrecere } from '@/app/admin/petreceri/page';
 
 // Definim schema de validare pentru formular
 const petrecereSchema = z.object({
@@ -45,7 +46,7 @@ type PetrecereFormValues = z.infer<typeof petrecereSchema>;
 
 // Interfața pentru props
 interface PetrecereFormProps {
-  petrecere: any | null;
+  petrecere: Petrecere | null;
   onSuccess: () => void;
   onCancel: () => void;
 }
@@ -142,12 +143,12 @@ export default function PetrecereForm({
       await reimprospateazaSite('petreceri');
 
       onSuccess();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Eroare:', error);
       toast({
         title: 'Eroare',
         description:
-          error.message || 'A apărut o eroare la salvarea petrecerii',
+          (error as Error).message || 'A apărut o eroare la salvarea petrecerii',
         variant: 'destructive',
       });
     } finally {

@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSimpleToast } from '@/components/simple-toast-provider';
 import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, type Timestamp } from 'firebase/firestore';
 import {
   Loader2,
   Calendar,
@@ -25,24 +25,16 @@ import {
   Filter,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  limit,
-  getDocs,
-} from 'firebase/firestore';
 
 type UserData = {
   nume: string;
   prenume: string;
   email: string;
   telefon: string;
-  dataInregistrare: any;
+  dataInregistrare: Timestamp | null;
   aprobat: boolean;
   role: string;
-  dataInceputCursuri: any;
+  dataInceputCursuri: Timestamp | null;
   grupe: string[];
   abonamente: Abonament[];
   prezente: Prezenta[];
@@ -51,8 +43,8 @@ type UserData = {
 type Abonament = {
   id: string;
   tip: string;
-  dataInceput: any;
-  dataExpirare: any;
+  dataInceput: Timestamp | null;
+  dataExpirare: Timestamp | null;
   pretPlatit: number;
   numarSedinte: number;
   sedinteRamase: number;
@@ -60,14 +52,13 @@ type Abonament = {
 
 type Prezenta = {
   id: string;
-  data: any;
+  data: Timestamp | null;
   grupa: string;
   profesor: string;
   status?: string;
 };
 
 export default function ContPage() {
-  const [user, setUser] = useState<any>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [prezente, setPrezente] = useState<Prezenta[]>([]);
   const [filteredPrezente, setFilteredPrezente] = useState<Prezenta[]>([]);
@@ -77,10 +68,34 @@ export default function ContPage() {
   const { showToast } = useSimpleToast();
 
   useEffect(() => {
+    // Încarcă datele contului și prezențele reale (în efect, ca să nu fie dependență externă)
+    const fetchUserData = async (userId: string) => {
+      try {
+        // Obținem datele utilizatorului din Firestore
+        const userDoc = await getDoc(doc(db, 'users', userId));
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data() as UserData;
+          setUserData(userData);
+
+          // Folosim prezențele reale din baza de date
+          if (userData.prezente && userData.prezente.length > 0) {
+            setPrezente(userData.prezente);
+            setFilteredPrezente(userData.prezente);
+          } else {
+            // Dacă nu există prezențe, afișăm un array gol
+            setPrezente([]);
+            setFilteredPrezente([]);
+          }
+        }
+      } catch (error) {
+        console.error('Eroare la încărcarea datelor utilizatorului:', error);
+        showToast('Nu s-au putut încărca datele contului', 'error');
+      }
+    };
+
     const unsubscribe = onAuthStateChanged(auth, async currentUser => {
       if (currentUser) {
-        setUser(currentUser);
-
         // Verificăm dacă este admin și redirecționăm
         if (currentUser.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
           router.push('/admin');
@@ -104,7 +119,7 @@ export default function ContPage() {
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, [router, showToast]);
 
   // Efect pentru filtrarea prezențelor în funcție de grupa selectată
   useEffect(() => {
@@ -119,68 +134,6 @@ export default function ContPage() {
       setFilteredPrezente(prezente.filter(p => p.grupa === selectedGrupa));
     }
   }, [prezente, selectedGrupa]);
-
-  // Modificăm funcția fetchUserData pentru a afișa prezențele reale
-  const fetchUserData = async (userId: string) => {
-    try {
-      // Obținem datele utilizatorului din Firestore
-      const userDoc = await getDoc(doc(db, 'users', userId));
-
-      if (userDoc.exists()) {
-        const userData = userDoc.data() as UserData;
-        setUserData(userData);
-
-        // Folosim prezențele reale din baza de date
-        if (userData.prezente && userData.prezente.length > 0) {
-          setPrezente(userData.prezente);
-          setFilteredPrezente(userData.prezente);
-        } else {
-          // Dacă nu există prezențe, afișăm un array gol
-          setPrezente([]);
-          setFilteredPrezente([]);
-        }
-      }
-    } catch (error) {
-      console.error('Eroare la încărcarea datelor utilizatorului:', error);
-      showToast('Nu s-au putut încărca datele contului', 'error');
-    }
-  };
-
-  const fetchPrezente = async (userId: string) => {
-    try {
-      const prezenteQuery = query(
-        collection(db, 'prezente'),
-        where('userId', '==', userId),
-        orderBy('data', 'desc'),
-        limit(10)
-      );
-      const prezenteSnapshot = await getDocs(prezenteQuery);
-
-      if (prezenteSnapshot.empty) {
-        setPrezente([]);
-        setFilteredPrezente([]);
-        return;
-      }
-
-      // Asigurăm-ne că includem toate proprietățile necesare
-      const prezenteData = prezenteSnapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          data: data.data,
-          grupa: data.grupa || 'Necunoscută',
-          profesor: data.profesor || 'Necunoscut',
-          status: data.status || 'Prezent', // Valoare implicită
-        } as Prezenta;
-      });
-
-      setPrezente(prezenteData);
-      setFilteredPrezente(prezenteData);
-    } catch (error) {
-      console.error('Eroare la încărcarea prezențelor:', error);
-      showToast('Nu s-au putut încărca prezențele', 'error');
-    }
-  };
 
   // Funcție pentru a obține lista unică de grupe din prezențe
   const getUniqueGrupe = () => {

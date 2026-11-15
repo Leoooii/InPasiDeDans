@@ -76,7 +76,7 @@ export default function Excursii({ initial }: { initial?: Excursie[] | null }) {
       }
     };
     loadExcursii();
-  }, []);
+  }, [initial]);
 
   if (isLoading) {
     return (

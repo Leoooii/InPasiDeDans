@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { db } from "@/lib/firebase"
 import {
   collection,
@@ -11,10 +11,9 @@ import {
   doc,
   query,
   orderBy,
-  where,
 } from "firebase/firestore"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -238,11 +237,7 @@ export default function TarifePage() {
   const [activeTab, setActiveTab] = useState("lista")
   const { showToast } = useSimpleToast()
 
-  useEffect(() => {
-    fetchTarife()
-  }, [])
-
-  const fetchTarife = async () => {
+  const fetchTarife = useCallback(async () => {
     try {
       const q = query(collection(db, "tarife"), orderBy("ordine", "asc"))
       const snapshot = await getDocs(q)
@@ -252,7 +247,11 @@ export default function TarifePage() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [showToast])
+
+  useEffect(() => {
+    fetchTarife()
+  }, [fetchTarife])
 
   const handleSeed = async () => {
     setIsSeeding(true)
@@ -267,32 +266,6 @@ export default function TarifePage() {
       showToast("Eroare la popularea tarifelor", "error")
     } finally {
       setIsSeeding(false)
-    }
-  }
-
-  const handleMigratePrivat = async () => {
-    if (!confirm("Actualizează descrierile și beneficiile pentru tarifele private? Prețurile rămân neschimbate.")) return
-    try {
-      const q = query(collection(db, "tarife"), where("categorie", "==", "privat"))
-      const snapshot = await getDocs(q)
-      const updates = INITIAL_TARIFE.filter((t) => t.categorie === "privat")
-      for (const fireDoc of snapshot.docs) {
-        const data = fireDoc.data() as Omit<Tarif, "id">
-        const match = updates.find((u) => u.titlu === data.titlu)
-        if (match) {
-          await updateDoc(doc(db, "tarife", fireDoc.id), {
-            descriere: match.descriere,
-            beneficii: match.beneficii,
-            popular: match.popular,
-            ordine: match.ordine,
-          })
-          await reimprospateazaSite('tarife')
-        }
-      }
-      showToast("Tarifele private au fost actualizate", "success")
-      fetchTarife()
-    } catch {
-      showToast("Eroare la actualizare", "error")
     }
   }
 

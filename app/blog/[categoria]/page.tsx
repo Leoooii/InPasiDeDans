@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { postsByCategoryQuery, singleCategoryQuery, allCategoriesQuery } from '@/sanity/lib/queries'
-import PostCard from '@/components/blog/post-card'
+import PostCard, { type PostCardData } from '@/components/blog/post-card'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
   try {
     const categories = await client.fetch(allCategoriesQuery)
     
-    return categories.map((category: any) => ({
+    return categories.map((category: { slug?: { current?: string } }) => ({
       categoria: category.slug?.current || '',
     }))
   } catch (error) {
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: Promise<{ categoria
         description: category.metaDescription || category.description || `Articole despre ${category.title.toLowerCase()}`,
       },
     }
-  } catch (error) {
+  } catch {
     return {
       title: 'Categorie | Blog În Pași de Dans',
       description: 'Descoperă articole din această categorie.',
@@ -129,7 +129,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           {posts.length > 0 ? (
             <>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {posts.map((post: any) => (
+                {posts.map((post: PostCardData) => (
                   <PostCard key={post._id} post={post} />
                 ))}
               </div>

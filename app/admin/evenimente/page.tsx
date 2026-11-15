@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Plus } from 'lucide-react';
@@ -29,11 +29,7 @@ export default function EvenimentePage() {
   const [activeTab, setActiveTab] = useState('lista');
   const { toast } = useToast();
 
-  useEffect(() => {
-    fetchEvenimente();
-  }, []);
-
-  const fetchEvenimente = async () => {
+  const fetchEvenimente = useCallback(async () => {
     setLoading(true);
     try {
       const evenimenteRef = collection(db, 'evenimente');
@@ -65,7 +61,11 @@ export default function EvenimentePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    fetchEvenimente();
+  }, [fetchEvenimente]);
 
   const handleEditEvent = (eveniment: Eveniment) => {
     setSelectedEvent(eveniment);

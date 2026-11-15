@@ -7,7 +7,6 @@ import { singlePostQuery, relatedPostsQuery, allPostSlugsQuery } from '@/sanity/
 import { urlForImage } from '@/sanity/lib/client'
 import PostContent from '@/components/blog/post-content'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
-import PostCard from '@/components/blog/post-card'
 import TableOfContents from '@/components/blog/table-of-contents'
 import FaqBlock from '@/components/faq-block'
 import RelatedPosts from '@/components/blog/related-posts'
@@ -20,7 +19,7 @@ export async function generateStaticParams() {
   try {
     const posts = await client.fetch(allPostSlugsQuery)
     
-    return posts.map((post: any) => ({
+    return posts.map((post: { category: string; slug: string }) => ({
       categoria: post.category,
       slug: post.slug,
     }))
@@ -72,7 +71,7 @@ export async function generateMetadata({ params }: { params: Promise<{ categoria
         images: post.mainImage?.asset ? [urlForImage(post.mainImage).width(1200).height(630).fit('crop').url()] : [],
       },
     }
-  } catch (error) {
+  } catch {
     return {
       title: 'Articol | Blog În Pași de Dans',
       description: 'Citește articolul complet pe blog-ul nostru.',
@@ -310,7 +309,7 @@ export default async function PostPage({ params }: { params: Promise<{ categoria
 
         {/* Related Posts Carousel */}
         {relatedPosts.length > 0 && (
-          <RelatedPosts posts={relatedPosts} currentPostTitle={post.title} />
+          <RelatedPosts posts={relatedPosts} />
         )}
 
         {/* CTA Section */}

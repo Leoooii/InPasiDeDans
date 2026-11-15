@@ -83,28 +83,34 @@ async function firestoreEntries(): Promise<Entry[]> {
   ];
 }
 
+// Doar câmpurile din interogările Sanity folosite aici.
+type SlugSanity = { current?: string };
+type PostSitemap = { slug?: string; category?: string; publishedAt: string; _updatedAt: string };
+type CategorieSitemap = { slug?: SlugSanity };
+type AutorSitemap = { slug?: SlugSanity; postCount: number };
+
 async function blogEntries(): Promise<Entry[]> {
   const [posts, categories, authors] = await Promise.all([
-    client.fetch(allPostSlugsQuery),
-    client.fetch(allCategoriesQuery),
-    client.fetch(allAuthorsQuery),
+    client.fetch<PostSitemap[]>(allPostSlugsQuery),
+    client.fetch<CategorieSitemap[]>(allCategoriesQuery),
+    client.fetch<AutorSitemap[]>(allAuthorsQuery),
   ]);
 
   return [
     ...categories
-      .filter((c: any) => c.slug?.current)
-      .map((c: any) => ({ url: `${BASE}/blog/${c.slug.current}`, changeFrequency: 'weekly' as const, priority: 0.6 })),
+      .filter(c => c.slug?.current)
+      .map(c => ({ url: `${BASE}/blog/${c.slug?.current}`, changeFrequency: 'weekly' as const, priority: 0.6 })),
     ...posts
-      .filter((p: any) => p.slug && p.category)
-      .map((p: any) => ({
+      .filter(p => p.slug && p.category)
+      .map(p => ({
         url: `${BASE}/blog/${p.category}/${p.slug}`,
         lastModified: new Date(p._updatedAt || p.publishedAt),
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       })),
     ...authors
-      .filter((a: any) => a.slug?.current && a.postCount > 0)
-      .map((a: any) => ({ url: `${BASE}/blog/autor/${a.slug.current}`, changeFrequency: 'monthly' as const, priority: 0.4 })),
+      .filter(a => a.slug?.current && a.postCount > 0)
+      .map(a => ({ url: `${BASE}/blog/autor/${a.slug?.current}`, changeFrequency: 'monthly' as const, priority: 0.4 })),
   ];
 }
 

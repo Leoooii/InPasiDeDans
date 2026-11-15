@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { getAnalyticsClient, getPropertyId, isGaConfigured } from '@/lib/ga';
 import { getSearchConsole } from '@/lib/gsc';
 import { cerereDeLaAdmin } from '@/lib/admin-auth';
+import type { protos } from '@google-analytics/data';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,7 +45,7 @@ async function metriciGa(p: Perioade) {
     { ...p.inainte, name: 'inainte' },
     { ...p.dupa, name: 'dupa' },
   ];
-  const valori = (resp: any, i: number) => {
+  const valori = (resp: protos.google.analytics.data.v1beta.IRunReportResponse, i: number) => {
     const out = { inainte: 0, dupa: 0 };
     for (const r of resp.rows ?? []) {
       const nume = r.dimensionValues?.at(-1)?.value as 'inainte' | 'dupa';

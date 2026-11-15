@@ -82,11 +82,11 @@ export function FirebaseImageUpload({
       const url = await getDownloadURL(storageRef);
       onUploadComplete(url);
       toast({ title: 'Imagine încărcată cu succes' });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Eroare upload Firebase Storage:', error);
       toast({
         title: 'Eroare la încărcare',
-        description: error?.message || 'Nu s-a putut încărca imaginea.',
+        description: (error as Error | undefined)?.message || 'Nu s-a putut încărca imaginea.',
         variant: 'destructive',
       });
     } finally {

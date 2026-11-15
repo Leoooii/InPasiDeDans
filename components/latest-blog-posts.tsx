@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { client, urlForImage } from '@/sanity/lib/client'
+import type { PostCardData } from '@/components/blog/post-card'
 
 // Query pentru ultimele 3 articole
 const latestPostsQuery = `
@@ -57,7 +58,7 @@ export default async function LatestBlogPosts() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {posts.map((post: any) => {
+          {posts.map((post: PostCardData) => {
             if (!post) return null
 
             const imageUrl = post.mainImage?.asset

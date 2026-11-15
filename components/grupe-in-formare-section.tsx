@@ -226,7 +226,7 @@ const GrupeInFormareSection = ({ variant = 'default', limit }: GrupeInFormareSec
                   className="w-full"
                   onClick={event => {
                     event.stopPropagation();
-                    grupa.id && handleInscriere(grupa.id);
+                    if (grupa.id) handleInscriere(grupa.id);
                   }}
                   disabled={grupa.locuriDisponibile <= 0}
                 >

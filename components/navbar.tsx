@@ -7,11 +7,9 @@ import { ChevronDown, User } from 'lucide-react';
 import { cn, WEBSITE_URLS } from '@/lib/utils';
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
@@ -22,6 +20,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { usePathname, useRouter } from 'next/navigation';
+import type { User as UtilizatorFirebase } from 'firebase/auth';
 import { Facebook, Instagram } from 'lucide-react';
 import GrupeCountBadge from '@/components/grupe-count-badge';
 import { usePublicData } from '@/components/public-data-provider';
@@ -47,7 +46,7 @@ const TikTokIcon = () => (
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<UtilizatorFirebase | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [visible, setVisible] = useState(true);
@@ -428,7 +427,7 @@ function MobileNav({
 }: {
   setIsOpen: (open: boolean) => void;
   areGrupeNoi: boolean;
-  user: any;
+  user: UtilizatorFirebase | null;
   isAdmin: boolean;
   onLogout: () => void;
 }) {

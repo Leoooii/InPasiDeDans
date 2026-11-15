@@ -18,6 +18,7 @@ import {
   updateDoc,
   serverTimestamp,
   Timestamp,
+  type FieldValue,
 } from 'firebase/firestore';
 import { useToast } from '@/components/ui/use-toast';
 import Image from 'next/image';
@@ -91,18 +92,6 @@ export default function EventForm({
     setSlugEdited(false);
   };
 
-  const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
-    setImageUrl(url);
-
-    // Update preview if URL is not empty
-    if (url.trim()) {
-      setImagePreview(url);
-    } else {
-      setImagePreview(null);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -115,7 +104,15 @@ export default function EventForm({
         eveniment?.id
       );
 
-      const eventData: any = {
+      const eventData: {
+        title: string | null;
+        description: string | null;
+        link: string | null;
+        imageUrl: string | null;
+        slug: string;
+        eventDate?: Timestamp;
+        date?: FieldValue;
+      } = {
         title: title.trim() || null,
         description: description || null,
         link: link.trim() || null,

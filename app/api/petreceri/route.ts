@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { db } from "@/lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
 
@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 // GET: Obține toate petrecerile
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const petreceriCollection = collection(db, "petreceri")
     const petreceriSnapshot = await getDocs(petreceriCollection)

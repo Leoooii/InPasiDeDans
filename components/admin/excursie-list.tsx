@@ -74,7 +74,7 @@ export function ExcursiiList({
   const formatDate = (timestamp: number) => {
     try {
       return format(new Date(timestamp), 'd MMMM yyyy, HH:mm', { locale: ro });
-    } catch (error) {
+    } catch {
       return 'Data necunoscută';
     }
   };

@@ -341,6 +341,7 @@ export default function EvenimentDetail({ kind, initialSlug, initialItem, initia
               <div className="relative">
                 <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-orange-400/40 via-red-500/30 to-orange-500/40 blur-2xl" />
                 <div className="relative rounded-2xl overflow-hidden ring-1 ring-white/20 shadow-2xl shadow-black/60 bg-slate-950">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- imagine din Firebase Storage, dimensiuni necunoscute */}
                   <img
                     src={item.imageUrl}
                     alt={item.title || typeLabel}

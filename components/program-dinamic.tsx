@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { collection, getDocs, query } from 'firebase/firestore'
+import { collection, getDocs, query, type DocumentData } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import Link from 'next/link'
@@ -139,7 +139,7 @@ function ziuaDeAzi(): string {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 // Documentele brute din Firestore → forma folosită de orar.
-function normalizeaza(docs: Record<string, any>[]): Grupa[] {
+function normalizeaza(docs: DocumentData[]): Grupa[] {
   return docs.map(d => ({
     id: d.id,
     titlu: d.titlu || '',
@@ -156,7 +156,7 @@ function normalizeaza(docs: Record<string, any>[]): Grupa[] {
   }))
 }
 
-export default function ProgramDinamic({ initial }: { initial?: Record<string, any>[] | null }) {
+export default function ProgramDinamic({ initial }: { initial?: DocumentData[] | null }) {
   const [grupe, setGrupe] = useState<Grupa[]>(() => (initial ? normalizeaza(initial) : []))
   const [loading, setLoading] = useState(!initial)
   const [filterDay, setFilterDay]         = useState<DayGroupId>('all')
@@ -178,7 +178,7 @@ export default function ProgramDinamic({ initial }: { initial?: Record<string, a
       .then(snap => setGrupe(normalizeaza(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })))))
       .catch(console.error)
       .finally(() => setLoading(false))
-  }, [])
+  }, [initial])
 
   const enriched = useMemo(() =>
     grupe

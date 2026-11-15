@@ -149,7 +149,7 @@ export default function InscriereForm() {
         instructor: matchedOption.instructor || '',
       }));
     }
-  }, [preselectedGrupaId, grupeOptions]);
+  }, [preselectedGrupaId, grupeOptions, setFormData]);
 
   // ?curs=<id> preselectează un curs general (ex. din „Grupe cu locuri libere” de pe prima pagină).
   const preselectedCurs = searchParams.get('curs');

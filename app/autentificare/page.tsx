@@ -52,18 +52,19 @@ export default function AutentificarePage() {
       } else {
         router.push('/cont');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Eroare la autentificare:', error);
+      const cod = (error as { code?: string } | null)?.code;
 
       let errorMessage = 'A apărut o eroare la autentificare';
       if (
-        error.code === 'auth/invalid-credential' ||
-        error.code === 'auth/wrong-password'
+        cod === 'auth/invalid-credential' ||
+        cod === 'auth/wrong-password'
       ) {
         errorMessage = 'Email sau parolă incorecte';
-      } else if (error.code === 'auth/user-not-found') {
+      } else if (cod === 'auth/user-not-found') {
         errorMessage = 'Nu există niciun utilizator cu acest email';
-      } else if (error.code === 'auth/too-many-requests') {
+      } else if (cod === 'auth/too-many-requests') {
         errorMessage = 'Prea multe încercări eșuate. Încearcă mai târziu';
       }
 

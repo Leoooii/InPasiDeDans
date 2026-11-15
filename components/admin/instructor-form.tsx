@@ -20,7 +20,7 @@ import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import type { Instructor } from '@/app/admin/instructori/page';
 import { FirebaseImageUpload } from '@/components/ui/firebase-image-upload';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { reimprospateazaSite } from '@/lib/reimprospatare-site';
 
@@ -124,7 +124,7 @@ export default function InstructorForm({
       }
     });
     return () => subscription.unsubscribe();
-  }, [form.watch]);
+  }, [form]);
 
   // Funcție pentru a trimite formularul
   const onSubmit = async (data: InstructorFormValues) => {

@@ -1,5 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, type DocumentData } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 // Firebase client SDK nu trece prin fetch-ul Next, deci fără cache explicit
@@ -10,7 +10,7 @@ export function getDocCached(colectie: string, id: string) {
     async () => {
       const snap = await getDoc(doc(db, colectie, id));
       if (!snap.exists()) return null;
-      return JSON.parse(JSON.stringify({ id: snap.id, ...snap.data() })) as Record<string, any>;
+      return JSON.parse(JSON.stringify({ id: snap.id, ...snap.data() })) as DocumentData;
     },
     ['doc', colectie, id],
     { revalidate: 86400, tags: [colectie] },

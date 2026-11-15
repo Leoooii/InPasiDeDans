@@ -201,6 +201,7 @@ function Slide({ instructor, isFirst }: { instructor: Instructor; isFirst?: bool
           {/* Soft orange/red halo behind image */}
           <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-orange-400/25 via-red-500/15 to-orange-500/25 blur-2xl" />
 
+          {/* eslint-disable-next-line @next/next/no-img-element -- URL din Firebase Storage, dimensiuni necunoscute */}
           <img
             src={imageUrl || '/placeholder.svg'}
             alt={name}

@@ -1,3 +1,4 @@
+import type { DocumentData } from 'firebase/firestore';
 import { buildGrupaSlug } from '@/lib/utils';
 import { BUSINESS } from '@/lib/schema-constants';
 import {
@@ -81,7 +82,7 @@ export async function construiesteLlmsTxt({ complet }: { complet: boolean }) {
   const cuProgram = grupe.filter(g => g.program || g.zile?.length);
   if (cuProgram.length) {
     p('## Orar săptămânal (toate grupele)', '');
-    const ziua = (g: Record<string, any>) => Math.min(...(g.zile ?? []).map((z: string) => ZILE.indexOf(z)).filter((i: number) => i >= 0), 99);
+    const ziua = (g: DocumentData) => Math.min(...(g.zile ?? []).map((z: string) => ZILE.indexOf(z)).filter((i: number) => i >= 0), 99);
     for (const g of [...cuProgram].sort((a, b) => ziua(a) - ziua(b))) {
       p(`- ${g.titlu}: ${[g.program, g.nivel, (g.stiluri ?? []).join('/'), g.instructor].filter(Boolean).join(' · ')}`);
     }

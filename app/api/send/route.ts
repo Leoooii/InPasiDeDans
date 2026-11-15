@@ -122,9 +122,9 @@ export async function POST(request: NextRequest) {
         consent,
         createdAt: Date.now(),
       });
-    } catch (dbError: any) {
+    } catch (dbError) {
       salvata = false;
-      console.error('Eroare la salvarea înscrierii în Firestore:', dbError?.message);
+      console.error('Eroare la salvarea înscrierii în Firestore:', (dbError as Error | undefined)?.message);
     }
 
     // Trimite emailul folosind Resend
@@ -150,9 +150,10 @@ export async function POST(request: NextRequest) {
 
     console.log('Email trimis cu succes:', { email, ip: ip });
     return NextResponse.json({ data });
-  } catch (error: any) {
-    console.error('Eroare in procesarea cererii:', error.message, { ip: ip });
-    if (error.message === 'Too many requests') {
+  } catch (error) {
+    const mesaj = (error as Error).message;
+    console.error('Eroare in procesarea cererii:', mesaj, { ip: ip });
+    if (mesaj === 'Too many requests') {
       return NextResponse.json(
         { error: 'Prea multe cereri. Încearcă din nou mai târziu.' },
         { status: 429 }

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Eye, EyeOff } from 'lucide-react';
 
@@ -219,9 +218,6 @@ export default function FolkDancesRegions() {
     const newIndex = isLast ? 0 : currentIndex + 1;
     setCurrentRegion(newIndex);
   };
-
-  // Regiunea curentă
-  const regiuneCurenta = regiuniDansuri[currentRegion];
 
   return (
     <div className="flex flex-col gap-8">

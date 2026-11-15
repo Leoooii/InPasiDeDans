@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { client, urlForImage } from '@/sanity/lib/client'
 import { postsByAuthorQuery, singleAuthorQuery, allAuthorsQuery } from '@/sanity/lib/queries'
-import PostCard from '@/components/blog/post-card'
+import PostCard, { type PostCardData } from '@/components/blog/post-card'
 import SEOBreadcrumbs from '@/components/seo-breadcrumbs'
 
 // ISR - revalidează cache-ul la fiecare 60 de secunde
@@ -13,10 +13,10 @@ export const revalidate = 86400
 export async function generateStaticParams() {
   try {
     const authors = await client.fetch(allAuthorsQuery)
-    return authors.map((author: any) => ({
+    return authors.map((author: { slug?: { current?: string } }) => ({
       slug: author.slug?.current || '',
     }))
-  } catch (error) {
+  } catch {
     return []
   }
 }
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `Articole de ${author.name} | Blog În Pași de Dans`,
       description: `Citiți articolele scrise de ${author.name}${author.role ? `, ${author.role}` : ''}. ${author.experienceYears ? `Experiență de ${author.experienceYears} ani în predarea dansului.` : ''} Descoperiți acum!`,
     }
-  } catch (error) {
+  } catch {
     return {
       title: 'Autor | Blog În Pași de Dans',
     }
@@ -100,9 +100,9 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
             
             {author.bio && author.bio.length > 0 && (
               <div className="text-lg text-red-100 max-w-3xl mx-auto space-y-3">
-                {author.bio.map((block: any, index: number) => {
+                {author.bio.map((block: { _type: string; children?: { text?: string }[] }, index: number) => {
                   if (block._type === 'block') {
-                    const text = block.children?.map((child: any) => child.text).join('') || ''
+                    const text = block.children?.map(child => child.text).join('') || ''
                     return text ? <p key={index}>{text}</p> : null
                   }
                   return null
@@ -122,7 +122,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
         <div className="container mx-auto px-4">
           {posts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post: any) => (
+              {posts.map((post: PostCardData) => (
                 <PostCard key={post._id} post={post} />
               ))}
             </div>

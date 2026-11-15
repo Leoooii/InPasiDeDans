@@ -1,8 +1,23 @@
 import Image from 'next/image'
 import { urlForImage } from '@/sanity/lib/client'
 
+// Definiție de marcaj din Portable Text: span-ul are în `marks` cheia (`_key`) a definiției din `markDefs`
+type DefinitieMarcaj = { _key: string; _type: string; href?: string; blank?: boolean }
+
+// Bloc Sanity (Portable Text) — doar câmpurile folosite la randare
+export type BlocSanity = {
+  _type: string
+  style?: string
+  children?: { _type: string; text?: string; marks?: string[] }[]
+  markDefs?: DefinitieMarcaj[]
+  asset?: { _ref: string }
+  alt?: string
+  caption?: string
+  url?: string
+}
+
 interface PostContentProps {
-  content: any[] // Sanity block content
+  content: BlocSanity[] // Sanity block content
 }
 
 // Componentă pentru a renderiza conținutul Sanity
@@ -15,9 +30,9 @@ function PortableText({ content }: PostContentProps) {
         // Text blocks (paragraf, heading, etc.)
         if (block._type === 'block') {
           const style = block.style || 'normal'
-          const children = block.children?.map((child: any, childIndex: number) => {
+          const children = block.children?.map((child, childIndex) => {
             if (child._type === 'span') {
-              let element = child.text
+              let element: React.ReactNode = child.text
 
               // Apply marks (bold, italic, etc.)
               if (child.marks?.includes('strong')) {
@@ -31,21 +46,21 @@ function PortableText({ content }: PostContentProps) {
               }
 
               // Handle links
-              if (child.marks?.includes('link')) {
-                const linkMark = child.marks.find((mark: any) => mark._type === 'link')
-                if (linkMark?.href) {
-                  element = (
-                    <a 
-                      key={childIndex}
-                      href={linkMark.href}
-                      target={linkMark.blank ? '_blank' : '_self'}
-                      rel={linkMark.blank ? 'noopener noreferrer' : undefined}
-                      className="text-red-600 hover:text-red-700 "
-                    >
-                      {element}
-                    </a>
-                  )
-                }
+              const linkMark = block.markDefs?.find(
+                def => def._type === 'link' && child.marks?.includes(def._key)
+              )
+              if (linkMark?.href) {
+                element = (
+                  <a
+                    key={childIndex}
+                    href={linkMark.href}
+                    target={linkMark.blank ? '_blank' : '_self'}
+                    rel={linkMark.blank ? 'noopener noreferrer' : undefined}
+                    className="text-red-600 hover:text-red-700 underline"
+                  >
+                    {element}
+                  </a>
+                )
               }
 
               return element

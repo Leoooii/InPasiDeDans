@@ -1,5 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { collection, getDocs, query, where, Timestamp } from 'firebase/firestore';
+import { collection, getDocs, query, where, Timestamp, type DocumentData } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import type { Instructor, Tarif, TarifeGrupate } from '@/lib/types';
 
@@ -47,7 +47,7 @@ export const getInstructori = unstable_cache(
 );
 
 export const getGrupePublice = unstable_cache(
-  async () => readCollection<Record<string, any>>('grupe', true),
+  async () => readCollection<DocumentData>('grupe', true),
   ['public-grupe'],
   { revalidate: 86400, tags: ['grupe'] },
 );
@@ -77,7 +77,7 @@ export type EvenimentPublic = {
 
 export const getEvenimente = unstable_cache(
   async (): Promise<EvenimentPublic[]> =>
-    (await readCollection<Record<string, any>>('evenimente'))
+    (await readCollection<DocumentData>('evenimente'))
       .map(d => ({
         id: d.id,
         date: d.date || new Date(0).toISOString(),
@@ -96,19 +96,19 @@ export const getEvenimente = unstable_cache(
 
 // Toate grupele (inclusiv cele în desfășurare) — pentru orarul de pe /program.
 export const getToateGrupele = unstable_cache(
-  async () => readCollection<Record<string, any>>('grupe'),
+  async () => readCollection<DocumentData>('grupe'),
   ['public-toate-grupele'],
   { revalidate: 86400, tags: ['grupe'] },
 );
 
 export const getPetreceri = unstable_cache(
-  async () => readCollection<Record<string, any>>('petreceri'),
+  async () => readCollection<DocumentData>('petreceri'),
   ['public-petreceri'],
   { revalidate: 86400, tags: ['petreceri'] },
 );
 
 export const getExcursii = unstable_cache(
-  async () => readCollection<Record<string, any>>('excursii'),
+  async () => readCollection<DocumentData>('excursii'),
   ['public-excursii'],
   { revalidate: 86400, tags: ['excursii'] },
 );

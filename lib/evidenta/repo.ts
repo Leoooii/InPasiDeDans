@@ -13,7 +13,6 @@ import {
   orderBy,
   query,
   setDoc,
-  updateDoc,
   where,
   writeBatch,
   type QueryConstraint,
@@ -22,7 +21,7 @@ import {
 import { auth, db } from '@/lib/firebase';
 import { acoperaZiua, alegeAbonament, laSedintaNoua, perioada, type TipAbonament } from './abonament';
 import { adaugaZile, azi, dataScurta, ziuaDin } from './date';
-import { actualizeazaContPublic, scrieContPublic } from './conturi-publice';
+import { scrieContPublic } from './conturi-publice';
 import type {
   Abonament,
   Actor,

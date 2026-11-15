@@ -102,7 +102,19 @@ export async function adaugaDocument(colectie: string, date: Record<string, Valo
 
 // ── Citire completă a unei colecții (backup) ────────────────────────────
 
-type ValoareRest = Record<string, any>;
+// O valoare din API-ul REST Firestore: exact unul dintre câmpurile de mai jos.
+type ValoareRest =
+  | { nullValue: null }
+  | { booleanValue: boolean }
+  | { integerValue: string }
+  | { doubleValue: number }
+  | { timestampValue: string }
+  | { stringValue: string }
+  | { referenceValue: string }
+  | { geoPointValue: { latitude: number; longitude: number } }
+  | { bytesValue: string }
+  | { arrayValue: { values?: ValoareRest[] } }
+  | { mapValue: { fields?: Record<string, ValoareRest> } };
 
 /** Valoare Firestore REST → JSON simplu (Timestamp → ISO string). */
 function dinRest(v: ValoareRest): unknown {

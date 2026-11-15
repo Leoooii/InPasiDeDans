@@ -70,12 +70,12 @@ export default function PetreceriList({
       await reimprospateazaSite('petreceri');
 
       onDeleteSuccess();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Eroare:', error);
       toast({
         title: 'Eroare',
         description:
-          error.message || 'A apărut o eroare la ștergerea petrecerii',
+          (error as Error).message || 'A apărut o eroare la ștergerea petrecerii',
         variant: 'destructive',
       });
     } finally {

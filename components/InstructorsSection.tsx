@@ -11,11 +11,10 @@ import { Facebook, Instagram, Youtube, Loader2 } from 'lucide-react';
 
 interface InstructorsSectionProps {
   instructorNames?: string[]; // Array cu numele instructorilor de afișat
-  customTitle?: string; // Titlu personalizat pentru secțiune
   courseName?: string; // Nume curs
 }
 
-export default function InstructorsSection({ instructorNames, customTitle, courseName }: InstructorsSectionProps) {
+export default function InstructorsSection({ instructorNames, courseName }: InstructorsSectionProps) {
   const { instructori: toti } = usePublicData();
   const isLoading = false;
   const error = toti === null

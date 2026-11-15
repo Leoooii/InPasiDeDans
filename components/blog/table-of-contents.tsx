@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Clock } from 'lucide-react'
+import type { BlocSanity } from './post-content'
 
 interface TOCItem {
   id: string
@@ -10,16 +11,16 @@ interface TOCItem {
 }
 
 interface TableOfContentsProps {
-  content: any[] // Sanity block content
+  content: BlocSanity[] // Sanity block content
 }
 
 // Funcție pentru a estima timpul de citire
-function calculateReadingTime(content: any[]): number {
+function calculateReadingTime(content: BlocSanity[]): number {
   if (!content) return 0
   
   const text = content
     .filter((block) => block._type === 'block')
-    .map((block) => block.children?.map((child: any) => child.text).join(' '))
+    .map((block) => block.children?.map(child => child.text).join(' '))
     .join(' ')
   
   const words = text.split(/\s+/).length
@@ -29,14 +30,14 @@ function calculateReadingTime(content: any[]): number {
 }
 
 // Extrage headings din conținutul Sanity
-function extractHeadings(content: any[]): TOCItem[] {
+function extractHeadings(content: BlocSanity[]): TOCItem[] {
   if (!content) return []
   
   return content
-    .filter((block) => block._type === 'block' && ['h2', 'h3'].includes(block.style))
+    .filter((block) => block._type === 'block' && (block.style === 'h2' || block.style === 'h3'))
     .map((block, index) => ({
       id: `heading-${index}`,
-      text: block.children?.map((child: any) => child.text).join(' ') || '',
+      text: block.children?.map(child => child.text).join(' ') || '',
       level: block.style === 'h2' ? 2 : 3,
     }))
 }

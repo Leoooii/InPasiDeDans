@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Loader2, Calendar, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 // Firestore se încarcă doar dacă e nevoie (citire de rezervă / „mai multe”), nu la deschiderea paginii.
@@ -56,7 +55,7 @@ export default function NoutatiSection({
 
   const ITEMS_PER_PAGE = itemsToShow || 5;
 
-  const fetchEvenimente = async (isInitial = false) => {
+  const fetchEvenimente = useCallback(async (isInitial = false) => {
     try {
       const [{ db }, { collection, query, orderBy, limit, startAfter, getDocs }] = await Promise.all([
         import('@/lib/firebase'),
@@ -112,7 +111,7 @@ export default function NoutatiSection({
     } catch (error) {
       console.error('Eroare la încărcarea evenimentelor:', error);
     }
-  };
+  }, [itemsToShow, ITEMS_PER_PAGE]);
 
   const loadMore = useCallback(async () => {
     if (loadingMore || !hasMore || itemsToShow) return;
@@ -120,7 +119,7 @@ export default function NoutatiSection({
     setLoadingMore(true);
     await fetchEvenimente(false);
     setLoadingMore(false);
-  }, [loadingMore, hasMore, itemsToShow]);
+  }, [loadingMore, hasMore, itemsToShow, fetchEvenimente]);
 
   useEffect(() => {
     if (initial) return;
@@ -131,7 +130,7 @@ export default function NoutatiSection({
     };
 
     loadInitialData();
-  }, []);
+  }, [initial, fetchEvenimente]);
 
   useEffect(() => {
     if (loading || itemsToShow) return;
@@ -164,15 +163,6 @@ export default function NoutatiSection({
       day: 'numeric',
       month: 'long',
       year: 'numeric',
-    });
-  };
-
-  const formatTime = (date: Date | null | undefined) => {
-    if (!date) return '';
-    return date.toLocaleTimeString('ro-RO', {
-      timeZone: 'Europe/Bucharest',
-      hour: '2-digit',
-      minute: '2-digit',
     });
   };
 

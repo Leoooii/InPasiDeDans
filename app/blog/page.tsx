@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Sparkles, BookOpen, Tag, ArrowRight } from 'lucide-react'
 import { client } from '@/sanity/lib/client'
 import { allPostsQuery, allCategoriesQuery, featuredPostsQuery } from '@/sanity/lib/queries'
-import PostCard from '@/components/blog/post-card'
+import PostCard, { type PostCardData } from '@/components/blog/post-card'
 import FeaturedPostCard from '@/components/blog/featured-post-card'
 
 export const revalidate = 86400
@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     images: ['https://www.inpasidedans.ro/images/logo.png'],
   },
 }
+
+// Câmpurile din allCategoriesQuery afișate pe pagină
+type CategorieBlog = { _id: string; title?: string; slug?: { current?: string }; description?: string; postCount?: number }
 
 async function getBlogData() {
 
@@ -125,7 +128,7 @@ export default async function BlogPage() {
             <DarkAntetSectiune titlu="Explorează categoriile" subtitlu="Sari direct la subiectul care te interesează" />
 
             <div className="flex flex-wrap gap-3">
-              {categories.map((category: any) => (
+              {categories.map((category: CategorieBlog) => (
                 <Link
                   key={category._id}
                   href={`/blog/${category?.slug?.current || ''}`}
@@ -160,7 +163,7 @@ export default async function BlogPage() {
 
               {secondaryFeatured.length > 0 && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {secondaryFeatured.map((post: any) => (
+                  {secondaryFeatured.map((post: PostCardData) => (
                     <PostCard key={post._id} post={post} variant="dark" />
                   ))}
                 </div>
@@ -175,7 +178,7 @@ export default async function BlogPage() {
 
           {posts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post: any) => (
+              {posts.map((post: PostCardData) => (
                 <PostCard key={post._id} post={post} variant="dark" />
               ))}
             </div>

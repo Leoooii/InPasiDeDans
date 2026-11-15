@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import PostCard from './post-card'
+import PostCard, { type PostCardData } from './post-card'
 
 interface RelatedPostsProps {
-  posts: any[]
-  currentPostTitle: string
+  posts: PostCardData[]
 }
 
-export default function RelatedPosts({ posts, currentPostTitle }: RelatedPostsProps) {
+export default function RelatedPosts({ posts }: RelatedPostsProps) {
   const [isMobile, setIsMobile] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
 

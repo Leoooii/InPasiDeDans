@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Calendar, Leaf, Music2, Sparkles, Users } from 'lucide-react';
+import { Calendar, Leaf, Sparkles, Users } from 'lucide-react';
 
 import GalerieFoto from '@/components/galerie-foto';
 import { GALERIE_POPULARE } from '@/lib/galerii';

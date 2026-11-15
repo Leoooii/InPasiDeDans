@@ -2,6 +2,8 @@
 // Se afișează când nu există „grupe în formare” publice, ca vizitatorul să
 // aibă mereu unde să se înscrie (aceleași date ca orarul de pe /program).
 
+import type { DocumentData } from 'firebase/firestore';
+
 export type GrupaLibera = {
   id: string;
   titlu: string;
@@ -30,14 +32,14 @@ function minute(t: string): number {
 }
 
 /** Cursul general din formularul de înscriere (?curs=) potrivit unei grupe. */
-export function cursPentruGrupa(d: Record<string, any>): GrupaLibera['curs'] {
+export function cursPentruGrupa(d: DocumentData): GrupaLibera['curs'] {
   const text = [d.titlu, d.nivel, ...(d.stiluri || []), d.stil].filter(Boolean).join(' ').toLowerCase();
   if (text.includes('copii') || text.includes('formație') || text.includes('formatie')) return 'dans-copii';
   if (text.includes('popular')) return 'dansuri-adulti-populare';
   return 'dans-adulti-latino-societate';
 }
 
-export function grupeCuLocuriPentruIncepatori(docs: Record<string, any>[] | null, limita?: number): GrupaLibera[] {
+export function grupeCuLocuriPentruIncepatori(docs: DocumentData[] | null, limita?: number): GrupaLibera[] {
   const lista = (docs ?? [])
     .filter(d => NIVELURI_PENTRU_INCEPATORI.includes(d.nivel) && Number(d.locuriDisponibile) > 0)
     .map<GrupaLibera>(d => {

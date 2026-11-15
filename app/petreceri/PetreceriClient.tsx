@@ -76,7 +76,7 @@ export default function Petreceri({ initial }: { initial?: Petrecere[] | null })
       }
     };
     loadPetreceri();
-  }, []);
+  }, [initial]);
 
   if (isLoading) {
     return (

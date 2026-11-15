@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Loader2, Plus } from 'lucide-react';
@@ -36,7 +36,7 @@ export default function ExcursiiAdmin() {
   const { toast } = useToast();
 
   // Funcție pentru a încărca excursiile
-  const loadExcursii = async () => {
+  const loadExcursii = useCallback(async () => {
     setIsLoading(true);
     try {
       const excursiiCollection = collection(db, 'excursii');
@@ -60,12 +60,12 @@ export default function ExcursiiAdmin() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toast]);
 
   // Încărcăm excursiile la încărcarea paginii
   useEffect(() => {
     loadExcursii();
-  }, []);
+  }, [loadExcursii]);
 
   // Funcție pentru a gestiona editarea unei excursii
   const handleEditExcursie = (excursie: Excursie) => {
