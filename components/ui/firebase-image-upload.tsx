@@ -1,13 +1,15 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Upload, X, Loader2, ImageIcon } from 'lucide-react';
+import { Upload, X, Loader2, ImageIcon, Link2 } from 'lucide-react';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { cn } from '@/lib/utils';
 import { ImageCropDialog } from '@/components/ui/image-crop-dialog';
+import { Input } from '@/components/ui/input';
+import { linkImagine } from '@/lib/link-imagine';
 
 interface FirebaseImageUploadProps {
   /** Current image URL (passed in to display existing image, used to clear). */
@@ -39,6 +41,20 @@ export function FirebaseImageUpload({
   const [cropFilename, setCropFilename] = useState<string>('image.jpg');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  // alternativă la upload: link direct (ex. imgur)
+  const [link, setLink] = useState('');
+  const [eroareLink, setEroareLink] = useState<string | null>(null);
+
+  const folosesteLink = () => {
+    const r = linkImagine(link);
+    if ('eroare' in r) {
+      setEroareLink(r.eroare);
+      return;
+    }
+    setEroareLink(null);
+    setLink('');
+    onUploadComplete(r.url);
+  };
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -145,6 +161,37 @@ export function FirebaseImageUpload({
         {cropAspect ? 'Imaginea va fi decupată după upload. ' : ''}
         Dimensiune maximă: {maxSize}MB.
       </p>
+
+      {/* sau un link de imagine (imgur etc.), fără upload și fără decupare */}
+      <div className="space-y-1">
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Link2 className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" aria-hidden />
+            <Input
+              type="url"
+              value={link}
+              onChange={e => {
+                setLink(e.target.value);
+                setEroareLink(null);
+              }}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  folosesteLink();
+                }
+              }}
+              placeholder="sau lipește un link (ex. https://i.imgur.com/…)"
+              aria-label="Link imagine"
+              className="pl-9"
+              disabled={uploading}
+            />
+          </div>
+          <Button type="button" variant="outline" onClick={folosesteLink} disabled={uploading || !link.trim()}>
+            Folosește linkul
+          </Button>
+        </div>
+        {eroareLink && <p className="text-xs text-red-600">{eroareLink}</p>}
+      </div>
 
       {currentUrl && !uploading && (
         <div className="relative inline-block">
