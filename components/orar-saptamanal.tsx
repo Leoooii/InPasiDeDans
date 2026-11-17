@@ -47,7 +47,6 @@ const CULORI: Record<string, { bloc: string; accent: string; text: string; etich
 
 const PX_PE_MINUT = 1.15
 const FARA_SALA = 'Fără sală'
-const GRUPE_NOI = 'Grupe noi'
 
 const LUNI = ['ian.', 'feb.', 'mar.', 'apr.', 'mai', 'iun.', 'iul.', 'aug.', 'sept.', 'oct.', 'nov.', 'dec.']
 const LUNI_LUNGI = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie']
@@ -162,7 +161,7 @@ export default function OrarSaptamanal({
         {zile.map(z => (
           <div key={z.id} role="tabpanel" hidden={z.id !== zi}>
             <GrilaZi
-              grupe={grupe.filter(g => g.dayGroupId === z.id)}
+              grupe={grupe.filter(g => g.dayGroupId === z.id && !g.viitoare)}
               potrivite={potrivite}
               selectat={selectat}
               onSelect={setSelectat}
@@ -170,6 +169,14 @@ export default function OrarSaptamanal({
             />
           </div>
         ))}
+
+        <GrupeNoi
+          grupe={grupe.filter(g => g.viitoare)}
+          zile={zile}
+          potrivite={potrivite}
+          selectat={selectat}
+          onSelect={setSelectat}
+        />
 
         <Legenda />
       </div>
@@ -219,12 +226,11 @@ function GrilaZi({
   const { sali, inceput, sfarsit } = useMemo(() => {
     const peSala = new Map<string, GrupaOrar[]>()
     for (const g of grupe) {
-      const s = g.viitoare ? GRUPE_NOI : g.sala?.trim() || FARA_SALA
+      const s = g.sala?.trim() || FARA_SALA
       peSala.set(s, [...(peSala.get(s) ?? []), g])
     }
-    const ordine = (s: string) => (s === GRUPE_NOI ? 2 : s === FARA_SALA ? 1 : 0)
     const sali = [...peSala.entries()]
-      .sort(([a], [b]) => ordine(a) - ordine(b) || a.localeCompare(b, 'ro', { numeric: true }))
+      .sort(([a], [b]) => (a === FARA_SALA ? 1 : b === FARA_SALA ? -1 : a.localeCompare(b, 'ro', { numeric: true })))
       .map(([nume, lista]) => ({ nume, plasari: aseaza(lista) }))
     const toate = sali.flatMap(s => s.plasari)
     const inceput = Math.floor(Math.min(...toate.map(p => p.start)) / 60) * 60
@@ -244,12 +250,7 @@ function GrilaZi({
       {/* Antet săli */}
       <div className="flex border-b border-slate-200 bg-slate-50/80">
         <div className="w-11 sm:w-14 shrink-0" />
-        {sali.map(s => s.nume === GRUPE_NOI ? (
-          <div key={s.nume} className="flex-1 min-w-0 px-1 py-2.5 text-center text-xs sm:text-sm font-semibold text-emerald-700 bg-emerald-50 border-l border-emerald-200">
-            <Sparkles className="hidden sm:inline h-3.5 w-3.5 mr-1 -mt-0.5" />
-            {s.nume}
-          </div>
-        ) : (
+        {sali.map(s => (
           <div key={s.nume} className="flex-1 min-w-0 px-1 py-2.5 text-center text-xs sm:text-sm font-semibold text-slate-700 border-l border-slate-200">
             <DoorOpen className="hidden sm:inline h-3.5 w-3.5 mr-1 -mt-0.5 text-slate-400" />
             {s.nume}
@@ -280,10 +281,7 @@ function GrilaZi({
 
         {/* Coloanele sălilor */}
         {sali.map(s => (
-          <div
-            key={s.nume}
-            className={`relative flex-1 min-w-0 border-l ${s.nume === GRUPE_NOI ? 'border-emerald-200 bg-emerald-50/40' : 'border-slate-100'}`}
-          >
+          <div key={s.nume} className="relative flex-1 min-w-0 border-l border-slate-100">
             {s.plasari.map(p => {
               const c = CULORI[p.styleKey] ?? CULORI.general
               const activ = potrivite.has(p.id)
@@ -298,8 +296,7 @@ function GrilaZi({
                   aria-pressed={ales}
                   aria-label={`${p.titlu.trim()}, ${p.nivel ?? ''}, ${hhmm(p.start)}–${hhmm(p.sfarsit)}, ${p.instructor}`}
                   className={`absolute overflow-hidden rounded-lg text-left transition-all duration-200 ${c.bloc} ${
-                    p.viitoare ? 'border border-dashed border-emerald-400' : ''
-                  } ${
+
                     ales ? 'ring-2 ring-slate-900 z-10 shadow-lg' : 'hover:shadow-md hover:z-10'
                   } ${activ ? '' : 'opacity-25 saturate-50'}`}
                   style={{
@@ -312,17 +309,12 @@ function GrilaZi({
                   <span className={`absolute inset-y-0 left-0 w-1 ${c.accent}`} />
                   <span className={`block pl-2.5 pr-1.5 py-1.5 ${c.text}`}>
                     <span className="block text-[10px] sm:text-[11px] font-semibold tabular-nums opacity-70">
-                      {hhmm(p.start)}<span className="hidden sm:inline">–{hhmm(p.sfarsit)}</span>
+                      {hhmm(p.start)}–{hhmm(p.sfarsit)}
                     </span>
-                    {p.viitoare && (p.sala || p.dataStart) && (
-                      <span className="block text-[10px] sm:text-[11px] font-semibold leading-tight text-emerald-700 truncate">
-                        {[p.sala, dataScurta(p.dataStart) && `din ${dataScurta(p.dataStart)}`].filter(Boolean).join(' · ')}
-                      </span>
-                    )}
                     <span className="block text-[11px] sm:text-[13px] font-semibold leading-tight line-clamp-2">{p.titlu.trim()}</span>
                     {p.nivel && <span className="block text-[10px] sm:text-xs leading-tight opacity-75 truncate">{p.nivel}</span>}
 
-                    {h > 70 && !p.viitoare && p.instructor && (
+                    {h > 70 && p.instructor && (
                       <span className="hidden sm:block mt-0.5 text-[11px] leading-tight opacity-60 truncate">{p.instructor}</span>
                     )}
                   </span>
@@ -352,6 +344,76 @@ function GrilaZi({
         )}
       </div>
     </div>
+  )
+}
+
+// Grupele care n-au început încă: nu ocupă sala în orar (s-ar suprapune cu grupa care rulează
+// acum la aceeași oră), ci stau într-un rând separat sub orar, vizibil indiferent de ziua aleasă.
+function GrupeNoi({
+  grupe,
+  zile,
+  potrivite,
+  selectat,
+  onSelect,
+}: {
+  grupe: GrupaOrar[]
+  zile: ZiOrar[]
+  potrivite: Set<string>
+  selectat: string | null
+  onSelect: (id: string) => void
+}) {
+  const { instructori } = usePublicData()
+  if (grupe.length === 0) return null
+  const ordineZi = (g: GrupaOrar) => zile.findIndex(z => z.id === g.dayGroupId)
+  const sortate = [...grupe].sort((a, b) =>
+    (a.dataStart ?? '').localeCompare(b.dataStart ?? '') || ordineZi(a) - ordineZi(b) || minute(a.startTime) - minute(b.startTime))
+
+  return (
+    <section className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 sm:p-5">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+        <Sparkles className="h-4 w-4 text-emerald-600" />
+        <h3 className="whitespace-nowrap text-sm font-bold uppercase tracking-wider text-emerald-800">Grupe noi</h3>
+        <span className="basis-full sm:basis-auto text-xs text-emerald-700/70">încep în curând, înscrierile sunt deschise</span>
+      </div>
+
+      <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {sortate.map(g => {
+          const c = CULORI[g.styleKey] ?? CULORI.general
+          const [start, sfarsit] = interval(g.program)
+          const ales = selectat === g.id
+          const start_ = dataScurta(g.dataStart)
+          return (
+            <div
+              key={g.id}
+              className={`relative flex flex-col rounded-xl bg-white p-4 pl-5 shadow-sm transition-all ${
+                ales ? 'ring-2 ring-slate-900' : 'ring-1 ring-emerald-100 hover:shadow-md'
+              } ${potrivite.has(g.id) ? '' : 'opacity-40'}`}
+            >
+              <span className={`absolute inset-y-3 left-0 w-1 rounded-r ${c.accent}`} />
+              <button type="button" onClick={() => onSelect(g.id)} className="text-left flex-1" aria-pressed={ales}>
+                {start_ && (
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-emerald-700">Începe pe {start_}</span>
+                )}
+                <span className="mt-0.5 block font-semibold text-slate-900 leading-snug">{g.titlu.trim()}</span>
+                {g.nivel && <span className="block text-xs text-slate-500">{g.nivel}</span>}
+                <span className="mt-2 block text-sm text-slate-700">
+                  {g.zile.join(' și ')} · {hhmm(start)}–{hhmm(sfarsit)}
+                </span>
+                <span className="block text-xs text-slate-500">
+                  {[g.sala, instructoriGrupa(g.instructor, instructori).map(p => p.numeComplet ?? p.nume).join(' și ')]
+                    .filter(Boolean).join(' · ')}
+                </span>
+              </button>
+              {g.linkInscriere && (
+                <Button asChild variant="brand" size="sm" className="mt-3 w-full">
+                  <Link href={g.linkInscriere}>Înscrie-te</Link>
+                </Button>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </section>
   )
 }
 
