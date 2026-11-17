@@ -19,7 +19,7 @@ Ultima actualizare: 24–25 septembrie 2026.
 - **Site-ul e forțat pe tema luminoasă.**
 - **Evenimente:** butoanele „Înapoi” duc la /noutati.
 - **Dansuri populare (17 noiembrie 2026):** hărțile-poză pe regiuni au fost înlocuite cu o hartă interactivă a României (hover = previzualizare, click = toate dansurile regiunii). Datele în `lib/dansuri-regiuni.ts`, forma regiunilor în `lib/harta-romania.ts` (generată din județe; Crișana e trecută la Ardeal, Satu Mare la Maramureș).
-- **Program (17 noiembrie 2026):** vedere nouă „Orar” pe `/program` (implicit): file pe zile, sălile pe coloane, timpul pe verticală, click pe grupă → detalii + instructor. Înscrierea apare doar la grupele în formare și la cele de începători (inclusiv „All levels”) care nu sunt complete — regula e în `linkInscriereGrupa()` din `lib/grupe-libere.ts`, folosită și de vederea „Listă”. În detaliile grupei apare poza instructorului (din colecția `instructori`, potrivit după prenume).
+- **Program (17 noiembrie 2026):** vedere nouă „Orar” pe `/program` (implicit): file pe zile, sălile pe coloane, timpul pe verticală, click pe grupă → detalii + instructor. Înscrierea apare doar la grupele în formare și la cele de începători (inclusiv „All levels”) care nu sunt complete — regula e în `linkInscriereGrupa()` din `lib/grupe-libere.ts`, folosită și de vederea „Listă”. În detaliile grupei apare poza instructorului (din colecția `instructori`, potrivit după prenume). Grupele care n-au început încă (`dataStart` în viitor) nu ocupă sala lor în orar — apar în coloana separată „Grupe noi”, cu sala și data de start, ca să nu se suprapună cu grupa care rulează acum la aceeași oră.
 
 ### SEO și AI (pachetele A–G)
 - **A — titluri și indexare:**

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { CalendarDays, Clock, DoorOpen, MousePointerClick, UserRound, Users } from 'lucide-react'
+import { CalendarDays, Clock, DoorOpen, MousePointerClick, Sparkles, UserRound, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { usePublicData } from '@/components/public-data-provider'
@@ -27,6 +27,9 @@ export type GrupaOrar = {
   styleKey: string
   dayGroupId: string
   inFormare: boolean
+  /** încă n-a început: stă în coloana „Grupe noi”, nu în sala ei */
+  viitoare: boolean
+  dataStart?: string
   /** null = grupă deja pornită, fără înscrieri */
   linkInscriere: string | null
 }
@@ -44,6 +47,17 @@ const CULORI: Record<string, { bloc: string; accent: string; text: string; etich
 
 const PX_PE_MINUT = 1.15
 const FARA_SALA = 'Fără sală'
+const GRUPE_NOI = 'Grupe noi'
+
+const LUNI = ['ian.', 'feb.', 'mar.', 'apr.', 'mai', 'iun.', 'iul.', 'aug.', 'sept.', 'oct.', 'nov.', 'dec.']
+const LUNI_LUNGI = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie']
+
+function dataScurta(iso?: string, lung = false): string | null {
+  const m = iso?.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (!m) return null
+  const luna = (lung ? LUNI_LUNGI : LUNI)[+m[2] - 1]
+  return lung ? `${+m[3]} ${luna} ${m[1]}` : `${+m[3]} ${luna}`
+}
 
 function minute(t: string): number {
   const m = t.match(/(\d{1,2}):(\d{2})/)
@@ -205,11 +219,12 @@ function GrilaZi({
   const { sali, inceput, sfarsit } = useMemo(() => {
     const peSala = new Map<string, GrupaOrar[]>()
     for (const g of grupe) {
-      const s = g.sala?.trim() || FARA_SALA
+      const s = g.viitoare ? GRUPE_NOI : g.sala?.trim() || FARA_SALA
       peSala.set(s, [...(peSala.get(s) ?? []), g])
     }
+    const ordine = (s: string) => (s === GRUPE_NOI ? 2 : s === FARA_SALA ? 1 : 0)
     const sali = [...peSala.entries()]
-      .sort(([a], [b]) => (a === FARA_SALA ? 1 : b === FARA_SALA ? -1 : a.localeCompare(b, 'ro', { numeric: true })))
+      .sort(([a], [b]) => ordine(a) - ordine(b) || a.localeCompare(b, 'ro', { numeric: true }))
       .map(([nume, lista]) => ({ nume, plasari: aseaza(lista) }))
     const toate = sali.flatMap(s => s.plasari)
     const inceput = Math.floor(Math.min(...toate.map(p => p.start)) / 60) * 60
@@ -229,7 +244,12 @@ function GrilaZi({
       {/* Antet săli */}
       <div className="flex border-b border-slate-200 bg-slate-50/80">
         <div className="w-11 sm:w-14 shrink-0" />
-        {sali.map(s => (
+        {sali.map(s => s.nume === GRUPE_NOI ? (
+          <div key={s.nume} className="flex-1 min-w-0 px-1 py-2.5 text-center text-xs sm:text-sm font-semibold text-emerald-700 bg-emerald-50 border-l border-emerald-200">
+            <Sparkles className="hidden sm:inline h-3.5 w-3.5 mr-1 -mt-0.5" />
+            {s.nume}
+          </div>
+        ) : (
           <div key={s.nume} className="flex-1 min-w-0 px-1 py-2.5 text-center text-xs sm:text-sm font-semibold text-slate-700 border-l border-slate-200">
             <DoorOpen className="hidden sm:inline h-3.5 w-3.5 mr-1 -mt-0.5 text-slate-400" />
             {s.nume}
@@ -260,7 +280,10 @@ function GrilaZi({
 
         {/* Coloanele sălilor */}
         {sali.map(s => (
-          <div key={s.nume} className="relative flex-1 min-w-0 border-l border-slate-100">
+          <div
+            key={s.nume}
+            className={`relative flex-1 min-w-0 border-l ${s.nume === GRUPE_NOI ? 'border-emerald-200 bg-emerald-50/40' : 'border-slate-100'}`}
+          >
             {s.plasari.map(p => {
               const c = CULORI[p.styleKey] ?? CULORI.general
               const activ = potrivite.has(p.id)
@@ -275,6 +298,8 @@ function GrilaZi({
                   aria-pressed={ales}
                   aria-label={`${p.titlu.trim()}, ${p.nivel ?? ''}, ${hhmm(p.start)}–${hhmm(p.sfarsit)}, ${p.instructor}`}
                   className={`absolute overflow-hidden rounded-lg text-left transition-all duration-200 ${c.bloc} ${
+                    p.viitoare ? 'border border-dashed border-emerald-400' : ''
+                  } ${
                     ales ? 'ring-2 ring-slate-900 z-10 shadow-lg' : 'hover:shadow-md hover:z-10'
                   } ${activ ? '' : 'opacity-25 saturate-50'}`}
                   style={{
@@ -286,12 +311,18 @@ function GrilaZi({
                 >
                   <span className={`absolute inset-y-0 left-0 w-1 ${c.accent}`} />
                   <span className={`block pl-2.5 pr-1.5 py-1.5 ${c.text}`}>
-                    <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold tabular-nums opacity-70">
-                      {hhmm(p.start)}–{hhmm(p.sfarsit)}
+                    <span className="block text-[10px] sm:text-[11px] font-semibold tabular-nums opacity-70">
+                      {hhmm(p.start)}<span className="hidden sm:inline">–{hhmm(p.sfarsit)}</span>
                     </span>
+                    {p.viitoare && (p.sala || p.dataStart) && (
+                      <span className="block text-[10px] sm:text-[11px] font-semibold leading-tight text-emerald-700 truncate">
+                        {[p.sala, dataScurta(p.dataStart) && `din ${dataScurta(p.dataStart)}`].filter(Boolean).join(' · ')}
+                      </span>
+                    )}
                     <span className="block text-[11px] sm:text-[13px] font-semibold leading-tight line-clamp-2">{p.titlu.trim()}</span>
                     {p.nivel && <span className="block text-[10px] sm:text-xs leading-tight opacity-75 truncate">{p.nivel}</span>}
-                    {h > 70 && p.instructor && (
+
+                    {h > 70 && !p.viitoare && p.instructor && (
                       <span className="hidden sm:block mt-0.5 text-[11px] leading-tight opacity-60 truncate">{p.instructor}</span>
                     )}
                   </span>
@@ -398,6 +429,12 @@ function DetaliuGrupa({ g }: { g: GrupaOrar }) {
             <CalendarDays className="h-4 w-4 text-slate-400 shrink-0" />
             {g.zile.join(' și ')}
           </li>
+          {g.viitoare && dataScurta(g.dataStart, true) && (
+            <li className="flex items-center gap-2.5 font-semibold text-emerald-700">
+              <Sparkles className="h-4 w-4 shrink-0" />
+              Începe pe {dataScurta(g.dataStart, true)}
+            </li>
+          )}
           <li className="flex items-center gap-2.5">
             <Clock className="h-4 w-4 text-slate-400 shrink-0" />
             {hhmm(start)} – {hhmm(sfarsit)}

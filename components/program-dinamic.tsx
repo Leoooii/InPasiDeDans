@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { CalendarClock, CalendarRange, List } from 'lucide-react'
 import { linkInscriereGrupa } from '@/lib/grupe-libere'
 import OrarSaptamanal from '@/components/orar-saptamanal'
+import { azi as dataDeAzi } from '@/lib/evidenta/date'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -24,6 +25,7 @@ type Grupa = {
   locuriTotale?: number
   rol?: string
   publica?: boolean
+  dataStart?: string
 }
 
 type DayGroupId = 'all' | 'lm' | 'mj' | 'vineri' | 'sambata' | 'duminica'
@@ -158,6 +160,7 @@ function normalizeaza(docs: DocumentData[]): Grupa[] {
     locuriTotale: d.locuriTotale ?? undefined,
     rol: d.rol,
     publica: d.publica,
+    dataStart: typeof d.dataStart === 'string' ? d.dataStart : undefined,
   }))
 }
 
@@ -173,9 +176,11 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
   const [vedere, setVedere]               = useState<'orar' | 'lista'>('orar')
   // Calculată după montare, ca HTML-ul de pe server (cache-uit) să nu difere de client.
   const [azi, setAzi] = useState('')
+  const [dataAzi, setDataAzi] = useState('')
 
   useEffect(() => {
     setAzi(ziuaDeAzi())
+    setDataAzi(dataDeAzi())
   }, [])
 
   useEffect(() => {
@@ -262,9 +267,17 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
     }).map(g => g.id)
   ), [enriched, filterStyle, filterNivel, filterInstructor, doarLibere])
 
+  // O grupă care încă n-a început nu ocupă sala în orar (altfel se suprapune cu grupa care rulează
+  // acum la aceeași oră); apare separat, în coloana „Grupe noi”. Până se știe data de azi (după
+  // montare), ne luăm după „în formare”, ca HTML-ul de pe server să coincidă cu clientul.
   const grupeOrar = useMemo(() =>
-    enriched.map(g => ({ ...g, inFormare: g.publica === true, linkInscriere: linkInscriereGrupa(g) })),
-    [enriched]
+    enriched.map(g => ({
+      ...g,
+      inFormare: g.publica === true,
+      linkInscriere: linkInscriereGrupa(g),
+      viitoare: dataAzi && g.dataStart ? g.dataStart > dataAzi : g.publica === true,
+    })),
+    [enriched, dataAzi]
   )
 
   // Grouped by day section for display
