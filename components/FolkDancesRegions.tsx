@@ -1,369 +1,266 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Eye, EyeOff } from 'lucide-react';
+import { useRef, useState, type CSSProperties, type KeyboardEvent, type MouseEvent } from 'react';
+import { MapPin, MousePointerClick, Music2 } from 'lucide-react';
+import { REGIUNI_DANSURI, TOTAL_DANSURI, type RegiuneDansuri } from '@/lib/dansuri-regiuni';
+import { CONTUR_JUDETE, CONTUR_TARA, FORME_REGIUNI, HARTA_INALTIME, HARTA_LATIME } from '@/lib/harta-romania';
 
-// Definim regiunile și dansurile asociate
-const regiuniDansuri = [
-  {
-    id: 'muntenia',
-    nume: 'Muntenia',
-    imagine: '/images/Romania/harta-muntenia.png',
-    dansuri: [
-      'Hora',
-      'Sârba (în doi, trei și patru pași)',
-      'Ofițereasca',
-      'Sârba studenților',
-      'Zvâc',
-      'Ghimpele',
-      'Alunelu',
-      'Hora Lelea',
-      'Ciuleandra',
-      'Fedeleșul',
-      'Rogojina',
-      'Hora bătută (Țigănească)',
-      'Breaza',
-      'Drumul dracului',
-      'Hora în două părți de la Conțești',
-      'Arnauțeasca de la Crivina',
-      'Ovreicuța',
-      'Hora Marițica',
-      'Brâul pe șase',
-      'Brâul pe opt',
-      'Brâul de la Brăiești',
-      'Sârba de la Floroaia',
-      'Aoleanul de la Fundul Părului',
-      'Brâul de la Slănic',
-      'Hora pe seară de la Vlădeni',
-      'Hora Cantacuzino',
-      'Stânga de la Gropeni',
-      'Daolică',
-      'Nuneasca',
-      'Murgulețul de la Petrești',
-      'Isa',
-      'Buceagul ca pe Teleorman',
-      'Hora mare',
-      'Brânza de la Reviga',
-      'Chilabaua de la Roseți',
-      'Căzăcelul',
-    ],
-  },
-  {
-    id: 'oltenia',
-    nume: 'Oltenia',
-    imagine: '/images/Romania/harta-oltenia.png',
-    dansuri: [
-      'Alunelu de la Goicea',
-      'Ungurica',
-      'Hora olteanească',
-      'Hora ca la Gorj',
-      'Floricica',
-      'Ariciul',
-      'Vulpiuța',
-      'Hora boerească',
-      'Sârba de la Băilești',
-      'Hora peste picior de la Motăței',
-      'Trei păzește de la Bistret',
-      'Tocul',
-      'Rustemul',
-      'Brâulețul de la Bârca',
-      'Crăițele de la Meri',
-      'Găile de la Motăței',
-      'Leana de la Goicea',
-      'Hora ca la Romanați',
-      'Galaonul',
-      'Alunelul de la Daneți',
-      'Alunelul de la Izbiceni',
-      'Trandafirul oltenesc',
-      'Ungurica țigănească de la Severin',
-      'Hora dogarilor',
-      'Cârligul',
-      'Trei păzește de la Dolj',
-      'Basarabeanca',
-      'Boereasca',
-      'Țepușul de la Bistreț',
-      'Hora boierească de la Săpata',
-      'Sârba de la Boureni'
-    ],
-  },
-  {
-    id: 'dobrogea',
-    nume: 'Dobrogea',
-    imagine: '/images/Romania/harta-dobrogea.png',
-    dansuri: [
-      'Geampara',
-      'Cadânească',
-      'Paidușca',
-      'Sârba de la Oltina',
-      'Pamporea',
-      'Ceamcul',
-      'Sârba de la Negru Vodă',
-      'Beștepeanca',
-      'Joc bătrânesc de la Niculițel',
-      'Hora stânga de la Ostrov',
-      'Sârba de la Enisala',
-      'Dobromireasca',
-      'Floricica dobrogeană',
-      'Tropoțelul ca-n Dobrogea',
-      'Pandelasul de la Plopu',
-      'Corlu',
-    ],
-  },
-  {
-    id: 'moldova',
-    nume: 'Moldova',
-    imagine: '/images/Romania/harta-moldova.png',
-    dansuri: [
-      'Hora',
-      'Sârba (în doi, trei și patru pași)',
-      'Bătuta',
-      'Brâul Sârbesc',
-      'Hora-n două părți',
-      'Șchioapa',
-      'Bălăceana',
-      'Zdroboleanca',
-      'Țărănească',
-      'Hora din Tudora',
-      'Promoroaca',
-      'Salcioara',
-      'Rața',
-      'Cărășelul',
-      'Hora bătută',
-      'Hangul de la Tălpigi',
-      'Sârba de la Izvoare',
-      'Hora-n două părți de la Corni',
-      'Polobocul',
-      'Ostropățul',
-      'Tantărașul',
-      'Hora de la Brăhășești',
-      'Ciobănașul de la Independența',
-      'Bordeiașul',
-      'Sârba tineretului',
-      'Sârba lui Zdrelea',
-      'Pădurețul',
-      'Ruseasca',
-    ],
-  },
-  {
-    id: 'bucovina',
-    nume: 'Bucovina',
-    imagine: '/images/Romania/harta-bucovina.png',
-    dansuri: [
-      'Corăgheasca',
-      'Corăgheasca de la Tarnița',
-      'Huțulca',
-      'Hangul de la Cahul',
-      'Polcuța',
-      'Coșnencuța',
-      'Bătuta ursului',
-      'Bătrânească veche de la Iaslovăț',
-      'Bătrânească de la Ciocănești',
-      'Arcanul',
-      'Bătrânească',
-    ],
-  },
-  {
-    id: 'ardeal',
-    nume: 'Ardeal',
-    imagine: '/images/Romania/harta-transilvania.png',
-    dansuri: [
-      'Brașoveanca',
-      'Hodoroaga',
-      'Învârtita',
-      'Jiana de la Jina',
-      'Jiana de la Sibiu',
-      'Jiana de la Gura Râului',
-      'Jiana de la Tilișca',
-      'Jiana de la Avrig',
-      'Brâul de la Făgăraș',
-      "Sârba pan' la 10 de la Grădiștea de Munte",
-      'Țarina',
-    ],
-  },
-  {
-    id: 'banat',
-    nume: 'Banat',
-    imagine: '/images/Romania/harta-banat.png',
-    dansuri: ['Ardeleana', 'Brâul bănățean', 'Hora din Banat', 'Damul'],
-  },
-  {
-    id: 'maramures',
-    nume: 'Maramureș',
-    imagine: '/images/Romania/harta-maramures.png',
-    dansuri: ['Roate', '7 pași', 'Tropotita'],
-  },
-];
+type Hover = { id: string; x: number; y: number; latime: number };
+
+const dupaId = (id: string) => REGIUNI_DANSURI.find((r) => r.id === id) ?? REGIUNI_DANSURI[0];
+
+// Motiv geometric (romb de ie) folosit ca bandă decorativă, colorat cu culoarea regiunii.
+function BandaMotiv({ culoare }: { culoare: string }) {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 24 12'><path d='M0 6 L6 0 L12 6 L6 12 Z M12 6 L18 0 L24 6 L18 12 Z' fill='none' stroke='white' stroke-opacity='0.55' stroke-width='1.4'/><circle cx='6' cy='6' r='1.4' fill='white' fill-opacity='0.8'/><circle cx='18' cy='6' r='1.4' fill='white' fill-opacity='0.8'/></svg>`;
+  return (
+    <div
+      aria-hidden
+      className="h-3 w-full transition-colors duration-500"
+      style={{ backgroundColor: culoare, backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(svg)}")` }}
+    />
+  );
+}
 
 export default function FolkDancesRegions() {
-  const [currentRegion, setCurrentRegion] = useState(0);
-  const [showDances, setShowDances] = useState(true);
+  const [selectat, setSelectat] = useState('muntenia');
+  const [hover, setHover] = useState<Hover | null>(null);
+  const hartaRef = useRef<HTMLDivElement>(null);
+  const panouRef = useRef<HTMLDivElement>(null);
 
-  // Funcții pentru navigarea cu săgeți
-  const goToPrevious = () => {
-    const currentIndex = regiuniDansuri.findIndex(
-      regiune => regiune.id === regiuniDansuri[currentRegion].id
-    );
-    const isFirst = currentIndex === 0;
-    const newIndex = isFirst ? regiuniDansuri.length - 1 : currentIndex - 1;
-    setCurrentRegion(newIndex);
+  const regiune = dupaId(selectat);
+  const regiuneHover = hover ? dupaId(hover.id) : null;
+
+  const alege = (id: string, deLaHarta = false) => {
+    setSelectat(id);
+    // Pe mobil panoul e sub hartă: îl aducem în vizor după un tap pe hartă.
+    if (deLaHarta && window.matchMedia('(max-width: 1023px)').matches) {
+      panouRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
-  const goToNext = () => {
-    const currentIndex = regiuniDansuri.findIndex(
-      regiune => regiune.id === regiuniDansuri[currentRegion].id
-    );
-    const isLast = currentIndex === regiuniDansuri.length - 1;
-    const newIndex = isLast ? 0 : currentIndex + 1;
-    setCurrentRegion(newIndex);
+  const misca = (e: MouseEvent, id: string) => {
+    const box = hartaRef.current?.getBoundingClientRect();
+    if (!box) return;
+    setHover({ id, x: e.clientX - box.left, y: e.clientY - box.top, latime: box.width });
+  };
+
+  const tasta = (e: KeyboardEvent, id: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      alege(id, true);
+    }
   };
 
   return (
     <div className="flex flex-col gap-8">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold">
-          Dansuri din toate regiunile României
-        </h2>
+        <h2 className="text-3xl font-bold">Dansuri din toate regiunile României</h2>
         <p className="text-slate-500 max-w-xl mx-auto">
-          Descoperă diversitatea dansurilor populare românești, de la Ardeal până la Dobrogea.
+          Peste {Math.floor(TOTAL_DANSURI / 10) * 10} de jocuri din {REGIUNI_DANSURI.length} regiuni folclorice.
+          Alege o zonă de pe hartă ca să vezi ce dansăm de acolo.
         </p>
       </div>
-      <div className="container mx-auto px-0">
 
-        {/* Buton toggle pentru afișarea dansurilor */}
-        <div className="text-center mb-8">
-          <Button
-            onClick={() => setShowDances(!showDances)}
-            variant="outline"
-            className="px-6 py-3"
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:items-start">
+        {/* Harta */}
+        <div className="rounded-3xl border border-orange-100 bg-gradient-to-br from-orange-50/80 via-white to-red-50/60 p-3 sm:p-6 shadow-sm">
+          <div
+            ref={hartaRef}
+            className="relative"
+            onMouseLeave={() => setHover(null)}
           >
-            {showDances ? (
-              <>
-                <EyeOff className="w-5 h-5 mr-2" />
-                Ascunde dansurile
-              </>
-            ) : (
-              <>
-                <Eye className="w-5 h-5 mr-2" />
-                Vezi toate dansurile
-              </>
-            )}
-          </Button>
-        </div>
+            <svg
+              viewBox={`0 0 ${HARTA_LATIME} ${HARTA_INALTIME}`}
+              className="block h-auto w-full overflow-visible"
+              role="group"
+              aria-label="Harta României pe regiuni folclorice"
+            >
+              <defs>
+                <filter id="umbra-regiune" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="8" floodColor="#7c2d12" floodOpacity="0.25" />
+                </filter>
+              </defs>
 
-        {/* Regiuni cu navigare simplă */}
-        <div className="max-w-4xl mx-auto">
-          {/* Imaginea regiunii active */}
-          <div className="relative mb-8">
-            <div className="relative w-full h-64 md:h-80">
-              <Image
-                src={regiuniDansuri[currentRegion].imagine}
-                alt={regiuniDansuri[currentRegion].nume}
-                fill
-                sizes="(max-width: 896px) 100vw, 896px"
-                className="object-cover rounded-xl shadow-lg"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl" />
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-2xl md:text-3xl font-bold mb-2 text-orange-500">
-                {regiuniDansuri[currentRegion].nume}
-              </h3>
-            </div>
-          </div>
+              {REGIUNI_DANSURI.map((r) => {
+                const forma = FORME_REGIUNI[r.id];
+                if (!forma) return null;
+                const activ = r.id === selectat;
+                const peste = hover?.id === r.id;
+                const opacitate = activ ? 1 : peste ? 0.6 : hover ? 0.14 : 0.24;
+                return (
+                  <path
+                    key={r.id}
+                    d={forma.d}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${r.nume}: ${r.dansuri.length} dansuri`}
+                    aria-pressed={activ}
+                    onClick={() => alege(r.id, true)}
+                    onKeyDown={(e) => tasta(e, r.id)}
+                    onMouseMove={(e) => misca(e, r.id)}
+                    onFocus={() => setHover(null)}
+                    className="cursor-pointer outline-none transition-[fill-opacity] duration-300 focus-visible:[stroke:#0f172a] focus-visible:[stroke-width:4]"
+                    style={{ fill: r.culoare, fillOpacity: opacitate, stroke: '#fff', strokeWidth: 3, strokeLinejoin: 'round' }}
+                  />
+                );
+              })}
 
-          {/* Butoane de navigare pentru regiuni */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {regiuniDansuri.map((regiune, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentRegion(index)}
-                className={`px-4 py-2 rounded-lg transition-all duration-300 text-sm md:text-base whitespace-nowrap ${
-                  currentRegion === index
-                    ? 'bg-orange-500 text-white shadow-lg'
-                    : 'bg-white text-slate-700 hover:bg-orange-100 border border-slate-200'
-                }`}
+              {/* Granițele județelor, discret, doar ca textură */}
+              <path d={CONTUR_JUDETE} fill="none" stroke="#7c2d12" strokeOpacity={0.12} strokeWidth={1} pointerEvents="none" />
+
+              {/* Regiunea selectată, redesenată deasupra cu umbră */}
+              {FORME_REGIUNI[selectat] && (
+                <path
+                  d={FORME_REGIUNI[selectat].d}
+                  pointerEvents="none"
+                  filter="url(#umbra-regiune)"
+                  style={{ fill: regiune.culoare, stroke: '#fff', strokeWidth: 4, strokeLinejoin: 'round' }}
+                />
+              )}
+
+              <path d={CONTUR_TARA} fill="none" stroke="#9a3412" strokeOpacity={0.45} strokeWidth={2} pointerEvents="none" />
+            </svg>
+
+            {/* Etichete în HTML, ca să rămână lizibile la orice lățime */}
+            {REGIUNI_DANSURI.map((r) => {
+              const forma = FORME_REGIUNI[r.id];
+              if (!forma) return null;
+              const activ = r.id === selectat;
+              const aprins = activ || hover?.id === r.id;
+              return (
+                <div
+                  key={r.id}
+                  aria-hidden
+                  className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 text-center leading-tight"
+                  style={{ left: `${(forma.eticheta[0] / HARTA_LATIME) * 100}%`, top: `${(forma.eticheta[1] / HARTA_INALTIME) * 100}%` }}
+                >
+                  <div
+                    className={`text-[9px] sm:text-xs font-bold uppercase tracking-wider transition-colors duration-300 ${aprins ? 'text-white drop-shadow' : ''}`}
+                    style={aprins ? undefined : { color: r.culoare }}
+                  >
+                    {r.nume}
+                  </div>
+                  <div
+                    className={`hidden sm:inline-block mt-0.5 rounded-full px-1.5 text-[10px] font-semibold transition-colors duration-300 ${activ ? 'bg-white/90' : 'bg-white/70'}`}
+                    style={{ color: r.culoare }}
+                  >
+                    {r.dansuri.length}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Tooltip la hover (doar pe dispozitive cu mouse) */}
+            {hover && regiuneHover && (
+              <div
+                className="pointer-events-none absolute z-10 hidden w-56 md:block"
+                style={{
+                  left: Math.min(hover.x + 16, hover.latime - 232),
+                  top: hover.y + 16,
+                }}
               >
-                {regiune.nume}
-              </button>
-            ))}
-          </div>
-
-          {/* Conținutul regiunii active */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-            <div className="space-y-6">
-              {/* Informații despre regiune */}
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-                  {regiuniDansuri[currentRegion].nume}
-                </h3>
-                <p className="text-slate-600 mb-6 leading-relaxed">
-                  Descoperă frumusețea dansurilor populare din {regiuniDansuri[currentRegion].nume}, cu ritmuri și stiluri unice care reflectă tradițiile și cultura acestei regiuni.
-                </p>
-
-                {/* Butoane de navigare */}
-                <div className="flex gap-4">
-                  <Button
-                    onClick={goToPrevious}
-                    variant="outline"
-                    className="flex items-center gap-2"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                    Anterior
-                  </Button>
-                  <Button
-                    onClick={goToNext}
-                    variant="outline"
-                    className="flex items-center gap-2"
-                  >
-                    Următor
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
+                <div className="overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black/5">
+                  <div className="h-1.5" style={{ backgroundColor: regiuneHover.culoare }} />
+                  <div className="p-3">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="font-bold text-slate-900">{regiuneHover.nume}</span>
+                      <span className="text-xs font-semibold" style={{ color: regiuneHover.culoare }}>
+                        {regiuneHover.dansuri.length} dansuri
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-slate-500 line-clamp-2">
+                      {regiuneHover.dansuri.slice(0, 4).join(' · ')}
+                      {regiuneHover.dansuri.length > 4 ? ' …' : ''}
+                    </p>
+                    {regiuneHover.id !== selectat && (
+                      <p className="mt-2 flex items-center gap-1 text-[11px] font-medium text-slate-400">
+                        <MousePointerClick className="h-3 w-3" /> Click pentru toate dansurile
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
+            )}
+          </div>
 
-              {/* Lista dansurilor - afișată doar când showDances este true */}
-              {showDances && (
-                <div className="mt-8 pt-8 border-t border-slate-200">
-                  <div className="text-center mb-6">
-                    <h4 className="text-xl font-semibold text-slate-800 mb-2">
-                      Dansuri populare din {regiuniDansuri[currentRegion].nume}
-                    </h4>
-                    <p className="text-slate-600">
-                      {regiuniDansuri[currentRegion].dansuri.length} dansuri tradiționale
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {regiuniDansuri[currentRegion].dansuri.map((dans: string, dansIndex: number) => (
-                      <div
-                        key={dansIndex}
-                        className="bg-gradient-to-br from-orange-50 to-red-50 p-4 rounded-lg border border-orange-200 hover:border-orange-300 transition-all duration-300 hover:shadow-md"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
-                            {dansIndex + 1}
-                          </div>
-                          <div>
-                            <h5 className="font-semibold text-slate-800">{dans}</h5>
-                            <div className="w-12 h-0.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full mt-1"></div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="text-center mt-6 pt-4 border-t border-slate-200">
-                    <p className="text-sm text-slate-500">
-                      Total: <span className="font-semibold text-orange-600">{regiuniDansuri[currentRegion].dansuri.length}</span> dansuri populare
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+          {/* Selector rapid pe regiuni (util mai ales pe mobil) */}
+          <div className="mt-4 flex flex-wrap justify-center gap-2" aria-label="Regiuni">
+            {REGIUNI_DANSURI.map((r) => {
+              const activ = r.id === selectat;
+              return (
+                <button
+                  key={r.id}
+                  type="button"
+                  aria-pressed={activ}
+                  onClick={() => alege(r.id)}
+                  className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs sm:text-sm font-medium transition-all duration-200 ${
+                    activ ? 'text-white shadow-md border-transparent' : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  }`}
+                  style={activ ? { backgroundColor: r.culoare } : undefined}
+                >
+                  {!activ && <span className="h-2 w-2 rounded-full" style={{ backgroundColor: r.culoare }} />}
+                  {r.nume}
+                </button>
+              );
+            })}
           </div>
         </div>
+
+        {/* Panoul regiunii */}
+        <PanouRegiune regiune={regiune} panouRef={panouRef} />
+      </div>
+
+      <p className="text-center text-xs text-slate-400">
+        Hartă orientativă: Crișana e inclusă în Ardeal, iar Țara Oașului în Maramureș.
+      </p>
+    </div>
+  );
+}
+
+function PanouRegiune({ regiune, panouRef }: { regiune: RegiuneDansuri; panouRef: React.RefObject<HTMLDivElement | null> }) {
+  return (
+    <div
+      ref={panouRef}
+      aria-live="polite"
+      className="scroll-mt-24 overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm"
+      style={{ '--regiune': regiune.culoare } as CSSProperties}
+    >
+      <BandaMotiv culoare={regiune.culoare} />
+
+      <div key={regiune.id} className="animate-in fade-in slide-in-from-bottom-2 duration-500 p-6 sm:p-8">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest" style={{ color: regiune.culoare }}>
+              <MapPin className="h-3.5 w-3.5" /> Regiune folclorică
+            </p>
+            <h3 className="mt-1 text-3xl font-bold text-slate-900">{regiune.nume}</h3>
+          </div>
+          <div
+            className="flex shrink-0 flex-col items-center justify-center rounded-2xl px-4 py-2 text-white"
+            style={{ backgroundColor: regiune.culoare }}
+          >
+            <span className="text-2xl font-bold leading-none">{regiune.dansuri.length}</span>
+            <span className="text-[10px] font-medium uppercase tracking-wider opacity-90">dansuri</span>
+          </div>
+        </div>
+
+        <p className="mt-3 text-slate-600 leading-relaxed">{regiune.descriere}</p>
+
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {regiune.dansuri.map((dans) => (
+            <li
+              key={dans}
+              className="flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm text-slate-700 transition-colors hover:text-slate-900"
+              style={{
+                borderColor: `color-mix(in srgb, ${regiune.culoare} 25%, white)`,
+                backgroundColor: `color-mix(in srgb, ${regiune.culoare} 6%, white)`,
+              }}
+            >
+              <Music2 className="h-3 w-3 shrink-0" style={{ color: regiune.culoare }} />
+              {dans}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

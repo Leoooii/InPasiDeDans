@@ -18,6 +18,7 @@ Ultima actualizare: 24–25 septembrie 2026.
   - în admin există pagina **/admin/inscrieri**, cu evidența tuturor formularelor, filtru după sursă și status.
 - **Site-ul e forțat pe tema luminoasă.**
 - **Evenimente:** butoanele „Înapoi” duc la /noutati.
+- **Dansuri populare (17 noiembrie 2026):** hărțile-poză pe regiuni au fost înlocuite cu o hartă interactivă a României (hover = previzualizare, click = toate dansurile regiunii). Datele în `lib/dansuri-regiuni.ts`, forma regiunilor în `lib/harta-romania.ts` (generată din județe; Crișana e trecută la Ardeal, Satu Mare la Maramureș).
 
 ### SEO și AI (pachetele A–G)
 - **A — titluri și indexare:**
