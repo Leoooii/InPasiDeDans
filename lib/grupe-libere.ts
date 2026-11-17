@@ -39,6 +39,20 @@ export function cursPentruGrupa(d: DocumentData): GrupaLibera['curs'] {
   return 'dans-adulti-latino-societate';
 }
 
+/**
+ * Linkul de înscriere pentru o grupă, sau null dacă grupa nu primește cursanți noi.
+ * Primesc înscrieri doar grupele în formare (publice) și cele pentru începători,
+ * și numai dacă nu sunt complete. Restul sunt grupe deja pornite: afișăm doar instructorul.
+ */
+export function linkInscriereGrupa(d: DocumentData): string | null {
+  const totale = Number(d.locuriTotale) || 0;
+  const complete = totale > 0 && (Number(d.locuriDisponibile) || 0) === 0;
+  if (complete) return null;
+  if (d.publica === true) return `/inscriere?grupa=${d.id}`;
+  if (NIVELURI_PENTRU_INCEPATORI.includes(d.nivel)) return `/inscriere?curs=${cursPentruGrupa(d)}`;
+  return null;
+}
+
 export function grupeCuLocuriPentruIncepatori(docs: DocumentData[] | null, limita?: number): GrupaLibera[] {
   const lista = (docs ?? [])
     .filter(d => NIVELURI_PENTRU_INCEPATORI.includes(d.nivel) && Number(d.locuriDisponibile) > 0)

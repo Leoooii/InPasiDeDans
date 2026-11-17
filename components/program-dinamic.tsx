@@ -5,8 +5,9 @@ import { collection, getDocs, query, type DocumentData } from 'firebase/firestor
 import { db } from '@/lib/firebase'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import Link from 'next/link'
-import { CalendarClock } from 'lucide-react'
-import { cursPentruGrupa } from '@/lib/grupe-libere'
+import { CalendarClock, CalendarRange, List } from 'lucide-react'
+import { linkInscriereGrupa } from '@/lib/grupe-libere'
+import OrarSaptamanal from '@/components/orar-saptamanal'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -25,7 +26,7 @@ type Grupa = {
   publica?: boolean
 }
 
-type DayGroupId = 'all' | 'lm' | 'mj' | 'vineri' | 'sambata'
+type DayGroupId = 'all' | 'lm' | 'mj' | 'vineri' | 'sambata' | 'duminica'
 type StyleKey = 'latino' | 'populare' | 'standard' | 'societate' | 'copii' | 'general'
 type NivelGroup = 'all' | 'incepatori' | 'intermediari' | 'avansati' | 'copii'
 
@@ -37,6 +38,7 @@ const DAY_GROUPS: { id: DayGroupId; label: string; short: string; days: string[]
   { id: 'mj',     label: 'Marți & Joi',     short: 'Ma · J',   days: ['Marți', 'Joi'] },
   { id: 'vineri', label: 'Vineri',           short: 'Vineri',   days: ['Vineri'] },
   { id: 'sambata',label: 'Sâmbătă',         short: 'Sâmbătă',  days: ['Sâmbătă'] },
+  { id: 'duminica',label: 'Duminică',       short: 'Duminică', days: ['Duminică'] },
 ]
 
 const STYLES: { id: StyleKey; label: string; dot: string; chip: string }[] = [
@@ -87,6 +89,8 @@ const NIVEL_COLOR: Record<string, string> = {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function getStyleKey(stiluri: string[], titlu: string): StyleKey {
+  // Grupele de copii au stiluri de adulți în listă („latino”, „societate”), dar sunt grupe de copii.
+  if (/copii|trupa|formați|formatie/i.test(titlu)) return 'copii'
   // Verificăm mai întâi stiluri[] cu match exact — evită coliziuni între categorii
   if (stiluri.some(s => s.toLowerCase().includes('societate'))) return 'societate'
   if (stiluri.some(s => s.toLowerCase().includes('popular'))) return 'populare'
@@ -108,6 +112,7 @@ function getDayGroupId(zile: string[]): Exclude<DayGroupId, 'all'> {
   if (zile.some(z => ['Marți', 'Joi'].includes(z))) return 'mj'
   if (zile.includes('Vineri')) return 'vineri'
   if (zile.includes('Sâmbătă')) return 'sambata'
+  if (zile.includes('Duminică')) return 'duminica'
   return 'lm'
 }
 
@@ -165,6 +170,7 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
   const [filterInstructor, setFilterInstructor] = useState('all')
   const [filterTime, setFilterTime]       = useState('all')
   const [doarLibere, setDoarLibere]       = useState(false)
+  const [vedere, setVedere]               = useState<'orar' | 'lista'>('orar')
   // Calculată după montare, ca HTML-ul de pe server (cache-uit) să nu difere de client.
   const [azi, setAzi] = useState('')
 
@@ -240,6 +246,27 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
     [enriched]
   )
 
+  const zileFolosite = useMemo(() =>
+    DAY_GROUPS.filter(d => d.id === 'all' || enriched.some(g => g.dayGroupId === d.id)),
+    [enriched]
+  )
+
+  // Pentru orar: aceleași filtre, fără zi și oră (orarul are propriile file pe zile).
+  const potriviteOrar = useMemo(() => new Set(
+    enriched.filter(g => {
+      if (filterStyle !== 'all' && g.styleKey !== filterStyle) return false
+      if (filterNivel !== 'all' && !matchesNivelGroup(g.nivel, filterNivel)) return false
+      if (filterInstructor !== 'all' && g.instructor !== filterInstructor) return false
+      if (doarLibere && esteCompleta(g)) return false
+      return true
+    }).map(g => g.id)
+  ), [enriched, filterStyle, filterNivel, filterInstructor, doarLibere])
+
+  const grupeOrar = useMemo(() =>
+    enriched.map(g => ({ ...g, inFormare: g.publica === true, linkInscriere: linkInscriereGrupa(g) })),
+    [enriched]
+  )
+
   // Grouped by day section for display
   const sections = useMemo(() => {
     if (filterDay !== 'all') {
@@ -286,9 +313,33 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
       {/* ── Filters ─────────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-3">
 
-        {/* Rând 1: Zile */}
+        {/* Comutator orar / listă */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex gap-1 p-1 bg-slate-100 rounded-xl" role="group" aria-label="Mod de afișare">
+            {([
+              { id: 'orar', label: 'Orar', Icon: CalendarRange },
+              { id: 'lista', label: 'Listă', Icon: List },
+            ] as const).map(({ id, label, Icon }) => (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={vedere === id}
+                onClick={() => setVedere(id)}
+                className={`min-h-10 flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                  vedere === id ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Rând 1: Zile (doar în listă; orarul are propriile file) */}
+        {vedere === 'lista' && (
         <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100 rounded-xl w-fit">
-          {DAY_GROUPS.map(dg => (
+          {zileFolosite.map(dg => (
             <button
               key={dg.id}
               onClick={() => setFilterDay(dg.id)}
@@ -302,6 +353,7 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
             </button>
           ))}
         </div>
+        )}
 
         {/* Rând 2: Stiluri */}
         <div className="flex flex-wrap gap-2">
@@ -369,6 +421,7 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
               </SelectContent>
             </Select>
 
+            {vedere === 'lista' && (
             <Select value={safeFilterTime} onValueChange={setFilterTime}>
               <SelectTrigger className="h-10 w-full sm:min-w-28 text-sm bg-white border-slate-200 rounded-lg">
                 <SelectValue placeholder="Oră start" />
@@ -378,13 +431,21 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
                 {availableTimes.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
               </SelectContent>
             </Select>
+            )}
           </div>
         </div>
 
       </div>
 
       {/* ── Schedule ────────────────────────────────────────────────────── */}
-      {processed.length === 0 ? (
+      {vedere === 'orar' ? (
+        <OrarSaptamanal
+          grupe={grupeOrar}
+          zile={zileFolosite.filter(d => d.id !== 'all')}
+          potrivite={potriviteOrar}
+          azi={azi}
+        />
+      ) : processed.length === 0 ? (
         <div className="text-center py-12 text-sm text-slate-500">
           Nicio grupă nu corespunde filtrelor aplicate.{' '}
           <button onClick={resetAll} className="underline hover:text-slate-600">Resetează</button>
@@ -418,7 +479,7 @@ export default function ProgramDinamic({ initial }: { initial?: DocumentData[] |
                     const hasSpots = locTot > 0
                     const isFull = esteCompleta(g)
                     const ruleazaAzi = azi !== '' && g.zile.includes(azi)
-                    const linkInscriere = isFull ? null : `/inscriere?curs=${cursPentruGrupa(g)}`
+                    const linkInscriere = linkInscriereGrupa(g)
                     const isFew = hasSpots && locDisp > 0 && locDisp <= 3
                     const rolLabel = g.rol && g.rol !== 'All' ? g.rol.toLowerCase() + 's' : null
                     return (
